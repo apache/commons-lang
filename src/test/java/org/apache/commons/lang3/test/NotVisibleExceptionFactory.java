@@ -40,7 +40,7 @@ public class NotVisibleExceptionFactory {
     /**
      * Create a new Exception whose getCause method returns the provided cause.
      *
-     * @param cause the cause of the exception
+     * @param cause The cause of the exception
      * @return A new {@link Exception}
      */
     public static Exception createException(final Throwable cause) {

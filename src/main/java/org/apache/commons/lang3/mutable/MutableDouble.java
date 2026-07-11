@@ -54,7 +54,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Constructs a new MutableDouble with the specified value.
      *
-     * @param value  the initial value to store.
+     * @param value  The initial value to store.
      */
     public MutableDouble(final double value) {
         this.value = value;
@@ -63,7 +63,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Constructs a new MutableDouble with the specified value.
      *
-     * @param value  the initial value to store, not null.
+     * @param value  The initial value to store, not null.
      * @throws NullPointerException if the object is null.
      */
     public MutableDouble(final Number value) {
@@ -73,7 +73,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Constructs a new MutableDouble parsing the given string.
      *
-     * @param value  the string to parse, not null.
+     * @param value  The string to parse, not null.
      * @throws NumberFormatException if the string cannot be parsed into a double, see {@link Double#parseDouble(String)}.
      * @since 2.5
      */
@@ -84,7 +84,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Adds a value to the value of this instance.
      *
-     * @param operand  the value to add.
+     * @param operand  The value to add.
      * @since 2.2
      */
     public void add(final double operand) {
@@ -94,7 +94,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Adds a value to the value of this instance.
      *
-     * @param operand  the value to add, not null.
+     * @param operand  The value to add, not null.
      * @throws NullPointerException if the object is null.
      * @since 2.2
      */
@@ -106,7 +106,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately after the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
+     * @param operand The quantity to add, not null.
      * @return The value associated with this instance after adding the operand.
      * @since 3.5
      */
@@ -119,7 +119,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately after the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
+     * @param operand The quantity to add, not null.
      * @throws NullPointerException if {@code operand} is null.
      * @return The value associated with this instance after adding the operand.
      * @since 3.5
@@ -132,7 +132,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Compares this mutable to another in ascending order.
      *
-     * @param other  the other mutable to compare to, not null.
+     * @param other  The other mutable to compare to, not null.
      * @return negative if this is less, zero if equal, positive if greater.
      */
     @Override
@@ -193,7 +193,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * even though {@code +0.0 == -0.0} has the value {@code true}. This allows hashtables to operate properly.</li>
      * </ul>
      *
-     * @param obj the object to compare with, null returns false.
+     * @param obj The object to compare with, null returns false.
      * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
@@ -216,7 +216,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately prior to the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
+     * @param operand The quantity to add, not null.
      * @return The value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
@@ -230,7 +230,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately prior to the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
+     * @param operand The quantity to add, not null.
      * @throws NullPointerException if {@code operand} is null.
      * @return The value associated with this instance immediately before the operand was added.
      * @since 3.5
@@ -353,7 +353,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Sets the value.
      *
-     * @param value  the value to set.
+     * @param value  The value to set.
      */
     public void setValue(final double value) {
         this.value = value;
@@ -362,7 +362,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Sets the value from any Number instance.
      *
-     * @param value  the value to set, not null.
+     * @param value  The value to set, not null.
      * @throws NullPointerException if the object is null.
      */
     @Override
@@ -373,7 +373,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Subtracts a value from the value of this instance.
      *
-     * @param operand  the value to subtract, not null.
+     * @param operand  The value to subtract, not null.
      * @since 2.2
      */
     public void subtract(final double operand) {
@@ -383,7 +383,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Subtracts a value from the value of this instance.
      *
-     * @param operand  the value to subtract, not null.
+     * @param operand  The value to subtract, not null.
      * @throws NullPointerException if the object is null.
      * @since 2.2
      */

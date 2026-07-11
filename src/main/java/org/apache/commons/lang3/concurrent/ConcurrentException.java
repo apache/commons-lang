@@ -46,7 +46,7 @@ public class ConcurrentException extends Exception {
      * Constructs a new exception with the specified detail message. The cause is not initialized, and may subsequently be initialized by a call to
      * {@link #initCause}.
      *
-     * @param message the detail message. The detail message is saved for later retrieval by the {@link #getMessage()} method.
+     * @param message The detail message. The detail message is saved for later retrieval by the {@link #getMessage()} method.
      * @since 3.19.0
      */
     public ConcurrentException(final String message) {
@@ -57,8 +57,8 @@ public class ConcurrentException extends Exception {
      * Creates a new instance of {@link ConcurrentException} and initializes it
      * with the given message and cause.
      *
-     * @param msg the error message
-     * @param cause the cause of this exception
+     * @param msg The error message
+     * @param cause The cause of this exception
      * @throws IllegalArgumentException if the cause is not a checked exception
      */
     public ConcurrentException(final String msg, final Throwable cause) {
@@ -69,7 +69,7 @@ public class ConcurrentException extends Exception {
      * Creates a new instance of {@link ConcurrentException} and initializes it
      * with the given cause.
      *
-     * @param cause the cause of this exception
+     * @param cause The cause of this exception
      * @throws IllegalArgumentException if the cause is not a checked exception
      */
     public ConcurrentException(final Throwable cause) {

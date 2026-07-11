@@ -46,7 +46,7 @@ public interface FailableToBooleanFunction<T, E extends Throwable> {
     /**
      * Applies this function to the given arguments.
      *
-     * @param t the first function argument
+     * @param t The first function argument
      * @return The function result
      * @throws E Thrown when the function fails.
      */

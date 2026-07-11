@@ -565,7 +565,7 @@ public class StopWatch {
      * is 59 minutes, then the result returned will be {@code 0}.
      * </p>
      *
-     * @param timeUnit the unit of time, not null.
+     * @param timeUnit The unit of time, not null.
      * @return The time in the specified TimeUnit, rounded down.
      * @since 3.5
      */

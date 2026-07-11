@@ -135,7 +135,7 @@ public class Streams {
         /**
          * Creates a spliterator reporting the given estimated size and additionalCharacteristics.
          *
-         * @param estimatedSize the estimated size of this spliterator if known, otherwise {@code Long.MAX_VALUE}.
+         * @param estimatedSize The estimated size of this spliterator if known, otherwise {@code Long.MAX_VALUE}.
          * @param additionalCharacteristics properties of this spliterator's source or elements. If {@code SIZED} is reported then this spliterator will
          *        additionally report {@code SUBSIZED}.
          * @param enumeration The Enumeration to wrap.
@@ -288,7 +288,7 @@ public class Streams {
          *
          * @param <R> The type of the result
          * @param <A> The intermediate accumulation type of the {@link Collector}
-         * @param collector the {@link Collector} describing the reduction
+         * @param collector The {@link Collector} describing the reduction
          * @return The result of the reduction
          * @see #collect(Supplier, BiConsumer, BiConsumer)
          * @see Collectors
@@ -337,7 +337,7 @@ public class Streams {
          *
          * @param <R> type of the result
          * @param <A> Type of the accumulator.
-         * @param supplier a function that creates a new result container. For a parallel execution, this function may be called
+         * @param supplier A function that creates a new result container. For a parallel execution, this function may be called
          *        multiple times and must return a fresh value each time.
          * @param accumulator An associative, non-interfering, stateless function for incorporating an additional element into a
          *        result
@@ -356,7 +356,7 @@ public class Streams {
          * This is an intermediate operation.
          * </p>
          *
-         * @param predicate a non-interfering, stateless predicate to apply to each element to determine if it should be
+         * @param predicate A non-interfering, stateless predicate to apply to each element to determine if it should be
          *        included.
          * @return The new stream
          */
@@ -378,7 +378,7 @@ public class Streams {
          * chooses. If the action accesses shared state, it is responsible for providing the required synchronization.
          * </p>
          *
-         * @param action a non-interfering action to perform on the elements
+         * @param action A non-interfering action to perform on the elements
          */
         public void forEach(final FailableConsumer<T, ?> action) {
             makeTerminated();
@@ -459,8 +459,8 @@ public class Streams {
          * reduced risk of data races.
          * </p>
          *
-         * @param identity the identity value for the accumulating function
-         * @param accumulator an associative, non-interfering, stateless function for combining two values
+         * @param identity The identity value for the accumulating function
+         * @param accumulator An associative, non-interfering, stateless function for combining two values
          * @return The result of the reduction
          */
         public T reduce(final T identity, final BinaryOperator<T> accumulator) {
@@ -570,7 +570,7 @@ public class Streams {
      * Shorthand for {@code Streams.failableStream(value == null ? Stream.empty() : Stream.of(value))}.
      *
      * @param <T> The type of stream elements.
-     * @param value the single element of the new stream, may be {@code null}.
+     * @param value The single element of the new stream, may be {@code null}.
      * @return The new FailableStream on {@code value} or an empty stream.
      * @since 3.15.0
      */
@@ -582,7 +582,7 @@ public class Streams {
      * Shorthand for {@code Streams.failableStream(Streams.of(arrayValues))}.
      *
      * @param <T> The type of stream elements.
-     * @param values the elements of the new stream, may be {@code null}.
+     * @param values The elements of the new stream, may be {@code null}.
      * @return The new FailableStream on {@code values} or an empty stream.
      * @since 3.14.0
      */
@@ -601,8 +601,8 @@ public class Streams {
      * </pre>
      *
      * @param <E> The type of elements in the collection we want to stream.
-     * @param clazz the type of elements in the collection we want to stream.
-     * @param collection the collection to stream or null.
+     * @param clazz The type of elements in the collection we want to stream.
+     * @param collection The collection to stream or null.
      * @return A non-null stream that only provides instances we want.
      * @since 3.13.0
      */
@@ -619,7 +619,7 @@ public class Streams {
      * Streams the non-null elements of a collection.
      *
      * @param <E> The type of elements in the collection.
-     * @param collection the collection to stream or null.
+     * @param collection The collection to stream or null.
      * @return A non-null stream that filters out null elements.
      * @since 3.13.0
      */
@@ -631,7 +631,7 @@ public class Streams {
      * Streams the non-null element.
      *
      * @param <E> The type of elements in the collection.
-     * @param array the element to stream or null.
+     * @param array The element to stream or null.
      * @return A non-null stream that filters out a null element.
      * @since 3.15.0
      */
@@ -643,7 +643,7 @@ public class Streams {
      * Streams the non-null elements of an array.
      *
      * @param <E> The type of elements in the collection.
-     * @param array the array to stream or null.
+     * @param array The array to stream or null.
      * @return A non-null stream that filters out null elements.
      * @since 3.13.0
      */
@@ -656,7 +656,7 @@ public class Streams {
      * Streams the non-null elements of a stream.
      *
      * @param <E> The type of elements in the collection.
-     * @param stream the stream to stream or null.
+     * @param stream The stream to stream or null.
      * @return A non-null stream that filters out null elements.
      * @since 3.13.0
      */
@@ -668,7 +668,7 @@ public class Streams {
      * Delegates to {@link Collection#stream()} or returns {@link Stream#empty()} if the collection is null.
      *
      * @param <E> The type of elements in the collection.
-     * @param collection the collection to stream or null.
+     * @param collection The collection to stream or null.
      * @return {@link Collection#stream()} or {@link Stream#empty()} if the collection is null.
      * @since 3.13.0
      */
@@ -692,7 +692,7 @@ public class Streams {
      * Creates a sequential stream on the given Iterable.
      *
      * @param <E> The type of elements in the Iterable.
-     * @param iterable the Iterable to stream or null.
+     * @param iterable The Iterable to stream or null.
      * @return A new Stream or {@link Stream#empty()} if the Iterable is null.
      * @since 3.13.0
      */
@@ -704,7 +704,7 @@ public class Streams {
      * Creates a sequential stream on the given Iterator.
      *
      * @param <E> The type of elements in the Iterator.
-     * @param iterator the Iterator to stream or null.
+     * @param iterator The Iterator to stream or null.
      * @return A new Stream or {@link Stream#empty()} if the Iterator is null.
      * @since 3.13.0
      */
@@ -716,7 +716,7 @@ public class Streams {
      * Returns the stream or {@link Stream#empty()} if the stream is null.
      *
      * @param <E> The type of elements in the collection.
-     * @param stream the stream to stream or null.
+     * @param stream The stream to stream or null.
      * @return The stream or {@link Stream#empty()} if the stream is null.
      * @since 3.13.0
      */
@@ -728,7 +728,7 @@ public class Streams {
      * Null-safe version of {@link Stream#of(Object[])}.
      *
      * @param <T> The type of stream elements.
-     * @param values the elements of the new stream, may be {@code null}.
+     * @param values The elements of the new stream, may be {@code null}.
      * @return The new stream on {@code values} or {@link Stream#empty()}.
      * @since 3.13.0
      */

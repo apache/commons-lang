@@ -35,7 +35,7 @@ public abstract class AbstractFutureProxy<V> implements Future<V> {
     /**
      * Constructs a new instance.
      *
-     * @param future the delegate.
+     * @param future The delegate.
      */
     public AbstractFutureProxy(final Future<V> future) {
         this.future = Objects.requireNonNull(future, "future");

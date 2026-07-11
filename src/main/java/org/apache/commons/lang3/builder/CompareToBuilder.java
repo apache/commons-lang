@@ -154,7 +154,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * </p>
      *
      * @param lhs {@code this} object to lookup in registry
-     * @param rhs the other object to lookup on registry
+     * @param rhs The other object to lookup on registry
      * @return boolean {@code true} if the registry contains the given object.
      */
     static boolean isRegistered(final Object lhs, final Object rhs) {
@@ -388,7 +388,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * Used by the reflection methods to avoid infinite loops.
      *
      * @param lhs {@code this} object to register
-     * @param rhs the other object to register
+     * @param rhs The other object to register
      */
     private static void register(final Object lhs, final Object rhs) {
         register(lhs, rhs, getRegistry());
@@ -402,7 +402,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * </p>
      *
      * @param lhs {@code this} object to unregister
-     * @param rhs the other object to unregister
+     * @param rhs The other object to unregister
      */
     private static void unregister(final Object lhs, final Object rhs) {
         unregister(lhs, rhs, getRegistry(), REGISTRY);

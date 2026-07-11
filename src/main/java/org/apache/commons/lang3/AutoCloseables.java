@@ -69,7 +69,7 @@ public class AutoCloseables {
      * Equivalent to {@link AutoCloseable#close()}, except any exceptions will be ignored.
      * </p>
      *
-     * @param closeable the objects to close, may be null or already closed.
+     * @param closeable The objects to close, may be null or already closed.
      * @see Throwable#addSuppressed(Throwable)
      */
     public static void closeQuietly(final AutoCloseable closeable) {
@@ -98,7 +98,7 @@ public class AutoCloseables {
      * Equivalent calling {@link AutoCloseable#close()} on each element, except any exceptions will be ignored.
      * </p>
      *
-     * @param closeables the objects to close, may be null or already closed.
+     * @param closeables The objects to close, may be null or already closed.
      * @see #closeQuietly(AutoCloseable)
      */
     public static void closeQuietly(final Iterable<AutoCloseable> closeables) {

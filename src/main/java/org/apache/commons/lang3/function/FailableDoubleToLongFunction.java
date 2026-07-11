@@ -46,7 +46,7 @@ public interface FailableDoubleToLongFunction<E extends Throwable> {
     /**
      * Applies this function to the given argument.
      *
-     * @param value the function argument
+     * @param value The function argument
      * @return The function result
      * @throws E if the operation fails
      */

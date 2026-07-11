@@ -255,9 +255,9 @@ public class TimedSemaphore {
     /**
      * Constructs a new instance of {@link TimedSemaphore} and initializes it with the given time period and the limit.
      *
-     * @param timePeriod the time period.
-     * @param timeUnit   the unit for the period.
-     * @param limit      the limit for the semaphore.
+     * @param timePeriod The time period.
+     * @param timeUnit   The unit for the period.
+     * @param limit      The limit for the semaphore.
      * @throws IllegalArgumentException if the period is less or equals 0.
      * @deprecated Use {@link #builder()} and {@link Builder}.
      */
@@ -270,10 +270,10 @@ public class TimedSemaphore {
      * Constructs a new instance of {@link TimedSemaphore} and initializes it with an executor service, the given time period, and the limit. The executor service
      * will be used for creating a periodic task for monitoring the time period. It can be {@code null}, then a default service will be created.
      *
-     * @param service    the executor service.
-     * @param timePeriod the time period.
-     * @param timeUnit   the unit for the period.
-     * @param limit      the limit for the semaphore.
+     * @param service    The executor service.
+     * @param timePeriod The time period.
+     * @param timeUnit   The unit for the period.
+     * @param limit      The limit for the semaphore.
      * @throws IllegalArgumentException if the period is less or equals 0.
      * @deprecated Use {@link #builder()} and {@link Builder}.
      */
@@ -436,7 +436,7 @@ public class TimedSemaphore {
      * further invocations of {@link #acquire()} will block. Setting the limit to a value &lt;= {@link #NO_LIMIT} will cause the limit to be disabled, i.e. an
      * arbitrary number of{@link #acquire()} invocations is allowed in the time period.
      *
-     * @param limit the limit.
+     * @param limit The limit.
      */
     public final synchronized void setLimit(final int limit) {
         this.limit = limit;

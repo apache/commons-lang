@@ -58,7 +58,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      * calls with the provided parameter.
      * </p>
      *
-     * @param computable the computation whose results should be memorized
+     * @param computable The computation whose results should be memorized
      */
     public Memoizer(final Computable<I, O> computable) {
         this(computable, false);
@@ -68,7 +68,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      * Constructs a Memoizer for the provided Computable calculation, with the option of whether a Computation that
      * experiences an error should recalculate on subsequent calls or return the same cached exception.
      *
-     * @param computable the computation whose results should be memorized
+     * @param computable The computation whose results should be memorized
      * @param recalculate determines whether the computation should be recalculated on subsequent calls if the previous call
      *        failed
      */
@@ -85,7 +85,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      * calls with the provided parameter.
      * </p>
      *
-     * @param function the function whose results should be memorized
+     * @param function The function whose results should be memorized
      * @since 2.13.0
      */
     public Memoizer(final Function<I, O> function) {
@@ -96,7 +96,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      * Constructs a Memoizer for the provided Function calculation, with the option of whether a Function that
      * experiences an error should recalculate on subsequent calls or return the same cached exception.
      *
-     * @param function the computation whose results should be memorized
+     * @param function The computation whose results should be memorized
      * @param recalculate determines whether the computation should be recalculated on subsequent calls if the previous call
      *        failed
      * @since 2.13.0
@@ -115,7 +115,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      * the method will attempt again to generate a value.
      * </p>
      *
-     * @param arg the argument for the calculation
+     * @param arg The argument for the calculation
      * @return The result of the calculation
      * @throws InterruptedException thrown if the calculation is interrupted
      */
@@ -140,7 +140,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      * This method launders a Throwable to either a RuntimeException, Error or any other Exception wrapped in an
      * IllegalStateException.
      *
-     * @param throwable the throwable to laundered
+     * @param throwable The throwable to laundered
      * @return A RuntimeException, Error or an IllegalStateException
      */
     private RuntimeException launderException(final Throwable throwable) {

@@ -88,9 +88,9 @@ final class MemberUtils {
      * Compares the relative fitness of two Constructors in terms of how well they match a set of runtime parameter types, such that a list ordered by the
      * results of the comparison would return the best match first (least).
      *
-     * @param left   the "left" Constructor.
-     * @param right  the "right" Constructor.
-     * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
+     * @param left   The "left" Constructor.
+     * @param right  The "right" Constructor.
+     * @param actual The runtime parameter types to match against. {@code left}/{@code right}.
      * @return int consistent with {@code compare} semantics.
      */
     static int compareConstructorFit(final Constructor<?> left, final Constructor<?> right, final Class<?>[] actual) {
@@ -101,9 +101,9 @@ final class MemberUtils {
      * Compares the relative fitness of two Methods in terms of how well they match a set of runtime parameter types, such that a list ordered by the results of
      * the comparison would return the best match first (least).
      *
-     * @param left   the "left" Method.
-     * @param right  the "right" Method.
-     * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
+     * @param left   The "left" Method.
+     * @param right  The "right" Method.
+     * @param actual The runtime parameter types to match against. {@code left}/{@code right}.
      * @return int consistent with {@code compare} semantics.
      */
     static int compareMethodFit(final Method left, final Method right, final Class<?>[] actual) {
@@ -114,9 +114,9 @@ final class MemberUtils {
      * Compares the relative fitness of two Executables in terms of how well they match a set of runtime parameter types, such that a list ordered by the
      * results of the comparison would return the best match first (least).
      *
-     * @param left   the "left" Executable.
-     * @param right  the "right" Executable.
-     * @param actual the runtime parameter types to match against. {@code left}/{@code right}.
+     * @param left   The "left" Executable.
+     * @param right  The "right" Executable.
+     * @param actual The runtime parameter types to match against. {@code left}/{@code right}.
      * @return int consistent with {@code compare} semantics.
      */
     private static int compareParameterTypes(final Executable left, final Executable right, final Class<?>[] actual) {
@@ -162,8 +162,8 @@ final class MemberUtils {
     /**
      * Gets the number of steps required to promote a primitive to another type.
      *
-     * @param srcClass  the (primitive) source class.
-     * @param destClass the (primitive) destination class.
+     * @param srcClass  The (primitive) source class.
+     * @param destClass The (primitive) destination class.
      * @return The cost of promoting the primitive.
      */
     private static float getPrimitivePromotionCost(final Class<?> srcClass, final Class<?> destClass) {
@@ -316,7 +316,7 @@ final class MemberUtils {
      * accepted.
      * </p>
      *
-     * @param obj the AccessibleObject to set as accessible, may be null.
+     * @param obj The AccessibleObject to set as accessible, may be null.
      * @return A boolean indicating whether the accessibility of the object was set to true.
      */
     static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {

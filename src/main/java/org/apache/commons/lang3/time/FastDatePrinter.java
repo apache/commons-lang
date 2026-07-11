@@ -104,7 +104,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Constructs a new instance of {@link CharacterLiteral}
          * to hold the specified value.
          *
-         * @param value the character literal
+         * @param value The character literal
          */
         CharacterLiteral(final char value) {
             this.value = value;
@@ -170,7 +170,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * Factory method for Iso8601_Rules.
          *
-         * @param tokenLen a token indicating the length of the TimeZone String to be formatted.
+         * @param tokenLen A token indicating the length of the TimeZone String to be formatted.
          * @return An Iso8601_Rule that can format TimeZone String of length {@code tokenLen}. If no such
          *          rule exists, an IllegalArgumentException will be thrown.
          */
@@ -248,8 +248,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * Appends the specified value to the output buffer based on the rule implementation.
          *
-         * @param buffer the output buffer.
-         * @param value the value to be appended.
+         * @param buffer The output buffer.
+         * @param value The value to be appended.
          * @throws IOException if an I/O error occurs.
          */
         void appendTo(Appendable buffer, int value) throws IOException;
@@ -266,7 +266,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * Constructs an instance of {@link PaddedNumberField}.
          *
-         * @param field the field.
+         * @param field The field.
          * @param size size of the output field.
          */
         PaddedNumberField(final int field, final int size) {
@@ -312,7 +312,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * Appends the value of the specified calendar to the output buffer based on the rule implementation.
          *
-         * @param buf the output buffer.
+         * @param buf The output buffer.
          * @param calendar calendar to be appended.
          * @throws IOException if an I/O error occurs.
          */
@@ -336,7 +336,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Constructs a new instance of {@link StringLiteral}
          * to hold the specified value.
          *
-         * @param value the string literal.
+         * @param value The string literal.
          */
         StringLiteral(final String value) {
             this.value = value;
@@ -370,8 +370,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Constructs an instance of {@link TextField}
          * with the specified field and values.
          *
-         * @param field the field.
-         * @param values the field values.
+         * @param field The field.
+         * @param values The field values.
          */
         TextField(final int field, final String[] values) {
             this.field = field;
@@ -413,10 +413,10 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * Constructs an instance of {@link TimeZoneDisplayKey} with the specified properties.
          *
-         * @param timeZone the time zone.
+         * @param timeZone The time zone.
          * @param daylight adjust the style for daylight saving time if {@code true}.
-         * @param style the time zone style.
-         * @param locale the time zone locale.
+         * @param style The time zone style.
+         * @param locale The time zone locale.
          */
         TimeZoneDisplayKey(final TimeZone timeZone,
                            final boolean daylight, final int style, final Locale locale) {
@@ -468,9 +468,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * Constructs an instance of {@link TimeZoneNameRule} with the specified properties.
          *
-         * @param timeZone the time zone.
-         * @param locale the locale.
-         * @param style the style.
+         * @param timeZone The time zone.
+         * @param locale The locale.
+         * @param style The style.
          */
         TimeZoneNameRule(final TimeZone timeZone, final Locale locale, final int style) {
             this.locale = LocaleUtils.toLocale(locale);
@@ -565,7 +565,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Constructs an instance of {@link TwelveHourField} with the specified
          * {@link NumberRule}.
          *
-         * @param rule the rule.
+         * @param rule The rule.
          */
         TwelveHourField(final NumberRule rule) {
             this.rule = rule;
@@ -610,7 +610,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Constructs an instance of {@link TwentyFourHourField} with the specified
          * {@link NumberRule}.
          *
-         * @param rule the rule.
+         * @param rule The rule.
          */
         TwentyFourHourField(final NumberRule rule) {
             this.rule = rule;
@@ -691,7 +691,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * Constructs an instance of {@link TwoDigitNumberField} with the specified field.
          *
-         * @param field the field
+         * @param field The field
          */
         TwoDigitNumberField(final int field) {
             this.field = field;
@@ -813,7 +813,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * Constructs an instance of {@link UnpaddedNumberField} with the specified field.
          *
-         * @param field the field.
+         * @param field The field.
          */
         UnpaddedNumberField(final int field) {
             this.field = field;
@@ -915,8 +915,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Appends two digits to the given buffer.
      *
-     * @param buffer the buffer to append to.
-     * @param value the value to append digits from.
+     * @param buffer The buffer to append to.
+     * @param value The value to append digits from.
      * @throws IOException If an I/O error occurs.
      */
     private static void appendDigits(final Appendable buffer, final int value) throws IOException {
@@ -927,8 +927,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Appends all digits to the given buffer.
      *
-     * @param buffer the buffer to append to.
-     * @param value the value to append digits from.
+     * @param buffer The buffer to append to.
+     * @param value The value to append digits from.
      * @param minFieldWidth Minimum field width.
      * @throws IOException If an I/O error occurs.
      */
@@ -1008,10 +1008,10 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Gets the time zone display name, using a cache for performance.
      *
-     * @param tz  the zone to query.
+     * @param tz  The zone to query.
      * @param daylight  true if daylight savings.
-     * @param style  the style to use {@link TimeZone#LONG} or {@link TimeZone#SHORT}.
-     * @param locale  the locale to use.
+     * @param style  The style to use {@link TimeZone#LONG} or {@link TimeZone#SHORT}.
+     * @param locale  The locale to use.
      * @return The textual name of the time zone.
      */
     static String getTimeZoneDisplay(final TimeZone tz, final boolean daylight, final int style, final Locale locale) {
@@ -1066,8 +1066,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Performs the formatting by applying the rules to the
      * specified calendar.
      *
-     * @param calendar  the calendar to format.
-     * @param buf  the buffer to format into.
+     * @param calendar  The calendar to format.
+     * @param buf  The buffer to format into.
      * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
      * @return The specified string buffer.
      */
@@ -1086,8 +1086,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Performs the formatting by applying the rules to the
      * specified calendar.
      *
-     * @param calendar the calendar to format.
-     * @param buf the buffer to format into.
+     * @param calendar The calendar to format.
+     * @param buf The buffer to format into.
      * @return The specified string buffer.
      * @deprecated Use {@link #format(Calendar)} or {@link #format(Calendar, Appendable)}
      */
@@ -1099,7 +1099,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Creates a String representation of the given Calendar by applying the rules of this printer to it.
      *
-     * @param c the Calendar to apply the rules to.
+     * @param c The Calendar to apply the rules to.
      * @return A String representation of the given Calendar.
      */
     private String applyRulesToString(final Calendar c) {
@@ -1109,7 +1109,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Compares two objects for equality.
      *
-     * @param obj  the object to compare to.
+     * @param obj  The object to compare to.
      * @return {@code true} if equal.
      */
     @Override
@@ -1218,7 +1218,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Formats a {@link Date}, {@link Calendar} or
      * {@link Long} (milliseconds) object.
      *
-     * @param obj  the object to format.
+     * @param obj  The object to format.
      * @return The formatted value.
      * @since 3.5
      */
@@ -1239,9 +1239,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Formats a {@link Date}, {@link Calendar} or
      * {@link Long} (milliseconds) object.
      *
-     * @param obj  the object to format.
-     * @param toAppendTo  the buffer to append to.
-     * @param pos  the position; ignored.
+     * @param obj  The object to format.
+     * @param toAppendTo  The buffer to append to.
+     * @param pos  The position; ignored.
      * @return The buffer passed in.
      * @deprecated Use {{@link #format(Date)}, {{@link #format(Calendar)}, {{@link #format(long)}.
      */
@@ -1482,7 +1482,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Performs the parsing of tokens.
      *
-     * @param pattern  the pattern.
+     * @param pattern  The pattern.
      * @param indexRef  index references.
      * @return parsed token.
      */
@@ -1548,8 +1548,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Gets an appropriate rule for the padding required.
      *
-     * @param field  the field to get a rule for.
-     * @param padding  the padding required.
+     * @param field  The field to get a rule for.
+     * @param padding  The padding required.
      * @return A new rule with the correct padding.
      */
     protected NumberRule selectNumberRule(final int field, final int padding) {

@@ -164,8 +164,8 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tests whether a child initializer has been executed. Optionally the
      * expected executor service can be checked, too.
      *
-     * @param child the child initializer
-     * @param expExec the expected executor service (null if the executor should
+     * @param child The child initializer
+     * @param expExec The expected executor service (null if the executor should
      * not be checked)
      * @throws ConcurrentException if an error occurs
      */

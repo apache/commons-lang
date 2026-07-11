@@ -62,7 +62,7 @@ public interface FailableDoublePredicate<E extends Throwable> {
     /**
      * Returns a composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
      *
-     * @param other a predicate that will be logically-ANDed with this predicate.
+     * @param other A predicate that will be logically-ANDed with this predicate.
      * @return A composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
      * @throws NullPointerException if other is null
      */
@@ -83,7 +83,7 @@ public interface FailableDoublePredicate<E extends Throwable> {
     /**
      * Returns a composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
      *
-     * @param other a predicate that will be logically-ORed with this predicate.
+     * @param other A predicate that will be logically-ORed with this predicate.
      * @return A composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
      * @throws NullPointerException if other is null
      */
@@ -95,7 +95,7 @@ public interface FailableDoublePredicate<E extends Throwable> {
     /**
      * Tests the predicate.
      *
-     * @param value the parameter for the predicate to accept.
+     * @param value The parameter for the predicate to accept.
      * @return {@code true} if the input argument matches the predicate, {@code false} otherwise.
      * @throws E Thrown when the consumer fails.
      */

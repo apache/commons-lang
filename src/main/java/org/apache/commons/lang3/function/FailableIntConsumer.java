@@ -47,7 +47,7 @@ public interface FailableIntConsumer<E extends Throwable> {
     /**
      * Accepts the given arguments.
      *
-     * @param value the parameter for the consumable to accept
+     * @param value The parameter for the consumable to accept
      * @throws E Thrown when the consumer fails.
      */
     void accept(int value) throws E;
@@ -55,7 +55,7 @@ public interface FailableIntConsumer<E extends Throwable> {
     /**
      * Returns a composed {@link FailableIntConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
      *
-     * @param after the operation to perform after this one.
+     * @param after The operation to perform after this one.
      * @return A composed {@link FailableIntConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
      * @throws NullPointerException if {@code after} is null
      */

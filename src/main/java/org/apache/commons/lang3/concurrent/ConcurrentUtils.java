@@ -46,7 +46,7 @@ public class ConcurrentUtils {
          * Creates a new instance of {@link ConstantFuture} and initializes it
          * with the constant value.
          *
-         * @param value the value (may be {@code null})
+         * @param value The value (may be {@code null})
          */
         ConstantFuture(final T value) {
             this.value = value;
@@ -102,7 +102,7 @@ public class ConcurrentUtils {
      * Tests whether the specified {@link Throwable} is a checked exception. If
      * not, an exception is thrown.
      *
-     * @param ex the {@link Throwable} to check
+     * @param ex The {@link Throwable} to check
      * @return A flag whether the passed in exception is a checked exception
      * @throws IllegalArgumentException if the {@link Throwable} is not a
      * checked exception
@@ -123,7 +123,7 @@ public class ConcurrentUtils {
      * </p>
      *
      * @param <T> The type of the value used by this {@link Future} object
-     * @param value  the constant value to return, may be null
+     * @param value  The constant value to return, may be null
      * @return An instance of Future that will return the value, never null
      */
     public static <T> Future<T> constantFuture(final T value) {
@@ -143,9 +143,9 @@ public class ConcurrentUtils {
      *
      * @param <K> The type of the keys of the map
      * @param <V> The type of the values of the map
-     * @param map the map to be modified
-     * @param key the key of the value to be added
-     * @param init the {@link ConcurrentInitializer} for creating the value
+     * @param map The map to be modified
+     * @param key The key of the value to be added
+     * @param init The {@link ConcurrentInitializer} for creating the value
      * @return The value stored in the map after this operation; this may or may
      * not be the object created by the {@link ConcurrentInitializer}
      * @throws ConcurrentException if the initializer throws an exception
@@ -171,9 +171,9 @@ public class ConcurrentUtils {
      *
      * @param <K> The type of the keys of the map
      * @param <V> The type of the values of the map
-     * @param map the map to be modified
-     * @param key the key of the value to be added
-     * @param init the {@link ConcurrentInitializer} for creating the value
+     * @param map The map to be modified
+     * @param key The key of the value to be added
+     * @param init The {@link ConcurrentInitializer} for creating the value
      * @return The value stored in the map after this operation; this may or may
      * not be the object created by the {@link ConcurrentInitializer}
      * @throws ConcurrentRuntimeException if the initializer throws an exception
@@ -202,7 +202,7 @@ public class ConcurrentUtils {
      * returns it.</li>
      * </ul>
      *
-     * @param ex the exception to be processed
+     * @param ex The exception to be processed
      * @return A {@link ConcurrentException} with the checked cause
      */
     public static ConcurrentException extractCause(final ExecutionException ex) {
@@ -222,7 +222,7 @@ public class ConcurrentUtils {
      * runtime exception. This is an alternative for client code that does not
      * want to deal with checked exceptions.
      *
-     * @param ex the exception to be processed
+     * @param ex The exception to be processed
      * @return A {@link ConcurrentRuntimeException} with the checked cause
      */
     public static ConcurrentRuntimeException extractCauseUnchecked(final ExecutionException ex) {
@@ -242,7 +242,7 @@ public class ConcurrentUtils {
      * exception is {@code null} or has no cause, the method simply returns
      * without throwing an exception.
      *
-     * @param ex the exception to be handled
+     * @param ex The exception to be handled
      * @throws ConcurrentException if the cause of the {@code
      * ExecutionException} is a checked exception
      */
@@ -261,7 +261,7 @@ public class ConcurrentUtils {
      * {@link ConcurrentRuntimeException}. This is an alternative for client
      * code that does not want to deal with checked exceptions.
      *
-     * @param ex the exception to be handled
+     * @param ex The exception to be handled
      * @throws ConcurrentRuntimeException if the cause of the {@code
      * ExecutionException} is a checked exception; this exception is then
      * wrapped in the thrown runtime exception
@@ -281,7 +281,7 @@ public class ConcurrentUtils {
      * {@code null}.
      *
      * @param <T> The type of the object produced by the initializer
-     * @param initializer the {@link ConcurrentInitializer} to be invoked
+     * @param initializer The {@link ConcurrentInitializer} to be invoked
      * @return The object managed by the {@link ConcurrentInitializer}
      * @throws ConcurrentException if the {@link ConcurrentInitializer} throws
      * an exception
@@ -300,7 +300,7 @@ public class ConcurrentUtils {
      * So client code does not have to deal with checked exceptions.
      *
      * @param <T> The type of the object produced by the initializer
-     * @param initializer the {@link ConcurrentInitializer} to be invoked
+     * @param initializer The {@link ConcurrentInitializer} to be invoked
      * @return The object managed by the {@link ConcurrentInitializer}
      * @throws ConcurrentRuntimeException if the initializer throws an exception
      */
@@ -339,9 +339,9 @@ public class ConcurrentUtils {
      *
      * @param <K> The type of the keys of the map
      * @param <V> The type of the values of the map
-     * @param map the map to be modified
-     * @param key the key of the value to be added
-     * @param value the value to be added
+     * @param map The map to be modified
+     * @param key The key of the value to be added
+     * @param value The value to be added
      * @return The value stored in the map after this operation
      */
     public static <K, V> V putIfAbsent(final ConcurrentMap<K, V> map, final K key, final V value) {

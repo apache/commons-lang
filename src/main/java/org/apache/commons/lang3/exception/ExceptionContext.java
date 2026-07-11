@@ -42,8 +42,8 @@ public interface ExceptionContext {
      * existing pair with the same label.
      * </p>
      *
-     * @param label  the label of the item to add, {@code null} not recommended
-     * @param value  the value of item to add, may be {@code null}
+     * @param label  The label of the item to add, {@code null} not recommended
+     * @param value  The value of item to add, may be {@code null}
      * @return {@code this}, for method chaining, not {@code null}
      */
     ExceptionContext addContextValue(String label, Object value);
@@ -65,7 +65,7 @@ public interface ExceptionContext {
     /**
      * Gets all the contextual data values associated with the label.
      *
-     * @param label  the label to get the contextual values for, may be {@code null}
+     * @param label  The label to get the contextual values for, may be {@code null}
      * @return The contextual values associated with the label, never {@code null}
      */
     List<Object> getContextValues(String label);
@@ -73,7 +73,7 @@ public interface ExceptionContext {
     /**
      * Gets the first available contextual data value associated with the label.
      *
-     * @param label  the label to get the contextual value for, may be {@code null}
+     * @param label  The label to get the contextual value for, may be {@code null}
      * @return The first contextual value associated with the label, may be {@code null}
      */
     Object getFirstContextValue(String label);
@@ -82,7 +82,7 @@ public interface ExceptionContext {
      * Gets the contextualized error message based on a base message.
      * This will add the context label-value pairs to the message.
      *
-     * @param baseMessage  the base exception message <strong>without</strong> context information appended
+     * @param baseMessage  The base exception message <strong>without</strong> context information appended
      * @return The exception message <strong>with</strong> context information appended, not {@code null}
      */
     String getFormattedExceptionMessage(String baseMessage);
@@ -94,8 +94,8 @@ public interface ExceptionContext {
      * the same label is removed from the context.
      * </p>
      *
-     * @param label  the label of the item to add, {@code null} not recommended
-     * @param value  the value of item to add, may be {@code null}
+     * @param label  The label of the item to add, {@code null} not recommended
+     * @param value  The value of item to add, may be {@code null}
      * @return {@code this}, for method chaining, not {@code null}
      */
     ExceptionContext setContextValue(String label, Object value);

@@ -206,7 +206,7 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * Factory method for ISO8601TimeZoneStrategies.
          *
-         * @param tokenLen a token indicating the length of the TimeZone String to be formatted.
+         * @param tokenLen A token indicating the length of the TimeZone String to be formatted.
          * @return A ISO8601TimeZoneStrategy that can format TimeZone String of length {@code tokenLen}. If no such strategy exists, an IllegalArgumentException
          *         will be thrown.
          */
@@ -520,7 +520,7 @@ public class FastDateParser implements DateParser, Serializable {
          * This method is package private only for testing.
          * </p>
          *
-         * @param tzId the ID to test.
+         * @param tzId The ID to test.
          * @return Whether to skip the given time zone ID.
          */
         static boolean skipTimeZone(final String tzId) {
@@ -870,7 +870,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Compares another object for equality with this object.
      *
-     * @param obj the object to compare to
+     * @param obj The object to compare to
      * @return {@code true}if equal to this instance
      */
     @Override
@@ -999,7 +999,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Initializes derived fields from defining fields. This is called from constructor and from readObject (de-serialization)
      *
-     * @param definingCalendar the {@link java.util.Calendar} instance used to initialize this FastDateParser
+     * @param definingCalendar The {@link java.util.Calendar} instance used to initialize this FastDateParser
      */
     private void init(final Calendar definingCalendar) {
         patterns = new ArrayList<>();

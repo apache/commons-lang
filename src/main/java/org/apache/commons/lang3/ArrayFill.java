@@ -35,7 +35,7 @@ public final class ArrayFill {
      * ArrayFill.fill(a, (byte) 0);
      * </pre>
      *
-     * @param a   the array to fill (may be null).
+     * @param a   The array to fill (may be null).
      * @return The given array.
      * @see Arrays#fill(byte[],byte)
      * @see ArrayFill#fill(byte[],byte)
@@ -54,7 +54,7 @@ public final class ArrayFill {
      * ArrayFill.fill(a, '\0'); // and not '0'!
      * </pre>
      *
-     * @param a   the array to fill (may be null).
+     * @param a   The array to fill (may be null).
      * @return The given array.
      * @see Arrays#fill(char[],char)
      * @see ArrayFill#fill(char[],char)
@@ -74,9 +74,9 @@ public final class ArrayFill {
      * ArrayFill.fill(a, fromIndex, toIndex, '\0'); // and not '0'!
      * </pre>
      *
-     * @param a         the array to fill (may be null).
-     * @param fromIndex the index of the first element (inclusive) to be filled with {@code '\0'}.
-     * @param toIndex   the index of the last element (exclusive) to be filled with {@code '\0'}.
+     * @param a         The array to fill (may be null).
+     * @param fromIndex The index of the first element (inclusive) to be filled with {@code '\0'}.
+     * @param toIndex   The index of the last element (exclusive) to be filled with {@code '\0'}.
      * @return The given array.
      * @see Arrays#fill(char[], int, int, char)
      * @since 3.21.0
@@ -88,8 +88,8 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array, assigning the given {@code boolean} value to each element of the array.
      *
-     * @param a   the array to fill (may be null).
-     * @param val the value to store in all elements of the array.
+     * @param a   The array to fill (may be null).
+     * @param val The value to store in all elements of the array.
      * @return The given array.
      * @see Arrays#fill(boolean[],boolean)
      * @since 3.18.0
@@ -104,8 +104,8 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array, assigning the given {@code byte} value to each element of the array.
      *
-     * @param a   the array to fill (may be null).
-     * @param val the value to store in all elements of the array.
+     * @param a   The array to fill (may be null).
+     * @param val The value to store in all elements of the array.
      * @return The given array.
      * @see Arrays#fill(byte[],byte)
      */
@@ -119,8 +119,8 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array, assigning the given {@code char} value to each element of the array.
      *
-     * @param a   the array to fill (may be null).
-     * @param val the value to store in all elements of the array.
+     * @param a   The array to fill (may be null).
+     * @param val The value to store in all elements of the array.
      * @return The given array.
      * @see Arrays#fill(char[],char)
      */
@@ -134,10 +134,10 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array, assigning the given {@code char} value to each element of the array.
      *
-     * @param a         the array to fill (may be null).
-     * @param val       the value to store in all elements of the array.
-     * @param fromIndex the index of the first element (inclusive) to be filled with the specified value.
-     * @param toIndex   the index of the last element (exclusive) to be filled with the specified value.
+     * @param a         The array to fill (may be null).
+     * @param val       The value to store in all elements of the array.
+     * @param fromIndex The index of the first element (inclusive) to be filled with the specified value.
+     * @param toIndex   The index of the last element (exclusive) to be filled with the specified value.
      * @return The given array.
      * @see Arrays#fill(char[], int, int, char)
      * @since 3.21.0
@@ -152,8 +152,8 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array, assigning the given {@code double} value to each element of the array.
      *
-     * @param a   the array to fill (may be null).
-     * @param val the value to store in all elements of the array.
+     * @param a   The array to fill (may be null).
+     * @param val The value to store in all elements of the array.
      * @return The given array.
      * @see Arrays#fill(double[],double)
      */
@@ -167,8 +167,8 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array, assigning the given {@code float} value to each element of the array.
      *
-     * @param a   the array to fill (may be null).
-     * @param val the value to store in all elements of the array.
+     * @param a   The array to fill (may be null).
+     * @param val The value to store in all elements of the array.
      * @return The given array.
      * @see Arrays#fill(float[],float)
      */
@@ -182,8 +182,8 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array, assigning the given {@code int} value to each element of the array.
      *
-     * @param a   the array to fill (may be null).
-     * @param val the value to store in all elements of the array.
+     * @param a   The array to fill (may be null).
+     * @param val The value to store in all elements of the array.
      * @return The given array.
      * @see Arrays#fill(int[],int)
      */
@@ -197,8 +197,8 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array, assigning the given {@code long} value to each element of the array.
      *
-     * @param a   the array to fill (may be null).
-     * @param val the value to store in all elements of the array.
+     * @param a   The array to fill (may be null).
+     * @param val The value to store in all elements of the array.
      * @return The given array.
      * @see Arrays#fill(long[],long)
      */
@@ -212,8 +212,8 @@ public final class ArrayFill {
     /**
      * Fills and returns the given array, assigning the given {@code short} value to each element of the array.
      *
-     * @param a   the array to fill (may be null).
-     * @param val the value to store in all elements of the array.
+     * @param a   The array to fill (may be null).
+     * @param val The value to store in all elements of the array.
      * @return The given array.
      * @see Arrays#fill(short[],short)
      */
@@ -236,7 +236,7 @@ public final class ArrayFill {
      *
      * @param <T>       type of elements of the array.
      * @param array     array to fill (may be null).
-     * @param generator a function accepting an index and producing the desired value for that position.
+     * @param generator A function accepting an index and producing the desired value for that position.
      * @return The input array.
      * @param <E> The kind of thrown exception or error.
      * @throws E Thrown by the given {@code generator}.
@@ -256,8 +256,8 @@ public final class ArrayFill {
      * Fills and returns the given array, assigning the given {@code T} value to each element of the array.
      *
      * @param <T> The array type.
-     * @param a   the array to fill (may be null).
-     * @param val the value to store in all elements of the array.
+     * @param a   The array to fill (may be null).
+     * @param val The value to store in all elements of the array.
      * @return The given array.
      * @see Arrays#fill(Object[],Object)
      */

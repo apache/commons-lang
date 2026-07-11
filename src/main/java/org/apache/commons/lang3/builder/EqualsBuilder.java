@@ -160,7 +160,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * </p>
      *
      * @param lhs {@code this} object to lookup in registry
-     * @param rhs the other object to lookup on registry
+     * @param rhs The other object to lookup on registry
      * @return boolean {@code true} if the registry contains the given object.
      */
     static boolean isRegistered(final Object lhs, final Object rhs) {
@@ -184,7 +184,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
      * @param lhs  {@code this} object
-     * @param rhs  the other object
+     * @param rhs  The other object
      * @param testTransients  whether to include transient fields
      * @return {@code true} if the two Objects have tested equals.
      * @see EqualsExclude
@@ -217,9 +217,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * {@code equals()} method. Leading to a deep reflection equals test.
      *
      * @param lhs  {@code this} object
-     * @param rhs  the other object
+     * @param rhs  The other object
      * @param testTransients  whether to include transient fields
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
+     * @param reflectUpToClass  The superclass to reflect up to (inclusive),
      *  may be {@code null}
      * @param testRecursive  whether to call reflection equals on non-primitive
      *  fields recursively.
@@ -266,9 +266,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * as java.lang.Object.</p>
      *
      * @param lhs  {@code this} object
-     * @param rhs  the other object
+     * @param rhs  The other object
      * @param testTransients  whether to include transient fields
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
+     * @param reflectUpToClass  The superclass to reflect up to (inclusive),
      *  may be {@code null}
      * @param excludeFields  array of field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
@@ -296,7 +296,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
      * @param lhs  {@code this} object
-     * @param rhs  the other object
+     * @param rhs  The other object
      * @param excludeFields  Collection of String field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
      * @see EqualsExclude
@@ -321,7 +321,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
      * @param lhs  {@code this} object
-     * @param rhs  the other object
+     * @param rhs  The other object
      * @param excludeFields  array of field names to exclude from testing
      * @return {@code true} if the two Objects have tested equals.
      * @see EqualsExclude
@@ -335,7 +335,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Used by the reflection methods to avoid infinite loops.
      *
      * @param lhs {@code this} object to register
-     * @param rhs the other object to register
+     * @param rhs The other object to register
      */
     private static void register(final Object lhs, final Object rhs) {
         register(lhs, rhs, getRegistry());
@@ -349,7 +349,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * </p>
      *
      * @param lhs {@code this} object to unregister
-     * @param rhs the other object to unregister
+     * @param rhs The other object to unregister
      */
     private static void unregister(final Object lhs, final Object rhs) {
         unregister(lhs, rhs, getRegistry(), REGISTRY);
@@ -392,8 +392,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Test if two {@code booleans}s are equal.
      *
-     * @param lhs  the left-hand side {@code boolean}
-     * @param rhs  the right-hand side {@code boolean}
+     * @param lhs  The left-hand side {@code boolean}
+     * @param rhs  The right-hand side {@code boolean}
      * @return {@code this} instance.
       */
     public EqualsBuilder append(final boolean lhs, final boolean rhs) {
@@ -410,8 +410,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      *
      * <p>The method {@link #append(boolean, boolean)} is used.</p>
      *
-     * @param lhs  the left-hand side {@code boolean[]}
-     * @param rhs  the right-hand side {@code boolean[]}
+     * @param lhs  The left-hand side {@code boolean[]}
+     * @param rhs  The right-hand side {@code boolean[]}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final boolean[] lhs, final boolean[] rhs) {
@@ -438,8 +438,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Test if two {@code byte}s are equal.
      *
-     * @param lhs  the left-hand side {@code byte}
-     * @param rhs  the right-hand side {@code byte}
+     * @param lhs  The left-hand side {@code byte}
+     * @param rhs  The right-hand side {@code byte}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final byte lhs, final byte rhs) {
@@ -455,8 +455,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      *
      * <p>The method {@link #append(byte, byte)} is used.</p>
      *
-     * @param lhs  the left-hand side {@code byte[]}
-     * @param rhs  the right-hand side {@code byte[]}
+     * @param lhs  The left-hand side {@code byte[]}
+     * @param rhs  The right-hand side {@code byte[]}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final byte[] lhs, final byte[] rhs) {
@@ -483,8 +483,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Test if two {@code char}s are equal.
      *
-     * @param lhs  the left-hand side {@code char}
-     * @param rhs  the right-hand side {@code char}
+     * @param lhs  The left-hand side {@code char}
+     * @param rhs  The right-hand side {@code char}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final char lhs, final char rhs) {
@@ -500,8 +500,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      *
      * <p>The method {@link #append(char, char)} is used.</p>
      *
-     * @param lhs  the left-hand side {@code char[]}
-     * @param rhs  the right-hand side {@code char[]}
+     * @param lhs  The left-hand side {@code char[]}
+     * @param rhs  The right-hand side {@code char[]}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final char[] lhs, final char[] rhs) {
@@ -534,8 +534,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * <p>It is compatible with the hash code generated by
      * {@link HashCodeBuilder}.</p>
      *
-     * @param lhs  the left-hand side {@code double}
-     * @param rhs  the right-hand side {@code double}
+     * @param lhs  The left-hand side {@code double}
+     * @param rhs  The right-hand side {@code double}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final double lhs, final double rhs) {
@@ -551,8 +551,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      *
      * <p>The method {@link #append(double, double)} is used.</p>
      *
-     * @param lhs  the left-hand side {@code double[]}
-     * @param rhs  the right-hand side {@code double[]}
+     * @param lhs  The left-hand side {@code double[]}
+     * @param rhs  The right-hand side {@code double[]}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final double[] lhs, final double[] rhs) {
@@ -585,8 +585,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * <p>It is compatible with the hash code generated by
      * {@link HashCodeBuilder}.</p>
      *
-     * @param lhs  the left-hand side {@code float}
-     * @param rhs  the right-hand side {@code float}
+     * @param lhs  The left-hand side {@code float}
+     * @param rhs  The right-hand side {@code float}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final float lhs, final float rhs) {
@@ -602,8 +602,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      *
      * <p>The method {@link #append(float, float)} is used.</p>
      *
-     * @param lhs  the left-hand side {@code float[]}
-     * @param rhs  the right-hand side {@code float[]}
+     * @param lhs  The left-hand side {@code float[]}
+     * @param rhs  The right-hand side {@code float[]}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final float[] lhs, final float[] rhs) {
@@ -630,8 +630,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Test if two {@code int}s are equal.
      *
-     * @param lhs  the left-hand side {@code int}
-     * @param rhs  the right-hand side {@code int}
+     * @param lhs  The left-hand side {@code int}
+     * @param rhs  The right-hand side {@code int}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final int lhs, final int rhs) {
@@ -647,8 +647,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      *
      * <p>The method {@link #append(int, int)} is used.</p>
      *
-     * @param lhs  the left-hand side {@code int[]}
-     * @param rhs  the right-hand side {@code int[]}
+     * @param lhs  The left-hand side {@code int[]}
+     * @param rhs  The right-hand side {@code int[]}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final int[] lhs, final int[] rhs) {
@@ -694,8 +694,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      *
      * <p>The method {@link #append(long, long)} is used.</p>
      *
-     * @param lhs  the left-hand side {@code long[]}
-     * @param rhs  the right-hand side {@code long[]}
+     * @param lhs  The left-hand side {@code long[]}
+     * @param rhs  The right-hand side {@code long[]}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final long[] lhs, final long[] rhs) {
@@ -726,8 +726,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * is set to {@code false}. Otherwise, using their
      * {@code equals} method.
      *
-     * @param lhs  the left-hand side object
-     * @param rhs  the right-hand side object
+     * @param lhs  The left-hand side object
+     * @param rhs  The right-hand side object
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final Object lhs, final Object rhs) {
@@ -764,8 +764,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * <p>Note that this method does not compare the type of the arrays; it only
      * compares the contents.</p>
      *
-     * @param lhs  the left-hand side {@code Object[]}
-     * @param rhs  the right-hand side {@code Object[]}
+     * @param lhs  The left-hand side {@code Object[]}
+     * @param rhs  The right-hand side {@code Object[]}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final Object[] lhs, final Object[] rhs) {
@@ -797,8 +797,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Test if two {@code short}s are equal.
      *
-     * @param lhs  the left-hand side {@code short}
-     * @param rhs  the right-hand side {@code short}
+     * @param lhs  The left-hand side {@code short}
+     * @param rhs  The right-hand side {@code short}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final short lhs, final short rhs) {
@@ -814,8 +814,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      *
      * <p>The method {@link #append(short, short)} is used.</p>
      *
-     * @param lhs  the left-hand side {@code short[]}
-     * @param rhs  the right-hand side {@code short[]}
+     * @param lhs  The left-hand side {@code short[]}
+     * @param rhs  The right-hand side {@code short[]}
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final short[] lhs, final short[] rhs) {
@@ -842,8 +842,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Test if an {@link Object} is equal to an array.
      *
-     * @param lhs  the left-hand side object, an array
-     * @param rhs  the right-hand side object
+     * @param lhs  The left-hand side object, an array
+     * @param rhs  The right-hand side object
      */
     private void appendArray(final Object lhs, final Object rhs) {
         // First we compare different dimensions, for example: a boolean[][] to a boolean[]
@@ -876,7 +876,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Adds the result of {@code super.equals()} to this builder.
      *
-     * @param superEquals  the result of calling {@code super.equals()}
+     * @param superEquals  The result of calling {@code super.equals()}
      * @return {@code this} instance.
      * @since 2.0
      */
@@ -935,8 +935,8 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * {@code bypassReflectionClasses}, both objects are compared by calling
      * the equals method of the left-hand side object with the right-hand side object as an argument.</p>
      *
-     * @param lhs  the left-hand side object
-     * @param rhs  the right-hand side object
+     * @param lhs  The left-hand side object
+     * @param rhs  The right-hand side object
      * @return {@code this} instance.
      */
     public EqualsBuilder reflectionAppend(final Object lhs, final Object rhs) {
@@ -1002,9 +1002,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Appends the fields and values defined by the given object of the
      * given Class.
      *
-     * @param lhs  the left-hand side object.
-     * @param rhs  the right-hand side object.
-     * @param clazz  the class to append details of.
+     * @param lhs  The left-hand side object.
+     * @param rhs  The right-hand side object.
+     * @param clazz  The class to append details of.
      */
     private void reflectionAppend(final Object lhs, final Object rhs, final Class<?> clazz) {
         if (isRegistered(lhs, rhs)) {
@@ -1071,7 +1071,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Sets field names to be excluded by reflection tests.
      *
-     * @param excludeFields the fields to exclude
+     * @param excludeFields The fields to exclude
      * @return {@code this} instance.
      * @since 3.6
      */
@@ -1083,7 +1083,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Sets the superclass to reflect up to at reflective tests.
      *
-     * @param reflectUpToClass the super class to reflect up to
+     * @param reflectUpToClass The super class to reflect up to
      * @return {@code this} instance.
      * @since 3.6
      */

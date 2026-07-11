@@ -117,7 +117,7 @@ public interface DateParser {
      * Parses a date/time string according to the given parse position.
      *
      * @param source A {@link String} whose beginning should be parsed.
-     * @param pos the parse position.
+     * @param pos The parse position.
      * @return A {@link java.util.Date} object.
      * @see java.text.DateFormat#parseObject(String, ParsePosition)
      */

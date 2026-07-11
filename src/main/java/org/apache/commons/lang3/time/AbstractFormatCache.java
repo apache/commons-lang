@@ -48,7 +48,7 @@ abstract class AbstractFormatCache<F extends Format> {
         /**
          * Constructs an instance of {@link MultipartKey} to hold the specified objects.
          *
-         * @param keys the set of objects that make up the key.  Each key may be null.
+         * @param keys The set of objects that make up the key.  Each key may be null.
          */
         ArrayKey(final Object... keys) {
             this.keys = keys;
@@ -205,8 +205,8 @@ abstract class AbstractFormatCache<F extends Format> {
      * and locale.
      *
      * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern, non-null.
-     * @param timeZone  the time zone, null means use the default TimeZone.
-     * @param locale  the locale, null means use the default Locale.
+     * @param timeZone  The time zone, null means use the default TimeZone.
+     * @param locale  The locale, null means use the default Locale.
      * @return A pattern based date/time formatter.
      * @throws NullPointerException if pattern is {@code null}.
      * @throws IllegalArgumentException if pattern is invalid.

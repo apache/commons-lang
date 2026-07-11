@@ -59,7 +59,7 @@ public abstract class StrLookup<V> {
         /**
          * Creates a new instance backed by a Map.
          *
-         * @param map  the map of keys to values, may be null.
+         * @param map  The map of keys to values, may be null.
          */
         MapStrLookup(final Map<String, V> map) {
             this.map = map;
@@ -72,7 +72,7 @@ public abstract class StrLookup<V> {
          * The map result object is converted to a string using toString().
          * </p>
          *
-         * @param key  the key to be looked up, may be null.
+         * @param key  The key to be looked up, may be null.
          * @return The matching value, null if no match.
          */
         @Override
@@ -116,7 +116,7 @@ public abstract class StrLookup<V> {
      * </p>
      *
      * @param <V> The type of the values supported by the lookup.
-     * @param map  the map of keys to values, may be null.
+     * @param map  The map of keys to values, may be null.
      * @return A lookup using the map, not null.
      */
     public static <V> StrLookup<V> mapLookup(final Map<String, V> map) {
@@ -179,7 +179,7 @@ public abstract class StrLookup<V> {
      * assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
      * }</pre>
      *
-     * @param key  the key to be looked up, may be null.
+     * @param key  The key to be looked up, may be null.
      * @return The matching value, null if no match.
      */
     public abstract String lookup(String key);

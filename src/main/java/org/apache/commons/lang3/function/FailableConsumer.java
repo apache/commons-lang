@@ -42,8 +42,8 @@ public interface FailableConsumer<T, E extends Throwable> {
     /**
      * Applies the given {@link FailableConsumer} action to the object if the consumer is not {@code null}. Otherwise, does nothing.
      *
-     * @param consumer the consumer to consume.
-     * @param object   the object to be consumed.
+     * @param consumer The consumer to consume.
+     * @param object   The object to be consumed.
      * @param <T>      the type of the argument the consumer accepts.
      * @param <E>      The thrown exception type.
      * @throws E Thrown when the consumer fails.
@@ -70,7 +70,7 @@ public interface FailableConsumer<T, E extends Throwable> {
     /**
      * Accepts the given arguments.
      *
-     * @param object the parameter for the consumable to accept
+     * @param object The parameter for the consumable to accept
      * @throws E Thrown when the consumer fails.
      */
     void accept(T object) throws E;
@@ -78,7 +78,7 @@ public interface FailableConsumer<T, E extends Throwable> {
     /**
      * Returns a composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
      *
-     * @param after the operation to perform after this operation
+     * @param after The operation to perform after this operation
      * @return A composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
      * @throws NullPointerException when {@code after} is null
      */

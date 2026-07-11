@@ -46,7 +46,7 @@ class BasicThreadFactoryTest extends AbstractLangTest {
     /**
      * Helper method for testing whether the daemon flag is taken into account.
      *
-     * @param flag the value of the flag
+     * @param flag The value of the flag
      */
     private void checkDaemonFlag(final boolean flag) {
         final ThreadFactory wrapped = EasyMock.createMock(ThreadFactory.class);
@@ -68,7 +68,7 @@ class BasicThreadFactoryTest extends AbstractLangTest {
     /**
      * Tests the default options of a thread factory.
      *
-     * @param factory the factory to be checked
+     * @param factory The factory to be checked
      */
     private void checkFactoryDefaults(final BasicThreadFactory factory) {
         assertNull(factory.getNamingPattern(), "Got a naming pattern");

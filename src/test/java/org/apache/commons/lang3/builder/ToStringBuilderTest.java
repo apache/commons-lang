@@ -1168,7 +1168,7 @@ class ToStringBuilderTest extends AbstractBuilderTest {
     /**
      * Create the same toString() as Object.toString().
      *
-     * @param o the object to create the string for.
+     * @param o The object to create the string for.
      * @return A String in the Object.toString format.
      */
     private String toBaseString(final Object o) {
@@ -1192,9 +1192,9 @@ class ToStringBuilderTest extends AbstractBuilderTest {
      * </p>
      *
      * @param <T>              the type of the output object
-     * @param object           the Object to be output
-     * @param style            the style of the {@code toString} to create, may be {@code null}
-     * @param reflectUpToClass the superclass to reflect up to (inclusive), may be {@code null}
+     * @param object           The Object to be output
+     * @param style            The style of the {@code toString} to create, may be {@code null}
+     * @param reflectUpToClass The superclass to reflect up to (inclusive), may be {@code null}
      * @return The String result
      * @throws IllegalArgumentException if the Object is {@code null}
      */

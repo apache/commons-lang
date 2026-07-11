@@ -120,9 +120,9 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * Creates a new instance of {@link MultiBackgroundInitializerResults} and initializes it with maps for the {@link BackgroundInitializer} objects, their
          * result objects and the exceptions thrown by them.
          *
-         * @param initializers  the {@link BackgroundInitializer} objects.
-         * @param resultObjects the result objects.
-         * @param exceptions    the exceptions.
+         * @param initializers  The {@link BackgroundInitializer} objects.
+         * @param resultObjects The result objects.
+         * @param exceptions    The exceptions.
          */
         private MultiBackgroundInitializerResults(final Map<String, BackgroundInitializer<?>> initializers, final Map<String, Object> resultObjects,
                 final Map<String, ConcurrentException> exceptions) {
@@ -136,7 +136,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * throws an exception. If it exists, the associated child initializer
          * is returned.
          *
-         * @param name the name to check.
+         * @param name The name to check.
          * @return The initializer with this name.
          * @throws NoSuchElementException if the name is unknown.
          */
@@ -154,7 +154,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * initializer did not throw an exception, the return value is
          * {@code null}. If the name cannot be resolved, an exception is thrown.
          *
-         * @param name the name of the {@link BackgroundInitializer}.
+         * @param name The name of the {@link BackgroundInitializer}.
          * @return The exception thrown by this initializer.
          * @throws NoSuchElementException if the name cannot be resolved.
          */
@@ -167,7 +167,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * Gets the {@link BackgroundInitializer} with the given name. If the
          * name cannot be resolved, an exception is thrown.
          *
-         * @param name the name of the {@link BackgroundInitializer}.
+         * @param name The name of the {@link BackgroundInitializer}.
          * @return The {@link BackgroundInitializer} with this name.
          * @throws NoSuchElementException if the name cannot be resolved.
          */
@@ -180,7 +180,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * BackgroundInitializer} with the given name. This is the object returned by the initializer's {@code initialize()} method. If this
          * {@link BackgroundInitializer} caused an exception, {@code null} is returned. If the name cannot be resolved, an exception is thrown.
          *
-         * @param name the name of the {@link BackgroundInitializer}.
+         * @param name The name of the {@link BackgroundInitializer}.
          * @return The result object produced by this {@code BackgroundInitializer}.
          * @throws NoSuchElementException if the name cannot be resolved.
          */
@@ -202,7 +202,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * Tests whether the {@link BackgroundInitializer} with the
          * given name caused an exception.
          *
-         * @param name the name of the {@link BackgroundInitializer}.
+         * @param name The name of the {@link BackgroundInitializer}.
          * @return A flag whether this initializer caused an exception.
          * @throws NoSuchElementException if the name cannot be resolved.
          */
@@ -235,7 +235,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
      * Constructs a new instance of {@link MultiBackgroundInitializer} and
      * initializes it with the given external {@link ExecutorService}.
      *
-     * @param exec the {@link ExecutorService} for executing the background tasks.
+     * @param exec The {@link ExecutorService} for executing the background tasks.
      */
     public MultiBackgroundInitializer(final ExecutorService exec) {
         super(exec);
@@ -245,8 +245,8 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
      * Adds a new {@link BackgroundInitializer} to this object. When this {@link MultiBackgroundInitializer} is started, the given initializer will be
      * processed. This method must not be called after {@link #start()} has been invoked.
      *
-     * @param name                  the name of the initializer (must not be {@code null}).
-     * @param backgroundInitializer the {@link BackgroundInitializer} to add (must not be {@code null}).
+     * @param name                  The name of the initializer (must not be {@code null}).
+     * @param backgroundInitializer The {@link BackgroundInitializer} to add (must not be {@code null}).
      * @throws NullPointerException  if either {@code name} or {@code backgroundInitializer} is {@code null}.
      * @throws IllegalStateException if {@code start()} has already been called.
      */

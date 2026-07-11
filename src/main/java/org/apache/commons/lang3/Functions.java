@@ -92,8 +92,8 @@ public class Functions {
         /**
          * Accepts the consumer.
          *
-         * @param object1 the first parameter for the consumable to accept
-         * @param object2 the second parameter for the consumable to accept
+         * @param object1 The first parameter for the consumable to accept
+         * @param object2 The second parameter for the consumable to accept
          * @throws T Thrown when the consumer fails.
          */
         void accept(O1 object1, O2 object2) throws T;
@@ -117,8 +117,8 @@ public class Functions {
         /**
          * Applies this function.
          *
-         * @param input1 the first input for the function
-         * @param input2 the second input for the function
+         * @param input1 The first input for the function
+         * @param input2 The second input for the function
          * @return The result of the function
          * @throws T Thrown when the function fails.
          */
@@ -142,8 +142,8 @@ public class Functions {
         /**
          * Tests the predicate.
          *
-         * @param object1 the first object to test the predicate on
-         * @param object2 the second object to test the predicate on
+         * @param object1 The first object to test the predicate on
+         * @param object2 The second object to test the predicate on
          * @return The predicate's evaluation
          * @throws T if the predicate fails
          */
@@ -188,7 +188,7 @@ public class Functions {
         /**
          * Accepts the consumer.
          *
-         * @param object the parameter for the consumable to accept
+         * @param object The parameter for the consumable to accept
          * @throws T Thrown when the consumer fails.
          */
         void accept(O object) throws T;
@@ -211,7 +211,7 @@ public class Functions {
         /**
          * Applies this function.
          *
-         * @param input the input for the function
+         * @param input The input for the function
          * @return The result of the function
          * @throws T Thrown when the function fails.
          */
@@ -234,7 +234,7 @@ public class Functions {
         /**
          * Tests the predicate.
          *
-         * @param object the object to test the predicate on
+         * @param object The object to test the predicate on
          * @return The predicate's evaluation
          * @throws T if the predicate fails
          */
@@ -286,9 +286,9 @@ public class Functions {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
-     * @param object1 the first object to consume by {@code consumer}
-     * @param object2 the second object to consume by {@code consumer}
+     * @param consumer The consumer to consume
+     * @param object1 The first object to consume by {@code consumer}
+     * @param object2 The second object to consume by {@code consumer}
      * @param <O1> the type of the first argument the consumer accepts
      * @param <O2> the type of the second argument the consumer accepts
      * @param <T> The type of checked exception the consumer may throw
@@ -301,8 +301,8 @@ public class Functions {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to consume
-     * @param object the object to consume by {@code consumer}
+     * @param consumer The consumer to consume
+     * @param object The object to consume by {@code consumer}
      * @param <O> The type the consumer accepts
      * @param <T> The type of checked exception the consumer may throw
      */
@@ -313,9 +313,9 @@ public class Functions {
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param function the function to apply
-     * @param input1 the first input to apply {@code function} on
-     * @param input2 the second input to apply {@code function} on
+     * @param function The function to apply
+     * @param input1 The first input to apply {@code function} on
+     * @param input2 The second input to apply {@code function} on
      * @param <O1> the type of the first argument the function accepts
      * @param <O2> the type of the second argument the function accepts
      * @param <O> The return type of the function
@@ -330,8 +330,8 @@ public class Functions {
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param function the function to apply
-     * @param input the input to apply {@code function} on
+     * @param function The function to apply
+     * @param input The input to apply {@code function} on
      * @param <I> The type of the argument the function accepts
      * @param <O> The return type of the function
      * @param <T> The type of checked exception the function may throw
@@ -346,7 +346,7 @@ public class Functions {
      *
      * @param <O1> the type of the first argument of the consumers
      * @param <O2> the type of the second argument of the consumers
-     * @param consumer a failable {@link BiConsumer}
+     * @param consumer A failable {@link BiConsumer}
      * @return A standard {@link BiConsumer}
      * @since 3.10
      */
@@ -360,7 +360,7 @@ public class Functions {
      * @param <O1> the type of the first argument of the input of the functions
      * @param <O2> the type of the second argument of the input of the functions
      * @param <O> The type of the output of the functions
-     * @param function a {@link FailableBiFunction}
+     * @param function A {@link FailableBiFunction}
      * @return A standard {@link BiFunction}
      * @since 3.10
      */
@@ -373,7 +373,7 @@ public class Functions {
      *
      * @param <O1> the type of the first argument used by the predicates
      * @param <O2> the type of the second argument used by the predicates
-     * @param predicate a {@link FailableBiPredicate}
+     * @param predicate A {@link FailableBiPredicate}
      * @return A standard {@link BiPredicate}
      * @since 3.10
      */
@@ -385,7 +385,7 @@ public class Functions {
      * Converts the given {@link FailableCallable} into a standard {@link Callable}.
      *
      * @param <O> The type used by the callables
-     * @param callable a {@link FailableCallable}
+     * @param callable A {@link FailableCallable}
      * @return A standard {@link Callable}
      * @since 3.10
      */
@@ -397,7 +397,7 @@ public class Functions {
      * Converts the given {@link FailableConsumer} into a standard {@link Consumer}.
      *
      * @param <I> The type used by the consumers
-     * @param consumer a {@link FailableConsumer}
+     * @param consumer A {@link FailableConsumer}
      * @return A standard {@link Consumer}
      * @since 3.10
      */
@@ -410,7 +410,7 @@ public class Functions {
      *
      * @param <I> The type of the input of the functions
      * @param <O> The type of the output of the functions
-     * @param function a {code FailableFunction}
+     * @param function A {code FailableFunction}
      * @return A standard {@link Function}
      * @since 3.10
      */
@@ -422,7 +422,7 @@ public class Functions {
      * Converts the given {@link FailablePredicate} into a standard {@link Predicate}.
      *
      * @param <I> The type used by the predicates
-     * @param predicate a {@link FailablePredicate}
+     * @param predicate A {@link FailablePredicate}
      * @return A standard {@link Predicate}
      * @since 3.10
      */
@@ -433,7 +433,7 @@ public class Functions {
     /**
      * Converts the given {@link FailableRunnable} into a standard {@link Runnable}.
      *
-     * @param runnable a {@link FailableRunnable}
+     * @param runnable A {@link FailableRunnable}
      * @return A standard {@link Runnable}
      * @since 3.10
      */
@@ -445,7 +445,7 @@ public class Functions {
      * Converts the given {@link FailableSupplier} into a standard {@link Supplier}.
      *
      * @param <O> The type supplied by the suppliers
-     * @param supplier a {@link FailableSupplier}
+     * @param supplier A {@link FailableSupplier}
      * @return A standard {@link Supplier}
      * @since 3.10
      */
@@ -456,7 +456,7 @@ public class Functions {
     /**
      * Calls a callable and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param callable the callable to call
+     * @param callable The callable to call
      * @param <O> The return type of the callable
      * @param <T> The type of checked exception the callable may throw
      * @return The value returned from the callable
@@ -578,9 +578,9 @@ public class Functions {
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param predicate the predicate to test
-     * @param object1 the first input to test by {@code predicate}
-     * @param object2 the second input to test by {@code predicate}
+     * @param predicate The predicate to test
+     * @param object1 The first input to test by {@code predicate}
+     * @param object2 The second input to test by {@code predicate}
      * @param <O1> the type of the first argument the predicate tests
      * @param <O2> the type of the second argument the predicate tests
      * @param <T> The type of checked exception the predicate may throw
@@ -594,8 +594,8 @@ public class Functions {
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param predicate the predicate to test
-     * @param object the input to test by {@code predicate}
+     * @param predicate The predicate to test
+     * @param object The input to test by {@code predicate}
      * @param <O> The type of argument the predicate tests
      * @param <T> The type of checked exception the predicate may throw
      * @return The boolean value returned by the predicate

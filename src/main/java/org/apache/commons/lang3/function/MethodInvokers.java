@@ -77,7 +77,7 @@ public final class MethodInvokers {
      *
      * @param <T> The type of the first argument to the operation: The type containing the Method.
      * @param <U> The type of the second argument to the operation: The type of the method argument.
-     * @param method the method to invoke.
+     * @param method The method to invoke.
      * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
@@ -102,7 +102,7 @@ public final class MethodInvokers {
      * @param <T> The type of the first argument to the function: The type containing the method.
      * @param <U> The type of the second argument to the function: the method argument type.
      * @param <R> The type of the result of the function: The method return type.
-     * @param method the method to invoke.
+     * @param method The method to invoke.
      * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
@@ -117,7 +117,7 @@ public final class MethodInvokers {
      *
      * @param <T> The type of the first argument to the operation: The type containing the Method.
      * @param <U> The type of the second argument to the operation: The type of the method argument.
-     * @param method the method to invoke.
+     * @param method The method to invoke.
      * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
@@ -133,7 +133,7 @@ public final class MethodInvokers {
      * @param <T> The type of the first argument to the function: The type containing the method.
      * @param <U> The type of the second argument to the function: the method argument type.
      * @param <R> The type of the result of the function: The method return type.
-     * @param method the method to invoke.
+     * @param method The method to invoke.
      * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
@@ -147,7 +147,7 @@ public final class MethodInvokers {
      *
      * @param <T> The type of the first argument to the function: The type containing the method.
      * @param <R> The type of the result of the function: The method return type.
-     * @param method the method to invoke.
+     * @param method The method to invoke.
      * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
@@ -163,7 +163,7 @@ public final class MethodInvokers {
      * </p>
      *
      * @param <R> The Method return type.
-     * @param method the method to invoke.
+     * @param method The method to invoke.
      * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
@@ -186,7 +186,7 @@ public final class MethodInvokers {
      *
      * @param <T> The type of the first argument to the function: The type containing the method.
      * @param <R> The type of the result of the function: The method return type.
-     * @param method the method to invoke.
+     * @param method The method to invoke.
      * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
@@ -201,8 +201,8 @@ public final class MethodInvokers {
      * </p>
      *
      * @param <T> The interface type.
-     * @param interfaceClass a class object representing {@code T}.
-     * @param method the method to invoke.
+     * @param interfaceClass A class object representing {@code T}.
+     * @param method The method to invoke.
      * @return A correctly-typed wrapper for the given target.
      * @see MethodHandleProxies#asInterfaceInstance(Class, MethodHandle)
      */
@@ -218,7 +218,7 @@ public final class MethodInvokers {
      * </p>
      *
      * @param <R> The Method return type.
-     * @param method the method to invoke.
+     * @param method The method to invoke.
      * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")

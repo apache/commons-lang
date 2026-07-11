@@ -31,8 +31,8 @@ public final class Functions {
     /**
      * Applies the {@link Function} on the object if the function is not {@code null}. Otherwise, does nothing and returns {@code null}.
      *
-     * @param function the function to apply.
-     * @param object   the object to apply the function.
+     * @param function The function to apply.
+     * @param object   The object to apply the function.
      * @param <T>      the type of the argument the function applies.
      * @param <R>      the type of the result the function returns.
      * @return The value the function returns if the function is not {@code null}; {@code null} otherwise.
@@ -138,7 +138,7 @@ public final class Functions {
      *
      * @param <T>      Input type.
      * @param <R>      Return type.
-     * @param function the argument to return.
+     * @param function The argument to return.
      * @return The argument
      */
     public static <T, R> Function<T, R> function(final Function<T, R> function) {

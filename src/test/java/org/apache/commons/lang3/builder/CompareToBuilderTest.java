@@ -108,9 +108,9 @@ class CompareToBuilderTest extends AbstractBuilderTest {
     /**
      * See "Effective Java" under "Consider Implementing Comparable".
      *
-     * @param x an object to compare
-     * @param y an object to compare
-     * @param z an object to compare
+     * @param x An object to compare
+     * @param y An object to compare
+     * @param z An object to compare
      * @param testTransients Whether to include transients in the comparison
      * @param excludeFields fields to exclude
      * @param expectAccessibleFactor Whether accessibility is expected.

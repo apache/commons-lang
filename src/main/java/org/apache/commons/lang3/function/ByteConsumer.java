@@ -45,7 +45,7 @@ public interface ByteConsumer {
     /**
      * Accepts the given arguments.
      *
-     * @param value the input argument
+     * @param value The input argument
      */
     void accept(byte value);
 
@@ -54,7 +54,7 @@ public interface ByteConsumer {
      * operation throws an exception, it is relayed to the caller of the composed operation. If performing this operation throws an exception, the {@code after}
      * operation will not be performed.
      *
-     * @param after the operation to perform after this operation
+     * @param after The operation to perform after this operation
      * @return A composed {@link ByteConsumer} that performs in sequence this operation followed by the {@code after} operation
      * @throws NullPointerException if {@code after} is null
      */

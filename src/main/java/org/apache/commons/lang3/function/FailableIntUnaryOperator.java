@@ -56,7 +56,7 @@ public interface FailableIntUnaryOperator<E extends Throwable> {
     /**
      * Returns a composed {@link FailableDoubleUnaryOperator} like {@link IntUnaryOperator#andThen(IntUnaryOperator)}.
      *
-     * @param after the operator to apply after this one.
+     * @param after The operator to apply after this one.
      * @return A composed {@link FailableIntUnaryOperator} like {@link IntUnaryOperator#andThen(IntUnaryOperator)}.
      * @throws NullPointerException if after is null.
      * @see #compose(FailableIntUnaryOperator)
@@ -69,7 +69,7 @@ public interface FailableIntUnaryOperator<E extends Throwable> {
     /**
      * Applies this operator to the given operand.
      *
-     * @param operand the operand
+     * @param operand The operand
      * @return The operator result
      * @throws E Thrown when a consumer fails.
      */
@@ -78,7 +78,7 @@ public interface FailableIntUnaryOperator<E extends Throwable> {
     /**
      * Returns a composed {@link FailableIntUnaryOperator} like {@link IntUnaryOperator#compose(IntUnaryOperator)}.
      *
-     * @param before the operator to apply before this one.
+     * @param before The operator to apply before this one.
      * @return A composed {@link FailableIntUnaryOperator} like {@link IntUnaryOperator#compose(IntUnaryOperator)}.
      * @throws NullPointerException if before is null.
      * @see #andThen(FailableIntUnaryOperator)

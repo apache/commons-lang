@@ -51,7 +51,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * on the object. It may be {@code null}, then {@code get()} will return
      * {@code null}, too.
      *
-     * @param obj the object to be managed by this initializer
+     * @param obj The object to be managed by this initializer
      */
     public ConstantInitializer(final T obj) {
         object = obj;
@@ -63,7 +63,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * {@link ConstantInitializer} which refers to an object equals to the
      * object managed by this instance.
      *
-     * @param obj the object to compare to
+     * @param obj The object to compare to
      * @return A flag whether the objects are equal
      */
     @Override

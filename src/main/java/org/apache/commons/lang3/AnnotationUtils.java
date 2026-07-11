@@ -93,8 +93,8 @@ public class AnnotationUtils {
     /**
      * Helper method for comparing two arrays of annotations.
      *
-     * @param a1 the first array
-     * @param a2 the second array
+     * @param a1 The first array
+     * @param a2 The second array
      * @return A flag whether these arrays are equal
      */
     private static boolean annotationArrayMemberEquals(final Annotation[] a1, final Annotation[] a2) {
@@ -112,9 +112,9 @@ public class AnnotationUtils {
     /**
      * Helper method for comparing two objects of an array type.
      *
-     * @param componentType the component type of the array
-     * @param o1 the first object
-     * @param o2 the second object
+     * @param componentType The component type of the array
+     * @param o1 The first object
+     * @param o2 The second object
      * @return A flag whether these objects are equal
      */
     private static boolean arrayMemberEquals(final Class<?> componentType, final Object o1, final Object o2) {
@@ -151,8 +151,8 @@ public class AnnotationUtils {
     /**
      * Helper method for generating a hash code for an array.
      *
-     * @param componentType the component type of the array
-     * @param o the array
+     * @param componentType The component type of the array
+     * @param o The array
      * @return A hash code for the specified array
      */
     private static int arrayMemberHash(final Class<?> componentType, final Object o) {
@@ -187,9 +187,9 @@ public class AnnotationUtils {
      * Checks if two annotations are equal using the criteria for equality
      * presented in the {@link Annotation#equals(Object)} API docs.
      *
-     * @param a1 the first Annotation to compare, {@code null} returns
+     * @param a1 The first Annotation to compare, {@code null} returns
      * {@code false} unless both are {@code null}
-     * @param a2 the second Annotation to compare, {@code null} returns
+     * @param a2 The second Annotation to compare, {@code null} returns
      * {@code false} unless both are {@code null}
      * @return {@code true} if the two annotations are {@code equal} or both
      * {@code null}
@@ -229,7 +229,7 @@ public class AnnotationUtils {
      * Generate a hash code for the given annotation using the algorithm
      * presented in the {@link Annotation#hashCode()} API docs.
      *
-     * @param a the Annotation for a hash code calculation is desired, not
+     * @param a The Annotation for a hash code calculation is desired, not
      * {@code null}
      * @return The calculated hash code
      * @throws RuntimeException if an {@link Exception} is encountered during
@@ -258,8 +258,8 @@ public class AnnotationUtils {
     /**
      * Helper method for generating a hash code for a member of an annotation.
      *
-     * @param name the name of the member
-     * @param value the value of the member
+     * @param name The name of the member
+     * @param value The value of the member
      * @return A hash code for this member
      */
     private static int hashMember(final String name, final Object value) {
@@ -281,7 +281,7 @@ public class AnnotationUtils {
      * types, {@link Annotation}, {@link Enum}, and single-dimensional arrays of
      * these types.</p>
      *
-     * @param type the type to check, {@code null}
+     * @param type The type to check, {@code null}
      * @return {@code true} if the type is a valid type to use in an annotation
      */
     public static boolean isValidAnnotationMemberType(Class<?> type) {
@@ -300,9 +300,9 @@ public class AnnotationUtils {
      * equal. This method is used to compare the parameters of two annotation
      * instances.
      *
-     * @param type the type of the objects to be compared
-     * @param o1 the first object
-     * @param o2 the second object
+     * @param type The type of the objects to be compared
+     * @param o1 The first object
+     * @param o2 The second object
      * @return A flag whether these objects are equal
      */
     private static boolean memberEquals(final Class<?> type, final Object o1, final Object o2) {
@@ -325,7 +325,7 @@ public class AnnotationUtils {
      * Generate a string representation of an Annotation, as suggested by
      * {@link Annotation#toString()}.
      *
-     * @param a the annotation of which a string representation is desired
+     * @param a The annotation of which a string representation is desired
      * @return The standard string representation of an annotation, not
      * {@code null}
      */

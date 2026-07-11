@@ -73,7 +73,7 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * Creates a new instance of {@link CallableBackgroundInitializer} and sets
      * the {@link Callable} to be executed in a background thread.
      *
-     * @param call the {@link Callable} (must not be {@code null}).
+     * @param call The {@link Callable} (must not be {@code null}).
      * @throws IllegalArgumentException if the {@link Callable} is {@code null}.
      */
     public CallableBackgroundInitializer(final Callable<T> call) {
@@ -85,8 +85,8 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * Creates a new instance of {@link CallableBackgroundInitializer} and initializes it with the {@link Callable} to be executed in a background thread and
      * the {@link ExecutorService} for managing the background execution.
      *
-     * @param call the {@link Callable} (must not be {@code null}).
-     * @param exec an external {@link ExecutorService} to be used for task execution.
+     * @param call The {@link Callable} (must not be {@code null}).
+     * @param exec An external {@link ExecutorService} to be used for task execution.
      * @throws IllegalArgumentException if the {@link Callable} is {@code null}.
      */
     public CallableBackgroundInitializer(final Callable<T> call, final ExecutorService exec) {
@@ -98,7 +98,7 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
     /**
      * Tests the passed in {@link Callable} and throws an exception if it is undefined.
      *
-     * @param callable the object to check.
+     * @param callable The object to check.
      * @throws IllegalArgumentException if the {@link Callable} is {@code null}.
      */
     private void checkCallable(final Callable<T> callable) {

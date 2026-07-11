@@ -3911,7 +3911,7 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param property        the system property name.
+     * @param property        The system property name.
      * @param defaultIfAbsent use this value when the property is empty or throws SecurityException.
      * @return The system property value or {@code null} if a security problem occurs.
      */
@@ -3925,7 +3925,7 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code null}.
      * </p>
      *
-     * @param property        the system property name.
+     * @param property        The system property name.
      * @param defaultIfAbsent get this Supplier when the property is empty or throws SecurityException.
      * @return The system property value or {@code null} if a security problem occurs.
      */
@@ -4260,7 +4260,7 @@ public final class SystemProperties {
      * If a {@link SecurityException} is caught, the return value is {@code false}.
      * </p>
      *
-     * @param property the system property name.
+     * @param property The system property name.
      * @return whether the given property is set.
      * @since 3.18.0
      */

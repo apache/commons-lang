@@ -129,7 +129,7 @@ public class LocaleUtils {
      * This method takes a language code and searches to find the countries available for that language. Variant locales are removed.
      * </p>
      *
-     * @param languageCode the 2 letter language code, null returns empty.
+     * @param languageCode The 2 letter language code, null returns empty.
      * @return An unmodifiable List of Locale objects, not null.
      */
     public static List<Locale> countriesByLanguage(final String languageCode) {
@@ -183,7 +183,7 @@ public class LocaleUtils {
     /**
      * Checks if the locale specified is in the set of available locales.
      *
-     * @param locale the Locale object to check if it is available.
+     * @param locale The Locale object to check if it is available.
      * @return true if the locale is a known locale.
      */
     public static boolean isAvailableLocale(final Locale locale) {
@@ -193,7 +193,7 @@ public class LocaleUtils {
     /**
      * Tests whether the given String is a <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> alpha-2 country code.
      *
-     * @param str the String to check.
+     * @param str The String to check.
      * @return true, is the given String is a <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> compliant country code.
      */
     private static boolean isISO3166CountryCode(final String str) {
@@ -203,7 +203,7 @@ public class LocaleUtils {
     /**
      * Tests whether the given String is a <a href="https://www.iso.org/iso-639-language-code">ISO 639</a> compliant language code.
      *
-     * @param str the String to check.
+     * @param str The String to check.
      * @return true, if the given String is a <a href="https://www.iso.org/iso-639-language-code">ISO 639</a> compliant language code.
      */
     private static boolean isISO639LanguageCode(final String str) {
@@ -217,7 +217,7 @@ public class LocaleUtils {
      * equal to {@code "und"}.
      * </p>
      *
-     * @param locale the locale to test.
+     * @param locale The locale to test.
      * @return whether a Locale's language is undetermined.
      * @see Locale#toLanguageTag()
      * @since 3.14.0
@@ -229,7 +229,7 @@ public class LocaleUtils {
     /**
      * TestsNo whether the given String is a UN M.49 numeric area code.
      *
-     * @param str the String to check.
+     * @param str The String to check.
      * @return true, is the given String is a UN M.49 numeric area code.
      */
     private static boolean isNumericAreaCode(final String str) {
@@ -243,7 +243,7 @@ public class LocaleUtils {
      * This method takes a country code and searches to find the languages available for that country. Variant locales are removed.
      * </p>
      *
-     * @param countryCode the 2-letter country code, null returns empty.
+     * @param countryCode The 2-letter country code, null returns empty.
      * @return An unmodifiable List of Locale objects, not null.
      */
     public static List<Locale> languagesByCountry(final String countryCode) {
@@ -262,7 +262,7 @@ public class LocaleUtils {
      *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr")]
      * </pre>
      *
-     * @param locale the locale to start from.
+     * @param locale The locale to start from.
      * @return The unmodifiable list of Locale objects, 0 being locale, not null.
      */
     public static List<Locale> localeLookupList(final Locale locale) {
@@ -282,8 +282,8 @@ public class LocaleUtils {
      * contain the same locale twice.
      * </p>
      *
-     * @param locale        the locale to start from, null returns empty list.
-     * @param defaultLocale the default locale to use if no other is found.
+     * @param locale        The locale to start from, null returns empty list.
+     * @param defaultLocale The default locale to use if no other is found.
      * @return The unmodifiable list of Locale objects, 0 being locale, not null.
      */
     public static List<Locale> localeLookupList(final Locale locale, final Locale defaultLocale) {
@@ -322,7 +322,7 @@ public class LocaleUtils {
      * See {@link Locale} for the format.
      * </p>
      *
-     * @param str the String to parse as a Locale.
+     * @param str The String to parse as a Locale.
      * @return A Locale parsed from the given String.
      * @throws IllegalArgumentException if the given String cannot be parsed.
      * @see Locale
@@ -365,7 +365,7 @@ public class LocaleUtils {
     /**
      * Returns the given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
      *
-     * @param locale a locale or {@code null}.
+     * @param locale A locale or {@code null}.
      * @return The given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
      * @since 3.12.0
      */
@@ -400,7 +400,7 @@ public class LocaleUtils {
      * a dash. The length must be correct.
      * </p>
      *
-     * @param str the locale String to convert, null returns null.
+     * @param str The locale String to convert, null returns null.
      * @return A Locale, null if null input.
      * @throws IllegalArgumentException if the string is an invalid format.
      * @see Locale#forLanguageTag(String)

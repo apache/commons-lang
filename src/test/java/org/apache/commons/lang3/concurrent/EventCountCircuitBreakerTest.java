@@ -53,7 +53,7 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
          * Creates a new instance of {@code ChangeListener} and sets the expected event
          * source.
          *
-         * @param source the expected event source
+         * @param source The expected event source
          */
         ChangeListener(final Object source) {
             expectedSource = source;
@@ -73,7 +73,7 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
         /**
          * Verifies that change events for the expected values have been received.
          *
-         * @param values the expected values
+         * @param values The expected values
          */
         public void verify(final Boolean... values) {
             assertArrayEquals(values, changedValues.toArray(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY));
@@ -100,7 +100,7 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
         /**
          * Sets the current time to be used by this test object for the next operation.
          *
-         * @param time the time to set
+         * @param time The time to set
          * @return A reference to this object
          */
         public EventCountCircuitBreakerTestImpl at(final long time) {

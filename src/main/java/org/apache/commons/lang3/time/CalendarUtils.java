@@ -57,7 +57,7 @@ public class CalendarUtils {
      * Gets a CalendarUtils using the default time zone and specified locale. The {@code CalendarUtils} returned is based on the current time in the
      * default time zone with the given locale.
      *
-     * @param locale the locale for the week data
+     * @param locale The locale for the week data
      * @return A Calendar.
      */
     static CalendarUtils getInstance(final Locale locale) {
@@ -67,7 +67,7 @@ public class CalendarUtils {
     /**
      * Converts a Calendar to a LocalDateTime.
      *
-     * @param calendar the Calendar to convert.
+     * @param calendar The Calendar to convert.
      * @return A LocalDateTime.
      * @since 3.17.0
      */
@@ -78,7 +78,7 @@ public class CalendarUtils {
     /**
      * Converts a Calendar to a OffsetDateTime.
      *
-     * @param calendar the Calendar to convert.
+     * @param calendar The Calendar to convert.
      * @return A OffsetDateTime.
      * @since 3.17.0
      */
@@ -89,7 +89,7 @@ public class CalendarUtils {
     /**
      * Converts a Calendar to a ZonedDateTime.
      *
-     * @param calendar the Calendar to convert.
+     * @param calendar The Calendar to convert.
      * @return A ZonedDateTime.
      * @since 3.17.0
      */

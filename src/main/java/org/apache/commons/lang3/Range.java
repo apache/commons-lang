@@ -72,8 +72,8 @@ public class Range<T> implements Serializable {
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> The type of the elements in this range.
-     * @param fromInclusive  the first value that defines the edge of the range, inclusive.
-     * @param toInclusive  the second value that defines the edge of the range, inclusive.
+     * @param fromInclusive  The first value that defines the edge of the range, inclusive.
+     * @param toInclusive  The second value that defines the edge of the range, inclusive.
      * @return The range object, not null.
      * @throws NullPointerException when fromInclusive is null.
      * @throws NullPointerException when toInclusive is null.
@@ -95,9 +95,9 @@ public class Range<T> implements Serializable {
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> The type of the elements in this range.
-     * @param fromInclusive  the first value that defines the edge of the range, inclusive.
-     * @param toInclusive  the second value that defines the edge of the range, inclusive.
-     * @param comparator  the comparator to be used, null for natural ordering.
+     * @param fromInclusive  The first value that defines the edge of the range, inclusive.
+     * @param toInclusive  The second value that defines the edge of the range, inclusive.
+     * @param comparator  The comparator to be used, null for natural ordering.
      * @return The range object, not null.
      * @throws NullPointerException when fromInclusive is null.
      * @throws NullPointerException when toInclusive is null.
@@ -121,7 +121,7 @@ public class Range<T> implements Serializable {
      * values lie in the range.</p>
      *
      * @param <T> The type of the elements in this range.
-     * @param element  the value to use for this range, not null.
+     * @param element  The value to use for this range, not null.
      * @return The range object, not null.
      * @throws NullPointerException if the element is null.
      * @throws ClassCastException if the element is not {@link Comparable}.
@@ -138,8 +138,8 @@ public class Range<T> implements Serializable {
      * values lie in the range.</p>
      *
      * @param <T> The type of the elements in this range.
-     * @param element  the value to use for this range, must not be {@code null}.
-     * @param comparator  the comparator to be used, null for natural ordering.
+     * @param element  The value to use for this range, must not be {@code null}.
+     * @param comparator  The comparator to be used, null for natural ordering.
      * @return The range object, not null.
      * @throws NullPointerException if the element is null.
      * @throws ClassCastException if using natural ordering and the elements are not {@link Comparable}.
@@ -158,8 +158,8 @@ public class Range<T> implements Serializable {
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> The type of the elements in this range.
-     * @param fromInclusive  the first value that defines the edge of the range, inclusive.
-     * @param toInclusive  the second value that defines the edge of the range, inclusive.
+     * @param fromInclusive  The first value that defines the edge of the range, inclusive.
+     * @param toInclusive  The second value that defines the edge of the range, inclusive.
      * @return The range object, not null.
      * @throws NullPointerException if either element is null.
      * @throws ClassCastException if the elements are not {@link Comparable}.
@@ -179,9 +179,9 @@ public class Range<T> implements Serializable {
      * The getMinimum and getMaximum methods will return the correct values.</p>
      *
      * @param <T> The type of the elements in this range.
-     * @param fromInclusive  the first value that defines the edge of the range, inclusive.
-     * @param toInclusive  the second value that defines the edge of the range, inclusive.
-     * @param comparator  the comparator to be used, null for natural ordering.
+     * @param fromInclusive  The first value that defines the edge of the range, inclusive.
+     * @param toInclusive  The second value that defines the edge of the range, inclusive.
+     * @param comparator  The comparator to be used, null for natural ordering.
      * @return The range object, not null.
      * @throws NullPointerException when fromInclusive is null.
      * @throws NullPointerException when toInclusive is null.
@@ -220,9 +220,9 @@ public class Range<T> implements Serializable {
     /**
      * Creates an instance.
      *
-     * @param element1  the first element, not null.
-     * @param element2  the second element, not null
-     * @param comp  the comparator to be used, null for natural ordering.
+     * @param element1  The first element, not null.
+     * @param element2  The second element, not null
+     * @param comp  The comparator to be used, null for natural ordering.
      * @throws NullPointerException when element1 is null.
      * @throws NullPointerException when element2 is null.
      */
@@ -248,7 +248,7 @@ public class Range<T> implements Serializable {
     /**
      * Checks whether the specified element occurs within this range.
      *
-     * @param element  the element to check for, null returns false.
+     * @param element  The element to check for, null returns false.
      * @return true if the specified element occurs within this range.
      */
     public boolean contains(final T element) {
@@ -263,7 +263,7 @@ public class Range<T> implements Serializable {
      *
      * <p>This method may fail if the ranges have two different comparators or element types.</p>
      *
-     * @param otherRange  the range to check, null returns false.
+     * @param otherRange  The range to check, null returns false.
      * @return true if this range contains the specified range.
      * @throws RuntimeException if ranges cannot be compared.
      */
@@ -282,7 +282,7 @@ public class Range<T> implements Serializable {
      * the element is before the range, {@code 0} if contained within the range and
      * {@code 1} if the element is after the range.</p>
      *
-     * @param element  the element to check for, not null.
+     * @param element  The element to check for, not null.
      * @return -1, 0 or +1 depending on the element's location relative to the range.
      * @throws NullPointerException if {@code element} is {@code null}.
      */
@@ -304,7 +304,7 @@ public class Range<T> implements Serializable {
      * <p>To be equal, the minimum and maximum values must be equal, which
      * ignores any differences in the comparator.</p>
      *
-     * @param obj the reference object with which to compare.
+     * @param obj The reference object with which to compare.
      * @return true if this object is equal.
      */
     @Override
@@ -339,7 +339,7 @@ public class Range<T> implements Serializable {
      * range.fit(99) -->  64
      * }</pre>
      *
-     * @param element the element to check for, not null.
+     * @param element The element to check for, not null.
      * @return The minimum, the element, or the maximum depending on the element's location relative to the range.
      * @throws NullPointerException if {@code element} is {@code null}.
      * @since 3.10
@@ -420,7 +420,7 @@ public class Range<T> implements Serializable {
     /**
      * Checks whether this range is after the specified element.
      *
-     * @param element  the element to check for, null returns false.
+     * @param element  The element to check for, null returns false.
      * @return true if this range is entirely after the specified element.
      */
     public boolean isAfter(final T element) {
@@ -435,7 +435,7 @@ public class Range<T> implements Serializable {
      *
      * <p>This method may fail if the ranges have two different comparators or element types.</p>
      *
-     * @param otherRange  the range to check, null returns false.
+     * @param otherRange  The range to check, null returns false.
      * @return true if this range is completely after the specified range.
      * @throws RuntimeException if ranges cannot be compared.
      */
@@ -449,7 +449,7 @@ public class Range<T> implements Serializable {
     /**
      * Checks whether this range is before the specified element.
      *
-     * @param element  the element to check for, null returns false.
+     * @param element  The element to check for, null returns false.
      * @return true if this range is entirely before the specified element.
      */
     public boolean isBefore(final T element) {
@@ -464,7 +464,7 @@ public class Range<T> implements Serializable {
      *
      * <p>This method may fail if the ranges have two different comparators or element types.</p>
      *
-     * @param otherRange  the range to check, null returns false.
+     * @param otherRange  The range to check, null returns false.
      * @return true if this range is completely before the specified range.
      * @throws RuntimeException if ranges cannot be compared.
      */
@@ -478,7 +478,7 @@ public class Range<T> implements Serializable {
     /**
      * Checks whether this range ends with the specified element.
      *
-     * @param element  the element to check for, null returns false.
+     * @param element  The element to check for, null returns false.
      * @return true if the specified element occurs within this range.
      */
     public boolean isEndedBy(final T element) {
@@ -507,7 +507,7 @@ public class Range<T> implements Serializable {
      *
      * <p>This method may fail if the ranges have two different comparators or element types.</p>
      *
-     * @param otherRange  the range to test, null returns false.
+     * @param otherRange  The range to test, null returns false.
      * @return true if the specified range overlaps with this
      *  range; otherwise, {@code false}.
      * @throws RuntimeException if ranges cannot be compared.
@@ -524,7 +524,7 @@ public class Range<T> implements Serializable {
     /**
      * Tests whether this range starts with the specified element.
      *
-     * @param element  the element to check for, null returns false.
+     * @param element  The element to check for, null returns false.
      * @return true if the specified element occurs within this range.
      */
     public boolean isStartedBy(final T element) {
@@ -582,7 +582,7 @@ public class Range<T> implements Serializable {
      * and {@code %3$s} for the comparator.
      * The default format used by {@code toString()} is {@code [%1$s..%2$s]}.</p>
      *
-     * @param format  the format string, optionally containing {@code %1$s}, {@code %2$s} and  {@code %3$s}, not null.
+     * @param format  The format string, optionally containing {@code %1$s}, {@code %2$s} and  {@code %3$s}, not null.
      * @return The formatted string, not null.
      */
     public String toString(final String format) {

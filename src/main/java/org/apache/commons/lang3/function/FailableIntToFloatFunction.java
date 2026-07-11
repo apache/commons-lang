@@ -46,7 +46,7 @@ public interface FailableIntToFloatFunction<E extends Throwable> {
     /**
      * Applies this function to the given argument.
      *
-     * @param value the function argument
+     * @param value The function argument
      * @return The function result
      * @throws E Thrown when the function fails.
      */

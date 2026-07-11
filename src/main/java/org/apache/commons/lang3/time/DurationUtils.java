@@ -143,7 +143,7 @@ public class DurationUtils {
     /**
      * Tests whether the given Duration is positive (duration &gt; 0).
      *
-     * @param duration the value to test
+     * @param duration The value to test
      * @return whether the given Duration is positive (duration &gt; 0).
      */
     public static boolean isPositive(final Duration duration) {
@@ -187,7 +187,7 @@ public class DurationUtils {
     /**
      * Computes the Duration between a start instant and now.
      *
-     * @param startInclusive the start instant, inclusive, not null.
+     * @param startInclusive The start instant, inclusive, not null.
      * @return A {@link Duration}, not null.
      * @since 3.13.0
      */
@@ -226,8 +226,8 @@ public class DurationUtils {
     /**
      * Converts an amount and TimeUnit into a Duration.
      *
-     * @param amount   the amount of the duration, measured in terms of the unit, positive or negative
-     * @param timeUnit the unit that the duration is measured in, must have an exact duration, not null
+     * @param amount   The amount of the duration, measured in terms of the unit, positive or negative
+     * @param timeUnit The unit that the duration is measured in, must have an exact duration, not null
      * @return A Duration.
      */
     public static Duration toDuration(final long amount, final TimeUnit timeUnit) {

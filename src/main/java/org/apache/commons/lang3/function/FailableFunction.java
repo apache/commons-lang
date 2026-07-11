@@ -41,7 +41,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * @param <T> Input type.
      * @param <R> Return type.
      * @param <E> The type of thrown exception or error.
-     * @param function   the argument to return.
+     * @param function   The argument to return.
      * @return The argument
      * @since 3.14.0
      */
@@ -78,7 +78,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      *
      * @param <V> The output type of the {@code after} function, and of the composed function.
      * @return A composed {@link FailableFunction} like {@link Function#andThen(Function)}.
-     * @param after the operation to perform after this one.
+     * @param after The operation to perform after this one.
      * @throws NullPointerException when {@code after} is null.
      */
     default <V> FailableFunction<T, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
@@ -89,7 +89,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
     /**
      * Applies this function.
      *
-     * @param input the input for the function
+     * @param input The input for the function
      * @return The result of the function
      * @throws E Thrown when the function fails.
      */
@@ -99,7 +99,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * Returns a composed {@link FailableFunction} like {@link Function#compose(Function)}.
      *
      * @param <V> The input type to the {@code before} function, and to the composed function.
-     * @param before the operator to apply before this one.
+     * @param before The operator to apply before this one.
      * @return A composed {@link FailableFunction} like {@link Function#compose(Function)}.
      * @throws NullPointerException if before is null.
      * @see #andThen(FailableFunction)

@@ -118,7 +118,7 @@ public class SerializationUtils {
      * </p>
      *
      * @param <T>    the type of the object involved.
-     * @param object the {@link Serializable} object to clone.
+     * @param object The {@link Serializable} object to clone.
      * @return The cloned object.
      * @throws SerializationException (runtime) if the serialization fails.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
@@ -152,7 +152,7 @@ public class SerializationUtils {
      * </p>
      *
      * @param <T>        the object type to be deserialized.
-     * @param objectData the serialized object, must not be null.
+     * @param objectData The serialized object, must not be null.
      * @return The deserialized object.
      * @throws NullPointerException   if {@code objectData} is {@code null}.
      * @throws SerializationException (runtime) if the serialization fails.
@@ -188,7 +188,7 @@ public class SerializationUtils {
      * </p>
      *
      * @param <T>         the object type to be deserialized.
-     * @param inputStream the serialized object input stream, must not be null.
+     * @param inputStream The serialized object input stream, must not be null.
      * @return The deserialized object.
      * @throws NullPointerException   if {@code inputStream} is {@code null}.
      * @throws SerializationException (runtime) if the serialization fails.
@@ -211,7 +211,7 @@ public class SerializationUtils {
      * Checks that the specified object reference is not {@code null} and throws a customized {@link InvalidObjectException} if it is. This method is designed
      * primarily for doing state validation in {@link Serializable} class's {@code readObject(ObjectInputStream)} methods.
      *
-     * @param obj     the object reference to check for nullity.
+     * @param obj     The object reference to check for nullity.
      * @param message detail message to be used in the event that a {@link InvalidObjectException} is thrown.
      * @param <T>     the type of the reference.
      * @return {@code obj} if not {@code null}.
@@ -231,7 +231,7 @@ public class SerializationUtils {
      * Performs a serialization roundtrip. Serializes and deserializes the given object, great for testing objects that implement {@link Serializable}.
      *
      * @param <T> The type of the object involved.
-     * @param obj the object to roundtrip.
+     * @param obj The object to roundtrip.
      * @return The serialized and deserialized object.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      * @since 3.3
@@ -244,7 +244,7 @@ public class SerializationUtils {
     /**
      * Serializes an {@link Object} to a byte array for storage/serialization.
      *
-     * @param obj the object to serialize to bytes.
+     * @param obj The object to serialize to bytes.
      * @return A byte[] with the converted Serializable.
      * @throws SerializationException (runtime) if the serialization fails.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
@@ -267,8 +267,8 @@ public class SerializationUtils {
      * The stream passed in is not buffered internally within this method. This is the responsibility of your application if desired.
      * </p>
      *
-     * @param obj          the object to serialize to bytes, may be null.
-     * @param outputStream the stream to write to, must not be null.
+     * @param obj          The object to serialize to bytes, may be null.
+     * @param outputStream The stream to write to, must not be null.
      * @throws NullPointerException   if {@code outputStream} is {@code null}.
      * @throws SerializationException (runtime) if the serialization fails.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>

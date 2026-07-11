@@ -75,9 +75,9 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to accept, may be null for a noop.
-     * @param object1 the first object to consume by {@code consumer}
-     * @param object2 the second object to consume by {@code consumer}
+     * @param consumer The consumer to accept, may be null for a noop.
+     * @param object1 The first object to consume by {@code consumer}
+     * @param object2 The second object to consume by {@code consumer}
      * @param <T> The type of the first argument the consumer accepts
      * @param <U> The type of the second argument the consumer accepts
      * @param <E> The type of checked exception the consumer may throw
@@ -90,8 +90,8 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to accept, may be null for a noop.
-     * @param object the object to consume by {@code consumer}
+     * @param consumer The consumer to accept, may be null for a noop.
+     * @param object The object to consume by {@code consumer}
      * @param <T> The type the consumer accepts
      * @param <E> The type of checked exception the consumer may throw
      */
@@ -102,8 +102,8 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to accept, may be null for a noop.
-     * @param value the value to consume by {@code consumer}
+     * @param consumer The consumer to accept, may be null for a noop.
+     * @param value The value to consume by {@code consumer}
      * @param <E> The type of checked exception the consumer may throw
      */
     public static <E extends Throwable> void accept(final FailableDoubleConsumer<E> consumer, final double value) {
@@ -113,8 +113,8 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to accept, may be null for a noop.
-     * @param value the value to consume by {@code consumer}
+     * @param consumer The consumer to accept, may be null for a noop.
+     * @param value The value to consume by {@code consumer}
      * @param <E> The type of checked exception the consumer may throw
      */
     public static <E extends Throwable> void accept(final FailableIntConsumer<E> consumer, final int value) {
@@ -124,8 +124,8 @@ public class Failable {
     /**
      * Consumes a consumer and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param consumer the consumer to accept, may be null for a noop.
-     * @param value the value to consume by {@code consumer}
+     * @param consumer The consumer to accept, may be null for a noop.
+     * @param value The value to consume by {@code consumer}
      * @param <E> The type of checked exception the consumer may throw
      */
     public static <E extends Throwable> void accept(final FailableLongConsumer<E> consumer, final long value) {
@@ -135,9 +135,9 @@ public class Failable {
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param function the function to apply
-     * @param input1 the first input to apply {@code function} on
-     * @param input2 the second input to apply {@code function} on
+     * @param function The function to apply
+     * @param input1 The first input to apply {@code function} on
+     * @param input2 The second input to apply {@code function} on
      * @param <T> The type of the first argument the function accepts
      * @param <U> The type of the second argument the function accepts
      * @param <R> The return type of the function
@@ -152,8 +152,8 @@ public class Failable {
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param function the function to apply
-     * @param input the input to apply {@code function} on
+     * @param function The function to apply
+     * @param input The input to apply {@code function} on
      * @param <T> The type of the argument the function accepts
      * @param <R> The return type of the function
      * @param <E> The type of checked exception the function may throw
@@ -166,9 +166,9 @@ public class Failable {
     /**
      * Applies a function and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param function the function to apply
-     * @param left the first input to apply {@code function} on
-     * @param right the second input to apply {@code function} on
+     * @param function The function to apply
+     * @param left The first input to apply {@code function} on
+     * @param right The second input to apply {@code function} on
      * @param <E> The type of checked exception the function may throw
      * @return The value returned from the function
      */
@@ -287,7 +287,7 @@ public class Failable {
      *
      * @param <T> The type of the first argument of the consumers
      * @param <U> The type of the second argument of the consumers
-     * @param consumer a failable {@link BiConsumer}
+     * @param consumer A failable {@link BiConsumer}
      * @return A standard {@link BiConsumer}
      */
     public static <T, U> BiConsumer<T, U> asBiConsumer(final FailableBiConsumer<T, U, ?> consumer) {
@@ -300,7 +300,7 @@ public class Failable {
      * @param <T> The type of the first argument of the input of the functions
      * @param <U> The type of the second argument of the input of the functions
      * @param <R> The type of the output of the functions
-     * @param function a {@link FailableBiFunction}
+     * @param function A {@link FailableBiFunction}
      * @return A standard {@link BiFunction}
      */
     public static <T, U, R> BiFunction<T, U, R> asBiFunction(final FailableBiFunction<T, U, R, ?> function) {
@@ -312,7 +312,7 @@ public class Failable {
      *
      * @param <T> The type of the first argument used by the predicates
      * @param <U> The type of the second argument used by the predicates
-     * @param predicate a {@link FailableBiPredicate}
+     * @param predicate A {@link FailableBiPredicate}
      * @return A standard {@link BiPredicate}
      */
     public static <T, U> BiPredicate<T, U> asBiPredicate(final FailableBiPredicate<T, U, ?> predicate) {
@@ -323,7 +323,7 @@ public class Failable {
      * Converts the given {@link FailableCallable} into a standard {@link Callable}.
      *
      * @param <V> The type used by the callables
-     * @param callable a {@link FailableCallable}
+     * @param callable A {@link FailableCallable}
      * @return A standard {@link Callable}
      */
     public static <V> Callable<V> asCallable(final FailableCallable<V, ?> callable) {
@@ -334,7 +334,7 @@ public class Failable {
      * Converts the given {@link FailableConsumer} into a standard {@link Consumer}.
      *
      * @param <T> The type used by the consumers
-     * @param consumer a {@link FailableConsumer}
+     * @param consumer A {@link FailableConsumer}
      * @return A standard {@link Consumer}
      */
     public static <T> Consumer<T> asConsumer(final FailableConsumer<T, ?> consumer) {
@@ -346,7 +346,7 @@ public class Failable {
      *
      * @param <T> The type of the input of the functions
      * @param <R> The type of the output of the functions
-     * @param function a {code FailableFunction}
+     * @param function A {code FailableFunction}
      * @return A standard {@link Function}
      */
     public static <T, R> Function<T, R> asFunction(final FailableFunction<T, R, ?> function) {
@@ -357,7 +357,7 @@ public class Failable {
      * Converts the given {@link FailablePredicate} into a standard {@link Predicate}.
      *
      * @param <T> The type used by the predicates
-     * @param predicate a {@link FailablePredicate}
+     * @param predicate A {@link FailablePredicate}
      * @return A standard {@link Predicate}
      */
     public static <T> Predicate<T> asPredicate(final FailablePredicate<T, ?> predicate) {
@@ -367,7 +367,7 @@ public class Failable {
     /**
      * Converts the given {@link FailableRunnable} into a standard {@link Runnable}.
      *
-     * @param runnable a {@link FailableRunnable}
+     * @param runnable A {@link FailableRunnable}
      * @return A standard {@link Runnable}
      */
     public static Runnable asRunnable(final FailableRunnable<?> runnable) {
@@ -378,7 +378,7 @@ public class Failable {
      * Converts the given {@link FailableSupplier} into a standard {@link Supplier}.
      *
      * @param <T> The type supplied by the suppliers
-     * @param supplier a {@link FailableSupplier}
+     * @param supplier A {@link FailableSupplier}
      * @return A standard {@link Supplier}
      */
     public static <T> Supplier<T> asSupplier(final FailableSupplier<T, ?> supplier) {
@@ -388,7 +388,7 @@ public class Failable {
     /**
      * Calls a callable and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param callable the callable to call
+     * @param callable The callable to call
      * @param <V> The return type of the callable
      * @param <E> The type of checked exception the callable may throw
      * @return The value returned from the callable
@@ -581,9 +581,9 @@ public class Failable {
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param predicate the predicate to test
-     * @param object1 the first input to test by {@code predicate}
-     * @param object2 the second input to test by {@code predicate}
+     * @param predicate The predicate to test
+     * @param object1 The first input to test by {@code predicate}
+     * @param object2 The second input to test by {@code predicate}
      * @param <T> The type of the first argument the predicate tests
      * @param <U> The type of the second argument the predicate tests
      * @param <E> The type of checked exception the predicate may throw
@@ -597,8 +597,8 @@ public class Failable {
     /**
      * Tests a predicate and rethrows any exception as a {@link RuntimeException}.
      *
-     * @param predicate the predicate to test
-     * @param object the input to test by {@code predicate}
+     * @param predicate The predicate to test
+     * @param object The input to test by {@code predicate}
      * @param <T> The type of argument the predicate tests
      * @param <E> The type of checked exception the predicate may throw
      * @return The boolean value returned by the predicate

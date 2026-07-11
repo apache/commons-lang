@@ -107,7 +107,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         /**
          * Sets the left object.
          *
-         * @param left the left object.
+         * @param left The left object.
          * @return {@code this} instance.
          */
         public Builder<T> setLeft(final T left) {
@@ -118,7 +118,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         /**
          * Sets the right object.
          *
-         * @param right the left object.
+         * @param right The left object.
          * @return {@code this} instance.
          */
         public Builder<T> setRight(final T right) {
@@ -129,7 +129,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         /**
          * Sets the style will to use when outputting the objects, {@code null} uses the default.
          *
-         * @param style the style to use when outputting the objects, {@code null} uses the default.
+         * @param style The style to use when outputting the objects, {@code null} uses the default.
          * @return {@code this} instance.
          */
         public Builder<T> setStyle(final ToStringStyle style) {
@@ -230,8 +230,8 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * </p>
      *
      * @param left  {@code this} object.
-     * @param right the object to diff against.
-     * @param style the style to use when outputting the objects, {@code null} uses the default.
+     * @param right The object to diff against.
+     * @param style The style to use when outputting the objects, {@code null} uses the default.
      * @throws NullPointerException if {@code lhs} or {@code rhs} is {@code null}.
      * @deprecated Use {@link Builder}.
      */
@@ -249,8 +249,8 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * </p>
      *
      * @param left              {@code this} object.
-     * @param right             the object to diff against.
-     * @param style             the style to use when outputting the objects, {@code null} uses the default.
+     * @param right             The object to diff against.
+     * @param style             The style to use when outputting the objects, {@code null} uses the default.
      * @param testObjectsEquals If true, this will test if lhs and rhs are the same or equal. All of the append(fieldName, lhs, rhs) methods will abort without
      *                          creating a field {@link Diff} if the trivially equal test is enabled and returns true. The result of this test is never changed
      *                          throughout the life of this {@link DiffBuilder}.
@@ -281,9 +281,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code boolean}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code boolean}.
-     * @param rhs       the right-hand side {@code boolean}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code boolean}.
+     * @param rhs       The right-hand side {@code boolean}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -294,9 +294,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code boolean[]}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code boolean[]}.
-     * @param rhs       the right-hand side {@code boolean[]}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code boolean[]}.
+     * @param rhs       The right-hand side {@code boolean[]}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -307,9 +307,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code byte}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code byte}.
-     * @param rhs       the right-hand side {@code byte}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code byte}.
+     * @param rhs       The right-hand side {@code byte}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -320,9 +320,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code byte[]}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code byte[]}.
-     * @param rhs       the right-hand side {@code byte[]}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code byte[]}.
+     * @param rhs       The right-hand side {@code byte[]}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -333,9 +333,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code char}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code char}.
-     * @param rhs       the right-hand side {@code char}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code char}.
+     * @param rhs       The right-hand side {@code char}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -346,9 +346,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code char[]}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code char[]}.
-     * @param rhs       the right-hand side {@code char[]}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code char[]}.
+     * @param rhs       The right-hand side {@code char[]}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -380,8 +380,8 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * }
      * </pre>
      *
-     * @param fieldName  the field name.
-     * @param diffResult the {@link DiffResult} to append.
+     * @param fieldName  The field name.
+     * @param diffResult The {@link DiffResult} to append.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null} or diffResult is {@code null}.
      * @since 3.5
@@ -398,9 +398,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code double}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code double}.
-     * @param rhs       the right-hand side {@code double}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code double}.
+     * @param rhs       The right-hand side {@code double}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -412,9 +412,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code double[]}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code double[]}.
-     * @param rhs       the right-hand side {@code double[]}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code double[]}.
+     * @param rhs       The right-hand side {@code double[]}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -425,9 +425,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Test if two {@code float}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code float}.
-     * @param rhs       the right-hand side {@code float}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code float}.
+     * @param rhs       The right-hand side {@code float}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -439,9 +439,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code float[]}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code float[]}.
-     * @param rhs       the right-hand side {@code float[]}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code float[]}.
+     * @param rhs       The right-hand side {@code float[]}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -452,9 +452,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code int}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code int}.
-     * @param rhs       the right-hand side {@code int}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code int}.
+     * @param rhs       The right-hand side {@code int}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -465,9 +465,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code int[]}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code int[]}.
-     * @param rhs       the right-hand side {@code int[]}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code int[]}.
+     * @param rhs       The right-hand side {@code int[]}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -478,9 +478,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code long}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code long}.
-     * @param rhs       the right-hand side {@code long}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code long}.
+     * @param rhs       The right-hand side {@code long}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -491,9 +491,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code long[]}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code long[]}.
-     * @param rhs       the right-hand side {@code long[]}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code long[]}.
+     * @param rhs       The right-hand side {@code long[]}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -504,9 +504,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@link Objects}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@link Object}.
-     * @param rhs       the right-hand side {@link Object}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@link Object}.
+     * @param rhs       The right-hand side {@link Object}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -550,9 +550,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code Object[]}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code Object[]}.
-     * @param rhs       the right-hand side {@code Object[]}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code Object[]}.
+     * @param rhs       The right-hand side {@code Object[]}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -563,9 +563,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code short}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code short}.
-     * @param rhs       the right-hand side {@code short}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code short}.
+     * @param rhs       The right-hand side {@code short}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */
@@ -576,9 +576,9 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Tests if two {@code short[]}s are equal.
      *
-     * @param fieldName the field name.
-     * @param lhs       the left-hand side {@code short[]}.
-     * @param rhs       the right-hand side {@code short[]}.
+     * @param fieldName The field name.
+     * @param lhs       The left-hand side {@code short[]}.
+     * @param rhs       The right-hand side {@code short[]}.
      * @return {@code this} instance.
      * @throws NullPointerException if field name is {@code null}.
      */

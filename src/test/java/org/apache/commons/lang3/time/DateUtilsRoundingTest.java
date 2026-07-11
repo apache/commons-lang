@@ -66,10 +66,10 @@ class DateUtilsRoundingTest extends AbstractLangTest {
      * lastRoundDownDate should round down to roundedDownDate<br>
      * lastRoundDownDate + 1 millisecond should round up to roundedUpDate
      *
-     * @param roundedUpDate the next rounded date after <strong>roundedDownDate</strong> when using <strong>calendarField</strong>
-     * @param roundedDownDate the result if <strong>lastRoundDownDate</strong> was rounded with <strong>calendarField</strong>
+     * @param roundedUpDate The next rounded date after <strong>roundedDownDate</strong> when using <strong>calendarField</strong>
+     * @param roundedDownDate The result if <strong>lastRoundDownDate</strong> was rounded with <strong>calendarField</strong>
      * @param lastRoundDownDate rounding this value with <strong>calendarField</strong> will result in <strong>roundedDownDate</strong>
-     * @param calendarField a Calendar.field value
+     * @param calendarField A Calendar.field value
      */
     protected void baseRoundTest(final Date roundedUpDate, final Date roundedDownDate, final Date lastRoundDownDate, final int calendarField) {
         final Date firstRoundUpDate = DateUtils.addMilliseconds(lastRoundDownDate, 1);
@@ -118,8 +118,8 @@ class DateUtilsRoundingTest extends AbstractLangTest {
      * lastTruncateDate + 1 millisecond should never round down to truncatedDate
      *
      * @param truncatedDate expected Date when <strong>lastTruncateDate</strong> is truncated with <strong>calendarField</strong>
-     * @param lastTruncateDate the last possible Date which will truncate to <strong>truncatedDate</strong> with <strong>calendarField</strong>
-     * @param calendarField a Calendar.field value
+     * @param lastTruncateDate The last possible Date which will truncate to <strong>truncatedDate</strong> with <strong>calendarField</strong>
+     * @param calendarField A Calendar.field value
      */
     protected void baseTruncateTest(final Date truncatedDate, final Date lastTruncateDate, final int calendarField) {
         final Date nextTruncateDate = DateUtils.addMilliseconds(lastTruncateDate, 1);
@@ -167,9 +167,9 @@ class DateUtilsRoundingTest extends AbstractLangTest {
      * Any January 1 could be considered as the ultimate extreme.
      * Instead of comparing the results if the input has a difference of 1 millisecond we check the output to be exactly January first.
      *
-     * @param minDate the lower bound
-     * @param maxDate the upper bound
-     * @param calendarField a Calendar.field value
+     * @param minDate The lower bound
+     * @param maxDate The upper bound
+     * @param calendarField A Calendar.field value
      */
     protected void roundToJanuaryFirst(final Date minDate, final Date maxDate, final int calendarField) {
         assertEquals(januaryOneDate, DateUtils.round(januaryOneDate, calendarField),

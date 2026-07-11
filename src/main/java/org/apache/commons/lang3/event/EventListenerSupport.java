@@ -110,8 +110,8 @@ public class EventListenerSupport<L> implements Serializable {
          * Calls listeners in the order added to the underlying {@link List}.
          * </p>
          *
-         * @param unusedProxy the proxy object representing a listener on which the invocation was called; not used
-         * @param method the listener method that will be called on all of the listeners.
+         * @param unusedProxy The proxy object representing a listener on which the invocation was called; not used
+         * @param method The listener method that will be called on all of the listeners.
          * @param args event arguments to propagate to the listeners.
          * @return The result of the method call
          * @throws InvocationTargetException if an error occurs
@@ -140,7 +140,7 @@ public class EventListenerSupport<L> implements Serializable {
      * listener type.
      *
      * @param <T> The type of the listener interface
-     * @param listenerInterface the type of listener interface that will receive
+     * @param listenerInterface The type of listener interface that will receive
      *        events posted using this class.
      *
      * @return An EventListenerSupport object which supports the specified
@@ -183,7 +183,7 @@ public class EventListenerSupport<L> implements Serializable {
      * Constructs an EventListenerSupport object which supports the provided
      * listener interface.
      *
-     * @param listenerInterface the type of listener interface that will receive
+     * @param listenerInterface The type of listener interface that will receive
      *        events posted using this class.
      *
      * @throws NullPointerException if {@code listenerInterface} is
@@ -200,8 +200,8 @@ public class EventListenerSupport<L> implements Serializable {
      * listener interface using the specified class loader to create the JDK
      * dynamic proxy.
      *
-     * @param listenerInterface the listener interface.
-     * @param classLoader       the class loader.
+     * @param listenerInterface The listener interface.
+     * @param classLoader       The class loader.
      * @throws NullPointerException if {@code listenerInterface} or
      *         {@code classLoader} is {@code null}.
      * @throws IllegalArgumentException if {@code listenerInterface} is
@@ -221,7 +221,7 @@ public class EventListenerSupport<L> implements Serializable {
      * Listeners are called in the order added.
      * </p>
      *
-     * @param listener the event listener (may not be {@code null}).
+     * @param listener The event listener (may not be {@code null}).
      * @throws NullPointerException if {@code listener} is {@code null}.
      */
     public void addListener(final L listener) {
@@ -234,8 +234,8 @@ public class EventListenerSupport<L> implements Serializable {
      * Listeners are called in the order added.
      * </p>
      *
-     * @param listener       the event listener (may not be {@code null}).
-     * @param allowDuplicate the flag for determining if duplicate listener objects are allowed to be registered.
+     * @param listener       The event listener (may not be {@code null}).
+     * @param allowDuplicate The flag for determining if duplicate listener objects are allowed to be registered.
      *
      * @throws NullPointerException if {@code listener} is {@code null}.
      * @since 3.5
@@ -260,8 +260,8 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Creates the proxy object.
      *
-     * @param listenerInterface the class of the listener interface
-     * @param classLoader the class loader to be used
+     * @param listenerInterface The class of the listener interface
+     * @param classLoader The class loader to be used
      */
     private void createProxy(final Class<L> listenerInterface, final ClassLoader classLoader) {
         proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader, new Class[] { listenerInterface }, createInvocationHandler()));
@@ -302,8 +302,8 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Initializes transient fields.
      *
-     * @param listenerInterface the class of the listener interface
-     * @param classLoader the class loader to be used
+     * @param listenerInterface The class of the listener interface
+     * @param classLoader The class loader to be used
      */
     private void initializeTransientFields(final Class<L> listenerInterface, final ClassLoader classLoader) {
         // Will throw CCE here if not correct
@@ -314,7 +314,7 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Deserializes the next object into this instance.
      *
-     * @param objectInputStream the input stream.
+     * @param objectInputStream The input stream.
      * @throws IOException if an IO error occurs.
      * @throws ClassNotFoundException if the class cannot be resolved.
      */
@@ -330,7 +330,7 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Removes an event listener.
      *
-     * @param listener the event listener (may not be {@code null}).
+     * @param listener The event listener (may not be {@code null}).
      * @throws NullPointerException if {@code listener} is
      *         {@code null}.
      */
@@ -341,7 +341,7 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Serializes this instance onto the given ObjectOutputStream.
      *
-     * @param objectOutputStream the output stream
+     * @param objectOutputStream The output stream
      * @throws IOException if an IO error occurs
      */
     private void writeObject(final ObjectOutputStream objectOutputStream) throws IOException {

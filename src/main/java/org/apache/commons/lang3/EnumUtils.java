@@ -85,8 +85,8 @@ public class EnumUtils {
      * <p>Do not use this method if you have more than 64 values in your Enum, as this
      * would create a value greater than a long can hold.</p>
      *
-     * @param enumClass the class of the enum we are working with, not {@code null}.
-     * @param values    the values we want to convert, not {@code null}.
+     * @param enumClass The class of the enum we are working with, not {@code null}.
+     * @param values    The values we want to convert, not {@code null}.
      * @param <E>       the type of the enumeration.
      * @return A long whose value provides a binary representation of the given set of enum values.
      * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}.
@@ -108,8 +108,8 @@ public class EnumUtils {
      * <p>Do not use this method if you have more than 64 values in your Enum, as this
      * would create a value greater than a long can hold.</p>
      *
-     * @param enumClass the class of the enum we are working with, not {@code null}.
-     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}.
+     * @param enumClass The class of the enum we are working with, not {@code null}.
+     * @param values    The values we want to convert, not {@code null}, neither containing {@code null}.
      * @param <E>       the type of the enumeration.
      * @return A long whose value provides a binary representation of the given set of enum values.
      * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}.
@@ -136,8 +136,8 @@ public class EnumUtils {
      *
      * <p>Use this method if you have more than 64 values in your Enum.</p>
      *
-     * @param enumClass the class of the enum we are working with, not {@code null}.
-     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}.
+     * @param enumClass The class of the enum we are working with, not {@code null}.
+     * @param values    The values we want to convert, not {@code null}, neither containing {@code null}.
      * @param <E>       the type of the enumeration.
      * @return A long[] whose values provide a binary representation of the given set of enum values
      *         with the least significant digits rightmost.
@@ -166,8 +166,8 @@ public class EnumUtils {
      *
      * <p>Use this method if you have more than 64 values in your Enum.</p>
      *
-     * @param enumClass the class of the enum we are working with, not {@code null}.
-     * @param values    the values we want to convert, not {@code null}, neither containing {@code null}.
+     * @param enumClass The class of the enum we are working with, not {@code null}.
+     * @param values    The values we want to convert, not {@code null}, neither containing {@code null}.
      * @param <E>       the type of the enumeration.
      * @return A long[] whose values provide a binary representation of the given set of enum values
      *         with the least significant digits rightmost.
@@ -195,8 +195,8 @@ public class EnumUtils {
      * for an invalid enum name.</p>
      *
      * @param <E> The type of the enumeration.
-     * @param enumClass  the class of the enum to query, not null.
-     * @param enumName   the enum name, null returns null.
+     * @param enumClass  The class of the enum to query, not null.
+     * @param enumName   The enum name, null returns null.
      * @return The enum, null if not found.
      */
     public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName) {
@@ -210,9 +210,9 @@ public class EnumUtils {
      * for an invalid enum name.</p>
      *
      * @param <E> The type of the enumeration.
-     * @param enumClass   the class of the enum to query, null returns default enum.
-     * @param enumName    the enum name, null returns default enum.
-     * @param defaultEnum the default enum.
+     * @param enumClass   The class of the enum to query, null returns default enum.
+     * @param enumName    The enum name, null returns default enum.
+     * @param defaultEnum The default enum.
      * @return The enum, default enum if not found.
      * @since 3.10
      */
@@ -234,8 +234,8 @@ public class EnumUtils {
      * for an invalid enum name and performs case insensitive matching of the name.</p>
      *
      * @param <E>         the type of the enumeration.
-     * @param enumClass   the class of the enum to query, may be null.
-     * @param enumName    the enum name, null returns null.
+     * @param enumClass   The class of the enum to query, may be null.
+     * @param enumName    The enum name, null returns null.
      * @return The enum, null if not found.
      * @since 3.8
      */
@@ -250,9 +250,9 @@ public class EnumUtils {
      * for an invalid enum name and performs case insensitive matching of the name.</p>
      *
      * @param <E>         the type of the enumeration.
-     * @param enumClass   the class of the enum to query, null returns default enum.
-     * @param enumName    the enum name, null returns default enum.
-     * @param defaultEnum the default enum.
+     * @param enumClass   The class of the enum to query, null returns default enum.
+     * @param enumName    The enum name, null returns default enum.
+     * @param defaultEnum The default enum.
      * @return The enum, default enum if not found.
      * @since 3.10
      */
@@ -267,7 +267,7 @@ public class EnumUtils {
      * <p>This method is useful when you need a list of enums rather than an array.</p>
      *
      * @param <E> The type of the enumeration.
-     * @param enumClass  the class of the enum to query, not null.
+     * @param enumClass  The class of the enum to query, not null.
      * @return The modifiable list of enums, never null.
      */
     public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
@@ -280,7 +280,7 @@ public class EnumUtils {
      * <p>This method is useful when you need a map of enums by name.</p>
      *
      * @param <E> The type of the enumeration.
-     * @param enumClass  the class of the enum to query, not null.
+     * @param enumClass  The class of the enum to query, not null.
      * @return The modifiable map of enum names to enums, never null.
      */
     public static <E extends Enum<E>> Map<String, E> getEnumMap(final Class<E> enumClass) {
@@ -296,8 +296,8 @@ public class EnumUtils {
      *
      * @param <E>         the type of enumeration.
      * @param <K>         the type of the map key.
-     * @param enumClass   the class of the enum to query, not null.
-     * @param keyFunction the function to query for the key, not null.
+     * @param enumClass   The class of the enum to query, not null.
+     * @param keyFunction The function to query for the key, not null.
      * @return The modifiable map of enums, never null.
      * @since 3.13.0
      */
@@ -316,9 +316,9 @@ public class EnumUtils {
      * </p>
      *
      * @param <E>         the type of the enumeration.
-     * @param enumClass   the class of the enum to query, not null.
-     * @param propName    the system property key for the enum name, null returns default enum.
-     * @param defaultEnum the default enum.
+     * @param enumClass   The class of the enum to query, not null.
+     * @param propName    The system property key for the enum name, null returns default enum.
+     * @param defaultEnum The default enum.
      * @return The enum, default enum if not found.
      * @since 3.13.0
      */
@@ -335,10 +335,10 @@ public class EnumUtils {
      * </p>
      *
      * @param <E>           the type of the enumeration.
-     * @param enumClass     the class of the enum to query, not null.
-     * @param value         the enum name, null returns default enum.
-     * @param toIntFunction the function that gets an int for an enum for comparison to {@code value}.
-     * @param defaultEnum   the default enum.
+     * @param enumClass     The class of the enum to query, not null.
+     * @param value         The enum name, null returns default enum.
+     * @param toIntFunction The function that gets an int for an enum for comparison to {@code value}.
+     * @param defaultEnum   The default enum.
      * @return An enum, default enum if not found.
      * @since 3.18.0
      */
@@ -356,10 +356,10 @@ public class EnumUtils {
      * for an invalid enum name and performs case insensitive matching of the name.</p>
      *
      * @param <E>         the type of the enumeration.
-     * @param enumClass   the class of the enum to query, null returns default enum.
-     * @param enumName    the enum name, null returns default enum.
-     * @param stringFunction the function that gets the string for an enum for comparison to {@code enumName}.
-     * @param defaultEnum the default enum.
+     * @param enumClass   The class of the enum to query, null returns default enum.
+     * @param enumName    The enum name, null returns default enum.
+     * @param stringFunction The function that gets the string for an enum for comparison to {@code enumName}.
+     * @param defaultEnum The default enum.
      * @return An enum, default enum if not found.
      * @since 3.13.0
      */
@@ -383,8 +383,8 @@ public class EnumUtils {
      * </p>
      *
      * @param <E>       the type of the enumeration.
-     * @param enumClass the class of the enum to query, null returns false.
-     * @param enumName  the enum name, null returns false.
+     * @param enumClass The class of the enum to query, null returns false.
+     * @param enumName  The enum name, null returns false.
      * @return true if the enum name is valid, otherwise false.
      */
     public static <E extends Enum<E>> boolean isValidEnum(final Class<E> enumClass, final String enumName) {
@@ -400,8 +400,8 @@ public class EnumUtils {
      * </p>
      *
      * @param <E>       the type of the enumeration.
-     * @param enumClass the class of the enum to query, null returns false.
-     * @param enumName  the enum name, null returns false.
+     * @param enumClass The class of the enum to query, null returns false.
+     * @param enumName  The enum name, null returns false.
      * @return true if the enum name is valid, otherwise false.
      * @since 3.8
      */
@@ -415,8 +415,8 @@ public class EnumUtils {
      *
      * <p>If you store this value, beware any changes to the enum that would affect ordinal values.</p>
      *
-     * @param enumClass the class of the enum we are working with, not {@code null}.
-     * @param value     the long value representation of a set of enum values.
+     * @param enumClass The class of the enum we are working with, not {@code null}.
+     * @param value     The long value representation of a set of enum values.
      * @param <E>       the type of the enumeration.
      * @return A set of enum values.
      * @throws NullPointerException if {@code enumClass} is {@code null}.
@@ -433,8 +433,8 @@ public class EnumUtils {
      *
      * <p>If you store this value, beware any changes to the enum that would affect ordinal values.</p>
      *
-     * @param enumClass the class of the enum we are working with, not {@code null}.
-     * @param values     the long[] bearing the representation of a set of enum values, the least significant digits rightmost, not {@code null}.
+     * @param enumClass The class of the enum we are working with, not {@code null}.
+     * @param values     The long[] bearing the representation of a set of enum values, the least significant digits rightmost, not {@code null}.
      * @param <E>       the type of the enumeration.
      * @return A set of enum values.
      * @throws NullPointerException if {@code enumClass} is {@code null}.
@@ -458,7 +458,7 @@ public class EnumUtils {
      * Returns a sequential ordered stream whose elements are the given class' enum values.
      *
      * @param <T>   the type of stream elements.
-     * @param clazz the class containing the enum values, may be null.
+     * @param clazz The class containing the enum values, may be null.
      * @return The new stream, empty of {@code clazz} is null.
      * @since 3.18.0
      * @see Class#getEnumConstants()

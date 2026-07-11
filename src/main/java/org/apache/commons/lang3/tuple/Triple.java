@@ -71,9 +71,9 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param <L> The left element type.
      * @param <M> The middle element type.
      * @param <R> The right element type.
-     * @param left  the left element, may be null.
-     * @param middle the middle element, may be null.
-     * @param right  the right element, may be null.
+     * @param left  The left element, may be null.
+     * @param middle The middle element, may be null.
+     * @param right  The right element, may be null.
      * @return An immutable triple formed from the three parameters, not null.
      */
     public static <L, M, R> Triple<L, M, R> of(final L left, final M middle, final R right) {
@@ -86,9 +86,9 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param <L> The left element type.
      * @param <M> The middle element type.
      * @param <R> The right element type.
-     * @param left  the left element, may not be null.
-     * @param middle  the middle element, may not be null.
-     * @param right  the right element, may not be null.
+     * @param left  The left element, may not be null.
+     * @param middle  The middle element, may not be null.
+     * @param right  The right element, may not be null.
      * @return An immutable triple formed from the three parameters, not null.
      * @throws NullPointerException if any input is null.
      * @since 3.13.0
@@ -109,7 +109,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * finally the right element.
      * The types must be {@link Comparable}.
      *
-     * @param other  the other triple, not null.
+     * @param other  The other triple, not null.
      * @return negative if this is less, zero if equal, positive if greater.
      */
     @Override
@@ -122,7 +122,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     /**
      * Compares this triple to another based on the three elements.
      *
-     * @param obj  the object to compare to, null returns false.
+     * @param obj  The object to compare to, null returns false.
      * @return true if the elements of the triple are equal.
      */
     @Override
@@ -192,7 +192,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * element, {@code %2$s} for the middle and {@code %3$s} for the right element.
      * The default format used by {@code toString()} is {@code (%1$s,%2$s,%3$s)}.</p>
      *
-     * @param format  the format string, optionally containing {@code %1$s}, {@code %2$s} and {@code %3$s}, not null.
+     * @param format  The format string, optionally containing {@code %1$s}, {@code %2$s} and {@code %3$s}, not null.
      * @return The formatted string, not null.
      */
     public String toString(final String format) {

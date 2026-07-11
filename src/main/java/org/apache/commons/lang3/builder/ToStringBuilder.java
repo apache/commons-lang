@@ -120,7 +120,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
         /**
          * Sets the {@link StringBuffer} to populate, may be null.
          *
-         * @param buffer the {@link StringBuffer} to populate, may be null
+         * @param buffer The {@link StringBuffer} to populate, may be null
          * @return {@code this} builder instance.
          */
         public Builder setBuffer(final StringBuffer buffer) {
@@ -131,7 +131,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
         /**
          * Sets the Object to build a {@code toString} for, not recommended to be null.
          *
-         * @param object the Object to build a {@code toString} for, not recommended to be null.
+         * @param object The Object to build a {@code toString} for, not recommended to be null.
          * @return {@code this} builder instance.
          */
         public Builder setObject(final Object object) {
@@ -142,7 +142,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
         /**
          * Sets the style of the {@code toString} to create, null uses the default style.
          *
-         * @param style the style of the {@code toString} to create, null uses the default style
+         * @param style The style of the {@code toString} to create, null uses the default style
          * @return {@code this} builder instance.
          */
         public Builder setStyle(final ToStringStyle style) {
@@ -192,7 +192,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Uses {@link ReflectionToStringBuilder} to generate a
      * {@code toString} for the specified object.
      *
-     * @param object  the Object to be output
+     * @param object  The Object to be output
      * @return The String result
      * @see ReflectionToStringBuilder#toString(Object)
      */
@@ -204,8 +204,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Uses {@link ReflectionToStringBuilder} to generate a
      * {@code toString} for the specified object.
      *
-     * @param object  the Object to be output
-     * @param style  the style of the {@code toString} to create, may be {@code null}
+     * @param object  The Object to be output
+     * @param style  The style of the {@code toString} to create, may be {@code null}
      * @return The String result
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle)
      */
@@ -217,8 +217,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Uses {@link ReflectionToStringBuilder} to generate a
      * {@code toString} for the specified object.
      *
-     * @param object  the Object to be output
-     * @param style  the style of the {@code toString} to create, may be {@code null}
+     * @param object  The Object to be output
+     * @param style  The style of the {@code toString} to create, may be {@code null}
      * @param outputTransients  whether to include transient fields
      * @return The String result
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean)
@@ -232,10 +232,10 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code toString} for the specified object.
      *
      * @param <T> The type of the object
-     * @param object  the Object to be output
-     * @param style  the style of the {@code toString} to create, may be {@code null}
+     * @param object  The Object to be output
+     * @param style  The style of the {@code toString} to create, may be {@code null}
      * @param outputTransients  whether to include transient fields
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be {@code null}
+     * @param reflectUpToClass  The superclass to reflect up to (inclusive), may be {@code null}
      * @return The String result
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean,boolean,Class)
      * @since 2.0
@@ -260,7 +260,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Internally, a {@code volatile} variable is used to provide the guarantee
      * that the latest value set is the value returned from {@link #getDefaultStyle}.</p>
      *
-     * @param style  the default {@link ToStringStyle}
+     * @param style  The default {@link ToStringStyle}
      * @throws NullPointerException if the style is {@code null}
      */
     public static void setDefaultStyle(final ToStringStyle style) {
@@ -295,7 +295,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      *
      * <p>This default style is obtained from {@link #getDefaultStyle()}.</p>
      *
-     * @param object  the Object to build a {@code toString} for, not recommended to be null
+     * @param object  The Object to build a {@code toString} for, not recommended to be null
      */
     public ToStringBuilder(final Object object) {
         this(object, null, null);
@@ -306,8 +306,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      *
      * <p>If the style is {@code null}, the default style is used.</p>
      *
-     * @param object  the Object to build a {@code toString} for, not recommended to be null
-     * @param style  the style of the {@code toString} to create, null uses the default style
+     * @param object  The Object to build a {@code toString} for, not recommended to be null
+     * @param style  The style of the {@code toString} to create, null uses the default style
      */
     public ToStringBuilder(final Object object, final ToStringStyle style) {
         this(object, style, null);
@@ -320,9 +320,9 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      *
      * <p>If the buffer is {@code null}, a new one is created.</p>
      *
-     * @param object  the Object to build a {@code toString} for, not recommended to be null
-     * @param style  the style of the {@code toString} to create, null uses the default style
-     * @param buffer  the {@link StringBuffer} to populate, may be null
+     * @param object  The Object to build a {@code toString} for, not recommended to be null
+     * @param style  The style of the {@code toString} to create, null uses the default style
+     * @param buffer  The {@link StringBuffer} to populate, may be null
      */
     public ToStringBuilder(final Object object, final ToStringStyle style, final StringBuffer buffer) {
         this(builder().setObject(object).setStyle(style).setBuffer(buffer));
@@ -332,7 +332,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code boolean}
      * value.
      *
-     * @param value  the value to add to the {@code toString}
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final boolean value) {
@@ -344,7 +344,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code boolean}
      * array.
      *
-     * @param array  the array to add to the {@code toString}
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final boolean[] array) {
@@ -356,7 +356,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code byte}
      * value.
      *
-     * @param value  the value to add to the {@code toString}
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final byte value) {
@@ -368,7 +368,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code byte}
      * array.
      *
-     * @param array  the array to add to the {@code toString}
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final byte[] array) {
@@ -380,7 +380,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code char}
      * value.
      *
-     * @param value  the value to add to the {@code toString}
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final char value) {
@@ -392,7 +392,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code char}
      * array.
      *
-     * @param array  the array to add to the {@code toString}
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final char[] array) {
@@ -404,7 +404,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code double}
      * value.
      *
-     * @param value  the value to add to the {@code toString}
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final double value) {
@@ -416,7 +416,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code double}
      * array.
      *
-     * @param array  the array to add to the {@code toString}
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final double[] array) {
@@ -428,7 +428,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code float}
      * value.
      *
-     * @param value  the value to add to the {@code toString}
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final float value) {
@@ -440,7 +440,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code float}
      * array.
      *
-     * @param array  the array to add to the {@code toString}
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final float[] array) {
@@ -452,7 +452,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@code int}
      * value.
      *
-     * @param value  the value to add to the {@code toString}
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final int value) {
@@ -464,7 +464,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@code int}
      * array.
      *
-     * @param array  the array to add to the {@code toString}
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final int[] array) {
@@ -476,7 +476,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code long}
      * value.
      *
-     * @param value  the value to add to the {@code toString}
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final long value) {
@@ -488,7 +488,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code long}
      * array.
      *
-     * @param array  the array to add to the {@code toString}
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final long[] array) {
@@ -500,7 +500,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@link Object}
      * value.
      *
-     * @param obj  the value to add to the {@code toString}
+     * @param obj  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final Object obj) {
@@ -512,7 +512,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@link Object}
      * array.
      *
-     * @param array  the array to add to the {@code toString}
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final Object[] array) {
@@ -524,7 +524,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code short}
      * value.
      *
-     * @param value  the value to add to the {@code toString}
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final short value) {
@@ -536,7 +536,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code short}
      * array.
      *
-     * @param array  the array to add to the {@code toString}
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final short[] array) {
@@ -548,8 +548,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code boolean}
      * value.
      *
-     * @param fieldName  the field name
-     * @param value  the value to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final boolean value) {
@@ -561,8 +561,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code boolean}
      * array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code hashCode}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code hashCode}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final boolean[] array) {
@@ -579,8 +579,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code false} will output a summary, typically the size of
      * the array.</p>
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
      * @return {@code this} instance.
@@ -594,8 +594,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@code byte}
      * value.
      *
-     * @param fieldName  the field name
-     * @param value  the value to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final byte value) {
@@ -606,8 +606,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Appends to the {@code toString} a {@code byte} array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final byte[] array) {
@@ -624,8 +624,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code false} will output a summary, typically the size of
      * the array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
      * @return {@code this} instance.
@@ -639,8 +639,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code char}
      * value.
      *
-     * @param fieldName  the field name
-     * @param value  the value to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final char value) {
@@ -652,8 +652,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code char}
      * array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final char[] array) {
@@ -670,8 +670,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code false} will output a summary, typically the size of
      * the array.</p>
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
      * @return {@code this} instance.
@@ -685,8 +685,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code double}
      * value.
      *
-     * @param fieldName  the field name
-     * @param value  the value to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final double value) {
@@ -698,8 +698,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code double}
      * array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final double[] array) {
@@ -716,8 +716,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code false} will output a summary, typically the size of
      * the array.</p>
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
      * @return {@code this} instance.
@@ -731,8 +731,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@code float}
      * value.
      *
-     * @param fieldName  the field name
-     * @param value  the value to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final float value) {
@@ -744,8 +744,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code float}
      * array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final float[] array) {
@@ -762,8 +762,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code false} will output a summary, typically the size of
      * the array.</p>
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
      * @return {@code this} instance.
@@ -777,8 +777,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@code int}
      * value.
      *
-     * @param fieldName  the field name
-     * @param value  the value to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final int value) {
@@ -790,8 +790,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@code int}
      * array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final int[] array) {
@@ -808,8 +808,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code false} will output a summary, typically the size of
      * the array.</p>
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
      * @return {@code this} instance.
@@ -823,8 +823,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code long}
      * value.
      *
-     * @param fieldName  the field name
-     * @param value  the value to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final long value) {
@@ -836,8 +836,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code long}
      * array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final long[] array) {
@@ -854,8 +854,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code false} will output a summary, typically the size of
      * the array.</p>
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
      * @return {@code this} instance.
@@ -869,8 +869,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@link Object}
      * value.
      *
-     * @param fieldName  the field name
-     * @param obj  the value to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param obj  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final Object obj) {
@@ -882,8 +882,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@link Object}
      * value.
      *
-     * @param fieldName  the field name
-     * @param obj  the value to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param obj  The value to add to the {@code toString}
      * @param fullDetail  {@code true} for detail,
      *  {@code false} for summary info
      * @return {@code this} instance.
@@ -897,8 +897,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@link Object}
      * array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final Object[] array) {
@@ -915,8 +915,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code false} will output a summary, typically the size of
      * the array.</p>
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
      * @return {@code this} instance.
@@ -930,8 +930,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@code short}
      * value.
      *
-     * @param fieldName  the field name
-     * @param value  the value to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param value  The value to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final short value) {
@@ -943,8 +943,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code short}
      * array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final short[] array) {
@@ -961,8 +961,8 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code false} will output a summary, typically the size of
      * the array.
      *
-     * @param fieldName  the field name
-     * @param array  the array to add to the {@code toString}
+     * @param fieldName  The field name
+     * @param array  The array to add to the {@code toString}
      * @param fullDetail  {@code true} for detail, {@code false}
      *  for summary info
      * @return {@code this} instance.
@@ -977,7 +977,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * } method. Appends the class name followed by
      * {@link System#identityHashCode(Object)}.
      *
-     * @param srcObject  the {@link Object} whose class name and id to output
+     * @param srcObject  The {@link Object} whose class name and id to output
      * @return {@code this} instance.
      * @throws NullPointerException if {@code srcObject} is {@code null}
      * @since 2.0
@@ -995,7 +995,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      *
      * <p>If {@code superToString} is {@code null}, no change is made.</p>
      *
-     * @param superToString  the result of {@code super.toString()}
+     * @param superToString  The result of {@code super.toString()}
      * @return {@code this} instance.
      * @since 2.0
      */
@@ -1029,7 +1029,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      *
      * <p>If the {@code toString} is {@code null}, no change is made.</p>
      *
-     * @param toString  the result of {@code toString()} on another object
+     * @param toString  The result of {@code toString()} on another object
      * @return {@code this} instance.
      * @since 2.0
      */

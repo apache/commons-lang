@@ -107,7 +107,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         /**
          * Sets the DiffBuilder.
          *
-         * @param diffBuilder the DiffBuilder.
+         * @param diffBuilder The DiffBuilder.
          * @return {@code this} instance.
          */
         public Builder<T> setDiffBuilder(final DiffBuilder<T> diffBuilder) {
@@ -157,8 +157,8 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Constructs a new instance.
      *
-     * @param diffBuilder a non-null DiffBuilder.
-     * @param excludeFieldNames a non-null String array.
+     * @param diffBuilder A non-null DiffBuilder.
+     * @param excludeFieldNames A non-null String array.
      * @throw NullPointerException Thrown on null input.
      */
     private ReflectionDiffBuilder(final DiffBuilder<T> diffBuilder, final String[] excludeFieldNames) {
@@ -175,8 +175,8 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      * </p>
      *
      * @param left  {@code this} object.
-     * @param right the object to diff against.
-     * @param style the style will use when outputting the objects, {@code null} uses the default
+     * @param right The object to diff against.
+     * @param style The style will use when outputting the objects, {@code null} uses the default
      * @throws IllegalArgumentException if {@code left} or {@code right} is {@code null}.
      * @deprecated Use {@link Builder}.
      */
@@ -250,8 +250,8 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Reads a {@link Field}, forcing access if needed.
      *
-     * @param field  the field to use.
-     * @param target the object to call on, may be {@code null} for {@code static} fields.
+     * @param field  The field to use.
+     * @param target The object to call on, may be {@code null} for {@code static} fields.
      * @return The field value.
      * @throws NullPointerException   if the field is {@code null}.
      * @throws IllegalAccessException if the field is not made accessible.

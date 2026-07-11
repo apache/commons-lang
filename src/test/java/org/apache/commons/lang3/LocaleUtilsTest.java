@@ -125,8 +125,8 @@ class LocaleUtilsTest extends AbstractLangTest {
     /**
      * Helper method for local lookups.
      *
-     * @param locale  the input locale
-     * @param defaultLocale  the input default locale
+     * @param locale  The input locale
+     * @param defaultLocale  The input default locale
      * @param expected  expected results
      */
     private static void assertLocaleLookupList(final Locale locale, final Locale defaultLocale, final Locale[] expected) {
@@ -140,7 +140,7 @@ class LocaleUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * @param coll  the collection to check
+     * @param coll  The collection to check
      */
     private static void assertUnmodifiableCollection(final Collection<?> coll) {
         assertThrows(UnsupportedOperationException.class, () -> coll.add(null));
@@ -149,7 +149,7 @@ class LocaleUtilsTest extends AbstractLangTest {
     /**
      * Pass in a valid language, test toLocale.
      *
-     * @param language  the language string
+     * @param language  The language string
      */
     private static void assertValidToLocale(final String language) {
         final Locale locale = LocaleUtils.toLocale(language);

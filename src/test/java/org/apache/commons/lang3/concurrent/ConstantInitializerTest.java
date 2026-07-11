@@ -39,8 +39,8 @@ class ConstantInitializerTest extends AbstractLangTest {
     /**
      * Helper method for testing equals() and hashCode().
      *
-     * @param obj the object to compare with the test instance
-     * @param expected the expected result
+     * @param obj The object to compare with the test instance
+     * @param expected The expected result
      */
     private void checkEquals(final Object obj, final boolean expected) {
         assertEquals(expected, init.equals(obj), "Wrong result of equals");

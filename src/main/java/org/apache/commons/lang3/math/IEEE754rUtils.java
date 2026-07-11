@@ -32,7 +32,7 @@ public class IEEE754rUtils {
      /**
      * Returns the maximum value in an array.
      *
-     * @param array  an array, must not be null or empty.
+     * @param array  An array, must not be null or empty.
      * @return The maximum value in the array.
      * @throws NullPointerException if {@code array} is {@code null}.
      * @throws IllegalArgumentException if {@code array} is empty.
@@ -87,7 +87,7 @@ public class IEEE754rUtils {
     /**
      * Returns the maximum value in an array.
      *
-     * @param array  an array, must not be null or empty.
+     * @param array  An array, must not be null or empty.
      * @return The maximum value in the array.
      * @throws NullPointerException if {@code array} is {@code null}.
      * @throws IllegalArgumentException if {@code array} is empty.
@@ -142,7 +142,7 @@ public class IEEE754rUtils {
     /**
      * Returns the minimum value in an array.
      *
-     * @param array  an array, must not be null or empty.
+     * @param array  An array, must not be null or empty.
      * @return The minimum value in the array.
      * @throws NullPointerException if {@code array} is {@code null}.
      * @throws IllegalArgumentException if {@code array} is empty.
@@ -197,7 +197,7 @@ public class IEEE754rUtils {
     /**
      * Returns the minimum value in an array.
      *
-     * @param array  an array, must not be null or empty.
+     * @param array  An array, must not be null or empty.
      * @return The minimum value in the array.
      * @throws NullPointerException if {@code array} is {@code null}.
      * @throws IllegalArgumentException if {@code array} is empty.

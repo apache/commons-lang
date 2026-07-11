@@ -92,7 +92,7 @@ class ObjectUtilsTest extends AbstractLangTest {
         /**
          * Create a new NonComparableCharSequence instance.
          *
-         * @param value the CharSequence value
+         * @param value The CharSequence value
          */
         NonComparableCharSequence(final String value) {
             Validate.notNull(value);

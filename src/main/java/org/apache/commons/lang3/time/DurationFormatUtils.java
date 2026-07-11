@@ -120,7 +120,7 @@ public class DurationFormatUtils {
          *
          * @param value value to wrap, non-null.
          * @param optional whether the token is optional.
-         * @param optionalIndex the index of the optional token within the pattern.
+         * @param optionalIndex The index of the optional token within the pattern.
          */
         Token(final CharSequence value, final boolean optional, final int optionalIndex) {
             this.value = Objects.requireNonNull(value, "value");
@@ -234,14 +234,14 @@ public class DurationFormatUtils {
     /**
      * The internal method to do the formatting.
      *
-     * @param tokens  the tokens.
-     * @param years  the number of years.
-     * @param months  the number of months.
-     * @param days  the number of days.
-     * @param hours  the number of hours.
-     * @param minutes  the number of minutes.
-     * @param seconds  the number of seconds.
-     * @param milliseconds  the number of milliseconds.
+     * @param tokens  The tokens.
+     * @param years  The number of years.
+     * @param months  The number of months.
+     * @param days  The number of days.
+     * @param hours  The number of hours.
+     * @param minutes  The number of minutes.
+     * @param seconds  The number of seconds.
+     * @param milliseconds  The number of milliseconds.
      * @param padWithZeros  whether to pad.
      * @return The formatted string.
      */
@@ -342,8 +342,8 @@ public class DurationFormatUtils {
      * This method formats durations using the days and lower fields of the format pattern. Months and larger are not used.
      * </p>
      *
-     * @param durationMillis the duration to format.
-     * @param format         the way in which to format the duration, not null.
+     * @param durationMillis The duration to format.
+     * @param format         The way in which to format the duration, not null.
      * @return The formatted duration, not null.
      * @throws IllegalArgumentException if durationMillis is negative.
      */
@@ -357,8 +357,8 @@ public class DurationFormatUtils {
      * This method formats durations using the days and lower fields of the format pattern. Months and larger are not used.
      * </p>
      *
-     * @param durationMillis the duration to format.
-     * @param format         the way in which to format the duration, not null.
+     * @param durationMillis The duration to format.
+     * @param format         The way in which to format the duration, not null.
      * @param padWithZeros   whether to pad the left-hand side side of numbers with 0's.
      * @return The formatted duration, not null.
      * @throws IllegalArgumentException if durationMillis is negative.
@@ -396,7 +396,7 @@ public class DurationFormatUtils {
      * The format used is ISO 8601-like: {@code HH:mm:ss.SSS}.
      * </p>
      *
-     * @param durationMillis the duration to format.
+     * @param durationMillis The duration to format.
      * @return The formatted duration, not null.
      * @throws IllegalArgumentException if durationMillis is negative.
      */
@@ -413,7 +413,7 @@ public class DurationFormatUtils {
      * This method formats durations using the days and lower fields of the ISO format pattern, such as P7D6TH5M4.321S.
      * </p>
      *
-     * @param durationMillis the duration to format.
+     * @param durationMillis The duration to format.
      * @return The formatted duration, not null.
      * @throws IllegalArgumentException if durationMillis is negative.
      */
@@ -427,7 +427,7 @@ public class DurationFormatUtils {
      * This method formats durations using the days and lower fields of the format pattern. Months and larger are not used.
      * </p>
      *
-     * @param durationMillis               the elapsed time to report in milliseconds.
+     * @param durationMillis               The elapsed time to report in milliseconds.
      * @param suppressLeadingZeroElements  suppresses leading 0 elements.
      * @param suppressTrailingZeroElements suppresses trailing 0 elements.
      * @return The formatted text in days/hours/minutes/seconds, not null.
@@ -493,9 +493,9 @@ public class DurationFormatUtils {
     /**
      * Formats the time gap as a string, using the specified format. Padding the left-hand side side of numbers with zeroes is optional.
      *
-     * @param startMillis the start of the duration.
-     * @param endMillis   the end of the duration.
-     * @param format      the way in which to format the duration, not null.
+     * @param startMillis The start of the duration.
+     * @param endMillis   The end of the duration.
+     * @param format      The way in which to format the duration, not null.
      * @return The formatted duration, not null.
      * @throws IllegalArgumentException if startMillis is greater than endMillis.
      */
@@ -516,11 +516,11 @@ public class DurationFormatUtils {
      * For more control, the <a href="https://www.joda.org/joda-time/">Joda-Time</a> library is recommended.
      * </p>
      *
-     * @param startMillis  the start of the duration.
-     * @param endMillis    the end of the duration.
-     * @param format       the way in which to format the duration, not null.
+     * @param startMillis  The start of the duration.
+     * @param endMillis    The end of the duration.
+     * @param format       The way in which to format the duration, not null.
      * @param padWithZeros whether to pad the left-hand side side of numbers with 0's.
-     * @param timezone     the millis are defined in.
+     * @param timezone     The millis are defined in.
      * @return The formatted duration, not null.
      * @throws IllegalArgumentException if startMillis is greater than endMillis.
      */
@@ -638,8 +638,8 @@ public class DurationFormatUtils {
      * The format used is the ISO 8601 period format.
      * </p>
      *
-     * @param startMillis the start of the duration to format.
-     * @param endMillis   the end of the duration to format.
+     * @param startMillis The start of the duration to format.
+     * @param endMillis   The end of the duration to format.
      * @return The formatted duration, not null.
      * @throws IllegalArgumentException if startMillis is greater than endMillis.
      */
@@ -650,7 +650,7 @@ public class DurationFormatUtils {
     /**
      * Parses a classic date format string into Tokens
      *
-     * @param format  the format to parse, not null.
+     * @param format  The format to parse, not null.
      * @return array of Token[].
      */
     static Token[] lexx(final String format) {
@@ -763,9 +763,9 @@ public class DurationFormatUtils {
     /**
      * Converts a {@code long} to a {@link String} with optional zero padding.
      *
-     * @param value        the value to convert.
+     * @param value        The value to convert.
      * @param padWithZeros whether to pad with zeroes.
-     * @param count        the size to pad to (ignored if {@code padWithZeros} is false).
+     * @param count        The size to pad to (ignored if {@code padWithZeros} is false).
      * @return The string result.
      */
     private static String paddedValue(final long value, final boolean padWithZeros, final int count) {

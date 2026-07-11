@@ -245,7 +245,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Is the character specified contained in this range.
      *
-     * @param ch  the character to check.
+     * @param ch  The character to check.
      * @return {@code true} if this range contains the input character.
      */
     public boolean contains(final char ch) {
@@ -256,7 +256,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * Are all the characters of the passed in range contained in
      * this range.
      *
-     * @param range  the range to check against.
+     * @param range  The range to check against.
      * @return {@code true} if this range entirely contains the input range.
      * @throws NullPointerException if {@code null} input.
      */
@@ -278,7 +278,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * Compares two CharRange objects, returning true if they represent
      * exactly the same range of characters defined in the same way.
      *
-     * @param obj  the object to compare to.
+     * @param obj  The object to compare to.
      * @return true if equal.
      */
     @Override

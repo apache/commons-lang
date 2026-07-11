@@ -64,7 +64,7 @@ public abstract class Strings {
         /**
          * Sets the ignoreCase property for new Strings instances.
          *
-         * @param ignoreCase the ignoreCase property for new Strings instances.
+         * @param ignoreCase The ignoreCase property for new Strings instances.
          * @return {@code this} instance.
          */
         public Builder setIgnoreCase(final boolean ignoreCase) {
@@ -75,7 +75,7 @@ public abstract class Strings {
         /**
          * Sets the nullIsLess property for new Strings instances.
          *
-         * @param nullIsLess the nullIsLess property for new Strings instances.
+         * @param nullIsLess The nullIsLess property for new Strings instances.
          * @return {@code this} instance.
          */
         public Builder setNullIsLess(final boolean nullIsLess) {
@@ -494,8 +494,8 @@ public abstract class Strings {
      * }</pre>
      *
      * @see String#compareTo(String)
-     * @param str1 the String to compare from
-     * @param str2 the String to compare to
+     * @param str1 The String to compare from
+     * @param str2 The String to compare to
      * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal or greater than {@code str2}
      */
     public abstract int compare(String str1, String str2);
@@ -534,8 +534,8 @@ public abstract class Strings {
      * Strings.CI.contains("abc", "Z") = false
      * </pre>
      *
-     * @param seq       the CharSequence to check, may be null
-     * @param searchSeq the CharSequence to find, may be null
+     * @param seq       The CharSequence to check, may be null
+     * @param searchSeq The CharSequence to find, may be null
      * @return true if the CharSequence contains the search CharSequence, false if not or {@code null} string input
      */
     public abstract boolean contains(CharSequence seq, CharSequence searchSeq);
@@ -614,8 +614,8 @@ public abstract class Strings {
      * Strings.CI.endsWith("ABCDEF", "cde") = false
      * </pre>
      *
-     * @param str    the CharSequence to check, may be null.
-     * @param suffix the suffix to find, may be null.
+     * @param str    The CharSequence to check, may be null.
+     * @param suffix The suffix to find, may be null.
      * @return {@code true} if the CharSequence starts with the prefix or both {@code null}.
      * @see String#endsWith(String)
      */
@@ -648,8 +648,8 @@ public abstract class Strings {
      * Strings.CS.endsWithAny("abcXYZ", "def", "xyz")      = false
      * </pre>
      *
-     * @param sequence      the CharSequence to check, may be null
-     * @param searchStrings the CharSequence suffixes to find, may be empty or contain {@code null}
+     * @param sequence      The CharSequence to check, may be null
+     * @param searchStrings The CharSequence suffixes to find, may be empty or contain {@code null}
      * @see Strings#endsWith(CharSequence, CharSequence)
      * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} ends in any
      *         of the provided {@code searchStrings}.
@@ -696,8 +696,8 @@ public abstract class Strings {
      * Strings.CI.equals("abc", "ABC") = true
      * </pre>
      *
-     * @param cs1 the first CharSequence, may be {@code null}
-     * @param cs2 the second CharSequence, may be {@code null}
+     * @param cs1 The first CharSequence, may be {@code null}
+     * @param cs2 The second CharSequence, may be {@code null}
      * @return {@code true} if the CharSequences are equal or both {@code null}
      * @see Object#equals(Object)
      * @see String#compareTo(String)
@@ -735,8 +735,8 @@ public abstract class Strings {
      * Strings.CI.equals("abc", "ABC") = true
      * </pre>
      *
-     * @param str1 the first CharSequence, may be {@code null}
-     * @param str2 the second CharSequence, may be {@code null}
+     * @param str1 The first CharSequence, may be {@code null}
+     * @param str2 The second CharSequence, may be {@code null}
      * @return {@code true} if the CharSequences are equal or both {@code null}
      * @see Object#equals(Object)
      * @see String#compareTo(String)
@@ -774,7 +774,7 @@ public abstract class Strings {
      * </pre>
      *
      * @param string        to compare, may be {@code null}.
-     * @param searchStrings a vararg of strings, may be {@code null}.
+     * @param searchStrings A vararg of strings, may be {@code null}.
      * @return {@code true} if the string is equal to any other element of {@code searchStrings}; {@code false} if {@code searchStrings} is
      *         null or contains no matches.
      */
@@ -824,8 +824,8 @@ public abstract class Strings {
      * Strings.CI.indexOf("aabaabaa", "ab") = 1
      * </pre>
      *
-     * @param seq       the CharSequence to check, may be null
-     * @param searchSeq the CharSequence to find, may be null
+     * @param seq       The CharSequence to check, may be null
+     * @param searchSeq The CharSequence to find, may be null
      * @return The first index of the search CharSequence, -1 if no match or {@code null} string input
      */
     public int indexOf(final CharSequence seq, final CharSequence searchSeq) {
@@ -876,9 +876,9 @@ public abstract class Strings {
      * Strings.CI.indexOf("abc", "", 9)        = -1
      * </pre>
      *
-     * @param seq       the CharSequence to check, may be null
-     * @param searchSeq the CharSequence to find, may be null
-     * @param startPos  the start position, negative treated as zero
+     * @param seq       The CharSequence to check, may be null
+     * @param searchSeq The CharSequence to find, may be null
+     * @param startPos  The start position, negative treated as zero
      * @return The first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input
      */
     public abstract int indexOf(CharSequence seq, CharSequence searchSeq, int startPos);
@@ -933,8 +933,8 @@ public abstract class Strings {
      * Strings.CI.lastIndexOf("aabaabaa", "AB") = 4
      * </pre>
      *
-     * @param str       the CharSequence to check, may be null
-     * @param searchStr the CharSequence to find, may be null
+     * @param str       The CharSequence to check, may be null
+     * @param searchStr The CharSequence to find, may be null
      * @return The last index of the search String, -1 if no match or {@code null} string input
      */
     public int lastIndexOf(final CharSequence str, final CharSequence searchStr) {
@@ -987,9 +987,9 @@ public abstract class Strings {
      * Strings.CI.lastIndexOf("aabaabaa", "B", 0)  = -1
      * </pre>
      *
-     * @param seq       the CharSequence to check, may be null
-     * @param searchSeq the CharSequence to find, may be null
-     * @param startPos  the start position, negative treated as zero
+     * @param seq       The CharSequence to check, may be null
+     * @param searchSeq The CharSequence to find, may be null
+     * @param startPos  The start position, negative treated as zero
      * @return The last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} string input
      */
     public abstract int lastIndexOf(CharSequence seq, CharSequence searchSeq, int startPos);
@@ -1110,8 +1110,8 @@ public abstract class Strings {
      * Strings.CI.remove("queued", "zZ") = "queued"
      * </pre>
      *
-     * @param str    the source String to search, may be null
-     * @param remove the String to search for and remove, may be null
+     * @param str    The source String to search, may be null
+     * @param remove The String to search for and remove, may be null
      * @return The substring with the string removed if found, {@code null} if null String input
      */
     public String remove(final String str, final String remove) {
@@ -1155,8 +1155,8 @@ public abstract class Strings {
      * Strings.CI.removeEnd("www.domain.COM", ".com") = "www.domain")
      * </pre>
      *
-     * @param str    the source String to search, may be null
-     * @param remove the String to search for and remove, may be null
+     * @param str    The source String to search, may be null
+     * @param remove The String to search for and remove, may be null
      * @return The substring with the string removed if found, {@code null} if null String input
      */
     public String removeEnd(final String str, final CharSequence remove) {
@@ -1205,8 +1205,8 @@ public abstract class Strings {
      * Strings.CI.removeStart("abc", "")    = "abc"
      * </pre>
      *
-     * @param str    the source String to search, may be null
-     * @param remove the String to search for and remove, may be null
+     * @param str    The source String to search, may be null
+     * @param remove The String to search for and remove, may be null
      * @return The substring with the string removed if found, {@code null} if null String input
      */
     public String removeStart(final String str, final CharSequence remove) {
@@ -1254,8 +1254,8 @@ public abstract class Strings {
      *
      * @see #replace(String text, String searchString, String replacement, int max)
      * @param text         text to search and replace in, may be null
-     * @param searchString the String to search for, may be null
-     * @param replacement  the String to replace it with, may be null
+     * @param searchString The String to search for, may be null
+     * @param replacement  The String to replace it with, may be null
      * @return The text with any replacements processed, {@code null} if null String input
      */
     public String replace(final String text, final String searchString, final String replacement) {
@@ -1307,8 +1307,8 @@ public abstract class Strings {
      * </pre>
      *
      * @param text         text to search and replace in, may be null
-     * @param searchString the String to search for, may be null
-     * @param replacement  the String to replace it with, may be null
+     * @param searchString The String to search for, may be null
+     * @param replacement  The String to replace it with, may be null
      * @param max          maximum number of values to replace, or {@code -1} if no maximum
      * @return The text with any replacements processed, {@code null} if null String input
      */
@@ -1375,8 +1375,8 @@ public abstract class Strings {
      *
      * @see #replace(String text, String searchString, String replacement, int max)
      * @param text         text to search and replace in, may be null
-     * @param searchString the String to search for, may be null
-     * @param replacement  the String to replace with, may be null
+     * @param searchString The String to search for, may be null
+     * @param replacement  The String to replace with, may be null
      * @return The text with any replacements processed, {@code null} if null String input
      */
     public String replaceOnce(final String text, final String searchString, final String replacement) {
@@ -1415,8 +1415,8 @@ public abstract class Strings {
      * </pre>
      *
      * @see String#startsWith(String)
-     * @param str    the CharSequence to check, may be null
-     * @param prefix the prefix to find, may be null
+     * @param str    The CharSequence to check, may be null
+     * @param prefix The prefix to find, may be null
      * @return {@code true} if the CharSequence starts with the prefix or both {@code null}
      */
     public boolean startsWith(final CharSequence str, final CharSequence prefix) {
@@ -1463,8 +1463,8 @@ public abstract class Strings {
      * Strings.CI.startsWithAny("ABCXYZ", null, "xyz", "abc") = true
      * </pre>
      *
-     * @param sequence      the CharSequence to check, may be null
-     * @param searchStrings the CharSequence prefixes, may be empty or contain {@code null}
+     * @param sequence      The CharSequence to check, may be null
+     * @param searchStrings The CharSequence prefixes, may be empty or contain {@code null}
      * @see Strings#startsWith(CharSequence, CharSequence)
      * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} begins with
      *         any of the provided {@code searchStrings}.

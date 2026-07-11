@@ -125,8 +125,8 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
     /**
      * Constructs a new instance.
      *
-     * @param initializer the initializer supplier called by {@link #initialize()}.
-     * @param closer the closer consumer called by {@link #close()}.
+     * @param initializer The initializer supplier called by {@link #initialize()}.
+     * @param closer The closer consumer called by {@link #close()}.
      */
     private LazyInitializer(final FailableSupplier<T, ConcurrentException> initializer, final FailableConsumer<T, ConcurrentException> closer) {
         super(initializer, closer);

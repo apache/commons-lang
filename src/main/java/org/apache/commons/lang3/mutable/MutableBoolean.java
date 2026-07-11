@@ -56,7 +56,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Constructs a new MutableBoolean with the specified value.
      *
-     * @param value  the initial value to store
+     * @param value  The initial value to store
      */
     public MutableBoolean(final boolean value) {
         this.value = value;
@@ -65,7 +65,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Constructs a new MutableBoolean with the specified value.
      *
-     * @param value  the initial value to store, not null
+     * @param value  The initial value to store, not null
      * @throws NullPointerException if the object is null
      */
     public MutableBoolean(final Boolean value) {
@@ -84,7 +84,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Compares this mutable to another in ascending order.
      *
-     * @param other  the other mutable to compare to, not null
+     * @param other  The other mutable to compare to, not null
      * @return negative if this is less, zero if equal, positive if greater
      *  where false is less than true
      */
@@ -98,7 +98,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * not {@code null} and is an {@link MutableBoolean} object that contains the same
      * {@code boolean} value as this object.
      *
-     * @param obj  the object to compare with, null returns false
+     * @param obj  The object to compare with, null returns false
      * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
@@ -172,7 +172,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Sets the value.
      *
-     * @param value  the value to set
+     * @param value  The value to set
      */
     public void setValue(final boolean value) {
         this.value = value;
@@ -181,7 +181,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Sets the value from any Boolean instance.
      *
-     * @param value  the value to set, not null
+     * @param value  The value to set, not null
      * @throws NullPointerException if the object is null
      */
     @Override

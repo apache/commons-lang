@@ -73,8 +73,8 @@ public class MethodUtils {
      * Computes the aggregate number of inheritance hops between assignable argument class types.  Returns -1
      * if the arguments aren't assignable.  Fills a specific purpose for getMatchingMethod and is not generalized.
      *
-     * @param fromClassArray the Class array to calculate the distance from.
-     * @param toClassArray the Class array to calculate the distance to.
+     * @param fromClassArray The Class array to calculate the distance from.
+     * @param toClassArray The Class array to calculate the distance to.
      * @return The aggregate number of inheritance hops between assignable argument class types.
      */
     private static int distance(final Class<?>[] fromClassArray, final Class<?>[] toClassArray) {
@@ -222,7 +222,7 @@ public class MethodUtils {
      * Gets a combination of {@link ClassUtils#getAllSuperclasses(Class)} and {@link ClassUtils#getAllInterfaces(Class)}, one from superclasses, one from
      * interfaces, and so on in a breadth first way.
      *
-     * @param cls the class to look up, may be {@code null}.
+     * @param cls The class to look up, may be {@code null}.
      * @return The combined {@link List} of superclasses and interfaces in order going up from this one {@code null} if null input.
      */
     private static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
@@ -256,8 +256,8 @@ public class MethodUtils {
      * </p>
      *
      * @param <A>           the annotation type.
-     * @param method        the {@link Method} to query, may be null.
-     * @param annotationCls the {@link Annotation} to check if is present on the method.
+     * @param method        The {@link Method} to query, may be null.
+     * @param annotationCls The {@link Annotation} to check if is present on the method.
      * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class is performed if the annotation was not directly
      *                      present.
      * @param ignoreAccess  determines if underlying method has to be accessible.
@@ -455,8 +455,8 @@ public class MethodUtils {
      * Gets a Method, or {@code null} if a checked {@link Class#getMethod(String, Class...) } exception is thrown.
      *
      * @param cls            Receiver for {@link Class#getMethod(String, Class...)}.
-     * @param name           the name of the method.
-     * @param parameterTypes the list of parameters.
+     * @param name           The name of the method.
+     * @param parameterTypes The list of parameters.
      * @return A Method or {@code null}.
      * @see SecurityManager#checkPermission
      * @see Class#getMethod(String, Class...)
@@ -473,8 +473,8 @@ public class MethodUtils {
     /**
      * Gets all class level public methods of the given class that are annotated with the given annotation.
      *
-     * @param cls           the {@link Class} to query.
-     * @param annotationCls the {@link Annotation} that must be present on a method to be matched.
+     * @param cls           The {@link Class} to query.
+     * @param annotationCls The {@link Annotation} that must be present on a method to be matched.
      * @return A list of Methods (possibly empty).
      * @throws NullPointerException if the class or annotation are {@code null}.
      * @since 3.4
@@ -486,8 +486,8 @@ public class MethodUtils {
     /**
      * Gets all methods of the given class that are annotated with the given annotation.
      *
-     * @param cls           the {@link Class} to query.
-     * @param annotationCls the {@link Annotation} that must be present on a method to be matched.
+     * @param cls           The {@link Class} to query.
+     * @param annotationCls The {@link Annotation} that must be present on a method to be matched.
      * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class should be performed.
      * @param ignoreAccess  determines if non-public methods should be considered.
      * @return A list of Methods (possibly empty).
@@ -511,8 +511,8 @@ public class MethodUtils {
     /**
      * Gets all class level public methods of the given class that are annotated with the given annotation.
      *
-     * @param cls           the {@link Class} to query.
-     * @param annotationCls the {@link java.lang.annotation.Annotation} that must be present on a method to be matched.
+     * @param cls           The {@link Class} to query.
+     * @param annotationCls The {@link java.lang.annotation.Annotation} that must be present on a method to be matched.
      * @return An array of Methods (possibly empty).
      * @throws NullPointerException if the class or annotation are {@code null}
      * @since 3.4
@@ -524,8 +524,8 @@ public class MethodUtils {
     /**
      * Gets all methods of the given class that are annotated with the given annotation.
      *
-     * @param cls           the {@link Class} to query.
-     * @param annotationCls the {@link java.lang.annotation.Annotation} that must be present on a method to be matched.
+     * @param cls           The {@link Class} to query.
+     * @param annotationCls The {@link java.lang.annotation.Annotation} that must be present on a method to be matched.
      * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class should be performed.
      * @param ignoreAccess  determines if non-public methods should be considered.
      * @return An array of Methods (possibly empty).
@@ -1069,8 +1069,8 @@ public class MethodUtils {
      * We follow the <a href="https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html#jls-5.1.2">JLS 5.1.2. Widening Primitive Conversion</a> rules.
      * </p>
      *
-     * @param args                 the array of arguments passed to the varags method.
-     * @param methodParameterTypes the declared array of method parameter types.
+     * @param args                 The array of arguments passed to the varags method.
+     * @param methodParameterTypes The declared array of method parameter types.
      * @return An array of the variadic arguments passed to the method.
      * @throws NoSuchMethodException       Thrown if the constructor could not be found.
      * @throws IllegalAccessException      Thrown if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is

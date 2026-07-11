@@ -41,9 +41,9 @@ public class EventUtils {
         /**
          * Creates a new instance of {@link EventBindingInvocationHandler}.
          *
-         * @param target the target object for method invocations.
-         * @param methodName the name of the method to be invoked.
-         * @param eventTypes the names of the supported event types.
+         * @param target The target object for method invocations.
+         * @param methodName The name of the method to be invoked.
+         * @param eventTypes The names of the supported event types.
          */
         EventBindingInvocationHandler(final Object target, final String methodName, final String[] eventTypes) {
             this.target = target;
@@ -54,7 +54,7 @@ public class EventUtils {
         /**
          * Checks whether a method for the passed in parameters can be found.
          *
-         * @param method the listener method invoked.
+         * @param method The listener method invoked.
          * @return A flag whether the parameters could be matched.
          */
         private boolean hasMatchingParametersMethod(final Method method) {
@@ -64,9 +64,9 @@ public class EventUtils {
         /**
          * Handles a method invocation on the proxy object.
          *
-         * @param proxy the proxy instance.
-         * @param method the method to be invoked.
-         * @param parameters the parameters for the method invocation.
+         * @param proxy The proxy instance.
+         * @param method The method to be invoked.
+         * @param parameters The parameters for the method invocation.
          * @return The result of the method call.
          * @throws SecurityException if an underlying accessible object's method denies the request.
          * @see SecurityManager#checkPermission
@@ -88,9 +88,9 @@ public class EventUtils {
      * Adds an event listener to the specified source.  This looks for an "add" method corresponding to the event
      * type (addActionListener, for example).
      *
-     * @param eventSource   the event source.
-     * @param listenerType  the event listener type.
-     * @param listener      the listener.
+     * @param eventSource   The event source.
+     * @param listenerType  The event listener type.
+     * @param listener      The listener.
      * @param <L>           the event listener type.
      * @throws IllegalArgumentException if the object doesn't support the listener type.
      */
@@ -108,11 +108,11 @@ public class EventUtils {
      * Binds an event listener to a specific method on a specific object.
      *
      * @param <L>          the event listener type.
-     * @param target       the target object.
-     * @param methodName   the name of the method to be called.
-     * @param eventSource  the object which is generating events (JButton, JList, etc.).
-     * @param listenerType the listener interface (ActionListener.class, SelectionListener.class, etc.).
-     * @param eventTypes   the event types (method names) from the listener interface (if none specified, all will be
+     * @param target       The target object.
+     * @param methodName   The name of the method to be called.
+     * @param eventSource  The object which is generating events (JButton, JList, etc.).
+     * @param listenerType The listener interface (ActionListener.class, SelectionListener.class, etc.).
+     * @param eventTypes   The event types (method names) from the listener interface (if none specified, all will be
      *                     supported).
      */
     public static <L> void bindEventsToMethod(final Object target, final String methodName, final Object eventSource,

@@ -259,7 +259,7 @@ public class Streams {
          *
          * @param <R> The type of the result.
          * @param <A> The intermediate accumulation type of the {@link Collector}.
-         * @param collector the {@link Collector} describing the reduction.
+         * @param collector The {@link Collector} describing the reduction.
          * @return The result of the reduction.
          * @see #collect(Supplier, BiConsumer, BiConsumer)
          * @see Collectors
@@ -312,7 +312,7 @@ public class Streams {
          *
          * @param <R> type of the result.
          * @param <A> Type of the accumulator.
-         * @param supplier a function that creates a new result container. For a
+         * @param supplier A function that creates a new result container. For a
          *                 parallel execution, this function may be called
          *                 multiple times and must return a fresh value each time.
          * @param accumulator An associative, non-interfering, stateless function for
@@ -335,7 +335,7 @@ public class Streams {
          * This is an intermediate operation.
          * </p>
          *
-         * @param predicate a non-interfering, stateless predicate to apply to each
+         * @param predicate A non-interfering, stateless predicate to apply to each
          * element to determine if it should be included.
          * @return The new stream.
          */
@@ -362,7 +362,7 @@ public class Streams {
          * responsible for providing the required synchronization.
          * </p>
          *
-         * @param action a non-interfering action to perform on the elements.
+         * @param action A non-interfering action to perform on the elements.
          */
         public void forEach(final FailableConsumer<O, ?> action) {
             makeTerminated();
@@ -440,8 +440,8 @@ public class Streams {
          * synchronization and with greatly reduced risk of data races.
          * </p>
          *
-         * @param identity the identity value for the accumulating function.
-         * @param accumulator an associative, non-interfering, stateless
+         * @param identity The identity value for the accumulating function.
+         * @param accumulator An associative, non-interfering, stateless
          *                    function for combining two values.
          * @return The result of the reduction.
          */

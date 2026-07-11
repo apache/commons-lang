@@ -163,7 +163,7 @@ public abstract class AbstractReflection {
      * Converters value pair into a register pair.
      *
      * @param lhs {@code this} object.
-     * @param rhs the other object.
+     * @param rhs The other object.
      * @return The pair.
      */
     static Pair<IDKey, IDKey> toRegisterPair(final Object lhs, final Object rhs) {

@@ -46,7 +46,7 @@ public interface Diffable<T> {
      * Retrieves a list of the differences between
      * this object and the supplied object.
      *
-     * @param obj the object to diff against, can be {@code null}
+     * @param obj The object to diff against, can be {@code null}
      * @return A list of differences
      * @throws NullPointerException if the specified object is {@code null}
      */

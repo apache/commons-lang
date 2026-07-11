@@ -68,7 +68,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     /**
      * Returns a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      *
-     * @param other a predicate that will be logically-ANDed with this predicate.
+     * @param other A predicate that will be logically-ANDed with this predicate.
      * @return A composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      * @throws NullPointerException if other is null
      */
@@ -89,7 +89,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     /**
      * Returns a composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      *
-     * @param other a predicate that will be logically-ORed with this predicate.
+     * @param other A predicate that will be logically-ORed with this predicate.
      * @return A composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
      * @throws NullPointerException if other is null
      */
@@ -101,8 +101,8 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
     /**
      * Tests the predicate.
      *
-     * @param object1 the first object to test the predicate on
-     * @param object2 the second object to test the predicate on
+     * @param object1 The first object to test the predicate on
+     * @param object2 The second object to test the predicate on
      * @return The predicate's evaluation
      * @throws E Thrown when this predicate fails.
      */

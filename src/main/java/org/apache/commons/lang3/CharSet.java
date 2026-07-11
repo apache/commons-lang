@@ -233,7 +233,7 @@ public class CharSet implements Serializable {
      *     CharSet.getInstance("^", "a-c").contains('^') = true
      * </pre>
      *
-     * @param ch the character to check.
+     * @param ch The character to check.
      * @return {@code true} if the set contains the characters.
      */
     public boolean contains(final char ch) {
@@ -249,7 +249,7 @@ public class CharSet implements Serializable {
      * <p>The two sets {@code abc} and {@code a-c} are <em>not</em>
      * equal according to this method.</p>
      *
-     * @param obj  the object to compare.
+     * @param obj  The object to compare.
      * @return true if equal.
      * @since 2.0
      */

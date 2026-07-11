@@ -199,7 +199,7 @@ public class LockingVisitors {
             /**
              * Set the lock used from accept methods.
              *
-             * @param lock the lock.
+             * @param lock The lock.
              * @return {@code this} instance.
              */
             public B setLock(final L lock) {
@@ -210,7 +210,7 @@ public class LockingVisitors {
             /**
              * Set the resource.
              *
-             * @param object the resource.
+             * @param object The resource.
              * @return {@code this} instance.
              */
             public B setObject(final O object) {
@@ -516,7 +516,7 @@ public class LockingVisitors {
         /**
          * Constructs a new instance from a builder.
          *
-         * @param builder a builder.
+         * @param builder A builder.
          */
         private ReadWriteLockVisitor(final Builder<O> builder) {
             super(builder);
@@ -526,7 +526,7 @@ public class LockingVisitors {
          * Creates a new instance with the given object and lock.
          *
          * @param object The object to protect. The caller is supposed to drop all references to the locked object.
-         * @param readWriteLock the lock to use.
+         * @param readWriteLock The lock to use.
          * @see LockingVisitors
          */
         protected ReadWriteLockVisitor(final O object, final ReadWriteLock readWriteLock) {
@@ -589,7 +589,7 @@ public class LockingVisitors {
         /**
          * Constructs a new instance from a builder.
          *
-         * @param builder a builder.
+         * @param builder A builder.
          */
         private ReentrantLockVisitor(final Builder<O> builder) {
             super(builder);
@@ -603,7 +603,7 @@ public class LockingVisitors {
          * </p>
          *
          * @param object The object to protect. The caller is supposed to drop all references to the locked object.
-         * @param reentrantLock the lock to use.
+         * @param reentrantLock The lock to use.
          * @see LockingVisitors
          */
         protected ReentrantLockVisitor(final O object, final ReentrantLock reentrantLock) {
@@ -664,7 +664,7 @@ public class LockingVisitors {
         /**
          * Constructs a new instance from a builder.
          *
-         * @param builder a builder.
+         * @param builder A builder.
          */
         private StampedLockVisitor(final Builder<O> builder) {
             super(builder);
@@ -674,7 +674,7 @@ public class LockingVisitors {
          * Creates a new instance with the given object and lock.
          *
          * @param object The object to protect. The caller is supposed to drop all references to the locked object.
-         * @param stampedLock the lock to use.
+         * @param stampedLock The lock to use.
          * @see LockingVisitors
          */
         protected StampedLockVisitor(final O object, final StampedLock stampedLock) {

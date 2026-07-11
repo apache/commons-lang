@@ -220,7 +220,7 @@ public enum JavaVersion {
     /**
      * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
      *
-     * @param versionStr the Java version as string.
+     * @param versionStr The Java version as string.
      * @return The corresponding enumeration constant or {@code null} if the version is unknown.
      */
     static JavaVersion get(final String versionStr) {
@@ -302,7 +302,7 @@ public enum JavaVersion {
     /**
      * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
      *
-     * @param versionStr the Java version as string.
+     * @param versionStr The Java version as string.
      * @return The corresponding enumeration constant or {@code null} if the version is unknown.
      */
     static JavaVersion getJavaVersion(final String versionStr) {
@@ -326,7 +326,7 @@ public enum JavaVersion {
     /**
      * Parses a float value from a String.
      *
-     * @param value the String to parse.
+     * @param value The String to parse.
      * @return The float value represented by the string or -1 if the given String cannot be parsed.
      */
     private static float toFloatVersion(final String value) {
@@ -354,8 +354,8 @@ public enum JavaVersion {
     /**
      * Constructs a new instance.
      *
-     * @param value the float value.
-     * @param name  the standard name, not null.
+     * @param value The float value.
+     * @param name  The standard name, not null.
      */
     JavaVersion(final float value, final String name) {
         this.value = value;
@@ -374,7 +374,7 @@ public enum JavaVersion {
      * myVersion.atLeast(JavaVersion.JAVA_1_8)
      * }</pre>
      *
-     * @param requiredVersion the version to check against, not null.
+     * @param requiredVersion The version to check against, not null.
      * @return true if this version is equal to or greater than the specified version.
      */
     public boolean atLeast(final JavaVersion requiredVersion) {
@@ -393,7 +393,7 @@ public enum JavaVersion {
      * myVersion.atMost(JavaVersion.JAVA_1_4)
      * }</pre>
      *
-     * @param requiredVersion the version to check against, not null.
+     * @param requiredVersion The version to check against, not null.
      * @return true if this version is equal to or greater than the specified version.
      * @since 3.9
      */

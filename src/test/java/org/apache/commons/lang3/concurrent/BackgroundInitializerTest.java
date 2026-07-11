@@ -143,7 +143,7 @@ class BackgroundInitializerTest extends AbstractLangTest {
      * Helper method for checking whether the initialize() method was correctly
      * called. start() must already have been invoked.
      *
-     * @param init the initializer to test.
+     * @param init The initializer to test.
      */
     private void checkInitialize(final AbstractBackgroundInitializerTestImpl init) throws ConcurrentException {
         final Integer result = init.get().getInitializeCalls();

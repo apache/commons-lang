@@ -31,7 +31,7 @@ public class IntStreams {
     /**
      * Null-safe version of {@link IntStream#of(int[])}.
      *
-     * @param values the elements of the new stream, may be {@code null}.
+     * @param values The elements of the new stream, may be {@code null}.
      * @return The new stream on {@code values} or {@link IntStream#empty()}.
      * @since 3.18.0
      */
@@ -43,7 +43,7 @@ public class IntStreams {
     /**
      * Shorthand for {@code IntStream.range(0, i)}.
      *
-     * @param endExclusive the exclusive upper bound.
+     * @param endExclusive The exclusive upper bound.
      * @return A sequential {@link IntStream} for the range of {@code int} elements.
      */
     public static IntStream range(final int endExclusive) {
@@ -53,7 +53,7 @@ public class IntStreams {
     /**
      * Shorthand for {@code IntStream.rangeClosed(0, i)}.
      *
-     * @param endInclusive the inclusive upper bound.
+     * @param endInclusive The inclusive upper bound.
      * @return A sequential {@link IntStream} for the range of {@code int} elements.
      */
     public static IntStream rangeClosed(final int endInclusive) {

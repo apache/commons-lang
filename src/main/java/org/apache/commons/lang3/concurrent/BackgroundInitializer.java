@@ -118,7 +118,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
          * Sets the external executor service for executing tasks. null is a permitted value.
          *
          * @see org.apache.commons.lang3.concurrent.BackgroundInitializer#setExternalExecutor(ExecutorService)
-         * @param externalExecutor the {@link ExecutorService} to be used.
+         * @param externalExecutor The {@link ExecutorService} to be used.
          * @return {@code this} instance.
          */
         public Builder<I, T> setExternalExecutor(final ExecutorService externalExecutor) {
@@ -137,7 +137,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
          * Creates a new instance of {@link InitializationTask} and initializes
          * it with the {@link ExecutorService} to be destroyed at the end.
          *
-         * @param exec the {@link ExecutorService}
+         * @param exec The {@link ExecutorService}
          */
         InitializationTask(final ExecutorService exec) {
             execFinally = exec;
@@ -196,7 +196,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * scheduled at this service. Otherwise a new temporary {@code
      * ExecutorService} is created.
      *
-     * @param exec an external {@link ExecutorService} to be used for task.
+     * @param exec An external {@link ExecutorService} to be used for task.
      * execution
      */
     protected BackgroundInitializer(final ExecutorService exec) {
@@ -206,9 +206,9 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     /**
      * Constructs a new instance.
      *
-     * @param initializer the initializer supplier called by {@link #initialize()}.
-     * @param closer the closer consumer called by {@link #close()}.
-     * @param exec the {@link ExecutorService} to be used @see #setExternalExecutor(ExecutorService)
+     * @param initializer The initializer supplier called by {@link #initialize()}.
+     * @param closer The closer consumer called by {@link #close()}.
+     * @param exec The {@link ExecutorService} to be used @see #setExternalExecutor(ExecutorService)
      */
     private BackgroundInitializer(final FailableSupplier<T, ConcurrentException> initializer, final FailableConsumer<T, ConcurrentException> closer, final ExecutorService exec) {
         super(initializer, closer);
@@ -232,7 +232,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * method. If a temporary {@link ExecutorService} is used, it is destroyed
      * at the end of the task.
      *
-     * @param execDestroy the {@link ExecutorService} to be destroyed by the
+     * @param execDestroy The {@link ExecutorService} to be destroyed by the
      * task.
      * @return A task for the background initialization.
      */
@@ -371,7 +371,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * method must be called before {@link #start()}; otherwise an exception is
      * thrown.
      *
-     * @param externalExecutor the {@link ExecutorService} to be used.
+     * @param externalExecutor The {@link ExecutorService} to be used.
      * @throws IllegalStateException if this initializer has already been
      * started.
      */

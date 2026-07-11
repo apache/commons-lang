@@ -52,7 +52,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Constructs a new MutableInt with the specified value.
      *
-     * @param value  the initial value to store.
+     * @param value  The initial value to store.
      */
     public MutableInt(final int value) {
         this.value = value;
@@ -61,7 +61,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Constructs a new MutableInt with the specified value.
      *
-     * @param value  the initial value to store, not null.
+     * @param value  The initial value to store, not null.
      * @throws NullPointerException if the object is null.
      */
     public MutableInt(final Number value) {
@@ -71,7 +71,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Constructs a new MutableInt parsing the given string.
      *
-     * @param value  the string to parse, not null.
+     * @param value  The string to parse, not null.
      * @throws NumberFormatException if the string cannot be parsed into an int, see {@link Integer#parseInt(String)}.
      * @since 2.5
      */
@@ -82,7 +82,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Adds a value to the value of this instance.
      *
-     * @param operand  the value to add, not null.
+     * @param operand  The value to add, not null.
      * @since 2.2
      */
     public void add(final int operand) {
@@ -92,7 +92,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Adds a value to the value of this instance.
      *
-     * @param operand  the value to add, not null.
+     * @param operand  The value to add, not null.
      * @throws NullPointerException if the object is null.
      * @since 2.2
      */
@@ -104,7 +104,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately after the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
+     * @param operand The quantity to add, not null.
      * @return The value associated with this instance after adding the operand.
      * @since 3.5
      */
@@ -117,7 +117,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately after the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
+     * @param operand The quantity to add, not null.
      * @throws NullPointerException if {@code operand} is null.
      * @return The value associated with this instance after adding the operand.
      * @since 3.5
@@ -130,7 +130,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Compares this mutable to another in ascending order.
      *
-     * @param other  the other mutable to compare to, not null.
+     * @param other  The other mutable to compare to, not null.
      * @return negative if this is less, zero if equal, positive if greater.
      */
     @Override
@@ -174,7 +174,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * not {@code null} and is a {@link MutableInt} object that contains the same {@code int} value
      * as this object.
      *
-     * @param obj  the object to compare with, null returns false.
+     * @param obj  The object to compare with, null returns false.
      * @return {@code true} if the objects are the same; {@code false} otherwise.
      */
     @Override
@@ -199,7 +199,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately prior to the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
+     * @param operand The quantity to add, not null.
      * @return The value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
@@ -213,7 +213,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
      * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
      * immediately prior to the addition operation. This method is not thread safe.
      *
-     * @param operand the quantity to add, not null.
+     * @param operand The quantity to add, not null.
      * @throws NullPointerException if {@code operand} is null.
      * @return The value associated with this instance immediately before the operand was added.
      * @since 3.5
@@ -317,7 +317,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Sets the value.
      *
-     * @param value  the value to set.
+     * @param value  The value to set.
      */
     public void setValue(final int value) {
         this.value = value;
@@ -326,7 +326,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Sets the value from any Number instance.
      *
-     * @param value  the value to set, not null.
+     * @param value  The value to set, not null.
      * @throws NullPointerException if the object is null.
      */
     @Override
@@ -337,7 +337,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Subtracts a value from the value of this instance.
      *
-     * @param operand  the value to subtract, not null.
+     * @param operand  The value to subtract, not null.
      * @since 2.2
      */
     public void subtract(final int operand) {
@@ -347,7 +347,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Subtracts a value from the value of this instance.
      *
-     * @param operand  the value to subtract, not null.
+     * @param operand  The value to subtract, not null.
      * @throws NullPointerException if the object is null.
      * @since 2.2
      */

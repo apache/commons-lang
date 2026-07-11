@@ -31,7 +31,7 @@ public class ArraySorter {
     /**
      * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort (may be null).
+     * @param array The array to sort (may be null).
      * @return The given array.
      * @see Arrays#sort(byte[])
      */
@@ -45,7 +45,7 @@ public class ArraySorter {
     /**
      * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort (may be null).
+     * @param array The array to sort (may be null).
      * @return The given array.
      * @see Arrays#sort(char[])
      */
@@ -59,7 +59,7 @@ public class ArraySorter {
     /**
      * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort (may be null).
+     * @param array The array to sort (may be null).
      * @return The given array.
      * @see Arrays#sort(double[])
      */
@@ -73,7 +73,7 @@ public class ArraySorter {
     /**
      * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort (may be null).
+     * @param array The array to sort (may be null).
      * @return The given array.
      * @see Arrays#sort(float[])
      */
@@ -87,7 +87,7 @@ public class ArraySorter {
     /**
      * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort (may be null).
+     * @param array The array to sort (may be null).
      * @return The given array.
      * @see Arrays#sort(int[])
      */
@@ -101,7 +101,7 @@ public class ArraySorter {
     /**
      * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort (may be null).
+     * @param array The array to sort (may be null).
      * @return The given array.
      * @see Arrays#sort(long[])
      */
@@ -115,7 +115,7 @@ public class ArraySorter {
     /**
      * Sorts the given array into ascending order and returns it.
      *
-     * @param array the array to sort (may be null).
+     * @param array The array to sort (may be null).
      * @return The given array.
      * @see Arrays#sort(short[])
      */
@@ -130,7 +130,7 @@ public class ArraySorter {
      * Sorts the given array into ascending order and returns it.
      *
      * @param <T> The array type.
-     * @param array the array to sort (may be null).
+     * @param array The array to sort (may be null).
      * @return The given array.
      * @see Arrays#sort(Object[])
      */
@@ -145,8 +145,8 @@ public class ArraySorter {
      * Sorts the given array into ascending order and returns it.
      *
      * @param <T> The array type.
-     * @param array the array to sort (may be null).
-     * @param comparator the comparator to determine the order of the array. A {@code null} value uses the elements'
+     * @param array The array to sort (may be null).
+     * @param comparator The comparator to determine the order of the array. A {@code null} value uses the elements'
      *        {@link Comparable natural ordering}.
      * @return The given array.
      * @see Arrays#sort(Object[])

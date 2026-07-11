@@ -218,9 +218,9 @@ class FastDateParserTest extends AbstractLangTest {
      * Override this method in derived tests to change the construction of instances
      *
      * @param dpProvider TODO
-     * @param format the format string to use
-     * @param timeZone the time zone to use
-     * @param locale the locale to use
+     * @param format The format string to use
+     * @param timeZone The time zone to use
+     * @param locale The locale to use
      * @return The DateParser instance to use for testing
      */
     protected DateParser getInstance(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider,

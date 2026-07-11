@@ -47,7 +47,7 @@ public interface FailableLongConsumer<E extends Throwable> {
     /**
      * Accepts the given arguments.
      *
-     * @param object the parameter for the consumable to accept
+     * @param object The parameter for the consumable to accept
      * @throws E Thrown when the consumer fails.
      */
     void accept(long object) throws E;
@@ -55,7 +55,7 @@ public interface FailableLongConsumer<E extends Throwable> {
     /**
      * Returns a composed {@link FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
      *
-     * @param after the operation to perform after this one.
+     * @param after The operation to perform after this one.
      * @return A composed {@link FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
      * @throws NullPointerException if {@code after} is null
      */

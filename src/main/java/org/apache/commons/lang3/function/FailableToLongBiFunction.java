@@ -50,8 +50,8 @@ public interface FailableToLongBiFunction<T, U, E extends Throwable> {
     /**
      * Applies this function to the given arguments.
      *
-     * @param t the first function argument
-     * @param u the second function argument
+     * @param t The first function argument
+     * @param u The second function argument
      * @return The function result
      * @throws E Thrown when the function fails.
      */

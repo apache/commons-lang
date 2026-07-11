@@ -111,7 +111,7 @@ public class ThreadUtils {
         /**
          * Evaluates this predicate on the given thread group.
          *
-         * @param threadGroup the thread group
+         * @param threadGroup The thread group
          * @return {@code true} if the threadGroup matches the predicate, otherwise {@code false}
          */
         boolean test(ThreadGroup threadGroup);
@@ -130,7 +130,7 @@ public class ThreadUtils {
         /**
          * Predicate constructor
          *
-         * @param threadId the threadId to match.
+         * @param threadId The threadId to match.
          * @throws IllegalArgumentException if the threadId is zero or negative.
          */
         public ThreadIdPredicate(final long threadId) {
@@ -159,7 +159,7 @@ public class ThreadUtils {
         /**
          * Evaluates this predicate on the given thread.
          *
-         * @param thread the thread
+         * @param thread The thread
          * @return {@code true} if the thread matches the predicate, otherwise {@code false}
          */
         boolean test(Thread thread);
@@ -235,7 +235,7 @@ public class ThreadUtils {
     /**
      * Finds all active thread groups which match the given predicate.
      *
-     * @param predicate the predicate.
+     * @param predicate The predicate.
      * @return An unmodifiable {@link Collection} of active thread groups matching the given predicate.
      * @throws NullPointerException if the predicate is null.
      * @throws SecurityException    if the current thread cannot access the system thread group.
@@ -249,9 +249,9 @@ public class ThreadUtils {
     /**
      * Finds all active thread groups which match the given predicate and which is a subgroup of the given thread group (or one of its subgroups).
      *
-     * @param threadGroup the thread group.
+     * @param threadGroup The thread group.
      * @param recurse     if {@code true} then evaluate the predicate recursively on all thread groups in all subgroups of the given group.
-     * @param predicate   the predicate.
+     * @param predicate   The predicate.
      * @return An unmodifiable {@link Collection} of active thread groups which match the given predicate and which is a subgroup of the given thread group.
      * @throws NullPointerException if the given group or predicate is null.
      * @throws SecurityException    if the current thread cannot modify thread groups from this thread's thread group up to the system thread group.
@@ -273,9 +273,9 @@ public class ThreadUtils {
     /**
      * Finds all active thread groups which match the given predicate and which is a subgroup of the given thread group (or one of its subgroups).
      *
-     * @param threadGroup the thread group.
+     * @param threadGroup The thread group.
      * @param recurse     if {@code true} then evaluate the predicate recursively on all thread groups in all subgroups of the given group.
-     * @param predicate   the predicate.
+     * @param predicate   The predicate.
      * @return An unmodifiable {@link Collection} of active thread groups which match the given predicate and which is a subgroup of the given thread group.
      * @throws NullPointerException if the given group or predicate is null.
      * @throws SecurityException    if the current thread cannot modify thread groups from this thread's thread group up to the system thread group.
@@ -289,7 +289,7 @@ public class ThreadUtils {
     /**
      * Finds all active thread groups which match the given predicate.
      *
-     * @param predicate the predicate.
+     * @param predicate The predicate.
      * @return An unmodifiable {@link Collection} of active thread groups matching the given predicate.
      * @throws NullPointerException if the predicate is null.
      * @throws SecurityException    if the current thread cannot access the system thread group.
@@ -318,7 +318,7 @@ public class ThreadUtils {
     /**
      * Finds all active threads which match the given predicate.
      *
-     * @param predicate the predicate.
+     * @param predicate The predicate.
      * @return An unmodifiable {@link Collection} of active threads matching the given predicate.
      * @throws NullPointerException if the predicate is null.
      * @throws SecurityException    if the current thread cannot access the system thread group.
@@ -332,9 +332,9 @@ public class ThreadUtils {
     /**
      * Finds all active threads which match the given predicate and which belongs to the given thread group (or one of its subgroups).
      *
-     * @param threadGroup the thread group.
+     * @param threadGroup The thread group.
      * @param recurse     if {@code true} then evaluate the predicate recursively on all threads in all subgroups of the given group.
-     * @param predicate   the predicate.
+     * @param predicate   The predicate.
      * @return An unmodifiable {@link Collection} of active threads which match the given predicate and which belongs to the given thread group.
      * @throws NullPointerException if the given group or predicate is null.
      * @throws SecurityException    if the current thread cannot modify thread groups from this thread's thread group up to the system thread group.
@@ -356,9 +356,9 @@ public class ThreadUtils {
     /**
      * Finds all active threads which match the given predicate and which belongs to the given thread group (or one of its subgroups).
      *
-     * @param threadGroup the thread group.
+     * @param threadGroup The thread group.
      * @param recurse     if {@code true} then evaluate the predicate recursively on all threads in all subgroups of the given group.
-     * @param predicate   the predicate.
+     * @param predicate   The predicate.
      * @return An unmodifiable {@link Collection} of active threads which match the given predicate and which belongs to the given thread group.
      * @throws NullPointerException if the given group or predicate is null.
      * @throws SecurityException    if the current thread cannot modify thread groups from this thread's thread group up to the system thread group.
@@ -372,7 +372,7 @@ public class ThreadUtils {
     /**
      * Finds all active threads which match the given predicate.
      *
-     * @param predicate the predicate.
+     * @param predicate The predicate.
      * @return An unmodifiable {@link Collection} of active threads matching the given predicate.
      * @throws NullPointerException if the predicate is null.
      * @throws SecurityException    if the current thread cannot access the system thread group.
@@ -515,7 +515,7 @@ public class ThreadUtils {
      * The sleep duration may be shorter than the given duration if we catch a {@link InterruptedException}.
      * </p>
      *
-     * @param duration the length of time to sleep.
+     * @param duration The length of time to sleep.
      * @see #sleep(Duration)
      * @see Thread#interrupted()
      * @since 3.13.0

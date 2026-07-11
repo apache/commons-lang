@@ -33,7 +33,7 @@ public class ClassPathUtils {
     /**
      * Converts a package name to a Java path ('/').
      *
-     * @param path the source path.
+     * @param path The source path.
      * @return A package name.
      * @throws NullPointerException if {@code path} is null.
      * @since 3.13.0
@@ -45,7 +45,7 @@ public class ClassPathUtils {
     /**
      * Converts a Java path ('/') to a package name.
      *
-     * @param path the source path.
+     * @param path The source path.
      * @return A package name.
      * @throws NullPointerException if {@code path} is null.
      * @since 3.13.0
@@ -66,7 +66,7 @@ public class ClassPathUtils {
      * </pre>
      *
      * @param context      The context for constructing the name.
-     * @param resourceName the resource name to construct the fully qualified name for.
+     * @param resourceName The resource name to construct the fully qualified name for.
      * @return The fully qualified name of the resource with name {@code resourceName}.
      * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
      */
@@ -88,7 +88,7 @@ public class ClassPathUtils {
      * </pre>
      *
      * @param context      The context for constructing the name.
-     * @param resourceName the resource name to construct the fully qualified name for.
+     * @param resourceName The resource name to construct the fully qualified name for.
      * @return The fully qualified name of the resource with name {@code resourceName}.
      * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
      */
@@ -110,7 +110,7 @@ public class ClassPathUtils {
      * </pre>
      *
      * @param context      The context for constructing the path.
-     * @param resourceName the resource name to construct the fully qualified path for.
+     * @param resourceName The resource name to construct the fully qualified path for.
      * @return The fully qualified path of the resource with name {@code resourceName}.
      * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
      */
@@ -132,7 +132,7 @@ public class ClassPathUtils {
      * </pre>
      *
      * @param context      The context for constructing the path.
-     * @param resourceName the resource name to construct the fully qualified path for.
+     * @param resourceName The resource name to construct the fully qualified path for.
      * @return The fully qualified path of the resource with name {@code resourceName}.
      * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
      */

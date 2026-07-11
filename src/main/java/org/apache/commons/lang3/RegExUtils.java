@@ -96,7 +96,7 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to remove from, may be null.
-     * @param regex  the regular expression to which this string is to be matched.
+     * @param regex  The regular expression to which this string is to be matched.
      * @return  the text with any removes processed,
      *              {@code null} if null String input.
      *
@@ -133,7 +133,7 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to remove from, may be null.
-     * @param regex  the regular expression to which this string is to be matched
+     * @param regex  The regular expression to which this string is to be matched
      * @return  the text with any removes processed,
      *              {@code null} if null String input.
      *
@@ -176,7 +176,7 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to remove from, may be null
-     * @param regex  the regular expression to which this string is to be matched
+     * @param regex  The regular expression to which this string is to be matched
      * @return  the text with any removes processed,
      *              {@code null} if null String input.
      *
@@ -217,7 +217,7 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to remove from, may be null.
-     * @param regex  the regular expression pattern to which this string is to be matched.
+     * @param regex  The regular expression pattern to which this string is to be matched.
      * @return  the text with the first replacement processed,
      *              {@code null} if null String input.
      *
@@ -254,7 +254,7 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to remove from, may be null.
-     * @param regex  the regular expression pattern to which this string is to be matched.
+     * @param regex  The regular expression pattern to which this string is to be matched.
      * @return  the text with the first replacement processed,
      *              {@code null} if null String input.
      *
@@ -297,7 +297,7 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to remove from, may be null.
-     * @param regex  the regular expression to which this string is to be matched.
+     * @param regex  The regular expression to which this string is to be matched.
      * @return  the text with the first replacement processed,
      *              {@code null} if null String input.
      *
@@ -406,8 +406,8 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
-     * @param regex  the regular expression pattern to which this string is to be matched.
-     * @param replacement  the string to be substituted for each match.
+     * @param regex  The regular expression pattern to which this string is to be matched.
+     * @param replacement  The string to be substituted for each match.
      * @return  the text with any replacements processed,
      *              {@code null} if null String input.
      * @see java.util.regex.Matcher#replaceAll(String)
@@ -448,8 +448,8 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
-     * @param regex  the regular expression pattern to which this string is to be matched.
-     * @param replacement  the string to be substituted for each match.
+     * @param regex  The regular expression pattern to which this string is to be matched.
+     * @param replacement  The string to be substituted for each match.
      * @return  the text with any replacements processed,
      *              {@code null} if null String input.
      * @see java.util.regex.Matcher#replaceAll(String)
@@ -495,8 +495,8 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
-     * @param regex  the regular expression to which this string is to be matched.
-     * @param replacement  the string to be substituted for each match.
+     * @param regex  The regular expression to which this string is to be matched.
+     * @param replacement  The string to be substituted for each match.
      * @return  the text with any replacements processed,
      *              {@code null} if null String input.
      * @throws  java.util.regex.PatternSyntaxException
@@ -541,8 +541,8 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
-     * @param regex  the regular expression pattern to which this string is to be matched.
-     * @param replacement  the string to be substituted for the first match
+     * @param regex  The regular expression pattern to which this string is to be matched.
+     * @param replacement  The string to be substituted for the first match
      * @return  the text with the first replacement processed,
      *              {@code null} if null String input.
      * @see java.util.regex.Matcher#replaceFirst(String)
@@ -584,8 +584,8 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
-     * @param regex  the regular expression pattern to which this string is to be matched.
-     * @param replacement  the string to be substituted for the first match.
+     * @param regex  The regular expression pattern to which this string is to be matched.
+     * @param replacement  The string to be substituted for the first match.
      * @return  the text with the first replacement processed,
      *              {@code null} if null String input.
      * @see java.util.regex.Matcher#replaceFirst(String)
@@ -630,8 +630,8 @@ public class RegExUtils {
      * }</pre>
      *
      * @param text  text to search and replace in, may be null.
-     * @param regex  the regular expression to which this string is to be matched.
-     * @param replacement  the string to be substituted for the first match.
+     * @param regex  The regular expression to which this string is to be matched.
+     * @param replacement  The string to be substituted for the first match.
      * @return  the text with the first replacement processed,
      *              {@code null} if null String input.
      * @throws  java.util.regex.PatternSyntaxException

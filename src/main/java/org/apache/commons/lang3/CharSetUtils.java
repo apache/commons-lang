@@ -199,8 +199,8 @@ public class CharSetUtils {
      * </pre>
      *
      * @see CharSet#getInstance(String...) for set-syntax.
-     * @param str  the string to squeeze, may be null
-     * @param set  the character set to use for manipulation, may be null
+     * @param str  The string to squeeze, may be null
+     * @param set  The character set to use for manipulation, may be null
      * @return The modified String, {@code null} if null string input
      */
     public static String squeeze(final String str, final String... set) {

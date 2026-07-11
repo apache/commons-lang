@@ -39,7 +39,7 @@ public class Suppliers {
      * Null-safe call to {@link Supplier#get()}.
      *
      * @param <T> The type of results supplied by this supplier.
-     * @param supplier the supplier or null.
+     * @param supplier The supplier or null.
      * @return Result of {@link Supplier#get()} or null.
      */
     public static <T> T get(final Supplier<T> supplier) {

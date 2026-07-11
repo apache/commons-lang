@@ -199,8 +199,8 @@ class TimedSemaphoreTest extends AbstractLangTest {
     /**
      * Prepares an executor service mock to expect the start of the timer.
      *
-     * @param service the mock
-     * @param future the future
+     * @param service The mock
+     * @param future The future
      */
     private void prepareStartTimer(final ScheduledExecutorService service,
             final ScheduledFuture<?> future) {

@@ -48,7 +48,7 @@ public interface FailableIntFunction<R, E extends Throwable> {
     /**
      * Applies this function.
      *
-     * @param input the input for the function
+     * @param input The input for the function
      * @return The result of the function
      * @throws E Thrown when the function fails.
      */

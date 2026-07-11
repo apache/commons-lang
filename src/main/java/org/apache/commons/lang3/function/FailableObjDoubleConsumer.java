@@ -48,8 +48,8 @@ public interface FailableObjDoubleConsumer<T, E extends Throwable> {
     /**
      * Accepts the given arguments.
      *
-     * @param object the object parameter for the consumable to accept.
-     * @param value the double parameter for the consumable to accept.
+     * @param object The object parameter for the consumable to accept.
+     * @param value The double parameter for the consumable to accept.
      * @throws E Thrown when the consumer fails.
      */
     void accept(T object, double value) throws E;

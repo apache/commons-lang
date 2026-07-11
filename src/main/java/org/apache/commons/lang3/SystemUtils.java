@@ -2120,8 +2120,8 @@ public class SystemUtils {
      * If a {@link SecurityException} is caught, the return value is {@code defaultValue} and a message is written to {@code System.err}.
      * </p>
      *
-     * @param name         the environment variable name.
-     * @param defaultValue the default value.
+     * @param name         The environment variable name.
+     * @param defaultValue The default value.
      * @return The environment variable value or {@code defaultValue} if a security problem occurs.
      * @since 3.8
      */
@@ -2204,7 +2204,7 @@ public class SystemUtils {
      * The result depends on the value of the {@link #JAVA_SPECIFICATION_VERSION} constant.
      * </p>
      *
-     * @param versionPrefix the prefix for the Java version.
+     * @param versionPrefix The prefix for the Java version.
      * @return true if matches, or false if not or can't determine.
      */
     private static boolean getJavaVersionMatches(final String versionPrefix) {
@@ -2220,8 +2220,8 @@ public class SystemUtils {
      * The method returns {@code false} if {@link #OS_NAME} or {@link #OS_VERSION} is {@code null}.
      * </p>
      *
-     * @param osNamePrefix    the prefix for the OS name.
-     * @param osVersionPrefix the prefix for the version.
+     * @param osNamePrefix    The prefix for the OS name.
+     * @param osVersionPrefix The prefix for the version.
      * @return true if matches, or false if not or can't determine.
      */
     private static boolean getOsMatches(final String osNamePrefix, final String osVersionPrefix) {
@@ -2237,7 +2237,7 @@ public class SystemUtils {
      * The method returns {@code false} if {@link #OS_NAME} is {@code null}.
      * </p>
      *
-     * @param osNamePrefix the prefix for the OS name.
+     * @param osNamePrefix The prefix for the OS name.
      * @return true if matches, or false if not or can't determine.
      */
     private static boolean getOsNameMatches(final String osNamePrefix) {
@@ -2362,7 +2362,7 @@ public class SystemUtils {
      * The result is based on the system property saved in {@link #JAVA_SPECIFICATION_VERSION}.
      * </p>
      *
-     * @param requiredVersion the required version, for example 1.31f.
+     * @param requiredVersion The required version, for example 1.31f.
      * @return {@code true} if the actual version is equal or greater than the required version.
      */
     public static boolean isJavaVersionAtLeast(final JavaVersion requiredVersion) {
@@ -2375,7 +2375,7 @@ public class SystemUtils {
      * The result is based on the system property saved in {@link #JAVA_SPECIFICATION_VERSION}.
      * </p>
      *
-     * @param requiredVersion the required version, for example 1.31f.
+     * @param requiredVersion The required version, for example 1.31f.
      * @return {@code true} if the actual version is equal or less than the required version.
      * @since 3.9
      */
@@ -2390,8 +2390,8 @@ public class SystemUtils {
      * This method is package private instead of private to support unit test invocation.
      * </p>
      *
-     * @param version       the actual Java version.
-     * @param versionPrefix the prefix for the expected Java version.
+     * @param version       The actual Java version.
+     * @param versionPrefix The prefix for the expected Java version.
      * @return true if matches, or false if not or can't determine.
      */
     static boolean isJavaVersionMatch(final String version, final String versionPrefix) {
@@ -2407,10 +2407,10 @@ public class SystemUtils {
      * This method is package private instead of private to support unit test invocation.
      * </p>
      *
-     * @param osName          the actual OS name.
-     * @param osVersion       the actual OS version.
-     * @param osNamePrefix    the prefix for the expected OS name.
-     * @param osVersionPrefix the prefix for the expected OS version.
+     * @param osName          The actual OS name.
+     * @param osVersion       The actual OS version.
+     * @param osNamePrefix    The prefix for the expected OS name.
+     * @param osVersionPrefix The prefix for the expected OS version.
      * @return true if matches, or false if not or can't determine.
      */
     static boolean isOsMatch(final String osName, final String osVersion, final String osNamePrefix, final String osVersionPrefix) {
@@ -2426,8 +2426,8 @@ public class SystemUtils {
      * This method is package private instead of private to support unit test invocation.
      * </p>
      *
-     * @param osName       the actual OS name.
-     * @param osNamePrefix the prefix for the expected OS name.
+     * @param osName       The actual OS name.
+     * @param osNamePrefix The prefix for the expected OS name.
      * @return true for a case-insensitive match, or false if not.
      */
     static boolean isOsNameMatch(final String osName, final String osNamePrefix) {
@@ -2443,8 +2443,8 @@ public class SystemUtils {
      * This method is package private instead of private to support unit test invocation.
      * </p>
      *
-     * @param osVersion       the actual OS version.
-     * @param osVersionPrefix the prefix for the expected OS version.
+     * @param osVersion       The actual OS version.
+     * @param osVersionPrefix The prefix for the expected OS version.
      * @return true if matches, or false if not or can't determine.
      */
     static boolean isOsVersionMatch(final String osVersion, final String osVersionPrefix) {

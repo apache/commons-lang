@@ -41,7 +41,7 @@ public interface DatePrinter {
      * The TimeZone specified during the construction of the Parser will determine the TimeZone
      * used in the formatted string.
      *
-     * @param calendar  the calendar to format.
+     * @param calendar  The calendar to format.
      * @return The formatted string.
      */
     String format(Calendar calendar);
@@ -52,8 +52,8 @@ public interface DatePrinter {
      * The TimeZone specified during the construction of the Parser will determine the TimeZone
      * used in the formatted string.
      *
-     * @param calendar  the calendar to format.
-     * @param buf  the buffer to format into.
+     * @param calendar  The calendar to format.
+     * @param buf  The buffer to format into.
      * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
      * @return The specified string buffer.
      * @since 3.5
@@ -66,8 +66,8 @@ public interface DatePrinter {
      * The TimeZone specified during the construction of the Parser will determine the TimeZone
      * used in the formatted string.
      *
-     * @param calendar  the calendar to format.
-     * @param buf  the buffer to format into.
+     * @param calendar  The calendar to format.
+     * @param buf  The buffer to format into.
      * @return The specified string buffer.
      * @deprecated Use {{@link #format(Calendar, Appendable)}.
      */
@@ -77,7 +77,7 @@ public interface DatePrinter {
     /**
      * Formats a {@link Date} object using a {@link GregorianCalendar}.
      *
-     * @param date  the date to format
+     * @param date  The date to format
      * @return The formatted string
      */
     String format(Date date);
@@ -86,8 +86,8 @@ public interface DatePrinter {
      * Formats a {@link Date} object into the
      * supplied {@link Appendable} using a {@link GregorianCalendar}.
      *
-     * @param date  the date to format.
-     * @param buf  the buffer to format into.
+     * @param date  The date to format.
+     * @param buf  The buffer to format into.
      * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
      * @return The specified string buffer.
      * @since 3.5
@@ -98,8 +98,8 @@ public interface DatePrinter {
      * Formats a {@link Date} object into the
      * supplied {@link StringBuffer} using a {@link GregorianCalendar}.
      *
-     * @param date  the date to format.
-     * @param buf  the buffer to format into.
+     * @param date  The date to format.
+     * @param buf  The buffer to format into.
      * @return The specified string buffer.
      * @deprecated Use {{@link #format(Date, Appendable)}.
      */
@@ -109,7 +109,7 @@ public interface DatePrinter {
     /**
      * Formats a millisecond {@code long} value.
      *
-     * @param millis  the millisecond value to format.
+     * @param millis  The millisecond value to format.
      * @return The formatted string.
      * @since 2.1
      */
@@ -119,8 +119,8 @@ public interface DatePrinter {
      * Formats a millisecond {@code long} value into the
      * supplied {@link Appendable}.
      *
-     * @param millis  the millisecond value to format.
-     * @param buf  the buffer to format into.
+     * @param millis  The millisecond value to format.
+     * @param buf  The buffer to format into.
      * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
      * @return The specified string buffer.
      * @since 3.5
@@ -131,8 +131,8 @@ public interface DatePrinter {
      * Formats a millisecond {@code long} value into the
      * supplied {@link StringBuffer}.
      *
-     * @param millis  the millisecond value to format.
-     * @param buf  the buffer to format into.
+     * @param millis  The millisecond value to format.
+     * @param buf  The buffer to format into.
      * @return The specified string buffer.
      * @deprecated Use {{@link #format(long, Appendable)}.
      */
@@ -143,9 +143,9 @@ public interface DatePrinter {
      * Formats a {@link Date}, {@link Calendar} or
      * {@link Long} (milliseconds) object.
      *
-     * @param obj  the object to format.
-     * @param toAppendTo  the buffer to append to.
-     * @param pos  the position - ignored.
+     * @param obj  The object to format.
+     * @param toAppendTo  The buffer to append to.
+     * @param pos  The position - ignored.
      * @return The buffer passed in.
      * @see java.text.DateFormat#format(Object, StringBuffer, FieldPosition)
      */

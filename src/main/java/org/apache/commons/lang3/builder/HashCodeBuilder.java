@@ -133,7 +133,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
         /**
          * Sets an odd number used as the initial value.
          *
-         * @param initialOddNumber an odd number used as the initial value.
+         * @param initialOddNumber An odd number used as the initial value.
          * @return {@code this} instance.
          */
         public Builder setInitialOddNumber(final int initialOddNumber) {
@@ -144,7 +144,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
         /**
          * Sets an odd number used as the multiplier.
          *
-         * @param multiplierOddNumber an odd number used as the multiplier.
+         * @param multiplierOddNumber An odd number used as the multiplier.
          * @return {@code this} instance.
          */
         public Builder setMultiplierOddNumber(final int multiplierOddNumber) {

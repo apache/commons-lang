@@ -111,8 +111,8 @@ public class AtomicSafeInitializer<T> extends AbstractConcurrentInitializer<T, C
     /**
      * Constructs a new instance.
      *
-     * @param initializer the initializer supplier called by {@link #initialize()}.
-     * @param closer the closer consumer called by {@link #close()}.
+     * @param initializer The initializer supplier called by {@link #initialize()}.
+     * @param closer The closer consumer called by {@link #close()}.
      */
     private AtomicSafeInitializer(final FailableSupplier<T, ConcurrentException> initializer, final FailableConsumer<T, ConcurrentException> closer) {
         super(initializer, closer);

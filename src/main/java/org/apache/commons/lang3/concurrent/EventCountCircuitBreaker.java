@@ -149,7 +149,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * Obtains the check interval to applied for the represented state from the given
          * {@link CircuitBreaker}.
          *
-         * @param breaker the {@link CircuitBreaker}
+         * @param breaker The {@link CircuitBreaker}
          * @return The check interval to be applied
          */
         protected abstract long fetchCheckInterval(EventCountCircuitBreaker breaker);
@@ -157,9 +157,9 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         /**
          * Tests whether the end of the current check interval is reached.
          *
-         * @param breaker the {@link CircuitBreaker}
-         * @param currentData the current state object
-         * @param now the current time
+         * @param breaker The {@link CircuitBreaker}
+         * @param currentData The current state object
+         * @param now The current time
          * @return A flag whether the end of the current check interval is reached
          */
         public boolean isCheckIntervalFinished(final EventCountCircuitBreaker breaker,
@@ -172,9 +172,9 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * state transition should occur. Here the logic which checks for thresholds
          * depending on the current state is implemented.
          *
-         * @param breaker the {@link CircuitBreaker}
-         * @param currentData the current {@link CheckIntervalData} object
-         * @param nextData the updated {@link CheckIntervalData} object
+         * @param breaker The {@link CircuitBreaker}
+         * @param currentData The current {@link CheckIntervalData} object
+         * @param nextData The updated {@link CheckIntervalData} object
          * @return A flag whether a state transition should be performed
          */
         public abstract boolean isStateTransition(EventCountCircuitBreaker breaker,
@@ -197,8 +197,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         /**
          * Creates a new instance of {@link CheckIntervalData}.
          *
-         * @param count the current count value
-         * @param intervalStart the start time of the check interval
+         * @param count The current count value
+         * @param intervalStart The start time of the check interval
          */
         CheckIntervalData(final int count, final long intervalStart) {
             eventCount = count;
@@ -227,7 +227,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * Returns a new instance of {@link CheckIntervalData} with the event counter
          * incremented by the given delta. If the delta is 0, this object is returned.
          *
-         * @param delta the delta
+         * @param delta The delta
          * @return The updated instance
          */
         public CheckIntervalData increment(final int delta) {
@@ -303,7 +303,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     /**
      * Returns the {@link AbstractStateStrategy} object responsible for the given state.
      *
-     * @param state the state
+     * @param state The state
      * @return The corresponding {@link AbstractStateStrategy}
      * @throws CircuitBreakingException if the strategy cannot be resolved
      */
@@ -330,11 +330,11 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * Creates a new instance of {@link EventCountCircuitBreaker} which uses the same parameters for
      * opening and closing checks.
      *
-     * @param threshold the threshold for changing the status of the circuit breaker; if
+     * @param threshold The threshold for changing the status of the circuit breaker; if
      * the number of events received in a check interval is greater than this value, the
      * circuit breaker is opened; if it is lower than this value, it is closed again
-     * @param checkInterval the check interval for opening or closing the circuit breaker
-     * @param checkUnit the {@link TimeUnit} defining the check interval
+     * @param checkInterval The check interval for opening or closing the circuit breaker
+     * @param checkUnit The {@link TimeUnit} defining the check interval
      */
     public EventCountCircuitBreaker(final int threshold, final long checkInterval, final TimeUnit checkUnit) {
         this(threshold, checkInterval, checkUnit, threshold);
@@ -344,12 +344,12 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * Creates a new instance of {@link EventCountCircuitBreaker} with the same interval for opening
      * and closing checks.
      *
-     * @param openingThreshold the threshold for opening the circuit breaker; if this
+     * @param openingThreshold The threshold for opening the circuit breaker; if this
      * number of events is received in the time span determined by the check interval, the
      * circuit breaker is opened
-     * @param checkInterval the check interval for opening or closing the circuit breaker
-     * @param checkUnit the {@link TimeUnit} defining the check interval
-     * @param closingThreshold the threshold for closing the circuit breaker; if the
+     * @param checkInterval The check interval for opening or closing the circuit breaker
+     * @param checkUnit The {@link TimeUnit} defining the check interval
+     * @param closingThreshold The threshold for closing the circuit breaker; if the
      * number of events received in the time span determined by the check interval goes
      * below this threshold, the circuit breaker is closed again
      */
@@ -364,16 +364,16 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * opening and closing it based on threshold values for events occurring in specific
      * intervals.
      *
-     * @param openingThreshold the threshold for opening the circuit breaker; if this
+     * @param openingThreshold The threshold for opening the circuit breaker; if this
      * number of events is received in the time span determined by the opening interval,
      * the circuit breaker is opened
-     * @param openingInterval the interval for opening the circuit breaker
-     * @param openingUnit the {@link TimeUnit} defining the opening interval
-     * @param closingThreshold the threshold for closing the circuit breaker; if the
+     * @param openingInterval The interval for opening the circuit breaker
+     * @param openingUnit The {@link TimeUnit} defining the opening interval
+     * @param closingThreshold The threshold for closing the circuit breaker; if the
      * number of events received in the time span determined by the closing interval goes
      * below this threshold, the circuit breaker is closed again
-     * @param closingInterval the interval for closing the circuit breaker
-     * @param closingUnit the {@link TimeUnit} defining the closing interval
+     * @param closingInterval The interval for closing the circuit breaker
+     * @param closingUnit The {@link TimeUnit} defining the closing interval
      */
     public EventCountCircuitBreaker(final int openingThreshold, final long openingInterval,
                                     final TimeUnit openingUnit, final int closingThreshold, final long closingInterval,
@@ -389,7 +389,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * Changes the state of this circuit breaker and also initializes a new
      * {@link CheckIntervalData} object.
      *
-     * @param newState the new state to be set
+     * @param newState The new state to be set
      */
     private void changeStateAndStartNewCheckInterval(final State newState) {
         changeState(newState);
@@ -499,10 +499,10 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * the current state. The next data object takes the counter increment and the current
      * time into account.
      *
-     * @param increment the increment for the internal counter
-     * @param currentData the current check data object
-     * @param currentState the current state of the circuit breaker
-     * @param time the current time
+     * @param increment The increment for the internal counter
+     * @param currentData The current check data object
+     * @param currentState The current state of the circuit breaker
+     * @param time The current time
      * @return The updated {@link CheckIntervalData} object
      */
     private CheckIntervalData nextCheckIntervalData(final int increment,
@@ -535,7 +535,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * Actually checks the state of this circuit breaker and executes a state transition
      * if necessary.
      *
-     * @param increment the increment for the internal counter
+     * @param increment The increment for the internal counter
      * @return A flag whether the circuit breaker is now closed
      */
     private boolean performStateCheck(final int increment) {
@@ -565,8 +565,8 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * successful. If it is <strong>false</strong>, another thread interfered, and the
      * whole operation has to be redone.
      *
-     * @param currentData the current check data object
-     * @param nextData the replacing check data object
+     * @param currentData The current check data object
+     * @param nextData The replacing check data object
      * @return A flag whether the update was successful
      */
     private boolean updateCheckIntervalData(final CheckIntervalData currentData,

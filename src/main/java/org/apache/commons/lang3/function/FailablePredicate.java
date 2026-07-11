@@ -65,7 +65,7 @@ public interface FailablePredicate<T, E extends Throwable> {
     /**
      * Returns a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
      *
-     * @param other a predicate that will be logically-ANDed with this predicate.
+     * @param other A predicate that will be logically-ANDed with this predicate.
      * @return A composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
      * @throws NullPointerException if other is null
      */
@@ -86,7 +86,7 @@ public interface FailablePredicate<T, E extends Throwable> {
     /**
      * Returns a composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
      *
-     * @param other a predicate that will be logically-ORed with this predicate.
+     * @param other A predicate that will be logically-ORed with this predicate.
      * @return A composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
      * @throws NullPointerException if other is null
      */
@@ -98,7 +98,7 @@ public interface FailablePredicate<T, E extends Throwable> {
     /**
      * Tests the predicate.
      *
-     * @param object the object to test the predicate on
+     * @param object The object to test the predicate on
      * @return The predicate's evaluation
      * @throws E if the predicate fails
      */

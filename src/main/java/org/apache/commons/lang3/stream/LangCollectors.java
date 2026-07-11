@@ -99,7 +99,7 @@ public final class LangCollectors {
      * @param <T>       The type of the array elements.
      * @param <R>       the type of the result.
      * @param <A>       the intermediate accumulation type of the {@code Collector}.
-     * @param collector the {@code Collector} describing the reduction.
+     * @param collector The {@code Collector} describing the reduction.
      * @param array     The array, assumed to be unmodified during use, a null array treated as an empty array.
      * @return The result of the reduction
      * @see Stream#collect(Collector)
@@ -148,7 +148,7 @@ public final class LangCollectors {
      * returns "1-2-3"
      * </pre>
      *
-     * @param delimiter the delimiter to be used between each element.
+     * @param delimiter The delimiter to be used between each element.
      * @return A {@code Collector} which concatenates Object elements, separated by the specified delimiter, in encounter order.
      */
     public static Collector<Object, ?, String> joining(final CharSequence delimiter) {
@@ -172,9 +172,9 @@ public final class LangCollectors {
      * returns "[1-2-3]"
      * </pre>
      *
-     * @param delimiter the delimiter to be used between each element
-     * @param prefix the sequence of characters to be used at the beginning of the joined result
-     * @param suffix the sequence of characters to be used at the end of the joined result
+     * @param delimiter The delimiter to be used between each element
+     * @param prefix The sequence of characters to be used at the beginning of the joined result
+     * @param suffix The sequence of characters to be used at the end of the joined result
      * @return A {@code Collector} which concatenates CharSequence elements, separated by the specified delimiter, in
      *         encounter order
      */
@@ -199,9 +199,9 @@ public final class LangCollectors {
      * returns "[1-NUL-3]"
      * }</pre>
      *
-     * @param delimiter the delimiter to be used between each element
-     * @param prefix    the sequence of characters to be used at the beginning of the joined result
-     * @param suffix    the sequence of characters to be used at the end of the joined result
+     * @param delimiter The delimiter to be used between each element
+     * @param prefix    The sequence of characters to be used at the beginning of the joined result
+     * @param suffix    The sequence of characters to be used at the end of the joined result
      * @param toString  A function that takes an Object and returns a non-null String.
      * @return A {@code Collector} which concatenates CharSequence elements, separated by the specified delimiter, in encounter order
      */

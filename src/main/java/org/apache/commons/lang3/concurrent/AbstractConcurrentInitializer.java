@@ -82,7 +82,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
         /**
          * Sets the closer consumer called by {@link #close()}.
          *
-         * @param closer the consumer called by {@link #close()}.
+         * @param closer The consumer called by {@link #close()}.
          * @return {@code this} instance.
          */
         public B setCloser(final FailableConsumer<T, ? extends Exception> closer) {
@@ -93,7 +93,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
         /**
          * Sets the initializer supplier called by {@link #initialize()}.
          *
-         * @param initializer the supplier called by {@link #initialize()}.
+         * @param initializer The supplier called by {@link #initialize()}.
          * @return {@code this} instance.
          */
         public B setInitializer(final FailableSupplier<T, ? extends Exception> initializer) {
@@ -123,8 +123,8 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
     /**
      * Constructs a new instance.
      *
-     * @param initializer the initializer supplier called by {@link #initialize()}.
-     * @param closer the closer consumer called by {@link #close()}.
+     * @param initializer The initializer supplier called by {@link #initialize()}.
+     * @param closer The closer consumer called by {@link #close()}.
      */
     AbstractConcurrentInitializer(final FailableSupplier<? extends T, ? extends Exception> initializer, final FailableConsumer<? super T, ? extends Exception> closer) {
         this.closer = Objects.requireNonNull(closer, "closer");

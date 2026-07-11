@@ -72,8 +72,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      *
      * @param <L> The left element type.
      * @param <R> The right element type.
-     * @param left  the left element, may be null.
-     * @param right  the right element, may be null.
+     * @param left  The left element, may be null.
+     * @param right  The right element, may be null.
      * @return An immutable pair formed from the two parameters, not null.
      */
     public static <L, R> Pair<L, R> of(final L left, final R right) {
@@ -85,7 +85,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      *
      * @param <L> The left element type.
      * @param <R> The right element type.
-     * @param pair the map entry.
+     * @param pair The map entry.
      * @return An immutable pair formed from the map entry.
      * @since 3.10
      */
@@ -98,8 +98,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      *
      * @param <L> The left element type.
      * @param <R> The right element type.
-     * @param left  the left element, may not be null.
-     * @param right  the right element, may not  be null.
+     * @param left  The left element, may not be null.
+     * @param right  The right element, may not  be null.
      * @return An immutable pair formed from the two parameters, not null.
      * @throws NullPointerException if any input is null.
      * @since 3.13.0
@@ -119,7 +119,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * Accepts this key and value as arguments to the given consumer.
      *
      * @param <E> The kind of thrown exception or error.
-     * @param consumer the consumer to call.
+     * @param consumer The consumer to call.
      * @throws E Thrown when the consumer fails.
      * @since 3.13.0
      */
@@ -132,7 +132,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      *
      * @param <V> The function return type.
      * @param <E> The kind of thrown exception or error.
-     * @param function the consumer to call.
+     * @param function The consumer to call.
      * @return The function's return value.
      * @throws E Thrown when the consumer fails.
      * @since 3.13.0
@@ -145,7 +145,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * Compares the pair based on the left element followed by the right element.
      * The types must be {@link Comparable}.
      *
-     * @param other  the other pair, not null.
+     * @param other  The other pair, not null.
      * @return negative if this is less, zero if equal, positive if greater.
      */
     @Override
@@ -161,7 +161,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Compares this pair to another based on the two elements.
      *
-     * @param obj  the object to compare to, null returns false.
+     * @param obj  The object to compare to, null returns false.
      * @return true if the elements of the pair are equal.
      */
     @Override
@@ -253,7 +253,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * the left element (key) and {@code %2$s} for the right element (value).
      * </p>
      *
-     * @param format the format string, optionally containing {@code %1$s} and {@code %2$s}, not null.
+     * @param format The format string, optionally containing {@code %1$s} and {@code %2$s}, not null.
      * @return The formatted string, not null.
      * @see String#format(String, Object...)
      */
