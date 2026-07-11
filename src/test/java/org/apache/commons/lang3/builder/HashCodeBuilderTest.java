@@ -66,6 +66,48 @@ class HashCodeBuilderTest extends AbstractLangTest {
         }
     }
 
+    /**
+     * A reflection test fixture whose {@code hashCode()} is reflection based.
+     */
+    static final class ReflectionHashCodeMember {
+        final int value;
+
+        ReflectionHashCodeMember(final int value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            return EqualsBuilder.reflectionEquals(this, o);
+        }
+
+        @Override
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+    }
+
+    /**
+     * Holds a {@link ReflectionHashCodeMember} and is itself reflection hashed.
+     */
+    static final class ReflectionHashCodeHolder {
+        final ReflectionHashCodeMember member;
+
+        ReflectionHashCodeHolder(final ReflectionHashCodeMember member) {
+            this.member = member;
+        }
+
+        @Override
+        public boolean equals(final Object o) {
+            return EqualsBuilder.reflectionEquals(this, o);
+        }
+
+        @Override
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+    }
+
     static class TestObject {
         private int a;
 
@@ -634,6 +676,25 @@ class HashCodeBuilderTest extends AbstractLangTest {
         final TestObjectHashCodeExclude2 two = new TestObjectHashCodeExclude2(1, 2);
         assertEquals(INITIAL * CONSTANT + 2, HashCodeBuilder.reflectionHashCode(one));
         assertEquals(INITIAL, HashCodeBuilder.reflectionHashCode(two));
+    }
+
+    /**
+     * {@code append(Object)} must not collapse an object whose own {@code hashCode()} is reflection based to the bare
+     * initial value. Regression for the cycle guard leaking into the reflection registry.
+     */
+    @Test
+    void testAppendObjectReflectionHashCodeNotPoisoned() {
+        final ReflectionHashCodeMember member = new ReflectionHashCodeMember(42);
+        assertEquals(INITIAL * CONSTANT + member.hashCode(),
+            new HashCodeBuilder(INITIAL, CONSTANT).append((Object) member).toHashCode());
+
+        // The same defect reached through a normal, acyclic graph: a nested object's content must still influence
+        // the enclosing reflection hash.
+        final int h1 = new ReflectionHashCodeHolder(new ReflectionHashCodeMember(1)).hashCode();
+        final int h2 = new ReflectionHashCodeHolder(new ReflectionHashCodeMember(2)).hashCode();
+        assertNotEquals(h1, h2);
+
+        assertTrue(HashCodeBuilder.getRegistry().isEmpty());
     }
 
 }

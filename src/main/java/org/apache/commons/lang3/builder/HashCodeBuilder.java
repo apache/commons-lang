@@ -170,6 +170,13 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     private static final ThreadLocal<Set<IDKey>> REGISTRY = ThreadLocal.withInitial(HashSet::new);
 
     /**
+     * A registry of objects being appended by {@link #append(Object)}, kept separate from {@link #REGISTRY} so that
+     * guarding {@code append} against its own re-entrant cycles does not trip the reflection cycle guard checked by
+     * {@link #reflectionAppend(Object, Class, HashCodeBuilder, boolean, String[], boolean)}.
+     */
+    private static final ThreadLocal<Set<IDKey>> APPEND_REGISTRY = ThreadLocal.withInitial(HashSet::new);
+
+    /**
      * Constructs a new Builder.
      *
      * @return A new Builder.
@@ -542,6 +549,38 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     }
 
     /**
+     * Tests whether the append registry contains the given object. Used by {@link #append(Object)} to break its own re-entrant cycles.
+     *
+     * @param value The object to look up in the append registry.
+     * @return {@code true} if the append registry contains the given object.
+     */
+    private static boolean isAppendRegistered(final Object value) {
+        return APPEND_REGISTRY.get().contains(new IDKey(value));
+    }
+
+    /**
+     * Registers the given object in the append registry.
+     *
+     * @param value The object to register.
+     */
+    private static void appendRegister(final Object value) {
+        APPEND_REGISTRY.get().add(new IDKey(value));
+    }
+
+    /**
+     * Unregisters the given object from the append registry.
+     *
+     * @param value The object to unregister.
+     */
+    private static void appendUnregister(final Object value) {
+        final Set<IDKey> registry = APPEND_REGISTRY.get();
+        registry.remove(new IDKey(value));
+        if (registry.isEmpty()) {
+            APPEND_REGISTRY.remove();
+        }
+    }
+
+    /**
      * Constant to use in building the hashCode.
      */
     private final int constant;
@@ -820,22 +859,22 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     public HashCodeBuilder append(final Object object) {
         if (object == null) {
             total = total * constant;
-        } else if (isRegistered(object)) {
+        } else if (isRegistered(object) || isAppendRegistered(object)) {
             // Cycle detected: skip to avoid infinite recursion (mirrors reflectionAppend).
             total = total * constant;
         } else if (ObjectUtils.isArray(object)) {
             try {
-                register(object);
+                appendRegister(object);
                 appendArray(object);
             } finally {
-                unregister(object);
+                appendUnregister(object);
             }
         } else {
             try {
-                register(object);
+                appendRegister(object);
                 total = total * constant + object.hashCode();
             } finally {
-                unregister(object);
+                appendUnregister(object);
             }
         }
         return this;
