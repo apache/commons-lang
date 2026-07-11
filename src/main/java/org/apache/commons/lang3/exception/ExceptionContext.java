@@ -51,14 +51,14 @@ public interface ExceptionContext {
     /**
      * Gets the full list of label-value pairs defined in the contextual data.
      *
-     * @return the list of pairs, not {@code null}
+     * @return The list of pairs, not {@code null}
      */
     List<Pair<String, Object>> getContextEntries();
 
     /**
      * Gets the full set of labels defined in the contextual data.
      *
-     * @return the set of labels, not {@code null}
+     * @return The set of labels, not {@code null}
      */
     Set<String> getContextLabels();
 
@@ -66,7 +66,7 @@ public interface ExceptionContext {
      * Gets all the contextual data values associated with the label.
      *
      * @param label  the label to get the contextual values for, may be {@code null}
-     * @return the contextual values associated with the label, never {@code null}
+     * @return The contextual values associated with the label, never {@code null}
      */
     List<Object> getContextValues(String label);
 
@@ -74,7 +74,7 @@ public interface ExceptionContext {
      * Gets the first available contextual data value associated with the label.
      *
      * @param label  the label to get the contextual value for, may be {@code null}
-     * @return the first contextual value associated with the label, may be {@code null}
+     * @return The first contextual value associated with the label, may be {@code null}
      */
     Object getFirstContextValue(String label);
 
@@ -83,7 +83,7 @@ public interface ExceptionContext {
      * This will add the context label-value pairs to the message.
      *
      * @param baseMessage  the base exception message <strong>without</strong> context information appended
-     * @return the exception message <strong>with</strong> context information appended, not {@code null}
+     * @return The exception message <strong>with</strong> context information appended, not {@code null}
      */
     String getFormattedExceptionMessage(String baseMessage);
 

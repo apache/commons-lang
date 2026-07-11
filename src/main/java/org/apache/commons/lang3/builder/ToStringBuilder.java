@@ -182,7 +182,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * <p>One reason for changing the default could be to have a verbose style during
      * development and a compact style in production.</p>
      *
-     * @return the default {@link ToStringStyle}, never null
+     * @return The default {@link ToStringStyle}, never null
      */
     public static ToStringStyle getDefaultStyle() {
         return defaultStyle;
@@ -193,7 +193,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * {@code toString} for the specified object.
      *
      * @param object  the Object to be output
-     * @return the String result
+     * @return The String result
      * @see ReflectionToStringBuilder#toString(Object)
      */
     public static String reflectionToString(final Object object) {
@@ -206,7 +206,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      *
      * @param object  the Object to be output
      * @param style  the style of the {@code toString} to create, may be {@code null}
-     * @return the String result
+     * @return The String result
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle)
      */
     public static String reflectionToString(final Object object, final ToStringStyle style) {
@@ -220,7 +220,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @param object  the Object to be output
      * @param style  the style of the {@code toString} to create, may be {@code null}
      * @param outputTransients  whether to include transient fields
-     * @return the String result
+     * @return The String result
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean)
      */
     public static String reflectionToString(final Object object, final ToStringStyle style, final boolean outputTransients) {
@@ -236,7 +236,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @param style  the style of the {@code toString} to create, may be {@code null}
      * @param outputTransients  whether to include transient fields
      * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be {@code null}
-     * @return the String result
+     * @return The String result
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean,boolean,Class)
      * @since 2.0
      */
@@ -1044,7 +1044,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Returns the String that was build as an object representation. The
      * default implementation utilizes the {@link #toString()} implementation.
      *
-     * @return the String {@code toString}
+     * @return The String {@code toString}
      * @see #toString()
      * @since 3.0
      */
@@ -1066,7 +1066,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Gets the {@link StringBuffer} being populated.
      *
-     * @return the {@link StringBuffer} being populated
+     * @return The {@link StringBuffer} being populated
      */
     public StringBuffer getStringBuffer() {
         return buffer;
@@ -1075,7 +1075,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Gets the {@link ToStringStyle} being used.
      *
-     * @return the {@link ToStringStyle} being used
+     * @return The {@link ToStringStyle} being used
      * @since 2.0
      */
     public ToStringStyle getStyle() {
@@ -1090,7 +1090,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      *
      * <p>If the object is {@code null}, return the style's {@code nullText}</p>
      *
-     * @return the String {@code toString}
+     * @return The String {@code toString}
      */
     @Override
     public String toString() {

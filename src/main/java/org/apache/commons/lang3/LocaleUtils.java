@@ -98,7 +98,7 @@ public class LocaleUtils {
      * called.
      * </p>
      *
-     * @return the unmodifiable and sorted list of available locales.
+     * @return The unmodifiable and sorted list of available locales.
      */
     public static List<Locale> availableLocaleList() {
         return SyncAvoid.AVAILABLE_LOCALE_ULIST;
@@ -116,7 +116,7 @@ public class LocaleUtils {
      * called.
      * </p>
      *
-     * @return the unmodifiable set of available locales.
+     * @return The unmodifiable set of available locales.
      */
     public static Set<Locale> availableLocaleSet() {
         return SyncAvoid.AVAILABLE_LOCALE_USET;
@@ -263,7 +263,7 @@ public class LocaleUtils {
      * </pre>
      *
      * @param locale the locale to start from.
-     * @return the unmodifiable list of Locale objects, 0 being locale, not null.
+     * @return The unmodifiable list of Locale objects, 0 being locale, not null.
      */
     public static List<Locale> localeLookupList(final Locale locale) {
         return localeLookupList(locale, locale);
@@ -284,7 +284,7 @@ public class LocaleUtils {
      *
      * @param locale        the locale to start from, null returns empty list.
      * @param defaultLocale the default locale to use if no other is found.
-     * @return the unmodifiable list of Locale objects, 0 being locale, not null.
+     * @return The unmodifiable list of Locale objects, 0 being locale, not null.
      */
     public static List<Locale> localeLookupList(final Locale locale, final Locale defaultLocale) {
         final List<Locale> list = new ArrayList<>(4);
@@ -366,7 +366,7 @@ public class LocaleUtils {
      * Returns the given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
      *
      * @param locale a locale or {@code null}.
-     * @return the given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
+     * @return The given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
      * @since 3.12.0
      */
     public static Locale toLocale(final Locale locale) {

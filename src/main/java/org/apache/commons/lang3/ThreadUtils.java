@@ -305,7 +305,7 @@ public class ThreadUtils {
      * Finds active thread groups with the specified group name.
      *
      * @param threadGroupName The thread group name.
-     * @return the thread groups with the specified group name or an empty collection if no such thread group exists. The collection returned is always
+     * @return The thread groups with the specified group name or an empty collection if no such thread group exists. The collection returned is always
      *         unmodifiable.
      * @throws NullPointerException if group name is null.
      * @throws SecurityException    if the current thread cannot access the system thread group.
@@ -458,7 +458,7 @@ public class ThreadUtils {
      * This method returns null if this thread has died (been stopped).
      * </p>
      *
-     * @return the system thread group.
+     * @return The system thread group.
      * @throws SecurityException if the current thread cannot modify thread groups from this thread's thread group up to the system thread group.
      */
     public static ThreadGroup getSystemThreadGroup() {

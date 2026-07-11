@@ -372,7 +372,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param calendar the calendar to format.
      * @param buf      the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @deprecated Use {@link #format(Calendar, Appendable)}
      */
     @Deprecated
@@ -400,7 +400,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * Formats a {@link Calendar} object.
      *
      * @param calendar the calendar to format.
-     * @return the formatted string.
+     * @return The formatted string.
      */
     @Override
     public String format(final Calendar calendar) {
@@ -412,7 +412,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param calendar the calendar to format.
      * @param buf      the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @since 3.5
      */
     @Override
@@ -425,7 +425,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param calendar the calendar to format.
      * @param buf      the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @deprecated Use {{@link #format(Calendar, Appendable)}.
      */
     @Deprecated
@@ -438,7 +438,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * Formats a {@link Date} object using a {@link GregorianCalendar}.
      *
      * @param date the date to format.
-     * @return the formatted string.
+     * @return The formatted string.
      */
     @Override
     public String format(final Date date) {
@@ -450,7 +450,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param date the date to format.
      * @param buf  the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @since 3.5
      */
     @Override
@@ -463,7 +463,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param date the date to format.
      * @param buf  the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @deprecated Use {{@link #format(Date, Appendable)}.
      */
     @Deprecated
@@ -476,7 +476,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * Formats a millisecond {@code long} value.
      *
      * @param millis the millisecond value to format.
-     * @return the formatted string.
+     * @return The formatted string.
      * @since 2.1
      */
     @Override
@@ -489,7 +489,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param millis the millisecond value to format.
      * @param buf    the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @since 3.5
      */
     @Override
@@ -502,7 +502,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param millis the millisecond value to format.
      * @param buf    the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @since 2.1
      * @deprecated Use {{@link #format(long, Appendable)}.
      */
@@ -519,7 +519,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param obj        the object to format.
      * @param toAppendTo the buffer to append to.
      * @param pos        the position, ignored.
-     * @return the given buffer.
+     * @return The given buffer.
      */
     @Override
     public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
@@ -529,7 +529,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * Gets the locale used by this formatter.
      *
-     * @return the locale.
+     * @return The locale.
      */
     @Override
     public Locale getLocale() {
@@ -543,7 +543,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * The actual formatted length will almost always be less than or equal to this amount.
      * </p>
      *
-     * @return the maximum formatted length.
+     * @return The maximum formatted length.
      */
     public int getMaxLengthEstimate() {
         return printer.getMaxLengthEstimate();
@@ -552,7 +552,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * Gets the pattern used by this formatter.
      *
-     * @return the pattern, {@link java.text.SimpleDateFormat} compatible.
+     * @return The pattern, {@link java.text.SimpleDateFormat} compatible.
      */
     @Override
     public String getPattern() {
@@ -566,7 +566,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * This zone is always used for {@link Date} formatting.
      * </p>
      *
-     * @return the time zone.
+     * @return The time zone.
      */
     @Override
     public TimeZone getTimeZone() {

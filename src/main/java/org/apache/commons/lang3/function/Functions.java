@@ -35,7 +35,7 @@ public final class Functions {
      * @param object   the object to apply the function.
      * @param <T>      the type of the argument the function applies.
      * @param <R>      the type of the result the function returns.
-     * @return the value the function returns if the function is not {@code null}; {@code null} otherwise.
+     * @return The value the function returns if the function is not {@code null}; {@code null} otherwise.
      * @since 3.15.0
      */
     public static <T, R> R apply(final Function<T, R> function, final T object) {
@@ -139,7 +139,7 @@ public final class Functions {
      * @param <T>      Input type.
      * @param <R>      Return type.
      * @param function the argument to return.
-     * @return the argument
+     * @return The argument
      */
     public static <T, R> Function<T, R> function(final Function<T, R> function) {
         return function;

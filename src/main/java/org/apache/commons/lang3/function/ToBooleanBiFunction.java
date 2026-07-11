@@ -36,7 +36,7 @@ public interface ToBooleanBiFunction<T, U> {
      *
      * @param t the first function argument.
      * @param u the second function argument.
-     * @return the function result.
+     * @return The function result.
      */
     boolean applyAsBoolean(T t, U u);
 }

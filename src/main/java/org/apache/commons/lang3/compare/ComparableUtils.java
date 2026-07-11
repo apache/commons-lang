@@ -215,7 +215,7 @@ public class ComparableUtils {
      * @param <A> Type of what we are comparing.
      * @param comparable1 the first comparable, may be null.
      * @param comparable2 the second comparable, may be null.
-     * @return the largest of {@code comparable1} and {@code comparable2}.
+     * @return The largest of {@code comparable1} and {@code comparable2}.
      * @see ObjectUtils#max(Comparable...)
      * @since 3.13.0
      */
@@ -232,7 +232,7 @@ public class ComparableUtils {
      * @param <A> Type of what we are comparing.
      * @param comparable1 the first comparable, may be null.
      * @param comparable2 the second comparable, may be null.
-     * @return the smallest of {@code comparable1} and {@code comparable2}.
+     * @return The smallest of {@code comparable1} and {@code comparable2}.
      * @see ObjectUtils#min(Comparable...)
      * @since 3.13.0
      */

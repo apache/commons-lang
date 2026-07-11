@@ -826,7 +826,7 @@ public abstract class Strings {
      *
      * @param seq       the CharSequence to check, may be null
      * @param searchSeq the CharSequence to find, may be null
-     * @return the first index of the search CharSequence, -1 if no match or {@code null} string input
+     * @return The first index of the search CharSequence, -1 if no match or {@code null} string input
      */
     public int indexOf(final CharSequence seq, final CharSequence searchSeq) {
         return indexOf(seq, searchSeq, 0);
@@ -879,7 +879,7 @@ public abstract class Strings {
      * @param seq       the CharSequence to check, may be null
      * @param searchSeq the CharSequence to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input
+     * @return The first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input
      */
     public abstract int indexOf(CharSequence seq, CharSequence searchSeq, int startPos);
 
@@ -935,7 +935,7 @@ public abstract class Strings {
      *
      * @param str       the CharSequence to check, may be null
      * @param searchStr the CharSequence to find, may be null
-     * @return the last index of the search String, -1 if no match or {@code null} string input
+     * @return The last index of the search String, -1 if no match or {@code null} string input
      */
     public int lastIndexOf(final CharSequence str, final CharSequence searchStr) {
         if (str == null) {
@@ -990,7 +990,7 @@ public abstract class Strings {
      * @param seq       the CharSequence to check, may be null
      * @param searchSeq the CharSequence to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} string input
+     * @return The last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} string input
      */
     public abstract int lastIndexOf(CharSequence seq, CharSequence searchSeq, int startPos);
 
@@ -1112,7 +1112,7 @@ public abstract class Strings {
      *
      * @param str    the source String to search, may be null
      * @param remove the String to search for and remove, may be null
-     * @return the substring with the string removed if found, {@code null} if null String input
+     * @return The substring with the string removed if found, {@code null} if null String input
      */
     public String remove(final String str, final String remove) {
         return replace(str, remove, StringUtils.EMPTY, -1);
@@ -1157,7 +1157,7 @@ public abstract class Strings {
      *
      * @param str    the source String to search, may be null
      * @param remove the String to search for and remove, may be null
-     * @return the substring with the string removed if found, {@code null} if null String input
+     * @return The substring with the string removed if found, {@code null} if null String input
      */
     public String removeEnd(final String str, final CharSequence remove) {
         if (StringUtils.isEmpty(str) || StringUtils.isEmpty(remove)) {
@@ -1207,7 +1207,7 @@ public abstract class Strings {
      *
      * @param str    the source String to search, may be null
      * @param remove the String to search for and remove, may be null
-     * @return the substring with the string removed if found, {@code null} if null String input
+     * @return The substring with the string removed if found, {@code null} if null String input
      */
     public String removeStart(final String str, final CharSequence remove) {
         if (str != null && startsWith(str, remove)) {
@@ -1256,7 +1256,7 @@ public abstract class Strings {
      * @param text         text to search and replace in, may be null
      * @param searchString the String to search for, may be null
      * @param replacement  the String to replace it with, may be null
-     * @return the text with any replacements processed, {@code null} if null String input
+     * @return The text with any replacements processed, {@code null} if null String input
      */
     public String replace(final String text, final String searchString, final String replacement) {
         return replace(text, searchString, replacement, -1);
@@ -1310,7 +1310,7 @@ public abstract class Strings {
      * @param searchString the String to search for, may be null
      * @param replacement  the String to replace it with, may be null
      * @param max          maximum number of values to replace, or {@code -1} if no maximum
-     * @return the text with any replacements processed, {@code null} if null String input
+     * @return The text with any replacements processed, {@code null} if null String input
      */
     public String replace(final String text, final String searchString, final String replacement, int max) {
         if (StringUtils.isEmpty(text) || StringUtils.isEmpty(searchString) || replacement == null || max == 0) {
@@ -1377,7 +1377,7 @@ public abstract class Strings {
      * @param text         text to search and replace in, may be null
      * @param searchString the String to search for, may be null
      * @param replacement  the String to replace with, may be null
-     * @return the text with any replacements processed, {@code null} if null String input
+     * @return The text with any replacements processed, {@code null} if null String input
      */
     public String replaceOnce(final String text, final String searchString, final String replacement) {
         return replace(text, searchString, replacement, 1);

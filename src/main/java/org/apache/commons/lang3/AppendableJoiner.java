@@ -278,7 +278,7 @@ public final class AppendableJoiner<T> {
      *
      * @param stringBuilder The target.
      * @param elements      The source.
-     * @return the given target StringBuilder.
+     * @return The given target StringBuilder.
      */
     public StringBuilder join(final StringBuilder stringBuilder, @SuppressWarnings("unchecked") final T... elements) {
         return joinSB(stringBuilder, prefix, suffix, delimiter, appender, elements);

@@ -137,7 +137,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * is returned.
          *
          * @param name the name to check.
-         * @return the initializer with this name.
+         * @return The initializer with this name.
          * @throws NoSuchElementException if the name is unknown.
          */
         private BackgroundInitializer<?> checkName(final String name) {
@@ -155,7 +155,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * {@code null}. If the name cannot be resolved, an exception is thrown.
          *
          * @param name the name of the {@link BackgroundInitializer}.
-         * @return the exception thrown by this initializer.
+         * @return The exception thrown by this initializer.
          * @throws NoSuchElementException if the name cannot be resolved.
          */
         public ConcurrentException getException(final String name) {
@@ -168,7 +168,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * name cannot be resolved, an exception is thrown.
          *
          * @param name the name of the {@link BackgroundInitializer}.
-         * @return the {@link BackgroundInitializer} with this name.
+         * @return The {@link BackgroundInitializer} with this name.
          * @throws NoSuchElementException if the name cannot be resolved.
          */
         public BackgroundInitializer<?> getInitializer(final String name) {
@@ -181,7 +181,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * {@link BackgroundInitializer} caused an exception, {@code null} is returned. If the name cannot be resolved, an exception is thrown.
          *
          * @param name the name of the {@link BackgroundInitializer}.
-         * @return the result object produced by this {@code BackgroundInitializer}.
+         * @return The result object produced by this {@code BackgroundInitializer}.
          * @throws NoSuchElementException if the name cannot be resolved.
          */
         public Object getResultObject(final String name) {
@@ -300,7 +300,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
      * ). Then it adds 1 for the control task that waits for the completion of
      * the children.
      *
-     * @return the number of tasks required for background processing.
+     * @return The number of tasks required for background processing.
      */
     @Override
     protected int getTaskCount() {
@@ -314,7 +314,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
      * data. If a child initializer throws a checked exceptions, it is added to
      * the results object. Unchecked exceptions are propagated.
      *
-     * @return the results object.
+     * @return The results object.
      * @throws Exception if an error occurs.
      */
     @Override

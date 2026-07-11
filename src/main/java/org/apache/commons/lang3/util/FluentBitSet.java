@@ -122,7 +122,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     /**
      * Gets the wrapped bit set.
      *
-     * @return the wrapped bit set.
+     * @return The wrapped bit set.
      */
     public BitSet bitSet() {
         return bitSet;
@@ -131,7 +131,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
     /**
      * Returns the number of bits set to {@code true} in this {@link BitSet}.
      *
-     * @return the number of bits set to {@code true} in this {@link BitSet}.
+     * @return The number of bits set to {@code true} in this {@link BitSet}.
      */
     public int cardinality() {
         return bitSet.cardinality();
@@ -244,7 +244,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * {@code bitIndex} is currently set in this {@link BitSet}; otherwise, the result is {@code false}.
      *
      * @param bitIndex the bit index.
-     * @return the value of the bit with the specified index.
+     * @return The value of the bit with the specified index.
      * @throws IndexOutOfBoundsException if the specified index is negative.
      */
     public boolean get(final int bitIndex) {
@@ -305,7 +305,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * Returns the "logical size" of this {@link BitSet}: the index of the highest set bit in the {@link BitSet} plus one.
      * Returns zero if the {@link BitSet} contains no set bits.
      *
-     * @return the logical size of this {@link BitSet}.
+     * @return The logical size of this {@link BitSet}.
      */
     public int length() {
         return bitSet.length();
@@ -315,7 +315,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * Returns the index of the first bit that is set to {@code false} that occurs on or after the specified starting index.
      *
      * @param fromIndex the index to start checking from (inclusive).
-     * @return the index of the next clear bit.
+     * @return The index of the next clear bit.
      * @throws IndexOutOfBoundsException if the specified index is negative.
      */
     public int nextClearBit(final int fromIndex) {
@@ -340,7 +340,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * </pre>
      *
      * @param fromIndex the index to start checking from (inclusive).
-     * @return the index of the next set bit, or {@code -1} if there is no such bit.
+     * @return The index of the next set bit, or {@code -1} if there is no such bit.
      * @throws IndexOutOfBoundsException if the specified index is negative.
      */
     public int nextSetBit(final int fromIndex) {
@@ -393,7 +393,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * index. If no such bit exists, or if {@code -1} is given as the starting index, then {@code -1} is returned.
      *
      * @param fromIndex the index to start checking from (inclusive).
-     * @return the index of the previous clear bit, or {@code -1} if there is no such bit.
+     * @return The index of the previous clear bit, or {@code -1} if there is no such bit.
      * @throws IndexOutOfBoundsException if the specified index is less than {@code -1}.
      */
     public int previousClearBit(final int fromIndex) {
@@ -415,7 +415,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * </pre>
      *
      * @param fromIndex the index to start checking from (inclusive)
-     * @return the index of the previous set bit, or {@code -1} if there is no such bit
+     * @return The index of the previous set bit, or {@code -1} if there is no such bit
      * @throws IndexOutOfBoundsException if the specified index is less than {@code -1}
      */
     public int previousSetBit(final int fromIndex) {
@@ -525,7 +525,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * Returns the number of bits of space actually in use by this {@link BitSet} to represent bit values. The maximum
      * element in the set is the size - 1st element.
      *
-     * @return the number of bits currently in this bit set.
+     * @return The number of bits currently in this bit set.
      */
     public int size() {
         return bitSet.size();

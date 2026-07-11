@@ -68,7 +68,7 @@ public abstract class AbstractConcurrentInitializerTest<T> extends AbstractLangT
     /**
      * Creates the {@link ConcurrentInitializer} object to be tested. This method is called whenever the test fixture needs to be obtained.
      *
-     * @return the initializer object to be tested
+     * @return The initializer object to be tested
      */
     protected abstract ConcurrentInitializer<T> createInitializer();
 

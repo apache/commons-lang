@@ -184,7 +184,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Helper method for testing the initialize() method. This method can
      * operate with both an external and a temporary executor service.
      *
-     * @return the result object produced by the initializer
+     * @return The result object produced by the initializer
      * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
      */
     private MultiBackgroundInitializer.MultiBackgroundInitializerResults checkInitialize()

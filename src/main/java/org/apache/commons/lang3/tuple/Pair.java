@@ -59,7 +59,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      *
      * @param <L> The left element type.
      * @param <R> The right element type.
-     * @return the empty array singleton that can be assigned without compiler warning.
+     * @return The empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
     @SuppressWarnings("unchecked")
@@ -133,7 +133,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param <V> The function return type.
      * @param <E> The kind of thrown exception or error.
      * @param function the consumer to call.
-     * @return the function's return value.
+     * @return The function's return value.
      * @throws E Thrown when the consumer fails.
      * @since 3.13.0
      */
@@ -183,7 +183,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * <p>This method implements the {@code Map.Entry} interface returning the
      * left element as the key.</p>
      *
-     * @return the left element as the key, may be null.
+     * @return The left element as the key, may be null.
      */
     @Override
     public final L getKey() {
@@ -195,7 +195,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      *
      * <p>When treated as a key-value pair, this is the key.</p>
      *
-     * @return the left element, may be null.
+     * @return The left element, may be null.
      */
     public abstract L getLeft();
 
@@ -204,7 +204,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      *
      * <p>When treated as a key-value pair, this is the value.</p>
      *
-     * @return the right element, may be null.
+     * @return The right element, may be null.
      */
     public abstract R getRight();
 
@@ -214,7 +214,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * <p>This method implements the {@code Map.Entry} interface returning the
      * right element as the value.</p>
      *
-     * @return the right element as the value, may be null.
+     * @return The right element as the value, may be null.
      */
     @Override
     public R getValue() {
@@ -227,7 +227,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * The hash code follows the definition in {@code Map.Entry}.
      * </p>
      *
-     * @return the hash code.
+     * @return The hash code.
      */
     @Override
     public int hashCode() {
@@ -254,7 +254,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * </p>
      *
      * @param format the format string, optionally containing {@code %1$s} and {@code %2$s}, not null.
-     * @return the formatted string, not null.
+     * @return The formatted string, not null.
      * @see String#format(String, Object...)
      */
     public String toString(final String format) {

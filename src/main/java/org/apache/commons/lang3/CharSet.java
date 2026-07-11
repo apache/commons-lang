@@ -271,7 +271,7 @@ public class CharSet implements Serializable {
      * Package private for testing.
      * </p>
      *
-     * @return the set of character ranges.
+     * @return The set of character ranges.
      */
     Set<CharRange> getCharRanges() {
         return set;

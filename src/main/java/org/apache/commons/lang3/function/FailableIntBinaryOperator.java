@@ -33,7 +33,7 @@ public interface FailableIntBinaryOperator<E extends Throwable> {
      *
      * @param left the first operand
      * @param right the second operand
-     * @return the operator result
+     * @return The operator result
      * @throws E if the operation fails
      */
     int applyAsInt(int left, int right) throws E;

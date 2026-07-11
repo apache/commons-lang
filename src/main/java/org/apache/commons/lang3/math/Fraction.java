@@ -254,7 +254,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * </p>
      *
      * @param str the string to parse, must not be {@code null}
-     * @return the new {@link Fraction} instance
+     * @return The new {@link Fraction} instance
      * @throws NullPointerException  if the string is {@code null}
      * @throws NumberFormatException if the number format is invalid
      */
@@ -338,7 +338,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param u  a non-zero number
      * @param v  a non-zero number
-     * @return the greatest common divisor, never zero
+     * @return The greatest common divisor, never zero
      */
     private static int greatestCommonDivisor(int u, int v) {
         // From Commons Math:
@@ -406,7 +406,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param x a factor
      * @param y a factor
-     * @return the product {@code x*y}
+     * @return The product {@code x*y}
      * @throws ArithmeticException if the result cannot be represented as
      *                             an int
      */
@@ -423,7 +423,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param x a non-negative factor
      * @param y a non-negative factor
-     * @return the product {@code x*y}
+     * @return The product {@code x*y}
      * @throws ArithmeticException if the result cannot be represented as
      * an int
      */
@@ -606,7 +606,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * Gets the fraction as a {@code double}. This calculates the fraction
      * as the numerator divided by denominator.
      *
-     * @return the fraction as a {@code double}
+     * @return The fraction as a {@code double}
      */
     @Override
     public double doubleValue() {
@@ -638,7 +638,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * Gets the fraction as a {@code float}. This calculates the fraction
      * as the numerator divided by denominator.
      *
-     * @return the fraction as a {@code float}
+     * @return The fraction as a {@code float}
      */
     @Override
     public float floatValue() {
@@ -648,7 +648,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     /**
      * Gets the denominator part of the fraction.
      *
-     * @return the denominator fraction part
+     * @return The denominator fraction part
      */
     public int getDenominator() {
         return denominator;
@@ -660,7 +660,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * This method may return a value greater than the denominator, an improper fraction, such as the seven in 7/4.
      * </p>
      *
-     * @return the numerator fraction part
+     * @return The numerator fraction part
      */
     public int getNumerator() {
         return numerator;
@@ -676,7 +676,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * If the fraction is negative such as -7/4, it can be resolved into -1 3/4, so this method returns the positive proper numerator, 3.
      * </p>
      *
-     * @return the numerator fraction part of a proper fraction, always positive
+     * @return The numerator fraction part of a proper fraction, always positive
      */
     public int getProperNumerator() {
         return Math.abs(numerator % denominator);
@@ -692,7 +692,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * If the fraction is negative such as -7/4, it can be resolved into -1 3/4, so this method returns the positive whole part -1.
      * </p>
      *
-     * @return the whole fraction part of a proper fraction, that includes the sign
+     * @return The whole fraction part of a proper fraction, that includes the sign
      */
     public int getProperWhole() {
         return numerator / denominator;
@@ -712,7 +712,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * Gets the fraction as an {@code int}. This returns the whole number
      * part of the fraction.
      *
-     * @return the whole number fraction part
+     * @return The whole number fraction part
      */
     @Override
     public int intValue() {
@@ -745,7 +745,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * Gets the fraction as a {@code long}. This returns the whole number
      * part of the fraction.
      *
-     * @return the whole number fraction part
+     * @return The whole number fraction part
      */
     @Override
     public long longValue() {

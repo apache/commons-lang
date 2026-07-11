@@ -63,7 +63,7 @@ public class Processor {
         /**
          * Gets the label suitable for display.
          *
-         * @return the label.
+         * @return The label.
          */
         public String getLabel() {
             return label;
@@ -132,7 +132,7 @@ public class Processor {
         /**
          * Gets the label suitable for display.
          *
-         * @return the label.
+         * @return The label.
          * @since 3.13.0
          */
         public String getLabel() {

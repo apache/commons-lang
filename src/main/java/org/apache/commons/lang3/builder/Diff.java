@@ -62,7 +62,7 @@ public abstract class Diff<T> extends Pair<T, T> {
     /**
      * Gets the name of the field.
      *
-     * @return the field name.
+     * @return The field name.
      */
     public final String getFieldName() {
         return fieldName;
@@ -71,7 +71,7 @@ public abstract class Diff<T> extends Pair<T, T> {
     /**
      * Gets the type of the field.
      *
-     * @return the field type.
+     * @return The field type.
      * @deprecated Unused, will be removed in 4.0.0.
      */
     @Deprecated
@@ -99,7 +99,7 @@ public abstract class Diff<T> extends Pair<T, T> {
      * [fieldname: left-value, right-value]
      * </pre>
      *
-     * @return the string representation.
+     * @return The string representation.
      */
     @Override
     public final String toString() {

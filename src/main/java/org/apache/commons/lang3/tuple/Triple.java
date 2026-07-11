@@ -57,7 +57,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param <L> The left element type.
      * @param <M> The middle element type.
      * @param <R> The right element type.
-     * @return the empty array singleton that can be assigned without compiler warning.
+     * @return The empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
     @SuppressWarnings("unchecked")
@@ -142,21 +142,21 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     /**
      * Gets the left element from this triple.
      *
-     * @return the left element, may be null.
+     * @return The left element, may be null.
      */
     public abstract L getLeft();
 
     /**
      * Gets the middle element from this triple.
      *
-     * @return the middle element, may be null.
+     * @return The middle element, may be null.
      */
     public abstract M getMiddle();
 
     /**
      * Gets the right element from this triple.
      *
-     * @return the right element, may be null.
+     * @return The right element, may be null.
      */
     public abstract R getRight();
 
@@ -166,7 +166,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * The hash code is adapted from the definition in {@code Map.Entry}.
      * </p>
      *
-     * @return the hash code.
+     * @return The hash code.
      */
     @Override
     public int hashCode() {
@@ -193,7 +193,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * The default format used by {@code toString()} is {@code (%1$s,%2$s,%3$s)}.</p>
      *
      * @param format  the format string, optionally containing {@code %1$s}, {@code %2$s} and {@code %3$s}, not null.
-     * @return the formatted string, not null.
+     * @return The formatted string, not null.
      */
     public String toString(final String format) {
         return String.format(format, getLeft(), getMiddle(), getRight());

@@ -57,7 +57,7 @@ public class Instants {
      * Returns the given non-null instant, or {@link Instant#EPOCH} if null.
      *
      * @param instant the instant to test, may be null.
-     * @return the given non-null instant, or {@link Instant#EPOCH} if null.
+     * @return The given non-null instant, or {@link Instant#EPOCH} if null.
      */
     public static Instant toInstant(final Instant instant) {
         return toInstant(instant, Instant.EPOCH);
@@ -68,7 +68,7 @@ public class Instants {
      *
      * @param instant the instant to test, may be null.
      * @param defaultInstant The default instant to use if the given instant is null, may be null.
-     * @return the given non-null instant, or {@code defaultInstant} if null.
+     * @return The given non-null instant, or {@code defaultInstant} if null.
      */
     public static Instant toInstant(final Instant instant, final Instant defaultInstant) {
         return instant != null ? instant : defaultInstant;

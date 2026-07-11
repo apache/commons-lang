@@ -27,7 +27,7 @@ class LazyInitializerSupplierTest extends AbstractConcurrentInitializerCloseAndE
     /**
      * Creates the initializer to be tested.
      *
-     * @return the initializer to be tested
+     * @return The initializer to be tested
      */
     @Override
     protected ConcurrentInitializer<Object> createInitializer() {

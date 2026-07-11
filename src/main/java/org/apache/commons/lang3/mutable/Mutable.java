@@ -38,7 +38,7 @@ public interface Mutable<T> extends Supplier<T> {
     /**
      * Gets the value of this mutable.
      *
-     * @return the stored value.
+     * @return The stored value.
      * @since 3.18.0
      */
     @Override
@@ -49,7 +49,7 @@ public interface Mutable<T> extends Supplier<T> {
     /**
      * Gets the value of this mutable.
      *
-     * @return the stored value.
+     * @return The stored value.
      * @deprecated Use {@link #get()}.
      */
     @Deprecated

@@ -99,7 +99,7 @@ public interface FailablePredicate<T, E extends Throwable> {
      * Tests the predicate.
      *
      * @param object the object to test the predicate on
-     * @return the predicate's evaluation
+     * @return The predicate's evaluation
      * @throws E if the predicate fails
      */
     boolean test(T object) throws E;

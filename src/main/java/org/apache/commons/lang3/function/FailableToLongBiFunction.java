@@ -52,7 +52,7 @@ public interface FailableToLongBiFunction<T, U, E extends Throwable> {
      *
      * @param t the first function argument
      * @param u the second function argument
-     * @return the function result
+     * @return The function result
      * @throws E Thrown when the function fails.
      */
     long applyAsLong(T t, U u) throws E;

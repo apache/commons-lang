@@ -150,7 +150,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * Constructs a {@link CharRange} over a single character.
      *
      * @param ch  only character in this range.
-     * @return the new CharRange object.
+     * @return The new CharRange object.
      * @since 2.5
      */
     public static CharRange is(final char ch) {
@@ -165,7 +165,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      *
      * @param start  first character, inclusive, in this range.
      * @param end  last character, inclusive, in this range.
-     * @return the new CharRange object.
+     * @return The new CharRange object.
      * @since 2.5
      */
     public static CharRange isIn(final char start, final char end) {
@@ -179,7 +179,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * single character.</p>
      *
      * @param ch  only character in this range.
-     * @return the new CharRange object.
+     * @return The new CharRange object.
      * @since 2.5
      */
     public static CharRange isNot(final char ch) {
@@ -197,7 +197,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      *
      * @param start  first character, inclusive, in this range.
      * @param end  last character, inclusive, in this range.
-     * @return the new CharRange object.
+     * @return The new CharRange object.
      * @since 2.5
      */
     public static CharRange isNotIn(final char start, final char end) {
@@ -296,7 +296,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Gets the end character for this character range.
      *
-     * @return the end char (inclusive).
+     * @return The end char (inclusive).
      */
     public char getEnd() {
         return this.end;
@@ -305,7 +305,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Gets the start character for this character range.
      *
-     * @return the start char (inclusive).
+     * @return The start char (inclusive).
      */
     public char getStart() {
         return this.start;

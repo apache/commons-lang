@@ -107,7 +107,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * immediately after the addition operation. This method is not thread safe.
      *
      * @param operand the quantity to add, not null.
-     * @return the value associated with this instance after adding the operand.
+     * @return The value associated with this instance after adding the operand.
      * @since 3.5
      */
     public double addAndGet(final double operand) {
@@ -121,7 +121,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      *
      * @param operand the quantity to add, not null.
      * @throws NullPointerException if {@code operand} is null.
-     * @return the value associated with this instance after adding the operand.
+     * @return The value associated with this instance after adding the operand.
      * @since 3.5
      */
     public double addAndGet(final Number operand) {
@@ -153,7 +153,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * Decrements this instance's value by 1; this method returns the value associated with the instance
      * immediately after the decrement operation. This method is not thread safe.
      *
-     * @return the value associated with the instance after it is decremented.
+     * @return The value associated with the instance after it is decremented.
      * @since 3.5
      */
     public double decrementAndGet() {
@@ -164,7 +164,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Returns the value of this MutableDouble as a double.
      *
-     * @return the numeric value represented by this object after conversion to type double.
+     * @return The numeric value represented by this object after conversion to type double.
      */
     @Override
     public double doubleValue() {
@@ -205,7 +205,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Returns the value of this MutableDouble as a float.
      *
-     * @return the numeric value represented by this object after conversion to type float.
+     * @return The numeric value represented by this object after conversion to type float.
      */
     @Override
     public float floatValue() {
@@ -217,7 +217,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * immediately prior to the addition operation. This method is not thread safe.
      *
      * @param operand the quantity to add, not null.
-     * @return the value associated with this instance immediately before the operand was added.
+     * @return The value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
     public double getAndAdd(final double operand) {
@@ -232,7 +232,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      *
      * @param operand the quantity to add, not null.
      * @throws NullPointerException if {@code operand} is null.
-     * @return the value associated with this instance immediately before the operand was added.
+     * @return The value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
     public double getAndAdd(final Number operand) {
@@ -245,7 +245,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * Decrements this instance's value by 1; this method returns the value associated with the instance
      * immediately prior to the decrement operation. This method is not thread safe.
      *
-     * @return the value associated with the instance before it was decremented.
+     * @return The value associated with the instance before it was decremented.
      * @since 3.5
      */
     public double getAndDecrement() {
@@ -258,7 +258,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * Increments this instance's value by 1; this method returns the value associated with the instance
      * immediately prior to the increment operation. This method is not thread safe.
      *
-     * @return the value associated with the instance before it was incremented.
+     * @return The value associated with the instance before it was incremented.
      * @since 3.5
      */
     public double getAndIncrement() {
@@ -270,7 +270,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Gets the value as a Double instance.
      *
-     * @return the value as a Double, never null.
+     * @return The value as a Double, never null.
      * @deprecated Use {@link #get()}.
      */
     @Deprecated
@@ -303,7 +303,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * Increments this instance's value by 1; this method returns the value associated with the instance
      * immediately after the increment operation. This method is not thread safe.
      *
-     * @return the value associated with the instance after it is incremented.
+     * @return The value associated with the instance after it is incremented.
      * @since 3.5
      */
     public double incrementAndGet() {
@@ -315,7 +315,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Returns the value of this MutableDouble as an int.
      *
-     * @return the numeric value represented by this object after conversion to type int.
+     * @return The numeric value represented by this object after conversion to type int.
      */
     @Override
     public int intValue() {
@@ -343,7 +343,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Returns the value of this MutableDouble as a long.
      *
-     * @return the numeric value represented by this object after conversion to type long.
+     * @return The numeric value represented by this object after conversion to type long.
      */
     @Override
     public long longValue() {
@@ -403,7 +403,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Returns the String value of this mutable.
      *
-     * @return the mutable value as a string.
+     * @return The mutable value as a string.
      */
     @Override
     public String toString() {

@@ -73,7 +73,7 @@ public abstract class StrLookup<V> {
          * </p>
          *
          * @param key  the key to be looked up, may be null.
-         * @return the matching value, null if no match.
+         * @return The matching value, null if no match.
          */
         @Override
         public String lookup(final String key) {
@@ -180,7 +180,7 @@ public abstract class StrLookup<V> {
      * }</pre>
      *
      * @param key  the key to be looked up, may be null.
-     * @return the matching value, null if no match.
+     * @return The matching value, null if no match.
      */
     public abstract String lookup(String key);
 }

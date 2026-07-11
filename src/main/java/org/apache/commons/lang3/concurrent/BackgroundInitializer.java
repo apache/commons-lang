@@ -146,7 +146,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
         /**
          * Initiates initialization and returns the result.
          *
-         * @return the result object
+         * @return The result object
          * @throws Exception if an error occurs
          */
         @Override
@@ -219,7 +219,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * Creates the {@link ExecutorService} to be used. This method is called if
      * no {@link ExecutorService} was provided at construction time.
      *
-     * @return the {@link ExecutorService} to be used.
+     * @return The {@link ExecutorService} to be used.
      */
     private ExecutorService createExecutor() {
         return Executors.newFixedThreadPool(getTaskCount());
@@ -249,7 +249,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * was called causes an {@link IllegalStateException} exception to be
      * thrown.
      *
-     * @return the object produced by this initializer.
+     * @return The object produced by this initializer.
      * @throws ConcurrentException if a checked exception occurred during
      * background processing.
      * @throws IllegalStateException if {@link #start()} has not been called.
@@ -275,7 +275,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * was set, this is also the active executor. Otherwise this method returns
      * the temporary executor that was created by this object.
      *
-     * @return the {@link ExecutorService} for executing the background task.
+     * @return The {@link ExecutorService} for executing the background task.
      */
     protected final synchronized ExecutorService getActiveExecutor() {
         return executor;
@@ -284,7 +284,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     /**
      * Gets the external {@link ExecutorService} to be used by this class.
      *
-     * @return the {@link ExecutorService}.
+     * @return The {@link ExecutorService}.
      */
     public final synchronized ExecutorService getExternalExecutor() {
         return externalExecutor;
@@ -295,7 +295,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * was called. Therefore this method can only be called after {@code
      * start()}.
      *
-     * @return the {@link Future} object wrapped by this initializer.
+     * @return The {@link Future} object wrapped by this initializer.
      * @throws IllegalStateException if {@link #start()} has not been called.
      */
     public synchronized Future<T> getFuture() {
@@ -314,7 +314,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * method. Therefore overriding methods should be careful with obtaining
      * other locks and return as fast as possible.
      *
-     * @return the number of background tasks required by this initializer.
+     * @return The number of background tasks required by this initializer.
      */
     protected int getTaskCount() {
         return 1;

@@ -401,7 +401,7 @@ public class LockingVisitors {
         /**
          * Gets the lock.
          *
-         * @return the lock.
+         * @return The lock.
          */
         public L getLock() {
             return lock;
@@ -410,7 +410,7 @@ public class LockingVisitors {
         /**
          * Gets the guarded object.
          *
-         * @return the object.
+         * @return The object.
          */
         public O getObject() {
             return object;

@@ -421,7 +421,7 @@ public class StringUtils {
      * @param str    the String to abbreviate, may be null.
      * @param middle the String to replace the middle characters with, may be null.
      * @param length the length to abbreviate {@code str} to.
-     * @return the abbreviated String if the above criteria is met, or the original String supplied for abbreviation.
+     * @return The abbreviated String if the above criteria is met, or the original String supplied for abbreviation.
      * @since 2.5
      */
     public static String abbreviateMiddle(final String str, final String middle, final int length) {
@@ -540,7 +540,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to capitalize, may be null.
-     * @return the capitalized String, {@code null} if null String input.
+     * @return The capitalized String, {@code null} if null String input.
      * @see org.apache.commons.text.WordUtils#capitalize(String)
      * @see #uncapitalize(String)
      * @since 2.0
@@ -1068,7 +1068,7 @@ public class StringUtils {
      *
      * @param cs          the CharSequence to check, may be null.
      * @param searchChars the chars to search for, may be null.
-     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input.
+     * @return The {@code true} if any of the chars are found, {@code false} if no match or null input.
      * @since 2.4
      * @since 3.0 Changed signature from containsAny(String, char[]) to containsAny(CharSequence, char...)
      */
@@ -1115,7 +1115,7 @@ public class StringUtils {
      *
      * @param cs          the CharSequence to check, may be null.
      * @param searchChars the chars to search for, may be null.
-     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input.
+     * @return The {@code true} if any of the chars are found, {@code false} if no match or null input.
      * @since 2.4
      * @since 3.0 Changed signature from containsAny(String, String) to containsAny(CharSequence, CharSequence)
      */
@@ -1480,7 +1480,7 @@ public class StringUtils {
      *
      * @param str the CharSequence to check, may be null.
      * @param ch  the char to count.
-     * @return the number of occurrences, 0 if the CharSequence is {@code null}.
+     * @return The number of occurrences, 0 if the CharSequence is {@code null}.
      * @since 3.4
      */
     public static int countMatches(final CharSequence str, final char ch) {
@@ -1517,7 +1517,7 @@ public class StringUtils {
      *
      * @param str the CharSequence to check, may be null.
      * @param sub the substring to count, may be null.
-     * @return the number of occurrences, 0 if either CharSequence is {@code null}.
+     * @return The number of occurrences, 0 if either CharSequence is {@code null}.
      * @since 3.0 Changed signature from countMatches(String, String) to countMatches(CharSequence, CharSequence)
      */
     public static int countMatches(final CharSequence str, final CharSequence sub) {
@@ -1553,7 +1553,7 @@ public class StringUtils {
      * @param str        the CharSequence to check, may be null.
      * @param defaultStr the default CharSequence to return if {@code str} is {@link #isBlank(CharSequence) blank} (whitespaces, empty ({@code ""}), or
      *                   {@code null}); may be null.
-     * @return the passed in CharSequence, or the default.
+     * @return The passed in CharSequence, or the default.
      * @see StringUtils#defaultString(String, String)
      * @see #isBlank(CharSequence)
      */
@@ -1575,7 +1575,7 @@ public class StringUtils {
      * @param <T>        the specific kind of CharSequence.
      * @param str        the CharSequence to check, may be null.
      * @param defaultStr the default CharSequence to return if the input is empty ("") or {@code null}, may be null.
-     * @return the passed in CharSequence, or the default.
+     * @return The passed in CharSequence, or the default.
      * @see StringUtils#defaultString(String, String)
      */
     public static <T extends CharSequence> T defaultIfEmpty(final T str, final T defaultStr) {
@@ -1592,7 +1592,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to check, may be null.
-     * @return the passed in String, or the empty String if it was {@code null}.
+     * @return The passed in String, or the empty String if it was {@code null}.
      * @see Objects#toString(Object, String)
      * @see String#valueOf(Object)
      */
@@ -1620,7 +1620,7 @@ public class StringUtils {
      *
      * @param str         the String to check, may be null.
      * @param nullDefault the default String to return if the input is {@code null}, may be null.
-     * @return the passed in String, or the default if it was {@code null}.
+     * @return The passed in String, or the default if it was {@code null}.
      * @see Objects#toString(Object, String)
      * @see String#valueOf(Object)
      * @deprecated Use {@link Objects#toString(Object, String)}.
@@ -1641,7 +1641,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to delete whitespace from, may be null.
-     * @return the String without whitespaces, {@code null} if null String input.
+     * @return The String without whitespaces, {@code null} if null String input.
      */
     public static String deleteWhitespace(final String str) {
         if (isEmpty(str)) {
@@ -1686,7 +1686,7 @@ public class StringUtils {
      *
      * @param str1 the first String, may be null.
      * @param str2 the second String, may be null.
-     * @return the portion of str2 where it differs from str1; returns the empty String if they are equal.
+     * @return The portion of str2 where it differs from str1; returns the empty String if they are equal.
      * @see #indexOfDifference(CharSequence,CharSequence)
      * @since 2.0
      */
@@ -1918,7 +1918,7 @@ public class StringUtils {
      *
      * @param <T>    the specific kind of CharSequence.
      * @param values the values to test, may be {@code null} or empty.
-     * @return the first value from {@code values} which is not blank, or {@code null} if there are no non-blank values.
+     * @return The first value from {@code values} which is not blank, or {@code null} if there are no non-blank values.
      * @since 3.8
      */
     @SafeVarargs
@@ -1953,7 +1953,7 @@ public class StringUtils {
      *
      * @param <T>    the specific kind of CharSequence.
      * @param values the values to test, may be {@code null} or empty.
-     * @return the first value from {@code values} which is not empty, or {@code null} if there are no non-empty values.
+     * @return The first value from {@code values} which is not empty, or {@code null} if there are no non-empty values.
      * @since 3.8
      */
     @SafeVarargs
@@ -2023,7 +2023,7 @@ public class StringUtils {
      * </pre>
      *
      * @param strs array of String objects, entries may be null.
-     * @return the initial sequence of characters that are common to all Strings in the array; empty String if the array is null, the elements are all null or
+     * @return The initial sequence of characters that are common to all Strings in the array; empty String if the array is null, the elements are all null or
      *         if there is no common prefix.
      * @since 2.4
      */
@@ -2185,7 +2185,7 @@ public class StringUtils {
      * @param str             the CharSequence to check, may be null.
      * @param defaultSupplier the supplier of default CharSequence to return if the input is {@link #isBlank(CharSequence) blank} (whitespaces, empty
      *                        ({@code ""}), or {@code null}); may be null.
-     * @return the passed in CharSequence, or the default
+     * @return The passed in CharSequence, or the default
      * @see StringUtils#defaultString(String, String)
      * @see #isBlank(CharSequence)
      * @since 3.10
@@ -2215,7 +2215,7 @@ public class StringUtils {
      * @param <T>             the specific kind of CharSequence.
      * @param str             the CharSequence to check, may be null.
      * @param defaultSupplier the supplier of default CharSequence to return if the input is empty ("") or {@code null}, may be null.
-     * @return the passed in CharSequence, or the default.
+     * @return The passed in CharSequence, or the default.
      * @see StringUtils#defaultString(String, String)
      * @since 3.10
      */
@@ -2564,7 +2564,7 @@ public class StringUtils {
      *
      * @param seq       the CharSequence to check, may be null.
      * @param searchSeq the CharSequence to find, may be null.
-     * @return the first index of the search CharSequence, -1 if no match or {@code null} string input.
+     * @return The first index of the search CharSequence, -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, String) to indexOf(CharSequence, CharSequence)
      * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence) Strings.CS.indexOf(CharSequence, CharSequence)}.
@@ -2600,7 +2600,7 @@ public class StringUtils {
      * @param seq       the CharSequence to check, may be null.
      * @param searchSeq the CharSequence to find, may be null.
      * @param startPos  the start position, negative treated as zero.
-     * @return the first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input.
+     * @return The first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, String, int) to indexOf(CharSequence, CharSequence, int)
      * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CS.indexOf(CharSequence, CharSequence, int)}.
@@ -2645,7 +2645,7 @@ public class StringUtils {
      *
      * @param seq        the CharSequence to check, may be null.
      * @param searchChar the character to find.
-     * @return the first index of the search character, -1 if no match or {@code null} string input.
+     * @return The first index of the search character, -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int) to indexOf(CharSequence, int)
      * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@link String}
@@ -2702,7 +2702,7 @@ public class StringUtils {
      * @param seq        the CharSequence to check, may be null.
      * @param searchChar the character to find.
      * @param startPos   the start position, negative treated as zero.
-     * @return the first index of the search character (always &ge; startPos), -1 if no match or {@code null} string input.
+     * @return The first index of the search character (always &ge; startPos), -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOf(String, int, int) to indexOf(CharSequence, int, int)
      * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@link String}
@@ -2733,7 +2733,7 @@ public class StringUtils {
      *
      * @param cs          the CharSequence to check, may be null.
      * @param searchChars the chars to search for, may be null.
-     * @return the index of any of the chars, -1 if no match or null input.
+     * @return The index of any of the chars, -1 if no match or null input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAny(String, char[]) to indexOfAny(CharSequence, char...)
      */
@@ -2765,7 +2765,7 @@ public class StringUtils {
      *
      * @param str        the CharSequence to check, may be null.
      * @param searchStrs the CharSequences to search for, may be null.
-     * @return the first index of any of the searchStrs in str, -1 if no match.
+     * @return The first index of any of the searchStrs in str, -1 if no match.
      * @since 3.0 Changed signature from indexOfAny(String, String[]) to indexOfAny(CharSequence, CharSequence...)
      */
     public static int indexOfAny(final CharSequence str, final CharSequence... searchStrs) {
@@ -2812,7 +2812,7 @@ public class StringUtils {
      * @param cs          the CharSequence to check, may be null.
      * @param csStart Start searching the input {@code cs} at this index.
      * @param searchChars the chars to search for, may be null.
-     * @return the index of any of the chars, -1 if no match or null input.
+     * @return The index of any of the chars, -1 if no match or null input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAny(String, char[]) to indexOfAny(CharSequence, char...)
      */
@@ -2856,7 +2856,7 @@ public class StringUtils {
      *
      * @param cs          the CharSequence to check, may be null.
      * @param searchChars the chars to search for, may be null.
-     * @return the index of any of the chars, -1 if no match or null input.
+     * @return The index of any of the chars, -1 if no match or null input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAny(String, String) to indexOfAny(CharSequence, String)
      */
@@ -2887,7 +2887,7 @@ public class StringUtils {
      *
      * @param cs          the CharSequence to check, may be null.
      * @param searchChars the chars to search for, may be null.
-     * @return the index of any of the chars, -1 if no match or null input.
+     * @return The index of any of the chars, -1 if no match or null input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char...)
      */
@@ -2918,7 +2918,7 @@ public class StringUtils {
      *
      * @param seq         the CharSequence to check, may be null.
      * @param searchChars the chars to search for, may be null.
-     * @return the index of any of the chars, -1 if no match or null input.
+     * @return The index of any of the chars, -1 if no match or null input.
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAnyBut(String, String) to indexOfAnyBut(CharSequence, CharSequence)
      */
@@ -2967,7 +2967,7 @@ public class StringUtils {
      * </pre>
      *
      * @param css array of CharSequences, entries may be null.
-     * @return the index where the strings begin to differ; -1 if they are all equal.
+     * @return The index where the strings begin to differ; -1 if they are all equal.
      * @since 2.4
      * @since 3.0 Changed signature from indexOfDifference(String...) to indexOfDifference(CharSequence...)
      */
@@ -3050,7 +3050,7 @@ public class StringUtils {
      *
      * @param cs1 the first CharSequence, may be null.
      * @param cs2 the second CharSequence, may be null.
-     * @return the index where cs1 and cs2 begin to differ; -1 if they are equal.
+     * @return The index where cs1 and cs2 begin to differ; -1 if they are equal.
      * @since 2.0
      * @since 3.0 Changed signature from indexOfDifference(String, String) to indexOfDifference(CharSequence, CharSequence)
      */
@@ -3099,7 +3099,7 @@ public class StringUtils {
      *
      * @param str       the CharSequence to check, may be null.
      * @param searchStr the CharSequence to find, may be null.
-     * @return the first index of the search CharSequence, -1 if no match or {@code null} string input.
+     * @return The first index of the search CharSequence, -1 if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String) to indexOfIgnoreCase(CharSequence, CharSequence)
      * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence) Strings.CI.indexOf(CharSequence, CharSequence)}.
@@ -3134,7 +3134,7 @@ public class StringUtils {
      * @param str       the CharSequence to check, may be null.
      * @param searchStr the CharSequence to find, may be null.
      * @param startPos  the start position, negative treated as zero.
-     * @return the first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input.
+     * @return The first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String, int) to indexOfIgnoreCase(CharSequence, CharSequence, int)
      * @deprecated Use {@link Strings#indexOf(CharSequence, CharSequence, int) Strings.CI.indexOf(CharSequence, CharSequence, int)}.
@@ -3870,7 +3870,7 @@ public class StringUtils {
      *
      * @param array     the array of values to join together, may be null.
      * @param delimiter the separator character to use.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter) {
@@ -3905,7 +3905,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -3947,7 +3947,7 @@ public class StringUtils {
      *            the array of values to join together, may be null.
      * @param delimiter
      *            the separator character to use.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter) {
@@ -3983,7 +3983,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4025,7 +4025,7 @@ public class StringUtils {
      *            the array of values to join together, may be null.
      * @param delimiter
      *            the separator character to use.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final char[] array, final char delimiter) {
@@ -4061,7 +4061,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4103,7 +4103,7 @@ public class StringUtils {
      *            the array of values to join together, may be null.
      * @param delimiter
      *            the separator character to use.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final double[] array, final char delimiter) {
@@ -4139,7 +4139,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4181,7 +4181,7 @@ public class StringUtils {
      *            the array of values to join together, may be null.
      * @param delimiter
      *            the separator character to use.
-     * @return the joined String, {@code null} if null array input
+     * @return The joined String, {@code null} if null array input
      * @since 3.2
      */
     public static String join(final float[] array, final char delimiter) {
@@ -4217,7 +4217,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4259,7 +4259,7 @@ public class StringUtils {
      *            the array of values to join together, may be null.
      * @param separator
      *            the separator character to use.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final int[] array, final char separator) {
@@ -4295,7 +4295,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final int[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4330,7 +4330,7 @@ public class StringUtils {
      *
      * @param iterable  the {@link Iterable} providing the values to join together, may be null.
      * @param separator the separator character to use.
-     * @return the joined String, {@code null} if null iterator input.
+     * @return The joined String, {@code null} if null iterator input.
      * @since 2.3
      */
     public static String join(final Iterable<?> iterable, final char separator) {
@@ -4350,7 +4350,7 @@ public class StringUtils {
      *
      * @param iterable  the {@link Iterable} providing the values to join together, may be null.
      * @param separator the separator character to use, null treated as "".
-     * @return the joined String, {@code null} if null iterator input.
+     * @return The joined String, {@code null} if null iterator input.
      * @since 2.3
      */
     public static String join(final Iterable<?> iterable, final String separator) {
@@ -4370,7 +4370,7 @@ public class StringUtils {
      *
      * @param iterator  the {@link Iterator} of values to join together, may be null.
      * @param separator the separator character to use.
-     * @return the joined String, {@code null} if null iterator input.
+     * @return The joined String, {@code null} if null iterator input.
      * @since 2.0
      */
     public static String join(final Iterator<?> iterator, final char separator) {
@@ -4397,7 +4397,7 @@ public class StringUtils {
      *
      * @param iterator  the {@link Iterator} of values to join together, may be null.
      * @param separator the separator character to use, null treated as "".
-     * @return the joined String, {@code null} if null iterator input.
+     * @return The joined String, {@code null} if null iterator input.
      */
     public static String join(final Iterator<?> iterator, final String separator) {
         // handle null, zero and one elements before building a buffer
@@ -4430,7 +4430,7 @@ public class StringUtils {
      * @param separator  the separator character to use.
      * @param startIndex the first index to start joining from. It is an error to pass in a start index past the end of the list.
      * @param endIndex   the index to stop joining from (exclusive). It is an error to pass in an end index past the end of the list.
-     * @return the joined String, {@code null} if null list input.
+     * @return The joined String, {@code null} if null list input.
      * @since 3.8
      */
     public static String join(final List<?> list, final char separator, final int startIndex, final int endIndex) {
@@ -4465,7 +4465,7 @@ public class StringUtils {
      * @param separator  the separator character to use.
      * @param startIndex the first index to start joining from. It is an error to pass in a start index past the end of the list.
      * @param endIndex   the index to stop joining from (exclusive). It is an error to pass in an end index past the end of the list.
-     * @return the joined String, {@code null} if null list input.
+     * @return The joined String, {@code null} if null list input.
      * @since 3.8
      */
     public static String join(final List<?> list, final String separator, final int startIndex, final int endIndex) {
@@ -4500,7 +4500,7 @@ public class StringUtils {
      *            the array of values to join together, may be null.
      * @param separator
      *            the separator character to use.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final long[] array, final char separator) {
@@ -4536,7 +4536,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final long[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4576,7 +4576,7 @@ public class StringUtils {
      *
      * @param array     the array of values to join together, may be null.
      * @param delimiter the separator character to use.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 2.0
      */
     public static String join(final Object[] array, final char delimiter) {
@@ -4606,7 +4606,7 @@ public class StringUtils {
      * @param delimiter  the separator character to use.
      * @param startIndex the first index to start joining from. It is an error to pass in a start index past the end of the array.
      * @param endIndex   the index to stop joining from (exclusive). It is an error to pass in an end index past the end of the array.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 2.0
      */
     public static String join(final Object[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4633,7 +4633,7 @@ public class StringUtils {
      *
      * @param array     the array of values to join together, may be null.
      * @param delimiter the separator character to use, null treated as "".
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      */
     public static String join(final Object[] array, final String delimiter) {
         return array != null ? join(array, ObjectUtils.toString(delimiter), 0, array.length) : null;
@@ -4664,7 +4664,7 @@ public class StringUtils {
      * @param delimiter  the separator character to use, null treated as "".
      * @param startIndex the first index to start joining from.
      * @param endIndex   the index to stop joining from (exclusive).
-     * @return the joined String, {@code null} if null array input; or the empty string if {@code endIndex - startIndex <= 0}. The number of joined entries is
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex - startIndex <= 0}. The number of joined entries is
      *         given by {@code endIndex - startIndex}.
      * @throws ArrayIndexOutOfBoundsException ife<br>
      *                                        {@code startIndex < 0} or <br>
@@ -4697,7 +4697,7 @@ public class StringUtils {
      *            the array of values to join together, may be null.
      * @param delimiter
      *            the separator character to use.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter) {
@@ -4733,7 +4733,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
      *            the array.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4772,7 +4772,7 @@ public class StringUtils {
      *
      * @param <T>      the specific type of values to join together.
      * @param elements the values to join together, may be null.
-     * @return the joined String, {@code null} if null array input.
+     * @return The joined String, {@code null} if null array input.
      * @since 2.0
      * @since 3.0 Changed signature to use varargs
      */
@@ -4797,7 +4797,7 @@ public class StringUtils {
      *
      * @param delimiter the separator character to use, null treated as "".
      * @param array     the varargs providing the values to join together. {@code null} elements are treated as "".
-     * @return the joined String.
+     * @return The joined String.
      * @throws IllegalArgumentException if a null varargs is provided.
      * @since 3.5
      */
@@ -4827,7 +4827,7 @@ public class StringUtils {
      *
      * @param seq       the CharSequence to check, may be null.
      * @param searchSeq the CharSequence to find, may be null.
-     * @return the last index of the search String, -1 if no match or {@code null} string input.
+     * @return The last index of the search String, -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, String) to lastIndexOf(CharSequence, CharSequence)
      * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence) Strings.CS.lastIndexOf(CharSequence, CharSequence)}.
@@ -4864,7 +4864,7 @@ public class StringUtils {
      * @param seq       the CharSequence to check, may be null.
      * @param searchSeq the CharSequence to find, may be null.
      * @param startPos  the start position, negative treated as zero.
-     * @return the last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} string input.
+     * @return The last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, String, int) to lastIndexOf(CharSequence, CharSequence, int)
      * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence, int) Strings.CS.lastIndexOf(CharSequence, CharSequence, int)}.
@@ -4904,7 +4904,7 @@ public class StringUtils {
      *
      * @param seq        the {@link CharSequence} to check, may be null.
      * @param searchChar the character to find.
-     * @return the last index of the search character, -1 if no match or {@code null} string input.
+     * @return The last index of the search character, -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, int) to lastIndexOf(CharSequence, int)
      * @since 3.6 Updated {@link CharSequenceUtils} call to behave more like {@link String}
@@ -4956,7 +4956,7 @@ public class StringUtils {
      * @param seq        the CharSequence to check, may be null.
      * @param searchChar the character to find.
      * @param startPos   the start position.
-     * @return the last index of the search character (always &le; startPos), -1 if no match or {@code null} string input.
+     * @return The last index of the search character (always &le; startPos), -1 if no match or {@code null} string input.
      * @since 2.0
      * @since 3.0 Changed signature from lastIndexOf(String, int, int) to lastIndexOf(CharSequence, int, int)
      */
@@ -4990,7 +4990,7 @@ public class StringUtils {
      *
      * @param str        the CharSequence to check, may be null.
      * @param searchStrs the CharSequences to search for, may be null.
-     * @return the last index of any of the CharSequences, -1 if no match.
+     * @return The last index of any of the CharSequences, -1 if no match.
      * @since 3.0 Changed signature from lastIndexOfAny(String, String[]) to lastIndexOfAny(CharSequence, CharSequence)
      */
     public static int lastIndexOfAny(final CharSequence str, final CharSequence... searchStrs) {
@@ -5029,7 +5029,7 @@ public class StringUtils {
      *
      * @param str       the CharSequence to check, may be null.
      * @param searchStr the CharSequence to find, may be null.
-     * @return the first index of the search CharSequence, -1 if no match or {@code null} string input.
+     * @return The first index of the search CharSequence, -1 if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String) to lastIndexOfIgnoreCase(CharSequence, CharSequence)
      * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence) Strings.CI.lastIndexOf(CharSequence, CharSequence)}.
@@ -5063,7 +5063,7 @@ public class StringUtils {
      * @param str       the CharSequence to check, may be null.
      * @param searchStr the CharSequence to find, may be null.
      * @param startPos  the start position.
-     * @return the last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} input.
+     * @return The last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} input.
      * @since 2.5
      * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String, int) to lastIndexOfIgnoreCase(CharSequence, CharSequence, int)
      * @deprecated Use {@link Strings#lastIndexOf(CharSequence, CharSequence, int) Strings.CI.lastIndexOf(CharSequence, CharSequence, int)}.
@@ -5105,7 +5105,7 @@ public class StringUtils {
      * @param str       the CharSequence to check, may be null.
      * @param searchStr the CharSequence to find, may be null.
      * @param ordinal   the n-th last {@code searchStr} to find.
-     * @return the n-th last index of the search CharSequence, {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input.
+     * @return The n-th last index of the search CharSequence, {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input.
      * @since 2.5
      * @since 3.0 Changed signature from lastOrdinalIndexOf(String, String, int) to lastOrdinalIndexOf(CharSequence, CharSequence, int)
      */
@@ -5132,7 +5132,7 @@ public class StringUtils {
      *
      * @param str the String to get the leftmost characters from, may be null.
      * @param len the length of the required String.
-     * @return the leftmost characters, {@code null} if null String input.
+     * @return The leftmost characters, {@code null} if null String input.
      */
     public static String left(final String str, final int len) {
         if (str == null) {
@@ -5293,7 +5293,7 @@ public class StringUtils {
      * </p>
      *
      * @param str the String to lower case, may be null.
-     * @return the lower cased String, {@code null} if null String input.
+     * @return The lower cased String, {@code null} if null String input.
      */
     public static String lowerCase(final String str) {
         if (str == null) {
@@ -5317,7 +5317,7 @@ public class StringUtils {
      *
      * @param str    the String to lower case, may be null.
      * @param locale the locale that defines the case transformation rules, must not be null.
-     * @return the lower cased String, {@code null} if null String input.
+     * @return The lower cased String, {@code null} if null String input.
      * @since 2.5
      */
     public static String lowerCase(final String str, final Locale locale) {
@@ -5404,7 +5404,7 @@ public class StringUtils {
      * @param str the String to get the characters from, may be null.
      * @param pos the position to start from, negative treated as zero.
      * @param len the length of the required String.
-     * @return the middle characters, {@code null} if null String input.
+     * @return The middle characters, {@code null} if null String input.
      */
     public static String mid(final String str, int pos, final int len) {
         if (str == null) {
@@ -5452,7 +5452,7 @@ public class StringUtils {
      * </p>
      *
      * @param str the source String to normalize whitespaces from, may be null.
-     * @return the modified string with whitespace normalized, {@code null} if null String input.
+     * @return The modified string with whitespace normalized, {@code null} if null String input.
      * @see Pattern
      * @see #trim(String)
      * @see <a href="https://www.w3.org/TR/xpath/#function-normalize-space">https://www.w3.org/TR/xpath/#function-normalize-space</a>
@@ -5540,7 +5540,7 @@ public class StringUtils {
      * @param str       the CharSequence to check, may be null.
      * @param searchStr the CharSequence to find, may be null.
      * @param ordinal   the n-th {@code searchStr} to find.
-     * @return the n-th index of the search CharSequence, {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input.
+     * @return The n-th index of the search CharSequence, {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input.
      * @since 2.1
      * @since 3.0 Changed signature from ordinalIndexOf(String, String, int) to ordinalIndexOf(CharSequence, CharSequence, int)
      */
@@ -5562,7 +5562,7 @@ public class StringUtils {
      * @param searchStr the CharSequence to find, may be null.
      * @param ordinal   the n-th {@code searchStr} to find, overlapping matches are allowed.
      * @param lastIndex true if lastOrdinalIndexOf() otherwise false if ordinalIndexOf().
-     * @return the n-th index of the search CharSequence, {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input.
+     * @return The n-th index of the search CharSequence, {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input.
      */
     // Shared code between ordinalIndexOf(String, String, int) and lastOrdinalIndexOf(String, String, int)
     private static int ordinalIndexOf(final CharSequence str, final CharSequence searchStr, final int ordinal, final boolean lastIndex) {
@@ -5745,7 +5745,7 @@ public class StringUtils {
      *
      * @param str    the source String to search, may be null.
      * @param remove the char to search for and remove, may be null.
-     * @return the substring with the char removed if found, {@code null} if null String input.
+     * @return The substring with the char removed if found, {@code null} if null String input.
      * @since 2.1
      */
     public static String remove(final String str, final char remove) {
@@ -5781,7 +5781,7 @@ public class StringUtils {
      *
      * @param str    the source String to search, may be null.
      * @param remove the String to search for and remove, may be null.
-     * @return the substring with the string removed if found, {@code null} if null String input.
+     * @return The substring with the string removed if found, {@code null} if null String input.
      * @since 2.1
      * @deprecated Use {@link Strings#remove(String, String) Strings.CS.remove(String, String)}.
      */
@@ -5822,7 +5822,7 @@ public class StringUtils {
      *
      * @param text  text to remove from, may be null.
      * @param regex the regular expression to which this string is to be matched.
-     * @return the text with any removes processed, {@code null} if null String input.
+     * @return The text with any removes processed, {@code null} if null String input.
      * @throws java.util.regex.PatternSyntaxException if the regular expression's syntax is invalid.
      * @see #replaceAll(String, String, String)
      * @see #removePattern(String, String)
@@ -5857,7 +5857,7 @@ public class StringUtils {
      *
      * @param str    the source String to search, may be null.
      * @param remove the String to search for and remove, may be null.
-     * @return the substring with the string removed if found, {@code null} if null String input.
+     * @return The substring with the string removed if found, {@code null} if null String input.
      * @since 2.1
      * @deprecated Use {@link Strings#removeEnd(String, CharSequence) Strings.CS.removeEnd(String, CharSequence)}.
      */
@@ -5888,7 +5888,7 @@ public class StringUtils {
      *
      * @param str    the source String to search, may be null.
      * @param remove the String to search for (case-insensitive) and remove, may be null.
-     * @return the substring with the string removed if found, {@code null} if null String input.
+     * @return The substring with the string removed if found, {@code null} if null String input.
      * @since 2.4
      * @deprecated Use {@link Strings#removeEnd(String, CharSequence) Strings.CI.removeEnd(String, CharSequence)}.
      */
@@ -5930,7 +5930,7 @@ public class StringUtils {
      *
      * @param text  text to remove from, may be null.
      * @param regex the regular expression to which this string is to be matched.
-     * @return the text with the first replacement processed, {@code null} if null String input.
+     * @return The text with the first replacement processed, {@code null} if null String input.
      * @throws java.util.regex.PatternSyntaxException if the regular expression's syntax is invalid.
      * @see #replaceFirst(String, String, String)
      * @see String#replaceFirst(String, String)
@@ -5965,7 +5965,7 @@ public class StringUtils {
      *
      * @param str    the source String to search, may be null.
      * @param remove the String to search for (case-insensitive) and remove, may be null.
-     * @return the substring with the string removed if found, {@code null} if null String input.
+     * @return The substring with the string removed if found, {@code null} if null String input.
      * @since 3.5
      * @deprecated Use {@link Strings#remove(String, String) Strings.CI.remove(String, String)}.
      */
@@ -6028,7 +6028,7 @@ public class StringUtils {
      *
      * @param str    the source String to search, may be null.
      * @param remove the char to search for and remove.
-     * @return the substring with the char removed if found, {@code null} if null String input.
+     * @return The substring with the char removed if found, {@code null} if null String input.
      * @since 3.13.0
      */
     public static String removeStart(final String str, final char remove) {
@@ -6058,7 +6058,7 @@ public class StringUtils {
      *
      * @param str    the source String to search, may be null.
      * @param remove the String to search for and remove, may be null.
-     * @return the substring with the string removed if found, {@code null} if null String input.
+     * @return The substring with the string removed if found, {@code null} if null String input.
      * @since 2.1
      * @deprecated Use {@link Strings#removeStart(String, CharSequence) Strings.CS.removeStart(String, CharSequence)}.
      */
@@ -6088,7 +6088,7 @@ public class StringUtils {
      *
      * @param str    the source String to search, may be null.
      * @param remove the String to search for (case-insensitive) and remove, may be null.
-     * @return the substring with the string removed if found, {@code null} if null String input.
+     * @return The substring with the string removed if found, {@code null} if null String input.
      * @since 2.4
      * @deprecated Use {@link Strings#removeStart(String, CharSequence) Strings.CI.removeStart(String, CharSequence)}.
      */
@@ -6230,7 +6230,7 @@ public class StringUtils {
      * @param text         text to search and replace in, may be null.
      * @param searchString the String to search for, may be null.
      * @param replacement  the String to replace it with, may be null.
-     * @return the text with any replacements processed, {@code null} if null String input.
+     * @return The text with any replacements processed, {@code null} if null String input.
      * @see #replace(String text, String searchString, String replacement, int max)
      * @deprecated Use {@link Strings#replace(String, String, String) Strings.CS.replace(String, String, String)}.
      */
@@ -6265,7 +6265,7 @@ public class StringUtils {
      * @param searchString the String to search for, may be null.
      * @param replacement  the String to replace it with, may be null.
      * @param max          maximum number of values to replace, or {@code -1} if no maximum.
-     * @return the text with any replacements processed, {@code null} if null String input.
+     * @return The text with any replacements processed, {@code null} if null String input.
      * @deprecated Use {@link Strings#replace(String, String, String, int) Strings.CS.replace(String, String, String, int)}.
      */
     @Deprecated
@@ -6310,7 +6310,7 @@ public class StringUtils {
      * @param text        text to search and replace in, may be null.
      * @param regex       the regular expression to which this string is to be matched.
      * @param replacement the string to be substituted for each match.
-     * @return the text with any replacements processed, {@code null} if null String input.
+     * @return The text with any replacements processed, {@code null} if null String input.
      * @throws java.util.regex.PatternSyntaxException if the regular expression's syntax is invalid.
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
@@ -6441,7 +6441,7 @@ public class StringUtils {
      * @param text            text to search and replace in, no-op if null.
      * @param searchList      the Strings to search for, no-op if null.
      * @param replacementList the Strings to replace them with, no-op if null.
-     * @return the text with any replacements processed, {@code null} if null String input.
+     * @return The text with any replacements processed, {@code null} if null String input.
      * @throws IllegalArgumentException if the lengths of the arrays are not the same (null is ok, and/or size 0).
      * @since 2.4
      */
@@ -6478,7 +6478,7 @@ public class StringUtils {
      * @param replacementList the Strings to replace them with, no-op if null.
      * @param repeat          if true, then replace repeatedly until there are no more possible replacements or timeToLive < 0.
      * @param timeToLive      if less than 0 then there is a circular reference and endless loop.
-     * @return the text with any replacements processed, {@code null} if null String input.
+     * @return The text with any replacements processed, {@code null} if null String input.
      * @throws IllegalStateException    if the search is repeating and there is an endless loop due to outputs of one being inputs to another.
      * @throws IllegalArgumentException if the lengths of the arrays are not the same (null is ok, and/or size 0).
      * @since 2.4
@@ -6627,7 +6627,7 @@ public class StringUtils {
      * @param text            text to search and replace in, no-op if null.
      * @param searchList      the Strings to search for, no-op if null.
      * @param replacementList the Strings to replace them with, no-op if null.
-     * @return the text with any replacements processed, {@code null} if null String input.
+     * @return The text with any replacements processed, {@code null} if null String input.
      * @throws IllegalStateException    if the search is repeating and there is an endless loop due to outputs of one being inputs to another.
      * @throws IllegalArgumentException if the lengths of the arrays are not the same (null is ok, and/or size 0).
      * @since 2.4
@@ -6674,7 +6674,7 @@ public class StringUtils {
      * @param text        text to search and replace in, may be null.
      * @param regex       the regular expression to which this string is to be matched.
      * @param replacement the string to be substituted for the first match.
-     * @return the text with the first replacement processed, {@code null} if null String input.
+     * @return The text with the first replacement processed, {@code null} if null String input.
      * @throws java.util.regex.PatternSyntaxException if the regular expression's syntax is invalid.
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
@@ -6708,7 +6708,7 @@ public class StringUtils {
      * @param text         text to search and replace in, may be null.
      * @param searchString the String to search for (case-insensitive), may be null.
      * @param replacement  the String to replace it with, may be null.
-     * @return the text with any replacements processed, {@code null} if null String input.
+     * @return The text with any replacements processed, {@code null} if null String input.
      * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
      * @since 3.5
      * @deprecated Use {@link Strings#replace(String, String, String) Strings.CI.replace(String, String, String)}.
@@ -6744,7 +6744,7 @@ public class StringUtils {
      * @param searchString the String to search for (case-insensitive), may be null.
      * @param replacement  the String to replace it with, may be null.
      * @param max          maximum number of values to replace, or {@code -1} if no maximum.
-     * @return the text with any replacements processed, {@code null} if null String input.
+     * @return The text with any replacements processed, {@code null} if null String input.
      * @since 3.5
      * @deprecated Use {@link Strings#replace(String, String, String, int) Strings.CI.replace(String, String, String, int)}.
      */
@@ -6774,7 +6774,7 @@ public class StringUtils {
      * @param text         text to search and replace in, may be null.
      * @param searchString the String to search for, may be null.
      * @param replacement  the String to replace with, may be null.
-     * @return the text with any replacements processed, {@code null} if null String input.
+     * @return The text with any replacements processed, {@code null} if null String input.
      * @see #replace(String text, String searchString, String replacement, int max)
      * @deprecated Use {@link Strings#replaceOnce(String, String, String) Strings.CS.replaceOnce(String, String, String)}.
      */
@@ -6805,7 +6805,7 @@ public class StringUtils {
      * @param text         text to search and replace in, may be null.
      * @param searchString the String to search for (case-insensitive), may be null.
      * @param replacement  the String to replace with, may be null.
-     * @return the text with any replacements processed, {@code null} if null String input.
+     * @return The text with any replacements processed, {@code null} if null String input.
      * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
      * @since 3.5
      * @deprecated Use {@link Strings#replaceOnce(String, String, String) Strings.CI.replaceOnce(String, String, String)}.
@@ -6873,7 +6873,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to reverse, may be null.
-     * @return the reversed String, {@code null} if null String input.
+     * @return The reversed String, {@code null} if null String input.
      */
     public static String reverse(final String str) {
         if (str == null) {
@@ -6898,7 +6898,7 @@ public class StringUtils {
      *
      * @param str           the String to reverse, may be null.
      * @param separatorChar the separator character to use.
-     * @return the reversed String, {@code null} if null String input.
+     * @return The reversed String, {@code null} if null String input.
      * @since 2.0
      */
     public static String reverseDelimited(final String str, final char separatorChar) {
@@ -6926,7 +6926,7 @@ public class StringUtils {
      *
      * @param str the String to get the rightmost characters from, may be null.
      * @param len the length of the required String.
-     * @return the rightmost characters, {@code null} if null String input.
+     * @return The rightmost characters, {@code null} if null String input.
      */
     public static String right(final String str, final int len) {
         if (str == null) {
@@ -7076,7 +7076,7 @@ public class StringUtils {
      *
      * @param str   the String to rotate, may be null.
      * @param shift number of time to shift (positive : right shift, negative : left shift).
-     * @return the rotated String, or the original String if {@code shift == 0}, or {@code null} if null String input.
+     * @return The rotated String, or the original String if {@code shift == 0}, or {@code null} if null String input.
      * @since 3.5
      */
     public static String rotate(final String str, final int shift) {
@@ -7903,7 +7903,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to remove whitespace from, may be null.
-     * @return the stripped String, {@code null} if null String input.
+     * @return The stripped String, {@code null} if null String input.
      */
     public static String strip(final String str) {
         return strip(str, null);
@@ -7934,7 +7934,7 @@ public class StringUtils {
      *
      * @param str        the String to remove characters from, may be null.
      * @param stripChars the characters to remove, null treated as whitespace.
-     * @return the stripped String, {@code null} if null String input.
+     * @return The stripped String, {@code null} if null String input.
      */
     public static String strip(String str, final String stripChars) {
         str = stripStart(str, stripChars);
@@ -7997,7 +7997,7 @@ public class StringUtils {
      * </pre>
      *
      * @param strs the array to remove whitespace from, may be null.
-     * @return the stripped Strings, {@code null} if null array input.
+     * @return The stripped Strings, {@code null} if null array input.
      */
     public static String[] stripAll(final String... strs) {
         return stripAll(strs, null);
@@ -8025,7 +8025,7 @@ public class StringUtils {
      *
      * @param strs       the array to remove characters from, may be null.
      * @param stripChars the characters to remove, null treated as whitespace.
-     * @return the stripped Strings, {@code null} if null array input.
+     * @return The stripped Strings, {@code null} if null array input.
      */
     public static String[] stripAll(final String[] strs, final String stripChars) {
         final int strsLen = ArrayUtils.getLength(strs);
@@ -8060,7 +8060,7 @@ public class StringUtils {
      *
      * @param str        the String to remove characters from, may be null.
      * @param stripChars the set of characters to remove, null treated as whitespace.
-     * @return the stripped String, {@code null} if null String input.
+     * @return The stripped String, {@code null} if null String input.
      */
     public static String stripEnd(final String str, final String stripChars) {
         int end = length(str);
@@ -8105,7 +8105,7 @@ public class StringUtils {
      *
      * @param str        the String to remove characters from, may be null.
      * @param stripChars the characters to remove, null treated as whitespace.
-     * @return the stripped String, {@code null} if null String input.
+     * @return The stripped String, {@code null} if null String input.
      */
     public static String stripStart(final String str, final String stripChars) {
         final int strLen = length(str);
@@ -8146,7 +8146,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to be stripped, may be null.
-     * @return the trimmed String, or an empty String if {@code null} input.
+     * @return The trimmed String, or an empty String if {@code null} input.
      * @since 2.0
      */
     public static String stripToEmpty(final String str) {
@@ -8172,7 +8172,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to be stripped, may be null.
-     * @return the stripped String, {@code null} if whitespace, empty or null String input.
+     * @return The stripped String, {@code null} if whitespace, empty or null String input.
      * @since 2.0
      */
     public static String stripToNull(String str) {
@@ -8310,7 +8310,7 @@ public class StringUtils {
      *
      * @param str       the String to get a substring from, may be null.
      * @param find the character (Unicode code point) to find.
-     * @return the substring after the first occurrence of the specified character, {@code null} if null String input.
+     * @return The substring after the first occurrence of the specified character, {@code null} if null String input.
      * @since 3.11
      */
     public static String substringAfter(final String str, final int find) {
@@ -8349,7 +8349,7 @@ public class StringUtils {
      *
      * @param str       the String to get a substring from, may be null.
      * @param find the String to find, may be null.
-     * @return the substring after the first occurrence of the specified string, {@code null} if null String input.
+     * @return The substring after the first occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
     public static String substringAfter(final String str, final String find) {
@@ -8390,7 +8390,7 @@ public class StringUtils {
      *
      * @param str       the String to get a substring from, may be null.
      * @param find the character (Unicode code point) to find.
-     * @return the substring after the last occurrence of the specified character, {@code null} if null String input.
+     * @return The substring after the last occurrence of the specified character, {@code null} if null String input.
      * @since 3.11
      */
     public static String substringAfterLast(final String str, final int find) {
@@ -8430,7 +8430,7 @@ public class StringUtils {
      *
      * @param str       the String to get a substring from, may be null.
      * @param find the String to find, may be null.
-     * @return the substring after the last occurrence of the specified string, {@code null} if null String input.
+     * @return The substring after the last occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
     public static String substringAfterLast(final String str, final String find) {
@@ -8469,7 +8469,7 @@ public class StringUtils {
      *
      * @param str       the String to get a substring from, may be null.
      * @param find the character (Unicode code point) to find.
-     * @return the substring before the first occurrence of the specified character, {@code null} if null String input.
+     * @return The substring before the first occurrence of the specified character, {@code null} if null String input.
      * @since 3.12.0
      */
     public static String substringBefore(final String str, final int find) {
@@ -8508,7 +8508,7 @@ public class StringUtils {
      *
      * @param str       the String to get a substring from, may be null.
      * @param find the String to find, may be null.
-     * @return the substring before the first occurrence of the specified string, {@code null} if null String input.
+     * @return The substring before the first occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
     public static String substringBefore(final String str, final String find) {
@@ -8550,7 +8550,7 @@ public class StringUtils {
      *
      * @param str       the String to get a substring from, may be null.
      * @param find the String to find, may be null.
-     * @return the substring before the last occurrence of the specified string, {@code null} if null String input.
+     * @return The substring before the last occurrence of the specified string, {@code null} if null String input.
      * @since 2.0
      */
     public static String substringBeforeLast(final String str, final String find) {
@@ -8582,7 +8582,7 @@ public class StringUtils {
      *
      * @param str the String containing the substring, may be null.
      * @param tag the String before and after the substring, may be null.
-     * @return the substring, {@code null} if no match.
+     * @return The substring, {@code null} if no match.
      * @since 2.0
      */
     public static String substringBetween(final String str, final String tag) {
@@ -8613,7 +8613,7 @@ public class StringUtils {
      * @param str   the String containing the substring, may be null.
      * @param open  the String before the substring, may be null.
      * @param close the String after the substring, may be null.
-     * @return the substring, {@code null} if no match.
+     * @return The substring, {@code null} if no match.
      * @since 2.0
      */
     public static String substringBetween(final String str, final String open, final String close) {
@@ -8708,7 +8708,7 @@ public class StringUtils {
      * </p>
      *
      * @param str the String to swap case, may be null.
-     * @return the changed String, {@code null} if null String input.
+     * @return The changed String, {@code null} if null String input.
      */
     public static String swapCase(final String str) {
         if (isEmpty(str)) {
@@ -8778,7 +8778,7 @@ public class StringUtils {
      * Converts the given source String as a lower-case using the {@link Locale#ROOT} locale in a null-safe manner.
      *
      * @param source A source String or null.
-     * @return the given source String as a lower-case using the {@link Locale#ROOT} locale or null.
+     * @return The given source String as a lower-case using the {@link Locale#ROOT} locale or null.
      * @since 3.10
      */
     public static String toRootLowerCase(final String source) {
@@ -8789,7 +8789,7 @@ public class StringUtils {
      * Converts the given source String as an upper-case using the {@link Locale#ROOT} locale in a null-safe manner.
      *
      * @param source A source String or null.
-     * @return the given source String as an upper-case using the {@link Locale#ROOT} locale or null.
+     * @return The given source String as an upper-case using the {@link Locale#ROOT} locale or null.
      * @since 3.10
      */
     public static String toRootUpperCase(final String source) {
@@ -8831,7 +8831,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to be trimmed, may be null.
-     * @return the trimmed string, {@code null} if null String input.
+     * @return The trimmed string, {@code null} if null String input.
      */
     public static String trim(final String str) {
         return str == null ? null : str.trim();
@@ -8853,7 +8853,7 @@ public class StringUtils {
      * }</pre>
      *
      * @param str the String to be trimmed, may be null.
-     * @return the trimmed string, {@code null} if null String input.
+     * @return The trimmed string, {@code null} if null String input.
      * @since 3.21.0
      */
     public static String trimAsciiControl(final String str) {
@@ -8888,7 +8888,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to be trimmed, may be null.
-     * @return the trimmed String, or an empty String if {@code null} input.
+     * @return The trimmed String, or an empty String if {@code null} input.
      * @since 2.0
      */
     public static String trimToEmpty(final String str) {
@@ -8912,7 +8912,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to be trimmed, may be null.
-     * @return the trimmed String, {@code null} if only chars &lt;= 32, empty or null String input.
+     * @return The trimmed String, {@code null} if only chars &lt;= 32, empty or null String input.
      * @since 2.0
      */
     public static String trimToNull(final String str) {
@@ -9051,7 +9051,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to uncapitalize, may be null.
-     * @return the uncapitalized String, {@code null} if null String input.
+     * @return The uncapitalized String, {@code null} if null String input.
      * @see org.apache.commons.text.WordUtils#uncapitalize(String)
      * @see #capitalize(String)
      * @since 2.0
@@ -9157,7 +9157,7 @@ public class StringUtils {
      * </p>
      *
      * @param str the String to upper case, may be null.
-     * @return the upper-cased String, {@code null} if null String input.
+     * @return The upper-cased String, {@code null} if null String input.
      */
     public static String upperCase(final String str) {
         if (str == null) {
@@ -9181,7 +9181,7 @@ public class StringUtils {
      *
      * @param str    the String to upper case, may be null.
      * @param locale the locale that defines the case transformation rules, must not be null.
-     * @return the upper-cased String, {@code null} if null String input.
+     * @return The upper-cased String, {@code null} if null String input.
      * @since 2.5
      */
     public static String upperCase(final String str, final Locale locale) {
@@ -9217,7 +9217,7 @@ public class StringUtils {
      *
      * @param str      the string to be wrapped, may be {@code null}.
      * @param wrapWith the char that will wrap {@code str}.
-     * @return the wrapped string, or {@code null} if {@code str == null}.
+     * @return The wrapped string, or {@code null} if {@code str == null}.
      * @since 3.4
      */
     public static String wrap(final String str, final char wrapWith) {
@@ -9281,7 +9281,7 @@ public class StringUtils {
      *
      * @param str      the string to be wrapped, may be {@code null}.
      * @param wrapWith the char that will wrap {@code str}.
-     * @return the wrapped string, or {@code null} if {@code str == null}.
+     * @return The wrapped string, or {@code null} if {@code str == null}.
      * @since 3.5
      */
     public static String wrapIfMissing(final String str, final char wrapWith) {
@@ -9330,7 +9330,7 @@ public class StringUtils {
      *
      * @param str      the string to be wrapped, may be {@code null}.
      * @param wrapWith the string that will wrap {@code str}.
-     * @return the wrapped string, or {@code null} if {@code str == null}.
+     * @return The wrapped string, or {@code null} if {@code str == null}.
      * @since 3.5
      */
     public static String wrapIfMissing(final String str, final String wrapWith) {

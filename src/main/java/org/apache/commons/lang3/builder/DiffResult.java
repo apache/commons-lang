@@ -89,7 +89,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     /**
      * Gets the object the right object has been compared to.
      *
-     * @return the left object of the diff
+     * @return The left object of the diff
      * @since 3.10
      */
     public T getLeft() {
@@ -99,7 +99,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     /**
      * Gets the number of differences between the two objects.
      *
-     * @return the number of differences
+     * @return The number of differences
      */
     public int getNumberOfDiffs() {
         return diffList.size();
@@ -108,7 +108,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     /**
      * Gets the object the left object has been compared to.
      *
-     * @return the right object of the diff
+     * @return The right object of the diff
      * @since 3.10
      */
     public T getRight() {
@@ -118,7 +118,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     /**
      * Gets the style used by the {@link #toString()} method.
      *
-     * @return the style
+     * @return The style
      */
     public ToStringStyle getToStringStyle() {
         return style;
@@ -127,7 +127,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
     /**
      * Returns an iterator over the {@link Diff} objects contained in this list.
      *
-     * @return the iterator
+     * @return The iterator
      */
     @Override
     public Iterator<Diff<?>> iterator() {

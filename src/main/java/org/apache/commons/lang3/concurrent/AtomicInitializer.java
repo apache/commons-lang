@@ -128,7 +128,7 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
      * Gets the object managed by this initializer. The object is created if it is not available yet and stored internally. This method always returns the same
      * object.
      *
-     * @return the object created by this {@link AtomicInitializer}.
+     * @return The object created by this {@link AtomicInitializer}.
      * @throws ConcurrentException if an error occurred during initialization of the object.
      */
     @Override

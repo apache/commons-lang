@@ -119,7 +119,7 @@ public class SerializationUtils {
      *
      * @param <T>    the type of the object involved.
      * @param object the {@link Serializable} object to clone.
-     * @return the cloned object.
+     * @return The cloned object.
      * @throws SerializationException (runtime) if the serialization fails.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      */
@@ -153,7 +153,7 @@ public class SerializationUtils {
      *
      * @param <T>        the object type to be deserialized.
      * @param objectData the serialized object, must not be null.
-     * @return the deserialized object.
+     * @return The deserialized object.
      * @throws NullPointerException   if {@code objectData} is {@code null}.
      * @throws SerializationException (runtime) if the serialization fails.
      * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
@@ -189,7 +189,7 @@ public class SerializationUtils {
      *
      * @param <T>         the object type to be deserialized.
      * @param inputStream the serialized object input stream, must not be null.
-     * @return the deserialized object.
+     * @return The deserialized object.
      * @throws NullPointerException   if {@code inputStream} is {@code null}.
      * @throws SerializationException (runtime) if the serialization fails.
      * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
@@ -232,7 +232,7 @@ public class SerializationUtils {
      *
      * @param <T> The type of the object involved.
      * @param obj the object to roundtrip.
-     * @return the serialized and deserialized object.
+     * @return The serialized and deserialized object.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      * @since 3.3
      */

@@ -54,7 +54,7 @@ public class ConstructorUtils {
      * @param <T>            the constructor type.
      * @param cls            the class to find a constructor for, not {@code null}.
      * @param parameterTypes the array of parameter types, {@code null} treated as empty.
-     * @return the constructor, {@code null} if no matching accessible constructor found.
+     * @return The constructor, {@code null} if no matching accessible constructor found.
      * @throws NullPointerException if {@code cls} is {@code null}
      * @throws SecurityException    Thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class loader
      *                              for the class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the
@@ -80,7 +80,7 @@ public class ConstructorUtils {
      *
      * @param <T>  the constructor type.
      * @param ctor the prototype constructor object, not {@code null}.
-     * @return the constructor, {@code null} if no matching accessible constructor found.
+     * @return The constructor, {@code null} if no matching accessible constructor found.
      * @see SecurityManager
      * @throws NullPointerException if {@code ctor} is {@code null}
      * @throws SecurityException    Thrown if a security manager is present and a caller's class loader is not the same as or an ancestor of the class loader
@@ -106,7 +106,7 @@ public class ConstructorUtils {
      * @param <T>            the constructor type.
      * @param cls            the class to find a constructor for, not {@code null}.
      * @param parameterTypes find method with compatible parameters.
-     * @return the constructor, null if no matching accessible constructor found.
+     * @return The constructor, null if no matching accessible constructor found.
      * @throws NullPointerException Thrown if {@code cls} is {@code null}
      * @throws SecurityException    Thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class loader for the
      *                              class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the class.

@@ -32,7 +32,7 @@ public class ArraySorter {
      * Sorts the given array into ascending order and returns it.
      *
      * @param array the array to sort (may be null).
-     * @return the given array.
+     * @return The given array.
      * @see Arrays#sort(byte[])
      */
     public static byte[] sort(final byte[] array) {
@@ -46,7 +46,7 @@ public class ArraySorter {
      * Sorts the given array into ascending order and returns it.
      *
      * @param array the array to sort (may be null).
-     * @return the given array.
+     * @return The given array.
      * @see Arrays#sort(char[])
      */
     public static char[] sort(final char[] array) {
@@ -60,7 +60,7 @@ public class ArraySorter {
      * Sorts the given array into ascending order and returns it.
      *
      * @param array the array to sort (may be null).
-     * @return the given array.
+     * @return The given array.
      * @see Arrays#sort(double[])
      */
     public static double[] sort(final double[] array) {
@@ -74,7 +74,7 @@ public class ArraySorter {
      * Sorts the given array into ascending order and returns it.
      *
      * @param array the array to sort (may be null).
-     * @return the given array.
+     * @return The given array.
      * @see Arrays#sort(float[])
      */
     public static float[] sort(final float[] array) {
@@ -88,7 +88,7 @@ public class ArraySorter {
      * Sorts the given array into ascending order and returns it.
      *
      * @param array the array to sort (may be null).
-     * @return the given array.
+     * @return The given array.
      * @see Arrays#sort(int[])
      */
     public static int[] sort(final int[] array) {
@@ -102,7 +102,7 @@ public class ArraySorter {
      * Sorts the given array into ascending order and returns it.
      *
      * @param array the array to sort (may be null).
-     * @return the given array.
+     * @return The given array.
      * @see Arrays#sort(long[])
      */
     public static long[] sort(final long[] array) {
@@ -116,7 +116,7 @@ public class ArraySorter {
      * Sorts the given array into ascending order and returns it.
      *
      * @param array the array to sort (may be null).
-     * @return the given array.
+     * @return The given array.
      * @see Arrays#sort(short[])
      */
     public static short[] sort(final short[] array) {
@@ -131,7 +131,7 @@ public class ArraySorter {
      *
      * @param <T> The array type.
      * @param array the array to sort (may be null).
-     * @return the given array.
+     * @return The given array.
      * @see Arrays#sort(Object[])
      */
     public static <T> T[] sort(final T[] array) {
@@ -148,7 +148,7 @@ public class ArraySorter {
      * @param array the array to sort (may be null).
      * @param comparator the comparator to determine the order of the array. A {@code null} value uses the elements'
      *        {@link Comparable natural ordering}.
-     * @return the given array.
+     * @return The given array.
      * @see Arrays#sort(Object[])
      */
     public static <T> T[] sort(final T[] array, final Comparator<? super T> comparator) {

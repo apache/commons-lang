@@ -62,7 +62,7 @@ public abstract class StrMatcher {
          * @param pos  the starting position for the match, valid for buffer.
          * @param bufferStart  the first active index in the buffer, valid for buffer.
          * @param bufferEnd  the end index of the active buffer, valid for buffer.
-         * @return the number of matching characters, zero for no match.
+         * @return The number of matching characters, zero for no match.
          */
         @Override
         public int isMatch(final char[] buffer, final int pos, final int bufferStart, final int bufferEnd) {
@@ -94,7 +94,7 @@ public abstract class StrMatcher {
          * @param pos  the starting position for the match, valid for buffer.
          * @param bufferStart  the first active index in the buffer, valid for buffer.
          * @param bufferEnd  the end index of the active buffer, valid for buffer.
-         * @return the number of matching characters, zero for no match.
+         * @return The number of matching characters, zero for no match.
          */
         @Override
         public int isMatch(final char[] buffer, final int pos, final int bufferStart, final int bufferEnd) {
@@ -120,7 +120,7 @@ public abstract class StrMatcher {
          * @param pos  the starting position for the match, valid for buffer.
          * @param bufferStart  the first active index in the buffer, valid for buffer.
          * @param bufferEnd  the end index of the active buffer, valid for buffer.
-         * @return the number of matching characters, zero for no match.
+         * @return The number of matching characters, zero for no match.
          */
         @Override
         public int isMatch(final char[] buffer, final int pos, final int bufferStart, final int bufferEnd) {
@@ -152,7 +152,7 @@ public abstract class StrMatcher {
          * @param pos  the starting position for the match, valid for buffer.
          * @param bufferStart  the first active index in the buffer, valid for buffer.
          * @param bufferEnd  the end index of the active buffer, valid for buffer.
-         * @return the number of matching characters, zero for no match.
+         * @return The number of matching characters, zero for no match.
          */
         @Override
         public int isMatch(final char[] buffer, int pos, final int bufferStart, final int bufferEnd) {
@@ -193,7 +193,7 @@ public abstract class StrMatcher {
          * @param pos  the starting position for the match, valid for buffer.
          * @param bufferStart  the first active index in the buffer, valid for buffer.
          * @param bufferEnd  the end index of the active buffer, valid for buffer.
-         * @return the number of matching characters, zero for no match.
+         * @return The number of matching characters, zero for no match.
          */
         @Override
         public int isMatch(final char[] buffer, final int pos, final int bufferStart, final int bufferEnd) {
@@ -292,7 +292,7 @@ public abstract class StrMatcher {
     /**
      * Gets the matcher for the comma character.
      *
-     * @return the matcher for a comma.
+     * @return The matcher for a comma.
      */
     public static StrMatcher commaMatcher() {
         return COMMA_MATCHER;
@@ -301,7 +301,7 @@ public abstract class StrMatcher {
     /**
      * Gets the matcher for the double quote character.
      *
-     * @return the matcher for a double quote.
+     * @return The matcher for a double quote.
      */
     public static StrMatcher doubleQuoteMatcher() {
         return DOUBLE_QUOTE_MATCHER;
@@ -310,7 +310,7 @@ public abstract class StrMatcher {
     /**
      * Gets the matcher for no characters.
      *
-     * @return the matcher that matches nothing.
+     * @return The matcher that matches nothing.
      */
     public static StrMatcher noneMatcher() {
         return NONE_MATCHER;
@@ -319,7 +319,7 @@ public abstract class StrMatcher {
     /**
      * Gets the matcher for the single or double quote character.
      *
-     * @return the matcher for a single or double quote.
+     * @return The matcher for a single or double quote.
      */
     public static StrMatcher quoteMatcher() {
         return QUOTE_MATCHER;
@@ -328,7 +328,7 @@ public abstract class StrMatcher {
     /**
      * Gets the matcher for the single quote character.
      *
-     * @return the matcher for a single quote.
+     * @return The matcher for a single quote.
      */
     public static StrMatcher singleQuoteMatcher() {
         return SINGLE_QUOTE_MATCHER;
@@ -337,7 +337,7 @@ public abstract class StrMatcher {
     /**
      * Gets the matcher for the space character.
      *
-     * @return the matcher for a space.
+     * @return The matcher for a space.
      */
     public static StrMatcher spaceMatcher() {
         return SPACE_MATCHER;
@@ -347,7 +347,7 @@ public abstract class StrMatcher {
      * Gets the matcher for the same characters as StringTokenizer,
      * namely space, tab, newline and form-feed.
      *
-     * @return the split matcher.
+     * @return The split matcher.
      */
     public static StrMatcher splitMatcher() {
         return SPLIT_MATCHER;
@@ -369,7 +369,7 @@ public abstract class StrMatcher {
     /**
      * Gets the matcher for the tab character.
      *
-     * @return the matcher for a tab.
+     * @return The matcher for a tab.
      */
     public static StrMatcher tabMatcher() {
         return TAB_MATCHER;
@@ -378,7 +378,7 @@ public abstract class StrMatcher {
     /**
      * Gets the matcher to String trim() whitespace characters.
      *
-     * @return the trim matcher.
+     * @return The trim matcher.
      */
     public static StrMatcher trimMatcher() {
         return TRIM_MATCHER;
@@ -410,7 +410,7 @@ public abstract class StrMatcher {
      *
      * @param buffer  the text content to match against, do not change.
      * @param pos  the starting position for the match, valid for buffer.
-     * @return the number of matching characters, zero for no match.
+     * @return The number of matching characters, zero for no match.
      * @since 2.4
      */
     public int isMatch(final char[] buffer, final int pos) {
@@ -444,7 +444,7 @@ public abstract class StrMatcher {
      * @param pos  the starting position for the match, valid for buffer.
      * @param bufferStart  the first active index in the buffer, valid for buffer.
      * @param bufferEnd  the end index (exclusive) of the active buffer, valid for buffer.
-     * @return the number of matching characters, zero for no match.
+     * @return The number of matching characters, zero for no match.
      */
     public abstract int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd);
 

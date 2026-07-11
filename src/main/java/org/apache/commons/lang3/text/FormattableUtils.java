@@ -54,7 +54,7 @@ public class FormattableUtils {
      * @param flags  the flags for formatting, see {@link Formattable}.
      * @param width  the width of the output, see {@link Formattable}.
      * @param precision  the precision of the output, see {@link Formattable}.
-     * @return the {@code formatter} instance, not null.
+     * @return The {@code formatter} instance, not null.
      */
     public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
             final int precision) {
@@ -71,7 +71,7 @@ public class FormattableUtils {
      * @param width  the width of the output, see {@link Formattable}.
      * @param precision  the precision of the output, see {@link Formattable}.
      * @param padChar  the pad character to use.
-     * @return the {@code formatter} instance, not null.
+     * @return The {@code formatter} instance, not null.
      */
     public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
             final int precision, final char padChar) {
@@ -89,7 +89,7 @@ public class FormattableUtils {
      * @param padChar  the pad character to use.
      * @param ellipsis  the ellipsis to use when precision dictates truncation, null or
      *  empty causes a hard truncation.
-     * @return the {@code formatter} instance, not null.
+     * @return The {@code formatter} instance, not null.
      */
     public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
             final int precision, final char padChar, final CharSequence ellipsis) {
@@ -118,7 +118,7 @@ public class FormattableUtils {
      * @param precision  the precision of the output, see {@link Formattable}.
      * @param ellipsis  the ellipsis to use when precision dictates truncation, null or
      *  empty causes a hard truncation.
-     * @return the {@code formatter} instance, not null.
+     * @return The {@code formatter} instance, not null.
      */
     public static Formatter append(final CharSequence seq, final Formatter formatter, final int flags, final int width,
             final int precision, final CharSequence ellipsis) {
@@ -130,7 +130,7 @@ public class FormattableUtils {
      * {@link Formattable}.
      *
      * @param formattable  the instance to convert to a string, not null.
-     * @return the resulting string, not null.
+     * @return The resulting string, not null.
      */
     public static String toString(final Formattable formattable) {
         return String.format(SIMPLEST_FORMAT, formattable);

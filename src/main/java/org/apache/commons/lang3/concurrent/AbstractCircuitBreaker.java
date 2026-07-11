@@ -62,7 +62,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
          * Returns the opposite state to the represented state. This is useful
          * for flipping the current state.
          *
-         * @return the opposite state
+         * @return The opposite state
          */
         public abstract State oppositeState();
     }
@@ -77,7 +77,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
      * Converts the given state value to a boolean <em>open</em> property.
      *
      * @param state the state to be converted
-     * @return the boolean open flag
+     * @return The boolean open flag
      */
     protected static boolean isOpen(final State state) {
         return state == State.OPEN;

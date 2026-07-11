@@ -98,7 +98,7 @@ class FastDatePrinterTest extends AbstractLangTest {
      * @param format   the format string to use
      * @param timeZone the time zone to use
      * @param locale   the locale to use
-     * @return the DatePrinter to use for testing
+     * @return The DatePrinter to use for testing
      */
     protected DatePrinter getInstance(final String format, final TimeZone timeZone, final Locale locale) {
         return new FastDatePrinter(format, timeZone, locale);

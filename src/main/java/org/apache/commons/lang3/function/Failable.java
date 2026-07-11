@@ -142,7 +142,7 @@ public class Failable {
      * @param <U> The type of the second argument the function accepts
      * @param <R> The return type of the function
      * @param <E> The type of checked exception the function may throw
-     * @return the value returned from the function
+     * @return The value returned from the function
      */
     public static <T, U, R, E extends Throwable> R apply(final FailableBiFunction<T, U, R, E> function, final T input1,
         final U input2) {
@@ -157,7 +157,7 @@ public class Failable {
      * @param <T> The type of the argument the function accepts
      * @param <R> The return type of the function
      * @param <E> The type of checked exception the function may throw
-     * @return the value returned from the function
+     * @return The value returned from the function
      */
     public static <T, R, E extends Throwable> R apply(final FailableFunction<T, R, E> function, final T input) {
         return get(() -> function.apply(input));
@@ -170,7 +170,7 @@ public class Failable {
      * @param left the first input to apply {@code function} on
      * @param right the second input to apply {@code function} on
      * @param <E> The type of checked exception the function may throw
-     * @return the value returned from the function
+     * @return The value returned from the function
      */
     public static <E extends Throwable> double applyAsDouble(final FailableDoubleBinaryOperator<E> function,
         final double left, final double right) {
@@ -391,7 +391,7 @@ public class Failable {
      * @param callable the callable to call
      * @param <V> The return type of the callable
      * @param <E> The type of checked exception the callable may throw
-     * @return the value returned from the callable
+     * @return The value returned from the callable
      */
     public static <V, E extends Throwable> V call(final FailableCallable<V, E> callable) {
         return get(callable::call);
@@ -587,7 +587,7 @@ public class Failable {
      * @param <T> The type of the first argument the predicate tests
      * @param <U> The type of the second argument the predicate tests
      * @param <E> The type of checked exception the predicate may throw
-     * @return the boolean value returned by the predicate
+     * @return The boolean value returned by the predicate
      */
     public static <T, U, E extends Throwable> boolean test(final FailableBiPredicate<T, U, E> predicate,
         final T object1, final U object2) {
@@ -601,7 +601,7 @@ public class Failable {
      * @param object the input to test by {@code predicate}
      * @param <T> The type of argument the predicate tests
      * @param <E> The type of checked exception the predicate may throw
-     * @return the boolean value returned by the predicate
+     * @return The boolean value returned by the predicate
      */
     public static <T, E extends Throwable> boolean test(final FailablePredicate<T, E> predicate, final T object) {
         return getAsBoolean(() -> predicate.test(object));

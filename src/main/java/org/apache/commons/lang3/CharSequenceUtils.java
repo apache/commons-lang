@@ -67,7 +67,7 @@ public class CharSequenceUtils {
      * @param cs         the {@link CharSequence} to be processed.
      * @param searchChar the {@link CharSequence} to be searched for.
      * @param start      the start index.
-     * @return the index where the search sequence was found, or {@code -1} if there is no such occurrence.
+     * @return The index where the search sequence was found, or {@code -1} if there is no such occurrence.
      */
     static int indexOf(final CharSequence cs, final CharSequence searchChar, final int start) {
         if (cs == null || searchChar == null) {
@@ -127,7 +127,7 @@ public class CharSequenceUtils {
      * @param cs         the {@link CharSequence} to be processed, not null.
      * @param searchChar the char to be searched for.
      * @param start      the start index, negative starts at the string start.
-     * @return the index where the search char was found, -1 if not found.
+     * @return The index where the search char was found, -1 if not found.
      * @since 3.6 updated to behave more like {@link String}.
      */
     static int indexOf(final CharSequence cs, final int searchChar, int start) {
@@ -166,7 +166,7 @@ public class CharSequenceUtils {
      * @param cs the {@link CharSequence} to be processed.
      * @param searchChar the {@link CharSequence} to find.
      * @param start the start index.
-     * @return the index where the search sequence was found.
+     * @return The index where the search sequence was found.
      */
     static int lastIndexOf(final CharSequence cs, final CharSequence searchChar, int start) {
         if (searchChar == null || cs == null) {
@@ -259,7 +259,7 @@ public class CharSequenceUtils {
      * @param cs         the {@link CharSequence} to be processed.
      * @param searchChar the char to be searched for.
      * @param start      the start index, negative returns -1, beyond length starts at end.
-     * @return the index where the search char was found, -1 if not found.
+     * @return The index where the search char was found, -1 if not found.
      * @since 3.6 updated to behave more like {@link String}.
      */
     static int lastIndexOf(final CharSequence cs, final int searchChar, int start) {
@@ -399,7 +399,7 @@ public class CharSequenceUtils {
      * Converts the given CharSequence to a char[].
      *
      * @param source the {@link CharSequence} to be processed.
-     * @return the resulting char array, never null.
+     * @return The resulting char array, never null.
      * @since 3.11
      */
     public static char[] toCharArray(final CharSequence source) {

@@ -49,7 +49,7 @@ public class Consumers {
      * Gets the NOP Consumer singleton.
      *
      * @param <T> type type to consume.
-     * @return the NOP Consumer singleton.
+     * @return The NOP Consumer singleton.
      */
     @SuppressWarnings("unchecked")
     public static <T> Consumer<T> nop() {

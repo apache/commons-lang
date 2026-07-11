@@ -45,7 +45,7 @@ public final class LongRange extends NumberRange<Long> {
      *
      * @param fromInclusive the first value that defines the edge of the range, inclusive.
      * @param toInclusive the second value that defines the edge of the range, inclusive.
-     * @return the range object, not null.
+     * @return The range object, not null.
      */
     public static LongRange of(final long fromInclusive, final long toInclusive) {
         return of(Long.valueOf(fromInclusive), Long.valueOf(toInclusive));
@@ -64,7 +64,7 @@ public final class LongRange extends NumberRange<Long> {
      *
      * @param fromInclusive the first value that defines the edge of the range, inclusive.
      * @param toInclusive the second value that defines the edge of the range, inclusive.
-     * @return the range object, not null.
+     * @return The range object, not null.
      * @throws NullPointerException if either element is null.
      */
     public static LongRange of(final Long fromInclusive, final Long toInclusive) {
@@ -101,7 +101,7 @@ public final class LongRange extends NumberRange<Long> {
      * }</pre>
      *
      * @param element the element to test.
-     * @return the minimum, the element, or the maximum depending on the element's location relative to the range.
+     * @return The minimum, the element, or the maximum depending on the element's location relative to the range.
      * @since 3.19.0
      */
     public long fit(final long element) {

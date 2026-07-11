@@ -65,7 +65,7 @@ public class CharUtils {
      *
      * @param x the first {@code char} to compare
      * @param y the second {@code char} to compare
-     * @return the value {@code 0} if {@code x == y};
+     * @return The value {@code 0} if {@code x == y};
      *         a value less than {@code 0} if {@code x < y}; and
      *         a value greater than {@code 0} if {@code x > y}
      * @since 3.4
@@ -332,7 +332,7 @@ public class CharUtils {
      * </pre>
      *
      * @param ch  the character to convert
-     * @return the char value of the Character
+     * @return The char value of the Character
      * @throws NullPointerException if the Character is null
      */
     public static char toChar(final Character ch) {
@@ -350,7 +350,7 @@ public class CharUtils {
      *
      * @param ch  the character to convert
      * @param defaultValue  the value to use if the  Character is null
-     * @return the char value of the Character or the default if null
+     * @return The char value of the Character or the default if null
      */
     public static char toChar(final Character ch, final char defaultValue) {
         return ch != null ? ch.charValue() : defaultValue;
@@ -368,7 +368,7 @@ public class CharUtils {
      * </pre>
      *
      * @param str  the character to convert
-     * @return the char value of the first letter of the String
+     * @return The char value of the first letter of the String
      * @throws NullPointerException if the string is null
      * @throws IllegalArgumentException if the String is empty
      */
@@ -390,7 +390,7 @@ public class CharUtils {
      *
      * @param str  the character to convert
      * @param defaultValue  the value to use if the  Character is null
-     * @return the char value of the first letter of the String or the default if null
+     * @return The char value of the first letter of the String or the default if null
      */
     public static char toChar(final String str, final char defaultValue) {
         return StringUtils.isEmpty(str) ? defaultValue : str.charAt(0);
@@ -423,7 +423,7 @@ public class CharUtils {
      * </pre>
      *
      * @param str  the character to convert
-     * @return the Character value of the first letter of the String
+     * @return The Character value of the first letter of the String
      */
     public static Character toCharacterObject(final String str) {
         return StringUtils.isEmpty(str) ? null : Character.valueOf(str.charAt(0));
@@ -441,7 +441,7 @@ public class CharUtils {
      * </pre>
      *
      * @param ch  the character to convert
-     * @return the int value of the character
+     * @return The int value of the character
      * @throws IllegalArgumentException if the character is not ASCII numeric
      */
     public static int toIntValue(final char ch) {
@@ -464,7 +464,7 @@ public class CharUtils {
      *
      * @param ch  the character to convert
      * @param defaultValue  the default value to use if the character is not numeric
-     * @return the int value of the character
+     * @return The int value of the character
      */
     public static int toIntValue(final char ch, final int defaultValue) {
         return isAsciiNumeric(ch) ? ch - 48 : defaultValue;
@@ -483,7 +483,7 @@ public class CharUtils {
      * </pre>
      *
      * @param ch  the character to convert, not null
-     * @return the int value of the character
+     * @return The int value of the character
      * @throws NullPointerException if the Character is null
      * @throws IllegalArgumentException if the Character is not ASCII numeric
      */
@@ -505,7 +505,7 @@ public class CharUtils {
      *
      * @param ch  the character to convert
      * @param defaultValue  the default value to use if the character is not numeric
-     * @return the int value of the character
+     * @return The int value of the character
      */
     public static int toIntValue(final Character ch, final int defaultValue) {
         return ch != null ? toIntValue(ch.charValue(), defaultValue) : defaultValue;
@@ -564,7 +564,7 @@ public class CharUtils {
      * </pre>
      *
      * @param ch  the character to convert
-     * @return the escaped Unicode string
+     * @return The escaped Unicode string
      */
     public static String unicodeEscaped(final char ch) {
         return "\\u" +
@@ -588,7 +588,7 @@ public class CharUtils {
      * </pre>
      *
      * @param ch  the character to convert, may be null
-     * @return the escaped Unicode string, null if null input
+     * @return The escaped Unicode string, null if null input
      */
     public static String unicodeEscaped(final Character ch) {
         return ch != null ? unicodeEscaped(ch.charValue()) : null;

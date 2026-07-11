@@ -59,7 +59,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      *
      * @param <L> The left element type
      * @param <R> The right element type
-     * @return the empty array singleton that can be assigned without compiler warning.
+     * @return The empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
     @SuppressWarnings("unchecked")

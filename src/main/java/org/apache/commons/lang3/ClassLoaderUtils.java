@@ -34,7 +34,7 @@ public class ClassLoaderUtils {
     /**
      * Gets the system class loader's URLs, if any.
      *
-     * @return the system class loader's URLs, if any.
+     * @return The system class loader's URLs, if any.
      * @since 3.13.0
      */
     public static URL[] getSystemURLs() {
@@ -44,7 +44,7 @@ public class ClassLoaderUtils {
     /**
      * Gets the current thread's context class loader's URLs, if any.
      *
-     * @return the current thread's context class loader's URLs, if any.
+     * @return The current thread's context class loader's URLs, if any.
      * @since 3.13.0
      */
     public static URL[] getThreadURLs() {
@@ -59,7 +59,7 @@ public class ClassLoaderUtils {
      * Converts the given class loader to a String calling {@link #toString(URLClassLoader)}.
      *
      * @param classLoader to URLClassLoader to convert.
-     * @return the formatted string.
+     * @return The formatted string.
      */
     public static String toString(final ClassLoader classLoader) {
         if (classLoader instanceof URLClassLoader) {
@@ -72,7 +72,7 @@ public class ClassLoaderUtils {
      * Converts the given URLClassLoader to a String in the format {@code "URLClassLoader.toString() + [URL1, URL2, ...]"}.
      *
      * @param classLoader to URLClassLoader to convert.
-     * @return the formatted string.
+     * @return The formatted string.
      */
     public static String toString(final URLClassLoader classLoader) {
         return classLoader != null ? classLoader + Arrays.toString(classLoader.getURLs()) : "null";

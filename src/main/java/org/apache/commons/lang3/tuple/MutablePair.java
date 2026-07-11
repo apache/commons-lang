@@ -48,7 +48,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      *
      * @param <L> The left element type.
      * @param <R> The right element type.
-     * @return the empty array singleton that can be assigned without compiler warning.
+     * @return The empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
     @SuppressWarnings("unchecked")
@@ -181,7 +181,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * This sets the right element of the pair.
      *
      * @param value  the right value to set, not null.
-     * @return the old value for the right element.
+     * @return The old value for the right element.
      */
     @Override
     public R setValue(final R value) {

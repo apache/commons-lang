@@ -113,7 +113,7 @@ public class EventListenerSupport<L> implements Serializable {
          * @param unusedProxy the proxy object representing a listener on which the invocation was called; not used
          * @param method the listener method that will be called on all of the listeners.
          * @param args event arguments to propagate to the listeners.
-         * @return the result of the method call
+         * @return The result of the method call
          * @throws InvocationTargetException if an error occurs
          * @throws IllegalArgumentException if an error occurs
          * @throws IllegalAccessException if an error occurs
@@ -282,7 +282,7 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Gets the number of registered listeners.
      *
-     * @return the number of registered listeners.
+     * @return The number of registered listeners.
      */
     int getListenerCount() {
         return listeners.size();

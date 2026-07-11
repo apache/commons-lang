@@ -37,7 +37,7 @@ public class RegExUtils {
      * Compiles the given regular expression into a pattern with the {@link Pattern#DOTALL} flag.
      *
      * @param regex The expression to be compiled.
-     * @return the given regular expression compiled into a pattern with the {@link Pattern#DOTALL} flag.
+     * @return The given regular expression compiled into a pattern with the {@link Pattern#DOTALL} flag.
      * @since 3.13.0
      */
     public static Pattern dotAll(final String regex) {

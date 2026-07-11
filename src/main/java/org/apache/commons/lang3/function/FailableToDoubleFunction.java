@@ -49,7 +49,7 @@ public interface FailableToDoubleFunction<T, E extends Throwable> {
      * Applies this function to the given arguments.
      *
      * @param t the first function argument
-     * @return the function result
+     * @return The function result
      * @throws E Thrown when the function fails.
      */
     double applyAsDouble(T t) throws E;

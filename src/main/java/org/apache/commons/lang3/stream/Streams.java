@@ -289,7 +289,7 @@ public class Streams {
          * @param <R> The type of the result
          * @param <A> The intermediate accumulation type of the {@link Collector}
          * @param collector the {@link Collector} describing the reduction
-         * @return the result of the reduction
+         * @return The result of the reduction
          * @see #collect(Supplier, BiConsumer, BiConsumer)
          * @see Collectors
          */
@@ -358,7 +358,7 @@ public class Streams {
          *
          * @param predicate a non-interfering, stateless predicate to apply to each element to determine if it should be
          *        included.
-         * @return the new stream
+         * @return The new stream
          */
         public FailableStream<T> filter(final FailablePredicate<T, ?> predicate) {
             assertNotTerminated();
@@ -404,7 +404,7 @@ public class Streams {
          *
          * @param <R> The element type of the new stream
          * @param mapper A non-interfering, stateless function to apply to each element
-         * @return the new stream
+         * @return The new stream
          */
         public <R> FailableStream<R> map(final FailableFunction<T, R, ?> mapper) {
             assertNotTerminated();
@@ -461,7 +461,7 @@ public class Streams {
          *
          * @param identity the identity value for the accumulating function
          * @param accumulator an associative, non-interfering, stateless function for combining two values
-         * @return the result of the reduction
+         * @return The result of the reduction
          */
         public T reduce(final T identity, final BinaryOperator<T> accumulator) {
             makeTerminated();
@@ -571,7 +571,7 @@ public class Streams {
      *
      * @param <T> The type of stream elements.
      * @param value the single element of the new stream, may be {@code null}.
-     * @return the new FailableStream on {@code value} or an empty stream.
+     * @return The new FailableStream on {@code value} or an empty stream.
      * @since 3.15.0
      */
     public static <T> FailableStream<T> failableStream(final T value) {
@@ -583,7 +583,7 @@ public class Streams {
      *
      * @param <T> The type of stream elements.
      * @param values the elements of the new stream, may be {@code null}.
-     * @return the new FailableStream on {@code values} or an empty stream.
+     * @return The new FailableStream on {@code values} or an empty stream.
      * @since 3.14.0
      */
     @SafeVarargs // Creating a stream from an array is safe
@@ -717,7 +717,7 @@ public class Streams {
      *
      * @param <E> The type of elements in the collection.
      * @param stream the stream to stream or null.
-     * @return the stream or {@link Stream#empty()} if the stream is null.
+     * @return The stream or {@link Stream#empty()} if the stream is null.
      * @since 3.13.0
      */
     private static <E> Stream<E> of(final Stream<E> stream) {
@@ -729,7 +729,7 @@ public class Streams {
      *
      * @param <T> The type of stream elements.
      * @param values the elements of the new stream, may be {@code null}.
-     * @return the new stream on {@code values} or {@link Stream#empty()}.
+     * @return The new stream on {@code values} or {@link Stream#empty()}.
      * @since 3.13.0
      */
     @SafeVarargs // Creating a stream from an array is safe

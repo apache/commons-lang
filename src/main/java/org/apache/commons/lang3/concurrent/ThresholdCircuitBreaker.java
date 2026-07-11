@@ -99,7 +99,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     /**
      * Gets the threshold.
      *
-     * @return the threshold
+     * @return The threshold
      */
     public long getThreshold() {
         return threshold;

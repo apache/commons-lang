@@ -49,7 +49,7 @@ public class MutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param <L> The left element type.
      * @param <M> The middle element type.
      * @param <R> The right element type.
-     * @return the empty array singleton that can be assigned without compiler warning.
+     * @return The empty array singleton that can be assigned without compiler warning.
      * @since 3.10
      */
     @SuppressWarnings("unchecked")

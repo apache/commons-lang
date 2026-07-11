@@ -69,7 +69,7 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
      *
      * @param input1 the first input for the function
      * @param input2 the second input for the function
-     * @return the result of the function
+     * @return The result of the function
      * @throws E Thrown when the function fails.
      */
     R apply(T input1, U input2) throws E;

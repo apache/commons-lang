@@ -65,7 +65,7 @@ final class IDKey {
     /**
      * Gets the hash code, the system identity hash code.
      *
-     * @return the hash code.
+     * @return The hash code.
      */
     @Override
     public int hashCode() {

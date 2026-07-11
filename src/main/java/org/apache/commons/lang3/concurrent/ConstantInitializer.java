@@ -83,7 +83,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * Gets the object managed by this initializer. This implementation just
      * returns the object passed to the constructor.
      *
-     * @return the object managed by this initializer
+     * @return The object managed by this initializer
      * @throws ConcurrentException if an error occurs
      */
     @Override
@@ -96,7 +96,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * the same object as returned by {@code get()}. However, this method does
      * not declare that it throws an exception.
      *
-     * @return the object managed by this initializer
+     * @return The object managed by this initializer
      */
     public final T getObject() {
         return object;

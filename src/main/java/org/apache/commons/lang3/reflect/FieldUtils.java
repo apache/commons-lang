@@ -87,7 +87,7 @@ public class FieldUtils {
      *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
      *            the field name to obtain.
-     * @return the Field object.
+     * @return The Field object.
      * @throws NullPointerException
      *             if the class is {@code null}.
      * @throws IllegalArgumentException
@@ -111,7 +111,7 @@ public class FieldUtils {
      *            whether to break scope restrictions using the
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
-     * @return the Field object
+     * @return The Field object
      * @throws NullPointerException
      *             if the class is {@code null}.
      * @throws IllegalArgumentException
@@ -145,7 +145,7 @@ public class FieldUtils {
      *            the {@link Class} to reflect, must not be {@code null}.
      * @param fieldName
      *            the field name to obtain.
-     * @return the Field object.
+     * @return The Field object.
      * @throws NullPointerException
      *             if the class is {@code null}.
      * @throws IllegalArgumentException
@@ -169,7 +169,7 @@ public class FieldUtils {
      *            whether to break scope restrictions using the
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
-     * @return the Field object.
+     * @return The Field object.
      * @throws NullPointerException if the class is {@code null}.
      * @throws IllegalArgumentException if the field name is blank or empty or is matched at multiple places
      * in the inheritance hierarchy.
@@ -267,7 +267,7 @@ public class FieldUtils {
      *            the object to reflect, must not be {@code null}.
      * @param fieldName
      *            the field name to obtain.
-     * @return the value of the field.
+     * @return The value of the field.
      * @throws NullPointerException
      *             if {@code target} is {@code null}.
      * @throws IllegalArgumentException
@@ -292,7 +292,7 @@ public class FieldUtils {
      *            whether to break scope restrictions using the
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match public fields.
-     * @return the Field object.
+     * @return The Field object.
      * @throws NullPointerException
      *             if {@code target} is {@code null}.
      * @throws IllegalArgumentException
@@ -319,7 +319,7 @@ public class FieldUtils {
      *            the {@link Class} to reflect, must not be {@code null}.
      * @param fieldName
      *            the field name to obtain.
-     * @return the value of the field.
+     * @return The value of the field.
      * @throws NullPointerException
      *             if the class is {@code null}, or the field could not be found.
      * @throws IllegalArgumentException
@@ -344,7 +344,7 @@ public class FieldUtils {
      *            whether to break scope restrictions using the
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
-     * @return the Field object
+     * @return The Field object
      * @throws NullPointerException
      *             if the class is {@code null}, or the field could not be found.
      * @throws IllegalArgumentException
@@ -368,7 +368,7 @@ public class FieldUtils {
      *            the field to use.
      * @param target
      *            the object to call on, may be {@code null} for {@code static} fields.
-     * @return the field value
+     * @return The field value
      * @throws NullPointerException
      *             if the field is {@code null}.
      * @throws IllegalAccessException
@@ -390,7 +390,7 @@ public class FieldUtils {
      * @param forceAccess
      *            whether to break scope restrictions using the
      *            {@link AccessibleObject#setAccessible(boolean)} method.
-     * @return the field value
+     * @return The field value
      * @throws NullPointerException
      *             if the field is {@code null}.
      * @throws IllegalAccessException
@@ -412,7 +412,7 @@ public class FieldUtils {
      *            the object to reflect, must not be {@code null}.
      * @param fieldName
      *            the field name to obtain.
-     * @return the value of the field.
+     * @return The value of the field.
      * @throws NullPointerException
      *             if the target is {@code null}.
      * @throws IllegalArgumentException
@@ -437,7 +437,7 @@ public class FieldUtils {
      *            whether to break scope restrictions using the
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
-     * @return the field value
+     * @return The field value
      * @throws NullPointerException
      *             if {@code target} is {@code null}.
      * @throws IllegalArgumentException
@@ -463,7 +463,7 @@ public class FieldUtils {
      *            the {@link Class} to reflect, must not be {@code null}.
      * @param fieldName
      *            the field name to obtain.
-     * @return the value of the field.
+     * @return The value of the field.
      * @throws NullPointerException
      *             if the class is {@code null}, or the field could not be found.
      * @throws IllegalArgumentException
@@ -488,7 +488,7 @@ public class FieldUtils {
      *            whether to break scope restrictions using the
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
-     * @return the Field object.
+     * @return The Field object.
      * @throws NullPointerException
      *             if the class is {@code null}, or the field could not be found.
      * @throws IllegalArgumentException
@@ -510,7 +510,7 @@ public class FieldUtils {
      *
      * @param field
      *            to read.
-     * @return the field value.
+     * @return The field value.
      * @throws NullPointerException
      *             if the field is {@code null}.
      * @throws IllegalArgumentException
@@ -532,7 +532,7 @@ public class FieldUtils {
      * @param forceAccess
      *            whether to break scope restrictions using the
      *            {@link AccessibleObject#setAccessible(boolean)} method.
-     * @return the field value.
+     * @return The field value.
      * @throws NullPointerException
      *             if the field is {@code null}.
      * @throws IllegalArgumentException

@@ -1568,7 +1568,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /**
      * Implement the {@link Builder} interface.
      *
-     * @return the builder as a String
+     * @return The builder as a String
      * @since 3.2
      * @see #toString()
      */
@@ -1580,7 +1580,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /**
      * Gets the current size of the internal character array buffer.
      *
-     * @return the capacity.
+     * @return The capacity.
      */
     public int capacity() {
         return buffer.length;
@@ -1590,7 +1590,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Gets the character at the specified index.
      *
      * @param index  the index to retrieve, must be valid.
-     * @return the character at the index.
+     * @return The character at the index.
      * @throws IndexOutOfBoundsException if the index is invalid.
      * @see #setCharAt(int, char)
      * @see #deleteCharAt(int)
@@ -1926,7 +1926,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /**
      * Gets the internal buffer for testing.
      *
-     * @return the internal buffer.
+     * @return The internal buffer.
      */
     char[] getBuffer() {
         return buffer;
@@ -1936,7 +1936,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Copies the character array into the specified array.
      *
      * @param destination  the destination array, null will cause an array to be created.
-     * @return the input array, unless that was null or too small.
+     * @return The input array, unless that was null or too small.
      */
     public char[] getChars(char[] destination) {
         final int len = length();
@@ -1981,7 +1981,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /**
      * Gets the text to be appended when null is added.
      *
-     * @return the null text, null means no append.
+     * @return The null text, null means no append.
      */
     public String getNullText() {
         return nullText;
@@ -2006,7 +2006,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Searches the string builder to find the first reference to the specified char.
      *
      * @param ch  the character to find.
-     * @return the first index of the character, or -1 if not found.
+     * @return The first index of the character, or -1 if not found.
      */
     public int indexOf(final char ch) {
         return indexOf(ch, 0);
@@ -2017,7 +2017,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param ch  the character to find.
      * @param startIndex  the index to start at, invalid index rounded to edge.
-     * @return the first index of the character, or -1 if not found.
+     * @return The first index of the character, or -1 if not found.
      */
     public int indexOf(final char ch, int startIndex) {
         startIndex = Math.max(startIndex, 0);
@@ -2040,7 +2040,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * </p>
      *
      * @param str  the string to find, null returns -1.
-     * @return the first index of the string, or -1 if not found.
+     * @return The first index of the string, or -1 if not found.
      */
     public int indexOf(final String str) {
         return indexOf(str, 0);
@@ -2055,7 +2055,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param str  the string to find, null returns -1.
      * @param startIndex  the index to start at, invalid index rounded to edge.
-     * @return the first index of the string, or -1 if not found.
+     * @return The first index of the string, or -1 if not found.
      */
     public int indexOf(final String str, final int startIndex) {
         return Strings.CS.indexOf(this, str, startIndex);
@@ -2070,7 +2070,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * </p>
      *
      * @param matcher  the matcher to use, null returns -1.
-     * @return the first index matched, or -1 if not found.
+     * @return The first index matched, or -1 if not found.
      */
     public int indexOf(final StrMatcher matcher) {
         return indexOf(matcher, 0);
@@ -2087,7 +2087,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param matcher  the matcher to use, null returns -1.
      * @param startIndex  the index to start at, invalid index rounded to edge.
-     * @return the first index matched, or -1 if not found.
+     * @return The first index matched, or -1 if not found.
      */
     public int indexOf(final StrMatcher matcher, int startIndex) {
         startIndex = Math.max(startIndex, 0);
@@ -2329,7 +2329,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Searches the string builder to find the last reference to the specified char.
      *
      * @param ch  the character to find.
-     * @return the last index of the character, or -1 if not found.
+     * @return The last index of the character, or -1 if not found.
      */
     public int lastIndexOf(final char ch) {
         return lastIndexOf(ch, size - 1);
@@ -2340,7 +2340,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param ch  the character to find.
      * @param startIndex  the index to start at, invalid index rounded to edge.
-     * @return the last index of the character, or -1 if not found.
+     * @return The last index of the character, or -1 if not found.
      */
     public int lastIndexOf(final char ch, int startIndex) {
         startIndex = startIndex >= size ? size - 1 : startIndex;
@@ -2362,7 +2362,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * </p>
      *
      * @param str  the string to find, null returns -1.
-     * @return the last index of the string, or -1 if not found.
+     * @return The last index of the string, or -1 if not found.
      */
     public int lastIndexOf(final String str) {
         return lastIndexOf(str, size - 1);
@@ -2377,7 +2377,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param str  the string to find, null returns -1.
      * @param startIndex  the index to start at, invalid index rounded to edge.
-     * @return the last index of the string, or -1 if not found.
+     * @return The last index of the string, or -1 if not found.
      */
     public int lastIndexOf(final String str, final int startIndex) {
         return Strings.CS.lastIndexOf(this, str, startIndex);
@@ -2392,7 +2392,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * </p>
      *
      * @param matcher  the matcher to use, null returns -1.
-     * @return the last index matched, or -1 if not found.
+     * @return The last index matched, or -1 if not found.
      */
     public int lastIndexOf(final StrMatcher matcher) {
         return lastIndexOf(matcher, size);
@@ -2409,7 +2409,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param matcher  the matcher to use, null returns -1.
      * @param startIndex  the index to start at, invalid index rounded to edge.
-     * @return the last index matched, or -1 if not found.
+     * @return The last index matched, or -1 if not found.
      */
     public int lastIndexOf(final StrMatcher matcher, int startIndex) {
         startIndex = startIndex >= size ? size - 1 : startIndex;
@@ -2437,7 +2437,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * </p>
      *
      * @param length  the number of characters to extract, negative returns empty string.
-     * @return the new string.
+     * @return The new string.
      */
     public String leftString(final int length) {
         if (length <= 0) {
@@ -2452,7 +2452,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     /**
      * Gets the length of the string builder.
      *
-     * @return the length
+     * @return The length
      */
     @Override
     public int length() {
@@ -2474,7 +2474,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param index  the index to start at, negative means zero.
      * @param length  the number of characters to extract, negative returns empty string.
-     * @return the new string.
+     * @return The new string.
      */
     public String midString(int index, final int length) {
         if (index < 0) {
@@ -2506,7 +2506,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * character buffer without making extra copies.
      *
      * @param readable  object to read from.
-     * @return the number of characters read.
+     * @return The number of characters read.
      * @throws IOException if an I/O error occurs.
      * @since 3.4
      * @see #appendTo(Appendable)
@@ -2796,7 +2796,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * </p>
      *
      * @param length  the number of characters to extract, negative returns empty string.
-     * @return the new string.
+     * @return The new string.
      */
     public String rightString(final int length) {
         if (length <= 0) {
@@ -2880,7 +2880,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * API of Collections.
      * </p>
      *
-     * @return the length.
+     * @return The length.
      */
     public int size() {
         return size;
@@ -2937,7 +2937,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Extracts a portion of this string builder as a string.
      *
      * @param start  the start index, inclusive, must be valid.
-     * @return the new string.
+     * @return The new string.
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public String substring(final int start) {
@@ -2953,7 +2953,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param startIndex the start index, inclusive, must be valid.
      * @param endIndex   the end index, exclusive, must be valid except that if too large it is treated as end of string.
-     * @return the new string.
+     * @return The new string.
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     public String substring(final int startIndex, int endIndex) {
@@ -2998,7 +2998,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * independent of the string builder.
      * </p>
      *
-     * @return the builder as a String.
+     * @return The builder as a String.
      */
     @Override
     public String toString() {
@@ -3009,7 +3009,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Gets a StringBuffer version of the string builder, creating a
      * new instance each time the method is called.
      *
-     * @return the builder as a StringBuffer.
+     * @return The builder as a StringBuffer.
      */
     public StringBuffer toStringBuffer() {
         return new StringBuffer(size).append(buffer, 0, size);
@@ -3019,7 +3019,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Gets a StringBuilder version of the string builder, creating a
      * new instance each time the method is called.
      *
-     * @return the builder as a StringBuilder.
+     * @return The builder as a StringBuilder.
      * @since 3.2
      */
     public StringBuilder toStringBuilder() {
@@ -3071,7 +3071,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param startIndex the start index, inclusive, must be valid.
      * @param endIndex   the end index, exclusive, must be valid except that if too large it is treated as end of string.
-     * @return the new string.
+     * @return The new string.
      * @throws IndexOutOfBoundsException if the index is invalid.
      */
     protected int validateRange(final int startIndex, int endIndex) {

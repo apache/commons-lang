@@ -606,7 +606,7 @@ public class TypeUtils {
      *
      * @param cls        the class in question.
      * @param superClass the super class.
-     * @return the closes parent type.
+     * @return The closes parent type.
      */
     private static Type getClosestParentType(final Class<?> cls, final Class<?> superClass) {
         // only look at the interfaces if the super class is also an interface
@@ -683,7 +683,7 @@ public class TypeUtils {
      * Transforms the passed in type to a {@link Class} object. Type-checking method of convenience.
      *
      * @param parameterizedType the type to be converted.
-     * @return the corresponding {@link Class} object.
+     * @return The corresponding {@link Class} object.
      * @throws IllegalStateException if the conversion fails.
      */
     private static Class<?> getRawType(final ParameterizedType parameterizedType) {
@@ -706,7 +706,7 @@ public class TypeUtils {
      *
      * @param type          to resolve.
      * @param assigningType type to be resolved against.
-     * @return the resolved {@link Class} object or {@code null} if the type could not be resolved.
+     * @return The resolved {@link Class} object or {@code null} if the type could not be resolved.
      */
     public static Class<?> getRawType(final Type type, final Type assigningType) {
         if (type instanceof Class<?>) {
@@ -763,7 +763,7 @@ public class TypeUtils {
      * @param cls               the class in question.
      * @param toClass           the context class.
      * @param subtypeVarAssigns a map with type variables.
-     * @return the {@link Map} with type arguments.
+     * @return The {@link Map} with type arguments.
      */
     private static Map<TypeVariable<?>, Type> getTypeArguments(Class<?> cls, final Class<?> toClass, final Map<TypeVariable<?>, Type> subtypeVarAssigns) {
         // make sure they're assignable
@@ -808,7 +808,7 @@ public class TypeUtils {
      * @param parameterizedType the parameterized type.
      * @param toClass           the class.
      * @param subtypeVarAssigns a map with type variables.
-     * @return the {@link Map} with type arguments.
+     * @return The {@link Map} with type arguments.
      */
     private static Map<TypeVariable<?>, Type> getTypeArguments(final ParameterizedType parameterizedType, final Class<?> toClass,
             final Map<TypeVariable<?>, Type> subtypeVarAssigns) {
@@ -891,7 +891,7 @@ public class TypeUtils {
      * @param type              the type in question.
      * @param toClass           the class.
      * @param subtypeVarAssigns a map with type variables.
-     * @return the {@link Map} with type arguments.
+     * @return The {@link Map} with type arguments.
      */
     private static Map<TypeVariable<?>, Type> getTypeArguments(final Type type, final Class<?> toClass, final Map<TypeVariable<?>, Type> subtypeVarAssigns) {
         if (type instanceof Class<?>) {
@@ -1505,7 +1505,7 @@ public class TypeUtils {
      *
      * @param type           the type to be replaced.
      * @param typeVarAssigns the map with type variables.
-     * @return the replaced type.
+     * @return The replaced type.
      * @throws IllegalArgumentException if the type cannot be substituted.
      */
     private static Type substituteTypeVariables(final Type type, final Map<TypeVariable<?>, Type> typeVarAssigns) {

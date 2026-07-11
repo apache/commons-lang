@@ -260,7 +260,7 @@ public class Streams {
          * @param <R> The type of the result.
          * @param <A> The intermediate accumulation type of the {@link Collector}.
          * @param collector the {@link Collector} describing the reduction.
-         * @return the result of the reduction.
+         * @return The result of the reduction.
          * @see #collect(Supplier, BiConsumer, BiConsumer)
          * @see Collectors
          */
@@ -337,7 +337,7 @@ public class Streams {
          *
          * @param predicate a non-interfering, stateless predicate to apply to each
          * element to determine if it should be included.
-         * @return the new stream.
+         * @return The new stream.
          */
         public FailableStream<O> filter(final FailablePredicate<O, ?> predicate) {
             assertNotTerminated();
@@ -389,7 +389,7 @@ public class Streams {
          *
          * @param <R> The element type of the new stream.
          * @param mapper A non-interfering, stateless function to apply to each element.
-         * @return the new stream.
+         * @return The new stream.
          */
         public <R> FailableStream<R> map(final FailableFunction<O, R, ?> mapper) {
             assertNotTerminated();
@@ -443,7 +443,7 @@ public class Streams {
          * @param identity the identity value for the accumulating function.
          * @param accumulator an associative, non-interfering, stateless
          *                    function for combining two values.
-         * @return the result of the reduction.
+         * @return The result of the reduction.
          */
         public O reduce(final O identity, final BinaryOperator<O> accumulator) {
             makeTerminated();

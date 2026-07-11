@@ -86,7 +86,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Gets the value.
      *
-     * @return the value, may be null.
+     * @return The value, may be null.
      * @deprecated Use {@link #get()}.
      */
     @Deprecated
@@ -98,7 +98,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Returns the value's hash code or {@code 0} if the value is {@code null}.
      *
-     * @return the value's hash code or {@code 0} if the value is {@code null}.
+     * @return The value's hash code or {@code 0} if the value is {@code null}.
      */
     @Override
     public int hashCode() {
@@ -118,7 +118,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Returns the String value of this mutable.
      *
-     * @return the mutable value as a string.
+     * @return The mutable value as a string.
      */
     @Override
     public String toString() {

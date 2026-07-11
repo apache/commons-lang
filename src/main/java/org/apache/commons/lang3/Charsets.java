@@ -38,7 +38,7 @@ final class Charsets {
      * Returns the given {@code charset} or the default Charset if {@code charset} is null.
      *
      * @param charset a Charset or null.
-     * @return the given {@code charset} or the default Charset if {@code charset} is null.
+     * @return The given {@code charset} or the default Charset if {@code charset} is null.
      */
     static Charset toCharset(final Charset charset) {
         return charset == null ? Charset.defaultCharset() : charset;
@@ -48,7 +48,7 @@ final class Charsets {
      * Returns the given {@code charset} or the default Charset if {@code charset} is null.
      *
      * @param charsetName a Charset or null.
-     * @return the given {@code charset} or the default Charset if {@code charset} is null.
+     * @return The given {@code charset} or the default Charset if {@code charset} is null.
      * @throws UnsupportedCharsetException If no support for the named charset is available in this instance of the Java
      *                                     virtual machine
      */
@@ -60,7 +60,7 @@ final class Charsets {
      * Returns the given {@code charset} or the default Charset if {@code charset} is null.
      *
      * @param charsetName a Charset or null.
-     * @return the given {@code charset} or the default Charset if {@code charset} is null.
+     * @return The given {@code charset} or the default Charset if {@code charset} is null.
      */
     static String toCharsetName(final String charsetName) {
         return charsetName == null ? Charset.defaultCharset().name() : charsetName;

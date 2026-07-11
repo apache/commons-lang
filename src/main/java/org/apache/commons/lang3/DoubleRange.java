@@ -43,7 +43,7 @@ public final class DoubleRange extends NumberRange<Double> {
      *
      * @param fromInclusive the first value that defines the edge of the range, inclusive.
      * @param toInclusive the second value that defines the edge of the range, inclusive.
-     * @return the range object, not null.
+     * @return The range object, not null.
      */
     public static DoubleRange of(final double fromInclusive, final double toInclusive) {
         return of(Double.valueOf(fromInclusive), Double.valueOf(toInclusive));
@@ -62,7 +62,7 @@ public final class DoubleRange extends NumberRange<Double> {
      *
      * @param fromInclusive the first value that defines the edge of the range, inclusive.
      * @param toInclusive the second value that defines the edge of the range, inclusive.
-     * @return the range object, not null.
+     * @return The range object, not null.
      * @throws NullPointerException if either element is null.
      */
     public static DoubleRange of(final Double fromInclusive, final Double toInclusive) {
@@ -99,7 +99,7 @@ public final class DoubleRange extends NumberRange<Double> {
      * }</pre>
      *
      * @param element the element to test.
-     * @return the minimum, the element, or the maximum depending on the element's location relative to the range.
+     * @return The minimum, the element, or the maximum depending on the element's location relative to the range.
      * @since 3.19.0
      */
     public double fit(final double element) {

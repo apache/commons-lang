@@ -98,7 +98,7 @@ public class CompositeFormat extends Format {
      * @param pos the ParsePosition containing the position to parse from, will
      *            be updated according to parsing success (index) or failure
      *            (error index)
-     * @return the parsed Object
+     * @return The parsed Object
      * @see Format#parseObject(String, ParsePosition)
      */
     @Override

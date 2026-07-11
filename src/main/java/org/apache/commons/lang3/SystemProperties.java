@@ -3703,7 +3703,7 @@ public final class SystemProperties {
      * </p>
      *
      * @param defaultIfAbsent get this Supplier when the property is empty or throws SecurityException.
-     * @return the current value from the system properties map.
+     * @return The current value from the system properties map.
      * @since 3.15.0
      */
     public static String getLineSeparator(final Supplier<String> defaultIfAbsent) {
@@ -3913,7 +3913,7 @@ public final class SystemProperties {
      *
      * @param property        the system property name.
      * @param defaultIfAbsent use this value when the property is empty or throws SecurityException.
-     * @return the system property value or {@code null} if a security problem occurs.
+     * @return The system property value or {@code null} if a security problem occurs.
      */
     static String getProperty(final String property, final String defaultIfAbsent) {
         return getProperty(property, () -> defaultIfAbsent);
@@ -3927,7 +3927,7 @@ public final class SystemProperties {
      *
      * @param property        the system property name.
      * @param defaultIfAbsent get this Supplier when the property is empty or throws SecurityException.
-     * @return the system property value or {@code null} if a security problem occurs.
+     * @return The system property value or {@code null} if a security problem occurs.
      */
     static String getProperty(final String property, final Supplier<String> defaultIfAbsent) {
         try {

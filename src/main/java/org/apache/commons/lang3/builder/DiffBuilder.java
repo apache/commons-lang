@@ -599,7 +599,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Gets the left object.
      *
-     * @return the left object.
+     * @return The left object.
      */
     T getLeft() {
         return left;
@@ -608,7 +608,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Gets the right object.
      *
-     * @return the right object.
+     * @return The right object.
      */
     T getRight() {
         return right;

@@ -33,7 +33,7 @@ public class Predicates {
      * Gets the Predicate singleton that always returns false.
      *
      * @param <T> The type of the input to the predicate.
-     * @return the Predicate singleton.
+     * @return The Predicate singleton.
      */
     @SuppressWarnings("unchecked")
     // method name cannot be "false".
@@ -45,7 +45,7 @@ public class Predicates {
      * Gets the Predicate singleton that always returns true.
      *
      * @param <T> The type of the input to the predicate.
-     * @return the Predicate singleton.
+     * @return The Predicate singleton.
      */
     @SuppressWarnings("unchecked")
     // method name cannot be "true".

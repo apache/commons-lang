@@ -82,7 +82,7 @@ class FastDateParserReadObjectTest {
      * Deserializes {@code bytes} and returns the resulting object.
      *
      * @param bytes serialized form
-     * @return the deserialized object
+     * @return The deserialized object
      * @throws IOException            if an I/O error occurs
      * @throws ClassNotFoundException if the class of the serialized object cannot be found
      */

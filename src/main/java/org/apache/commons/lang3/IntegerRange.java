@@ -45,7 +45,7 @@ public final class IntegerRange extends NumberRange<Integer> {
      *
      * @param fromInclusive the first value that defines the edge of the range, inclusive.
      * @param toInclusive the second value that defines the edge of the range, inclusive.
-     * @return the range object, not null.
+     * @return The range object, not null.
      */
     public static IntegerRange of(final int fromInclusive, final int toInclusive) {
         return of(Integer.valueOf(fromInclusive), Integer.valueOf(toInclusive));
@@ -64,7 +64,7 @@ public final class IntegerRange extends NumberRange<Integer> {
      *
      * @param fromInclusive the first value that defines the edge of the range, inclusive.
      * @param toInclusive the second value that defines the edge of the range, inclusive.
-     * @return the range object, not null.
+     * @return The range object, not null.
      * @throws NullPointerException if either element is null.
      */
     public static IntegerRange of(final Integer fromInclusive, final Integer toInclusive) {
@@ -101,7 +101,7 @@ public final class IntegerRange extends NumberRange<Integer> {
      * }</pre>
      *
      * @param element the element to test.
-     * @return the minimum, the element, or the maximum depending on the element's location relative to the range.
+     * @return The minimum, the element, or the maximum depending on the element's location relative to the range.
      * @since 3.19.0
      */
     public int fit(final int element) {

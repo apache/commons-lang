@@ -49,7 +49,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets the array end text.
      *
-     * @return the current array end text
+     * @return The current array end text
      */
     @Override
     public String getArrayEnd() {
@@ -59,7 +59,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets the array separator text.
      *
-     * @return the current array separator text
+     * @return The current array separator text
      */
     @Override
     public String getArraySeparator() {
@@ -69,7 +69,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets the array start text.
      *
-     * @return the current array start text
+     * @return The current array start text
      */
     @Override
     public String getArrayStart() {
@@ -79,7 +79,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets the content end text.
      *
-     * @return the current content end text
+     * @return The current content end text
      */
     @Override
     public String getContentEnd() {
@@ -89,7 +89,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets the content start text.
      *
-     * @return the current content start text
+     * @return The current content start text
      */
     @Override
     public String getContentStart() {
@@ -99,7 +99,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets the field name value separator text.
      *
-     * @return the current field name value separator text
+     * @return The current field name value separator text
      */
     @Override
     public String getFieldNameValueSeparator() {
@@ -109,7 +109,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets the field separator text.
      *
-     * @return the current field separator text
+     * @return The current field separator text
      */
     @Override
     public String getFieldSeparator() {
@@ -119,7 +119,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets the text to output when {@code null} found.
      *
-     * @return the current text to output when {@code null} found
+     * @return The current text to output when {@code null} found
      */
     @Override
     public String getNullText() {
@@ -132,7 +132,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * <p>This is output after the size value.</p>
      *
-     * @return the current end of size text
+     * @return The current end of size text
      */
     @Override
     public String getSizeEndText() {
@@ -145,7 +145,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * <p>This is output before the size value.</p>
      *
-     * @return the current start of size text
+     * @return The current start of size text
      */
     @Override
     public String getSizeStartText() {
@@ -158,7 +158,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * <p>This is output after the size value.</p>
      *
-     * @return the current end of summary text
+     * @return The current end of summary text
      */
     @Override
     public String getSummaryObjectEndText() {
@@ -171,7 +171,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * <p>This is output before the size value.</p>
      *
-     * @return the current start of summary text
+     * @return The current start of summary text
      */
     @Override
     public String getSummaryObjectStartText() {
@@ -181,7 +181,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets whether to output array content detail.
      *
-     * @return the current array content detail setting
+     * @return The current array content detail setting
      */
     @Override
     public boolean isArrayContentDetail() {
@@ -192,7 +192,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * Gets whether to use full detail when the caller doesn't
      * specify.
      *
-     * @return the current defaultFullDetail flag
+     * @return The current defaultFullDetail flag
      */
     @Override
     public boolean isDefaultFullDetail() {
@@ -215,7 +215,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * Gets whether the field separator should be added at the start
      * of each buffer.
      *
-     * @return the fieldSeparatorAtStart flag
+     * @return The fieldSeparatorAtStart flag
      * @since 2.0
      */
     @Override
@@ -226,7 +226,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets whether to use the class name.
      *
-     * @return the current useClassName flag
+     * @return The current useClassName flag
      */
     @Override
     public boolean isUseClassName() {
@@ -236,7 +236,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets whether to use the field names passed in.
      *
-     * @return the current useFieldNames flag
+     * @return The current useFieldNames flag
      */
     @Override
     public boolean isUseFieldNames() {
@@ -246,7 +246,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets whether to use the identity hash code.
      *
-     * @return the current useIdentityHashCode flag
+     * @return The current useIdentityHashCode flag
      */
     @Override
     public boolean isUseIdentityHashCode() {
@@ -256,7 +256,7 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * Gets whether to output short or long class names.
      *
-     * @return the current useShortClassName flag
+     * @return The current useShortClassName flag
      * @since 2.0
      */
     @Override

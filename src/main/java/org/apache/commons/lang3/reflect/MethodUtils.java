@@ -75,7 +75,7 @@ public class MethodUtils {
      *
      * @param fromClassArray the Class array to calculate the distance from.
      * @param toClassArray the Class array to calculate the distance to.
-     * @return the aggregate number of inheritance hops between assignable argument class types.
+     * @return The aggregate number of inheritance hops between assignable argument class types.
      */
     private static int distance(final Class<?>[] fromClassArray, final Class<?>[] toClassArray) {
         int answer = 0;
@@ -167,7 +167,7 @@ public class MethodUtils {
      * @param cls Parent class for the interfaces to be checked.
      * @param methodName Method name of the method we wish to call.
      * @param parameterTypes The parameter type signatures.
-     * @return the accessible method or {@code null} if not found.
+     * @return The accessible method or {@code null} if not found.
      */
     private static Method getAccessibleMethodFromInterfaceNest(Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
         // Search up the superclass chain
@@ -205,7 +205,7 @@ public class MethodUtils {
      * @param cls Class to be checked.
      * @param methodName Method name of the method we wish to call.
      * @param parameterTypes The parameter type signatures.
-     * @return the accessible method or {@code null} if not found.
+     * @return The accessible method or {@code null} if not found.
      */
     private static Method getAccessibleMethodFromSuperclass(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
         Class<?> parentClass = cls.getSuperclass();
@@ -223,7 +223,7 @@ public class MethodUtils {
      * interfaces, and so on in a breadth first way.
      *
      * @param cls the class to look up, may be {@code null}.
-     * @return the combined {@link List} of superclasses and interfaces in order going up from this one {@code null} if null input.
+     * @return The combined {@link List} of superclasses and interfaces in order going up from this one {@code null} if null input.
      */
     private static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
         if (cls == null) {
@@ -261,7 +261,7 @@ public class MethodUtils {
      * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class is performed if the annotation was not directly
      *                      present.
      * @param ignoreAccess  determines if underlying method has to be accessible.
-     * @return the first matching annotation, or {@code null} if not found.
+     * @return The first matching annotation, or {@code null} if not found.
      * @throws NullPointerException if either the method or annotation class is {@code null}.
      * @throws SecurityException    if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission

@@ -232,7 +232,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Gets the field names that should be excluded from the diff.
      *
-     * @return the excludeFieldNames.
+     * @return The excludeFieldNames.
      * @since 3.13.0
      */
     public String[] getExcludeFieldNames() {
@@ -252,7 +252,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      *
      * @param field  the field to use.
      * @param target the object to call on, may be {@code null} for {@code static} fields.
-     * @return the field value.
+     * @return The field value.
      * @throws NullPointerException   if the field is {@code null}.
      * @throws IllegalAccessException if the field is not made accessible.
      * @throws SecurityException      if an underlying accessible object's method denies the request.

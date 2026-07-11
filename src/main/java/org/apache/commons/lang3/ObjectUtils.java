@@ -91,7 +91,7 @@ public class ObjectUtils {
         /**
          * Ensures singleton after serialization.
          *
-         * @return the singleton value.
+         * @return The singleton value.
          */
         private Object readResolve() {
             return NULL;
@@ -225,7 +225,7 @@ public class ObjectUtils {
      *
      * @param <T> The type of the object.
      * @param obj the object to clone, null returns null.
-     * @return the clone if the object implements {@link Cloneable} otherwise {@code null}.
+     * @return The clone if the object implements {@link Cloneable} otherwise {@code null}.
      * @throws CloneFailedException if the object is cloneable and the clone operation fails.
      * @since 3.0
      */
@@ -268,7 +268,7 @@ public class ObjectUtils {
      *
      * @param <T> The type of the object.
      * @param obj the object to clone, null returns null.
-     * @return the clone if the object implements {@link Cloneable} otherwise the object itself.
+     * @return The clone if the object implements {@link Cloneable} otherwise the object itself.
      * @throws CloneFailedException if the object is cloneable and the clone operation fails.
      * @since 3.0
      */
@@ -329,7 +329,7 @@ public class ObjectUtils {
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
      * @param v the boolean value to return.
-     * @return the boolean v, unchanged.
+     * @return The boolean v, unchanged.
      * @since 3.2
      */
     public static boolean CONST(final boolean v) {
@@ -346,7 +346,7 @@ public class ObjectUtils {
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
      * @param v the byte value to return.
-     * @return the byte v, unchanged.
+     * @return The byte v, unchanged.
      * @since 3.2
      */
     public static byte CONST(final byte v) {
@@ -363,7 +363,7 @@ public class ObjectUtils {
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
      * @param v the char value to return.
-     * @return the char v, unchanged.
+     * @return The char v, unchanged.
      * @since 3.2
      */
     public static char CONST(final char v) {
@@ -380,7 +380,7 @@ public class ObjectUtils {
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
      * @param v the double value to return.
-     * @return the double v, unchanged.
+     * @return The double v, unchanged.
      * @since 3.2
      */
     public static double CONST(final double v) {
@@ -397,7 +397,7 @@ public class ObjectUtils {
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
      * @param v the float value to return.
-     * @return the float v, unchanged.
+     * @return The float v, unchanged.
      * @since 3.2
      */
     public static float CONST(final float v) {
@@ -414,7 +414,7 @@ public class ObjectUtils {
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
      * @param v the int value to return.
-     * @return the int v, unchanged.
+     * @return The int v, unchanged.
      * @since 3.2
      */
     public static int CONST(final int v) {
@@ -431,7 +431,7 @@ public class ObjectUtils {
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
      * @param v the long value to return.
-     * @return the long v, unchanged.
+     * @return The long v, unchanged.
      * @since 3.2
      */
     public static long CONST(final long v) {
@@ -448,7 +448,7 @@ public class ObjectUtils {
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
      * @param v the short value to return.
-     * @return the short v, unchanged.
+     * @return The short v, unchanged.
      * @since 3.2
      */
     public static short CONST(final short v) {
@@ -466,7 +466,7 @@ public class ObjectUtils {
      *
      * @param <T> The Object type.
      * @param v   the genericized Object value to return (typically a String).
-     * @return the genericized Object v, unchanged (typically a String).
+     * @return The genericized Object v, unchanged (typically a String).
      * @since 3.2
      */
     public static <T> T CONST(final T v) {
@@ -484,7 +484,7 @@ public class ObjectUtils {
      *
      * @param v the byte literal (as an int) value to return.
      * @throws IllegalArgumentException if the value passed to v is larger than a byte, that is, smaller than -128 or larger than 127.
-     * @return the byte v, unchanged.
+     * @return The byte v, unchanged.
      * @since 3.2
      */
     public static byte CONST_BYTE(final int v) {
@@ -505,7 +505,7 @@ public class ObjectUtils {
      *
      * @param v the short literal (as an int) value to return.
      * @throws IllegalArgumentException if the value passed to v is larger than a short, that is, smaller than -32768 or larger than 32767.
-     * @return the byte v, unchanged.
+     * @return The byte v, unchanged.
      * @since 3.2
      */
     public static short CONST_SHORT(final int v) {
@@ -583,7 +583,7 @@ public class ObjectUtils {
      *
      * @param <T> The component type of the array.
      * @param values  the values to test, may be {@code null} or empty.
-     * @return the first value from {@code values} which is not {@code null},
+     * @return The first value from {@code values} which is not {@code null},
      *  or {@code null} if there are no non-null values.
      * @since 3.0
      */
@@ -624,7 +624,7 @@ public class ObjectUtils {
      * @param <T>       the type of the return values.
      * @param suppliers the suppliers returning the values to test. {@code null} values are ignored. Suppliers may return {@code null} or a value of type
      *                  {@code T}.
-     * @return the first return value from {@code suppliers} which is not {@code null}, or {@code null} if there are no non-null values.
+     * @return The first return value from {@code suppliers} which is not {@code null}, or {@code null} if there are no non-null values.
      * @see Consumers#accept(Consumer, Object)
      * @see Suppliers#get(Supplier)
      * @since 3.10
@@ -703,7 +703,7 @@ public class ObjectUtils {
      * </pre>
      *
      * @param obj the object to obtain the hash code of, may be {@code null}.
-     * @return the hash code of the object, or zero if null.
+     * @return The hash code of the object, or zero if null.
      * @since 2.1
      * @deprecated Replaced by {@code java.util.Objects.hashCode(Object)} in Java 7 and will be removed in future releases.
      */
@@ -744,7 +744,7 @@ public class ObjectUtils {
      * </pre>
      *
      * @param objects the objects to obtain the hash code of, may be {@code null}.
-     * @return the hash code of the objects, or zero if null.
+     * @return The hash code of the objects, or zero if null.
      * @since 3.0
      * @deprecated Replaced by {@code java.util.Objects.hash(Object...)} in Java 7 and will be removed in future releases.
      */
@@ -807,7 +807,7 @@ public class ObjectUtils {
      * </pre>
      *
      * @param object the object to create a toString for, may be {@code null}.
-     * @return the default toString text, or {@code null} if {@code null} passed in.
+     * @return The default toString text, or {@code null} if {@code null} passed in.
      */
     public static String identityToString(final Object object) {
         if (object == null) {
@@ -1225,7 +1225,7 @@ public class ObjectUtils {
      * </pre>
      *
      * @param obj  the Object to {@code toString()}, may be {@code null}.
-     * @return the input's {@code toString()}, or {@code ""} if the input is {@code null}.
+     * @return The input's {@code toString()}, or {@code ""} if the input is {@code null}.
      * @see Objects#toString(Object)
      * @see Objects#toString(Object, String)
      * @see StringUtils#defaultString(String)
@@ -1250,7 +1250,7 @@ public class ObjectUtils {
      *
      * @param obj  the Object to {@code toString}, may be null.
      * @param nullStr  the String to return if {@code null} input, may be null.
-     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
+     * @return The passed in Object's toString, or {@code nullStr} if {@code null} input.
      * @see Objects#toString(Object)
      * @see Objects#toString(Object, String)
      * @see StringUtils#defaultString(String,String)
@@ -1281,7 +1281,7 @@ public class ObjectUtils {
      *
      * @param obj  the Object to {@code toString}, may be null.
      * @param supplier  the Supplier of String used on {@code null} input, may be null.
-     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
+     * @return The passed in Object's toString, or {@code nullStr} if {@code null} input.
      * @since 3.14.0
      */
     public static String toString(final Supplier<Object> obj, final Supplier<String> supplier) {
@@ -1306,7 +1306,7 @@ public class ObjectUtils {
      * @param <T> The obj type (used to provide better source compatibility in 3.14.0).
      * @param obj  the Object to {@code toString}, may be null.
      * @param supplier  the Supplier of String used on {@code null} input, may be null.
-     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
+     * @return The passed in Object's toString, or {@code nullStr} if {@code null} input.
      * @since 3.11
      */
     public static <T> String toString(final T obj, final Supplier<String> supplier) {

@@ -75,7 +75,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Returns the value of this MutableBoolean as a boolean.
      *
-     * @return the boolean value represented by this object.
+     * @return The boolean value represented by this object.
      */
     public boolean booleanValue() {
         return value;
@@ -112,7 +112,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Gets the value as a Boolean instance.
      *
-     * @return the value as a Boolean, never null.
+     * @return The value as a Boolean, never null.
      * @deprecated Use {@link #get()}.
      */
     @Deprecated
@@ -124,7 +124,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return the hash code returned by {@code Boolean.TRUE} or {@code Boolean.FALSE}
+     * @return The hash code returned by {@code Boolean.TRUE} or {@code Boolean.FALSE}
      */
     @Override
     public int hashCode() {
@@ -202,7 +202,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Returns the String value of this mutable.
      *
-     * @return the mutable value as a string
+     * @return The mutable value as a string
      */
     @Override
     public String toString() {

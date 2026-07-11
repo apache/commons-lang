@@ -216,7 +216,7 @@ public class DateUtils {
      * @param date  the date, not null.
      * @param calendarField  the calendar field to add to.
      * @param amount  the amount to add, may be negative.
-     * @return the new {@link Date} with the amount added.
+     * @return The new {@link Date} with the amount added.
      * @throws NullPointerException if the date is null.
      */
     private static Date add(final Date date, final int calendarField, final int amount) {
@@ -233,7 +233,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount  the amount to add, may be negative.
-     * @return the new {@link Date} with the amount added.
+     * @return The new {@link Date} with the amount added.
      * @throws NullPointerException if the date is null.
      */
     public static Date addDays(final Date date, final int amount) {
@@ -246,7 +246,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount  the amount to add, may be negative.
-     * @return the new {@link Date} with the amount added.
+     * @return The new {@link Date} with the amount added.
      * @throws NullPointerException if the date is null.
      */
     public static Date addHours(final Date date, final int amount) {
@@ -259,7 +259,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount  the amount to add, may be negative.
-     * @return the new {@link Date} with the amount added.
+     * @return The new {@link Date} with the amount added.
      * @throws NullPointerException if the date is null.
      */
     public static Date addMilliseconds(final Date date, final int amount) {
@@ -272,7 +272,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount  the amount to add, may be negative.
-     * @return the new {@link Date} with the amount added.
+     * @return The new {@link Date} with the amount added.
      * @throws NullPointerException if the date is null.
      */
     public static Date addMinutes(final Date date, final int amount) {
@@ -285,7 +285,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount  the amount to add, may be negative.
-     * @return the new {@link Date} with the amount added.
+     * @return The new {@link Date} with the amount added.
      * @throws NullPointerException if the date is null.
      */
     public static Date addMonths(final Date date, final int amount) {
@@ -298,7 +298,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount  the amount to add, may be negative.
-     * @return the new {@link Date} with the amount added.
+     * @return The new {@link Date} with the amount added.
      * @throws NullPointerException if the date is null.
      */
     public static Date addSeconds(final Date date, final int amount) {
@@ -311,7 +311,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount  the amount to add, may be negative.
-     * @return the new {@link Date} with the amount added.
+     * @return The new {@link Date} with the amount added.
      * @throws NullPointerException if the date is null.
      */
     public static Date addWeeks(final Date date, final int amount) {
@@ -324,7 +324,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount  the amount to add, may be negative.
-     * @return the new {@link Date} with the amount added.
+     * @return The new {@link Date} with the amount added.
      * @throws NullPointerException if the date is null.
      */
     public static Date addYears(final Date date, final int amount) {
@@ -342,7 +342,7 @@ public class DateUtils {
      *
      * @param calendar  the date to work with, not null.
      * @param field  the field from {@link Calendar} or {@code SEMI_MONTH}.
-     * @return the different ceil date, not null.
+     * @return The different ceil date, not null.
      * @throws NullPointerException if the date is {@code null}.
      * @throws ArithmeticException if the year is over 280 million.
      * @since 2.5
@@ -363,7 +363,7 @@ public class DateUtils {
      *
      * @param date  the date to work with, not null.
      * @param field  the field from {@link Calendar} or {@code SEMI_MONTH}.
-     * @return the different ceil date, not null.
+     * @return The different ceil date, not null.
      * @throws NullPointerException if the date is {@code null}.
      * @throws ArithmeticException if the year is over 280 million.
      * @since 2.5
@@ -383,7 +383,7 @@ public class DateUtils {
      *
      * @param date  the date to work with, either {@link Date} or {@link Calendar}, not null.
      * @param field  the field from {@link Calendar} or {@code SEMI_MONTH}.
-     * @return the different ceil date, not null.
+     * @return The different ceil date, not null.
      * @throws NullPointerException if the date is {@code null}.
      * @throws ClassCastException if the object type is not a {@link Date} or {@link Calendar}.
      * @throws ArithmeticException if the year is over 280 million.
@@ -966,7 +966,7 @@ public class DateUtils {
      * {@link DateUtils#RANGE_WEEK_MONDAY},
      * {@link DateUtils#RANGE_WEEK_RELATIVE},
      * {@link DateUtils#RANGE_WEEK_CENTER}.
-     * @return the date iterator, not null.
+     * @return The date iterator, not null.
      * @throws NullPointerException if calendar is {@code null}.
      * @throws IllegalArgumentException if the rangeStyle is invalid.
      */
@@ -1062,7 +1062,7 @@ public class DateUtils {
      * {@link DateUtils#RANGE_WEEK_MONDAY},
      * {@link DateUtils#RANGE_WEEK_RELATIVE},
      * {@link DateUtils#RANGE_WEEK_CENTER}.
-     * @return the date iterator, not null, not null.
+     * @return The date iterator, not null, not null.
      * @throws NullPointerException if the date is {@code null}.
      * @throws IllegalArgumentException if the rangeStyle is invalid.
      */
@@ -1082,7 +1082,7 @@ public class DateUtils {
      * @param calendar  the date to work with, either {@link Date} or {@link Calendar}, not null.
      * @param rangeStyle  the style constant to use. Must be one of the range
      * styles listed for the {@link #iterator(Calendar, int)} method.
-     * @return the date iterator, not null.
+     * @return The date iterator, not null.
      * @throws NullPointerException if the date is {@code null}.
      * @throws ClassCastException if the object type is not a {@link Date} or {@link Calendar}.
      */
@@ -1103,7 +1103,7 @@ public class DateUtils {
      * @param val  the calendar, not null.
      * @param field  the field constant.
      * @param modType  type to truncate, round or ceiling.
-     * @return the given calendar.
+     * @return The given calendar.
      * @throws ArithmeticException if the year is over 280 million.
      */
     private static Calendar modify(final Calendar val, final int field, final ModifyType modType) {
@@ -1251,7 +1251,7 @@ public class DateUtils {
      * @param locale the locale whose date format symbols should be used. If {@code null},
      * the system locale is used (as per {@link #parseDate(String, String...)}).
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null.
-     * @return the parsed date.
+     * @return The parsed date.
      * @throws NullPointerException if the date string or pattern array is null.
      * @throws ParseException if none of the date patterns were suitable (or there were none).
      * @since 3.2
@@ -1270,7 +1270,7 @@ public class DateUtils {
      *
      * @param str  the date to parse, not null.
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null.
-     * @return the parsed date.
+     * @return The parsed date.
      * @throws NullPointerException if the date string or pattern array is null.
      * @throws ParseException if none of the date patterns were suitable (or there were none).
      */
@@ -1291,7 +1291,7 @@ public class DateUtils {
      * @param locale the locale whose date format symbols should be used. If {@code null},
      * the system locale is used (as per {@link #parseDateStrictly(String, String...)}).
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null.
-     * @return the parsed date.
+     * @return The parsed date.
      * @throws NullPointerException if the date string or pattern array is null.
      * @throws ParseException if none of the date patterns were suitable.
      * @since 3.2
@@ -1310,7 +1310,7 @@ public class DateUtils {
      *
      * @param str  the date to parse, not null.
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null.
-     * @return the parsed date.
+     * @return The parsed date.
      * @throws NullPointerException if the date string or pattern array is null.
      * @throws ParseException if none of the date patterns were suitable.
      * @since 2.5
@@ -1331,7 +1331,7 @@ public class DateUtils {
      * case the default system locale is used.
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null.
      * @param lenient Specify whether or not date/time parsing is to be lenient.
-     * @return the parsed date.
+     * @return The parsed date.
      * @throws NullPointerException if the date string or pattern array is null.
      * @throws ParseException if none of the date patterns were suitable.
      * @see java.util.Calendar#isLenient()
@@ -1389,7 +1389,7 @@ public class DateUtils {
      *
      * @param calendar  the date to work with, not null.
      * @param field  the field from {@link Calendar} or {@code SEMI_MONTH}.
-     * @return the different rounded date, not null.
+     * @return The different rounded date, not null.
      * @throws NullPointerException if the date is {@code null}.
      * @throws ArithmeticException if the year is over 280 million.
      */
@@ -1421,7 +1421,7 @@ public class DateUtils {
      *
      * @param date  the date to work with, not null.
      * @param field  the field from {@link Calendar} or {@code SEMI_MONTH}.
-     * @return the different rounded date, not null.
+     * @return The different rounded date, not null.
      * @throws NullPointerException if the date is null.
      * @throws ArithmeticException if the year is over 280 million.
      */
@@ -1452,7 +1452,7 @@ public class DateUtils {
      *
      * @param date  the date to work with, either {@link Date} or {@link Calendar}, not null.
      * @param field  the field from {@link Calendar} or {@code SEMI_MONTH}.
-     * @return the different rounded date, not null.
+     * @return The different rounded date, not null.
      * @throws NullPointerException if the date is {@code null}.
      * @throws ClassCastException if the object type is not a {@link Date} or {@link Calendar}.
      * @throws ArithmeticException if the year is over 280 million.
@@ -1605,7 +1605,7 @@ public class DateUtils {
      * Converts a {@link Date} into a {@link Calendar}.
      *
      * @param date the date to convert to a Calendar.
-     * @return the created Calendar.
+     * @return The created Calendar.
      * @throws NullPointerException if null is passed in.
      * @since 3.0
      */
@@ -1620,7 +1620,7 @@ public class DateUtils {
      *
      * @param date the date to convert to a Calendar.
      * @param tz the time zone of the {@code date}.
-     * @return the created Calendar.
+     * @return The created Calendar.
      * @throws NullPointerException if {@code date} or {@code tz} is null.
      */
     public static Calendar toCalendar(final Date date, final TimeZone tz) {
@@ -1713,7 +1713,7 @@ public class DateUtils {
      *
      * @param date  the date to work with, not null.
      * @param field  the field from {@link Calendar} or {@code SEMI_MONTH}.
-     * @return the different truncated date, not null.
+     * @return The different truncated date, not null.
      * @throws NullPointerException if the date is {@code null}.
      * @throws ArithmeticException if the year is over 280 million.
      */
@@ -1733,7 +1733,7 @@ public class DateUtils {
      *
      * @param date  the date to work with, not null.
      * @param field  the field from {@link Calendar} or {@code SEMI_MONTH}.
-     * @return the different truncated date, not null.
+     * @return The different truncated date, not null.
      * @throws NullPointerException if the date is {@code null}.
      * @throws ArithmeticException if the year is over 280 million.
      */
@@ -1752,7 +1752,7 @@ public class DateUtils {
      *
      * @param date  the date to work with, either {@link Date} or {@link Calendar}, not null.
      * @param field  the field from {@link Calendar} or {@code SEMI_MONTH}.
-     * @return the different truncated date, not null.
+     * @return The different truncated date, not null.
      * @throws NullPointerException if the date is {@code null}.
      * @throws ClassCastException if the object type is not a {@link Date} or {@link Calendar}.
      * @throws ArithmeticException if the year is over 280 million.

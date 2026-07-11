@@ -30,7 +30,7 @@ class AtomicInitializerNonObjectTest extends AbstractConcurrentInitializerTest<I
     /**
      * Returns the initializer to be tested.
      *
-     * @return the {@code AtomicInitializer}
+     * @return The {@code AtomicInitializer}
      */
     @Override
     protected ConcurrentInitializer<Integer> createInitializer() {

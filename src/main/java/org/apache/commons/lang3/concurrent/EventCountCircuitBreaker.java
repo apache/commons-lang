@@ -150,7 +150,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * {@link CircuitBreaker}.
          *
          * @param breaker the {@link CircuitBreaker}
-         * @return the check interval to be applied
+         * @return The check interval to be applied
          */
         protected abstract long fetchCheckInterval(EventCountCircuitBreaker breaker);
 
@@ -208,7 +208,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         /**
          * Gets the start time of the current check interval.
          *
-         * @return the check interval start time
+         * @return The check interval start time
          */
         public long getCheckIntervalStart() {
             return checkIntervalStart;
@@ -217,7 +217,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         /**
          * Gets the event counter.
          *
-         * @return the number of received events
+         * @return The number of received events
          */
         public int getEventCount() {
             return eventCount;
@@ -228,7 +228,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * incremented by the given delta. If the delta is 0, this object is returned.
          *
          * @param delta the delta
-         * @return the updated instance
+         * @return The updated instance
          */
         public CheckIntervalData increment(final int delta) {
             return delta == 0 ? this : new CheckIntervalData(getEventCount() + delta,
@@ -291,7 +291,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * Creates the map with strategy objects. It allows access for a strategy for a given
      * state.
      *
-     * @return the strategy map
+     * @return The strategy map
      */
     private static Map<State, AbstractStateStrategy> createStrategyMap() {
         final Map<State, AbstractStateStrategy> map = new EnumMap<>(State.class);
@@ -304,7 +304,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * Returns the {@link AbstractStateStrategy} object responsible for the given state.
      *
      * @param state the state
-     * @return the corresponding {@link AbstractStateStrategy}
+     * @return The corresponding {@link AbstractStateStrategy}
      * @throws CircuitBreakingException if the strategy cannot be resolved
      */
     private static AbstractStateStrategy stateStrategy(final State state) {
@@ -427,7 +427,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     /**
      * Gets the interval (in nanoseconds) for checking for the closing threshold.
      *
-     * @return the opening check interval
+     * @return The opening check interval
      */
     public long getClosingInterval() {
         return closingInterval;
@@ -438,7 +438,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * events received in the time span determined by the closing interval goes below this
      * threshold, the circuit breaker is closed again.
      *
-     * @return the closing threshold
+     * @return The closing threshold
      */
     public int getClosingThreshold() {
         return closingThreshold;
@@ -447,7 +447,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     /**
      * Gets the interval (in nanoseconds) for checking for the opening threshold.
      *
-     * @return the opening check interval
+     * @return The opening check interval
      */
     public long getOpeningInterval() {
         return openingInterval;
@@ -458,7 +458,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * events is received in the time span determined by the opening interval, the circuit
      * breaker is opened.
      *
-     * @return the opening threshold
+     * @return The opening threshold
      */
     public int getOpeningThreshold() {
         return openingThreshold;
@@ -488,7 +488,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * Returns the current time in nanoseconds. This method is used to obtain the current
      * time. This is needed to calculate the check intervals correctly.
      *
-     * @return the current time in nanoseconds
+     * @return The current time in nanoseconds
      */
     long nanoTime() {
         return System.nanoTime();
@@ -503,7 +503,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * @param currentData the current check data object
      * @param currentState the current state of the circuit breaker
      * @param time the current time
-     * @return the updated {@link CheckIntervalData} object
+     * @return The updated {@link CheckIntervalData} object
      */
     private CheckIntervalData nextCheckIntervalData(final int increment,
             final CheckIntervalData currentData, final State currentState, final long time) {

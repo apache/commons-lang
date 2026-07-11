@@ -42,7 +42,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * @param <R> Return type.
      * @param <E> The type of thrown exception or error.
      * @param function   the argument to return.
-     * @return the argument
+     * @return The argument
      * @since 3.14.0
      */
     static <T, R, E extends Throwable> FailableFunction<T, R, E> function(final FailableFunction<T, R, E> function) {
@@ -90,7 +90,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * Applies this function.
      *
      * @param input the input for the function
-     * @return the result of the function
+     * @return The result of the function
      * @throws E Thrown when the function fails.
      */
     R apply(T input) throws E;

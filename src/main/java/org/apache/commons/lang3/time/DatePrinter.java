@@ -42,7 +42,7 @@ public interface DatePrinter {
      * used in the formatted string.
      *
      * @param calendar  the calendar to format.
-     * @return the formatted string.
+     * @return The formatted string.
      */
     String format(Calendar calendar);
 
@@ -55,7 +55,7 @@ public interface DatePrinter {
      * @param calendar  the calendar to format.
      * @param buf  the buffer to format into.
      * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @since 3.5
      */
     <B extends Appendable> B format(Calendar calendar, B buf);
@@ -68,7 +68,7 @@ public interface DatePrinter {
      *
      * @param calendar  the calendar to format.
      * @param buf  the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @deprecated Use {{@link #format(Calendar, Appendable)}.
      */
     @Deprecated
@@ -78,7 +78,7 @@ public interface DatePrinter {
      * Formats a {@link Date} object using a {@link GregorianCalendar}.
      *
      * @param date  the date to format
-     * @return the formatted string
+     * @return The formatted string
      */
     String format(Date date);
 
@@ -89,7 +89,7 @@ public interface DatePrinter {
      * @param date  the date to format.
      * @param buf  the buffer to format into.
      * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @since 3.5
      */
     <B extends Appendable> B format(Date date, B buf);
@@ -100,7 +100,7 @@ public interface DatePrinter {
      *
      * @param date  the date to format.
      * @param buf  the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @deprecated Use {{@link #format(Date, Appendable)}.
      */
     @Deprecated
@@ -110,7 +110,7 @@ public interface DatePrinter {
      * Formats a millisecond {@code long} value.
      *
      * @param millis  the millisecond value to format.
-     * @return the formatted string.
+     * @return The formatted string.
      * @since 2.1
      */
     String format(long millis);
@@ -122,7 +122,7 @@ public interface DatePrinter {
      * @param millis  the millisecond value to format.
      * @param buf  the buffer to format into.
      * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @since 3.5
      */
     <B extends Appendable> B format(long millis, B buf);
@@ -133,7 +133,7 @@ public interface DatePrinter {
      *
      * @param millis  the millisecond value to format.
      * @param buf  the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @deprecated Use {{@link #format(long, Appendable)}.
      */
     @Deprecated
@@ -146,7 +146,7 @@ public interface DatePrinter {
      * @param obj  the object to format.
      * @param toAppendTo  the buffer to append to.
      * @param pos  the position - ignored.
-     * @return the buffer passed in.
+     * @return The buffer passed in.
      * @see java.text.DateFormat#format(Object, StringBuffer, FieldPosition)
      */
     StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos);
@@ -154,14 +154,14 @@ public interface DatePrinter {
     /**
      * Gets the locale used by this printer.
      *
-     * @return the locale.
+     * @return The locale.
      */
     Locale getLocale();
 
     /**
      * Gets the pattern used by this printer.
      *
-     * @return the pattern, {@link java.text.SimpleDateFormat} compatible.
+     * @return The pattern, {@link java.text.SimpleDateFormat} compatible.
      */
     String getPattern();
 
@@ -170,7 +170,7 @@ public interface DatePrinter {
      *
      * <p>This zone is always used for {@link Date} printing.</p>
      *
-     * @return the time zone.
+     * @return The time zone.
      */
     TimeZone getTimeZone();
 }

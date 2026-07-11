@@ -119,7 +119,7 @@ public class Functions {
          *
          * @param input1 the first input for the function
          * @param input2 the second input for the function
-         * @return the result of the function
+         * @return The result of the function
          * @throws T Thrown when the function fails.
          */
         R apply(O1 input1, O2 input2) throws T;
@@ -144,7 +144,7 @@ public class Functions {
          *
          * @param object1 the first object to test the predicate on
          * @param object2 the second object to test the predicate on
-         * @return the predicate's evaluation
+         * @return The predicate's evaluation
          * @throws T if the predicate fails
          */
         boolean test(O1 object1, O2 object2) throws T;
@@ -212,7 +212,7 @@ public class Functions {
          * Applies this function.
          *
          * @param input the input for the function
-         * @return the result of the function
+         * @return The result of the function
          * @throws T Thrown when the function fails.
          */
         R apply(I input) throws T;
@@ -235,7 +235,7 @@ public class Functions {
          * Tests the predicate.
          *
          * @param object the object to test the predicate on
-         * @return the predicate's evaluation
+         * @return The predicate's evaluation
          * @throws T if the predicate fails
          */
         boolean test(I object) throws T;
@@ -320,7 +320,7 @@ public class Functions {
      * @param <O2> the type of the second argument the function accepts
      * @param <O> The return type of the function
      * @param <T> The type of checked exception the function may throw
-     * @return the value returned from the function
+     * @return The value returned from the function
      */
     public static <O1, O2, O, T extends Throwable> O apply(final FailableBiFunction<O1, O2, O, T> function,
         final O1 input1, final O2 input2) {
@@ -335,7 +335,7 @@ public class Functions {
      * @param <I> The type of the argument the function accepts
      * @param <O> The return type of the function
      * @param <T> The type of checked exception the function may throw
-     * @return the value returned from the function
+     * @return The value returned from the function
      */
     public static <I, O, T extends Throwable> O apply(final FailableFunction<I, O, T> function, final I input) {
         return get(() -> function.apply(input));
@@ -459,7 +459,7 @@ public class Functions {
      * @param callable the callable to call
      * @param <O> The return type of the callable
      * @param <T> The type of checked exception the callable may throw
-     * @return the value returned from the callable
+     * @return The value returned from the callable
      */
     public static <O, T extends Throwable> O call(final FailableCallable<O, T> callable) {
         return get(callable::call);
@@ -584,7 +584,7 @@ public class Functions {
      * @param <O1> the type of the first argument the predicate tests
      * @param <O2> the type of the second argument the predicate tests
      * @param <T> The type of checked exception the predicate may throw
-     * @return the boolean value returned by the predicate
+     * @return The boolean value returned by the predicate
      */
     public static <O1, O2, T extends Throwable> boolean test(final FailableBiPredicate<O1, O2, T> predicate,
         final O1 object1, final O2 object2) {
@@ -598,7 +598,7 @@ public class Functions {
      * @param object the input to test by {@code predicate}
      * @param <O> The type of argument the predicate tests
      * @param <T> The type of checked exception the predicate may throw
-     * @return the boolean value returned by the predicate
+     * @return The boolean value returned by the predicate
      */
     public static <O, T extends Throwable> boolean test(final FailablePredicate<O, T> predicate, final O object) {
         return getAsBoolean(() -> predicate.test(object));

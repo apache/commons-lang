@@ -38,7 +38,7 @@ class AtomicSafeInitializerSupplierTest extends AbstractConcurrentInitializerClo
     /**
      * Creates the initializer to be tested.
      *
-     * @return the {@code AtomicSafeInitializer} under test
+     * @return The {@code AtomicSafeInitializer} under test
      */
     @Override
     protected ConcurrentInitializer<Object> createInitializer() {

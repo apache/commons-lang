@@ -221,7 +221,7 @@ class FastDateParserTest extends AbstractLangTest {
      * @param format the format string to use
      * @param timeZone the time zone to use
      * @param locale the locale to use
-     * @return the DateParser instance to use for testing
+     * @return The DateParser instance to use for testing
      */
     protected DateParser getInstance(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider,
         final String format, final TimeZone timeZone, final Locale locale) {

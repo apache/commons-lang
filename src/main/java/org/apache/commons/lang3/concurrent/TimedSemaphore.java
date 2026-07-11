@@ -333,7 +333,7 @@ public class TimedSemaphore {
     /**
      * Gets the number of invocations of the {@link #acquire()} method for the current period. This may be useful for testing or debugging purposes.
      *
-     * @return the current number of {@link #acquire()} invocations.
+     * @return The current number of {@link #acquire()} invocations.
      */
     public synchronized int getAcquireCount() {
         return acquireCount;
@@ -344,7 +344,7 @@ public class TimedSemaphore {
      * indication whether it is safe to call the {@link #acquire()} method without risking to be suspended. However, there is no guarantee that a subsequent
      * call to {@link #acquire()} actually is not-blocking because in the meantime other threads may have invoked the semaphore.
      *
-     * @return the current number of available {@link #acquire()} calls in the current period.
+     * @return The current number of available {@link #acquire()} calls in the current period.
      */
     public synchronized int getAvailablePermits() {
         return getLimit() - getAcquireCount();
@@ -354,7 +354,7 @@ public class TimedSemaphore {
      * Gets the average number of successful (i.e. non-blocking) {@link #acquire()} invocations for the entire life-time of this {@code
      * TimedSemaphore}. This method can be used for instance for statistical calculations.
      *
-     * @return the average number of {@link #acquire()} invocations per time unit.
+     * @return The average number of {@link #acquire()} invocations per time unit.
      */
     public synchronized double getAverageCallsPerPeriod() {
         return periodCount == 0 ? 0 : (double) totalAcquireCount / (double) periodCount;
@@ -363,7 +363,7 @@ public class TimedSemaphore {
     /**
      * Gets the executor service used by this instance.
      *
-     * @return the executor service.
+     * @return The executor service.
      */
     protected ScheduledExecutorService getExecutorService() {
         return executorService;
@@ -374,7 +374,7 @@ public class TimedSemaphore {
      * blocking. This can be useful for testing or debugging purposes or to determine a meaningful threshold value. If a limit is set, the value returned by
      * this method won't be greater than this limit.
      *
-     * @return the number of non-blocking invocations of the {@link #acquire()} method.
+     * @return The number of non-blocking invocations of the {@link #acquire()} method.
      */
     public synchronized int getLastAcquiresPerPeriod() {
         return lastCallsPerPeriod;
@@ -383,7 +383,7 @@ public class TimedSemaphore {
     /**
      * Gets the limit enforced by this semaphore. The limit determines how many invocations of {@link #acquire()} are allowed within the monitored period.
      *
-     * @return the limit.
+     * @return The limit.
      */
     public final synchronized int getLimit() {
         return limit;
@@ -393,7 +393,7 @@ public class TimedSemaphore {
      * Gets the time period. This is the time monitored by this semaphore. Only a given number of invocations of the {@link #acquire()} method is possible in
      * this period.
      *
-     * @return the time period.
+     * @return The time period.
      */
     public long getPeriod() {
         return period;
@@ -402,7 +402,7 @@ public class TimedSemaphore {
     /**
      * Gets the time unit. This is the unit used by {@link #getPeriod()}.
      *
-     * @return the time unit.
+     * @return The time unit.
      */
     public TimeUnit getUnit() {
         return unit;

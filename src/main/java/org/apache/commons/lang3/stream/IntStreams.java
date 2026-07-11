@@ -32,7 +32,7 @@ public class IntStreams {
      * Null-safe version of {@link IntStream#of(int[])}.
      *
      * @param values the elements of the new stream, may be {@code null}.
-     * @return the new stream on {@code values} or {@link IntStream#empty()}.
+     * @return The new stream on {@code values} or {@link IntStream#empty()}.
      * @since 3.18.0
      */
     @SafeVarargs // Creating a stream from an array is safe

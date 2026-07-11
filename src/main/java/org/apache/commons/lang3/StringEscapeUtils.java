@@ -425,7 +425,7 @@ public class StringEscapeUtils {
      * <a href="https://datatracker.ietf.org/doc/html/rfc4180">RFC 4180</a>.
      *
      * @param input the input CSV column String, may be null
-     * @return the input String, enclosed in double quotes if the value contains a comma,
+     * @return The input String, enclosed in double quotes if the value contains a comma,
      * newline or double quote, {@code null} if null string input
      * @since 2.4
      */
@@ -674,7 +674,7 @@ public class StringEscapeUtils {
      * <a href="https://datatracker.ietf.org/doc/html/rfc4180">RFC 4180</a>.
      *
      * @param input the input CSV column String, may be null
-     * @return the input String, with enclosing double quotes removed and embedded double
+     * @return The input String, with enclosing double quotes removed and embedded double
      * quotes unescaped, {@code null} if null string input
      * @since 2.4
      */

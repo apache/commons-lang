@@ -321,7 +321,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         /**
          * Returns the estimated length of the result.
          *
-         * @return the estimated length of the result.
+         * @return The estimated length of the result.
          */
         int estimateLength();
     }
@@ -1012,7 +1012,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param daylight  true if daylight savings.
      * @param style  the style to use {@link TimeZone#LONG} or {@link TimeZone#SHORT}.
      * @param locale  the locale to use.
-     * @return the textual name of the time zone.
+     * @return The textual name of the time zone.
      */
     static String getTimeZoneDisplay(final TimeZone tz, final boolean daylight, final int style, final Locale locale) {
         final TimeZoneDisplayKey key = new TimeZoneDisplayKey(tz, daylight, style, locale);
@@ -1069,7 +1069,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param calendar  the calendar to format.
      * @param buf  the buffer to format into.
      * @param <B> The Appendable class type, usually StringBuilder or StringBuffer.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      */
     private <B extends Appendable> B applyRules(final Calendar calendar, final B buf) {
         try {
@@ -1088,7 +1088,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      *
      * @param calendar the calendar to format.
      * @param buf the buffer to format into.
-     * @return the specified string buffer.
+     * @return The specified string buffer.
      * @deprecated Use {@link #format(Calendar)} or {@link #format(Calendar, Appendable)}
      */
     @Deprecated
@@ -1242,7 +1242,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param obj  the object to format.
      * @param toAppendTo  the buffer to append to.
      * @param pos  the position; ignored.
-     * @return the buffer passed in.
+     * @return The buffer passed in.
      * @deprecated Use {{@link #format(Date)}, {{@link #format(Calendar)}, {{@link #format(long)}.
      */
     @Deprecated
@@ -1275,7 +1275,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * <p>The actual formatted length will almost always be less than or
      * equal to this amount.</p>
      *
-     * @return the maximum formatted length.
+     * @return The maximum formatted length.
      */
     public int getMaxLengthEstimate() {
         return maxLengthEstimate;

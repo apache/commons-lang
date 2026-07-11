@@ -221,7 +221,7 @@ public enum JavaVersion {
      * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
      *
      * @param versionStr the Java version as string.
-     * @return the corresponding enumeration constant or {@code null} if the version is unknown.
+     * @return The corresponding enumeration constant or {@code null} if the version is unknown.
      */
     static JavaVersion get(final String versionStr) {
         if (versionStr == null) {
@@ -303,7 +303,7 @@ public enum JavaVersion {
      * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
      *
      * @param versionStr the Java version as string.
-     * @return the corresponding enumeration constant or {@code null} if the version is unknown.
+     * @return The corresponding enumeration constant or {@code null} if the version is unknown.
      */
     static JavaVersion getJavaVersion(final String versionStr) {
         return get(versionStr);
@@ -312,7 +312,7 @@ public enum JavaVersion {
     /**
      * Gets the Java Version from the system or 99.0 if the {@code java.specification.version} system property is not set.
      *
-     * @return the value of {@code java.specification.version} system property or 99.0 if it is not set.
+     * @return The value of {@code java.specification.version} system property or 99.0 if it is not set.
      */
     private static float maxVersion() {
         final float v = toFloatVersion(SystemProperties.getJavaSpecificationVersion("99.0"));
@@ -327,7 +327,7 @@ public enum JavaVersion {
      * Parses a float value from a String.
      *
      * @param value the String to parse.
-     * @return the float value represented by the string or -1 if the given String cannot be parsed.
+     * @return The float value represented by the string or -1 if the given String cannot be parsed.
      */
     private static float toFloatVersion(final String value) {
         final int defaultReturnValue = -1;
@@ -408,7 +408,7 @@ public enum JavaVersion {
      * For example, {@code "1.5"}.
      * </p>
      *
-     * @return the name, not null.
+     * @return The name, not null.
      */
     @Override
     public String toString() {

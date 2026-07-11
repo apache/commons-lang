@@ -231,7 +231,7 @@ public class AnnotationUtils {
      *
      * @param a the Annotation for a hash code calculation is desired, not
      * {@code null}
-     * @return the calculated hash code
+     * @return The calculated hash code
      * @throws RuntimeException if an {@link Exception} is encountered during
      * annotation member access
      * @throws IllegalStateException if an annotation method invocation returns
@@ -326,7 +326,7 @@ public class AnnotationUtils {
      * {@link Annotation#toString()}.
      *
      * @param a the annotation of which a string representation is desired
-     * @return the standard string representation of an annotation, not
+     * @return The standard string representation of an annotation, not
      * {@code null}
      */
     public static String toString(final Annotation a) {

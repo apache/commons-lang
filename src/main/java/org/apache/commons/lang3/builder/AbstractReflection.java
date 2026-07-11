@@ -164,7 +164,7 @@ public abstract class AbstractReflection {
      *
      * @param lhs {@code this} object.
      * @param rhs the other object.
-     * @return the pair.
+     * @return The pair.
      */
     static Pair<IDKey, IDKey> toRegisterPair(final Object lhs, final Object rhs) {
         return Pair.of(new IDKey(lhs), new IDKey(rhs));

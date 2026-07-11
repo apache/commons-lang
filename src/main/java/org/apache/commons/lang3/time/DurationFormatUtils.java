@@ -243,7 +243,7 @@ public class DurationFormatUtils {
      * @param seconds  the number of seconds.
      * @param milliseconds  the number of milliseconds.
      * @param padWithZeros  whether to pad.
-     * @return the formatted string.
+     * @return The formatted string.
      */
     static String format(final Token[] tokens, final long years, final long months, final long days, final long hours, final long minutes,
             final long seconds,
@@ -344,7 +344,7 @@ public class DurationFormatUtils {
      *
      * @param durationMillis the duration to format.
      * @param format         the way in which to format the duration, not null.
-     * @return the formatted duration, not null.
+     * @return The formatted duration, not null.
      * @throws IllegalArgumentException if durationMillis is negative.
      */
     public static String formatDuration(final long durationMillis, final String format) {
@@ -360,7 +360,7 @@ public class DurationFormatUtils {
      * @param durationMillis the duration to format.
      * @param format         the way in which to format the duration, not null.
      * @param padWithZeros   whether to pad the left-hand side side of numbers with 0's.
-     * @return the formatted duration, not null.
+     * @return The formatted duration, not null.
      * @throws IllegalArgumentException if durationMillis is negative.
      */
     public static String formatDuration(final long durationMillis, final String format, final boolean padWithZeros) {
@@ -397,7 +397,7 @@ public class DurationFormatUtils {
      * </p>
      *
      * @param durationMillis the duration to format.
-     * @return the formatted duration, not null.
+     * @return The formatted duration, not null.
      * @throws IllegalArgumentException if durationMillis is negative.
      */
     public static String formatDurationHMS(final long durationMillis) {
@@ -414,7 +414,7 @@ public class DurationFormatUtils {
      * </p>
      *
      * @param durationMillis the duration to format.
-     * @return the formatted duration, not null.
+     * @return The formatted duration, not null.
      * @throws IllegalArgumentException if durationMillis is negative.
      */
     public static String formatDurationISO(final long durationMillis) {
@@ -430,7 +430,7 @@ public class DurationFormatUtils {
      * @param durationMillis               the elapsed time to report in milliseconds.
      * @param suppressLeadingZeroElements  suppresses leading 0 elements.
      * @param suppressTrailingZeroElements suppresses trailing 0 elements.
-     * @return the formatted text in days/hours/minutes/seconds, not null.
+     * @return The formatted text in days/hours/minutes/seconds, not null.
      * @throws IllegalArgumentException if durationMillis is negative.
      */
     public static String formatDurationWords(final long durationMillis, final boolean suppressLeadingZeroElements, final boolean suppressTrailingZeroElements) {
@@ -496,7 +496,7 @@ public class DurationFormatUtils {
      * @param startMillis the start of the duration.
      * @param endMillis   the end of the duration.
      * @param format      the way in which to format the duration, not null.
-     * @return the formatted duration, not null.
+     * @return The formatted duration, not null.
      * @throws IllegalArgumentException if startMillis is greater than endMillis.
      */
     public static String formatPeriod(final long startMillis, final long endMillis, final String format) {
@@ -521,7 +521,7 @@ public class DurationFormatUtils {
      * @param format       the way in which to format the duration, not null.
      * @param padWithZeros whether to pad the left-hand side side of numbers with 0's.
      * @param timezone     the millis are defined in.
-     * @return the formatted duration, not null.
+     * @return The formatted duration, not null.
      * @throws IllegalArgumentException if startMillis is greater than endMillis.
      */
     public static String formatPeriod(final long startMillis, final long endMillis, final String format, final boolean padWithZeros,
@@ -640,7 +640,7 @@ public class DurationFormatUtils {
      *
      * @param startMillis the start of the duration to format.
      * @param endMillis   the end of the duration to format.
-     * @return the formatted duration, not null.
+     * @return The formatted duration, not null.
      * @throws IllegalArgumentException if startMillis is greater than endMillis.
      */
     public static String formatPeriodISO(final long startMillis, final long endMillis) {
@@ -766,7 +766,7 @@ public class DurationFormatUtils {
      * @param value        the value to convert.
      * @param padWithZeros whether to pad with zeroes.
      * @param count        the size to pad to (ignored if {@code padWithZeros} is false).
-     * @return the string result.
+     * @return The string result.
      */
     private static String paddedValue(final long value, final boolean padWithZeros, final int count) {
         final String longString = Long.toString(value);

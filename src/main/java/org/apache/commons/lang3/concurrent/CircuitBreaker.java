@@ -72,7 +72,7 @@ public interface CircuitBreaker<T> {
      * <strong>true</strong> means that the circuit breaker is currently closed. This
      * means that everything is okay with the monitored subsystem.
      *
-     * @return the current closed state of this circuit breaker.
+     * @return The current closed state of this circuit breaker.
      */
     boolean isClosed();
 
@@ -81,7 +81,7 @@ public interface CircuitBreaker<T> {
      * <strong>true</strong> means that the circuit breaker is currently open indicating a
      * problem in the monitored subsystem.
      *
-     * @return the current open state of this circuit breaker.
+     * @return The current open state of this circuit breaker.
      */
     boolean isOpen();
 

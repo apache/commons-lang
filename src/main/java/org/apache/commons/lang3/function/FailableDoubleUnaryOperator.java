@@ -72,7 +72,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * Applies this operator to the given operand.
      *
      * @param operand the operand
-     * @return the operator result
+     * @return The operator result
      * @throws E Thrown when a consumer fails.
      */
     double applyAsDouble(double operand) throws E;

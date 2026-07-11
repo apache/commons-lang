@@ -186,7 +186,7 @@ public class ClassUtils {
     /**
      * Gets the class comparator, comparing by class name.
      *
-     * @return the class comparator.
+     * @return The class comparator.
      * @since 3.13.0
      */
     public static Comparator<Class<?>> comparator() {
@@ -240,7 +240,7 @@ public class ClassUtils {
      *
      * @param cls the class to get the abbreviated name for, may be {@code null}.
      * @param lengthHint the desired length of the abbreviated name.
-     * @return the abbreviated name or an empty string.
+     * @return The abbreviated name or an empty string.
      * @throws IllegalArgumentException if len &lt;= 0.
      * @see #getAbbreviatedName(String, int)
      * @since 3.4
@@ -320,7 +320,7 @@ public class ClassUtils {
      *
      * @param className the className to get the abbreviated name for, may be {@code null}.
      * @param lengthHint the desired length of the abbreviated name.
-     * @return the abbreviated name or an empty string if the specified class name is {@code null} or empty string. The
+     * @return The abbreviated name or an empty string if the specified class name is {@code null} or empty string. The
      *         abbreviated name may be longer than the desired length if it cannot be abbreviated to the desired length.
      * @throws IllegalArgumentException if {@code len <= 0}.
      * @since 3.4
@@ -368,7 +368,7 @@ public class ClassUtils {
      * </p>
      *
      * @param cls the class to look up, may be {@code null}.
-     * @return the {@link List} of interfaces in order, {@code null} if null input.
+     * @return The {@link List} of interfaces in order, {@code null} if null input.
      */
     public static List<Class<?>> getAllInterfaces(final Class<?> cls) {
         if (cls == null) {
@@ -405,7 +405,7 @@ public class ClassUtils {
      * </ol>
      *
      * @param cls the class to look up, may be {@code null}.
-     * @return the {@link List} of superclasses in order going up from this one {@code null} if null input.
+     * @return The {@link List} of superclasses in order going up from this one {@code null} if null input.
      */
     public static List<Class<?>> getAllSuperclasses(final Class<?> cls) {
         if (cls == null) {
@@ -424,7 +424,7 @@ public class ClassUtils {
      * Gets the canonical class name for a {@link Class}.
      *
      * @param cls the class for which to get the canonical class name; may be null.
-     * @return the canonical name of the class, or the empty String.
+     * @return The canonical name of the class, or the empty String.
      * @since 3.7
      * @see Class#getCanonicalName()
      */
@@ -437,7 +437,7 @@ public class ClassUtils {
      *
      * @param cls the class for which to get the canonical class name; may be null.
      * @param valueIfNull the return value if null.
-     * @return the canonical name of the class, or {@code valueIfNull}.
+     * @return The canonical name of the class, or {@code valueIfNull}.
      * @since 3.7
      * @see Class#getCanonicalName()
      */
@@ -453,7 +453,7 @@ public class ClassUtils {
      * Gets the canonical name for an {@link Object}.
      *
      * @param object the object for which to get the canonical class name; may be null.
-     * @return the canonical name of the object, or the empty String.
+     * @return The canonical name of the object, or the empty String.
      * @since 3.7
      * @see Class#getCanonicalName()
      */
@@ -466,7 +466,7 @@ public class ClassUtils {
      *
      * @param object the object for which to get the canonical class name; may be null.
      * @param valueIfNull the return value if null.
-     * @return the canonical name of the object or {@code valueIfNull}.
+     * @return The canonical name of the object or {@code valueIfNull}.
      * @since 3.7
      * @see Class#getCanonicalName()
      */
@@ -552,7 +552,7 @@ public class ClassUtils {
      *
      * @param classLoader the class loader to use to load the class.
      * @param className the class name.
-     * @return the class represented by {@code className} using the {@code classLoader}.
+     * @return The class represented by {@code className} using the {@code classLoader}.
      * @throws NullPointerException if the className is null.
      * @throws ClassNotFoundException if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
@@ -578,7 +578,7 @@ public class ClassUtils {
      * @param classLoader the class loader to use to load the class.
      * @param className the class name.
      * @param initialize whether the class must be initialized.
-     * @return the class represented by {@code className} using the {@code classLoader}.
+     * @return The class represented by {@code className} using the {@code classLoader}.
      * @throws NullPointerException if the className is null.
      * @throws ClassNotFoundException if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
@@ -616,7 +616,7 @@ public class ClassUtils {
      * </p>
      *
      * @param className the class name
-     * @return the class represented by {@code className} using the current thread's context class loader
+     * @return The class represented by {@code className} using the current thread's context class loader
      * @throws NullPointerException if the className is null
      * @throws ClassNotFoundException if the class is not found
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
@@ -641,7 +641,7 @@ public class ClassUtils {
      *
      * @param className the class name.
      * @param initialize whether the class must be initialized.
-     * @return the class represented by {@code className} using the current thread's context class loader.
+     * @return The class represented by {@code className} using the current thread's context class loader.
      * @throws NullPointerException if the className is null.
      * @throws ClassNotFoundException if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
@@ -675,7 +675,7 @@ public class ClassUtils {
      * Null-safe version of {@code cls.getName()}
      *
      * @param cls the class for which to get the class name; may be null.
-     * @return the class name or the empty string in case the argument is {@code null}.
+     * @return The class name or the empty string in case the argument is {@code null}.
      * @since 3.7
      * @see Class#getSimpleName()
      */
@@ -688,7 +688,7 @@ public class ClassUtils {
      *
      * @param cls the class for which to get the class name; may be null.
      * @param valueIfNull the return value if the argument {@code cls} is {@code null}.
-     * @return the class name or {@code valueIfNull}
+     * @return The class name or {@code valueIfNull}
      * @since 3.7
      * @see Class#getName()
      */
@@ -704,7 +704,7 @@ public class ClassUtils {
      * Null-safe version of {@code object.getClass().getName()}
      *
      * @param object the object for which to get the class name; may be null.
-     * @return the class name or the empty String.
+     * @return The class name or the empty String.
      * @since 3.7
      * @see Class#getSimpleName()
      */
@@ -717,7 +717,7 @@ public class ClassUtils {
      *
      * @param object the object for which to get the class name; may be null.
      * @param valueIfNull the value to return if {@code object} is {@code null}.
-     * @return the class name or {@code valueIfNull}.
+     * @return The class name or {@code valueIfNull}.
      * @since 3.0
      * @see Class#getName()
      */
@@ -729,7 +729,7 @@ public class ClassUtils {
      * Gets the package name from the canonical name of a {@link Class}.
      *
      * @param cls the class to get the package name for, may be {@code null}.
-     * @return the package name or an empty string.
+     * @return The package name or an empty string.
      * @since 2.4
      */
     public static String getPackageCanonicalName(final Class<?> cls) {
@@ -744,7 +744,7 @@ public class ClassUtils {
      *
      * @param object the class to get the package name for, may be null.
      * @param valueIfNull the value to return if null.
-     * @return the package name of the object, or the null value.
+     * @return The package name of the object, or the null value.
      * @since 2.4
      */
     public static String getPackageCanonicalName(final Object object, final String valueIfNull) {
@@ -765,7 +765,7 @@ public class ClassUtils {
      * </p>
      *
      * @param name the name to get the package name for, may be {@code null}.
-     * @return the package name or an empty string.
+     * @return The package name or an empty string.
      * @since 2.4
      */
     public static String getPackageCanonicalName(final String name) {
@@ -776,7 +776,7 @@ public class ClassUtils {
      * Gets the package name of a {@link Class}.
      *
      * @param cls the class to get the package name for, may be {@code null}.
-     * @return the package name or an empty string
+     * @return The package name or an empty string
      */
     public static String getPackageName(final Class<?> cls) {
         if (cls == null) {
@@ -790,7 +790,7 @@ public class ClassUtils {
      *
      * @param object the class to get the package name for, may be null.
      * @param valueIfNull the value to return if null.
-     * @return the package name of the object, or the null value.
+     * @return The package name of the object, or the null value.
      */
     public static String getPackageName(final Object object, final String valueIfNull) {
         if (object == null) {
@@ -810,7 +810,7 @@ public class ClassUtils {
      * </p>
      *
      * @param className the className to get the package name for, may be {@code null}.
-     * @return the package name or an empty string.
+     * @return The package name or an empty string.
      */
     public static String getPackageName(String className) {
         if (StringUtils.isEmpty(className)) {
@@ -837,7 +837,7 @@ public class ClassUtils {
      * Gets the primitive class for the given class name, for example "byte".
      *
      * @param className the primitive class for the given class name.
-     * @return the primitive class.
+     * @return The primitive class.
      */
     static Class<?> getPrimitiveClass(final String className) {
         return NAME_PRIMITIVE_MAP.get(className);
@@ -857,7 +857,7 @@ public class ClassUtils {
      * @param cls the class to check, not null.
      * @param methodName the name of the method.
      * @param parameterTypes the list of parameters.
-     * @return the method.
+     * @return The method.
      * @throws NullPointerException if the class is null.
      * @throws SecurityException if a security violation occurred.
      * @throws NoSuchMethodException if the method is not found in the given class or if the method doesn't conform with the
@@ -891,7 +891,7 @@ public class ClassUtils {
      * Gets the canonical name minus the package name from a {@link Class}.
      *
      * @param cls the class for which to get the short canonical class name; may be null.
-     * @return the canonical name without the package name or an empty string.
+     * @return The canonical name without the package name or an empty string.
      * @since 2.4
      * @see Class#getCanonicalName()
      */
@@ -904,7 +904,7 @@ public class ClassUtils {
      *
      * @param object the class to get the short name for, may be null.
      * @param valueIfNull the value to return if null.
-     * @return the canonical name of the object without the package name, or the null value.
+     * @return The canonical name of the object without the package name, or the null value.
      * @since 2.4
      * @see Class#getCanonicalName()
      */
@@ -1003,7 +1003,7 @@ public class ClassUtils {
      * </table>
      *
      * @param canonicalName the class name to get the short name for.
-     * @return the canonical name of the class without the package name or an empty string.
+     * @return The canonical name of the class without the package name or an empty string.
      * @since 2.4
      */
     public static String getShortCanonicalName(final String canonicalName) {
@@ -1014,7 +1014,7 @@ public class ClassUtils {
      * Gets the class name minus the package name from a {@link Class}.
      *
      * @param cls the class to get the short name for.
-     * @return the class name without the package name or an empty string. If the class is an inner class then the returned
+     * @return The class name without the package name or an empty string. If the class is an inner class then the returned
      *         value will contain the outer class or classes separated with {@code .} (dot) character.
      */
     public static String getShortClassName(final Class<?> cls) {
@@ -1055,7 +1055,7 @@ public class ClassUtils {
      *
      * @param object the class to get the short name for, may be {@code null}.
      * @param valueIfNull the value to return if the object is {@code null}.
-     * @return the class name of the object without the package name, or {@code valueIfNull} if the argument {@code object}
+     * @return The class name of the object without the package name, or {@code valueIfNull} if the argument {@code object}
      *         is {@code null}.
      */
     public static String getShortClassName(final Object object, final String valueIfNull) {
@@ -1093,7 +1093,7 @@ public class ClassUtils {
      *
      * @param className the className to get the short name for. It has to be formatted as returned by
      *        {@code Class.getName()} and not {@code Class.getCanonicalName()}.
-     * @return the class name of the class without the package name or an empty string. If the class is an inner class then
+     * @return The class name of the class without the package name or an empty string. If the class is an inner class then
      *         value contains the outer class or classes and the separator is replaced to be {@code .} (dot) character.
      */
     public static String getShortClassName(String className) {
@@ -1128,7 +1128,7 @@ public class ClassUtils {
      * Null-safe version of {@code cls.getSimpleName()}
      *
      * @param cls the class for which to get the simple name; may be null.
-     * @return the simple class name or the empty string in case the argument is {@code null}.
+     * @return The simple class name or the empty string in case the argument is {@code null}.
      * @since 3.0
      * @see Class#getSimpleName()
      */
@@ -1141,7 +1141,7 @@ public class ClassUtils {
      *
      * @param cls the class for which to get the simple name; may be null.
      * @param valueIfNull the value to return if null.
-     * @return the simple class name or {@code valueIfNull} if the argument {@code cls} is {@code null}.
+     * @return The simple class name or {@code valueIfNull} if the argument {@code cls} is {@code null}.
      * @since 3.0
      * @see Class#getSimpleName()
      */
@@ -1161,7 +1161,7 @@ public class ClassUtils {
      * </p>
      *
      * @param object the object for which to get the simple class name; may be null.
-     * @return the simple class name or the empty string in case the argument is {@code null}.
+     * @return The simple class name or the empty string in case the argument is {@code null}.
      * @since 3.7
      * @see Class#getSimpleName()
      */
@@ -1174,7 +1174,7 @@ public class ClassUtils {
      *
      * @param object the object for which to get the simple class name; may be null.
      * @param valueIfNull the value to return if {@code object} is {@code null}.
-     * @return the simple class name or {@code valueIfNull} if the argument {@code object} is {@code null}.
+     * @return The simple class name or {@code valueIfNull} if the argument {@code object} is {@code null}.
      * @since 3.0
      * @see Class#getSimpleName()
      */
@@ -1566,7 +1566,7 @@ public class ClassUtils {
      * </p>
      *
      * @param cls the class to convert, may be null.
-     * @return the wrapper class for {@code cls} or {@code cls} if {@code cls} is not a primitive. {@code null} if null input.
+     * @return The wrapper class for {@code cls} or {@code cls} if {@code cls} is not a primitive. {@code null} if null input.
      * @since 2.1
      */
     public static Class<?> primitiveToWrapper(final Class<?> cls) {
@@ -1603,7 +1603,7 @@ public class ClassUtils {
      * </p>
      *
      * @param className the class name.
-     * @return the converted name.
+     * @return The converted name.
      * @throws NullPointerException     if the className is null.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
      * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
@@ -1724,7 +1724,7 @@ public class ClassUtils {
      * </p>
      *
      * @param cls the class to convert, may be {@code null}.
-     * @return the corresponding primitive type if {@code cls} is a wrapper class, {@code null} otherwise.
+     * @return The corresponding primitive type if {@code cls} is a wrapper class, {@code null} otherwise.
      * @see #primitiveToWrapper(Class)
      * @since 2.4
      */

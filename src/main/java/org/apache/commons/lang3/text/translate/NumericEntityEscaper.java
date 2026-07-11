@@ -34,7 +34,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * Constructs a {@link NumericEntityEscaper} above the specified value (exclusive).
      *
      * @param codePoint above which to escape.
-     * @return the newly created {@link NumericEntityEscaper} instance.
+     * @return The newly created {@link NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper above(final int codePoint) {
         return outsideOf(0, codePoint);
@@ -44,7 +44,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      * Constructs a {@link NumericEntityEscaper} below the specified value (exclusive).
      *
      * @param codePoint below which to escape.
-     * @return the newly created {@link NumericEntityEscaper} instance.
+     * @return The newly created {@link NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper below(final int codePoint) {
         return outsideOf(codePoint, Integer.MAX_VALUE);
@@ -55,7 +55,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      *
      * @param codePointLow above which to escape.
      * @param codePointHigh below which to escape.
-     * @return the newly created {@link NumericEntityEscaper} instance.
+     * @return The newly created {@link NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper between(final int codePointLow, final int codePointHigh) {
         return new NumericEntityEscaper(codePointLow, codePointHigh, true);
@@ -66,7 +66,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
      *
      * @param codePointLow below which to escape.
      * @param codePointHigh above which to escape.
-     * @return the newly created {@link NumericEntityEscaper} instance.
+     * @return The newly created {@link NumericEntityEscaper} instance.
      */
     public static NumericEntityEscaper outsideOf(final int codePointLow, final int codePointHigh) {
         return new NumericEntityEscaper(codePointLow, codePointHigh, false);

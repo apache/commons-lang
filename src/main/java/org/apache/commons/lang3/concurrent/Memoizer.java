@@ -116,7 +116,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      * </p>
      *
      * @param arg the argument for the calculation
-     * @return the result of the calculation
+     * @return The result of the calculation
      * @throws InterruptedException thrown if the calculation is interrupted
      */
     @Override

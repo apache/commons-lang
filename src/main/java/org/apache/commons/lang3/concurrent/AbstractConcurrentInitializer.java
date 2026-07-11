@@ -64,7 +64,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
         /**
          * Gets the closer consumer called by {@link #close()}.
          *
-         * @return the closer consumer called by {@link #close()}.
+         * @return The closer consumer called by {@link #close()}.
          */
         public FailableConsumer<T, ? extends Exception> getCloser() {
             return closer;
@@ -73,7 +73,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
         /**
          * Gets the initializer supplier called by {@link #initialize()}.
          *
-         * @return the initializer supplier called by {@link #initialize()}.
+         * @return The initializer supplier called by {@link #initialize()}.
          */
         public FailableSupplier<T, ? extends Exception> getInitializer() {
             return initializer;
@@ -170,7 +170,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
      * Subclasses and clients that do not provide an initializer are expected to implement this method.
      * </p>
      *
-     * @return the managed data object.
+     * @return The managed data object.
      * @throws E if an error occurs during object creation.
      */
     @SuppressWarnings("unchecked")

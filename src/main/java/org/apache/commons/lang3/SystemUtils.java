@@ -2122,7 +2122,7 @@ public class SystemUtils {
      *
      * @param name         the environment variable name.
      * @param defaultValue the default value.
-     * @return the environment variable value or {@code defaultValue} if a security problem occurs.
+     * @return The environment variable value or {@code defaultValue} if a security problem occurs.
      * @since 3.8
      */
     public static String getEnvironmentVariable(final String name, final String defaultValue) {
@@ -2143,7 +2143,7 @@ public class SystemUtils {
      * If you want to know what the network stack says is the host name, you should use {@code InetAddress.getLocalHost().getHostName()}.
      * </p>
      *
-     * @return the host name. Will be {@code null} if the environment variable is not defined.
+     * @return The host name. Will be {@code null} if the environment variable is not defined.
      * @since 3.6
      */
     public static String getHostName() {

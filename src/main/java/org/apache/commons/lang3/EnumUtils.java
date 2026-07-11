@@ -197,7 +197,7 @@ public class EnumUtils {
      * @param <E> The type of the enumeration.
      * @param enumClass  the class of the enum to query, not null.
      * @param enumName   the enum name, null returns null.
-     * @return the enum, null if not found.
+     * @return The enum, null if not found.
      */
     public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName) {
         return getEnum(enumClass, enumName, null);
@@ -213,7 +213,7 @@ public class EnumUtils {
      * @param enumClass   the class of the enum to query, null returns default enum.
      * @param enumName    the enum name, null returns default enum.
      * @param defaultEnum the default enum.
-     * @return the enum, default enum if not found.
+     * @return The enum, default enum if not found.
      * @since 3.10
      */
     public static <E extends Enum<E>> E getEnum(final Class<E> enumClass, final String enumName, final E defaultEnum) {
@@ -236,7 +236,7 @@ public class EnumUtils {
      * @param <E>         the type of the enumeration.
      * @param enumClass   the class of the enum to query, may be null.
      * @param enumName    the enum name, null returns null.
-     * @return the enum, null if not found.
+     * @return The enum, null if not found.
      * @since 3.8
      */
     public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName) {
@@ -253,7 +253,7 @@ public class EnumUtils {
      * @param enumClass   the class of the enum to query, null returns default enum.
      * @param enumName    the enum name, null returns default enum.
      * @param defaultEnum the default enum.
-     * @return the enum, default enum if not found.
+     * @return The enum, default enum if not found.
      * @since 3.10
      */
     public static <E extends Enum<E>> E getEnumIgnoreCase(final Class<E> enumClass, final String enumName,
@@ -268,7 +268,7 @@ public class EnumUtils {
      *
      * @param <E> The type of the enumeration.
      * @param enumClass  the class of the enum to query, not null.
-     * @return the modifiable list of enums, never null.
+     * @return The modifiable list of enums, never null.
      */
     public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
         return new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
@@ -281,7 +281,7 @@ public class EnumUtils {
      *
      * @param <E> The type of the enumeration.
      * @param enumClass  the class of the enum to query, not null.
-     * @return the modifiable map of enum names to enums, never null.
+     * @return The modifiable map of enum names to enums, never null.
      */
     public static <E extends Enum<E>> Map<String, E> getEnumMap(final Class<E> enumClass) {
         return getEnumMap(enumClass, E::name);
@@ -298,7 +298,7 @@ public class EnumUtils {
      * @param <K>         the type of the map key.
      * @param enumClass   the class of the enum to query, not null.
      * @param keyFunction the function to query for the key, not null.
-     * @return the modifiable map of enums, never null.
+     * @return The modifiable map of enums, never null.
      * @since 3.13.0
      */
     public static <E extends Enum<E>, K> Map<K, E> getEnumMap(final Class<E> enumClass, final Function<E, K> keyFunction) {
@@ -319,7 +319,7 @@ public class EnumUtils {
      * @param enumClass   the class of the enum to query, not null.
      * @param propName    the system property key for the enum name, null returns default enum.
      * @param defaultEnum the default enum.
-     * @return the enum, default enum if not found.
+     * @return The enum, default enum if not found.
      * @since 3.13.0
      */
     public static <E extends Enum<E>> E getEnumSystemProperty(final Class<E> enumClass, final String propName, final E defaultEnum) {
@@ -459,7 +459,7 @@ public class EnumUtils {
      *
      * @param <T>   the type of stream elements.
      * @param clazz the class containing the enum values, may be null.
-     * @return the new stream, empty of {@code clazz} is null.
+     * @return The new stream, empty of {@code clazz} is null.
      * @since 3.18.0
      * @see Class#getEnumConstants()
      */

@@ -1166,7 +1166,7 @@ public class ArrayUtils {
      * @param totalLength the current accumulated length
      * @param array the array whose length should be added (can be {@code null},
      *              in which case its length is considered 0)
-     * @return the new total length after adding the array's length
+     * @return The new total length after adding the array's length
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      */
     private static int addExact(final int totalLength, final Object array) {
@@ -1488,7 +1488,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array the array to clone, may be {@code null}.
-     * @return the cloned array, {@code null} if {@code null} input.
+     * @return The cloned array, {@code null} if {@code null} input.
      */
     public static boolean[] clone(final boolean[] array) {
         return array != null ? array.clone() : null;
@@ -1501,7 +1501,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array the array to clone, may be {@code null}.
-     * @return the cloned array, {@code null} if {@code null} input.
+     * @return The cloned array, {@code null} if {@code null} input.
      */
     public static byte[] clone(final byte[] array) {
         return array != null ? array.clone() : null;
@@ -1514,7 +1514,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array the array to clone, may be {@code null}.
-     * @return the cloned array, {@code null} if {@code null} input.
+     * @return The cloned array, {@code null} if {@code null} input.
      */
     public static char[] clone(final char[] array) {
         return array != null ? array.clone() : null;
@@ -1527,7 +1527,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array the array to clone, may be {@code null}.
-     * @return the cloned array, {@code null} if {@code null} input.
+     * @return The cloned array, {@code null} if {@code null} input.
      */
     public static double[] clone(final double[] array) {
         return array != null ? array.clone() : null;
@@ -1540,7 +1540,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array the array to clone, may be {@code null}.
-     * @return the cloned array, {@code null} if {@code null} input.
+     * @return The cloned array, {@code null} if {@code null} input.
      */
     public static float[] clone(final float[] array) {
         return array != null ? array.clone() : null;
@@ -1553,7 +1553,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array the array to clone, may be {@code null}.
-     * @return the cloned array, {@code null} if {@code null} input.
+     * @return The cloned array, {@code null} if {@code null} input.
      */
     public static int[] clone(final int[] array) {
         return array != null ? array.clone() : null;
@@ -1566,7 +1566,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array the array to clone, may be {@code null}.
-     * @return the cloned array, {@code null} if {@code null} input.
+     * @return The cloned array, {@code null} if {@code null} input.
      */
     public static long[] clone(final long[] array) {
         return array != null ? array.clone() : null;
@@ -1579,7 +1579,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array the array to clone, may be {@code null}.
-     * @return the cloned array, {@code null} if {@code null} input.
+     * @return The cloned array, {@code null} if {@code null} input.
      */
     public static short[] clone(final short[] array) {
         return array != null ? array.clone() : null;
@@ -1596,7 +1596,7 @@ public class ArrayUtils {
      *
      * @param <T>   the component type of the array.
      * @param array the array to shallow clone, may be {@code null}.
-     * @return the cloned array, {@code null} if {@code null} input.
+     * @return The cloned array, {@code null} if {@code null} input.
      */
     public static <T> T[] clone(final T[] array) {
         return array != null ? array.clone() : null;
@@ -2102,7 +2102,7 @@ public class ArrayUtils {
      * @param <T> The type of array elements.
      * @param array The array to index.
      * @param index The index.
-     * @return the nTh element of an array or null if the index is out of bounds or the array is null.
+     * @return The nTh element of an array or null if the index is out of bounds or the array is null.
      * @since 3.11
      */
     public static <T> T get(final T[] array, final int index) {
@@ -2116,7 +2116,7 @@ public class ArrayUtils {
      * @param array The array to index.
      * @param index The index.
      * @param defaultValue The return value of the given index is out of bounds.
-     * @return the nTh element of an array or a default value if the index is out of bounds.
+     * @return The nTh element of an array or a default value if the index is out of bounds.
      * @since 3.11
      */
     public static <T> T get(final T[] array, final int index, final T defaultValue) {
@@ -2672,7 +2672,7 @@ public class ArrayUtils {
      *
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2690,7 +2690,7 @@ public class ArrayUtils {
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the index to start searching.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind, final int startIndex) {
         if (isEmpty(array)) {
@@ -2712,7 +2712,7 @@ public class ArrayUtils {
      *
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final byte[] array, final byte valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2730,7 +2730,7 @@ public class ArrayUtils {
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the index to start searching.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final byte[] array, final byte valueToFind, final int startIndex) {
         if (isEmpty(array)) {
@@ -2752,7 +2752,7 @@ public class ArrayUtils {
      *
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      * @since 2.1
      */
     public static int indexOf(final char[] array, final char valueToFind) {
@@ -2771,7 +2771,7 @@ public class ArrayUtils {
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the index to start searching.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      * @since 2.1
      */
     public static int indexOf(final char[] array, final char valueToFind, final int startIndex) {
@@ -2794,7 +2794,7 @@ public class ArrayUtils {
      *
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final double[] array, final double valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2810,7 +2810,7 @@ public class ArrayUtils {
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param tolerance   tolerance of the search.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final double[] array, final double valueToFind, final double tolerance) {
         return indexOf(array, valueToFind, 0, tolerance);
@@ -2828,7 +2828,7 @@ public class ArrayUtils {
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the index to start searching.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final double[] array, final double valueToFind, final int startIndex) {
         if (Double.isNaN(valueToFind)) {
@@ -2859,7 +2859,7 @@ public class ArrayUtils {
      * @param valueToFind the value to find.
      * @param startIndex  the index to start searching.
      * @param tolerance   tolerance of the search.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final double[] array, final double valueToFind, final int startIndex, final double tolerance) {
         if (Double.isNaN(valueToFind)) {
@@ -2886,7 +2886,7 @@ public class ArrayUtils {
      *
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final float[] array, final float valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2904,7 +2904,7 @@ public class ArrayUtils {
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the index to start searching.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final float[] array, final float valueToFind, final int startIndex) {
         if (isEmpty(array)) {
@@ -2928,7 +2928,7 @@ public class ArrayUtils {
      *
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final int[] array, final int valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2946,7 +2946,7 @@ public class ArrayUtils {
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the index to start searching.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final int[] array, final int valueToFind, final int startIndex) {
         if (isEmpty(array)) {
@@ -2968,7 +2968,7 @@ public class ArrayUtils {
      *
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final long[] array, final long valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -2986,7 +2986,7 @@ public class ArrayUtils {
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the index to start searching.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final long[] array, final long valueToFind, final int startIndex) {
         if (isEmpty(array)) {
@@ -3008,7 +3008,7 @@ public class ArrayUtils {
      *
      * @param array        the array to search for the object, may be {@code null}.
      * @param objectToFind the object to find, may be {@code null}.
-     * @return the index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final Object[] array, final Object objectToFind) {
         return indexOf(array, objectToFind, 0);
@@ -3026,7 +3026,7 @@ public class ArrayUtils {
      * @param array        the array to search for the object, may be {@code null}.
      * @param objectToFind the object to find, may be {@code null}.
      * @param startIndex   the index to start searching.
-     * @return the index of the object within the array starting at the index, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the object within the array starting at the index, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (isEmpty(array)) {
@@ -3057,7 +3057,7 @@ public class ArrayUtils {
      *
      * @param array       the array to search for the object, may be {@code null}
      * @param valueToFind the value to find.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final short[] array, final short valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -3075,7 +3075,7 @@ public class ArrayUtils {
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the index to start searching.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int indexOf(final short[] array, final short valueToFind, final int startIndex) {
         if (isEmpty(array)) {
@@ -3093,7 +3093,7 @@ public class ArrayUtils {
      * Finds the index of the NaN value in a double array.
      * @param array the array to search for NaN, may be {@code null}.
      * @param startIndex the index to start searching.
-     * @return the index of the NaN value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the NaN value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     private static int indexOfNaN(final double[] array, final int startIndex) {
         if (isEmpty(array)) {
@@ -4097,7 +4097,7 @@ public class ArrayUtils {
      *
      * @param array       the array to traverse backwards looking for the object, may be {@code null}.
      * @param valueToFind the object to find.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4115,7 +4115,7 @@ public class ArrayUtils {
      * @param array       the array to traverse for looking for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the start index to traverse backwards from.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
         if (isEmpty(array) || startIndex < 0) {
@@ -4140,7 +4140,7 @@ public class ArrayUtils {
      *
      * @param array       the array to traverse backwards looking for the object, may be {@code null}.
      * @param valueToFind the object to find.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final byte[] array, final byte valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4158,7 +4158,7 @@ public class ArrayUtils {
      * @param array       the array to traverse for looking for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the start index to traverse backwards from.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final byte[] array, final byte valueToFind, int startIndex) {
         if (array == null || startIndex < 0) {
@@ -4183,7 +4183,7 @@ public class ArrayUtils {
      *
      * @param array       the array to traverse backwards looking for the object, may be {@code null}.
      * @param valueToFind the object to find.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      * @since 2.1
      */
     public static int lastIndexOf(final char[] array, final char valueToFind) {
@@ -4202,7 +4202,7 @@ public class ArrayUtils {
      * @param array       the array to traverse for looking for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the start index to traverse backwards from.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      * @since 2.1
      */
     public static int lastIndexOf(final char[] array, final char valueToFind, int startIndex) {
@@ -4228,7 +4228,7 @@ public class ArrayUtils {
      *
      * @param array       the array to traverse backwards looking for the object, may be {@code null}.
      * @param valueToFind the object to find.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final double[] array, final double valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4244,7 +4244,7 @@ public class ArrayUtils {
      * @param array       the array to search for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param tolerance   tolerance of the search.
-     * @return the index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, final double tolerance) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE, tolerance);
@@ -4262,7 +4262,7 @@ public class ArrayUtils {
      * @param array       the array to traverse for looking for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the start index to traverse backwards from.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
         if (Double.isNaN(valueToFind)) {
@@ -4296,7 +4296,7 @@ public class ArrayUtils {
      * @param valueToFind the value to find.
      * @param startIndex  the start index to traverse backwards from.
      * @param tolerance   search for value within plus/minus this amount.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex, final double tolerance) {
         if (Double.isNaN(valueToFind)) {
@@ -4326,7 +4326,7 @@ public class ArrayUtils {
      *
      * @param array       the array to traverse backwards looking for the object, may be {@code null}.
      * @param valueToFind the object to find.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final float[] array, final float valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4344,7 +4344,7 @@ public class ArrayUtils {
      * @param array       the array to traverse for looking for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the start index to traverse backwards from.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final float[] array, final float valueToFind, int startIndex) {
         if (isEmpty(array) || startIndex < 0) {
@@ -4371,7 +4371,7 @@ public class ArrayUtils {
      *
      * @param array       the array to traverse backwards looking for the object, may be {@code null}.
      * @param valueToFind the object to find.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final int[] array, final int valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4389,7 +4389,7 @@ public class ArrayUtils {
      * @param array       the array to traverse for looking for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the start index to traverse backwards from.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final int[] array, final int valueToFind, int startIndex) {
         if (array == null || startIndex < 0) {
@@ -4414,7 +4414,7 @@ public class ArrayUtils {
      *
      * @param array       the array to traverse backwards looking for the object, may be {@code null}.
      * @param valueToFind the object to find.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final long[] array, final long valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4432,7 +4432,7 @@ public class ArrayUtils {
      * @param array       the array to traverse for looking for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the start index to traverse backwards from.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final long[] array, final long valueToFind, int startIndex) {
         if (array == null || startIndex < 0) {
@@ -4457,7 +4457,7 @@ public class ArrayUtils {
      *
      * @param array        the array to traverse backwards looking for the object, may be {@code null}.
      * @param objectToFind the object to find, may be {@code null}.
-     * @return the last index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final Object[] array, final Object objectToFind) {
         return lastIndexOf(array, objectToFind, Integer.MAX_VALUE);
@@ -4475,7 +4475,7 @@ public class ArrayUtils {
      * @param array        the array to traverse for looking for the object, may be {@code null}.
      * @param objectToFind the object to find, may be {@code null}.
      * @param startIndex   the start index to traverse backwards from.
-     * @return the last index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (array == null || startIndex < 0) {
@@ -4508,7 +4508,7 @@ public class ArrayUtils {
      *
      * @param array       the array to traverse backwards looking for the object, may be {@code null}.
      * @param valueToFind the object to find.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final short[] array, final short valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -4526,7 +4526,7 @@ public class ArrayUtils {
      * @param array       the array to traverse for looking for the object, may be {@code null}.
      * @param valueToFind the value to find.
      * @param startIndex  the start index to traverse backwards from.
-     * @return the last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     public static int lastIndexOf(final short[] array, final short valueToFind, int startIndex) {
         if (array == null || startIndex < 0) {
@@ -4547,7 +4547,7 @@ public class ArrayUtils {
      * Finds the last index of the NaN value in a double array.
      * @param array the array to traverse backwards for NaN, may be {@code null}.
      * @param startIndex the start index to traverse backwards from.
-     * @return the last index of the NaN value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
+     * @return The last index of the NaN value within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input.
      */
     private static int lastIndexOfNaN(final double[] array, final int startIndex) {
         if (isEmpty(array) || startIndex < 0) {
@@ -4611,7 +4611,7 @@ public class ArrayUtils {
      * @param <T> The array type.
      * @param array  the array to check for {@code null} or empty
      * @param defaultArray A default array, usually empty.
-     * @return the same array, or defaultArray if {@code null} or empty input.
+     * @return The same array, or defaultArray if {@code null} or empty input.
      * @since 3.15.0
      */
     public static <T> T[] nullTo(final T[] array, final T[] defaultArray) {
@@ -4630,7 +4630,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static boolean[] nullToEmpty(final boolean[] array) {
@@ -4649,7 +4649,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Boolean[] nullToEmpty(final Boolean[] array) {
@@ -4668,7 +4668,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static byte[] nullToEmpty(final byte[] array) {
@@ -4687,7 +4687,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Byte[] nullToEmpty(final Byte[] array) {
@@ -4706,7 +4706,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static char[] nullToEmpty(final char[] array) {
@@ -4725,7 +4725,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Character[] nullToEmpty(final Character[] array) {
@@ -4744,7 +4744,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 3.2
      */
     public static Class<?>[] nullToEmpty(final Class<?>[] array) {
@@ -4763,7 +4763,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static double[] nullToEmpty(final double[] array) {
@@ -4782,7 +4782,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Double[] nullToEmpty(final Double[] array) {
@@ -4801,7 +4801,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static float[] nullToEmpty(final float[] array) {
@@ -4820,7 +4820,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Float[] nullToEmpty(final Float[] array) {
@@ -4839,7 +4839,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static int[] nullToEmpty(final int[] array) {
@@ -4858,7 +4858,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Integer[] nullToEmpty(final Integer[] array) {
@@ -4877,7 +4877,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static long[] nullToEmpty(final long[] array) {
@@ -4896,7 +4896,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Long[] nullToEmpty(final Long[] array) {
@@ -4915,7 +4915,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Object[] nullToEmpty(final Object[] array) {
@@ -4934,7 +4934,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static short[] nullToEmpty(final short[] array) {
@@ -4953,7 +4953,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static Short[] nullToEmpty(final Short[] array) {
@@ -4972,7 +4972,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  the array to check for {@code null} or empty.
-     * @return the same array, {@code public static} empty array if {@code null} or empty input.
+     * @return The same array, {@code public static} empty array if {@code null} or empty input.
      * @since 2.5
      */
     public static String[] nullToEmpty(final String[] array) {
@@ -4989,7 +4989,7 @@ public class ArrayUtils {
      * @param array  the array to check for {@code null} or empty.
      * @param type   the class representation of the desired array.
      * @param <T>  the class type.
-     * @return the same array, {@code public static} empty array if {@code null}.
+     * @return The same array, {@code public static} empty array if {@code null}.
      * @throws IllegalArgumentException if the type argument is null.
      * @since 3.5
      */
@@ -5006,7 +5006,7 @@ public class ArrayUtils {
     /**
      * Gets the current thread's {@link ThreadLocalRandom} for {@code shuffle} methods that don't take a {@link Random} argument.
      *
-     * @return the current ThreadLocalRandom.
+     * @return The current ThreadLocalRandom.
      */
     private static ThreadLocalRandom random() {
         return ThreadLocalRandom.current();
@@ -7097,7 +7097,7 @@ public class ArrayUtils {
      * @param <T> type of elements of the array, may be {@code null}.
      * @param array array to be initialized, may be {@code null}.
      * @param generator a function accepting an index and producing the desired value for that position.
-     * @return the input array
+     * @return The input array
      * @since 3.13.0
      */
     public static <T> T[] setAll(final T[] array, final IntFunction<? extends T> generator) {
@@ -7117,7 +7117,7 @@ public class ArrayUtils {
      * @param <T> type of elements of the array, may be {@code null}.
      * @param array array to be initialized, may be {@code null}.
      * @param generator a function accepting an index and producing the desired value for that position.
-     * @return the input array
+     * @return The input array
      * @since 3.13.0
      */
     public static <T> T[] setAll(final T[] array, final Supplier<? extends T> generator) {
@@ -8979,7 +8979,7 @@ public class ArrayUtils {
      *
      * @param  <T>   the array's element type.
      * @param  items  the varargs array items, null allowed.
-     * @return the array, not null unless a null array is passed in.
+     * @return The array, not null unless a null array is passed in.
      * @since 3.0
      */
     public static <T> T[] toArray(@SuppressWarnings("unchecked") final T... items) {

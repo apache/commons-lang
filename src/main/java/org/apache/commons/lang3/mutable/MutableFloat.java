@@ -107,7 +107,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * immediately after the addition operation. This method is not thread safe.
      *
      * @param operand the quantity to add, not null.
-     * @return the value associated with this instance after adding the operand.
+     * @return The value associated with this instance after adding the operand.
      * @since 3.5
      */
     public float addAndGet(final float operand) {
@@ -121,7 +121,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      *
      * @param operand the quantity to add, not null.
      * @throws NullPointerException if {@code operand} is null.
-     * @return the value associated with this instance after adding the operand.
+     * @return The value associated with this instance after adding the operand.
      * @since 3.5
      */
     public float addAndGet(final Number operand) {
@@ -153,7 +153,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Decrements this instance's value by 1; this method returns the value associated with the instance
      * immediately after the decrement operation. This method is not thread safe.
      *
-     * @return the value associated with the instance after it is decremented.
+     * @return The value associated with the instance after it is decremented.
      * @since 3.5
      */
     public float decrementAndGet() {
@@ -164,7 +164,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Returns the value of this MutableFloat as a double.
      *
-     * @return the numeric value represented by this object after conversion to type double.
+     * @return The numeric value represented by this object after conversion to type double.
      */
     @Override
     public double doubleValue() {
@@ -209,7 +209,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Returns the value of this MutableFloat as a float.
      *
-     * @return the numeric value represented by this object after conversion to type float.
+     * @return The numeric value represented by this object after conversion to type float.
      */
     @Override
     public float floatValue() {
@@ -221,7 +221,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * immediately prior to the addition operation. This method is not thread safe.
      *
      * @param operand the quantity to add, not null.
-     * @return the value associated with this instance immediately before the operand was added.
+     * @return The value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
     public float getAndAdd(final float operand) {
@@ -236,7 +236,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      *
      * @param operand the quantity to add, not null.
      * @throws NullPointerException if {@code operand} is null.
-     * @return the value associated with this instance immediately before the operand was added.
+     * @return The value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
     public float getAndAdd(final Number operand) {
@@ -249,7 +249,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Decrements this instance's value by 1; this method returns the value associated with the instance
      * immediately prior to the decrement operation. This method is not thread safe.
      *
-     * @return the value associated with the instance before it was decremented.
+     * @return The value associated with the instance before it was decremented.
      * @since 3.5
      */
     public float getAndDecrement() {
@@ -262,7 +262,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Increments this instance's value by 1; this method returns the value associated with the instance
      * immediately prior to the increment operation. This method is not thread safe.
      *
-     * @return the value associated with the instance before it was incremented.
+     * @return The value associated with the instance before it was incremented.
      * @since 3.5
      */
     public float getAndIncrement() {
@@ -274,7 +274,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Gets the value as a Float instance.
      *
-     * @return the value as a Float, never null.
+     * @return The value as a Float, never null.
      * @deprecated Use {@link #get()}.
      */
     @Deprecated
@@ -306,7 +306,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * Increments this instance's value by 1; this method returns the value associated with the instance
      * immediately after the increment operation. This method is not thread safe.
      *
-     * @return the value associated with the instance after it is incremented.
+     * @return The value associated with the instance after it is incremented.
      * @since 3.5
      */
     public float incrementAndGet() {
@@ -318,7 +318,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Returns the value of this MutableFloat as an int.
      *
-     * @return the numeric value represented by this object after conversion to type int.
+     * @return The numeric value represented by this object after conversion to type int.
      */
     @Override
     public int intValue() {
@@ -346,7 +346,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Returns the value of this MutableFloat as a long.
      *
-     * @return the numeric value represented by this object after conversion to type long.
+     * @return The numeric value represented by this object after conversion to type long.
      */
     @Override
     public long longValue() {
@@ -406,7 +406,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Returns the String value of this mutable.
      *
-     * @return the mutable value as a string.
+     * @return The mutable value as a string.
      */
     @Override
     public String toString() {

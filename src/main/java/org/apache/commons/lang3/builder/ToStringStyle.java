@@ -98,7 +98,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Ensure Singleton after serialization.
          *
-         * @return the singleton.
+         * @return The singleton.
          */
         private Object readResolve() {
             return DEFAULT_STYLE;
@@ -316,7 +316,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Ensure Singleton after serialization.
          *
-         * @return the singleton
+         * @return The singleton
          */
         private Object readResolve() {
             return JSON_STYLE;
@@ -351,7 +351,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Ensure Singleton after serialization.
          *
-         * @return the singleton.
+         * @return The singleton.
          */
         private Object readResolve() {
             return MULTI_LINE_STYLE;
@@ -384,7 +384,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Ensure Singleton after serialization.
          *
-         * @return the singleton
+         * @return The singleton
          */
         private Object readResolve() {
             return NO_CLASS_NAME_STYLE;
@@ -416,7 +416,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Ensure Singleton after serialization.
          *
-         * @return the singleton
+         * @return The singleton
          */
         private Object readResolve() {
             return NO_FIELD_NAMES_STYLE;
@@ -449,7 +449,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Ensure {@code Singleton} after serialization.
          *
-         * @return the singleton.
+         * @return The singleton.
          */
         private Object readResolve() {
             return SHORT_PREFIX_STYLE;
@@ -485,7 +485,7 @@ public abstract class ToStringStyle implements Serializable {
         /**
          * Ensure <code>Singleton</code> after serialization.
          *
-         * @return the singleton
+         * @return The singleton
          */
         private Object readResolve() {
             return SIMPLE_STYLE;
@@ -1804,7 +1804,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the array end text.
      *
-     * @return the current array end text.
+     * @return The current array end text.
      */
     protected String getArrayEnd() {
         return arrayEnd;
@@ -1813,7 +1813,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the array separator text.
      *
-     * @return the current array separator text.
+     * @return The current array separator text.
      */
     protected String getArraySeparator() {
         return arraySeparator;
@@ -1822,7 +1822,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the array start text.
      *
-     * @return the current array start text.
+     * @return The current array start text.
      */
     protected String getArrayStart() {
         return arrayStart;
@@ -1831,7 +1831,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the content end text.
      *
-     * @return the current content end text.
+     * @return The current content end text.
      */
     protected String getContentEnd() {
         return contentEnd;
@@ -1840,7 +1840,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the content start text.
      *
-     * @return the current content start text.
+     * @return The current content start text.
      */
     protected String getContentStart() {
         return contentStart;
@@ -1849,7 +1849,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the field name value separator text.
      *
-     * @return the current field name value separator text.
+     * @return The current field name value separator text.
      */
     protected String getFieldNameValueSeparator() {
         return fieldNameValueSeparator;
@@ -1858,7 +1858,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the field separator text.
      *
-     * @return the current field separator text.
+     * @return The current field separator text.
      */
     protected String getFieldSeparator() {
         return fieldSeparator;
@@ -1867,7 +1867,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets the text to output when {@code null} found.
      *
-     * @return the current text to output when null found.
+     * @return The current text to output when null found.
      */
     protected String getNullText() {
         return nullText;
@@ -1881,7 +1881,7 @@ public abstract class ToStringStyle implements Serializable {
      * </p>
      *
      * @param cls the {@link Class} to get the short name of.
-     * @return the short name.
+     * @return The short name.
      */
     protected String getShortClassName(final Class<?> cls) {
         return ClassUtils.getShortClassName(cls);
@@ -1894,7 +1894,7 @@ public abstract class ToStringStyle implements Serializable {
      * This is output after the size value.
      * </p>
      *
-     * @return the current end of size text.
+     * @return The current end of size text.
      */
     protected String getSizeEndText() {
         return sizeEndText;
@@ -1907,7 +1907,7 @@ public abstract class ToStringStyle implements Serializable {
      * This is output before the size value.
      * </p>
      *
-     * @return the current start of size text.
+     * @return The current start of size text.
      */
     protected String getSizeStartText() {
         return sizeStartText;
@@ -1920,7 +1920,7 @@ public abstract class ToStringStyle implements Serializable {
      * This is output after the size value.
      * </p>
      *
-     * @return the current end of summary text.
+     * @return The current end of summary text.
      */
     protected String getSummaryObjectEndText() {
         return summaryObjectEndText;
@@ -1933,7 +1933,7 @@ public abstract class ToStringStyle implements Serializable {
      * This is output before the size value.
      * </p>
      *
-     * @return the current start of summary text.
+     * @return The current start of summary text.
      */
     protected String getSummaryObjectStartText() {
         return summaryObjectStartText;
@@ -1942,7 +1942,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to output array content detail.
      *
-     * @return the current array content detail setting.
+     * @return The current array content detail setting.
      */
     protected boolean isArrayContentDetail() {
         return arrayContentDetail;
@@ -1951,7 +1951,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to use full detail when the caller doesn't specify.
      *
-     * @return the current defaultFullDetail flag.
+     * @return The current defaultFullDetail flag.
      */
     protected boolean isDefaultFullDetail() {
         return defaultFullDetail;
@@ -1970,7 +1970,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether the field separator should be added at the start of each buffer.
      *
-     * @return the fieldSeparatorAtStart flag.
+     * @return The fieldSeparatorAtStart flag.
      * @since 2.0
      */
     protected boolean isFieldSeparatorAtStart() {
@@ -2002,7 +2002,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to use the class name.
      *
-     * @return the current useClassName flag.
+     * @return The current useClassName flag.
      */
     protected boolean isUseClassName() {
         return useClassName;
@@ -2011,7 +2011,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to use the field names passed in.
      *
-     * @return the current useFieldNames flag.
+     * @return The current useFieldNames flag.
      */
     protected boolean isUseFieldNames() {
         return useFieldNames;
@@ -2020,7 +2020,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to use the identity hash code.
      *
-     * @return the current useIdentityHashCode flag.
+     * @return The current useIdentityHashCode flag.
      */
     protected boolean isUseIdentityHashCode() {
         return useIdentityHashCode;
@@ -2029,7 +2029,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Gets whether to output short or long class names.
      *
-     * @return the current useShortClassName flag.
+     * @return The current useShortClassName flag.
      * @since 2.0
      */
     protected boolean isUseShortClassName() {

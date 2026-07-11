@@ -139,7 +139,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * options that have been specified by calling methods on this builder.
          * After creating the factory {@link #reset()} is called.
          *
-         * @return the new {@link BasicThreadFactory}.
+         * @return The new {@link BasicThreadFactory}.
          */
         @Override
         public BasicThreadFactory build() {
@@ -298,7 +298,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * calls {@code setDaemon(true)} on the newly created threads. Result can be
      * {@code null} if no daemon flag was provided at creation time.
      *
-     * @return the daemon flag.
+     * @return The daemon flag.
      */
     public final Boolean getDaemonFlag() {
         return daemon;
@@ -312,7 +312,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * the second one {@code "MyThread-2"} and so on.
      * </p>
      *
-     * @return the naming pattern.
+     * @return The naming pattern.
      */
     public final String getNamingPattern() {
         return namingPattern;
@@ -322,7 +322,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * Gets the priority of the threads created by this factory. Result can
      * be {@code null} if no priority was specified.
      *
-     * @return the priority for newly created threads.
+     * @return The priority for newly created threads.
      */
     public final Integer getPriority() {
         return priority;
@@ -333,7 +333,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * class maintains an internal counter that is incremented each time the
      * {@link #newThread(Runnable)} method is invoked.
      *
-     * @return the number of threads created by this factory.
+     * @return The number of threads created by this factory.
      */
     public long getThreadCount() {
         return threadCounter.get();
@@ -343,7 +343,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * Gets the {@link UncaughtExceptionHandler} for the threads created by
      * this factory. Result can be {@code null} if no handler was provided.
      *
-     * @return the {@link UncaughtExceptionHandler}.
+     * @return The {@link UncaughtExceptionHandler}.
      */
     public final Thread.UncaughtExceptionHandler getUncaughtExceptionHandler() {
         return uncaughtExceptionHandler;
@@ -355,7 +355,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * {@link ThreadFactory} was passed when this object was created, a default
      * thread factory is returned.
      *
-     * @return the wrapped {@link ThreadFactory}.
+     * @return The wrapped {@link ThreadFactory}.
      */
     public final ThreadFactory getWrappedFactory() {
         return wrappedFactory;
@@ -391,7 +391,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * corresponding configuration options are set.
      *
      * @param runnable the {@link Runnable} to be executed by the new thread.
-     * @return the newly created thread.
+     * @return The newly created thread.
      */
     @Override
     public Thread newThread(final Runnable runnable) {

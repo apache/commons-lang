@@ -146,7 +146,7 @@ public class ConcurrentUtils {
      * @param map the map to be modified
      * @param key the key of the value to be added
      * @param init the {@link ConcurrentInitializer} for creating the value
-     * @return the value stored in the map after this operation; this may or may
+     * @return The value stored in the map after this operation; this may or may
      * not be the object created by the {@link ConcurrentInitializer}
      * @throws ConcurrentException if the initializer throws an exception
      */
@@ -174,7 +174,7 @@ public class ConcurrentUtils {
      * @param map the map to be modified
      * @param key the key of the value to be added
      * @param init the {@link ConcurrentInitializer} for creating the value
-     * @return the value stored in the map after this operation; this may or may
+     * @return The value stored in the map after this operation; this may or may
      * not be the object created by the {@link ConcurrentInitializer}
      * @throws ConcurrentRuntimeException if the initializer throws an exception
      */
@@ -282,7 +282,7 @@ public class ConcurrentUtils {
      *
      * @param <T> The type of the object produced by the initializer
      * @param initializer the {@link ConcurrentInitializer} to be invoked
-     * @return the object managed by the {@link ConcurrentInitializer}
+     * @return The object managed by the {@link ConcurrentInitializer}
      * @throws ConcurrentException if the {@link ConcurrentInitializer} throws
      * an exception
      */
@@ -301,7 +301,7 @@ public class ConcurrentUtils {
      *
      * @param <T> The type of the object produced by the initializer
      * @param initializer the {@link ConcurrentInitializer} to be invoked
-     * @return the object managed by the {@link ConcurrentInitializer}
+     * @return The object managed by the {@link ConcurrentInitializer}
      * @throws ConcurrentRuntimeException if the initializer throws an exception
      */
     public static <T> T initializeUnchecked(final ConcurrentInitializer<T> initializer) {
@@ -342,7 +342,7 @@ public class ConcurrentUtils {
      * @param map the map to be modified
      * @param key the key of the value to be added
      * @param value the value to be added
-     * @return the value stored in the map after this operation
+     * @return The value stored in the map after this operation
      */
     public static <K, V> V putIfAbsent(final ConcurrentMap<K, V> map, final K key, final V value) {
         if (map == null) {

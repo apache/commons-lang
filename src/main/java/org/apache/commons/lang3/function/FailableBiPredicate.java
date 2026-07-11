@@ -103,7 +103,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      *
      * @param object1 the first object to test the predicate on
      * @param object2 the second object to test the predicate on
-     * @return the predicate's evaluation
+     * @return The predicate's evaluation
      * @throws E Thrown when this predicate fails.
      */
     boolean test(T object1, U object2) throws E;

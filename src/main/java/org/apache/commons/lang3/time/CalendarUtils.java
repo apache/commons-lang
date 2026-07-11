@@ -128,7 +128,7 @@ public class CalendarUtils {
     /**
      * Gets the current day of month.
      *
-     * @return the current day of month.
+     * @return The current day of month.
      */
     public int getDayOfMonth() {
         return calendar.get(Calendar.DAY_OF_MONTH);
@@ -137,7 +137,7 @@ public class CalendarUtils {
     /**
      * Gets the current day of year.
      *
-     * @return the current day of year.
+     * @return The current day of year.
      * @since 3.13.0
      */
     public int getDayOfYear() {
@@ -147,7 +147,7 @@ public class CalendarUtils {
     /**
      * Gets the current month.
      *
-     * @return the current month.
+     * @return The current month.
      */
     public int getMonth() {
         return calendar.get(Calendar.MONTH);
@@ -192,7 +192,7 @@ public class CalendarUtils {
     /**
      * Gets the current year.
      *
-     * @return the current year.
+     * @return The current year.
      */
     public int getYear() {
         return calendar.get(Calendar.YEAR);

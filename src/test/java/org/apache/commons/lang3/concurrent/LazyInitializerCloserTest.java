@@ -33,7 +33,7 @@ class LazyInitializerCloserTest extends AbstractConcurrentInitializerTest<Object
     /**
      * Creates the initializer to be tested. This implementation returns the {@code LazyInitializer} created in the {@code setUp()} method.
      *
-     * @return the initializer to be tested
+     * @return The initializer to be tested
      */
     @Override
     protected LazyInitializer<Object> createInitializer() {

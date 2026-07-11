@@ -92,7 +92,7 @@ public class BooleanUtils {
      * </pre>
      *
      * @param array  an array of {@code boolean}s
-     * @return the result of the logical 'and' operation. That is {@code false}
+     * @return The result of the logical 'and' operation. That is {@code false}
      * if any of the parameters is {@code false} and {@code true} otherwise.
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
@@ -124,7 +124,7 @@ public class BooleanUtils {
      * </p>
      *
      * @param array  an array of {@link Boolean}s
-     * @return the result of the logical 'and' operation. That is {@code false}
+     * @return The result of the logical 'and' operation. That is {@code false}
      * if any of the parameters is {@code false} and {@code true} otherwise.
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
@@ -150,7 +150,7 @@ public class BooleanUtils {
      *
      * @param x the first {@code boolean} to compare
      * @param y the second {@code boolean} to compare
-     * @return the value {@code 0} if {@code x == y};
+     * @return The value {@code 0} if {@code x == y};
      *         a value less than {@code 0} if {@code !x && y}; and
      *         a value greater than {@code 0} if {@code x && !y}
      * @since 3.4
@@ -259,7 +259,7 @@ public class BooleanUtils {
      * </pre>
      *
      * @param bool  the Boolean to negate, may be null
-     * @return the negated Boolean, or {@code null} if {@code null} input
+     * @return The negated Boolean, or {@code null} if {@code null} input
      */
     public static Boolean negate(final Boolean bool) {
         if (bool == null) {
@@ -278,7 +278,7 @@ public class BooleanUtils {
      * </p>
      *
      * @param array  an array of {@code boolean}s
-     * @return the result of the one-hot operations
+     * @return The result of the one-hot operations
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      */
@@ -309,7 +309,7 @@ public class BooleanUtils {
      * </p>
      *
      * @param array  an array of {@code boolean}s
-     * @return the result of the one-hot operations
+     * @return The result of the one-hot operations
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      */
@@ -509,7 +509,7 @@ public class BooleanUtils {
      * </pre>
      *
      * @param str  the String to check
-     * @return the boolean value of the string, {@code false} if no match or the String is null
+     * @return The boolean value of the string, {@code false} if no match or the String is null
      */
     public static boolean toBoolean(final String str) {
         return toBooleanObject(str) == Boolean.TRUE;
@@ -526,7 +526,7 @@ public class BooleanUtils {
      * @param str  the String to check
      * @param trueString  the String to match for {@code true} (case-sensitive), may be {@code null}
      * @param falseString  the String to match for {@code false} (case-sensitive), may be {@code null}
-     * @return the boolean value of the string
+     * @return The boolean value of the string
      * @throws IllegalArgumentException if the String doesn't match
      */
     public static boolean toBoolean(final String str, final String trueString, final String falseString) {
@@ -733,7 +733,7 @@ public class BooleanUtils {
      * </pre>
      *
      * @param str  the String to check; upper and lower case are treated as the same
-     * @return the Boolean value of the string, {@code null} if no match or {@code null} input
+     * @return The Boolean value of the string, {@code null} if no match or {@code null} input
      */
     public static Boolean toBooleanObject(final String str) {
         // Previously used equalsIgnoreCase, which was fast for interned 'true'.
@@ -849,7 +849,7 @@ public class BooleanUtils {
      * @param trueString  the String to match for {@code true} (case-sensitive), may be {@code null}
      * @param falseString  the String to match for {@code false} (case-sensitive), may be {@code null}
      * @param nullString  the String to match for {@code null} (case-sensitive), may be {@code null}
-     * @return the Boolean value of the string, {@code null} if either the String matches {@code nullString}
+     * @return The Boolean value of the string, {@code null} if either the String matches {@code nullString}
      *  or if {@code null} input and {@code nullString} is {@code null}
      * @throws IllegalArgumentException if the String doesn't match
      */
@@ -902,7 +902,7 @@ public class BooleanUtils {
      * @param bool  the to convert
      * @param trueValue  the value to return if {@code true}
      * @param falseValue  the value to return if {@code false}
-     * @return the appropriate value
+     * @return The appropriate value
      */
     public static int toInteger(final boolean bool, final int trueValue, final int falseValue) {
         return bool ? trueValue : falseValue;
@@ -921,7 +921,7 @@ public class BooleanUtils {
      * @param trueValue  the value to return if {@code true}
      * @param falseValue  the value to return if {@code false}
      * @param nullValue  the value to return if {@code null}
-     * @return the appropriate value
+     * @return The appropriate value
      */
     public static int toInteger(final Boolean bool, final int trueValue, final int falseValue, final int nullValue) {
         if (bool == null) {
@@ -957,7 +957,7 @@ public class BooleanUtils {
      * @param bool  the to convert
      * @param trueValue  the value to return if {@code true}, may be {@code null}
      * @param falseValue  the value to return if {@code false}, may be {@code null}
-     * @return the appropriate value
+     * @return The appropriate value
      */
     public static Integer toIntegerObject(final boolean bool, final Integer trueValue, final Integer falseValue) {
         return bool ? trueValue : falseValue;
@@ -997,7 +997,7 @@ public class BooleanUtils {
      * @param trueValue  the value to return if {@code true}, may be {@code null}
      * @param falseValue  the value to return if {@code false}, may be {@code null}
      * @param nullValue  the value to return if {@code null}, may be {@code null}
-     * @return the appropriate value
+     * @return The appropriate value
      */
     public static Integer toIntegerObject(final Boolean bool, final Integer trueValue, final Integer falseValue, final Integer nullValue) {
         if (bool == null) {
@@ -1202,7 +1202,7 @@ public class BooleanUtils {
      * </p>
      *
      * @param array  an array of {@link Boolean}s
-     * @return the result of the xor operations
+     * @return The result of the xor operations
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
      */

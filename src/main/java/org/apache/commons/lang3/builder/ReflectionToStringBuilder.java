@@ -144,7 +144,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * @param object
      *            the Object to be output
-     * @return the String result
+     * @return The String result
      * @throws IllegalArgumentException
      *             if the Object is {@code null}
      *
@@ -177,7 +177,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            the Object to be output
      * @param style
      *            the style of the {@code toString} to create, may be {@code null}
-     * @return the String result
+     * @return The String result
      * @throws IllegalArgumentException
      *             if the Object or {@link ToStringStyle} is {@code null}
      *
@@ -216,7 +216,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            the style of the {@code toString} to create, may be {@code null}
      * @param outputTransients
      *            whether to include transient fields
-     * @return the String result
+     * @return The String result
      * @throws IllegalArgumentException
      *             if the Object is {@code null}
      *
@@ -262,7 +262,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            whether to include transient fields
      * @param outputStatics
      *            whether to include static fields
-     * @return the String result
+     * @return The String result
      * @throws IllegalArgumentException
      *             if the Object is {@code null}
      *
@@ -316,7 +316,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            whether to exclude fields whose values are null
      * @param reflectUpToClass
      *            the superclass to reflect up to (inclusive), may be {@code null}
-     * @return the String result
+     * @return The String result
      * @throws IllegalArgumentException
      *             if the Object is {@code null}
      *
@@ -371,7 +371,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            whether to include static fields
      * @param reflectUpToClass
      *            the superclass to reflect up to (inclusive), may be {@code null}
-     * @return the String result
+     * @return The String result
      * @throws IllegalArgumentException
      *             if the Object is {@code null}
      *
@@ -664,7 +664,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     /**
      * Gets the excludeFieldNames.
      *
-     * @return the excludeFieldNames.
+     * @return The excludeFieldNames.
      */
     public String[] getExcludeFieldNames() {
         return this.excludeFieldNames.clone();
@@ -673,7 +673,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     /**
      * Gets the includeFieldNames
      *
-     * @return the includeFieldNames.
+     * @return The includeFieldNames.
      * @since 3.13.0
      */
     public String[] getIncludeFieldNames() {
@@ -833,7 +833,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     /**
      * Gets the String built by this builder.
      *
-     * @return the built string
+     * @return The built string
      */
     @Override
     public String toString() {

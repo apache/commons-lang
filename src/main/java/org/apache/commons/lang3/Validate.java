@@ -658,7 +658,7 @@ public class Validate {
      *
      * @param <T> The iterable type.
      * @param iterable  the iterable to check, validated not null by this method.
-     * @return the validated iterable (never {@code null} method for chaining).
+     * @return The validated iterable (never {@code null} method for chaining).
      * @throws NullPointerException if the array is {@code null}.
      * @throws IllegalArgumentException if an element is {@code null}.
      * @see #noNullElements(Iterable, String, Object...)
@@ -685,7 +685,7 @@ public class Validate {
      * @param iterable  the iterable to check, validated not null by this method.
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message, null array not recommended.
-     * @return the validated iterable (never {@code null} method for chaining).
+     * @return The validated iterable (never {@code null} method for chaining).
      * @throws NullPointerException if the array is {@code null}.
      * @throws IllegalArgumentException if an element is {@code null}.
      * @see #noNullElements(Iterable)
@@ -717,7 +717,7 @@ public class Validate {
      *
      * @param <T> The array type.
      * @param array  the array to check, validated not null by this method.
-     * @return the validated array (never {@code null} method for chaining).
+     * @return The validated array (never {@code null} method for chaining).
      * @throws NullPointerException if the array is {@code null}.
      * @throws IllegalArgumentException if an element is {@code null}.
      * @see #noNullElements(Object[], String, Object...)
@@ -744,7 +744,7 @@ public class Validate {
      * @param array  the array to check, validated not null by this method.
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message, null array not recommended.
-     * @return the validated array (never {@code null} method for chaining).
+     * @return The validated array (never {@code null} method for chaining).
      * @throws NullPointerException if the array is {@code null}.
      * @throws IllegalArgumentException if an element is {@code null}.
      * @see #noNullElements(Object[])
@@ -772,7 +772,7 @@ public class Validate {
      *
      * @param <T> The character sequence type.
      * @param chars  the character sequence to check, validated not null by this method.
-     * @return the validated character sequence (never {@code null} method for chaining).
+     * @return The validated character sequence (never {@code null} method for chaining).
      * @throws NullPointerException if the character sequence is {@code null}.
      * @throws IllegalArgumentException if the character sequence is blank.
      * @see #notBlank(CharSequence, String, Object...)
@@ -794,7 +794,7 @@ public class Validate {
      * @param chars   the character sequence to check, validated not null by this method.
      * @param message the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message, null array not recommended.
-     * @return the validated character sequence (never {@code null} method for chaining).
+     * @return The validated character sequence (never {@code null} method for chaining).
      * @throws NullPointerException     if the character sequence is {@code null}.
      * @throws IllegalArgumentException if the character sequence is blank.
      * @see #notBlank(CharSequence)
@@ -820,7 +820,7 @@ public class Validate {
      *
      * @param <T> The collection type.
      * @param collection  the collection to check, validated not null by this method.
-     * @return the validated collection (never {@code null} method for chaining).
+     * @return The validated collection (never {@code null} method for chaining).
      * @throws NullPointerException if the collection is {@code null}.
      * @throws IllegalArgumentException if the collection is empty.
      * @see #notEmpty(Collection, String, Object...)
@@ -840,7 +840,7 @@ public class Validate {
      *
      * @param <T> The map type.
      * @param map  the map to check, validated not null by this method.
-     * @return the validated map (never {@code null} method for chaining).
+     * @return The validated map (never {@code null} method for chaining).
      * @throws NullPointerException if the map is {@code null}.
      * @throws IllegalArgumentException if the map is empty.
      * @see #notEmpty(Map, String, Object...)
@@ -861,7 +861,7 @@ public class Validate {
      *
      * @param <T> The character sequence type.
      * @param chars  the character sequence to check, validated not null by this method.
-     * @return the validated character sequence (never {@code null} method for chaining).
+     * @return The validated character sequence (never {@code null} method for chaining).
      * @throws NullPointerException if the character sequence is {@code null}.
      * @throws IllegalArgumentException if the character sequence is empty.
      * @see #notEmpty(CharSequence, String, Object...)
@@ -881,7 +881,7 @@ public class Validate {
      * @param collection  the collection to check, validated not null by this method.
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message, null array not recommended.
-     * @return the validated collection (never {@code null} method for chaining).
+     * @return The validated collection (never {@code null} method for chaining).
      * @throws NullPointerException if the collection is {@code null}.
      * @throws IllegalArgumentException if the collection is empty.
      * @see #notEmpty(Object[])
@@ -905,7 +905,7 @@ public class Validate {
      * @param map  the map to check, validated not null by this method.
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message, null array not recommended.
-     * @return the validated map (never {@code null} method for chaining).
+     * @return The validated map (never {@code null} method for chaining).
      * @throws NullPointerException if the map is {@code null}.
      * @throws IllegalArgumentException if the map is empty.
      * @see #notEmpty(Object[])
@@ -929,7 +929,7 @@ public class Validate {
      * @param chars  the character sequence to check, validated not null by this method.
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message, null array not recommended.
-     * @return the validated character sequence (never {@code null} method for chaining).
+     * @return The validated character sequence (never {@code null} method for chaining).
      * @throws NullPointerException if the character sequence is {@code null}.
      * @throws IllegalArgumentException if the character sequence is empty.
      * @see #notEmpty(CharSequence)
@@ -953,7 +953,7 @@ public class Validate {
      *
      * @param <T> The array type.
      * @param array  the array to check, validated not null by this method.
-     * @return the validated array (never {@code null} method for chaining).
+     * @return The validated array (never {@code null} method for chaining).
      * @throws NullPointerException if the array is {@code null}.
      * @throws IllegalArgumentException if the array is empty.
      * @see #notEmpty(Object[], String, Object...)
@@ -973,7 +973,7 @@ public class Validate {
      * @param array  the array to check, validated not null by this method.
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message, null array not recommended.
-     * @return the validated array (never {@code null} method for chaining).
+     * @return The validated array (never {@code null} method for chaining).
      * @throws NullPointerException if the array is {@code null}
      * @throws IllegalArgumentException if the array is empty
      * @see #notEmpty(Object[])
@@ -1034,7 +1034,7 @@ public class Validate {
      *
      * @param <T> The object type.
      * @param object  the object to check.
-     * @return the validated object (never {@code null} for method chaining).
+     * @return The validated object (never {@code null} for method chaining).
      * @throws NullPointerException if the object is {@code null}.
      * @see #notNull(Object, String, Object...)
      * @deprecated Use {@link Objects#requireNonNull(Object)}.
@@ -1054,7 +1054,7 @@ public class Validate {
      * @param object  the object to check.
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message.
-     * @return the validated object (never {@code null} for method chaining).
+     * @return The validated object (never {@code null} for method chaining).
      * @throws NullPointerException if the object is {@code null}.
      * @see Objects#requireNonNull(Object)
      */
@@ -1079,7 +1079,7 @@ public class Validate {
      * @param <T> The collection type.
      * @param collection  the collection to check, validated not null by this method.
      * @param index  the index to check.
-     * @return the validated collection (never {@code null} for method chaining).
+     * @return The validated collection (never {@code null} for method chaining).
      * @throws NullPointerException if the collection is {@code null}.
      * @throws IndexOutOfBoundsException if the index is invalid.
      * @see #validIndex(Collection, int, String, Object...)
@@ -1106,7 +1106,7 @@ public class Validate {
      * @param <T> The character sequence type.
      * @param chars  the character sequence to check, validated not null by this method.
      * @param index  the index to check.
-     * @return the validated character sequence (never {@code null} for method chaining).
+     * @return The validated character sequence (never {@code null} for method chaining).
      * @throws NullPointerException if the character sequence is {@code null}.
      * @throws IndexOutOfBoundsException if the index is invalid.
      * @see #validIndex(CharSequence, int, String, Object...)
@@ -1130,7 +1130,7 @@ public class Validate {
      * @param index  the index to check.
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message, null array not recommended.
-     * @return the validated collection (never {@code null} for chaining).
+     * @return The validated collection (never {@code null} for chaining).
      * @throws NullPointerException if the collection is {@code null}.
      * @throws IndexOutOfBoundsException if the index is invalid.
      * @see #validIndex(Collection, int)
@@ -1159,7 +1159,7 @@ public class Validate {
      * @param index  the index to check.
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message, null array not recommended.
-     * @return the validated character sequence (never {@code null} for method chaining).
+     * @return The validated character sequence (never {@code null} for method chaining).
      * @throws NullPointerException if the character sequence is {@code null}.
      * @throws IndexOutOfBoundsException if the index is invalid.
      * @see #validIndex(CharSequence, int)
@@ -1189,7 +1189,7 @@ public class Validate {
      * @param <T> The array type.
      * @param array  the array to check, validated not null by this method.
      * @param index  the index to check.
-     * @return the validated array (never {@code null} for method chaining).
+     * @return The validated array (never {@code null} for method chaining).
      * @throws NullPointerException if the array is {@code null}.
      * @throws IndexOutOfBoundsException if the index is invalid.
      * @see #validIndex(Object[], int, String, Object...)
@@ -1213,7 +1213,7 @@ public class Validate {
      * @param index  the index to check.
      * @param message  the {@link String#format(String, Object...)} exception message if invalid, not null.
      * @param values  the optional values for the formatted exception message, null array not recommended.
-     * @return the validated array (never {@code null} for method chaining).
+     * @return The validated array (never {@code null} for method chaining).
      * @throws NullPointerException if the array is {@code null}.
      * @throws IndexOutOfBoundsException if the index is invalid.
      * @see #validIndex(Object[], int)

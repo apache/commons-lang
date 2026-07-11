@@ -39,14 +39,14 @@ public interface DateParser {
     /**
      * Gets the locale used by this parser.
      *
-     * @return the locale
+     * @return The locale
      */
     Locale getLocale();
 
     /**
      * Gets the pattern used by this parser.
      *
-     * @return the pattern, {@link java.text.SimpleDateFormat} compatible.
+     * @return The pattern, {@link java.text.SimpleDateFormat} compatible.
      */
     String getPattern();
 
@@ -58,7 +58,7 @@ public interface DateParser {
      * the format pattern.
      * </p>
      *
-     * @return the time zone
+     * @return The time zone
      */
     TimeZone getTimeZone();
 

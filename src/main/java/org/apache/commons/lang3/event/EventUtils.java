@@ -67,7 +67,7 @@ public class EventUtils {
          * @param proxy the proxy instance.
          * @param method the method to be invoked.
          * @param parameters the parameters for the method invocation.
-         * @return the result of the method call.
+         * @return The result of the method call.
          * @throws SecurityException if an underlying accessible object's method denies the request.
          * @see SecurityManager#checkPermission
          * @throws Throwable if an error occurs

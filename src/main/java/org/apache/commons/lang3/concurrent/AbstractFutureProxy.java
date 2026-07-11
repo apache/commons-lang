@@ -59,7 +59,7 @@ public abstract class AbstractFutureProxy<V> implements Future<V> {
     /**
      * Gets the delegate.
      *
-     * @return the delegate.
+     * @return The delegate.
      */
     public Future<V> getFuture() {
         return future;

@@ -1195,7 +1195,7 @@ class ToStringBuilderTest extends AbstractBuilderTest {
      * @param object           the Object to be output
      * @param style            the style of the {@code toString} to create, may be {@code null}
      * @param reflectUpToClass the superclass to reflect up to (inclusive), may be {@code null}
-     * @return the String result
+     * @return The String result
      * @throws IllegalArgumentException if the Object is {@code null}
      */
     public <T> String toStringWithStatics(final T object, final ToStringStyle style, final Class<? super T> reflectUpToClass) {

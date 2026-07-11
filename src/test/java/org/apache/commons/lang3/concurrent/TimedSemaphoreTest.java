@@ -136,7 +136,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
         /**
          * Returns the number of invocations of the endOfPeriod() method.
          *
-         * @return the endOfPeriod() invocations
+         * @return The endOfPeriod() invocations
          */
         int getPeriodEnds() {
             synchronized (this) {
