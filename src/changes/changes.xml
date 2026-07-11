@@ -223,6 +223,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Keep FastDateParser.parse error message intact for Japanese imperial locale (#1743).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Keep ExtendedMessageFormat from rejecting a quoted format style (#1744).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Match String case folding in StrBuilder.equalsIgnoreCase (#1745).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Keep HashCodeBuilder.append(Object) from poisoning reflection hashCode (#1747).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
