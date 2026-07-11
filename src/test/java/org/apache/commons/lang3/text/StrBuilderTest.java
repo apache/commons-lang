@@ -698,6 +698,16 @@ class StrBuilderTest extends AbstractLangTest {
 
         sb2.clear().append("aBc");
         assertTrue(sb1.equalsIgnoreCase(sb2));
+
+        // characters that only fold together via toLowerCase, matching String.equalsIgnoreCase
+        sb1.clear().append("\u004B"); // LATIN CAPITAL LETTER K
+        sb2.clear().append("\u212A"); // KELVIN SIGN, lower-cases to 'k'
+        assertTrue(sb1.equalsIgnoreCase(sb2));
+        assertTrue(sb2.equalsIgnoreCase(sb1));
+
+        sb1.clear().append("\u00E5"); // LATIN SMALL LETTER A WITH RING ABOVE
+        sb2.clear().append("\u212B"); // ANGSTROM SIGN, lower-cases to the same
+        assertTrue(sb1.equalsIgnoreCase(sb2));
     }
 
     @Test

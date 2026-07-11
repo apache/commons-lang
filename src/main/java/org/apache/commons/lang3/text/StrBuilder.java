@@ -1912,8 +1912,12 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         for (int i = size - 1; i >= 0; i--) {
             final char c1 = thisBuf[i];
             final char c2 = otherBuf[i];
-            if (c1 != c2 && Character.toUpperCase(c1) != Character.toUpperCase(c2)) {
-                return false;
+            if (c1 != c2) {
+                final char u1 = Character.toUpperCase(c1);
+                final char u2 = Character.toUpperCase(c2);
+                if (u1 != u2 && Character.toLowerCase(u1) != Character.toLowerCase(u2)) {
+                    return false;
+                }
             }
         }
         return true;
