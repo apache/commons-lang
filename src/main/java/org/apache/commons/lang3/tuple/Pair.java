@@ -74,7 +74,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param <R> The right element type.
      * @param left  the left element, may be null.
      * @param right  the right element, may be null.
-     * @return an immutable pair formed from the two parameters, not null.
+     * @return An immutable pair formed from the two parameters, not null.
      */
     public static <L, R> Pair<L, R> of(final L left, final R right) {
         return ImmutablePair.of(left, right);
@@ -86,7 +86,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param <L> The left element type.
      * @param <R> The right element type.
      * @param pair the map entry.
-     * @return an immutable pair formed from the map entry.
+     * @return An immutable pair formed from the map entry.
      * @since 3.10
      */
     public static <L, R> Pair<L, R> of(final Map.Entry<L, R> pair) {
@@ -100,7 +100,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param <R> The right element type.
      * @param left  the left element, may not be null.
      * @param right  the right element, may not  be null.
-     * @return an immutable pair formed from the two parameters, not null.
+     * @return An immutable pair formed from the two parameters, not null.
      * @throws NullPointerException if any input is null.
      * @since 3.13.0
      */
@@ -238,7 +238,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Returns a String representation of this pair using the format {@code (left,right)}.
      *
-     * @return a string describing this object, not null.
+     * @return A string describing this object, not null.
      */
     @Override
     public String toString() {

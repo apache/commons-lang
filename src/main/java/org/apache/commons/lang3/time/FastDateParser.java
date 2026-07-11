@@ -207,7 +207,7 @@ public class FastDateParser implements DateParser, Serializable {
          * Factory method for ISO8601TimeZoneStrategies.
          *
          * @param tokenLen a token indicating the length of the TimeZone String to be formatted.
-         * @return a ISO8601TimeZoneStrategy that can format TimeZone String of length {@code tokenLen}. If no such strategy exists, an IllegalArgumentException
+         * @return A ISO8601TimeZoneStrategy that can format TimeZone String of length {@code tokenLen}. If no such strategy exists, an IllegalArgumentException
          *         will be thrown.
          */
         static Strategy getStrategy(final int tokenLen) {
@@ -750,7 +750,7 @@ public class FastDateParser implements DateParser, Serializable {
      * Gets a cache of Strategies for a particular field
      *
      * @param field The Calendar field
-     * @return a cache of Locale to Strategy
+     * @return A cache of Locale to Strategy
      */
     private static ConcurrentMap<Locale, Strategy> getCache(final int field) {
         synchronized (CACHES) {
@@ -897,7 +897,7 @@ public class FastDateParser implements DateParser, Serializable {
      *
      * @param field            The Calendar field
      * @param definingCalendar The calendar to obtain the short and long values
-     * @return a TextStrategy for the field and Locale
+     * @return A TextStrategy for the field and Locale
      */
     private Strategy getLocaleSpecificStrategy(final int field, final Calendar definingCalendar) {
         return getCache(field).computeIfAbsent(locale,
@@ -989,7 +989,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Returns a hash code compatible with equals.
      *
-     * @return a hash code compatible with equals
+     * @return A hash code compatible with equals
      */
     @Override
     public int hashCode() {
@@ -1114,7 +1114,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Gets a string version of this formatter.
      *
-     * @return a debugging string
+     * @return A debugging string
      */
     @Override
     public String toString() {
@@ -1124,7 +1124,7 @@ public class FastDateParser implements DateParser, Serializable {
     /**
      * Converts all state of this instance to a String handy for debugging.
      *
-     * @return a string.
+     * @return A string.
      * @since 3.12.0
      */
     public String toStringAll() {

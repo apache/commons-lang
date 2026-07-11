@@ -158,7 +158,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
      * Gets an Exception with a type of E as defined by a concrete subclass of this class.
      *
      * @param e The actual exception that was thrown.
-     * @return a new exception with the actual type of E, that wraps e.
+     * @return A new exception with the actual type of E, that wraps e.
      */
     protected abstract E getTypedException(Exception e);
 

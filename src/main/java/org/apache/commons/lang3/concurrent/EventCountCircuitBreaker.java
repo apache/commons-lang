@@ -160,7 +160,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param breaker the {@link CircuitBreaker}
          * @param currentData the current state object
          * @param now the current time
-         * @return a flag whether the end of the current check interval is reached
+         * @return A flag whether the end of the current check interval is reached
          */
         public boolean isCheckIntervalFinished(final EventCountCircuitBreaker breaker,
                 final CheckIntervalData currentData, final long now) {
@@ -175,7 +175,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param breaker the {@link CircuitBreaker}
          * @param currentData the current {@link CheckIntervalData} object
          * @param nextData the updated {@link CheckIntervalData} object
-         * @return a flag whether a state transition should be performed
+         * @return A flag whether a state transition should be performed
          */
         public abstract boolean isStateTransition(EventCountCircuitBreaker breaker,
                 CheckIntervalData currentData, CheckIntervalData nextData);
@@ -536,7 +536,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * if necessary.
      *
      * @param increment the increment for the internal counter
-     * @return a flag whether the circuit breaker is now closed
+     * @return A flag whether the circuit breaker is now closed
      */
     private boolean performStateCheck(final int increment) {
         CheckIntervalData currentData;
@@ -567,7 +567,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      *
      * @param currentData the current check data object
      * @param nextData the replacing check data object
-     * @return a flag whether the update was successful
+     * @return A flag whether the update was successful
      */
     private boolean updateCheckIntervalData(final CheckIntervalData currentData,
             final CheckIntervalData nextData) {

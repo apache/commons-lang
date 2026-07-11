@@ -155,7 +155,7 @@ public class CharSet implements Serializable {
      * <p>All CharSet objects returned by this method will be immutable.</p>
      *
      * @param setStrs  Strings to merge into the set, may be null.
-     * @return a CharSet instance.
+     * @return A CharSet instance.
      * @since 2.4
      */
     public static CharSet getInstance(final String... setStrs) {
@@ -280,7 +280,7 @@ public class CharSet implements Serializable {
     /**
      * Gets a hash code compatible with the equals method.
      *
-     * @return a suitable hash code.
+     * @return A suitable hash code.
      * @since 2.0
      */
     @Override

@@ -124,7 +124,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * </p>
      *
      * @param value the double value to convert
-     * @return a new fraction instance that is close to the value
+     * @return A new fraction instance that is close to the value
      * @throws ArithmeticException if {@code |value| &gt; Integer.MAX_VALUE} or {@code value = NaN}
      * @throws ArithmeticException if the calculated denominator is {@code zero}
      * @throws ArithmeticException if the algorithm does not converge
@@ -188,7 +188,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param numerator   the numerator, for example the three in 'three sevenths'
      * @param denominator the denominator, for example the seven in 'three sevenths'
-     * @return a new fraction instance
+     * @return A new fraction instance
      * @throws ArithmeticException if the denominator is {@code zero} or the denominator is {@code negative} and the numerator is {@code Integer#MIN_VALUE}
      */
     public static Fraction getFraction(int numerator, int denominator) {
@@ -212,7 +212,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param whole       the whole number, for example the one in 'one and three sevenths'
      * @param numerator   the numerator, for example the three in 'one and three sevenths'
      * @param denominator the denominator, for example the seven in 'one and three sevenths'
-     * @return a new fraction instance
+     * @return A new fraction instance
      * @throws ArithmeticException if the denominator is {@code zero}
      * @throws ArithmeticException if the denominator is negative
      * @throws ArithmeticException if the numerator is negative
@@ -303,7 +303,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param numerator   the numerator, for example the three in 'three sevenths'
      * @param denominator the denominator, for example the seven in 'three sevenths'
-     * @return a new fraction instance, with the numerator and denominator reduced
+     * @return A new fraction instance, with the numerator and denominator reduced
      * @throws ArithmeticException if the denominator is {@code zero}
      */
     public static Fraction getReducedFraction(int numerator, int denominator) {
@@ -497,7 +497,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * The algorithm follows Knuth, 4.5.1.
      *
      * @param fraction  the fraction to add, must not be {@code null}
-     * @return a {@link Fraction} instance with the resulting values
+     * @return A {@link Fraction} instance with the resulting values
      * @throws NullPointerException if the fraction is {@code null}
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
      *  {@code Integer.MAX_VALUE}
@@ -512,7 +512,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @param fraction the fraction to subtract, must not be {@code null}
      * @param isAdd true to add, false to subtract
-     * @return a {@link Fraction} instance with the resulting values
+     * @return A {@link Fraction} instance with the resulting values
      * @throws IllegalArgumentException if the fraction is {@code null}
      * @throws ArithmeticException if the resulting numerator or denominator
      *   cannot be represented in an {@code int}.
@@ -588,7 +588,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * Divide the value of this fraction by another.
      *
      * @param fraction  the fraction to divide by, must not be {@code null}
-     * @return a {@link Fraction} instance with the resulting values
+     * @return A {@link Fraction} instance with the resulting values
      * @throws NullPointerException if the fraction is {@code null}
      * @throws ArithmeticException if the fraction to divide by is zero
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
@@ -701,7 +701,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     /**
      * Gets a hashCode for the fraction.
      *
-     * @return a hash code value for this object
+     * @return A hash code value for this object
      */
     @Override
     public int hashCode() {
@@ -725,7 +725,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * The returned fraction is not reduced.
      * </p>
      *
-     * @return a new fraction instance with the numerator and denominator inverted.
+     * @return A new fraction instance with the numerator and denominator inverted.
      * @throws ArithmeticException if the fraction represents zero.
      */
     public Fraction invert() {
@@ -757,7 +757,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * result in reduced form.
      *
      * @param fraction  the fraction to multiply by, must not be {@code null}
-     * @return a {@link Fraction} instance with the resulting values
+     * @return A {@link Fraction} instance with the resulting values
      * @throws NullPointerException if the fraction is {@code null}
      * @throws ArithmeticException if the resulting numerator or denominator exceeds
      *  {@code Integer.MAX_VALUE}
@@ -780,7 +780,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * The returned fraction is not reduced.
      * </p>
      *
-     * @return a new fraction instance with the opposite signed numerator
+     * @return A new fraction instance with the opposite signed numerator
      */
     public Fraction negate() {
         // the positive range is one smaller than the negative range of an int.
@@ -844,7 +844,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * For example, if this fraction represents 2/4, then the result will be 1/2.
      * </p>
      *
-     * @return a new reduced fraction instance, or this if no simplification possible
+     * @return A new reduced fraction instance, or this if no simplification possible
      */
     public Fraction reduce() {
         if (numerator == 0) {
@@ -862,7 +862,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * returning the result in reduced form.
      *
      * @param fraction  the fraction to subtract, must not be {@code null}
-     * @return a {@link Fraction} instance with the resulting values
+     * @return A {@link Fraction} instance with the resulting values
      * @throws NullPointerException if the fraction is {@code null}
      * @throws ArithmeticException if the resulting numerator or denominator
      *   cannot be represented in an {@code int}.
@@ -878,7 +878,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * zero, only the whole number is returned.
      * </p>
      *
-     * @return a {@link String} form of the fraction
+     * @return A {@link String} form of the fraction
      */
     public String toProperString() {
         if (toProperString == null) {
@@ -912,7 +912,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * The format used is '<em>numerator</em>/<em>denominator</em>' always.
      * </p>
      *
-     * @return a {@link String} form of the fraction
+     * @return A {@link String} form of the fraction
      */
     @Override
     public String toString() {

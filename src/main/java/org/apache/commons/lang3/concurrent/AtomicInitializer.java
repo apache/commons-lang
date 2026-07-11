@@ -97,7 +97,7 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
      * Creates a new builder.
      *
      * @param <T> The type of object to build.
-     * @return a new builder.
+     * @return A new builder.
      * @since 3.14.0
      */
     public static <T> Builder<AtomicInitializer<T>, T> builder() {

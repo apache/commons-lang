@@ -192,7 +192,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     /**
      * Gets this mutable as an instance of Boolean.
      *
-     * @return a Boolean instance containing the value from this mutable, never null
+     * @return A Boolean instance containing the value from this mutable, never null
      * @since 2.5
      */
     public Boolean toBoolean() {

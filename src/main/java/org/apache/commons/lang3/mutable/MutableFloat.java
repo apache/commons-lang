@@ -286,7 +286,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return a suitable hash code.
+     * @return A suitable hash code.
      */
     @Override
     public int hashCode() {
@@ -397,7 +397,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     /**
      * Gets this mutable as an instance of Float.
      *
-     * @return a Float instance containing the value from this mutable, never null.
+     * @return A Float instance containing the value from this mutable, never null.
      */
     public Float toFloat() {
         return Float.valueOf(floatValue());

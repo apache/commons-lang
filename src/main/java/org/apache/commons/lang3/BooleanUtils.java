@@ -138,7 +138,7 @@ public class BooleanUtils {
     /**
      * Returns a new array of possible values (like an enum would).
      *
-     * @return a new array of possible values (like an enum would).
+     * @return A new array of possible values (like an enum would).
      * @since 3.12.0
      */
     public static Boolean[] booleanValues() {
@@ -376,7 +376,7 @@ public class BooleanUtils {
     /**
      * Returns a new array of possible values (like an enum would).
      *
-     * @return a new array of possible values (like an enum would).
+     * @return A new array of possible values (like an enum would).
      * @since 3.12.0
      */
     public static boolean[] primitiveValues() {
@@ -1147,7 +1147,7 @@ public class BooleanUtils {
     /**
      * Returns an unmodifiable list of Booleans {@code [false, true]}.
      *
-     * @return an unmodifiable list of Booleans {@code [false, true]}.
+     * @return An unmodifiable list of Booleans {@code [false, true]}.
      * @since 3.13.0
      */
     public static List<Boolean> values() {

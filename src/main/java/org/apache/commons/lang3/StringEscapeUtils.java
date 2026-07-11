@@ -465,7 +465,7 @@ public class StringEscapeUtils {
      * <p>Supports only the HTML 3.0 entities.</p>
      *
      * @param input  the {@link String} to escape, may be null
-     * @return a new escaped {@link String}, {@code null} if null string input
+     * @return A new escaped {@link String}, {@code null} if null string input
      * @since 3.0
      */
     public static final String escapeHtml3(final String input) {
@@ -489,7 +489,7 @@ public class StringEscapeUtils {
      * is not a legal entity and so is not supported).</p>
      *
      * @param input  the {@link String} to escape, may be null
-     * @return a new escaped {@link String}, {@code null} if null string input
+     * @return A new escaped {@link String}, {@code null} if null string input
      * @see <a href="https://web.archive.org/web/20060225074150/https://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
      * @see <a href="https://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
      * @see <a href="https://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
@@ -568,7 +568,7 @@ public class StringEscapeUtils {
      * {@code StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE));}</p>
      *
      * @param input  the {@link String} to escape, may be null
-     * @return a new escaped {@link String}, {@code null} if null string input
+     * @return A new escaped {@link String}, {@code null} if null string input
      * @see #unescapeXml(String)
      * @deprecated Use {@link #escapeXml10(java.lang.String)} or {@link #escapeXml11(java.lang.String)} instead.
      */
@@ -619,7 +619,7 @@ public class StringEscapeUtils {
      * </p>
      *
      * @param input the {@link String} to escape, may be null
-     * @return a new escaped {@link String}, {@code null} if null string input
+     * @return A new escaped {@link String}, {@code null} if null string input
      * @see #unescapeXml(String)
      * @since 3.3
      */
@@ -649,7 +649,7 @@ public class StringEscapeUtils {
      * use it for XML 1.0 documents.</p>
      *
      * @param input  the {@link String} to escape, may be null
-     * @return a new escaped {@link String}, {@code null} if null string input
+     * @return A new escaped {@link String}, {@code null} if null string input
      * @see #unescapeXml(String)
      * @since 3.3
      */
@@ -704,7 +704,7 @@ public class StringEscapeUtils {
      * escapes. Supports only HTML 3.0 entities.
      *
      * @param input  the {@link String} to unescape, may be null
-     * @return a new unescaped {@link String}, {@code null} if null string input
+     * @return A new unescaped {@link String}, {@code null} if null string input
      * @since 3.0
      */
     public static final String unescapeHtml3(final String input) {
@@ -724,7 +724,7 @@ public class StringEscapeUtils {
      * become {@code ">&zzzz;x"}.</p>
      *
      * @param input  the {@link String} to unescape, may be null
-     * @return a new unescaped {@link String}, {@code null} if null string input
+     * @return A new unescaped {@link String}, {@code null} if null string input
      * @since 3.0
      */
     public static final String unescapeHtml4(final String input) {
@@ -738,7 +738,7 @@ public class StringEscapeUtils {
      * is preceded by another {@code '\'}.
      *
      * @param input  the {@link String} to unescape, may be null
-     * @return a new unescaped {@link String}, {@code null} if null string input
+     * @return A new unescaped {@link String}, {@code null} if null string input
      */
     public static final String unescapeJava(final String input) {
         return UNESCAPE_JAVA.translate(input);
@@ -772,7 +772,7 @@ public class StringEscapeUtils {
      *    Unicode characters. This may change in future releases.</p>
      *
      * @param input  the {@link String} to unescape, may be null
-     * @return a new unescaped {@link String}, {@code null} if null string input
+     * @return A new unescaped {@link String}, {@code null} if null string input
      * @see #escapeXml(String)
      * @see #escapeXml10(String)
      * @see #escapeXml11(String)

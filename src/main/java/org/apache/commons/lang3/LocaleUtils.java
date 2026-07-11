@@ -130,7 +130,7 @@ public class LocaleUtils {
      * </p>
      *
      * @param languageCode the 2 letter language code, null returns empty.
-     * @return an unmodifiable List of Locale objects, not null.
+     * @return An unmodifiable List of Locale objects, not null.
      */
     public static List<Locale> countriesByLanguage(final String languageCode) {
         if (languageCode == null) {
@@ -244,7 +244,7 @@ public class LocaleUtils {
      * </p>
      *
      * @param countryCode the 2-letter country code, null returns empty.
-     * @return an unmodifiable List of Locale objects, not null.
+     * @return An unmodifiable List of Locale objects, not null.
      */
     public static List<Locale> languagesByCountry(final String countryCode) {
         if (countryCode == null) {
@@ -309,7 +309,7 @@ public class LocaleUtils {
      * @param country An ISO 3166 alpha-2 country code or a UN M.49 numeric-3 area code. See the {@linkplain Locale} class description about valid country
      *                values.
      * @throws NullPointerException thrown if either argument is null.
-     * @return a new new Locale for the given country.
+     * @return A new new Locale for the given country.
      * @see Locale#Locale(String, String)
      */
     static Locale ofCountry(final String country) {
@@ -323,7 +323,7 @@ public class LocaleUtils {
      * </p>
      *
      * @param str the String to parse as a Locale.
-     * @return a Locale parsed from the given String.
+     * @return A Locale parsed from the given String.
      * @throws IllegalArgumentException if the given String cannot be parsed.
      * @see Locale
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Locale.html#special_cases_constructor">Locale special cases</a>
@@ -401,7 +401,7 @@ public class LocaleUtils {
      * </p>
      *
      * @param str the locale String to convert, null returns null.
-     * @return a Locale, null if null input.
+     * @return A Locale, null if null input.
      * @throws IllegalArgumentException if the string is an invalid format.
      * @see Locale#forLanguageTag(String)
      * @see Locale#getISOCountries()

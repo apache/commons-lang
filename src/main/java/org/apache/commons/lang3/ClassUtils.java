@@ -201,7 +201,7 @@ public class ClassUtils {
      * </p>
      *
      * @param classes the classes to change.
-     * @return a {@link List} of class names corresponding to the Class objects, {@code null} if null input.
+     * @return A {@link List} of class names corresponding to the Class objects, {@code null} if null input.
      * @throws ClassCastException if {@code classes} contains a non-{@link Class} entry.
      */
     public static List<String> convertClassesToClassNames(final List<Class<?>> classes) {
@@ -217,7 +217,7 @@ public class ClassUtils {
      * </p>
      *
      * @param classNames the classNames to change.
-     * @return a {@link List} of Class objects corresponding to the class names, {@code null} if null input.
+     * @return A {@link List} of Class objects corresponding to the class names, {@code null} if null input.
      * @throws ClassCastException if classNames contains a non String entry.
      */
     public static List<Class<?>> convertClassNamesToClasses(final List<String> classNames) {
@@ -1544,7 +1544,7 @@ public class ClassUtils {
      * Converts the specified array of primitive Class objects to an array of its corresponding wrapper Class objects.
      *
      * @param classes the class array to convert, may be null or empty.
-     * @return an array which contains for each given class, the wrapper class or the original class if class is not a primitive. {@code null} if null input.
+     * @return An array which contains for each given class, the wrapper class or the original class if class is not a primitive. {@code null} if null input.
      *         Empty array if an empty array passed in.
      * @since 2.1
      */
@@ -1582,7 +1582,7 @@ public class ClassUtils {
      * </p>
      *
      * @param array an {@link Object} array.
-     * @return a {@link Class} array, {@code null} if null array input.
+     * @return A {@link Class} array, {@code null} if null array input.
      * @since 2.4
      */
     public static Class<?>[] toClass(final Object... array) {
@@ -1699,7 +1699,7 @@ public class ClassUtils {
      * </p>
      *
      * @param classes the class array to convert, may be null or empty.
-     * @return an array which contains for each given class, the primitive class or {@code null} if the original class is not a wrapper class.
+     * @return An array which contains for each given class, the primitive class or {@code null} if the original class is not a wrapper class.
      *         {@code null} if null input. Empty array if an empty array passed in.
      * @see #wrapperToPrimitive(Class)
      * @since 2.4

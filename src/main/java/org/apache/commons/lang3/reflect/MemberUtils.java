@@ -317,7 +317,7 @@ final class MemberUtils {
      * </p>
      *
      * @param obj the AccessibleObject to set as accessible, may be null.
-     * @return a boolean indicating whether the accessibility of the object was set to true.
+     * @return A boolean indicating whether the accessibility of the object was set to true.
      */
     static <T extends AccessibleObject> T setAccessibleWorkaround(final T obj) {
         if (AccessibleObjects.isAccessible(obj)) {

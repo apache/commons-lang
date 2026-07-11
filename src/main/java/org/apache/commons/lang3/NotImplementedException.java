@@ -129,7 +129,7 @@ public class NotImplementedException extends UnsupportedOperationException {
      * further information regarding the lack of implementation. It might, for example, be an issue
      * tracker ID or a URL.
      *
-     * @return a code indicating a resource for more information regarding the lack of implementation
+     * @return A code indicating a resource for more information regarding the lack of implementation
      */
     public String getCode() {
         return this.code;

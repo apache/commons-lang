@@ -80,7 +80,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      * Gets an unmodifiable list of {@link Diff}s. The list may be empty if
      * there were no differences between the objects.
      *
-     * @return an unmodifiable list of {@link Diff}s
+     * @return An unmodifiable list of {@link Diff}s
      */
     public List<Diff<?>> getDiffs() {
         return Collections.unmodifiableList(diffList);
@@ -161,7 +161,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      * use {@link #toString(ToStringStyle)}.
      * </p>
      *
-     * @return a {@link String} description of the differences.
+     * @return A {@link String} description of the differences.
      */
     @Override
     public String toString() {
@@ -175,7 +175,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      * @param style
      *            the {@link ToStringStyle} to use when outputting the objects
      *
-     * @return a {@link String} description of the differences.
+     * @return A {@link String} description of the differences.
      */
     public String toString(final ToStringStyle style) {
         if (diffList.isEmpty()) {

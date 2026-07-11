@@ -36,7 +36,7 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
      * Returns a unary operator that always returns its input argument.
      *
      * @param <E> The kind of thrown exception or error.
-     * @return a unary operator that always returns its input argument
+     * @return A unary operator that always returns its input argument
      */
     static <E extends Throwable> FailableLongUnaryOperator<E> identity() {
         return t -> t;
@@ -57,7 +57,7 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
      * Returns a composed {@link FailableDoubleUnaryOperator} like {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
      *
      * @param after the operator to apply after this one.
-     * @return a composed {@link FailableLongUnaryOperator} like {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
+     * @return A composed {@link FailableLongUnaryOperator} like {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
      * @throws NullPointerException if after is null.
      * @see #compose(FailableLongUnaryOperator)
      */
@@ -79,7 +79,7 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
      * Returns a composed {@link FailableLongUnaryOperator} like {@link LongUnaryOperator#compose(LongUnaryOperator)}.
      *
      * @param before the operator to apply before this one.
-     * @return a composed {@link FailableLongUnaryOperator} like {@link LongUnaryOperator#compose(LongUnaryOperator)}.
+     * @return A composed {@link FailableLongUnaryOperator} like {@link LongUnaryOperator#compose(LongUnaryOperator)}.
      * @throws NullPointerException if before is null.
      * @see #andThen(FailableLongUnaryOperator)
      */

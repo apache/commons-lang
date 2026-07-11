@@ -79,7 +79,7 @@ public interface FailableConsumer<T, E extends Throwable> {
      * Returns a composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
      *
      * @param after the operation to perform after this operation
-     * @return a composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
+     * @return A composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
      * @throws NullPointerException when {@code after} is null
      */
     default FailableConsumer<T, E> andThen(final FailableConsumer<? super T, E> after) {

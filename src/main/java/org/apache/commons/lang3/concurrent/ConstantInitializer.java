@@ -64,7 +64,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * object managed by this instance.
      *
      * @param obj the object to compare to
-     * @return a flag whether the objects are equal
+     * @return A flag whether the objects are equal
      */
     @Override
     public boolean equals(final Object obj) {
@@ -106,7 +106,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * Returns a hash code for this object. This implementation returns the hash
      * code of the managed object.
      *
-     * @return a hash code for this object
+     * @return A hash code for this object
      */
     @Override
     public int hashCode() {
@@ -129,7 +129,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * contains a string representation of the object managed by this
      * initializer.
      *
-     * @return a string for this object
+     * @return A string for this object
      */
     @Override
     public String toString() {

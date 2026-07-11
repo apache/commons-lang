@@ -1476,7 +1476,7 @@ public class DateUtils {
      * @param date  the date, not null.
      * @param calendarField  the {@link Calendar} field to set the amount to.
      * @param amount the amount to set.
-     * @return a new {@link Date} set with the specified value.
+     * @return A new {@link Date} set with the specified value.
      * @throws NullPointerException if the date is null.
      * @since 2.4
      */
@@ -1496,7 +1496,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount the amount to set.
-     * @return a new {@link Date} set with the specified value.
+     * @return A new {@link Date} set with the specified value.
      * @throws NullPointerException if the date is null.
      * @throws IllegalArgumentException if {@code amount} is not in the range
      *  {@code 1 <= amount <= 31}.
@@ -1513,7 +1513,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount the amount to set.
-     * @return a new {@link Date} set with the specified value.
+     * @return A new {@link Date} set with the specified value.
      * @throws NullPointerException if the date is null.
      * @throws IllegalArgumentException if {@code amount} is not in the range
      *  {@code 0 <= amount <= 23}.
@@ -1529,7 +1529,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount the amount to set.
-     * @return a new {@link Date} set with the specified value.
+     * @return A new {@link Date} set with the specified value.
      * @throws NullPointerException if the date is null.
      * @throws IllegalArgumentException if {@code amount} is not in the range
      *  {@code 0 <= amount <= 999}.
@@ -1545,7 +1545,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount the amount to set.
-     * @return a new {@link Date} set with the specified value.
+     * @return A new {@link Date} set with the specified value.
      * @throws NullPointerException if the date is null.
      * @throws IllegalArgumentException if {@code amount} is not in the range
      *  {@code 0 <= amount <= 59}.
@@ -1561,7 +1561,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount the amount to set.
-     * @return a new {@link Date} set with the specified value.
+     * @return A new {@link Date} set with the specified value.
      * @throws NullPointerException if the date is null.
      * @throws IllegalArgumentException if {@code amount} is not in the range
      *  {@code 0 <= amount <= 11}.
@@ -1577,7 +1577,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount the amount to set.
-     * @return a new {@link Date} set with the specified value.
+     * @return A new {@link Date} set with the specified value.
      * @throws NullPointerException if the date is null.
      * @throws IllegalArgumentException if {@code amount} is not in the range
      *  {@code 0 <= amount <= 59}.
@@ -1593,7 +1593,7 @@ public class DateUtils {
      *
      * @param date  the date, not null.
      * @param amount the amount to set.
-     * @return a new {@link Date} set with the specified value.
+     * @return A new {@link Date} set with the specified value.
      * @throws NullPointerException if the date is null.
      * @since 2.4
      */
@@ -1633,7 +1633,7 @@ public class DateUtils {
      * Converts a {@link Date} to a {@link LocalDateTime}.
      *
      * @param date the Date to convert, not null.
-     * @return a new LocalDateTime.
+     * @return A new LocalDateTime.
      * @since 3.19.0
      */
     public static LocalDateTime toLocalDateTime(final Date date) {
@@ -1645,7 +1645,7 @@ public class DateUtils {
      *
      * @param date     the Date to convert to a LocalDateTime, not null.
      * @param timeZone the time zone, null maps to the default time zone.
-     * @return a new LocalDateTime.
+     * @return A new LocalDateTime.
      * @since 3.19.0
      */
     public static LocalDateTime toLocalDateTime(final Date date, final TimeZone timeZone) {
@@ -1656,7 +1656,7 @@ public class DateUtils {
      * Converts a {@link Date} to a {@link OffsetDateTime}.
      *
      * @param date the Date to convert, not null.
-     * @return a new OffsetDateTime.
+     * @return A new OffsetDateTime.
      * @since 3.19.0
      */
     public static OffsetDateTime toOffsetDateTime(final Date date) {
@@ -1668,7 +1668,7 @@ public class DateUtils {
      *
      * @param date     the Date to convert to a OffsetDateTime, not null.
      * @param timeZone the time zone, null maps to the default time zone.
-     * @return a new OffsetDateTime.
+     * @return A new OffsetDateTime.
      * @since 3.19.0
      */
     public static OffsetDateTime toOffsetDateTime(final Date date, final TimeZone timeZone) {
@@ -1679,7 +1679,7 @@ public class DateUtils {
      * Converts a {@link Date} to a {@link ZonedDateTime}.
      *
      * @param date the Date to convert, not null.
-     * @return a new ZonedDateTime.
+     * @return A new ZonedDateTime.
      * @since 3.19.0
      */
     public static ZonedDateTime toZonedDateTime(final Date date) {
@@ -1691,7 +1691,7 @@ public class DateUtils {
      *
      * @param date     the Date to convert to a ZonedDateTime, not null.
      * @param timeZone the time zone, null maps to the default time zone.
-     * @return a new ZonedDateTime.
+     * @return A new ZonedDateTime.
      * @since 3.19.0
      */
     public static ZonedDateTime toZonedDateTime(final Date date, final TimeZone timeZone) {
@@ -1775,7 +1775,7 @@ public class DateUtils {
      * @param cal1 the first calendar, not {@code null}.
      * @param cal2 the second calendar, not {@code null}.
      * @param field the field from {@link Calendar}.
-     * @return a negative integer, zero, or a positive integer as the first
+     * @return A negative integer, zero, or a positive integer as the first
      * calendar is less than, equal to, or greater than the second.
      * @throws NullPointerException if any argument is {@code null}.
      * @see #truncate(Calendar, int)
@@ -1795,7 +1795,7 @@ public class DateUtils {
      * @param date1 the first date, not {@code null}.
      * @param date2 the second date, not {@code null}.
      * @param field the field from {@link Calendar}.
-     * @return a negative integer, zero, or a positive integer as the first
+     * @return A negative integer, zero, or a positive integer as the first
      * date is less than, equal to, or greater than the second.
      * @throws NullPointerException if any argument is {@code null}.
      * @see #truncate(Calendar, int)

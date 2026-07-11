@@ -277,7 +277,7 @@ public class Functions {
         /**
          * Supplies an object
          *
-         * @return a result
+         * @return A result
          * @throws T if the supplier fails
          */
         R get() throws T;
@@ -347,7 +347,7 @@ public class Functions {
      * @param <O1> the type of the first argument of the consumers
      * @param <O2> the type of the second argument of the consumers
      * @param consumer a failable {@link BiConsumer}
-     * @return a standard {@link BiConsumer}
+     * @return A standard {@link BiConsumer}
      * @since 3.10
      */
     public static <O1, O2> BiConsumer<O1, O2> asBiConsumer(final FailableBiConsumer<O1, O2, ?> consumer) {
@@ -361,7 +361,7 @@ public class Functions {
      * @param <O2> the type of the second argument of the input of the functions
      * @param <O> The type of the output of the functions
      * @param function a {@link FailableBiFunction}
-     * @return a standard {@link BiFunction}
+     * @return A standard {@link BiFunction}
      * @since 3.10
      */
     public static <O1, O2, O> BiFunction<O1, O2, O> asBiFunction(final FailableBiFunction<O1, O2, O, ?> function) {
@@ -374,7 +374,7 @@ public class Functions {
      * @param <O1> the type of the first argument used by the predicates
      * @param <O2> the type of the second argument used by the predicates
      * @param predicate a {@link FailableBiPredicate}
-     * @return a standard {@link BiPredicate}
+     * @return A standard {@link BiPredicate}
      * @since 3.10
      */
     public static <O1, O2> BiPredicate<O1, O2> asBiPredicate(final FailableBiPredicate<O1, O2, ?> predicate) {
@@ -386,7 +386,7 @@ public class Functions {
      *
      * @param <O> The type used by the callables
      * @param callable a {@link FailableCallable}
-     * @return a standard {@link Callable}
+     * @return A standard {@link Callable}
      * @since 3.10
      */
     public static <O> Callable<O> asCallable(final FailableCallable<O, ?> callable) {
@@ -398,7 +398,7 @@ public class Functions {
      *
      * @param <I> The type used by the consumers
      * @param consumer a {@link FailableConsumer}
-     * @return a standard {@link Consumer}
+     * @return A standard {@link Consumer}
      * @since 3.10
      */
     public static <I> Consumer<I> asConsumer(final FailableConsumer<I, ?> consumer) {
@@ -411,7 +411,7 @@ public class Functions {
      * @param <I> The type of the input of the functions
      * @param <O> The type of the output of the functions
      * @param function a {code FailableFunction}
-     * @return a standard {@link Function}
+     * @return A standard {@link Function}
      * @since 3.10
      */
     public static <I, O> Function<I, O> asFunction(final FailableFunction<I, O, ?> function) {
@@ -423,7 +423,7 @@ public class Functions {
      *
      * @param <I> The type used by the predicates
      * @param predicate a {@link FailablePredicate}
-     * @return a standard {@link Predicate}
+     * @return A standard {@link Predicate}
      * @since 3.10
      */
     public static <I> Predicate<I> asPredicate(final FailablePredicate<I, ?> predicate) {
@@ -434,7 +434,7 @@ public class Functions {
      * Converts the given {@link FailableRunnable} into a standard {@link Runnable}.
      *
      * @param runnable a {@link FailableRunnable}
-     * @return a standard {@link Runnable}
+     * @return A standard {@link Runnable}
      * @since 3.10
      */
     public static Runnable asRunnable(final FailableRunnable<?> runnable) {
@@ -446,7 +446,7 @@ public class Functions {
      *
      * @param <O> The type supplied by the suppliers
      * @param supplier a {@link FailableSupplier}
-     * @return a standard {@link Supplier}
+     * @return A standard {@link Supplier}
      * @since 3.10
      */
     public static <O> Supplier<O> asSupplier(final FailableSupplier<O, ?> supplier) {

@@ -53,7 +53,7 @@ public class FastTimeZone {
      * </p>
      *
      * @param pattern The GMT offset.
-     * @return a TimeZone matching the (possibly partial or empty) GMT offset pattern, defaulting to GMT for an unrecognized but parseable input, or
+     * @return A TimeZone matching the (possibly partial or empty) GMT offset pattern, defaulting to GMT for an unrecognized but parseable input, or
      *         {@code null} if the pattern fails the regex.
      */
     public static TimeZone getGmtTimeZone(final String pattern) {

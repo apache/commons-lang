@@ -2153,7 +2153,7 @@ public class SystemUtils {
     /**
      * Gets the current Java home directory as a {@link File}.
      *
-     * @return a directory.
+     * @return A directory.
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
      * @see SystemProperties#getJavaHome()
      * @since 2.1
@@ -2165,7 +2165,7 @@ public class SystemUtils {
     /**
      * Gets the current Java home directory as a {@link File}.
      *
-     * @return a directory.
+     * @return A directory.
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
      * @see SystemProperties#getJavaHome()
      * @since 3.18.0
@@ -2177,7 +2177,7 @@ public class SystemUtils {
     /**
      * Gets the current Java IO temporary directory as a {@link File}.
      *
-     * @return a directory.
+     * @return A directory.
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
      * @see SystemProperties#getJavaIoTmpdir()
      * @since 2.1
@@ -2189,7 +2189,7 @@ public class SystemUtils {
     /**
      * Gets the current Java IO temporary directory as a {@link Path}.
      *
-     * @return a directory.
+     * @return A directory.
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
      * @see SystemProperties#getJavaIoTmpdir()
      * @since 3.18.0
@@ -2250,7 +2250,7 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_DIR}.
      * </p>
      *
-     * @return a directory.
+     * @return A directory.
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
      * @see SystemProperties#getUserDir()
      * @since 2.1
@@ -2265,7 +2265,7 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_DIR}.
      * </p>
      *
-     * @return a directory.
+     * @return A directory.
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
      * @see SystemProperties#getUserDir()
      * @since 3.18.0
@@ -2280,7 +2280,7 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_HOME}.
      * </p>
      *
-     * @return a directory.
+     * @return A directory.
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
      * @see SystemProperties#getUserHome()
      * @since 2.1
@@ -2295,7 +2295,7 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_HOME}.
      * </p>
      *
-     * @return a directory.
+     * @return A directory.
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
      * @see SystemProperties#getUserHome()
      * @since 3.18.0
@@ -2310,7 +2310,7 @@ public class SystemUtils {
      * The result is based on the system property {@value SystemProperties#USER_NAME}.
      * </p>
      *
-     * @return a name.
+     * @return A name.
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
      * @see SystemProperties#getUserName()
      * @since 3.10
@@ -2328,7 +2328,7 @@ public class SystemUtils {
      * </p>
      *
      * @param defaultValue A default value.
-     * @return a name.
+     * @return A name.
      * @throws SecurityException if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the specified system property.
      * @see SystemProperties#getUserName()
      * @since 3.10

@@ -265,7 +265,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return a suitable hash code.
+     * @return A suitable hash code.
      */
     @Override
     public int hashCode() {
@@ -358,7 +358,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
     /**
      * Gets this mutable as an instance of Long.
      *
-     * @return a Long instance containing the value from this mutable, never null.
+     * @return A Long instance containing the value from this mutable, never null.
      */
     public Long toLong() {
         return Long.valueOf(longValue());

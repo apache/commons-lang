@@ -88,7 +88,7 @@ public class EnumUtils {
      * @param enumClass the class of the enum we are working with, not {@code null}.
      * @param values    the values we want to convert, not {@code null}.
      * @param <E>       the type of the enumeration.
-     * @return a long whose value provides a binary representation of the given set of enum values.
+     * @return A long whose value provides a binary representation of the given set of enum values.
      * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}.
      * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values.
      * @since 3.0.1
@@ -111,7 +111,7 @@ public class EnumUtils {
      * @param enumClass the class of the enum we are working with, not {@code null}.
      * @param values    the values we want to convert, not {@code null}, neither containing {@code null}.
      * @param <E>       the type of the enumeration.
-     * @return a long whose value provides a binary representation of the given set of enum values.
+     * @return A long whose value provides a binary representation of the given set of enum values.
      * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}.
      * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values,
      *                                  or if any {@code values} {@code null}.
@@ -139,7 +139,7 @@ public class EnumUtils {
      * @param enumClass the class of the enum we are working with, not {@code null}.
      * @param values    the values we want to convert, not {@code null}, neither containing {@code null}.
      * @param <E>       the type of the enumeration.
-     * @return a long[] whose values provide a binary representation of the given set of enum values
+     * @return A long[] whose values provide a binary representation of the given set of enum values
      *         with the least significant digits rightmost.
      * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}.
      * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}.
@@ -169,7 +169,7 @@ public class EnumUtils {
      * @param enumClass the class of the enum we are working with, not {@code null}.
      * @param values    the values we want to convert, not {@code null}, neither containing {@code null}.
      * @param <E>       the type of the enumeration.
-     * @return a long[] whose values provide a binary representation of the given set of enum values
+     * @return A long[] whose values provide a binary representation of the given set of enum values
      *         with the least significant digits rightmost.
      * @throws NullPointerException if {@code enumClass} or {@code values} is {@code null}.
      * @throws IllegalArgumentException if {@code enumClass} is not an enum class, or if any {@code values} {@code null}.
@@ -339,7 +339,7 @@ public class EnumUtils {
      * @param value         the enum name, null returns default enum.
      * @param toIntFunction the function that gets an int for an enum for comparison to {@code value}.
      * @param defaultEnum   the default enum.
-     * @return an enum, default enum if not found.
+     * @return An enum, default enum if not found.
      * @since 3.18.0
      */
     public static <E extends Enum<E>> E getFirstEnum(final Class<E> enumClass, final int value, final ToIntFunction<E> toIntFunction, final E defaultEnum) {
@@ -360,7 +360,7 @@ public class EnumUtils {
      * @param enumName    the enum name, null returns default enum.
      * @param stringFunction the function that gets the string for an enum for comparison to {@code enumName}.
      * @param defaultEnum the default enum.
-     * @return an enum, default enum if not found.
+     * @return An enum, default enum if not found.
      * @since 3.13.0
      */
     public static <E extends Enum<E>> E getFirstEnumIgnoreCase(final Class<E> enumClass, final String enumName, final Function<E, String> stringFunction,
@@ -418,7 +418,7 @@ public class EnumUtils {
      * @param enumClass the class of the enum we are working with, not {@code null}.
      * @param value     the long value representation of a set of enum values.
      * @param <E>       the type of the enumeration.
-     * @return a set of enum values.
+     * @return A set of enum values.
      * @throws NullPointerException if {@code enumClass} is {@code null}.
      * @throws IllegalArgumentException if {@code enumClass} is not an enum class or has more than 64 values.
      * @since 3.0.1
@@ -436,7 +436,7 @@ public class EnumUtils {
      * @param enumClass the class of the enum we are working with, not {@code null}.
      * @param values     the long[] bearing the representation of a set of enum values, the least significant digits rightmost, not {@code null}.
      * @param <E>       the type of the enumeration.
-     * @return a set of enum values.
+     * @return A set of enum values.
      * @throws NullPointerException if {@code enumClass} is {@code null}.
      * @throws IllegalArgumentException if {@code enumClass} is not an enum class.
      * @since 3.2

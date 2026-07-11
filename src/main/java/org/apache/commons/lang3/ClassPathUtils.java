@@ -34,7 +34,7 @@ public class ClassPathUtils {
      * Converts a package name to a Java path ('/').
      *
      * @param path the source path.
-     * @return a package name.
+     * @return A package name.
      * @throws NullPointerException if {@code path} is null.
      * @since 3.13.0
      */
@@ -46,7 +46,7 @@ public class ClassPathUtils {
      * Converts a Java path ('/') to a package name.
      *
      * @param path the source path.
-     * @return a package name.
+     * @return A package name.
      * @throws NullPointerException if {@code path} is null.
      * @since 3.13.0
      */

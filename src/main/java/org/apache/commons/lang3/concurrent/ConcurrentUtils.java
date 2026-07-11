@@ -103,7 +103,7 @@ public class ConcurrentUtils {
      * not, an exception is thrown.
      *
      * @param ex the {@link Throwable} to check
-     * @return a flag whether the passed in exception is a checked exception
+     * @return A flag whether the passed in exception is a checked exception
      * @throws IllegalArgumentException if the {@link Throwable} is not a
      * checked exception
      */
@@ -124,7 +124,7 @@ public class ConcurrentUtils {
      *
      * @param <T> The type of the value used by this {@link Future} object
      * @param value  the constant value to return, may be null
-     * @return an instance of Future that will return the value, never null
+     * @return An instance of Future that will return the value, never null
      */
     public static <T> Future<T> constantFuture(final T value) {
         return new ConstantFuture<>(value);
@@ -203,7 +203,7 @@ public class ConcurrentUtils {
      * </ul>
      *
      * @param ex the exception to be processed
-     * @return a {@link ConcurrentException} with the checked cause
+     * @return A {@link ConcurrentException} with the checked cause
      */
     public static ConcurrentException extractCause(final ExecutionException ex) {
         if (ex == null || ex.getCause() == null) {
@@ -223,7 +223,7 @@ public class ConcurrentUtils {
      * want to deal with checked exceptions.
      *
      * @param ex the exception to be processed
-     * @return a {@link ConcurrentRuntimeException} with the checked cause
+     * @return A {@link ConcurrentRuntimeException} with the checked cause
      */
     public static ConcurrentRuntimeException extractCauseUnchecked(final ExecutionException ex) {
         if (ex == null || ex.getCause() == null) {

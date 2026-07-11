@@ -42,7 +42,7 @@ public interface UncheckedFuture<V> extends Future<V> {
      *
      * @param <T> The result type returned by the Futures' {@link #get()} and {@link #get(long, TimeUnit)} methods.
      * @param futures The Futures to uncheck.
-     * @return a new stream.
+     * @return A new stream.
      */
     static <T> Stream<UncheckedFuture<T>> map(final Collection<Future<T>> futures) {
         return futures.stream().map(UncheckedFuture::on);
@@ -53,7 +53,7 @@ public interface UncheckedFuture<V> extends Future<V> {
      *
      * @param <T> The result type returned by the Futures' {@link #get()} and {@link #get(long, TimeUnit)} methods.
      * @param futures The Futures to uncheck.
-     * @return a new collection.
+     * @return A new collection.
      */
     static <T> Collection<UncheckedFuture<T>> on(final Collection<Future<T>> futures) {
         return map(futures).collect(Collectors.toList());
@@ -64,7 +64,7 @@ public interface UncheckedFuture<V> extends Future<V> {
      *
      * @param <T> The result type returned by this Future's {@link #get()} and {@link #get(long, TimeUnit)} methods.
      * @param future The Future to uncheck.
-     * @return a new instance.
+     * @return A new instance.
      */
     static <T> UncheckedFuture<T> on(final Future<T> future) {
         return new UncheckedFutureImpl<>(future);

@@ -31,7 +31,7 @@ public interface FailableLongSupplier<E extends Throwable> {
     /**
      * Supplies a long.
      *
-     * @return a result
+     * @return A result
      * @throws E if the supplier fails
      */
     long getAsLong() throws E;

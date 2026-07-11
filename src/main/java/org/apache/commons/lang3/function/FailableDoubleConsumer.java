@@ -56,7 +56,7 @@ public interface FailableDoubleConsumer<E extends Throwable> {
      * Returns a composed {@link FailableDoubleConsumer} like {@link DoubleConsumer#andThen(DoubleConsumer)}.
      *
      * @param after the operation to perform after this one.
-     * @return a composed {@link FailableDoubleConsumer} like {@link DoubleConsumer#andThen(DoubleConsumer)}.
+     * @return A composed {@link FailableDoubleConsumer} like {@link DoubleConsumer#andThen(DoubleConsumer)}.
      * @throws NullPointerException when {@code after} is null.
      */
     default FailableDoubleConsumer<E> andThen(final FailableDoubleConsumer<E> after) {

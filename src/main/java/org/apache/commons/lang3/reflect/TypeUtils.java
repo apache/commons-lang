@@ -416,7 +416,7 @@ public class TypeUtils {
      *
      * @param cls                    the class whose type parameters are to be determined, not {@code null}.
      * @param superParameterizedType the super type from which {@code cls}'s type arguments are to be determined, not {@code null}.
-     * @return a {@link Map} of the type assignments that could be determined for the type variables in each type in the inheritance hierarchy from {@code type}
+     * @return A {@link Map} of the type assignments that could be determined for the type variables in each type in the inheritance hierarchy from {@code type}
      *         to {@code toClass} inclusive.
      * @throws NullPointerException if either {@code cls} or {@code superParameterizedType} is {@code null}.
      */
@@ -646,7 +646,7 @@ public class TypeUtils {
      * {@link TypeVariable#getBounds()} passed into {@link #normalizeUpperBounds}.
      *
      * @param typeVariable the subject type variable, not {@code null}.
-     * @return a non-empty array containing the bounds of the type variable, which could be {@link Object}.
+     * @return A non-empty array containing the bounds of the type variable, which could be {@link Object}.
      * @throws NullPointerException if {@code typeVariable} is {@code null}.
      */
     public static Type[] getImplicitBounds(final TypeVariable<?> typeVariable) {
@@ -658,7 +658,7 @@ public class TypeUtils {
      * of {@link WildcardType#getLowerBounds()}.
      *
      * @param wildcardType the subject wildcard type, not {@code null}.
-     * @return a non-empty array containing the lower bounds of the wildcard type, which could be null.
+     * @return A non-empty array containing the lower bounds of the wildcard type, which could be null.
      * @throws NullPointerException if {@code wildcardType} is {@code null}.
      */
     public static Type[] getImplicitLowerBounds(final WildcardType wildcardType) {
@@ -672,7 +672,7 @@ public class TypeUtils {
      * result of {@link WildcardType#getUpperBounds()} passed into {@link #normalizeUpperBounds}.
      *
      * @param wildcardType the subject wildcard type, not {@code null}.
-     * @return a non-empty array containing the upper bounds of the wildcard type.
+     * @return A non-empty array containing the upper bounds of the wildcard type.
      * @throws NullPointerException if {@code wildcardType} is {@code null}.
      */
     public static Type[] getImplicitUpperBounds(final WildcardType wildcardType) {
@@ -796,7 +796,7 @@ public class TypeUtils {
      * arguments are returned in a {@link Map} specifying the argument type for each {@link TypeVariable}.
      *
      * @param type specifies the subject parameterized type from which to harvest the parameters.
-     * @return a {@link Map} of the type arguments to their respective type variables.
+     * @return A {@link Map} of the type arguments to their respective type variables.
      */
     public static Map<TypeVariable<?>, Type> getTypeArguments(final ParameterizedType type) {
         return getTypeArguments(type, getRawType(type), null);
@@ -878,7 +878,7 @@ public class TypeUtils {
      *
      * @param type    the type from which to determine the type parameters of {@code toClass}
      * @param toClass the class whose type parameters are to be determined based on the subtype {@code type}
-     * @return a {@link Map} of the type assignments for the type variables in each type in the inheritance hierarchy from {@code type} to {@code toClass}
+     * @return A {@link Map} of the type assignments for the type variables in each type in the inheritance hierarchy from {@code type} to {@code toClass}
      *         inclusive.
      */
     public static Map<TypeVariable<?>, Type> getTypeArguments(final Type type, final Class<?> toClass) {
@@ -1363,7 +1363,7 @@ public class TypeUtils {
      * }</pre>
      *
      * @param bounds an array of types representing the upper bounds of either {@link WildcardType} or {@link TypeVariable}, not {@code null}.
-     * @return an array containing the values from {@code bounds} minus the redundant types.
+     * @return An array containing the values from {@code bounds} minus the redundant types.
      * @throws NullPointerException if {@code bounds} is {@code null}.
      */
     public static Type[] normalizeUpperBounds(final Type[] bounds) {
@@ -1726,7 +1726,7 @@ public class TypeUtils {
     /**
      * Creates a new {@link WildcardTypeBuilder}.
      *
-     * @return a new {@link WildcardTypeBuilder}.
+     * @return A new {@link WildcardTypeBuilder}.
      * @since 3.2
      */
     public static WildcardTypeBuilder wildcardType() {

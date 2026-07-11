@@ -98,7 +98,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
         /**
          * Builds a new configured {@link ReflectionDiffBuilder}.
          *
-         * @return a new configured {@link ReflectionDiffBuilder}.
+         * @return A new configured {@link ReflectionDiffBuilder}.
          */
         public ReflectionDiffBuilder<T> build() {
             return new ReflectionDiffBuilder<>(diffBuilder, excludeFieldNames);
@@ -132,7 +132,7 @@ public class ReflectionDiffBuilder<T> implements Builder<DiffResult<T>> {
      * Constructs a new {@link Builder}.
      *
      * @param <T> type of the left and right object.
-     * @return a new {@link Builder}.
+     * @return A new {@link Builder}.
      * @since 3.15.0
      */
     public static <T> Builder<T> builder() {

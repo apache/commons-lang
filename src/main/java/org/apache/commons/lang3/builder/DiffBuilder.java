@@ -98,7 +98,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         /**
          * Builds a new configured {@link DiffBuilder}.
          *
-         * @return a new configured {@link DiffBuilder}.
+         * @return A new configured {@link DiffBuilder}.
          */
         public DiffBuilder<T> build() {
             return new DiffBuilder<>(left, right, style, testObjectsEquals, toStringFormat);
@@ -203,7 +203,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      * Constructs a new {@link Builder}.
      *
      * @param <T> type of the left and right object.
-     * @return a new {@link Builder}.
+     * @return A new {@link Builder}.
      * @since 3.15.0
      */
     public static <T> Builder<T> builder() {
@@ -589,7 +589,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     /**
      * Builds a {@link DiffResult} based on the differences appended to this builder.
      *
-     * @return a {@link DiffResult} containing the differences between the two objects.
+     * @return A {@link DiffResult} containing the differences between the two objects.
      */
     @Override
     public DiffResult<T> build() {

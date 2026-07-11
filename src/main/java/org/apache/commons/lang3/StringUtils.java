@@ -6138,7 +6138,7 @@ public class StringUtils {
      *
      * @param repeat the String to repeat, may be null.
      * @param count  number of times to repeat str, negative treated as zero.
-     * @return a new String consisting of the original String repeated, {@code null} if null String input.
+     * @return A new String consisting of the original String repeated, {@code null} if null String input.
      */
     public static String repeat(final String repeat, final int count) {
         // Performance tuned for 2.0 (JDK1.4)
@@ -6197,7 +6197,7 @@ public class StringUtils {
      * @param repeat    the String to repeat, may be null.
      * @param separator the String to inject, may be null.
      * @param count     number of times to repeat str, negative treated as zero.
-     * @return a new String consisting of the original String repeated, {@code null} if null String input.
+     * @return A new String consisting of the original String repeated, {@code null} if null String input.
      * @since 2.5
      */
     public static String repeat(final String repeat, final String separator, final int count) {
@@ -7115,7 +7115,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to parse, may be null.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      */
     public static String[] split(final String str) {
         return split(str, null, -1);
@@ -7144,7 +7144,7 @@ public class StringUtils {
      *
      * @param str           the String to parse, may be null.
      * @param separatorChar the character used as the delimiter.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      * @since 2.0
      */
     public static String[] split(final String str, final char separatorChar) {
@@ -7174,7 +7174,7 @@ public class StringUtils {
      *
      * @param str            the String to parse, may be null.
      * @param separatorChars the characters used as the delimiters, {@code null} splits on whitespace.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      */
     public static String[] split(final String str, final String separatorChars) {
         return splitWorker(str, separatorChars, -1, false);
@@ -7208,7 +7208,7 @@ public class StringUtils {
      * @param str            the String to parse, may be null.
      * @param separatorChars the characters used as the delimiters, {@code null} splits on whitespace.
      * @param max            the maximum number of elements to include in the array. A zero or negative value implies no limit.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      */
     public static String[] split(final String str, final String separatorChars, final int max) {
         return splitWorker(str, separatorChars, max, false);
@@ -7231,7 +7231,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to split, may be {@code null}.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      * @see Character#getType(int)
      * @since 2.4
      */
@@ -7247,7 +7247,7 @@ public class StringUtils {
      *
      * @param str       the String to split, may be {@code null}.
      * @param camelCase whether to use so-called "camel-case" for letter types.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      * @since 2.4
      */
     private static String[] splitByCharacterType(final String str, final boolean camelCase) {
@@ -7304,7 +7304,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to split, may be {@code null}.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      * @see Character#getType(int)
      * @since 2.4
      */
@@ -7334,7 +7334,7 @@ public class StringUtils {
      *
      * @param str       the String to parse, may be null.
      * @param separator String containing the String to be used as a delimiter, {@code null} splits on whitespace.
-     * @return an array of parsed Strings, {@code null} if null String was input.
+     * @return An array of parsed Strings, {@code null} if null String was input.
      */
     public static String[] splitByWholeSeparator(final String str, final String separator) {
         return splitByWholeSeparatorWorker(str, separator, -1, false);
@@ -7364,7 +7364,7 @@ public class StringUtils {
      * @param str       the String to parse, may be null.
      * @param separator String containing the String to be used as a delimiter, {@code null} splits on whitespace.
      * @param max       the maximum number of elements to include in the returned array. A zero or negative value implies no limit.
-     * @return an array of parsed Strings, {@code null} if null String was input.
+     * @return An array of parsed Strings, {@code null} if null String was input.
      */
     public static String[] splitByWholeSeparator(final String str, final String separator, final int max) {
         return splitByWholeSeparatorWorker(str, separator, max, false);
@@ -7393,7 +7393,7 @@ public class StringUtils {
      *
      * @param str       the String to parse, may be null.
      * @param separator String containing the String to be used as a delimiter, {@code null} splits on whitespace.
-     * @return an array of parsed Strings, {@code null} if null String was input.
+     * @return An array of parsed Strings, {@code null} if null String was input.
      * @since 2.4
      */
     public static String[] splitByWholeSeparatorPreserveAllTokens(final String str, final String separator) {
@@ -7425,7 +7425,7 @@ public class StringUtils {
      * @param str       the String to parse, may be null.
      * @param separator String containing the String to be used as a delimiter, {@code null} splits on whitespace.
      * @param max       the maximum number of elements to include in the returned array. A zero or negative value implies no limit.
-     * @return an array of parsed Strings, {@code null} if null String was input.
+     * @return An array of parsed Strings, {@code null} if null String was input.
      * @since 2.4
      */
     public static String[] splitByWholeSeparatorPreserveAllTokens(final String str, final String separator, final int max) {
@@ -7440,7 +7440,7 @@ public class StringUtils {
      * @param max               the maximum number of elements to include in the returned array. A zero or negative value implies no limit.
      * @param preserveAllTokens if {@code true}, adjacent separators are treated as empty token separators; if {@code false}, adjacent separators are treated as
      *                          one separator.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      * @since 2.4
      */
     private static String[] splitByWholeSeparatorWorker(final String str, final String separator, final int max, final boolean preserveAllTokens) {
@@ -7525,7 +7525,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str the String to parse, may be {@code null}.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      * @since 2.1
      */
     public static String[] splitPreserveAllTokens(final String str) {
@@ -7562,7 +7562,7 @@ public class StringUtils {
      *
      * @param str           the String to parse, may be {@code null}.
      * @param separatorChar the character used as the delimiter, {@code null} splits on whitespace.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      * @since 2.1
      */
     public static String[] splitPreserveAllTokens(final String str, final char separatorChar) {
@@ -7599,7 +7599,7 @@ public class StringUtils {
      *
      * @param str            the String to parse, may be {@code null}.
      * @param separatorChars the characters used as the delimiters, {@code null} splits on whitespace.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      * @since 2.1
      */
     public static String[] splitPreserveAllTokens(final String str, final String separatorChars) {
@@ -7639,7 +7639,7 @@ public class StringUtils {
      * @param str            the String to parse, may be {@code null}.
      * @param separatorChars the characters used as the delimiters, {@code null} splits on whitespace.
      * @param max            the maximum number of elements to include in the array. A zero or negative value implies no limit.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      * @since 2.1
      */
     public static String[] splitPreserveAllTokens(final String str, final String separatorChars, final int max) {
@@ -7665,7 +7665,7 @@ public class StringUtils {
      * @param separatorChar     the separate character.
      * @param preserveAllTokens if {@code true}, adjacent separators are treated as empty token separators; if {@code false}, adjacent separators are treated as
      *                          one separator.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      */
     private static String[] splitWorker(final String str, final char separatorChar, final boolean preserveAllTokens) {
         // Performance tuned for 2.0 (JDK1.4)
@@ -7709,7 +7709,7 @@ public class StringUtils {
      * @param max               the maximum number of elements to include in the array. A zero or negative value implies no limit.
      * @param preserveAllTokens if {@code true}, adjacent separators are treated as empty token separators; if {@code false}, adjacent separators are treated as
      *                          one separator.
-     * @return an array of parsed Strings, {@code null} if null String input.
+     * @return An array of parsed Strings, {@code null} if null String input.
      */
     private static String[] splitWorker(final String str, final String separatorChars, final int max, final boolean preserveAllTokens) {
         // Performance tuned for 2.0 (JDK1.4)
@@ -8649,7 +8649,7 @@ public class StringUtils {
      * @param str   the String containing the substrings, null returns null, empty returns empty.
      * @param open  the String identifying the start of the substring, empty returns null.
      * @param close the String identifying the end of the substring, empty returns null.
-     * @return a String Array of substrings, or {@code null} if no match.
+     * @return A String Array of substrings, or {@code null} if no match.
      * @since 2.3
      */
     public static String[] substringsBetween(final String str, final String open, final String close) {
@@ -8747,7 +8747,7 @@ public class StringUtils {
      * </pre>
      *
      * @param cs the character sequence to convert.
-     * @return an array of code points.
+     * @return An array of code points.
      * @since 3.6
      */
     public static int[] toCodePoints(final CharSequence cs) {
@@ -8765,7 +8765,7 @@ public class StringUtils {
      *
      * @param bytes   the byte array to read from.
      * @param charset the encoding to use, if null then use the platform default.
-     * @return a new String.
+     * @return A new String.
      * @throws NullPointerException if {@code bytes} is null
      * @since 3.2
      * @since 3.3 No longer throws {@link UnsupportedEncodingException}.
@@ -8801,7 +8801,7 @@ public class StringUtils {
      *
      * @param bytes       the byte array to read from.
      * @param charsetName the encoding to use, if null then use the platform default.
-     * @return a new String.
+     * @return A new String.
      * @throws NullPointerException if the input is null.
      * @since 3.1
      * @deprecated Use {@link StringUtils#toEncodedString(byte[], Charset)} instead of String constants in your code.
@@ -9195,7 +9195,7 @@ public class StringUtils {
      * Returns the string representation of the {@code char} array or null.
      *
      * @param value the character array.
-     * @return a String or null.
+     * @return A String or null.
      * @see String#valueOf(char[])
      * @since 3.9
      */

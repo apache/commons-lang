@@ -1169,7 +1169,7 @@ class ToStringBuilderTest extends AbstractBuilderTest {
      * Create the same toString() as Object.toString().
      *
      * @param o the object to create the string for.
-     * @return a String in the Object.toString format.
+     * @return A String in the Object.toString format.
      */
     private String toBaseString(final Object o) {
         return o.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(o));

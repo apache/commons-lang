@@ -36,7 +36,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * Returns a unary operator that always returns its input argument.
      *
      * @param <E> The kind of thrown exception or error.
-     * @return a unary operator that always returns its input argument
+     * @return A unary operator that always returns its input argument
      */
     static <E extends Throwable> FailableDoubleUnaryOperator<E> identity() {
         return t -> t;
@@ -58,7 +58,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * {@link DoubleUnaryOperator#andThen(DoubleUnaryOperator)}.
      *
      * @param after the operator to apply after this one.
-     * @return a composed {@link FailableDoubleUnaryOperator} like
+     * @return A composed {@link FailableDoubleUnaryOperator} like
      *         {@link DoubleUnaryOperator#andThen(DoubleUnaryOperator)}.
      * @throws NullPointerException if after is null.
      * @see #compose(FailableDoubleUnaryOperator)
@@ -82,7 +82,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * {@link DoubleUnaryOperator#compose(DoubleUnaryOperator)}.
      *
      * @param before the operator to apply before this one.
-     * @return a composed {@link FailableDoubleUnaryOperator} like
+     * @return A composed {@link FailableDoubleUnaryOperator} like
      *         {@link DoubleUnaryOperator#compose(DoubleUnaryOperator)}.
      * @throws NullPointerException if before is null.
      * @see #andThen(FailableDoubleUnaryOperator)

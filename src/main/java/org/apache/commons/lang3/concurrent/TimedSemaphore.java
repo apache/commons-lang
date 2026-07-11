@@ -193,7 +193,7 @@ public class TimedSemaphore {
     /**
      * Constructs a new Builder.
      *
-     * @return a new Builder.
+     * @return A new Builder.
      * @since 3.20.0
      */
     public static Builder builder() {
@@ -308,7 +308,7 @@ public class TimedSemaphore {
      * Internal helper method for acquiring a permit. This method checks whether currently a permit can be acquired and - if so - increases the internal
      * counter. The return value indicates whether a permit could be acquired. This method must be called with the lock of this object held.
      *
-     * @return a flag whether a permit could be acquired.
+     * @return A flag whether a permit could be acquired.
      */
     private boolean acquirePermit() {
         if (getLimit() <= NO_LIMIT || acquireCount < getLimit()) {
@@ -412,7 +412,7 @@ public class TimedSemaphore {
      * Tests whether the {@link #shutdown()} method has been called on this object. If this method returns <strong>true</strong>, this instance cannot be used
      * any longer.
      *
-     * @return a flag whether a shutdown has been performed.
+     * @return A flag whether a shutdown has been performed.
      */
     public synchronized boolean isShutdown() {
         return shutdown;
@@ -465,7 +465,7 @@ public class TimedSemaphore {
      * Starts the timer. This method is called when {@link #acquire()} is called for the first time. It schedules a task to be executed at fixed rate to monitor
      * the time period specified.
      *
-     * @return a future object representing the task scheduled.
+     * @return A future object representing the task scheduled.
      */
     protected ScheduledFuture<?> startTimer() {
         return getExecutorService().scheduleAtFixedRate(this::endOfPeriod, getPeriod(), getPeriod(), getUnit());

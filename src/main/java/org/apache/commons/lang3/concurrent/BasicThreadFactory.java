@@ -151,7 +151,7 @@ public class BasicThreadFactory implements ThreadFactory {
         /**
          * Sets the daemon flag for the new {@link BasicThreadFactory} to {@code true} causing a new thread factory to create daemon threads.
          *
-         * @return a reference to this {@link Builder}.
+         * @return A reference to this {@link Builder}.
          * @since 3.18.0
          */
         public Builder daemon() {
@@ -164,7 +164,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * threads.
          *
          * @param daemon the value of the daemon flag.
-         * @return a reference to this {@link Builder}.
+         * @return A reference to this {@link Builder}.
          */
         public Builder daemon(final boolean daemon) {
             this.daemon = Boolean.valueOf(daemon);
@@ -181,7 +181,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * </p>
          *
          * @param namingPattern the naming pattern (must not be {@code null}).
-         * @return a reference to this {@link Builder}.
+         * @return A reference to this {@link Builder}.
          * @throws NullPointerException if the naming pattern is {@code null}.
          */
         public Builder namingPattern(final String namingPattern) {
@@ -194,7 +194,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * BasicThreadFactory}.
          *
          * @param priority the priority.
-         * @return a reference to this {@link Builder}.
+         * @return A reference to this {@link Builder}.
          */
         public Builder priority(final int priority) {
             this.priority = Integer.valueOf(priority);
@@ -219,7 +219,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * Sets the uncaught exception handler for the threads created by the new {@link BasicThreadFactory}.
          *
          * @param exceptionHandler the {@link UncaughtExceptionHandler} (must not be {@code null}).
-         * @return a reference to this {@link Builder}.
+         * @return A reference to this {@link Builder}.
          * @throws NullPointerException if the exception handler is {@code null}.
          */
         public Builder uncaughtExceptionHandler(
@@ -233,7 +233,7 @@ public class BasicThreadFactory implements ThreadFactory {
          * BasicThreadFactory}.
          *
          * @param factory the wrapped {@link ThreadFactory} (must not be {@code null})
-         * @return a reference to this {@link Builder}
+         * @return A reference to this {@link Builder}
          * @throws NullPointerException if the passed in {@link ThreadFactory} is {@code null}
          */
         public Builder wrappedFactory(final ThreadFactory factory) {
@@ -245,7 +245,7 @@ public class BasicThreadFactory implements ThreadFactory {
     /**
      * Creates a new builder.
      *
-     * @return a new builder.
+     * @return A new builder.
      * @since 3.18.0
      */
     public static Builder builder() {

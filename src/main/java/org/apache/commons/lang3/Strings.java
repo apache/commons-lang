@@ -275,7 +275,7 @@ public abstract class Strings {
     /**
      * Constructs a new {@link Builder} instance.
      *
-     * @return a new {@link Builder} instance.
+     * @return A new {@link Builder} instance.
      */
     public static final Builder builder() {
         return new Builder();

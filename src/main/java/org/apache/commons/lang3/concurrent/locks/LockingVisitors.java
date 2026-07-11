@@ -506,7 +506,7 @@ public class LockingVisitors {
          * Creates a new builder.
          *
          * @param <O> The wrapped object type.
-         * @return a new builder.
+         * @return A new builder.
          * @since 3.18.0
          */
         public static <O> Builder<O> builder() {
@@ -579,7 +579,7 @@ public class LockingVisitors {
          * Creates a new builder.
          *
          * @param <O> The wrapped object type.
-         * @return a new builder.
+         * @return A new builder.
          * @since 3.18.0
          */
         public static <O> Builder<O> builder() {
@@ -654,7 +654,7 @@ public class LockingVisitors {
          * Creates a new builder.
          *
          * @param <O> The wrapped object type.
-         * @return a new builder.
+         * @return A new builder.
          * @since 3.18.0
          */
         public static <O> Builder<O> builder() {

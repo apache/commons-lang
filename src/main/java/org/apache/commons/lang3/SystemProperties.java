@@ -1610,7 +1610,7 @@ public final class SystemProperties {
      * @param clazz           The Class to use for the SimpleClassName.
      * @param key             The subkey.
      * @param defaultIfAbsent The default value.
-     * @return an int or {@code defaultIfAbsent}'s value.
+     * @return An int or {@code defaultIfAbsent}'s value.
      * @see Boolean#parseBoolean(String)
      * @see Class#getSimpleName()
      * @since 3.19.0
@@ -1630,7 +1630,7 @@ public final class SystemProperties {
      *
      * @param key             The key.
      * @param defaultIfAbsent The default value.
-     * @return a {@code boolean} or {@code defaultIfAbsent}'s value.
+     * @return A {@code boolean} or {@code defaultIfAbsent}'s value.
      * @see Boolean#parseBoolean(String)
      */
     public static boolean getBoolean(final String key, final BooleanSupplier defaultIfAbsent) {
@@ -1950,7 +1950,7 @@ public final class SystemProperties {
      * @param clazz           The Class to use for the SimpleClassName.
      * @param key             The subkey.
      * @param defaultIfAbsent The default value.
-     * @return an int or {@code defaultIfAbsent}'s value.
+     * @return An int or {@code defaultIfAbsent}'s value.
      * @see Integer#parseInt(String)
      * @see Class#getSimpleName()
      * @since 3.19.0
@@ -1970,7 +1970,7 @@ public final class SystemProperties {
      *
      * @param key             The key.
      * @param defaultIfAbsent The default value.
-     * @return an {@code int} or {@code defaultIfAbsent}'s value.
+     * @return An {@code int} or {@code defaultIfAbsent}'s value.
      * @see Integer#parseInt(String)
      */
     public static int getInt(final String key, final IntSupplier defaultIfAbsent) {
@@ -3722,7 +3722,7 @@ public final class SystemProperties {
      * @param clazz           The Class to use for the SimpleClassName.
      * @param key             The subkey.
      * @param defaultIfAbsent The default value.
-     * @return a long or {@code defaultIfAbsent}'s value.
+     * @return A long or {@code defaultIfAbsent}'s value.
      * @see Long#parseLong(String)
      * @see Class#getSimpleName()
      * @since 3.19.0
@@ -3742,7 +3742,7 @@ public final class SystemProperties {
      *
      * @param key             The key.
      * @param defaultIfAbsent The default value.
-     * @return a {@code long} or {@code defaultIfAbsent}'s value.
+     * @return A {@code long} or {@code defaultIfAbsent}'s value.
      * @see Long#parseLong(String)
      */
     public static long getLong(final String key, final LongSupplier defaultIfAbsent) {
@@ -3872,7 +3872,7 @@ public final class SystemProperties {
      *
      * @param key             The key.
      * @param defaultIfAbsent The default value.
-     * @return a {@link Path} or {@code defaultIfAbsent}'s value.
+     * @return A {@link Path} or {@code defaultIfAbsent}'s value.
      * @since 3.20.0
      */
     public static Path getPath(final String key, final Supplier<Path> defaultIfAbsent) {

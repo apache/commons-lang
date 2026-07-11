@@ -265,7 +265,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return a suitable hash code.
+     * @return A suitable hash code.
      */
     @Override
     public int hashCode() {
@@ -368,7 +368,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Gets this mutable as an instance of Short.
      *
-     * @return a Short instance containing the value from this mutable, never null.
+     * @return A Short instance containing the value from this mutable, never null.
      */
     public Short toShort() {
         return Short.valueOf(shortValue());

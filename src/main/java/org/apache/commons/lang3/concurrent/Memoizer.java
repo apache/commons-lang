@@ -141,7 +141,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      * IllegalStateException.
      *
      * @param throwable the throwable to laundered
-     * @return a RuntimeException, Error or an IllegalStateException
+     * @return A RuntimeException, Error or an IllegalStateException
      */
     private RuntimeException launderException(final Throwable throwable) {
         throw new IllegalStateException("Unchecked exception", ExceptionUtils.throwUnchecked(throwable));

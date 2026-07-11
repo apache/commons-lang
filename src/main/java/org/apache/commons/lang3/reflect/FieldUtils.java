@@ -50,7 +50,7 @@ public class FieldUtils {
      *
      * @param cls
      *            the {@link Class} to query
-     * @return an array of Fields (possibly empty).
+     * @return An array of Fields (possibly empty).
      * @throws NullPointerException
      *             if the class is {@code null}.
      * @since 3.2
@@ -64,7 +64,7 @@ public class FieldUtils {
      *
      * @param cls
      *            the {@link Class} to query
-     * @return a list of Fields (possibly empty).
+     * @return A list of Fields (possibly empty).
      * @throws NullPointerException
      *             if the class is {@code null}.
      * @since 3.2
@@ -234,7 +234,7 @@ public class FieldUtils {
      *            the {@link Class} to query.
      * @param annotationCls
      *            the {@link Annotation} that must be present on a field to be matched.
-     * @return a list of Fields (possibly empty).
+     * @return A list of Fields (possibly empty).
      * @throws NullPointerException
      *            if the class or annotation are {@code null}.
      * @since 3.4
@@ -251,7 +251,7 @@ public class FieldUtils {
      *            the {@link Class} to query.
      * @param annotationCls
      *            the {@link Annotation} that must be present on a field to be matched
-     * @return an array of Fields (possibly empty).
+     * @return An array of Fields (possibly empty).
      * @throws NullPointerException
      *            if the class or annotation are {@code null}.
      * @since 3.4

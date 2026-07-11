@@ -457,7 +457,7 @@ public class MethodUtils {
      * @param cls            Receiver for {@link Class#getMethod(String, Class...)}.
      * @param name           the name of the method.
      * @param parameterTypes the list of parameters.
-     * @return a Method or {@code null}.
+     * @return A Method or {@code null}.
      * @see SecurityManager#checkPermission
      * @see Class#getMethod(String, Class...)
      * @since 3.15.0
@@ -475,7 +475,7 @@ public class MethodUtils {
      *
      * @param cls           the {@link Class} to query.
      * @param annotationCls the {@link Annotation} that must be present on a method to be matched.
-     * @return a list of Methods (possibly empty).
+     * @return A list of Methods (possibly empty).
      * @throws NullPointerException if the class or annotation are {@code null}.
      * @since 3.4
      */
@@ -490,7 +490,7 @@ public class MethodUtils {
      * @param annotationCls the {@link Annotation} that must be present on a method to be matched.
      * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class should be performed.
      * @param ignoreAccess  determines if non-public methods should be considered.
-     * @return a list of Methods (possibly empty).
+     * @return A list of Methods (possibly empty).
      * @throws NullPointerException if either the class or annotation class is {@code null}.
      * @since 3.6
      */
@@ -513,7 +513,7 @@ public class MethodUtils {
      *
      * @param cls           the {@link Class} to query.
      * @param annotationCls the {@link java.lang.annotation.Annotation} that must be present on a method to be matched.
-     * @return an array of Methods (possibly empty).
+     * @return An array of Methods (possibly empty).
      * @throws NullPointerException if the class or annotation are {@code null}
      * @since 3.4
      */
@@ -528,7 +528,7 @@ public class MethodUtils {
      * @param annotationCls the {@link java.lang.annotation.Annotation} that must be present on a method to be matched.
      * @param searchSupers  determines if a lookup in the entire inheritance hierarchy of the given class should be performed.
      * @param ignoreAccess  determines if non-public methods should be considered.
-     * @return an array of Methods (possibly empty).
+     * @return An array of Methods (possibly empty).
      * @throws NullPointerException if the class or annotation are {@code null}.
      * @since 3.6
      */
@@ -542,7 +542,7 @@ public class MethodUtils {
      *
      * @param method lowest to consider.
      * @param interfacesBehavior whether to search interfaces, {@code null} {@code implies} false.
-     * @return a {@code Set<Method>} in ascending order from subclass to superclass.
+     * @return A {@code Set<Method>} in ascending order from subclass to superclass.
      * @throws NullPointerException if the specified method is {@code null}.
      * @throws SecurityException if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
@@ -1071,7 +1071,7 @@ public class MethodUtils {
      *
      * @param args                 the array of arguments passed to the varags method.
      * @param methodParameterTypes the declared array of method parameter types.
-     * @return an array of the variadic arguments passed to the method.
+     * @return An array of the variadic arguments passed to the method.
      * @throws NoSuchMethodException       Thrown if the constructor could not be found.
      * @throws IllegalAccessException      Thrown if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is
      *                                     inaccessible.

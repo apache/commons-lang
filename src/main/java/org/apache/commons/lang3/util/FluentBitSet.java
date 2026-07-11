@@ -192,7 +192,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * Cloning this {@link BitSet} produces a new {@link BitSet} that is equal to it. The clone of the bit set is another
      * bit set that has exactly the same bits set to {@code true} as this bit set.
      *
-     * @return a clone of this bit set
+     * @return A clone of this bit set
      * @see #size()
      */
     @Override
@@ -257,7 +257,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      *
      * @param fromIndex index of the first bit to include.
      * @param toIndex index after the last bit to include.
-     * @return a new {@link BitSet} from a range of this {@link BitSet}.
+     * @return A new {@link BitSet} from a range of this {@link BitSet}.
      * @throws IndexOutOfBoundsException if {@code fromIndex} is negative, or {@code toIndex} is negative, or
      *         {@code fromIndex} is larger than {@code toIndex}.
      */
@@ -541,7 +541,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * terminal stream operation is undefined.
      * </p>
      *
-     * @return a stream of integers representing set indices.
+     * @return A stream of integers representing set indices.
      * @since 1.8
      */
     public IntStream stream() {
@@ -561,7 +561,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * <li>for all {@code n < 8 * bytes.length}.</li>
      * </ol>
      *
-     * @return a byte array containing a little-endian representation of all the bits in this bit set
+     * @return A byte array containing a little-endian representation of all the bits in this bit set
      */
     public byte[] toByteArray() {
         return bitSet.toByteArray();
@@ -580,7 +580,7 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * <li>for all {@code n < 64 * longs.length}.</li>
      * </ol>
      *
-     * @return a byte array containing a little-endian representation of all the bits in this bit set
+     * @return A byte array containing a little-endian representation of all the bits in this bit set
      */
     public long[] toLongArray() {
         return bitSet.toLongArray();

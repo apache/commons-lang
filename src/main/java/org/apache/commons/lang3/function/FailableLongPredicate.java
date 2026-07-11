@@ -63,7 +63,7 @@ public interface FailableLongPredicate<E extends Throwable> {
      * Returns a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
      *
      * @param other a predicate that will be logically-ANDed with this predicate.
-     * @return a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * @return A composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
      * @throws NullPointerException if other is null
      */
     default FailableLongPredicate<E> and(final FailableLongPredicate<E> other) {
@@ -74,7 +74,7 @@ public interface FailableLongPredicate<E extends Throwable> {
     /**
      * Returns a predicate that negates this predicate.
      *
-     * @return a predicate that negates this predicate.
+     * @return A predicate that negates this predicate.
      */
     default FailableLongPredicate<E> negate() {
         return t -> !test(t);
@@ -84,7 +84,7 @@ public interface FailableLongPredicate<E extends Throwable> {
      * Returns a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
      *
      * @param other a predicate that will be logically-ORed with this predicate.
-     * @return a composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
+     * @return A composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
      * @throws NullPointerException if other is null
      */
     default FailableLongPredicate<E> or(final FailableLongPredicate<E> other) {

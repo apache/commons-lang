@@ -30,7 +30,7 @@ public interface ByteSupplier {
     /**
      * Supplies a byte.
      *
-     * @return a result.
+     * @return A result.
      */
     byte getAsByte();
 }

@@ -681,7 +681,7 @@ public class Streams {
      *
      * @param <E> The enumeration element type.
      * @param enumeration The enumeration to stream.
-     * @return a new stream.
+     * @return A new stream.
      * @since 3.13.0
      */
     public static <E> Stream<E> of(final Enumeration<E> enumeration) {
@@ -693,7 +693,7 @@ public class Streams {
      *
      * @param <E> The type of elements in the Iterable.
      * @param iterable the Iterable to stream or null.
-     * @return a new Stream or {@link Stream#empty()} if the Iterable is null.
+     * @return A new Stream or {@link Stream#empty()} if the Iterable is null.
      * @since 3.13.0
      */
     public static <E> Stream<E> of(final Iterable<E> iterable) {
@@ -705,7 +705,7 @@ public class Streams {
      *
      * @param <E> The type of elements in the Iterator.
      * @param iterator the Iterator to stream or null.
-     * @return a new Stream or {@link Stream#empty()} if the Iterator is null.
+     * @return A new Stream or {@link Stream#empty()} if the Iterator is null.
      * @since 3.13.0
      */
     public static <E> Stream<E> of(final Iterator<E> iterator) {
@@ -836,7 +836,7 @@ public class Streams {
      *
      * @param <T> The type of the input elements
      * @param elementType Type of an element in the array.
-     * @return a {@link Collector} which collects all the input elements into an array, in encounter order
+     * @return A {@link Collector} which collects all the input elements into an array, in encounter order
      */
     public static <T> Collector<T, List<T>, T[]> toArray(final Class<T> elementType) {
         return new ArrayCollector<>(elementType);

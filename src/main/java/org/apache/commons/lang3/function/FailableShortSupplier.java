@@ -31,7 +31,7 @@ public interface FailableShortSupplier<E extends Throwable> {
     /**
      * Supplies an int.
      *
-     * @return a result
+     * @return A result
      * @throws E if the supplier fails
      */
     short getAsShort() throws E;

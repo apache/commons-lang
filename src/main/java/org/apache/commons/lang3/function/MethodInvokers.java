@@ -78,7 +78,7 @@ public final class MethodInvokers {
      * @param <T> The type of the first argument to the operation: The type containing the Method.
      * @param <U> The type of the second argument to the operation: The type of the method argument.
      * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
     public static <T, U> BiConsumer<T, U> asBiConsumer(final Method method) {
@@ -103,7 +103,7 @@ public final class MethodInvokers {
      * @param <U> The type of the second argument to the function: the method argument type.
      * @param <R> The type of the result of the function: The method return type.
      * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
     public static <T, U, R> BiFunction<T, U, R> asBiFunction(final Method method) {
@@ -118,7 +118,7 @@ public final class MethodInvokers {
      * @param <T> The type of the first argument to the operation: The type containing the Method.
      * @param <U> The type of the second argument to the operation: The type of the method argument.
      * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
     public static <T, U> FailableBiConsumer<T, U, Throwable> asFailableBiConsumer(final Method method) {
@@ -134,7 +134,7 @@ public final class MethodInvokers {
      * @param <U> The type of the second argument to the function: the method argument type.
      * @param <R> The type of the result of the function: The method return type.
      * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
     public static <T, U, R> FailableBiFunction<T, U, R, Throwable> asFailableBiFunction(final Method method) {
@@ -148,7 +148,7 @@ public final class MethodInvokers {
      * @param <T> The type of the first argument to the function: The type containing the method.
      * @param <R> The type of the result of the function: The method return type.
      * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
     public static <T, R> FailableFunction<T, R, Throwable> asFailableFunction(final Method method) {
@@ -164,7 +164,7 @@ public final class MethodInvokers {
      *
      * @param <R> The Method return type.
      * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
     public static <R> FailableSupplier<R, Throwable> asFailableSupplier(final Method method) {
@@ -187,7 +187,7 @@ public final class MethodInvokers {
      * @param <T> The type of the first argument to the function: The type containing the method.
      * @param <R> The type of the result of the function: The method return type.
      * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
     public static <T, R> Function<T, R> asFunction(final Method method) {
@@ -203,7 +203,7 @@ public final class MethodInvokers {
      * @param <T> The interface type.
      * @param interfaceClass a class object representing {@code T}.
      * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @return A correctly-typed wrapper for the given target.
      * @see MethodHandleProxies#asInterfaceInstance(Class, MethodHandle)
      */
     public static <T> T asInterfaceInstance(final Class<T> interfaceClass, final Method method) {
@@ -219,7 +219,7 @@ public final class MethodInvokers {
      *
      * @param <R> The Method return type.
      * @param method the method to invoke.
-     * @return a correctly-typed wrapper for the given target.
+     * @return A correctly-typed wrapper for the given target.
      */
     @SuppressWarnings("unchecked")
     public static <R> Supplier<R> asSupplier(final Method method) {

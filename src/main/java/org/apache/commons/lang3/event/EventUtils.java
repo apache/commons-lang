@@ -55,7 +55,7 @@ public class EventUtils {
          * Checks whether a method for the passed in parameters can be found.
          *
          * @param method the listener method invoked.
-         * @return a flag whether the parameters could be matched.
+         * @return A flag whether the parameters could be matched.
          */
         private boolean hasMatchingParametersMethod(final Method method) {
             return MethodUtils.getAccessibleMethod(target.getClass(), methodName, method.getParameterTypes()) != null;

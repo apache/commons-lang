@@ -245,7 +245,7 @@ public class SerializationUtils {
      * Serializes an {@link Object} to a byte array for storage/serialization.
      *
      * @param obj the object to serialize to bytes.
-     * @return a byte[] with the converted Serializable.
+     * @return A byte[] with the converted Serializable.
      * @throws SerializationException (runtime) if the serialization fails.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      */

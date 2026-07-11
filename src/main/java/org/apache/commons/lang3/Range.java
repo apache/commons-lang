@@ -389,7 +389,7 @@ public class Range<T> implements Serializable {
     /**
      * Gets a suitable hash code for the range.
      *
-     * @return a hash code value for this object.
+     * @return A hash code value for this object.
      */
     @Override
     public int hashCode() {

@@ -265,7 +265,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return a suitable hash code.
+     * @return A suitable hash code.
      */
     @Override
     public int hashCode() {
@@ -358,7 +358,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     /**
      * Gets this mutable as an instance of Integer.
      *
-     * @return an Integer instance containing the value from this mutable, never null.
+     * @return An Integer instance containing the value from this mutable, never null.
      */
     public Integer toInteger() {
         return Integer.valueOf(intValue());

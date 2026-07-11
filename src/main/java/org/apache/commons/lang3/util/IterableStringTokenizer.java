@@ -86,7 +86,7 @@ public class IterableStringTokenizer extends StringTokenizer implements Iterable
     /**
      * Returns a new {@code String[]} containing the tokenizer elements.
      *
-     * @return a new {@code String[]}.
+     * @return A new {@code String[]}.
      */
     public String[] toArray() {
         return toList().toArray(ArrayUtils.EMPTY_STRING_ARRAY);
@@ -95,7 +95,7 @@ public class IterableStringTokenizer extends StringTokenizer implements Iterable
     /**
      * Returns a new {@link List} containing the tokenizer elements.
      *
-     * @return a new {@link List}.
+     * @return A new {@link List}.
      */
     public List<String> toList() {
         final List<String> list = new ArrayList<>();
@@ -106,7 +106,7 @@ public class IterableStringTokenizer extends StringTokenizer implements Iterable
     /**
      * Returns a sequential stream on this Iterable instance.
      *
-     * @return a sequential stream on this Iterable instance.
+     * @return A sequential stream on this Iterable instance.
      */
     public Stream<String> toStream() {
         return StreamSupport.stream(spliterator(), false);

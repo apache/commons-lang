@@ -124,7 +124,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * Gets a date formatter instance using the specified style in the default time zone and locale.
      *
      * @param style date style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
-     * @return a localized standard date formatter.
+     * @return A localized standard date formatter.
      * @throws IllegalArgumentException if the Locale has no date pattern defined.
      * @since 2.1
      */
@@ -137,7 +137,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param style  date style: {@link #FULL}, LO{@link #FULL},{@link #MEDIUM}, or {@link #SHORT}.
      * @param locale optional locale, overrides system locale.
-     * @return a localized standard date formatter.
+     * @return A localized standard date formatter.
      * @throws IllegalArgumentException if the Locale has no date pattern defined.
      * @since 2.1
      */
@@ -150,7 +150,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param style    date style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param timeZone optional time zone, overrides time zone of formatted date.
-     * @return a localized standard date formatter.
+     * @return A localized standard date formatter.
      * @throws IllegalArgumentException if the Locale has no date pattern defined.
      * @since 2.1
      */
@@ -164,7 +164,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param style    date style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param timeZone optional time zone, overrides time zone of formatted date.
      * @param locale   optional locale, overrides system locale.
-     * @return a localized standard date formatter.
+     * @return A localized standard date formatter.
      * @throws IllegalArgumentException if the Locale has no date pattern defined.
      */
     public static FastDateFormat getDateInstance(final int style, final TimeZone timeZone, final Locale locale) {
@@ -176,7 +176,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param dateStyle date style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param timeStyle time style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
-     * @return a localized standard date/time formatter.
+     * @return A localized standard date/time formatter.
      * @throws IllegalArgumentException if the Locale has no date/time pattern defined.
      * @since 2.1
      */
@@ -190,7 +190,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param dateStyle date style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param timeStyle time style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param locale    optional locale, overrides system locale.
-     * @return a localized standard date/time formatter.
+     * @return A localized standard date/time formatter.
      * @throws IllegalArgumentException if the Locale has no date/time pattern defined.
      * @since 2.1
      */
@@ -204,7 +204,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param dateStyle date style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param timeStyle time style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param timeZone  optional time zone, overrides time zone of formatted date.
-     * @return a localized standard date/time formatter.
+     * @return A localized standard date/time formatter.
      * @throws IllegalArgumentException if the Locale has no date/time pattern defined.
      * @since 2.1
      */
@@ -219,7 +219,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param timeStyle time style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param timeZone  optional time zone, overrides time zone of formatted date.
      * @param locale    optional locale, overrides system locale.
-     * @return a localized standard date/time formatter.
+     * @return A localized standard date/time formatter.
      * @throws IllegalArgumentException if the Locale has no date/time pattern defined.
      */
     public static FastDateFormat getDateTimeInstance(final int dateStyle, final int timeStyle, final TimeZone timeZone, final Locale locale) {
@@ -229,7 +229,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * Gets a formatter instance using the default pattern in the default locale.
      *
-     * @return a date/time formatter.
+     * @return A date/time formatter.
      */
     public static FastDateFormat getInstance() {
         return CACHE.getInstance();
@@ -239,7 +239,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * Gets a formatter instance using the specified pattern in the default locale and time zone.
      *
      * @param pattern {@link java.text.SimpleDateFormat} compatible pattern.
-     * @return a pattern based date/time formatter.
+     * @return A pattern based date/time formatter.
      * @throws IllegalArgumentException if pattern is invalid.
      */
     public static FastDateFormat getInstance(final String pattern) {
@@ -251,7 +251,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param pattern {@link java.text.SimpleDateFormat} compatible pattern.
      * @param locale  optional locale, overrides system locale.
-     * @return a pattern based date/time formatter.
+     * @return A pattern based date/time formatter.
      * @throws IllegalArgumentException if pattern is invalid.
      */
     public static FastDateFormat getInstance(final String pattern, final Locale locale) {
@@ -263,7 +263,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern.
      * @param timeZone optional time zone, overrides time zone of formatted date.
-     * @return a pattern based date/time formatter.
+     * @return A pattern based date/time formatter.
      * @throws IllegalArgumentException if pattern is invalid.
      */
     public static FastDateFormat getInstance(final String pattern, final TimeZone timeZone) {
@@ -276,7 +276,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern.
      * @param timeZone optional time zone, overrides time zone of formatted date.
      * @param locale   optional locale, overrides system locale.
-     * @return a pattern based date/time formatter.
+     * @return A pattern based date/time formatter.
      * @throws IllegalArgumentException if pattern is invalid or {@code null}.
      */
     public static FastDateFormat getInstance(final String pattern, final TimeZone timeZone, final Locale locale) {
@@ -287,7 +287,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * Gets a time formatter instance using the specified style in the default time zone and locale.
      *
      * @param style time style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
-     * @return a localized standard time formatter.
+     * @return A localized standard time formatter.
      * @throws IllegalArgumentException if the Locale has no time pattern defined.
      * @since 2.1
      */
@@ -300,7 +300,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param style  time style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param locale optional locale, overrides system locale.
-     * @return a localized standard time formatter.
+     * @return A localized standard time formatter.
      * @throws IllegalArgumentException if the Locale has no time pattern defined.
      * @since 2.1
      */
@@ -313,7 +313,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      *
      * @param style    time style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param timeZone optional time zone, overrides time zone of formatted time.
-     * @return a localized standard time formatter.
+     * @return A localized standard time formatter.
      * @throws IllegalArgumentException if the Locale has no time pattern defined.
      * @since 2.1
      */
@@ -327,7 +327,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param style    time style: {@link #FULL}, {@link #LONG}, {@link #MEDIUM}, or {@link #SHORT}.
      * @param timeZone optional time zone, overrides time zone of formatted time.
      * @param locale   optional locale, overrides system locale.
-     * @return a localized standard time formatter.
+     * @return A localized standard time formatter.
      * @throws IllegalArgumentException if the Locale has no time pattern defined.
      */
     public static FastDateFormat getTimeInstance(final int style, final TimeZone timeZone, final Locale locale) {
@@ -576,7 +576,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * Returns a hash code compatible with equals.
      *
-     * @return a hash code compatible with equals.
+     * @return A hash code compatible with equals.
      */
     @Override
     public int hashCode() {
@@ -626,7 +626,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
     /**
      * Gets a debugging string version of this formatter.
      *
-     * @return a debug string.
+     * @return A debug string.
      */
     @Override
     public String toString() {

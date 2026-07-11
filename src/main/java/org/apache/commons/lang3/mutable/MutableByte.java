@@ -276,7 +276,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return a suitable hash code.
+     * @return A suitable hash code.
      */
     @Override
     public int hashCode() {
@@ -368,7 +368,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     /**
      * Gets this mutable as an instance of Byte.
      *
-     * @return a Byte instance containing the value from this mutable.
+     * @return A Byte instance containing the value from this mutable.
      */
     public Byte toByte() {
         return Byte.valueOf(byteValue());

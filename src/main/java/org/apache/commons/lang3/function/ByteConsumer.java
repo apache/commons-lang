@@ -55,7 +55,7 @@ public interface ByteConsumer {
      * operation will not be performed.
      *
      * @param after the operation to perform after this operation
-     * @return a composed {@link ByteConsumer} that performs in sequence this operation followed by the {@code after} operation
+     * @return A composed {@link ByteConsumer} that performs in sequence this operation followed by the {@code after} operation
      * @throws NullPointerException if {@code after} is null
      */
     default ByteConsumer andThen(final ByteConsumer after) {

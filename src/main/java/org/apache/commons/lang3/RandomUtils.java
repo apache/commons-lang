@@ -421,7 +421,7 @@ public class RandomUtils {
      * Generates a {@code long} value between 0 (inclusive) and the specified value (exclusive).
      *
      * @param n Bound on the random number to be returned. Must be positive.
-     * @return a random {@code long} value between 0 (inclusive) and {@code n} (exclusive).
+     * @return A random {@code long} value between 0 (inclusive) and {@code n} (exclusive).
      */
     private long randomLong(final long n) {
         // Extracted from o.a.c.rng.core.BaseProvider.nextLong(long)

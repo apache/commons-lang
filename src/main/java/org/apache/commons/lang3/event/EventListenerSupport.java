@@ -143,7 +143,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @param listenerInterface the type of listener interface that will receive
      *        events posted using this class.
      *
-     * @return an EventListenerSupport object which supports the specified
+     * @return An EventListenerSupport object which supports the specified
      *         listener type.
      *
      * @throws NullPointerException if {@code listenerInterface} is
@@ -272,7 +272,7 @@ public class EventListenerSupport<L> implements Serializable {
      * of the registered event listeners. All calls made to this proxy will be
      * forwarded to all registered listeners.
      *
-     * @return a proxy object which can be used to call listener methods on all
+     * @return A proxy object which can be used to call listener methods on all
      * of the registered event listeners
      */
     public L fire() {

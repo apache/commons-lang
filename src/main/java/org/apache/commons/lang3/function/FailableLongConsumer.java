@@ -56,7 +56,7 @@ public interface FailableLongConsumer<E extends Throwable> {
      * Returns a composed {@link FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
      *
      * @param after the operation to perform after this one.
-     * @return a composed {@link FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
+     * @return A composed {@link FailableLongConsumer} like {@link LongConsumer#andThen(LongConsumer)}.
      * @throws NullPointerException if {@code after} is null
      */
     default FailableLongConsumer<E> andThen(final FailableLongConsumer<E> after) {

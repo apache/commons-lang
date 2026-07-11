@@ -288,7 +288,7 @@ public class Failable {
      * @param <T> The type of the first argument of the consumers
      * @param <U> The type of the second argument of the consumers
      * @param consumer a failable {@link BiConsumer}
-     * @return a standard {@link BiConsumer}
+     * @return A standard {@link BiConsumer}
      */
     public static <T, U> BiConsumer<T, U> asBiConsumer(final FailableBiConsumer<T, U, ?> consumer) {
         return (input1, input2) -> accept(consumer, input1, input2);
@@ -301,7 +301,7 @@ public class Failable {
      * @param <U> The type of the second argument of the input of the functions
      * @param <R> The type of the output of the functions
      * @param function a {@link FailableBiFunction}
-     * @return a standard {@link BiFunction}
+     * @return A standard {@link BiFunction}
      */
     public static <T, U, R> BiFunction<T, U, R> asBiFunction(final FailableBiFunction<T, U, R, ?> function) {
         return (input1, input2) -> apply(function, input1, input2);
@@ -313,7 +313,7 @@ public class Failable {
      * @param <T> The type of the first argument used by the predicates
      * @param <U> The type of the second argument used by the predicates
      * @param predicate a {@link FailableBiPredicate}
-     * @return a standard {@link BiPredicate}
+     * @return A standard {@link BiPredicate}
      */
     public static <T, U> BiPredicate<T, U> asBiPredicate(final FailableBiPredicate<T, U, ?> predicate) {
         return (input1, input2) -> test(predicate, input1, input2);
@@ -324,7 +324,7 @@ public class Failable {
      *
      * @param <V> The type used by the callables
      * @param callable a {@link FailableCallable}
-     * @return a standard {@link Callable}
+     * @return A standard {@link Callable}
      */
     public static <V> Callable<V> asCallable(final FailableCallable<V, ?> callable) {
         return () -> call(callable);
@@ -335,7 +335,7 @@ public class Failable {
      *
      * @param <T> The type used by the consumers
      * @param consumer a {@link FailableConsumer}
-     * @return a standard {@link Consumer}
+     * @return A standard {@link Consumer}
      */
     public static <T> Consumer<T> asConsumer(final FailableConsumer<T, ?> consumer) {
         return input -> accept(consumer, input);
@@ -347,7 +347,7 @@ public class Failable {
      * @param <T> The type of the input of the functions
      * @param <R> The type of the output of the functions
      * @param function a {code FailableFunction}
-     * @return a standard {@link Function}
+     * @return A standard {@link Function}
      */
     public static <T, R> Function<T, R> asFunction(final FailableFunction<T, R, ?> function) {
         return input -> apply(function, input);
@@ -358,7 +358,7 @@ public class Failable {
      *
      * @param <T> The type used by the predicates
      * @param predicate a {@link FailablePredicate}
-     * @return a standard {@link Predicate}
+     * @return A standard {@link Predicate}
      */
     public static <T> Predicate<T> asPredicate(final FailablePredicate<T, ?> predicate) {
         return input -> test(predicate, input);
@@ -368,7 +368,7 @@ public class Failable {
      * Converts the given {@link FailableRunnable} into a standard {@link Runnable}.
      *
      * @param runnable a {@link FailableRunnable}
-     * @return a standard {@link Runnable}
+     * @return A standard {@link Runnable}
      */
     public static Runnable asRunnable(final FailableRunnable<?> runnable) {
         return () -> run(runnable);
@@ -379,7 +379,7 @@ public class Failable {
      *
      * @param <T> The type supplied by the suppliers
      * @param supplier a {@link FailableSupplier}
-     * @return a standard {@link Supplier}
+     * @return A standard {@link Supplier}
      */
     public static <T> Supplier<T> asSupplier(final FailableSupplier<T, ?> supplier) {
         return () -> get(supplier);

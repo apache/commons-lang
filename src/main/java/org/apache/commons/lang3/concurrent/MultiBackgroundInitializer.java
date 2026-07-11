@@ -192,7 +192,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
         /**
          * Returns a set with the names of all {@link BackgroundInitializer} objects managed by the {@link MultiBackgroundInitializer}.
          *
-         * @return an (unmodifiable) set with the names of the managed {@code BackgroundInitializer} objects.
+         * @return An (unmodifiable) set with the names of the managed {@code BackgroundInitializer} objects.
          */
         public Set<String> initializerNames() {
             return Collections.unmodifiableSet(initializers.keySet());
@@ -203,7 +203,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * given name caused an exception.
          *
          * @param name the name of the {@link BackgroundInitializer}.
-         * @return a flag whether this initializer caused an exception.
+         * @return A flag whether this initializer caused an exception.
          * @throws NoSuchElementException if the name cannot be resolved.
          */
         public boolean isException(final String name) {
@@ -215,7 +215,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          * Tests whether the whole initialization was successful. This
          * is the case if no child initializer has thrown an exception.
          *
-         * @return a flag whether the initialization was successful.
+         * @return A flag whether the initialization was successful.
          */
         public boolean isSuccessful() {
             return exceptions.isEmpty();

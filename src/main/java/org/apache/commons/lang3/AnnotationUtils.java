@@ -95,7 +95,7 @@ public class AnnotationUtils {
      *
      * @param a1 the first array
      * @param a2 the second array
-     * @return a flag whether these arrays are equal
+     * @return A flag whether these arrays are equal
      */
     private static boolean annotationArrayMemberEquals(final Annotation[] a1, final Annotation[] a2) {
         if (a1.length != a2.length) {
@@ -115,7 +115,7 @@ public class AnnotationUtils {
      * @param componentType the component type of the array
      * @param o1 the first object
      * @param o2 the second object
-     * @return a flag whether these objects are equal
+     * @return A flag whether these objects are equal
      */
     private static boolean arrayMemberEquals(final Class<?> componentType, final Object o1, final Object o2) {
         if (componentType.isAnnotation()) {
@@ -153,7 +153,7 @@ public class AnnotationUtils {
      *
      * @param componentType the component type of the array
      * @param o the array
-     * @return a hash code for the specified array
+     * @return A hash code for the specified array
      */
     private static int arrayMemberHash(final Class<?> componentType, final Object o) {
         if (componentType.equals(Byte.TYPE)) {
@@ -260,7 +260,7 @@ public class AnnotationUtils {
      *
      * @param name the name of the member
      * @param value the value of the member
-     * @return a hash code for this member
+     * @return A hash code for this member
      */
     private static int hashMember(final String name, final Object value) {
         final int part1 = name.hashCode() * 127;
@@ -303,7 +303,7 @@ public class AnnotationUtils {
      * @param type the type of the objects to be compared
      * @param o1 the first object
      * @param o2 the second object
-     * @return a flag whether these objects are equal
+     * @return A flag whether these objects are equal
      */
     private static boolean memberEquals(final Class<?> type, final Object o1, final Object o2) {
         if (o1 == o2) {

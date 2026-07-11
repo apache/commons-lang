@@ -56,7 +56,7 @@ public interface FailableByteConsumer<E extends Throwable> {
      * Returns a composed {@link FailableByteConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
      *
      * @param after the operation to perform after this one.
-     * @return a composed {@link FailableByteConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
+     * @return A composed {@link FailableByteConsumer} like {@link IntConsumer#andThen(IntConsumer)}.
      * @throws NullPointerException if {@code after} is null
      */
     default FailableByteConsumer<E> andThen(final FailableByteConsumer<E> after) {

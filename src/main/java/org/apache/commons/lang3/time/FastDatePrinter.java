@@ -171,7 +171,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * Factory method for Iso8601_Rules.
          *
          * @param tokenLen a token indicating the length of the TimeZone String to be formatted.
-         * @return an Iso8601_Rule that can format TimeZone String of length {@code tokenLen}. If no such
+         * @return An Iso8601_Rule that can format TimeZone String of length {@code tokenLen}. If no such
          *          rule exists, an IllegalArgumentException will be thrown.
          */
         static Iso8601_Rule getRule(final int tokenLen) {
@@ -1100,7 +1100,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Creates a String representation of the given Calendar by applying the rules of this printer to it.
      *
      * @param c the Calendar to apply the rules to.
-     * @return a String representation of the given Calendar.
+     * @return A String representation of the given Calendar.
      */
     private String applyRulesToString(final Calendar c) {
         return applyRules(c, new StringBuilder(maxLengthEstimate)).toString();
@@ -1300,7 +1300,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Returns a hash code compatible with equals.
      *
-     * @return a hash code compatible with equals.
+     * @return A hash code compatible with equals.
      */
     @Override
     public int hashCode() {
@@ -1325,7 +1325,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Creates a new Calendar instance.
      *
-     * @return a new Calendar instance.
+     * @return A new Calendar instance.
      */
     private Calendar newCalendar() {
         return Calendar.getInstance(timeZone, locale);
@@ -1334,7 +1334,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Returns a list of Rules given a pattern.
      *
-     * @return a {@link List} of Rule objects.
+     * @return A {@link List} of Rule objects.
      * @throws IllegalArgumentException if pattern is invalid.
      */
     protected List<Rule> parsePattern() {
@@ -1550,7 +1550,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      *
      * @param field  the field to get a rule for.
      * @param padding  the padding required.
-     * @return a new rule with the correct padding.
+     * @return A new rule with the correct padding.
      */
     protected NumberRule selectNumberRule(final int field, final int padding) {
         switch (padding) {
@@ -1566,7 +1566,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     /**
      * Gets a debugging string version of this formatter.
      *
-     * @return a debugging string.
+     * @return A debugging string.
      */
     @Override
     public String toString() {

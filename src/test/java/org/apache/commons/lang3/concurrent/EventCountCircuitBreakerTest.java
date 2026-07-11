@@ -101,7 +101,7 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
          * Sets the current time to be used by this test object for the next operation.
          *
          * @param time the time to set
-         * @return a reference to this object
+         * @return A reference to this object
          */
         public EventCountCircuitBreakerTestImpl at(final long time) {
             currentTime = time;

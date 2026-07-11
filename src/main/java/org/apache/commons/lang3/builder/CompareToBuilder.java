@@ -129,7 +129,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
     /**
      * Constructs a new Builder.
      *
-     * @return a new Builder.
+     * @return A new Builder.
      */
     public static Builder builder() {
         return new Builder();
@@ -218,7 +218,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      *
      * @param lhs  left-hand side object
      * @param rhs  right-hand side object
-     * @return a negative integer, zero, or a positive integer as {@code lhs}
+     * @return A negative integer, zero, or a positive integer as {@code lhs}
      *  is less than, equal to, or greater than {@code rhs}
      * @throws NullPointerException  if either (but not both) parameters are
      *  {@code null}
@@ -250,7 +250,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @param lhs  left-hand side object
      * @param rhs  right-hand side object
      * @param compareTransients  whether to compare transient fields
-     * @return a negative integer, zero, or a positive integer as {@code lhs}
+     * @return A negative integer, zero, or a positive integer as {@code lhs}
      *  is less than, equal to, or greater than {@code rhs}
      * @throws NullPointerException  if either {@code lhs} or {@code rhs}
      *  (but not both) is {@code null}
@@ -285,7 +285,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @param compareTransients  whether to compare transient fields
      * @param reflectUpToClass  last superclass for which fields are compared
      * @param excludeFields  fields to exclude
-     * @return a negative integer, zero, or a positive integer as {@code lhs}
+     * @return A negative integer, zero, or a positive integer as {@code lhs}
      *  is less than, equal to, or greater than {@code rhs}
      * @throws NullPointerException  if either {@code lhs} or {@code rhs}
      *  (but not both) is {@code null}
@@ -338,7 +338,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @param lhs  left-hand side object
      * @param rhs  right-hand side object
      * @param excludeFields  Collection of String fields to exclude
-     * @return a negative integer, zero, or a positive integer as {@code lhs}
+     * @return A negative integer, zero, or a positive integer as {@code lhs}
      *  is less than, equal to, or greater than {@code rhs}
      * @throws NullPointerException  if either {@code lhs} or {@code rhs}
      *  (but not both) is {@code null}
@@ -371,7 +371,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @param lhs  left-hand side object
      * @param rhs  right-hand side object
      * @param excludeFields  array of fields to exclude
-     * @return a negative integer, zero, or a positive integer as {@code lhs}
+     * @return A negative integer, zero, or a positive integer as {@code lhs}
      *  is less than, equal to, or greater than {@code rhs}
      * @throws NullPointerException  if either {@code lhs} or {@code rhs}
      *  (but not both) is {@code null}

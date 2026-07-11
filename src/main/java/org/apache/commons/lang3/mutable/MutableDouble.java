@@ -282,7 +282,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Returns a suitable hash code for this mutable.
      *
-     * @return a suitable hash code.
+     * @return A suitable hash code.
      */
     @Override
     public int hashCode() {
@@ -394,7 +394,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Gets this mutable as an instance of Double.
      *
-     * @return a Double instance containing the value from this mutable, never null.
+     * @return A Double instance containing the value from this mutable, never null.
      */
     public Double toDouble() {
         return Double.valueOf(doubleValue());

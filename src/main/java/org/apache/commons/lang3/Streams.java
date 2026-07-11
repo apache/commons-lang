@@ -560,7 +560,7 @@ public class Streams {
      *
      * @param elementType Type of an element in the array.
      * @param <O> The type of the input elements.
-     * @return a {@link Collector} which collects all the input elements into an
+     * @return A {@link Collector} which collects all the input elements into an
      * array, in encounter order.
      */
     public static <O> Collector<O, ?, O[]> toArray(final Class<O> elementType) {

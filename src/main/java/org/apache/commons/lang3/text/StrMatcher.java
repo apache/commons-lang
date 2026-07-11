@@ -251,7 +251,7 @@ public abstract class StrMatcher {
      * Creates a matcher from a character.
      *
      * @param ch  the character to match, must not be null.
-     * @return a new Matcher for the given char.
+     * @return A new Matcher for the given char.
      */
     public static StrMatcher charMatcher(final char ch) {
         return new CharMatcher(ch);
@@ -261,7 +261,7 @@ public abstract class StrMatcher {
      * Creates a matcher from a set of characters.
      *
      * @param chars  the characters to match, null or empty matches nothing.
-     * @return a new matcher for the given char[].
+     * @return A new matcher for the given char[].
      */
     public static StrMatcher charSetMatcher(final char... chars) {
         if (ArrayUtils.isEmpty(chars)) {
@@ -277,7 +277,7 @@ public abstract class StrMatcher {
      * Creates a matcher from a string representing a set of characters.
      *
      * @param chars  the characters to match, null or empty matches nothing.
-     * @return a new Matcher for the given characters.
+     * @return A new Matcher for the given characters.
      */
     public static StrMatcher charSetMatcher(final String chars) {
         if (StringUtils.isEmpty(chars)) {
@@ -357,7 +357,7 @@ public abstract class StrMatcher {
      * Creates a matcher for a string.
      *
      * @param str  the string to match, null or empty matches nothing.
-     * @return a new Matcher for the given String.
+     * @return A new Matcher for the given String.
      */
     public static StrMatcher stringMatcher(final String str) {
         if (StringUtils.isEmpty(str)) {

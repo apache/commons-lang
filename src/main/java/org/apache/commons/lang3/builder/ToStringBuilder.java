@@ -159,7 +159,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Constructs a new Builder.
      *
-     * @return a new Builder.
+     * @return A new Builder.
      * @since 3.21.0
      */
     public static Builder builder() {

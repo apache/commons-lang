@@ -314,7 +314,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Gets a hashCode compatible with the equals method.
      *
-     * @return a suitable hashCode.
+     * @return A suitable hashCode.
      */
     @Override
     public int hashCode() {
@@ -338,7 +338,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      *
      * <p>#NotThreadSafe# the iterator is not thread-safe</p>
      *
-     * @return an iterator to the chars represented by this range
+     * @return An iterator to the chars represented by this range
      * @since 2.5
      */
     @Override

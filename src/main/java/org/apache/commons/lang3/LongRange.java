@@ -112,7 +112,7 @@ public final class LongRange extends NumberRange<Long> {
      * Returns a sequential ordered {@code LongStream} from {@link #getMinimum()} (inclusive) to {@link #getMaximum()} (inclusive) by an incremental step of
      * {@code 1}.
      *
-     * @return a sequential {@code LongStream} for the range of {@code long} elements
+     * @return A sequential {@code LongStream} for the range of {@code long} elements
      * @since 3.18.0
      */
     public LongStream toLongStream() {

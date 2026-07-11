@@ -172,7 +172,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     /**
      * Constructs a new Builder.
      *
-     * @return a new Builder.
+     * @return A new Builder.
      */
     public static Builder builder() {
         return new Builder();

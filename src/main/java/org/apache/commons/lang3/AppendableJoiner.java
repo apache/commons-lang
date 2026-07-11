@@ -167,7 +167,7 @@ public final class AppendableJoiner<T> {
      * Creates a new builder.
      *
      * @param <T> The type of elements.
-     * @return a new builder.
+     * @return A new builder.
      */
     public static <T> Builder<T> builder() {
         return new Builder<>();

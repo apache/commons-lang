@@ -165,7 +165,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * Creates a new builder.
      *
      * @param <T> The type of object to build.
-     * @return a new builder.
+     * @return A new builder.
      * @since 3.14.0
      */
     public static <T> Builder<BackgroundInitializer<T>, T> builder() {
@@ -234,7 +234,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      *
      * @param execDestroy the {@link ExecutorService} to be destroyed by the
      * task.
-     * @return a task for the background initialization.
+     * @return A task for the background initialization.
      */
     private Callable<T> createTask(final ExecutorService execDestroy) {
         return new InitializationTask(execDestroy);
@@ -354,7 +354,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * Tests whether this {@link BackgroundInitializer} has already
      * been started.
      *
-     * @return a flag whether the {@link #start()} method has already been
+     * @return A flag whether the {@link #start()} method has already been
      * called.
      */
     public synchronized boolean isStarted() {
@@ -390,7 +390,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * successful: only the first invocation of this method returns <strong>true</strong>,
      * following invocations will return <strong>false</strong>.
      *
-     * @return a flag whether the initializer could be started successfully.
+     * @return A flag whether the initializer could be started successfully.
      */
     public synchronized boolean start() {
         // Not yet started?

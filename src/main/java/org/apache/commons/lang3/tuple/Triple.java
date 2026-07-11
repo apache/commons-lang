@@ -74,7 +74,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param left  the left element, may be null.
      * @param middle the middle element, may be null.
      * @param right  the right element, may be null.
-     * @return an immutable triple formed from the three parameters, not null.
+     * @return An immutable triple formed from the three parameters, not null.
      */
     public static <L, M, R> Triple<L, M, R> of(final L left, final M middle, final R right) {
         return ImmutableTriple.of(left, middle, right);
@@ -89,7 +89,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
      * @param left  the left element, may not be null.
      * @param middle  the middle element, may not be null.
      * @param right  the right element, may not be null.
-     * @return an immutable triple formed from the three parameters, not null.
+     * @return An immutable triple formed from the three parameters, not null.
      * @throws NullPointerException if any input is null.
      * @since 3.13.0
      */
@@ -177,7 +177,7 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     /**
      * Returns a String representation of this triple using the format {@code (left,middle,right)}.
      *
-     * @return a string describing this object, not null.
+     * @return A string describing this object, not null.
      */
     @Override
     public String toString() {

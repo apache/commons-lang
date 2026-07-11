@@ -73,7 +73,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * @param <L> The left element type.
      * @param <R> The right element type.
      * @param left  the left element, may be null.
-     * @return an immutable formed from the two parameters, not null.
+     * @return An immutable formed from the two parameters, not null.
      * @since 3.11
      */
     public static <L, R> Pair<L, R> left(final L left) {
@@ -85,7 +85,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      *
      * @param <L> The left element of this pair. Value is {@code null}.
      * @param <R> The right element of this pair. Value is {@code null}.
-     * @return an immutable pair of nulls.
+     * @return An immutable pair of nulls.
      * @since 3.6
      */
     @SuppressWarnings("unchecked")
@@ -100,7 +100,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * @param <R> The right element type.
      * @param left  the left element, may be null.
      * @param right  the right element, may be null.
-     * @return an immutable formed from the two parameters, not null.
+     * @return An immutable formed from the two parameters, not null.
      */
     public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
         return left != null || right != null ? new ImmutablePair<>(left, right) : nullPair();
@@ -112,7 +112,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * @param <L> The left element type.
      * @param <R> The right element type.
      * @param pair the existing map entry.
-     * @return an immutable formed from the map entry.
+     * @return An immutable formed from the map entry.
      * @since 3.10
      */
     public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L, R> pair) {
@@ -126,7 +126,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * @param <R> The right element type.
      * @param left  the left element, may not be null.
      * @param right  the right element, may not  be null.
-     * @return an immutable formed from the two parameters, not null.
+     * @return An immutable formed from the two parameters, not null.
      * @throws NullPointerException if any input is null.
      * @since 3.13.0
      */
@@ -140,7 +140,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * @param <L> The left element type.
      * @param <R> The right element type.
      * @param right  the right element, may be null.
-     * @return an immutable formed from the two parameters, not null.
+     * @return An immutable formed from the two parameters, not null.
      * @since 3.11
      */
     public static <L, R> Pair<L, R> right(final R right) {

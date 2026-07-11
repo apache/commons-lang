@@ -345,7 +345,7 @@ public class StopWatch {
      *
      * @param <T>      the type of results supplied by this supplier.
      * @param supplier The supplier to {@link Supplier#get()}.
-     * @return a result from the given Supplier.
+     * @return A result from the given Supplier.
      * @since 3.18.0
      */
     public <T> T get(final Supplier<T> supplier) {
@@ -529,7 +529,7 @@ public class StopWatch {
      * @param <T>      the type of results supplied by this supplier.
      * @param <E>      The kind of thrown exception or error.
      * @param supplier The supplier to {@link Supplier#get()}.
-     * @return a result from the given Supplier.
+     * @return A result from the given Supplier.
      * @throws Throwable if the supplier fails.
      * @since 3.18.0
      */

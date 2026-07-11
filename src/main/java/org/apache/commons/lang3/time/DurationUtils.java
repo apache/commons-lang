@@ -68,7 +68,7 @@ public class DurationUtils {
      * @param key  The property name.
      * @param unit The unit that the duration is measured in, not null.
      * @param def  The default value in the given unit.
-     * @return a Duration of seconds.
+     * @return A Duration of seconds.
      * @since 3.19.0
      */
     public static Duration get(final String key, final TemporalUnit unit, final long def) {
@@ -84,7 +84,7 @@ public class DurationUtils {
      *
      * @param key The property name.
      * @param def The default value in milliseconds.
-     * @return a Duration of milliseconds.
+     * @return A Duration of milliseconds.
      * @since 3.19.0
      */
     public static Duration getMillis(final String key, final long def) {
@@ -133,7 +133,7 @@ public class DurationUtils {
      *
      * @param key The property name.
      * @param def The default value in seconds.
-     * @return a Duration of seconds.
+     * @return A Duration of seconds.
      * @since 3.19.0
      */
     public static Duration getSeconds(final String key, final long def) {
@@ -188,7 +188,7 @@ public class DurationUtils {
      * Computes the Duration between a start instant and now.
      *
      * @param startInclusive the start instant, inclusive, not null.
-     * @return a {@link Duration}, not null.
+     * @return A {@link Duration}, not null.
      * @since 3.13.0
      */
     public static Duration since(final Temporal startInclusive) {
@@ -228,7 +228,7 @@ public class DurationUtils {
      *
      * @param amount   the amount of the duration, measured in terms of the unit, positive or negative
      * @param timeUnit the unit that the duration is measured in, must have an exact duration, not null
-     * @return a Duration.
+     * @return A Duration.
      */
     public static Duration toDuration(final long amount, final TimeUnit timeUnit) {
         return Duration.of(amount, toChronoUnit(timeUnit));

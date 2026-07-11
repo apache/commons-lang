@@ -54,7 +54,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      *
      * @param <T> The type of the input and output objects to the function
      * @param <E> The type of thrown exception or error.
-     * @return a function that always returns its input argument
+     * @return A function that always returns its input argument
      */
     static <T, E extends Throwable> FailableFunction<T, T, E> identity() {
         return t -> t;
@@ -77,7 +77,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * Returns a composed {@link FailableFunction} like {@link Function#andThen(Function)}.
      *
      * @param <V> The output type of the {@code after} function, and of the composed function.
-     * @return a composed {@link FailableFunction} like {@link Function#andThen(Function)}.
+     * @return A composed {@link FailableFunction} like {@link Function#andThen(Function)}.
      * @param after the operation to perform after this one.
      * @throws NullPointerException when {@code after} is null.
      */
@@ -100,7 +100,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      *
      * @param <V> The input type to the {@code before} function, and to the composed function.
      * @param before the operator to apply before this one.
-     * @return a composed {@link FailableFunction} like {@link Function#compose(Function)}.
+     * @return A composed {@link FailableFunction} like {@link Function#compose(Function)}.
      * @throws NullPointerException if before is null.
      * @see #andThen(FailableFunction)
      */

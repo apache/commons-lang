@@ -400,7 +400,7 @@ public class CharUtils {
      * Delegates to {@link Character#valueOf(char)}.
      *
      * @param c the character to convert
-     * @return a {@code Character} representing {@code c}.
+     * @return A {@code Character} representing {@code c}.
      * @deprecated Use {@link Character#valueOf(char)}.
      */
     @Deprecated
@@ -523,7 +523,7 @@ public class CharUtils {
      * </pre>
      *
      * @param ch  the character to convert
-     * @return a String containing the one specified character
+     * @return A String containing the one specified character
      */
     public static String toString(final char ch) {
         if (ch < CHAR_STRING_ARRAY.length) {
@@ -547,7 +547,7 @@ public class CharUtils {
      * </pre>
      *
      * @param ch  the character to convert
-     * @return a String containing the one specified character
+     * @return A String containing the one specified character
      */
     public static String toString(final Character ch) {
         return ch != null ? toString(ch.charValue()) : null;

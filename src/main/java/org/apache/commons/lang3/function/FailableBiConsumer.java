@@ -61,7 +61,7 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
      * Returns a composed {@link FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
      *
      * @param after the operation to perform after this one.
-     * @return a composed {@link FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
+     * @return A composed {@link FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
      * @throws NullPointerException when {@code after} is null.
      */
     default FailableBiConsumer<T, U, E> andThen(final FailableBiConsumer<? super T, ? super U, E> after) {

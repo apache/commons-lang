@@ -112,7 +112,7 @@ public final class IntegerRange extends NumberRange<Integer> {
      * Returns a sequential ordered {@code IntStream} from {@link #getMinimum()} (inclusive) to {@link #getMaximum()} (inclusive) by an incremental step of
      * {@code 1}.
      *
-     * @return a sequential {@code IntStream} for the range of {@code int} elements.
+     * @return A sequential {@code IntStream} for the range of {@code int} elements.
      * @since 3.18.0
      */
     public IntStream toIntStream() {

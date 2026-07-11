@@ -345,7 +345,7 @@ public class ExceptionUtils {
      * order to the JDK1.4 display.</p>
      *
      * @param throwable  the throwable to examine, may be null.
-     * @return an array of stack trace frames, never null.
+     * @return An array of stack trace frames, never null.
      * @since 2.0
      */
     public static String[] getRootCauseStackTrace(final Throwable throwable) {
@@ -361,7 +361,7 @@ public class ExceptionUtils {
      * </p>
      *
      * @param throwable the throwable to examine, may be null.
-     * @return a list of stack trace frames, never null.
+     * @return A list of stack trace frames, never null.
      * @since 3.13.0
      */
     public static List<String> getRootCauseStackTraceList(final Throwable throwable) {
@@ -425,7 +425,7 @@ public class ExceptionUtils {
      * <p>The end of line is determined by the value of {@link System#lineSeparator()}.</p>
      *
      * @param stackTrace  a stack trace String.
-     * @return an array where each element is a line from the argument.
+     * @return An array where each element is a line from the argument.
      */
     static String[] getStackFrames(final String stackTrace) {
         return new IterableStringTokenizer(stackTrace, System.lineSeparator()).toArray();
@@ -442,7 +442,7 @@ public class ExceptionUtils {
      * </p>
      *
      * @param throwable  the {@link Throwable} to examine, may be null.
-     * @return an array of strings describing each stack frame, never null.
+     * @return An array of strings describing each stack frame, never null.
      */
     public static String[] getStackFrames(final Throwable throwable) {
         if (throwable == null) {

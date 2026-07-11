@@ -31,7 +31,7 @@ public class FutureTasks {
      *
      * @param <V> The result type returned by this FutureTask's {@code get} methods.
      * @param callable the Callable task.
-     * @return a new FutureTask.
+     * @return A new FutureTask.
      */
     public static <V> FutureTask<V> run(final Callable<V> callable) {
         final FutureTask<V> futureTask = new FutureTask<>(callable);
