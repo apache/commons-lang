@@ -73,6 +73,26 @@ class FieldUtilsTest extends AbstractLangTest {
     private PrivatelyShadowedChild privatelyShadowedChild;
     private final Class<? super PublicChild> parentClass = PublicChild.class.getSuperclass();
 
+    interface InterfaceWithConstant {
+        int CONSTANT = 42;
+    }
+
+    interface SubInterfaceA extends InterfaceWithConstant {
+        // inherits CONSTANT
+    }
+
+    interface SubInterfaceB extends InterfaceWithConstant {
+        // inherits CONSTANT
+    }
+
+    static class MultiPathToConstant implements SubInterfaceA, SubInterfaceB {
+        // CONSTANT is reachable through both parents and through the grandparent interface
+    }
+
+    static class SinglePathToConstant implements SubInterfaceA {
+        // CONSTANT is reachable through the sub-interface and its super-interface
+    }
+
     /**
      * Reads the {@code @deprecated} notice on {@link FieldUtils#removeFinalModifier(Field, boolean)}.
      *
@@ -106,6 +126,15 @@ class FieldUtilsTest extends AbstractLangTest {
 
     @Test
     void testAmbig() {
+        assertIllegalArgumentException(() -> FieldUtils.getField(Ambig.class, "VALUE"));
+    }
+
+    @Test
+    void testGetFieldInheritedThroughMultipleInterfacePaths() {
+        // A field reached through more than one interface path resolves to the same Field, so it is not ambiguous.
+        assertEquals(InterfaceWithConstant.class, FieldUtils.getField(SinglePathToConstant.class, "CONSTANT").getDeclaringClass());
+        assertEquals(InterfaceWithConstant.class, FieldUtils.getField(MultiPathToConstant.class, "CONSTANT").getDeclaringClass());
+        // A genuine clash of two different fields on unrelated interfaces is still ambiguous.
         assertIllegalArgumentException(() -> FieldUtils.getField(Ambig.class, "VALUE"));
     }
 
