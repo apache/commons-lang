@@ -217,7 +217,7 @@ public class FieldUtils {
         for (final Class<?> class1 : ClassUtils.getAllInterfaces(cls)) {
             try {
                 final Field test = class1.getField(fieldName);
-                Validate.isTrue(match == null,
+                Validate.isTrue(match == null || match.equals(test),
                         "Reference to field %s is ambiguous relative to %s; a matching field exists on two or more implemented interfaces.", fieldName, cls);
                 match = test;
             } catch (final NoSuchFieldException ignored) {
