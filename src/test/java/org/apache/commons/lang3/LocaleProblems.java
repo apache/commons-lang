@@ -38,6 +38,7 @@ public class LocaleProblems {
         // "cv_RU" is a problem on Java version: 26-beta, vendor: Eclipse Adoptium, runtime: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/26.0.0-ea.27.0.ea/x64
         // Same for "cv"
         UNSUPPORTED_CAT_A.put(JavaVersion.JAVA_26, Arrays.asList("cv", "cv_RU"));
+        UNSUPPORTED_CAT_A.put(JavaVersion.JAVA_27, Arrays.asList("cv", "cv_RU"));
     }
 
     // needs a better name.
@@ -46,6 +47,7 @@ public class LocaleProblems {
         UNSUPPORTED_CAT_B = new HashMap<>();
         // "cv_RU_#Cyrl" is a problem on Java version: 26-beta, vendor: Eclipse Adoptium, runtime: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/26.0.0-ea.27.0.ea/x64
         UNSUPPORTED_CAT_B.put(JavaVersion.JAVA_26, Arrays.asList("cv", "cv_RU", "cv_RU_#Cyrl"));
+        UNSUPPORTED_CAT_B.put(JavaVersion.JAVA_27, Arrays.asList("cv", "cv_RU", "cv_RU_#Cyrl"));
     }
 
     private static void assumeLocaleSupported(final Locale locale, final Map<JavaVersion, List<String>> unsupportedCatA, final ParseException e) {
