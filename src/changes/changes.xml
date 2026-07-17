@@ -226,6 +226,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix FieldUtils.getField false ambiguity on inherited interface field (#1748).</action>
     <action                   type="fix" dev="ggregory" due-to="Sarankumar Baskar, Gary Gregory">Skip Chuvash locale parser tests on Java 27 (#1746).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix ArrayUtils.reverse range underflow on Integer.MIN_VALUE end (#1750).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix sign extension in BitField.getValue for top-bit fields (#1749).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
