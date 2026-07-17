@@ -32,6 +32,7 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 /**
  * Tests {@link FluentBitSet}.
@@ -1605,6 +1606,22 @@ class FluentBitSetTest extends AbstractLangTest {
         } catch (final IndexOutOfBoundsException e) {
             // Correct behavior
         }
+    }
+
+    /**
+     * Tests {@link FluentBitSet#setInclusive(int, int)} at the {@link Integer#MAX_VALUE} boundary.
+     * <p>
+     * Needs a large heap because bit {@link Integer#MAX_VALUE} forces the backing array to full size.
+     * </p>
+     */
+    @Test
+    @EnabledIfSystemProperty(named = "test.large.heap", matches = "true")
+    void test_setInclusive_maxValue() {
+        final FluentBitSet bs = newInstance();
+        // toIndex == Integer.MAX_VALUE is a legal inclusive bound, not a documented throw case.
+        bs.setInclusive(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        assertTrue(bs.get(Integer.MAX_VALUE), "bit Integer.MAX_VALUE should be set");
+        assertEquals(1, bs.cardinality());
     }
 
     /**

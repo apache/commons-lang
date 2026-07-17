@@ -517,7 +517,13 @@ public final class FluentBitSet implements Cloneable, Serializable {
      * @return {@code this} instance.
      */
     public FluentBitSet setInclusive(final int fromIndex, final int toIndex) {
-        bitSet.set(fromIndex, toIndex + 1);
+        if (toIndex == Integer.MAX_VALUE) {
+            // toIndex + 1 would overflow to Integer.MIN_VALUE.
+            bitSet.set(fromIndex, toIndex);
+            bitSet.set(toIndex);
+        } else {
+            bitSet.set(fromIndex, toIndex + 1);
+        }
         return this;
     }
 
