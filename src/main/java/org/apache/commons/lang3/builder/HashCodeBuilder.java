@@ -177,12 +177,12 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
     private static final ThreadLocal<Set<IDKey>> APPEND_REGISTRY = ThreadLocal.withInitial(HashSet::new);
 
     /**
-     * Constructs a new Builder.
+     * Registers the given object in the append registry.
      *
-     * @return A new Builder.
+     * @param value The object to register.
      */
-    public static Builder builder() {
-        return new Builder();
+    private static void appendRegister(final Object value) {
+        APPEND_REGISTRY.get().add(new IDKey(value));
     }
 
     /*
@@ -203,12 +203,44 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      */
 
     /**
+     * Unregisters the given object from the append registry.
+     *
+     * @param value The object to unregister.
+     */
+    private static void appendUnregister(final Object value) {
+        final Set<IDKey> registry = APPEND_REGISTRY.get();
+        registry.remove(new IDKey(value));
+        if (registry.isEmpty()) {
+            APPEND_REGISTRY.remove();
+        }
+    }
+
+    /**
+     * Constructs a new Builder.
+     *
+     * @return A new Builder.
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    /**
      * Gets the registry of objects being traversed by the reflection methods in the current thread.
      *
      * @return Set the registry of objects being traversed
      */
     static Set<IDKey> getRegistry() {
         return REGISTRY.get();
+    }
+
+    /**
+     * Tests whether the append registry contains the given object. Used by {@link #append(Object)} to break its own re-entrant cycles.
+     *
+     * @param value The object to look up in the append registry.
+     * @return {@code true} if the append registry contains the given object.
+     */
+    private static boolean isAppendRegistered(final Object value) {
+        return APPEND_REGISTRY.get().contains(new IDKey(value));
     }
 
     /**
@@ -545,38 +577,6 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
         registry.remove(new IDKey(value));
         if (registry.isEmpty()) {
             REGISTRY.remove();
-        }
-    }
-
-    /**
-     * Tests whether the append registry contains the given object. Used by {@link #append(Object)} to break its own re-entrant cycles.
-     *
-     * @param value The object to look up in the append registry.
-     * @return {@code true} if the append registry contains the given object.
-     */
-    private static boolean isAppendRegistered(final Object value) {
-        return APPEND_REGISTRY.get().contains(new IDKey(value));
-    }
-
-    /**
-     * Registers the given object in the append registry.
-     *
-     * @param value The object to register.
-     */
-    private static void appendRegister(final Object value) {
-        APPEND_REGISTRY.get().add(new IDKey(value));
-    }
-
-    /**
-     * Unregisters the given object from the append registry.
-     *
-     * @param value The object to unregister.
-     */
-    private static void appendUnregister(final Object value) {
-        final Set<IDKey> registry = APPEND_REGISTRY.get();
-        registry.remove(new IDKey(value));
-        if (registry.isEmpty()) {
-            APPEND_REGISTRY.remove();
         }
     }
 

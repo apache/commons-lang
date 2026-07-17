@@ -2810,6 +2810,47 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testReverseRangeEndIntMinValue() {
+        // endIndexExclusive == Integer.MIN_VALUE is an undervalue (< start index), documented as no change.
+        // The unclamped `Math.min(length, end) - 1` underflowed to Integer.MAX_VALUE and indexed out of bounds.
+        final boolean[] booleans = {true, false, true};
+        ArrayUtils.reverse(booleans, 0, Integer.MIN_VALUE);
+        assertArrayEquals(new boolean[]{true, false, true}, booleans);
+
+        final byte[] bytes = {1, 2, 3};
+        ArrayUtils.reverse(bytes, 0, Integer.MIN_VALUE);
+        assertArrayEquals(new byte[]{1, 2, 3}, bytes);
+
+        final char[] chars = {'a', 'b', 'c'};
+        ArrayUtils.reverse(chars, 0, Integer.MIN_VALUE);
+        assertArrayEquals(new char[]{'a', 'b', 'c'}, chars);
+
+        final double[] doubles = {1, 2, 3};
+        ArrayUtils.reverse(doubles, 0, Integer.MIN_VALUE);
+        assertArrayEquals(new double[]{1, 2, 3}, doubles);
+
+        final float[] floats = {1, 2, 3};
+        ArrayUtils.reverse(floats, 0, Integer.MIN_VALUE);
+        assertArrayEquals(new float[]{1, 2, 3}, floats);
+
+        final int[] ints = {1, 2, 3};
+        ArrayUtils.reverse(ints, 0, Integer.MIN_VALUE);
+        assertArrayEquals(new int[]{1, 2, 3}, ints);
+
+        final long[] longs = {1, 2, 3};
+        ArrayUtils.reverse(longs, 0, Integer.MIN_VALUE);
+        assertArrayEquals(new long[]{1, 2, 3}, longs);
+
+        final Object[] objects = {"a", "b", "c"};
+        ArrayUtils.reverse(objects, 0, Integer.MIN_VALUE);
+        assertArrayEquals(new Object[]{"a", "b", "c"}, objects);
+
+        final short[] shorts = {1, 2, 3};
+        ArrayUtils.reverse(shorts, 0, Integer.MIN_VALUE);
+        assertArrayEquals(new short[]{1, 2, 3}, shorts);
+    }
+
+    @Test
     void testReverseShort() {
         short[] array = {1, 2, 3};
         ArrayUtils.reverse(array);
@@ -2852,47 +2893,6 @@ class ArrayUtilsTest extends AbstractLangTest {
         array = null;
         ArrayUtils.reverse(array, 0, 3);
         assertNull(array);
-    }
-
-    @Test
-    void testReverseRangeEndIntMinValue() {
-        // endIndexExclusive == Integer.MIN_VALUE is an undervalue (< start index), documented as no change.
-        // The unclamped `Math.min(length, end) - 1` underflowed to Integer.MAX_VALUE and indexed out of bounds.
-        final boolean[] booleans = {true, false, true};
-        ArrayUtils.reverse(booleans, 0, Integer.MIN_VALUE);
-        assertArrayEquals(new boolean[]{true, false, true}, booleans);
-
-        final byte[] bytes = {1, 2, 3};
-        ArrayUtils.reverse(bytes, 0, Integer.MIN_VALUE);
-        assertArrayEquals(new byte[]{1, 2, 3}, bytes);
-
-        final char[] chars = {'a', 'b', 'c'};
-        ArrayUtils.reverse(chars, 0, Integer.MIN_VALUE);
-        assertArrayEquals(new char[]{'a', 'b', 'c'}, chars);
-
-        final double[] doubles = {1, 2, 3};
-        ArrayUtils.reverse(doubles, 0, Integer.MIN_VALUE);
-        assertArrayEquals(new double[]{1, 2, 3}, doubles);
-
-        final float[] floats = {1, 2, 3};
-        ArrayUtils.reverse(floats, 0, Integer.MIN_VALUE);
-        assertArrayEquals(new float[]{1, 2, 3}, floats);
-
-        final int[] ints = {1, 2, 3};
-        ArrayUtils.reverse(ints, 0, Integer.MIN_VALUE);
-        assertArrayEquals(new int[]{1, 2, 3}, ints);
-
-        final long[] longs = {1, 2, 3};
-        ArrayUtils.reverse(longs, 0, Integer.MIN_VALUE);
-        assertArrayEquals(new long[]{1, 2, 3}, longs);
-
-        final Object[] objects = {"a", "b", "c"};
-        ArrayUtils.reverse(objects, 0, Integer.MIN_VALUE);
-        assertArrayEquals(new Object[]{"a", "b", "c"}, objects);
-
-        final short[] shorts = {1, 2, 3};
-        ArrayUtils.reverse(shorts, 0, Integer.MIN_VALUE);
-        assertArrayEquals(new short[]{1, 2, 3}, shorts);
     }
 
     @Test
