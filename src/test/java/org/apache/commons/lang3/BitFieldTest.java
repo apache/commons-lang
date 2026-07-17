@@ -155,7 +155,7 @@ class BitFieldTest extends AbstractLangTest {
         // The int and long overloads must agree for the same field and holder.
         assertEquals(topByte.getValue(0xFF000000L), 255L);
         // Verify the int and long overloads agree for the same field and holder.
-        assertEquals(topByte.getValue(0xFF000000L), (long) topByte.getValue(0xFF000000));        
+        assertEquals(topByte.getValue(0xFF000000L), (long) topByte.getValue(0xFF000000));
         final BitField bit63 = new BitField(0x8000000000000000L);
         assertEquals(bit63.getValue(0x8000000000000000L), 1L);
         assertEquals(bit63.getValue(0L), 0L);
