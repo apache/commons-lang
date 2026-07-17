@@ -142,6 +142,26 @@ class BitFieldTest extends AbstractLangTest {
     }
 
     /**
+     * Tests that {@link BitField#getValue(int)} and {@link BitField#getValue(long)} shift the selected bits right without sign extension when the field occupies
+     * the top bit of the holder (bit 31 for int, bit 63 for long).
+     */
+    @Test
+    void testGetValueTopBit() {
+        final BitField bit31 = new BitField(0x80000000);
+        assertEquals(bit31.getValue(-1), 1);
+        assertEquals(bit31.getValue(0), 0);
+        final BitField topByte = new BitField(0xFF000000);
+        assertEquals(topByte.getValue(0xFF000000), 255);
+        // The int and long overloads must agree for the same field and holder.
+        assertEquals(topByte.getValue(0xFF000000L), 255L);
+        final BitField bit63 = new BitField(0x8000000000000000L);
+        assertEquals(bit63.getValue(0x8000000000000000L), 1L);
+        assertEquals(bit63.getValue(0L), 0L);
+        final BitField topNibble = new BitField(0xF000000000000000L);
+        assertEquals(topNibble.getValue(topNibble.setValue(0L, 15L)), 15L);
+    }
+
+    /**
      * Tests that an int mask with the high bit set is treated as 32 unsigned bits on the long methods, instead of being sign-extended into bits 32-63.
      */
     @Test
