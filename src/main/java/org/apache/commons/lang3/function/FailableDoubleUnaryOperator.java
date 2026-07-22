@@ -64,7 +64,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * @see #compose(FailableDoubleUnaryOperator)
      */
     default FailableDoubleUnaryOperator<E> andThen(final FailableDoubleUnaryOperator<E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final double t) -> after.applyAsDouble(applyAsDouble(t));
     }
 
@@ -88,7 +88,7 @@ public interface FailableDoubleUnaryOperator<E extends Throwable> {
      * @see #andThen(FailableDoubleUnaryOperator)
      */
     default FailableDoubleUnaryOperator<E> compose(final FailableDoubleUnaryOperator<E> before) {
-        Objects.requireNonNull(before);
+        Objects.requireNonNull(before, "before");
         return (final double v) -> applyAsDouble(before.applyAsDouble(v));
     }
 }

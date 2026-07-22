@@ -59,7 +59,7 @@ public interface ByteConsumer {
      * @throws NullPointerException if {@code after} is null
      */
     default ByteConsumer andThen(final ByteConsumer after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final byte t) -> {
             accept(t);
             after.accept(t);

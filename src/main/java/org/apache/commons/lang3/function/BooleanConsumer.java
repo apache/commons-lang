@@ -59,7 +59,7 @@ public interface BooleanConsumer {
      * @throws NullPointerException if {@code after} is null
      */
     default BooleanConsumer andThen(final BooleanConsumer after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final boolean t) -> {
             accept(t);
             after.accept(t);

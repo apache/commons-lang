@@ -1056,7 +1056,7 @@ public class Validate {
      * @param values  The optional values for the formatted exception message.
      * @return The validated object (never {@code null} for method chaining).
      * @throws NullPointerException if the object is {@code null}.
-     * @see Objects#requireNonNull(Object)
+     * @see Objects#requireNonNull(Object, String)
      */
     public static <T> T notNull(final T object, final String message, final Object... values) {
         return Objects.requireNonNull(object, toSupplier(message, values));

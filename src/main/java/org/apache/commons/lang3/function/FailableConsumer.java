@@ -83,7 +83,7 @@ public interface FailableConsumer<T, E extends Throwable> {
      * @throws NullPointerException when {@code after} is null
      */
     default FailableConsumer<T, E> andThen(final FailableConsumer<? super T, E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final T t) -> {
             accept(t);
             after.accept(t);

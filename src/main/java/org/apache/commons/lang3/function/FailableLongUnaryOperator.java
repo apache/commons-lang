@@ -62,7 +62,7 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
      * @see #compose(FailableLongUnaryOperator)
      */
     default FailableLongUnaryOperator<E> andThen(final FailableLongUnaryOperator<E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final long t) -> after.applyAsLong(applyAsLong(t));
     }
 
@@ -84,7 +84,7 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
      * @see #andThen(FailableLongUnaryOperator)
      */
     default FailableLongUnaryOperator<E> compose(final FailableLongUnaryOperator<E> before) {
-        Objects.requireNonNull(before);
+        Objects.requireNonNull(before, "before");
         return (final long v) -> applyAsLong(before.applyAsLong(v));
     }
 }

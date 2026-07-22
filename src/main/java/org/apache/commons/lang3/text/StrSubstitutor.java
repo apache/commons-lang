@@ -1003,7 +1003,7 @@ public class StrSubstitutor {
      * @throws NullPointerException if the prefix is null.
      */
     public StrSubstitutor setVariablePrefix(final String prefix) {
-        return setVariablePrefixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(prefix)));
+        return setVariablePrefixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(prefix, "prefix")));
     }
 
     /**
@@ -1059,7 +1059,7 @@ public class StrSubstitutor {
      * @throws NullPointerException if the suffix is null.
      */
     public StrSubstitutor setVariableSuffix(final String suffix) {
-        return setVariableSuffixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(suffix)));
+        return setVariableSuffixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(suffix, "suffix")));
     }
 
     /**
@@ -1075,7 +1075,7 @@ public class StrSubstitutor {
      * @throws NullPointerException if the suffix matcher is null.
      */
     public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {
-        this.suffixMatcher = Objects.requireNonNull(suffixMatcher);
+        this.suffixMatcher = Objects.requireNonNull(suffixMatcher, "suffixMatcher");
         return this;
     }
 

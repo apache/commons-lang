@@ -73,7 +73,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      * @throws NullPointerException if other is null
      */
     default FailableBiPredicate<T, U, E> and(final FailableBiPredicate<? super T, ? super U, E> other) {
-        Objects.requireNonNull(other);
+        Objects.requireNonNull(other, "other");
         return (final T t, final U u) -> test(t, u) && other.test(t, u);
     }
 
@@ -94,7 +94,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      * @throws NullPointerException if other is null
      */
     default FailableBiPredicate<T, U, E> or(final FailableBiPredicate<? super T, ? super U, E> other) {
-        Objects.requireNonNull(other);
+        Objects.requireNonNull(other, "other");
         return (final T t, final U u) -> test(t, u) || other.test(t, u);
     }
 

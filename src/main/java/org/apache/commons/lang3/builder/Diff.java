@@ -50,13 +50,13 @@ public abstract class Diff<T> extends Pair<T, T> {
      *            the field name.
      */
     protected Diff(final String fieldName) {
-        this.fieldName = Objects.requireNonNull(fieldName);
+        this.fieldName = Objects.requireNonNull(fieldName, "fieldName");
         this.type = ObjectUtils.getIfNull(TypeUtils.getTypeArguments(getClass(), Diff.class).get(Diff.class.getTypeParameters()[0]), Object.class);
     }
 
     Diff(final String fieldName, final Type type) {
-        this.fieldName = Objects.requireNonNull(fieldName);
-        this.type = Objects.requireNonNull(type);
+        this.fieldName = Objects.requireNonNull(fieldName, "fieldName");
+        this.type = Objects.requireNonNull(type, "type");
     }
 
     /**

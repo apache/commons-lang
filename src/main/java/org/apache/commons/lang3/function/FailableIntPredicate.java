@@ -67,7 +67,7 @@ public interface FailableIntPredicate<E extends Throwable> {
      * @throws NullPointerException if other is null
      */
     default FailableIntPredicate<E> and(final FailableIntPredicate<E> other) {
-        Objects.requireNonNull(other);
+        Objects.requireNonNull(other, "other");
         return t -> test(t) && other.test(t);
     }
 
@@ -88,7 +88,7 @@ public interface FailableIntPredicate<E extends Throwable> {
      * @throws NullPointerException if other is null
      */
     default FailableIntPredicate<E> or(final FailableIntPredicate<E> other) {
-        Objects.requireNonNull(other);
+        Objects.requireNonNull(other, "other");
         return t -> test(t) || other.test(t);
     }
 

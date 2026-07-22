@@ -60,7 +60,7 @@ public interface FailableBiFunction<T, U, R, E extends Throwable> {
      * @throws NullPointerException when {@code after} is null.
      */
     default <V> FailableBiFunction<T, U, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final T t, final U u) -> after.apply(apply(t, u));
     }
 

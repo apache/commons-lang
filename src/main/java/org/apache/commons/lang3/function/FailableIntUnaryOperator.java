@@ -62,7 +62,7 @@ public interface FailableIntUnaryOperator<E extends Throwable> {
      * @see #compose(FailableIntUnaryOperator)
      */
     default FailableIntUnaryOperator<E> andThen(final FailableIntUnaryOperator<E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final int t) -> after.applyAsInt(applyAsInt(t));
     }
 
@@ -84,7 +84,7 @@ public interface FailableIntUnaryOperator<E extends Throwable> {
      * @see #andThen(FailableIntUnaryOperator)
      */
     default FailableIntUnaryOperator<E> compose(final FailableIntUnaryOperator<E> before) {
-        Objects.requireNonNull(before);
+        Objects.requireNonNull(before, "before");
         return (final int v) -> applyAsInt(before.applyAsInt(v));
     }
 }

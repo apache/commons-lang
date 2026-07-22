@@ -121,7 +121,7 @@ class ClassUtilsTest extends AbstractLangTest {
     }
 
     private int getDimension(final Class<?> clazz) {
-        Objects.requireNonNull(clazz);
+        Objects.requireNonNull(clazz, "clazz");
         if (!clazz.isArray()) {
             fail("Not an array: " + clazz);
         }

@@ -67,7 +67,7 @@ public interface FailableLongPredicate<E extends Throwable> {
      * @throws NullPointerException if other is null
      */
     default FailableLongPredicate<E> and(final FailableLongPredicate<E> other) {
-        Objects.requireNonNull(other);
+        Objects.requireNonNull(other, "other");
         return t -> test(t) && other.test(t);
     }
 
@@ -88,7 +88,7 @@ public interface FailableLongPredicate<E extends Throwable> {
      * @throws NullPointerException if other is null
      */
     default FailableLongPredicate<E> or(final FailableLongPredicate<E> other) {
-        Objects.requireNonNull(other);
+        Objects.requireNonNull(other, "other");
         return t -> test(t) || other.test(t);
     }
 

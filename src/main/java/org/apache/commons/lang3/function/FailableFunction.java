@@ -82,7 +82,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * @throws NullPointerException when {@code after} is null.
      */
     default <V> FailableFunction<T, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final T t) -> after.apply(apply(t));
     }
 
@@ -105,7 +105,7 @@ public interface FailableFunction<T, R, E extends Throwable> {
      * @see #andThen(FailableFunction)
      */
     default <V> FailableFunction<V, R, E> compose(final FailableFunction<? super V, ? extends T, E> before) {
-        Objects.requireNonNull(before);
+        Objects.requireNonNull(before, "before");
         return (final V v) -> apply(before.apply(v));
     }
 }

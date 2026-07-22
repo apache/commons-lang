@@ -203,7 +203,7 @@ public class DurationUtils {
      */
     static ChronoUnit toChronoUnit(final TimeUnit timeUnit) {
         // TODO when using Java >= 9: Use TimeUnit.toChronoUnit().
-        switch (Objects.requireNonNull(timeUnit)) {
+        switch (Objects.requireNonNull(timeUnit, "timeUnit")) {
         case NANOSECONDS:
             return ChronoUnit.NANOS;
         case MICROSECONDS:

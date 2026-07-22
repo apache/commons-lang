@@ -60,7 +60,7 @@ public interface FailableDoubleConsumer<E extends Throwable> {
      * @throws NullPointerException when {@code after} is null.
      */
     default FailableDoubleConsumer<E> andThen(final FailableDoubleConsumer<E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final double t) -> {
             accept(t);
             after.accept(t);

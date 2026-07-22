@@ -60,7 +60,7 @@ public interface FailableIntConsumer<E extends Throwable> {
      * @throws NullPointerException if {@code after} is null
      */
     default FailableIntConsumer<E> andThen(final FailableIntConsumer<E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final int t) -> {
             accept(t);
             after.accept(t);

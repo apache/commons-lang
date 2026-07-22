@@ -65,7 +65,7 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
      * @throws NullPointerException when {@code after} is null.
      */
     default FailableBiConsumer<T, U, E> andThen(final FailableBiConsumer<? super T, ? super U, E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (t, u) -> {
             accept(t, u);
             after.accept(t, u);

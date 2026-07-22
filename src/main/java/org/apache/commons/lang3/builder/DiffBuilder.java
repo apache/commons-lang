@@ -172,8 +172,8 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
 
         private SDiff(final String fieldName, final SerializableSupplier<T> leftSupplier, final SerializableSupplier<T> rightSupplier, final Class<T> type) {
             super(fieldName, type);
-            this.leftSupplier = Objects.requireNonNull(leftSupplier);
-            this.rightSupplier = Objects.requireNonNull(rightSupplier);
+            this.leftSupplier = Objects.requireNonNull(leftSupplier, "leftSupplier");
+            this.rightSupplier = Objects.requireNonNull(rightSupplier, "rightSupplier");
         }
 
         @Override

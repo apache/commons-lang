@@ -60,7 +60,7 @@ public interface FailableByteConsumer<E extends Throwable> {
      * @throws NullPointerException if {@code after} is null
      */
     default FailableByteConsumer<E> andThen(final FailableByteConsumer<E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final byte t) -> {
             accept(t);
             after.accept(t);

@@ -60,7 +60,7 @@ public interface FailableLongConsumer<E extends Throwable> {
      * @throws NullPointerException if {@code after} is null
      */
     default FailableLongConsumer<E> andThen(final FailableLongConsumer<E> after) {
-        Objects.requireNonNull(after);
+        Objects.requireNonNull(after, "after");
         return (final long t) -> {
             accept(t);
             after.accept(t);
