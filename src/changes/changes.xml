@@ -228,7 +228,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix ArrayUtils.reverse range underflow on Integer.MIN_VALUE end (#1750).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix sign extension in BitField.getValue for top-bit fields (#1749).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix int overflow in FluentBitSet.setInclusive at Integer.MAX_VALUE (#1751).</action>
-    <action type="fix" dev="ggregory" due-to="Gary Gregory">Add messages when throwing NullPointerException.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add messages when throwing NullPointerException.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
