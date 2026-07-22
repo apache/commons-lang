@@ -247,7 +247,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add CharUtils isHex(int), isAsciiNumeric(int), isOctal(int) (#1685).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add and use Instants.toInstant(Instant[, Instant]) (#1690).</action>
     <!-- UPDATE -->
-    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 102 #1498.</action>
+    <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 103 #1498.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.14.0 to 1.15.0.</action>
   </release>
   <release version="3.20.0" date="2025-11-12" description="This is a feature and maintenance release. Java 8 or later is required.">
