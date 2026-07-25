@@ -571,10 +571,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     @Override
     public int compareTo(final Fraction other) {
-        if (this == other) {
-            return 0;
-        }
-        if (numerator == other.numerator && denominator == other.denominator) {
+        if (this == other || numerator == other.numerator && denominator == other.denominator) {
             return 0;
         }
 
