@@ -432,10 +432,7 @@ public class LocaleUtils {
             if (len == 3) {
                 return new Locale(StringUtils.EMPTY, str.substring(1, 3));
             }
-            if (len < 5) {
-                throw new IllegalArgumentException("Invalid locale format: " + str);
-            }
-            if (str.charAt(3) != ch0) {
+            if (len < 5 || str.charAt(3) != ch0) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
             return new Locale(StringUtils.EMPTY, str.substring(1, 3), str.substring(4));
