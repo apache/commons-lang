@@ -438,10 +438,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @return {@code this} instance.
       */
     public CompareToBuilder append(final boolean lhs, final boolean rhs) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs) {
@@ -468,10 +465,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @return {@code this} instance.
      */
     public CompareToBuilder append(final boolean[] lhs, final boolean[] rhs) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs == null) {
@@ -524,10 +518,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @return {@code this} instance.
      */
     public CompareToBuilder append(final byte[] lhs, final byte[] rhs) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs == null) {
@@ -580,10 +571,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @return {@code this} instance.
      */
     public CompareToBuilder append(final char[] lhs, final char[] rhs) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs == null) {
@@ -641,10 +629,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @return {@code this} instance.
      */
     public CompareToBuilder append(final double[] lhs, final double[] rhs) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs == null) {
@@ -702,10 +687,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @return {@code this} instance.
      */
     public CompareToBuilder append(final float[] lhs, final float[] rhs) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs == null) {
@@ -758,10 +740,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @return {@code this} instance.
      */
     public CompareToBuilder append(final int[] lhs, final int[] rhs) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs == null) {
@@ -814,10 +793,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @return {@code this} instance.
      */
     public CompareToBuilder append(final long[] lhs, final long[] rhs) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs == null) {
@@ -887,10 +863,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @since 2.0
      */
     public CompareToBuilder append(final Object lhs, final Object rhs, final Comparator<?> comparator) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs == null) {
@@ -973,10 +946,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @since 2.0
      */
     public CompareToBuilder append(final Object[] lhs, final Object[] rhs, final Comparator<?> comparator) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs == null) {
@@ -1029,10 +999,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
      * @return {@code this} instance.
      */
     public CompareToBuilder append(final short[] lhs, final short[] rhs) {
-        if (comparison != 0) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (comparison != 0 || lhs == rhs) {
             return this;
         }
         if (lhs == null) {
