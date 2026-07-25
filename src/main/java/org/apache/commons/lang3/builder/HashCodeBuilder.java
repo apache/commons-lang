@@ -597,7 +597,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
         this(builder().setInitialOddNumber(17).setMultiplierOddNumber(37));
     }
 
-    private HashCodeBuilder(Builder builder) {
+    private HashCodeBuilder(final Builder builder) {
         super(builder);
         Validate.isTrue(builder.initialOddNumber % 2 != 0, "HashCodeBuilder requires an odd initial value");
         Validate.isTrue(builder.multiplierOddNumber % 2 != 0, "HashCodeBuilder requires an odd multiplier");
@@ -857,10 +857,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @return {@code this} instance.
      */
     public HashCodeBuilder append(final Object object) {
-        if (object == null) {
-            total = total * constant;
-        } else if (isRegistered(object) || isAppendRegistered(object)) {
-            // Cycle detected: skip to avoid infinite recursion (mirrors reflectionAppend).
+        if (object == null || isRegistered(object) || isAppendRegistered(object)) {
             total = total * constant;
         } else if (ObjectUtils.isArray(object)) {
             try {
