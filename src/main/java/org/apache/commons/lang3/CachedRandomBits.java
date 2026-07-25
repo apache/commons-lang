@@ -129,7 +129,7 @@ final class CachedRandomBits {
             // 1. Get byte from cache (bitIndex >> 3 converts bit index to byte index)
             // 2. Shift right by bit position within byte (bitIndex & 0x7)
             // 3. Mask to keep only the bits we want ((1 << generatedBitsInIteration) - 1)
-            result |= cache[bitIndex >> 3] >> (bitIndex & BIT_INDEX_MASK) & ((1 << generatedBitsInIteration) - 1);
+            result |= cache[bitIndex >> 3] >> (bitIndex & BIT_INDEX_MASK) & (1 << generatedBitsInIteration) - 1;
             // Update counters
             generatedBits += generatedBitsInIteration;
             bitIndex += generatedBitsInIteration;
