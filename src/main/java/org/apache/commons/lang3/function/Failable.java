@@ -64,7 +64,7 @@ import org.apache.commons.lang3.stream.Streams.FailableStream;
  * }</pre>
  *
  * <p>
- * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than the second
+ * Obviously, the second version is much more concise and the spirit of Lambda expressions is met better than the first
  * version.
  * </p>
  *
