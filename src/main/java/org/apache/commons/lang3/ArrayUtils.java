@@ -1618,14 +1618,14 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
-    public static boolean[] concat(boolean[]... arrays) {
+    public static boolean[] concat(final boolean[]... arrays) {
         int totalLength = 0;
-        for (boolean[] array : arrays) {
+        for (final boolean[] array : arrays) {
             totalLength = addExact(totalLength, array);
         }
         final boolean[] result = new boolean[totalLength];
         int currentPos = 0;
-        for (boolean[] array : arrays) {
+        for (final boolean[] array : arrays) {
             if (array != null && array.length > 0) {
                 System.arraycopy(array, 0, result, currentPos, array.length);
                 currentPos += array.length;
@@ -1650,14 +1650,14 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
-    public static byte[] concat(byte[]... arrays) {
+    public static byte[] concat(final byte[]... arrays) {
         int totalLength = 0;
-        for (byte[] array : arrays) {
+        for (final byte[] array : arrays) {
             totalLength = addExact(totalLength, array);
         }
         final byte[] result = new byte[totalLength];
         int currentPos = 0;
-        for (byte[] array : arrays) {
+        for (final byte[] array : arrays) {
             if (array != null && array.length > 0) {
                 System.arraycopy(array, 0, result, currentPos, array.length);
                 currentPos += array.length;
@@ -1682,14 +1682,14 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
-    public static char[] concat(char[]... arrays) {
+    public static char[] concat(final char[]... arrays) {
         int totalLength = 0;
-        for (char[] array : arrays) {
+        for (final char[] array : arrays) {
             totalLength = addExact(totalLength, array);
         }
         final char[] result = new char[totalLength];
         int currentPos = 0;
-        for (char[] array : arrays) {
+        for (final char[] array : arrays) {
             if (array != null && array.length > 0) {
                 System.arraycopy(array, 0, result, currentPos, array.length);
                 currentPos += array.length;
@@ -1714,14 +1714,14 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
-    public static double[] concat(double[]... arrays) {
+    public static double[] concat(final double[]... arrays) {
         int totalLength = 0;
-        for (double[] array : arrays) {
+        for (final double[] array : arrays) {
             totalLength = addExact(totalLength, array);
         }
         final double[] result = new double[totalLength];
         int currentPos = 0;
-        for (double[] array : arrays) {
+        for (final double[] array : arrays) {
             if (array != null && array.length > 0) {
                 System.arraycopy(array, 0, result, currentPos, array.length);
                 currentPos += array.length;
@@ -1746,14 +1746,14 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
-    public static float[] concat(float[]... arrays) {
+    public static float[] concat(final float[]... arrays) {
         int totalLength = 0;
-        for (float[] array : arrays) {
+        for (final float[] array : arrays) {
             totalLength = addExact(totalLength, array);
         }
         final float[] result = new float[totalLength];
         int currentPos = 0;
-        for (float[] array : arrays) {
+        for (final float[] array : arrays) {
             if (array != null && array.length > 0) {
                 System.arraycopy(array, 0, result, currentPos, array.length);
                 currentPos += array.length;
@@ -1778,14 +1778,14 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
-    public static int[] concat(int[]... arrays) {
+    public static int[] concat(final int[]... arrays) {
         int totalLength = 0;
-        for (int[] array : arrays) {
+        for (final int[] array : arrays) {
             totalLength = addExact(totalLength, array);
         }
         final int[] result = new int[totalLength];
         int currentPos = 0;
-        for (int[] array : arrays) {
+        for (final int[] array : arrays) {
             if (array != null && array.length > 0) {
                 System.arraycopy(array, 0, result, currentPos, array.length);
                 currentPos += array.length;
@@ -1810,14 +1810,14 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
-    public static long[] concat(long[]... arrays) {
+    public static long[] concat(final long[]... arrays) {
         int totalLength = 0;
-        for (long[] array : arrays) {
+        for (final long[] array : arrays) {
             totalLength = addExact(totalLength, array);
         }
         final long[] result = new long[totalLength];
         int currentPos = 0;
-        for (long[] array : arrays) {
+        for (final long[] array : arrays) {
             if (array != null && array.length > 0) {
                 System.arraycopy(array, 0, result, currentPos, array.length);
                 currentPos += array.length;
@@ -1842,14 +1842,14 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if total arrays length exceed {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.21.0
      */
-    public static short[] concat(short[]... arrays) {
+    public static short[] concat(final short[]... arrays) {
         int totalLength = 0;
-        for (short[] array : arrays) {
+        for (final short[] array : arrays) {
             totalLength = addExact(totalLength, array);
         }
         final short[] result = new short[totalLength];
         int currentPos = 0;
-        for (short[] array : arrays) {
+        for (final short[] array : arrays) {
             if (array != null && array.length > 0) {
                 System.arraycopy(array, 0, result, currentPos, array.length);
                 currentPos += array.length;
