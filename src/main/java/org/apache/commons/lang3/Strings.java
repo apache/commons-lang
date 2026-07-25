@@ -129,10 +129,7 @@ public abstract class Strings {
             if (cs1 == cs2) {
                 return true;
             }
-            if (cs1 == null || cs2 == null) {
-                return false;
-            }
-            if (cs1.length() != cs2.length()) {
+            if (cs1 == null || cs2 == null || cs1.length() != cs2.length()) {
                 return false;
             }
             return CharSequenceUtils.regionMatches(cs1, true, 0, cs2, 0, cs1.length());
@@ -226,10 +223,7 @@ public abstract class Strings {
             if (cs1 == cs2) {
                 return true;
             }
-            if (cs1 == null || cs2 == null) {
-                return false;
-            }
-            if (cs1.length() != cs2.length()) {
+            if (cs1 == null || cs2 == null || cs1.length() != cs2.length()) {
                 return false;
             }
             if (cs1 instanceof String && cs2 instanceof String) {
@@ -335,7 +329,7 @@ public abstract class Strings {
     static int initialCapacity(final int textLen, final int searchLen, final int replacementLen, final int max) {
         final long perReplacementGrowth = Math.max((long) replacementLen - searchLen, 0L);
         final long totalGrowth = perReplacementGrowth * (max < 0 ? 16 : Math.min(max, 64));
-        return (int) Math.min((long) textLen + totalGrowth, ArrayUtils.SAFE_MAX_ARRAY_LENGTH);
+        return (int) Math.min(textLen + totalGrowth, ArrayUtils.SAFE_MAX_ARRAY_LENGTH);
     }
 
     /**
