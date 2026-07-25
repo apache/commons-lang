@@ -1877,10 +1877,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (this == other) {
             return true;
         }
-        if (other == null) {
-            return false;
-        }
-        if (this.size != other.size) {
+        if (other == null || this.size != other.size) {
             return false;
         }
         final char[] thisBuf = this.buffer;
