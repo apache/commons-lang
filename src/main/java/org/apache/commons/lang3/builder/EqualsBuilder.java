@@ -415,17 +415,10 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final boolean[] lhs, final boolean[] rhs) {
-        if (!isEquals) {
+        if (!isEquals || lhs == rhs) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
-            setEquals(false);
-            return this;
-        }
-        if (lhs.length != rhs.length) {
+        if (lhs == null || rhs == null || lhs.length != rhs.length) {
             setEquals(false);
             return this;
         }
@@ -460,17 +453,10 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final byte[] lhs, final byte[] rhs) {
-        if (!isEquals) {
+        if (!isEquals || lhs == rhs) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
-            setEquals(false);
-            return this;
-        }
-        if (lhs.length != rhs.length) {
+        if (lhs == null || rhs == null || lhs.length != rhs.length) {
             setEquals(false);
             return this;
         }
@@ -505,17 +491,10 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final char[] lhs, final char[] rhs) {
-        if (!isEquals) {
+        if (!isEquals || lhs == rhs) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
-            setEquals(false);
-            return this;
-        }
-        if (lhs.length != rhs.length) {
+        if (lhs == null || rhs == null || lhs.length != rhs.length) {
             setEquals(false);
             return this;
         }
@@ -556,17 +535,10 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final double[] lhs, final double[] rhs) {
-        if (!isEquals) {
+        if (!isEquals || lhs == rhs) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
-            setEquals(false);
-            return this;
-        }
-        if (lhs.length != rhs.length) {
+        if (lhs == null || rhs == null || lhs.length != rhs.length) {
             setEquals(false);
             return this;
         }
@@ -607,17 +579,10 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final float[] lhs, final float[] rhs) {
-        if (!isEquals) {
+        if (!isEquals || lhs == rhs) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
-            setEquals(false);
-            return this;
-        }
-        if (lhs.length != rhs.length) {
+        if (lhs == null || rhs == null || lhs.length != rhs.length) {
             setEquals(false);
             return this;
         }
@@ -652,17 +617,10 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final int[] lhs, final int[] rhs) {
-        if (!isEquals) {
+        if (!isEquals || lhs == rhs) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
-            setEquals(false);
-            return this;
-        }
-        if (lhs.length != rhs.length) {
+        if (lhs == null || rhs == null || lhs.length != rhs.length) {
             setEquals(false);
             return this;
         }
@@ -699,17 +657,10 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final long[] lhs, final long[] rhs) {
-        if (!isEquals) {
+        if (!isEquals || lhs == rhs) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
-            setEquals(false);
-            return this;
-        }
-        if (lhs.length != rhs.length) {
+        if (lhs == null || rhs == null || lhs.length != rhs.length) {
             setEquals(false);
             return this;
         }
@@ -731,10 +682,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final Object lhs, final Object rhs) {
-        if (!isEquals) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (!isEquals || lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
@@ -777,11 +725,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
             if (lhs == rhs) {
                 return this;
             }
-            if (lhs == null || rhs == null) {
-                setEquals(false);
-                return this;
-            }
-            if (lhs.length != rhs.length) {
+            if (lhs == null || rhs == null || lhs.length != rhs.length) {
                 setEquals(false);
                 return this;
             }
@@ -819,17 +763,10 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder append(final short[] lhs, final short[] rhs) {
-        if (!isEquals) {
+        if (!isEquals || lhs == rhs) {
             return this;
         }
-        if (lhs == rhs) {
-            return this;
-        }
-        if (lhs == null || rhs == null) {
-            setEquals(false);
-            return this;
-        }
-        if (lhs.length != rhs.length) {
+        if (lhs == null || rhs == null || lhs.length != rhs.length) {
             setEquals(false);
             return this;
         }
@@ -940,10 +877,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * @return {@code this} instance.
      */
     public EqualsBuilder reflectionAppend(final Object lhs, final Object rhs) {
-        if (!isEquals) {
-            return this;
-        }
-        if (lhs == rhs) {
+        if (!isEquals || lhs == rhs) {
             return this;
         }
         if (lhs == null || rhs == null) {
