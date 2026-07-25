@@ -265,10 +265,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (this == obj) {
             return true;
         }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof ExtendedMessageFormat)) {
+        if (!super.equals(obj) || !(obj instanceof ExtendedMessageFormat)) {
             return false;
         }
         final ExtendedMessageFormat other = (ExtendedMessageFormat) obj;
