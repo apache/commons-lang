@@ -441,11 +441,7 @@ public class CompareToBuilder extends AbstractReflection implements Builder<Inte
         if (comparison != 0 || lhs == rhs) {
             return this;
         }
-        if (lhs) {
-            comparison = 1;
-        } else {
-            comparison = -1;
-        }
+        comparison = lhs ? 1 : -1;
         return this;
     }
 
