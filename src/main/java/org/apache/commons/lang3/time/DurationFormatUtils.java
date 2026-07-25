@@ -140,10 +140,7 @@ public class DurationFormatUtils {
         public boolean equals(final Object obj2) {
             if (obj2 instanceof Token) {
                 final Token tok2 = (Token) obj2;
-                if (this.value.getClass() != tok2.value.getClass()) {
-                    return false;
-                }
-                if (this.count != tok2.count) {
+                if (this.value.getClass() != tok2.value.getClass() || this.count != tok2.count) {
                     return false;
                 }
                 if (this.value instanceof StringBuilder) {
@@ -696,18 +693,16 @@ public class DurationFormatUtils {
                         buffer = null;
                         inLiteral = false;
                     }
+                } else if (i + 1 < format.length() && format.charAt(i + 1) == '\'') {
+                    // standalone '' outside a literal ? emit a single apostrophe
+                    buffer = new StringBuilder("'");
+                    list.add(new Token(buffer, inOptional, optionalIndex));
+                    buffer = null;
+                    i++;
                 } else {
-                    if (i + 1 < format.length() && format.charAt(i + 1) == '\'') {
-                        // standalone '' outside a literal ? emit a single apostrophe
-                        buffer = new StringBuilder("'");
-                        list.add(new Token(buffer, inOptional, optionalIndex));
-                        buffer = null;
-                        i++;
-                    } else {
-                        buffer = new StringBuilder();
-                        list.add(new Token(buffer, inOptional, optionalIndex));
-                        inLiteral = true;
-                    }
+                    buffer = new StringBuilder();
+                    list.add(new Token(buffer, inOptional, optionalIndex));
+                    inLiteral = true;
                 }
                 previous = null;
                 break;
