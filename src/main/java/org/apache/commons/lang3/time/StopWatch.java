@@ -86,7 +86,7 @@ public class StopWatch {
          * @param label Label for this split.
          * @param duration Duration for this split.
          */
-        public Split(String label, Duration duration) {
+        public Split(final String label, final Duration duration) {
             super(label, duration);
         }
 
