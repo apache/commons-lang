@@ -81,7 +81,7 @@ public final class ArrayFill {
      * @see Arrays#fill(char[], int, int, char)
      * @since 3.21.0
      */
-    public static char[] clear(char[] a, int fromIndex, int toIndex) {
+    public static char[] clear(final char[] a, final int fromIndex, final int toIndex) {
         return fill(a, fromIndex, toIndex, CharUtils.NUL);
     }
 
@@ -142,7 +142,7 @@ public final class ArrayFill {
      * @see Arrays#fill(char[], int, int, char)
      * @since 3.21.0
      */
-    public static char[] fill(char[] a, int fromIndex, int toIndex, char val) {
+    public static char[] fill(final char[] a, final int fromIndex, final int toIndex, final char val) {
         if (a != null) {
             Arrays.fill(a, fromIndex, toIndex, val);
         }
