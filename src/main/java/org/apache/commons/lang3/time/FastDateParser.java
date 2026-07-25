@@ -170,11 +170,7 @@ public class FastDateParser implements DateParser, Serializable {
         boolean parse(final FastDateParser parser, final Calendar calendar, final String source, final ParsePosition pos, final int maxWidth) {
             for (int idx = 0; idx < formatField.length(); ++idx) {
                 final int sIdx = idx + pos.getIndex();
-                if (sIdx == source.length()) {
-                    pos.setErrorIndex(sIdx);
-                    return false;
-                }
-                if (formatField.charAt(idx) != source.charAt(sIdx)) {
+                if (sIdx == source.length() || formatField.charAt(idx) != source.charAt(sIdx)) {
                     pos.setErrorIndex(sIdx);
                     return false;
                 }
