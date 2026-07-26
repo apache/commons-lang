@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -88,6 +89,8 @@ public class ClassUtils {
      * The maximum number of array dimensions.
      */
     private static final int MAX_DIMENSIONS = 255;
+
+    private static final Pattern ARRAY_TAIL_PATTERN = Pattern.compile("(?:\\[\\])+");
 
     private static final Comparator<Class<?>> COMPARATOR = (o1, o2) -> Objects.compare(getName(o1), getName(o2), String::compareTo);
 
@@ -1647,7 +1650,7 @@ public class ClassUtils {
             // "java.lang.String[]][]" where the suffix is not composed of
             // repeated "[]" pairs.
             final String tail = canonicalName.substring(arrIdx);
-            if (!tail.matches("(?:\\[\\])+")) {
+            if (!ARRAY_TAIL_PATTERN.matcher(tail).matches()) {
                 throw new IllegalArgumentException("Malformed array name: " + canonicalName);
             }
             final int dims =  (canonicalName.length() - arrIdx) / 2;
