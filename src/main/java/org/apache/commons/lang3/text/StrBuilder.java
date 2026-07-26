@@ -1412,7 +1412,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder appendWithSeparators(final Iterable<?> iterable, final String separator) {
         if (iterable != null) {
-            final String sep = Objects.toString(separator, "");
+            final String sep = Objects.toString(separator, StringUtils.EMPTY);
             final Iterator<?> it = iterable.iterator();
             while (it.hasNext()) {
                 append(it.next());
@@ -1436,7 +1436,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder appendWithSeparators(final Iterator<?> it, final String separator) {
         if (it != null) {
-            final String sep = Objects.toString(separator, "");
+            final String sep = Objects.toString(separator, StringUtils.EMPTY);
             while (it.hasNext()) {
                 append(it.next());
                 if (it.hasNext()) {
@@ -1459,7 +1459,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      */
     public StrBuilder appendWithSeparators(final Object[] array, final String separator) {
         if (array != null && array.length > 0) {
-            final String sep = Objects.toString(separator, "");
+            final String sep = Objects.toString(separator, StringUtils.EMPTY);
             append(array[0]);
             for (int i = 1; i < array.length; i++) {
                 append(sep);
