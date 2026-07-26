@@ -1322,7 +1322,7 @@ public class StringUtils {
         if (valid == null || cs == null) {
             return false;
         }
-        if (cs.length() == 0) {
+        if (isEmpty(cs)) {
             return true;
         }
         if (valid.length == 0) {
@@ -5569,7 +5569,7 @@ public class StringUtils {
         if (str == null || searchStr == null || ordinal <= 0) {
             return INDEX_NOT_FOUND;
         }
-        if (searchStr.length() == 0) {
+        if (isEmpty(searchStr)) {
             return lastIndex ? str.length() : 0;
         }
         int found = 0;
@@ -8754,7 +8754,7 @@ public class StringUtils {
         if (cs == null) {
             return null;
         }
-        if (cs.length() == 0) {
+        if (isEmpty(cs)) {
             return ArrayUtils.EMPTY_INT_ARRAY;
         }
         return cs.toString().codePoints().toArray();
