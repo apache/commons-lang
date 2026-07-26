@@ -1692,6 +1692,71 @@ class DateUtilsTest extends AbstractLangTest {
         assertEquals(oct31MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.DATE), "Round Calendar.DATE");
     }
 
+    @Test
+    public void testTruncatedCompareToCalendar() {
+        final Calendar cal1 = Calendar.getInstance();
+        cal1.set(2026, Calendar.JULY, 26, 10, 0, 0);
+        final Calendar cal2 = Calendar.getInstance();
+        cal2.set(2026, Calendar.JULY, 26, 14, 0, 0);
+
+        assertEquals(0, DateUtils.truncatedCompareTo(cal1, cal2, Calendar.DAY_OF_MONTH));
+        assertTrue(DateUtils.truncatedCompareTo(cal1, cal2, Calendar.HOUR_OF_DAY) < 0);
+        assertTrue(DateUtils.truncatedCompareTo(cal2, cal1, Calendar.HOUR_OF_DAY) > 0);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.truncatedCompareTo(null, cal2, Calendar.DAY_OF_MONTH));
+        assertThrows(NullPointerException.class, () -> DateUtils.truncatedCompareTo(cal1, null, Calendar.DAY_OF_MONTH));
+    }
+
+    @Test
+    public void testTruncatedCompareToDate() {
+        final Calendar cal1 = Calendar.getInstance();
+        cal1.set(2026, Calendar.JULY, 26, 10, 0, 0);
+        final Calendar cal2 = Calendar.getInstance();
+        cal2.set(2026, Calendar.JULY, 26, 14, 0, 0);
+
+        final Date date1 = cal1.getTime();
+        final Date date2 = cal2.getTime();
+
+        assertEquals(0, DateUtils.truncatedCompareTo(date1, date2, Calendar.DAY_OF_MONTH));
+
+        assertTrue(DateUtils.truncatedCompareTo(date1, date2, Calendar.HOUR_OF_DAY) < 0);
+        assertTrue(DateUtils.truncatedCompareTo(date2, date1, Calendar.HOUR_OF_DAY) > 0);
+
+        assertThrows(NullPointerException.class, () -> DateUtils.truncatedCompareTo(null, date2, Calendar.DAY_OF_MONTH));
+        assertThrows(NullPointerException.class, () -> DateUtils.truncatedCompareTo(date1, null, Calendar.DAY_OF_MONTH));
+    }
+
+    @Test
+    public void testTruncatedEqualCalendar() {
+        final Calendar cal1 = Calendar.getInstance();
+        cal1.set(2026, Calendar.JULY, 26, 10, 0, 0);
+        final Calendar cal2 = Calendar.getInstance();
+        cal2.set(2026, Calendar.JULY, 26, 14, 0, 0);
+
+        assertTrue(DateUtils.truncatedEquals(cal1, cal2, Calendar.DAY_OF_MONTH));
+        assertFalse(DateUtils.truncatedEquals(cal1, cal2, Calendar.HOUR_OF_DAY));
+
+        assertThrows(NullPointerException.class, () -> DateUtils.truncatedEquals(null, cal2, Calendar.DAY_OF_MONTH));
+        assertThrows(NullPointerException.class, () -> DateUtils.truncatedEquals(cal1, null, Calendar.DAY_OF_MONTH));
+    }
+
+    @Test
+    public void testTruncatedEqualDate() {
+        final Calendar cal1 = Calendar.getInstance();
+        cal1.set(2026, Calendar.JULY, 26, 10, 0, 0);
+        final Calendar cal2 = Calendar.getInstance();
+        cal2.set(2026, Calendar.JULY, 26, 14, 0, 0);
+
+        final Date date1 = cal1.getTime();
+        final Date date2 = cal2.getTime();
+
+        assertTrue(DateUtils.truncatedEquals(date1, date2, Calendar.DAY_OF_MONTH));
+        assertFalse(DateUtils.truncatedEquals(date1, date2, Calendar.HOUR_OF_DAY));
+
+        assertThrows(NullPointerException.class, () -> DateUtils.truncatedEquals(null, date2, Calendar.DAY_OF_MONTH));
+        assertThrows(NullPointerException.class, () -> DateUtils.truncatedEquals(date1, null, Calendar.DAY_OF_MONTH));
+    }
+
     /**
      * Tests the calendar iterator for week ranges
      */
