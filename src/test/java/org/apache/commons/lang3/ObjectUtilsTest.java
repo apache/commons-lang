@@ -674,6 +674,7 @@ class ObjectUtilsTest extends AbstractLangTest {
         assertFalse(ObjectUtils.isEmpty(NON_EMPTY_MAP));
         assertFalse(ObjectUtils.isEmpty(Optional.of(new Object())));
         assertFalse(ObjectUtils.isEmpty(Optional.ofNullable(new Object())));
+        assertFalse(ObjectUtils.isEmpty(1234));
     }
 
     @Test
