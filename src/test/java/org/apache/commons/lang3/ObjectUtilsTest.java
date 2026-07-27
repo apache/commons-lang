@@ -889,13 +889,13 @@ class ObjectUtilsTest extends AbstractLangTest {
 
     @Test
     void testWaitDuration() throws InterruptedException {
-        Object lock = new Object();
+        final Object lock = new Object();
 
-        long start = System.nanoTime();
+        final long start = System.nanoTime();
         synchronized (lock) {
             ObjectUtils.wait(lock, Duration.ofMillis(100));
         }
-        long elapsed = System.nanoTime() - start;
+        final long elapsed = System.nanoTime() - start;
 
         assertTrue(elapsed >= Duration.ofMillis(100).toNanos());
 
