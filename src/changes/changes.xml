@@ -232,6 +232,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Konrad Windszus">[Javadoc] Fix Failable class comment to clarify comparison of lambda versions (#1752).</action>
     <action issue="LANG-1829" type="fix" dev="ggregory" due-to="Maksym Korshun">Add tests for DateUtils.truncatedCompareTo and truncatedEquals (#1753).</action>
     <action issue="LANG-1830" type="fix" dev="ggregory" due-to="Maksym Korshun">Avoid repeated regex compilation in ClassUtils.toCleanName() (#1754).</action>
+    <action                   type="fix" dev="ggregory" due-to="Maksym Korshun">Add missing test for ObjectUtils.isEmpty(Object) (#1755).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
