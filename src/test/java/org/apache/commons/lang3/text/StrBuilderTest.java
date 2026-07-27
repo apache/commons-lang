@@ -76,7 +76,7 @@ class StrBuilderTest extends AbstractLangTest {
     void test_LANG_1131_EqualsWithNullStrBuilder() {
         final StrBuilder sb = new StrBuilder();
         final StrBuilder other = null;
-        assertFalse(sb.equals(other));
+        assertNotEquals(sb, other);
     }
 
     @Test
@@ -662,11 +662,11 @@ class StrBuilderTest extends AbstractLangTest {
         assertEquals(sb1, sb2);
 
         sb1.append("abc");
-        assertFalse(sb1.equals(sb2));
+        assertNotEquals(sb1, sb2);
         assertNotEquals(sb1, sb2);
 
         sb2.append("ABC");
-        assertFalse(sb1.equals(sb2));
+        assertNotEquals(sb1, sb2);
         assertNotEquals(sb1, sb2);
 
         sb2.clear().append("abc");
