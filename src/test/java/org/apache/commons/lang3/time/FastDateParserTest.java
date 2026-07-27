@@ -564,6 +564,27 @@ class FastDateParserTest extends AbstractLangTest {
     }
 
     @Test
+    public void testParsePositionBeyondInputLength() {
+        final String source = "Jan";
+        final int startingIndex = 10;
+        final String[] patterns = new String[] {"yyyy", "MM", "dd", "HH", "'x'", "-", "/", ":", " 'at' ", "MMM", "EEEE", "a", "z"};
+        for (final String pattern : patterns) {
+            final DateParser parser = getInstance(pattern);
+            final ParsePosition pos1 = new ParsePosition(startingIndex);
+            final Date date = parser.parse(source, pos1);
+            assertNull(date);
+            assertEquals(startingIndex, pos1.getIndex());
+            assertEquals(startingIndex, pos1.getErrorIndex());
+            final ParsePosition pos2 = new ParsePosition(startingIndex);
+            final Calendar cal = Calendar.getInstance();
+            final boolean success = parser.parse(source, pos2, cal);
+            assertFalse(success);
+            assertEquals(startingIndex, pos2.getIndex());
+            assertEquals(startingIndex, pos2.getErrorIndex());
+        }
+    }
+
+    @Test
     void testParseOffset() {
         final DateParser parser = getInstance(YMD_SLASH);
         final Date date = parser.parse("Today is 2015/07/04", new ParsePosition(9));
