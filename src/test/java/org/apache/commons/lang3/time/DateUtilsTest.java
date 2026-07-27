@@ -1649,49 +1649,6 @@ class DateUtilsTest extends AbstractLangTest {
         assertEquals(0, cal.get(Calendar.HOUR));
     }
 
-    /**
-     * Tests for LANG-59
-     *
-     * see https://issues.apache.org/jira/browse/LANG-59
-     */
-    @Test
-    void testTruncateLang59() {
-        // Set TimeZone to Mountain Time
-        final TimeZone denverZone = TimeZones.getTimeZone("America/Denver");
-        TimeZone.setDefault(denverZone);
-        final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS XXX");
-        format.setTimeZone(denverZone);
-        final Date oct31_01MDT = new Date(1099206000000L);
-        final Date oct31MDT = new Date(oct31_01MDT.getTime() - 3600000L); // - 1 hour
-        final Date oct31_01_02MDT = new Date(oct31_01MDT.getTime() + 120000L); // + 2 minutes
-        final Date oct31_01_02_03MDT = new Date(oct31_01_02MDT.getTime() + 3000L); // + 3 seconds
-        final Date oct31_01_02_03_04MDT = new Date(oct31_01_02_03MDT.getTime() + 4L); // + 4 milliseconds
-        assertEquals("2004-10-31 00:00:00.000 -06:00", format.format(oct31MDT), "Check 00:00:00.000");
-        assertEquals("2004-10-31 01:00:00.000 -06:00", format.format(oct31_01MDT), "Check 01:00:00.000");
-        assertEquals("2004-10-31 01:02:00.000 -06:00", format.format(oct31_01_02MDT), "Check 01:02:00.000");
-        assertEquals("2004-10-31 01:02:03.000 -06:00", format.format(oct31_01_02_03MDT), "Check 01:02:03.000");
-        assertEquals("2004-10-31 01:02:03.004 -06:00", format.format(oct31_01_02_03_04MDT), "Check 01:02:03.004");
-        // Demonstrate Problem
-        final Calendar gval = Calendar.getInstance();
-        gval.setTime(new Date(oct31_01MDT.getTime()));
-        gval.set(Calendar.MINUTE, gval.get(Calendar.MINUTE)); // set minutes to the same value
-        assertEquals(gval.getTime().getTime(), oct31_01MDT.getTime() + 3600000L, "Demonstrate Problem");
-        // Test Truncate
-        assertEquals(oct31_01_02_03_04MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MILLISECOND), "Truncate Calendar.MILLISECOND");
-        assertEquals(oct31_01_02_03MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.SECOND), "Truncate Calendar.SECOND");
-        assertEquals(oct31_01_02MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MINUTE), "Truncate Calendar.MINUTE");
-        assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY), "Truncate Calendar.HOUR_OF_DAY");
-        assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR), "Truncate Calendar.HOUR");
-        assertEquals(oct31MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.DATE), "Truncate Calendar.DATE");
-        // Test Round (down)
-        assertEquals(oct31_01_02_03_04MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MILLISECOND), "Round Calendar.MILLISECOND");
-        assertEquals(oct31_01_02_03MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.SECOND), "Round Calendar.SECOND");
-        assertEquals(oct31_01_02MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MINUTE), "Round Calendar.MINUTE");
-        assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY), "Round Calendar.HOUR_OF_DAY");
-        assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR), "Round Calendar.HOUR");
-        assertEquals(oct31MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.DATE), "Round Calendar.DATE");
-    }
-
     @Test
     public void testTruncatedCompareToCalendar() {
         final Calendar cal1 = Calendar.getInstance();
@@ -1755,6 +1712,49 @@ class DateUtilsTest extends AbstractLangTest {
 
         assertThrows(NullPointerException.class, () -> DateUtils.truncatedEquals(null, date2, Calendar.DAY_OF_MONTH));
         assertThrows(NullPointerException.class, () -> DateUtils.truncatedEquals(date1, null, Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * Tests for LANG-59
+     *
+     * see https://issues.apache.org/jira/browse/LANG-59
+     */
+    @Test
+    void testTruncateLang59() {
+        // Set TimeZone to Mountain Time
+        final TimeZone denverZone = TimeZones.getTimeZone("America/Denver");
+        TimeZone.setDefault(denverZone);
+        final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS XXX");
+        format.setTimeZone(denverZone);
+        final Date oct31_01MDT = new Date(1099206000000L);
+        final Date oct31MDT = new Date(oct31_01MDT.getTime() - 3600000L); // - 1 hour
+        final Date oct31_01_02MDT = new Date(oct31_01MDT.getTime() + 120000L); // + 2 minutes
+        final Date oct31_01_02_03MDT = new Date(oct31_01_02MDT.getTime() + 3000L); // + 3 seconds
+        final Date oct31_01_02_03_04MDT = new Date(oct31_01_02_03MDT.getTime() + 4L); // + 4 milliseconds
+        assertEquals("2004-10-31 00:00:00.000 -06:00", format.format(oct31MDT), "Check 00:00:00.000");
+        assertEquals("2004-10-31 01:00:00.000 -06:00", format.format(oct31_01MDT), "Check 01:00:00.000");
+        assertEquals("2004-10-31 01:02:00.000 -06:00", format.format(oct31_01_02MDT), "Check 01:02:00.000");
+        assertEquals("2004-10-31 01:02:03.000 -06:00", format.format(oct31_01_02_03MDT), "Check 01:02:03.000");
+        assertEquals("2004-10-31 01:02:03.004 -06:00", format.format(oct31_01_02_03_04MDT), "Check 01:02:03.004");
+        // Demonstrate Problem
+        final Calendar gval = Calendar.getInstance();
+        gval.setTime(new Date(oct31_01MDT.getTime()));
+        gval.set(Calendar.MINUTE, gval.get(Calendar.MINUTE)); // set minutes to the same value
+        assertEquals(gval.getTime().getTime(), oct31_01MDT.getTime() + 3600000L, "Demonstrate Problem");
+        // Test Truncate
+        assertEquals(oct31_01_02_03_04MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MILLISECOND), "Truncate Calendar.MILLISECOND");
+        assertEquals(oct31_01_02_03MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.SECOND), "Truncate Calendar.SECOND");
+        assertEquals(oct31_01_02MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.MINUTE), "Truncate Calendar.MINUTE");
+        assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY), "Truncate Calendar.HOUR_OF_DAY");
+        assertEquals(oct31_01MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.HOUR), "Truncate Calendar.HOUR");
+        assertEquals(oct31MDT, DateUtils.truncate(oct31_01_02_03_04MDT, Calendar.DATE), "Truncate Calendar.DATE");
+        // Test Round (down)
+        assertEquals(oct31_01_02_03_04MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MILLISECOND), "Round Calendar.MILLISECOND");
+        assertEquals(oct31_01_02_03MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.SECOND), "Round Calendar.SECOND");
+        assertEquals(oct31_01_02MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.MINUTE), "Round Calendar.MINUTE");
+        assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR_OF_DAY), "Round Calendar.HOUR_OF_DAY");
+        assertEquals(oct31_01MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.HOUR), "Round Calendar.HOUR");
+        assertEquals(oct31MDT, DateUtils.round(oct31_01_02_03_04MDT, Calendar.DATE), "Round Calendar.DATE");
     }
 
     /**

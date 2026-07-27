@@ -564,6 +564,17 @@ class FastDateParserTest extends AbstractLangTest {
     }
 
     @Test
+    void testParseOffset() {
+        final DateParser parser = getInstance(YMD_SLASH);
+        final Date date = parser.parse("Today is 2015/07/04", new ParsePosition(9));
+
+        final Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set(2015, Calendar.JULY, 4);
+        assertEquals(cal.getTime(), date);
+    }
+
+    @Test
     public void testParsePositionBeyondInputLength() {
         final String source = "Jan";
         final int startingIndex = 10;
@@ -582,17 +593,6 @@ class FastDateParserTest extends AbstractLangTest {
             assertEquals(startingIndex, pos2.getIndex());
             assertEquals(startingIndex, pos2.getErrorIndex());
         }
-    }
-
-    @Test
-    void testParseOffset() {
-        final DateParser parser = getInstance(YMD_SLASH);
-        final Date date = parser.parse("Today is 2015/07/04", new ParsePosition(9));
-
-        final Calendar cal = Calendar.getInstance();
-        cal.clear();
-        cal.set(2015, Calendar.JULY, 4);
-        assertEquals(cal.getTime(), date);
     }
 
     @CartesianTest
