@@ -606,7 +606,7 @@ class EqualsBuilderTest extends AbstractBuilderTest {
         x3.setObjectReference(refX3);
         refX3.setObjectReference(x3);
 
-        assertTrue(x1.equals(x2));
+        assertEquals(x1, x2);
         assertNotEqualsIfAccessible(x1, x3);
         assertNotEqualsIfAccessible(x2, x3);
     }
