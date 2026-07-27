@@ -1043,6 +1043,11 @@ public class FastDateParser implements DateParser, Serializable {
      */
     @Override
     public Date parse(final String source, final ParsePosition pos) {
+        final int startIndex = pos.getIndex();
+        if (startIndex > source.length()) {
+            pos.setErrorIndex(startIndex);
+            return null;
+        }
         // timing tests indicate getting new instance is 19% faster than cloning
         final Calendar cal = Calendar.getInstance(timeZone, locale);
         cal.clear();
@@ -1062,6 +1067,11 @@ public class FastDateParser implements DateParser, Serializable {
      */
     @Override
     public boolean parse(final String source, final ParsePosition pos, final Calendar calendar) {
+        final int startIndex = pos.getIndex();
+        if (startIndex > source.length()) {
+            pos.setErrorIndex(startIndex);
+            return false;
+        }
         final ListIterator<StrategyAndWidth> lt = patterns.listIterator();
         while (lt.hasNext()) {
             final StrategyAndWidth strategyAndWidth = lt.next();
