@@ -863,6 +863,15 @@ public class FastDateParser implements DateParser, Serializable {
         return twoDigitYear >= startYear ? trial : trial + 100;
     }
 
+    private boolean checkLength(final String source, final ParsePosition pos) {
+        final int startIndex = pos.getIndex();
+        if (startIndex > source.length()) {
+            pos.setErrorIndex(startIndex);
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Compares another object for equality with this object.
      *
@@ -1043,9 +1052,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     @Override
     public Date parse(final String source, final ParsePosition pos) {
-        final int startIndex = pos.getIndex();
-        if (startIndex > source.length()) {
-            pos.setErrorIndex(startIndex);
+        if (!checkLength(source, pos)) {
             return null;
         }
         // timing tests indicate getting new instance is 19% faster than cloning
@@ -1067,9 +1074,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     @Override
     public boolean parse(final String source, final ParsePosition pos, final Calendar calendar) {
-        final int startIndex = pos.getIndex();
-        if (startIndex > source.length()) {
-            pos.setErrorIndex(startIndex);
+        if (!checkLength(source, pos)) {
             return false;
         }
         final ListIterator<StrategyAndWidth> lt = patterns.listIterator();
