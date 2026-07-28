@@ -429,8 +429,15 @@ public class StringUtils {
             return str;
         }
         final int targetString = length - middle.length();
-        final int startOffset = targetString / 2 + targetString % 2;
-        final int endOffset = str.length() - targetString / 2;
+        int startOffset = targetString / 2 + targetString % 2;
+        int endOffset = str.length() - targetString / 2;
+        // keep both cuts off the middle of a surrogate pair so the result is never left holding a lone surrogate
+        if (splitsSurrogatePair(str, startOffset)) {
+            startOffset--;
+        }
+        if (splitsSurrogatePair(str, endOffset)) {
+            endOffset++;
+        }
         return str.substring(0, startOffset) + middle + str.substring(endOffset);
     }
 
