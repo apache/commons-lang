@@ -1059,6 +1059,11 @@ class StrBuilderTest extends AbstractLangTest {
         assertEquals(1, sb.lastIndexOf("ba"));
         assertEquals("abab".lastIndexOf("ba"), sb.lastIndexOf("ba"));
 
+        assertEquals(4, sb.lastIndexOf(""));
+        //should work like String#lastIndexOf
+        assertEquals("abab".lastIndexOf(""), sb.lastIndexOf(""));
+        assertEquals("".lastIndexOf(""), new StrBuilder().lastIndexOf(""));
+
         assertEquals(-1, sb.lastIndexOf("z"));
 
         assertEquals(-1, sb.lastIndexOf((String) null));
