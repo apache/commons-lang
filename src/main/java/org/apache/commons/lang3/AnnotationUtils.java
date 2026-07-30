@@ -20,6 +20,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import org.apache.commons.lang3.builder.AbstractReflection;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.exception.UncheckedException;
@@ -212,6 +213,7 @@ public class AnnotationUtils {
             for (final Method m : type1.getDeclaredMethods()) {
                 if (m.getParameterTypes().length == 0
                         && isValidAnnotationMemberType(m.getReturnType())) {
+                    AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
                     final Object v1 = m.invoke(a1);
                     final Object v2 = m.invoke(a2);
                     if (!memberEquals(m.getReturnType(), v1, v2)) {
@@ -220,7 +222,7 @@ public class AnnotationUtils {
                 }
             }
         } catch (final ReflectiveOperationException ex) {
-            return false;
+            throw new IllegalStateException(ex);
         }
         return true;
     }
@@ -242,6 +244,7 @@ public class AnnotationUtils {
         final Class<? extends Annotation> type = a.annotationType();
         for (final Method m : type.getDeclaredMethods()) {
             try {
+                AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
                 final Object value = m.invoke(a);
                 if (value == null) {
                     throw new IllegalStateException(String.format("Annotation method %s returned null", m));
@@ -336,6 +339,7 @@ public class AnnotationUtils {
                 continue; // what?
             }
             try {
+                AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
                 builder.append(m.getName(), m.invoke(a));
             } catch (final ReflectiveOperationException ex) {
                 throw new UncheckedException(ex);

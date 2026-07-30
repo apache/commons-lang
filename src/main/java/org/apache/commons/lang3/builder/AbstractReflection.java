@@ -108,8 +108,9 @@ public abstract class AbstractReflection {
      *
      * @return whether the system property {@code "AbstractReflection.forceAccessible"} is set to true with true as the default.
      * @see Boolean#parseBoolean(String)
+     * @since 3.21.0
      */
-    static boolean getForceAccessible() {
+    public static boolean getForceAccessible() {
         return SystemProperties.getBoolean(AbstractReflection.class, "forceAccessible", () -> true);
     }
 
@@ -124,37 +125,44 @@ public abstract class AbstractReflection {
     }
 
     /**
-     * If {@code forceAccessible} flag is true, then the field is made accessible by calling {@link AccessibleObject#setAccessible(boolean)
-     * AccessibleObject#setAccessible(true)} but <em>only</em> if a field is not already accessible.
+     * If {@code forceAccessible} is true, makes {@code accessibleObject} accessible by calling
+     * {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)} but <em>only</em> if it is not already accessible.
      *
-     * @param forceAccessible Whether to call {@link AccessibleObject#setAccessible(boolean)} if a field is not already accessible.
-     * @param field          The field to set.
-     * @return true if the field is accessible, false otherwise.
-     * @throws SecurityException Thrown if {@code forceAccessible} flag is true and the request is denied.
+     * @param forceAccessible Whether to call {@link AccessibleObject#setAccessible(boolean)} if the object is not already accessible.
+     * @param accessibleObject The accessible object to set; may be {@code null}.
+     * @return {@code true} if {@code accessibleObject} is non-null and accessible after this call; {@code false} otherwise
+     *         (including when {@code accessibleObject} is {@code null}, or when it is inaccessible and {@code forceAccessible} is {@code false}).
+     * @throws SecurityException Thrown if {@code forceAccessible} is true and the request is denied.
      * @see AccessibleObject#setAccessible(boolean)
      * @see SecurityManager#checkPermission
      */
-    static boolean setAccessible(final boolean forceAccessible, final Field field) {
-        return !field.isAccessible() && forceAccessible && setAccessibleTrue(field);
+    public static boolean setAccessible(final boolean forceAccessible, final AccessibleObject accessibleObject) {
+        if (accessibleObject == null) {
+            return false;
+        }
+        if (accessibleObject.isAccessible()) {
+            return true;
+        }
+        return forceAccessible && setAccessibleTrue(accessibleObject);
     }
 
     /**
-     * Sets the field as accessible by calling {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)} but <em>only</em> if a field
-     * is not already accessible.
+     * Sets the accessible object as accessible by calling {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)} but
+     * <em>only</em> if it is not already accessible.
      *
-     * @param field The field to set, may be null.
-     * @return true if the field is accessible, false otherwise.
-     * @throws SecurityException Thrown if {@code forceAccessible} flag is true and the request is denied.
+     * @param accessibleObject The accessible object to set, may be {@code null}.
+     * @return {@code true} if {@code accessibleObject} is non-null and accessible after this call; {@code false} otherwise.
+     * @throws SecurityException Thrown if the request is denied.
      * @see AccessibleObject#setAccessible(boolean)
      * @see SecurityManager#checkPermission
      */
-    private static boolean setAccessibleTrue(final Field field) {
-        if (field != null) {
+    private static boolean setAccessibleTrue(final AccessibleObject accessibleObject) {
+        if (accessibleObject != null) {
             // Test isAccessible() to avoid the permission check.
-            if (!field.isAccessible()) {
-                field.setAccessible(true);
+            if (!accessibleObject.isAccessible()) {
+                accessibleObject.setAccessible(true);
             }
-            return field.isAccessible();
+            return accessibleObject.isAccessible();
         }
         return false;
     }
@@ -202,12 +210,12 @@ public abstract class AbstractReflection {
     }
 
     /**
-     * If {@code forceAccessible} flag is true, each field in the given array is made accessible by calling {@link AccessibleObject#setAccessible(boolean)
-     * AccessibleObject#setAccessible(true)} but <em>only</em> if a field is not already accessible.
+     * If {@code forceAccessible} flag is true, the field is made accessible by calling {@link AccessibleObject#setAccessible(boolean)
+     * AccessibleObject#setAccessible(true)} but <em>only</em> if the field is not already accessible.
      *
-     * @param field The fields to set.
+     * @param field The field to set; may be {@code null}.
+     * @return {@code true} if {@code field} is non-null and accessible after this call; {@code false} otherwise.
      * @throws SecurityException Thrown if {@code forceAccessible} flag is true and the request is denied.
-     * @return true if the field is accessible, false otherwise.
      * @see AccessibleObject#setAccessible(boolean)
      * @see SecurityManager#checkPermission
      */
