@@ -897,6 +897,10 @@ class ObjectUtilsTest extends AbstractLangTest {
         }
         final long elapsed = System.nanoTime() - start;
         assertTrue(elapsed >= Duration.ofMillis(100).toNanos());
+    }
+
+    @Test
+    void testWaitDurationThrows() throws InterruptedException {
         assertThrows(IllegalArgumentException.class, () -> ObjectUtils.wait(new Object(), Duration.ofSeconds(-10)));
         assertThrows(IllegalMonitorStateException.class, () -> ObjectUtils.wait(new Object(), Duration.ZERO));
     }
