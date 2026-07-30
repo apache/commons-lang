@@ -108,6 +108,7 @@ public abstract class AbstractReflection {
      *
      * @return whether the system property {@code "AbstractReflection.forceAccessible"} is set to true with true as the default.
      * @see Boolean#parseBoolean(String)
+     * @since 3.21.0
      */
     public static boolean getForceAccessible() {
         return SystemProperties.getBoolean(AbstractReflection.class, "forceAccessible", () -> true);
