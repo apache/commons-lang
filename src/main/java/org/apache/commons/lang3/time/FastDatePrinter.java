@@ -864,11 +864,16 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         public void appendTo(final Appendable buffer, final Calendar calendar) throws IOException {
             // Some Calendar implementations (JapaneseImperialCalendar) do not support week-dates.
             // Fall back to Calendar.YEAR in that case.
-            rule.appendTo(buffer, calendar.isWeekDateSupported() ? calendar.getWeekYear() : calendar.get(Calendar.YEAR));
+            appendTo(buffer, calendar.isWeekDateSupported() ? calendar.getWeekYear() : calendar.get(Calendar.YEAR));
         }
 
         @Override
-        public void appendTo(final Appendable buffer, final int value) throws IOException {
+        public void appendTo(final Appendable buffer, int value) throws IOException {
+            // A week year is proleptic, so a BC date gives a negative value the digit rules cannot render.
+            if (value < 0) {
+                buffer.append('-');
+                value = -value;
+            }
             rule.appendTo(buffer, value);
         }
 
