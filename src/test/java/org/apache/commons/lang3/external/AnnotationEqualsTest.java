@@ -16,18 +16,18 @@
  */
 package org.apache.commons.lang3.external;
 
-import org.apache.commons.lang3.AnnotationUtils;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.InvocationTargetException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.apache.commons.lang3.AnnotationUtils;
+import org.junit.jupiter.api.Test;
 
 /**
  * Regression test for <a href="https://issues.apache.org/jira/browse/LANG-1815">LANG-1815</a>.
@@ -72,8 +72,8 @@ public class AnnotationEqualsTest {
 
     @Test
     void equalsWorksOnPackagePrivateAnnotations() throws Exception {
-        Tag tagA = getClass().getDeclaredField("a").getAnnotation(Tag.class);
-        Tag tagB = getClass().getDeclaredField("b").getAnnotation(Tag.class);
+        final Tag tagA = getClass().getDeclaredField("a").getAnnotation(Tag.class);
+        final Tag tagB = getClass().getDeclaredField("b").getAnnotation(Tag.class);
         assertTrue(AnnotationUtils.equals(tagA, tagB));
     }
 
