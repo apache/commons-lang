@@ -154,6 +154,7 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
         assertAbbreviateWithAbbrevMarkerAndOffset("abcdef____", "____", 5, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("==fghijk==", "==", 5, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("___ghij___", "___", 6, 10);
+        assertAbbreviateWithAbbrevMarkerAndOffset("…ghijklmno", "…", 6, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("/ghijklmno", "/", 7, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("/ghijklmno", "/", 8, 10);
         assertAbbreviateWithAbbrevMarkerAndOffset("/ghijklmno", "/", 9, 10);

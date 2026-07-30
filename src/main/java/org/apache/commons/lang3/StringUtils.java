@@ -335,7 +335,7 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefghijklmno", ",", 2, 10)    = "abcdefghi,"
      * StringUtils.abbreviate("abcdefghijklmno", "::", 4, 10)   = "::efghij::"
      * StringUtils.abbreviate("abcdefghijklmno", "...", 6, 10)  = "...ghij..."
-     * StringUtils.abbreviate("abcdefghijklmno", "…", 6, 10)    = "…ghij…"
+     * StringUtils.abbreviate("abcdefghijklmno", "…", 6, 10)    = "…ghijklmno"
      * StringUtils.abbreviate("abcdefghijklmno", "*", 9, 10)    = "*ghijklmno"
      * StringUtils.abbreviate("abcdefghijklmno", "'", 10, 10)   = "'ghijklmno"
      * StringUtils.abbreviate("abcdefghijklmno", "!", 12, 10)   = "!ghijklmno"
