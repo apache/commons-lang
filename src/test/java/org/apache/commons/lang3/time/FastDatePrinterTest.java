@@ -446,4 +446,26 @@ class FastDatePrinterTest extends AbstractLangTest {
         assertEquals("2021", printer4DigitAnotherFallback.format(cal));
         assertEquals("21", printer2Digits.format(cal));
     }
+
+    @DefaultLocale(language = "en", country = "US")
+    @DefaultTimeZone("America/New_York")
+    @Test
+    void testWeekYearBc() {
+        final GregorianCalendar cal = new GregorianCalendar(42, Calendar.JULY, 15);
+        cal.set(Calendar.ERA, GregorianCalendar.BC);
+        assertEquals(-41, cal.getWeekYear());
+        assertEquals(new SimpleDateFormat("YYYY").format(cal.getTime()), getInstance("YYYY").format(cal));
+        assertEquals(new SimpleDateFormat("YYYYY").format(cal.getTime()), getInstance("YYYYY").format(cal));
+        assertEquals(new SimpleDateFormat("YY").format(cal.getTime()), getInstance("YY").format(cal));
+        assertEquals("-0041", getInstance("YYYY").format(cal));
+        assertEquals("-00041", getInstance("YYYYY").format(cal));
+        assertEquals("-41", getInstance("YY").format(cal));
+        // Padded to four digits like the AD case, see testWeekYear.
+        assertEquals("-0041", getInstance("YYY").format(cal));
+        assertEquals("-0041", getInstance("Y").format(cal));
+        // The week year of 1 BC is 0, which the digit rules already render.
+        final GregorianCalendar oneBc = new GregorianCalendar(1, Calendar.JULY, 15);
+        oneBc.set(Calendar.ERA, GregorianCalendar.BC);
+        assertEquals("0000", getInstance("YYYY").format(oneBc));
+    }
 }
