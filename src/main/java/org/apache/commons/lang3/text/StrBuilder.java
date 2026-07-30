@@ -2362,7 +2362,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return The last index of the string, or -1 if not found.
      */
     public int lastIndexOf(final String str) {
-        return lastIndexOf(str, size - 1);
+        return lastIndexOf(str, size);
     }
 
     /**
