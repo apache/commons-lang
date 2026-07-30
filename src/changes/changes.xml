@@ -234,6 +234,7 @@ java.lang.NullPointerException: Cannot invoke
     <action issue="LANG-1830" type="fix" dev="ggregory" due-to="Maksym Korshun">Avoid repeated regex compilation in ClassUtils.toCleanName() (#1754).</action>
     <action                   type="fix" dev="ggregory" due-to="Maksym Korshun, Gary Gregory">Add missing test for ObjectUtils.isEmpty(Object) and wait(Object, Duration) (#1755, #1756).</action>
     <action                   type="fix" dev="ggregory" due-to="alhudz, Gary Gregory">Fix negative week year formatting in FastDatePrinter (#1762).</action>
+    <action                   type="fix" dev="ggregory" due-to="kdelay, Gary Gregory">Keep abbreviateMiddle off surrogate pair boundaries (#1758).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
