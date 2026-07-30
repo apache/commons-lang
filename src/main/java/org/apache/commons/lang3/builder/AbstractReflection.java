@@ -125,46 +125,39 @@ public abstract class AbstractReflection {
     }
 
     /**
-     * If {@code forceAccessible} is true, makes {@code accessibleObject} accessible by calling
-     * {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)} but <em>only</em> if it is not already accessible.
+     * If {@code forceAccessible} is true, makes {@code accessibleObject} accessible by calling {@link AccessibleObject#setAccessible(boolean)
+     * AccessibleObject#setAccessible(true)} but <em>only</em> if it is not already accessible.
      *
-     * @param forceAccessible Whether to call {@link AccessibleObject#setAccessible(boolean)} if the object is not already accessible.
+     * @param forceAccessible  Whether to call {@link AccessibleObject#setAccessible(boolean)} if the object is not already accessible.
      * @param accessibleObject The accessible object to set; may be {@code null}.
-     * @return {@code true} if {@code accessibleObject} is non-null and accessible after this call; {@code false} otherwise
-     *         (including when {@code accessibleObject} is {@code null}, or when it is inaccessible and {@code forceAccessible} is {@code false}).
+     * @return {@code true} if {@code accessibleObject} is non-null and accessible after this call; {@code false} otherwise (including when
+     *         {@code accessibleObject} is {@code null}, or when it is inaccessible and {@code forceAccessible} is {@code false}).
      * @throws SecurityException Thrown if {@code forceAccessible} is true and the request is denied.
      * @see AccessibleObject#setAccessible(boolean)
      * @see SecurityManager#checkPermission
      */
     public static boolean setAccessible(final boolean forceAccessible, final AccessibleObject accessibleObject) {
-        if (accessibleObject == null) {
-            return false;
-        }
-        if (accessibleObject.isAccessible()) {
-            return true;
-        }
-        return forceAccessible && setAccessibleTrue(accessibleObject);
+        return accessibleObject != null && (accessibleObject.isAccessible() || forceAccessible && setAccessibleTrue(accessibleObject));
     }
 
     /**
-     * Sets the accessible object as accessible by calling {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)} but
-     * <em>only</em> if it is not already accessible.
+     * Sets the accessible object as accessible by calling {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)}.
+     * <p>
+     * Callers must ensure {@code accessibleObject} is non-null before calling this method.
+     * </p>
      *
-     * @param accessibleObject The accessible object to set, may be {@code null}.
-     * @return {@code true} if {@code accessibleObject} is non-null and accessible after this call; {@code false} otherwise.
+     * @param accessibleObject The accessible object to set; must be non-null.
+     * @return {@code true} if {@code accessibleObject} is accessible after this call; {@code false} otherwise.
      * @throws SecurityException Thrown if the request is denied.
      * @see AccessibleObject#setAccessible(boolean)
      * @see SecurityManager#checkPermission
      */
     private static boolean setAccessibleTrue(final AccessibleObject accessibleObject) {
-        if (accessibleObject != null) {
-            // Test isAccessible() to avoid the permission check.
-            if (!accessibleObject.isAccessible()) {
-                accessibleObject.setAccessible(true);
-            }
-            return accessibleObject.isAccessible();
+        // Test isAccessible() to avoid the permission check.
+        if (!accessibleObject.isAccessible()) {
+            accessibleObject.setAccessible(true);
         }
-        return false;
+        return accessibleObject.isAccessible();
     }
 
     /**
