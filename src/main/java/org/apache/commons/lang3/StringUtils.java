@@ -8845,18 +8845,19 @@ public class StringUtils {
     }
 
     /**
-     * Removes control characters (char &lt;= 31) from both ends of this String, handling {@code null} by returning {@code null}.
+     * Removes {@link CharUtils#isAsciiControl(char) ASCII control characters} (char &lt;= 31 or char == 127) from both ends of this String, handling
+     * {@code null} by returning {@code null}.
      *
      * <p>
      * To trim your choice of characters, use the {@link #strip(String, String)} methods.
      * </p>
      *
      * <pre>{@code
-     * StringUtils.trim(null)          = null
-     * StringUtils.trim("")            = ""
-     * StringUtils.trim("abc\u0000")   = "abc"
-     * StringUtils.trim("abc")         = "abc"
-     * StringUtils.trim(" abc ")       = " abc "
+     * StringUtils.trimAsciiControl(null)          = null
+     * StringUtils.trimAsciiControl("")            = ""
+     * StringUtils.trimAsciiControl("abc\u0000")   = "abc"
+     * StringUtils.trimAsciiControl("abc")         = "abc"
+     * StringUtils.trimAsciiControl(" abc ")       = " abc "
      * }</pre>
      *
      * @param str The String to be trimmed, may be null.
