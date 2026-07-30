@@ -32,8 +32,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Regression test for <a href="https://issues.apache.org/jira/browse/LANG-1815">LANG-1815</a>.
  * <p>
- * Verifies that {@code AnnotationUtils.equals(Annotation, Annotation)} treats two equal
- * package-private annotations as equal, and also wraps a possible ReflectiveOperationException.
+ * Verifies that {@link AnnotationUtils} can reflectively read package-private annotation members
+ * for {@code equals}, {@code hashCode}, and {@code toString}, and that reflective invocation failures
+ * are not treated as inequality.
  * </p>
  *
  * <h2>Important</h2>
@@ -86,6 +87,19 @@ public class AnnotationEqualsTest {
                 assertThrows(IllegalStateException.class, () -> AnnotationUtils.equals(tagA, tagB));
         assertInstanceOf(InvocationTargetException.class, ex.getCause());
         assertEquals("boom", ((InvocationTargetException) ex.getCause()).getTargetException().getMessage());
+    }
+
+    @Test
+    void hashCodeWorksOnPackagePrivateAnnotations() throws Exception {
+        final Tag tag = getClass().getDeclaredField("a").getAnnotation(Tag.class);
+        assertEquals(tag.hashCode(), AnnotationUtils.hashCode(tag));
+    }
+
+    @Test
+    void toStringWorksOnPackagePrivateAnnotations() throws Exception {
+        final Tag tag = getClass().getDeclaredField("a").getAnnotation(Tag.class);
+        final String text = AnnotationUtils.toString(tag);
+        assertTrue(text.contains("value=value"), text);
     }
 
 }

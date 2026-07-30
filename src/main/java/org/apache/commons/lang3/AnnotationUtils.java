@@ -244,6 +244,7 @@ public class AnnotationUtils {
         final Class<? extends Annotation> type = a.annotationType();
         for (final Method m : type.getDeclaredMethods()) {
             try {
+                AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
                 final Object value = m.invoke(a);
                 if (value == null) {
                     throw new IllegalStateException(String.format("Annotation method %s returned null", m));
@@ -338,6 +339,7 @@ public class AnnotationUtils {
                 continue; // what?
             }
             try {
+                AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
                 builder.append(m.getName(), m.invoke(a));
             } catch (final ReflectiveOperationException ex) {
                 throw new UncheckedException(ex);
