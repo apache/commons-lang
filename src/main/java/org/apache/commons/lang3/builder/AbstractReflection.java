@@ -109,7 +109,7 @@ public abstract class AbstractReflection {
      * @return whether the system property {@code "AbstractReflection.forceAccessible"} is set to true with true as the default.
      * @see Boolean#parseBoolean(String)
      */
-    static boolean getForceAccessible() {
+    public static boolean getForceAccessible() {
         return SystemProperties.getBoolean(AbstractReflection.class, "forceAccessible", () -> true);
     }
 
@@ -128,33 +128,33 @@ public abstract class AbstractReflection {
      * AccessibleObject#setAccessible(true)} but <em>only</em> if a field is not already accessible.
      *
      * @param forceAccessible Whether to call {@link AccessibleObject#setAccessible(boolean)} if a field is not already accessible.
-     * @param field          The field to set.
+     * @param accessibleObject The accessibleObject to set.
      * @return true if the field is accessible, false otherwise.
      * @throws SecurityException Thrown if {@code forceAccessible} flag is true and the request is denied.
      * @see AccessibleObject#setAccessible(boolean)
      * @see SecurityManager#checkPermission
      */
-    static boolean setAccessible(final boolean forceAccessible, final Field field) {
-        return !field.isAccessible() && forceAccessible && setAccessibleTrue(field);
+    public static boolean setAccessible(final boolean forceAccessible, final AccessibleObject accessibleObject) {
+        return !accessibleObject.isAccessible() && forceAccessible && setAccessibleTrue(accessibleObject);
     }
 
     /**
      * Sets the field as accessible by calling {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)} but <em>only</em> if a field
      * is not already accessible.
      *
-     * @param field The field to set, may be null.
+     * @param accessibleObject The accessibleObject to set, may be null.
      * @return true if the field is accessible, false otherwise.
      * @throws SecurityException Thrown if {@code forceAccessible} flag is true and the request is denied.
      * @see AccessibleObject#setAccessible(boolean)
      * @see SecurityManager#checkPermission
      */
-    private static boolean setAccessibleTrue(final Field field) {
-        if (field != null) {
+    private static boolean setAccessibleTrue(final AccessibleObject accessibleObject) {
+        if (accessibleObject != null) {
             // Test isAccessible() to avoid the permission check.
-            if (!field.isAccessible()) {
-                field.setAccessible(true);
+            if (!accessibleObject.isAccessible()) {
+                accessibleObject.setAccessible(true);
             }
-            return field.isAccessible();
+            return accessibleObject.isAccessible();
         }
         return false;
     }
