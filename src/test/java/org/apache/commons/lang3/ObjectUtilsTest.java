@@ -19,6 +19,9 @@ package org.apache.commons.lang3;
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mockStatic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -54,7 +57,9 @@ import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.commons.lang3.time.DurationUtils;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 /**
  * Tests {@link ObjectUtils}.
@@ -891,12 +896,17 @@ class ObjectUtilsTest extends AbstractLangTest {
     @Test
     void testWaitDuration() throws InterruptedException {
         final Object lock = new Object();
-        final long start = System.nanoTime();
-        synchronized (lock) {
-            ObjectUtils.wait(lock, Duration.ofMillis(100));
+        try (MockedStatic<DurationUtils> mocked = mockStatic(DurationUtils.class)) {
+            // Let zeroIfNull run for real so the Duration reaches accept unchanged.
+            mocked.when(() -> DurationUtils.zeroIfNull(any())).thenCallRealMethod();
+            // accept is mocked to do nothing, so no actual waiting occurs.
+            final int millis = 1_500;
+            synchronized (lock) {
+                ObjectUtils.wait(lock, Duration.ofMillis(millis));
+            }
+            // Verify accept was called with the expected Duration.
+            mocked.verify(() -> DurationUtils.accept(any(), eq(Duration.ofMillis(millis))));
         }
-        final long elapsed = System.nanoTime() - start;
-        assertTrue(elapsed >= Duration.ofMillis(100).toNanos());
     }
 
     @Test
