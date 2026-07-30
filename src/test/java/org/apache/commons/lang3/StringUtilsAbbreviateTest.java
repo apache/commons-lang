@@ -208,6 +208,34 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
     }
 
     @Test
+    void testAbbreviateMiddleSurrogatePair() {
+        // U+1F600 GRINNING FACE is a single supplementary code point stored as a surrogate pair
+        final String grin = "😀";
+        // the head cut backs off the pair so the middle is never preceded by a lone high surrogate
+        assertEquals("a." + "b", StringUtils.abbreviateMiddle("a" + grin + grin + "b", ".", 4));
+        // the tail cut skips the orphaned low surrogate so the middle is never followed by one
+        assertEquals(grin + "..", StringUtils.abbreviateMiddle(grin + "abc" + grin, "..", 5));
+        // a cut that lands between two whole code points is unchanged
+        assertEquals("ab.d", StringUtils.abbreviateMiddle("ab" + grin + "cd", ".", 4));
+        assertEquals("ab.f", StringUtils.abbreviateMiddle("abcdef", ".", 4));
+        // results stay within length and never contain an unpaired surrogate
+        final String source = "a" + grin + "b" + grin + "cd" + grin + "ef";
+        for (int len = 3; len < source.length(); len++) {
+            final String result = StringUtils.abbreviateMiddle(source, ".", len);
+            assertTrue(result.length() <= len, () -> "result longer than length: " + result);
+            for (int i = 0; i < result.length(); i++) {
+                final char ch = result.charAt(i);
+                if (Character.isHighSurrogate(ch)) {
+                    assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)), "lone high surrogate in: " + result);
+                    i++; // skip the paired low surrogate
+                } else {
+                    assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+                }
+            }
+        }
+    }
+
+    @Test
     void testAbbreviateSurrogatePair() {
         // U+1F600 GRINNING FACE is a single supplementary code point stored as a surrogate pair
         final String grin = "😀";
