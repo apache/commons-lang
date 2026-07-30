@@ -39,15 +39,6 @@ class AbstractReflectionSetAccessibleTest extends AbstractLangTest {
     }
 
     @Test
-    void setAccessibleReturnsTrueWhenAlreadyAccessible() throws Exception {
-        final Field field = getClass().getDeclaredField("privateField");
-        field.setAccessible(true);
-        assertTrue(field.isAccessible());
-        assertTrue(AbstractReflection.setAccessible(false, field));
-        assertTrue(AbstractReflection.setAccessible(true, field));
-    }
-
-    @Test
     void setAccessibleRespectsForceFlag() throws Exception {
         final Field field = getClass().getDeclaredField("privateField");
         field.setAccessible(false);
@@ -56,5 +47,14 @@ class AbstractReflectionSetAccessibleTest extends AbstractLangTest {
         assertFalse(field.isAccessible());
         assertTrue(AbstractReflection.setAccessible(true, field));
         assertTrue(field.isAccessible());
+    }
+
+    @Test
+    void setAccessibleReturnsTrueWhenAlreadyAccessible() throws Exception {
+        final Field field = getClass().getDeclaredField("privateField");
+        field.setAccessible(true);
+        assertTrue(field.isAccessible());
+        assertTrue(AbstractReflection.setAccessible(false, field));
+        assertTrue(AbstractReflection.setAccessible(true, field));
     }
 }

@@ -56,13 +56,13 @@ public class AnnotationEqualsTest {
 
     static class ThrowingTag implements Tag {
         @Override
-        public String value() {
-            throw new IllegalArgumentException("boom");
+        public Class<? extends Annotation> annotationType() {
+            return Tag.class;
         }
 
         @Override
-        public Class<? extends Annotation> annotationType() {
-            return Tag.class;
+        public String value() {
+            throw new IllegalArgumentException("boom");
         }
     }
 
