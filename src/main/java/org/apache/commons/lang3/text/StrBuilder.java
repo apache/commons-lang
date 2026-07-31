@@ -177,37 +177,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Inner class to allow StrBuilder to operate as a tokenizer.
-     */
-    final class StrBuilderTokenizer extends StrTokenizer {
-
-        /**
-         * Default constructor.
-         */
-        StrBuilderTokenizer() {
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public String getContent() {
-            final String str = super.getContent();
-            if (str == null) {
-                return StrBuilder.this.toString();
-            }
-            return str;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        protected List<String> tokenize(final char[] chars, final int offset, final int count) {
-            if (chars == null) {
-                return super.tokenize(StrBuilder.this.buffer, 0, StrBuilder.this.size());
-            }
-            return super.tokenize(chars, offset, count);
-        }
-    }
-
-    /**
      * Inner class to allow StrBuilder to operate as a writer.
      */
     final class StrBuilderWriter extends Writer {
@@ -1534,7 +1503,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @return A tokenizer that is linked to this builder.
      */
     public StrTokenizer asTokenizer() {
-        return new StrBuilderTokenizer();
+        return new StrBuilderTokenizer(this);
     }
 
     /**
