@@ -2756,7 +2756,6 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
         if (size == 0) {
             return this;
         }
-
         final int half = size / 2;
         final char[] buf = buffer;
         boolean hasSurrogates = false;
@@ -2768,18 +2767,21 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
             hasSurrogates |= Character.isSurrogate(left) || Character.isSurrogate(right);
         }
         if (hasSurrogates) {
-            // The plain swap leaves each surrogate pair in low-high order; restore the high-low order so a
-            // reversed supplementary code point stays a valid pair, matching StringBuilder#reverse().
-            for (int i = 0; i < size - 1; i++) {
-                if (Character.isLowSurrogate(buf[i]) && Character.isHighSurrogate(buf[i + 1])) {
-                    final char low = buf[i];
-                    buf[i] = buf[i + 1];
-                    buf[i + 1] = low;
-                    i++;
-                }
-            }
+            restoreSurrogatePairs(buf, size);
         }
         return this;
+    }
+
+    /** Restore high-low order of surrogate pairs that were inverted during reversal. */
+    private void restoreSurrogatePairs(final char[] buf, final int size) {
+        for (int i = 0; i < size - 1; i++) {
+            if (Character.isLowSurrogate(buf[i]) && Character.isHighSurrogate(buf[i + 1])) {
+                final char low = buf[i];
+                buf[i] = buf[i + 1];
+                buf[i + 1] = low;
+                i++;
+            }
+        }
     }
 
     /**
