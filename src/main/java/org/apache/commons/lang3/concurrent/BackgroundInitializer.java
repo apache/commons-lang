@@ -147,7 +147,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
          * Initiates initialization and returns the result.
          *
          * @return The result object
-         * @throws Exception if an error occurs
+         * @throws Exception Thrown if an error occurs
          */
         @Override
         public T call() throws Exception {

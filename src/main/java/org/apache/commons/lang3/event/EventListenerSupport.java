@@ -315,7 +315,7 @@ public class EventListenerSupport<L> implements Serializable {
      * Deserializes the next object into this instance.
      *
      * @param objectInputStream The input stream.
-     * @throws IOException if an IO error occurs.
+     * @throws IOException Thrown if an IO error occurs.
      * @throws ClassNotFoundException if the class cannot be resolved.
      */
     private void readObject(final ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
@@ -342,7 +342,7 @@ public class EventListenerSupport<L> implements Serializable {
      * Serializes this instance onto the given ObjectOutputStream.
      *
      * @param objectOutputStream The output stream
-     * @throws IOException if an IO error occurs
+     * @throws IOException Thrown if an IO error occurs
      */
     private void writeObject(final ObjectOutputStream objectOutputStream) throws IOException {
         final ArrayList<L> serializableListeners = new ArrayList<>();

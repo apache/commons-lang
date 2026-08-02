@@ -38,7 +38,7 @@ public class AutoCloseables {
      * Closes the given {@link AutoCloseable} as a null-safe operation.
      *
      * @param closeable The resource to close, may be null.
-     * @throws Exception if an error occurs.
+     * @throws Exception Thrown if an error occurs.
      */
     public static void close(final AutoCloseable closeable) throws Exception {
         if (closeable != null) {

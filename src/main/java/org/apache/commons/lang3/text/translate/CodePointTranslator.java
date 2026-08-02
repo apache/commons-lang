@@ -55,7 +55,7 @@ public abstract class CodePointTranslator extends CharSequenceTranslator {
      * @param codePoint int character input to translate.
      * @param out Writer to optionally push the translated output to.
      * @return boolean as to whether translation occurred or not.
-     * @throws IOException if and only if the Writer produces an IOException.
+     * @throws IOException Thrown if and only if the Writer produces an IOException.
      */
     public abstract boolean translate(int codePoint, Writer out) throws IOException;
 

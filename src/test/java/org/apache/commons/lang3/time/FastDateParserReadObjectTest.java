@@ -98,7 +98,7 @@ class FastDateParserReadObjectTest {
      *
      * @param forge The forge instance to serialize
      * @return A byte array whose class descriptor names {@link FastDateParser}
-     * @throws IOException if an I/O error occurs
+     * @throws IOException Thrown if an I/O error occurs
      */
     private static byte[] forgeStream(final FastDateParserForge forge) throws IOException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();

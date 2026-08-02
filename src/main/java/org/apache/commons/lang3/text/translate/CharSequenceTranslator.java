@@ -88,7 +88,7 @@ public abstract class CharSequenceTranslator {
      * @param index int representing the current point of translation.
      * @param out Writer to translate the text to.
      * @return int count of code points consumed.
-     * @throws IOException if and only if the Writer produces an IOException.
+     * @throws IOException Thrown if and only if the Writer produces an IOException.
      */
     public abstract int translate(CharSequence input, int index, Writer out) throws IOException;
 
@@ -98,7 +98,7 @@ public abstract class CharSequenceTranslator {
      *
      * @param input CharSequence that is being translated.
      * @param writer Writer to translate the text to.
-     * @throws IOException if and only if the Writer produces an IOException.
+     * @throws IOException Thrown if and only if the Writer produces an IOException.
      */
     @SuppressWarnings("resource") // Caller closes writer
     public final void translate(final CharSequence input, final Writer writer) throws IOException {

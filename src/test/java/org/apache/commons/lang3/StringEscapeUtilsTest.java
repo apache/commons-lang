@@ -341,7 +341,7 @@ class StringEscapeUtilsTest extends AbstractLangTest {
     /**
      * Tests https://issues.apache.org/jira/browse/LANG-708
      *
-     * @throws IOException if an I/O error occurs
+     * @throws IOException Thrown if an I/O error occurs
      */
     @Test
     void testLang708() throws IOException {

@@ -315,7 +315,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
      * the results object. Unchecked exceptions are propagated.
      *
      * @return The results object.
-     * @throws Exception if an error occurs.
+     * @throws Exception Thrown if an error occurs.
      */
     @Override
     protected MultiBackgroundInitializerResults initialize() throws Exception {

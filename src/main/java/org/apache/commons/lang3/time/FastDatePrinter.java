@@ -250,7 +250,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          *
          * @param buffer The output buffer.
          * @param value The value to be appended.
-         * @throws IOException if an I/O error occurs.
+         * @throws IOException Thrown if an I/O error occurs.
          */
         void appendTo(Appendable buffer, int value) throws IOException;
     }
@@ -314,7 +314,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          *
          * @param buf The output buffer.
          * @param calendar calendar to be appended.
-         * @throws IOException if an I/O error occurs.
+         * @throws IOException Thrown if an I/O error occurs.
          */
         void appendTo(Appendable buf, Calendar calendar) throws IOException;
 
@@ -1542,7 +1542,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * transient properties.
      *
      * @param in ObjectInputStream from which the object is being deserialized.
-     * @throws IOException if there is an IO issue.
+     * @throws IOException Thrown if there is an IO issue.
      * @throws ClassNotFoundException if a class cannot be found.
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {

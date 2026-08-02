@@ -118,7 +118,7 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * Performs initialization in a background thread. This implementation delegates to the {@link Callable} passed at construction time of this object.
      *
      * @return The result of the initialization.
-     * @throws Exception if an error occurs.
+     * @throws Exception Thrown if an error occurs.
      */
     @Override
     protected T initialize() throws Exception {

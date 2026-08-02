@@ -787,7 +787,7 @@ public class ObjectUtils {
      *
      * @param appendable  The appendable to append to.
      * @param object  The object to create a toString for.
-     * @throws IOException if an I/O error occurs.
+     * @throws IOException Thrown if an I/O error occurs.
      * @since 3.2
      */
     public static void identityToString(final Appendable appendable, final Object object) throws IOException {

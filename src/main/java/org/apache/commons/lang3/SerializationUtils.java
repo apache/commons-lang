@@ -74,7 +74,7 @@ public class SerializationUtils {
          *
          * @param in          The {@link InputStream}.
          * @param classLoader classloader to use
-         * @throws IOException if an I/O error occurs while reading stream header.
+         * @throws IOException Thrown if an I/O error occurs while reading stream header.
          * @see java.io.ObjectInputStream
          */
         ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
