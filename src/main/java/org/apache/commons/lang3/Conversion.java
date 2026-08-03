@@ -727,11 +727,10 @@ public class Conversion {
      * @throws IllegalArgumentException if {@code hexDigit} is not a hexadecimal digit.
      */
     public static int hexDigitToInt(final char hexChar) {
-        final int digit = Character.digit(hexChar, 16);
-        if (digit < 0) {
+        if (!CharUtils.isHex(hexChar)) {
             throw new IllegalArgumentException("Cannot convert '" + hexChar + "' to a hexadecimal digit");
         }
-        return digit;
+        return Character.digit(hexChar, 16);
     }
 
     /**
