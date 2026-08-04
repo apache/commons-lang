@@ -109,7 +109,7 @@ public class WordUtils {
             }
             i += Character.charCount(codePoint);
         }
-        return new String(buffer);
+        return String.valueOf(buffer);
     }
 
     /**
@@ -367,7 +367,7 @@ public class WordUtils {
             }
             i += Character.charCount(codePoint);
         }
-        return new String(buffer);
+        return String.valueOf(buffer);
     }
 
     /**
@@ -433,7 +433,7 @@ public class WordUtils {
             }
             i += Character.charCount(codePoint);
         }
-        return new String(buffer);
+        return String.valueOf(buffer);
     }
 
     /**

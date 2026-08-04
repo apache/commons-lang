@@ -34,8 +34,8 @@ public class CharSequenceUtils {
      * {@link CharSequence} type in step with {@link String} on whatever JDK is running. DESERET CAPITAL LETTER LONG I (U+10400) folds to its small form
      * (U+10428).
      */
-    private static final boolean STRING_FOLDS_SUPPLEMENTARY_CASE = new String(Character.toChars(0x10400)).regionMatches(true, 0,
-            new String(Character.toChars(0x10428)), 0, 2);
+    private static final boolean STRING_FOLDS_SUPPLEMENTARY_CASE = String.valueOf(Character.toChars(0x10400)).regionMatches(true, 0,
+            String.valueOf(Character.toChars(0x10428)), 0, 2);
 
     static final int TO_STRING_LIMIT = 16;
 

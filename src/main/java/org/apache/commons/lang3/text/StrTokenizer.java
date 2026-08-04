@@ -488,7 +488,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
         if (chars == null) {
             return null;
         }
-        return new String(chars);
+        return String.valueOf(chars);
     }
 
     /**

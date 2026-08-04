@@ -5265,7 +5265,7 @@ public class StringUtils {
         for (int i = 0; i < pads; i++) {
             padding[i] = padChars[i % padLen];
         }
-        return new String(padding).concat(str);
+        return String.valueOf(padding).concat(str);
     }
 
     /**
@@ -6128,7 +6128,7 @@ public class StringUtils {
         if (count <= 0) {
             return EMPTY;
         }
-        return new String(ArrayFill.fill(new char[count], repeat));
+        return String.valueOf(ArrayFill.fill(new char[count], repeat));
     }
 
     /**
@@ -6179,7 +6179,7 @@ public class StringUtils {
                 output2[i] = ch0;
                 output2[i + 1] = ch1;
             }
-            return new String(output2);
+            return String.valueOf(output2);
         default:
             final StringBuilder buf = new StringBuilder(outputLength);
             for (int i = 0; i < count; i++) {
@@ -7059,7 +7059,7 @@ public class StringUtils {
         for (int i = 0; i < pads; i++) {
             padding[i] = padChars[i % padLen];
         }
-        return str.concat(new String(padding));
+        return str.concat(String.valueOf(padding));
     }
 
     /**
