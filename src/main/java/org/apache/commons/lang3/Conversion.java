@@ -719,7 +719,7 @@ public class Conversion {
      * Converts a hexadecimal digit into an int using the default (LSB0) bit ordering.
      *
      * <p>
-     * '1' is converted to 1
+     * '1' is converted to 1.
      * </p>
      *
      * @param hexChar The hexadecimal digit to convert.
