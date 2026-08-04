@@ -687,6 +687,13 @@ class ConversionTest extends AbstractLangTest {
         assertEquals(14, Conversion.hexDigitToInt('e'));
         assertEquals(15, Conversion.hexDigitToInt('F'));
         assertEquals(15, Conversion.hexDigitToInt('f'));
+    }
+
+    /**
+     * Tests {@link Conversion#hexDigitToInt(char)}.
+     */
+    @Test
+    void testHexDigitToIntIllegalArgumentException() {
         assertIllegalArgumentException(() -> Conversion.hexDigitToInt('G'));
         assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\uFF41')); // FULLWIDTH LATIN SMALL LETTER A
         assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\uFF26')); // FULLWIDTH LATIN CAPITAL LETTER F
