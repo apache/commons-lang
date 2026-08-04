@@ -17,7 +17,6 @@
 
 package org.apache.commons.lang3.time;
 
-import java.time.Duration;
 import java.time.Instant;
 
 /**
@@ -87,14 +86,7 @@ public class Instants {
      * @return long The duration in milliseconds since the given Instant.
      */
     public static long toMillisSince(final Instant instant) {
-        // The sign of the duration is the opposite of the sign of the instant's epoch second: an instant far in the past
-        // yields a large positive duration, an instant far in the future a large negative one. Bind on the duration.
-        final Duration duration = DurationUtils.since(toInstant(instant));
-        try {
-            return duration.toMillis();
-        } catch (final ArithmeticException e) {
-            return duration.isNegative() ? Long.MIN_VALUE : Long.MAX_VALUE;
-        }
+        return DurationUtils.toMillisLong(DurationUtils.since(toInstant(instant)));
     }
 
     /**
