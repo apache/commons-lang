@@ -688,6 +688,11 @@ class ConversionTest extends AbstractLangTest {
         assertEquals(15, Conversion.hexDigitToInt('F'));
         assertEquals(15, Conversion.hexDigitToInt('f'));
         assertIllegalArgumentException(() -> Conversion.hexDigitToInt('G'));
+        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\uFF41')); // FULLWIDTH LATIN SMALL LETTER A
+        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\uFF26')); // FULLWIDTH LATIN CAPITAL LETTER F
+        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\uFF19')); // FULLWIDTH DIGIT NINE
+        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\u0669')); // ARABIC-INDIC DIGIT NINE
+        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\u096B')); // DEVANAGARI DIGIT FIVE
     }
 
     /**
@@ -723,6 +728,7 @@ class ConversionTest extends AbstractLangTest {
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToInt(src, Integer.MIN_VALUE, 0, 0, 1));
         assertThrows(StringIndexOutOfBoundsException.class, () -> Conversion.hexToInt(src, Integer.MAX_VALUE, 0, 0, 1));
         assertIllegalArgumentException(() -> Conversion.hexToInt(src, Integer.MAX_VALUE, 0, 0, Integer.SIZE));
+        assertIllegalArgumentException(() -> Conversion.hexToInt("\uFF41\uFF41", 0, 0, 0, 2));
     }
 
     /**
