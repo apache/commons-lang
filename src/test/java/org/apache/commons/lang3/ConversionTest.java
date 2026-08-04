@@ -692,14 +692,19 @@ class ConversionTest extends AbstractLangTest {
     /**
      * Tests {@link Conversion#hexDigitToInt(char)}.
      */
-    @Test
-    void testHexDigitToIntIllegalArgumentException() {
-        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('G'));
-        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\uFF41')); // FULLWIDTH LATIN SMALL LETTER A
-        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\uFF26')); // FULLWIDTH LATIN CAPITAL LETTER F
-        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\uFF19')); // FULLWIDTH DIGIT NINE
-        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\u0669')); // ARABIC-INDIC DIGIT NINE
-        assertIllegalArgumentException(() -> Conversion.hexDigitToInt('\u096B')); // DEVANAGARI DIGIT FIVE
+    @ParameterizedTest
+    // @formatter:off
+    @ValueSource(chars = {
+            'G', 
+            '\uFF41', // FULLWIDTH LATIN SMALL LETTER A
+            '\uFF26', // FULLWIDTH LATIN CAPITAL LETTER F
+            '\uFF19', // FULLWIDTH DIGIT NINE
+            '\u0669', // ARABIC-INDIC DIGIT NINE
+            '\u096B'  // DEVANAGARI DIGIT FIVE
+    })
+    // @formatter:on
+    void testHexDigitToIntIllegalArgumentException(final char ch) {
+        assertIllegalArgumentException(() -> Conversion.hexDigitToInt(ch));
     }
 
     /**
