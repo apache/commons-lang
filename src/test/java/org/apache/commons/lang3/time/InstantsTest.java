@@ -179,23 +179,21 @@ class InstantsTest extends AbstractLangTest {
     }
 
     /**
-     * {@link Instant#MAX} (positive epoch second): the huge negative duration from Instant.MAX to now
-     * overflows {@code long} millis; the bound is {@link Long#MAX_VALUE} because the instant's epoch
-     * second is positive.
+     * {@link Instant#MAX} is in the future, so the duration from it to now is negative and underflows {@code long}
+     * millis; the bound is {@link Long#MIN_VALUE}.
      */
     @Test
-    void testToMillisSinceInstantMaxOverflowReturnsMaxValue() {
-        assertEquals(Long.MAX_VALUE, Instants.toMillisSince(Instant.MAX));
+    void testToMillisSinceInstantMaxUnderflowReturnsMinValue() {
+        assertEquals(Long.MIN_VALUE, Instants.toMillisSince(Instant.MAX));
     }
 
     /**
-     * {@link Instant#MIN} (negative epoch second): the huge positive duration from Instant.MIN to now
-     * overflows {@code long} millis; the bound is {@link Long#MIN_VALUE} because the instant's epoch
-     * second is negative.
+     * {@link Instant#MIN} is in the past, so the duration from it to now is positive and overflows {@code long}
+     * millis; the bound is {@link Long#MAX_VALUE}.
      */
     @Test
-    void testToMillisSinceInstantMinOverflowReturnsMinValue() {
-        assertEquals(Long.MIN_VALUE, Instants.toMillisSince(Instant.MIN));
+    void testToMillisSinceInstantMinOverflowReturnsMaxValue() {
+        assertEquals(Long.MAX_VALUE, Instants.toMillisSince(Instant.MIN));
     }
 
     /**
