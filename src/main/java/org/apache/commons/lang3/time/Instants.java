@@ -86,12 +86,7 @@ public class Instants {
      * @return long The duration in milliseconds since the given Instant.
      */
     public static long toMillisSince(final Instant instant) {
-        final Instant instant2 = toInstant(instant);
-        try {
-            return DurationUtils.since(instant2).toMillis();
-        } catch (final ArithmeticException e) {
-            return toBound(instant2, Long.MIN_VALUE, Long.MAX_VALUE);
-        }
+        return DurationUtils.toMillisLong(DurationUtils.since(toInstant(instant)));
     }
 
     /**
