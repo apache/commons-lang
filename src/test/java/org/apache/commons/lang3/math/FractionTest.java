@@ -303,6 +303,11 @@ class FractionTest extends AbstractLangTest {
 
         final Fraction negative = Fraction.getFraction(1, -Integer.MAX_VALUE);
         assertThrows(ArithmeticException.class, () -> negative.divideBy(negative.invert())); // Should overflow
+
+        // An unreduced divisor must not trigger a spurious overflow when the reduced quotient fits an int.
+        f = Fraction.getFraction(-1, 46341).divideBy(Fraction.getFraction(1000000, 100));
+        assertEquals(-1, f.getNumerator());
+        assertEquals(463410000, f.getDenominator());
     }
 
     @Test
@@ -747,6 +752,15 @@ class FractionTest extends AbstractLangTest {
 
         final Fraction fr2 = Fraction.getFraction(1, -Integer.MAX_VALUE);
         assertThrows(ArithmeticException.class, () -> fr2.multiplyBy(fr2));
+
+        // An unreduced operand must not trigger a spurious overflow when the reduced product fits an int.
+        f = Fraction.getFraction(-1, 46341).multiplyBy(Fraction.getFraction(100, 1000000));
+        assertEquals(-1, f.getNumerator());
+        assertEquals(463410000, f.getDenominator());
+
+        f = Fraction.getFraction(1, 10000).multiplyBy(Fraction.getFraction(100, 1000000));
+        assertEquals(1, f.getNumerator());
+        assertEquals(100000000, f.getDenominator());
     }
 
     @Test
