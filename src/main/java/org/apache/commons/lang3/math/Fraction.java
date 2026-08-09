@@ -769,11 +769,15 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         // Reduce both operands first: the cross-gcd below cancels the cross terms only, so a
         // factor shared inside an unreduced operand survives into the product and can overflow
         // an int even when the reduced result fits.
-        final Fraction a = reduce();
-        final Fraction b = fraction.reduce();
-        final int d1 = greatestCommonDivisor(a.numerator, b.denominator);
-        final int d2 = greatestCommonDivisor(b.numerator, a.denominator);
-        return getReducedFraction(mulAndCheck(a.numerator / d1, b.numerator / d2), mulPosAndCheck(a.denominator / d2, b.denominator / d1));
+        final int thisGcd = greatestCommonDivisor(numerator, denominator);
+        final int thatGcd = greatestCommonDivisor(fraction.numerator, fraction.denominator);
+        final int thisNumerator = numerator / thisGcd;
+        final int thisDenominator = denominator / thisGcd;
+        final int thatNumerator = fraction.numerator / thatGcd;
+        final int thatDenominator = fraction.denominator / thatGcd;
+        final int d1 = greatestCommonDivisor(thisNumerator, thatDenominator);
+        final int d2 = greatestCommonDivisor(thatNumerator, thisDenominator);
+        return getReducedFraction(mulAndCheck(thisNumerator / d1, thatNumerator / d2), mulPosAndCheck(thisDenominator / d2, thatDenominator / d1));
     }
 
     /**
