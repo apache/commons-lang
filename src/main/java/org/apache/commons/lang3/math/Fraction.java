@@ -766,9 +766,18 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         }
         // knuth 4.5.1
         // make sure we don't overflow unless the result *must* overflow.
-        final int d1 = greatestCommonDivisor(numerator, fraction.denominator);
-        final int d2 = greatestCommonDivisor(fraction.numerator, denominator);
-        return getReducedFraction(mulAndCheck(numerator / d1, fraction.numerator / d2), mulPosAndCheck(denominator / d2, fraction.denominator / d1));
+        // Reduce both operands first: the cross-gcd below cancels the cross terms only, so a
+        // factor shared inside an unreduced operand survives into the product and can overflow
+        // an int even when the reduced result fits.
+        final int thisGcd = greatestCommonDivisor(numerator, denominator);
+        final int thatGcd = greatestCommonDivisor(fraction.numerator, fraction.denominator);
+        final int thisNumerator = numerator / thisGcd;
+        final int thisDenominator = denominator / thisGcd;
+        final int thatNumerator = fraction.numerator / thatGcd;
+        final int thatDenominator = fraction.denominator / thatGcd;
+        final int d1 = greatestCommonDivisor(thisNumerator, thatDenominator);
+        final int d2 = greatestCommonDivisor(thatNumerator, thisDenominator);
+        return getReducedFraction(mulAndCheck(thisNumerator / d1, thatNumerator / d2), mulPosAndCheck(thisDenominator / d2, thatDenominator / d1));
     }
 
     /**
