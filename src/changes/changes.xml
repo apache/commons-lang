@@ -239,6 +239,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="hunghhdev">Fix two Javadoc errors in StringUtils (#1763).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Reject non-ASCII hex characters in Conversion.hexDigitToInt (#1767).</action>
     <action                   type="fix" dev="ggregory" due-to="renechoi, Gary Gregory">Fix the overflow bound direction in Instants.toMillisSince(Instant) (#1766).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Fix spurious overflow in Fraction.multiplyBy for unreduced operands (#1769)</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
