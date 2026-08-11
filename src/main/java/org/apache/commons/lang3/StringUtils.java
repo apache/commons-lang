@@ -1091,7 +1091,9 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLength; j++) {
                 if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch) || j == searchLast || i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
+                    if (Character.isHighSurrogate(ch)
+                            ? j == searchLast || i < csLast && searchChars[j + 1] == cs.charAt(i + 1)
+                            : j == 0 || !Character.isLowSurrogate(ch) || !Character.isHighSurrogate(searchChars[j - 1]) || i > 0 && searchChars[j - 1] == cs.charAt(i - 1)) {
                         return true;
                     }
                 }
@@ -1261,7 +1263,9 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch) || j == searchLast || i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
+                    if (Character.isHighSurrogate(ch)
+                            ? j == searchLast || i < csLast && searchChars[j + 1] == cs.charAt(i + 1)
+                            : j == 0 || !Character.isLowSurrogate(ch) || !Character.isHighSurrogate(searchChars[j - 1]) || i > 0 && searchChars[j - 1] == cs.charAt(i - 1)) {
                         return false;
                     }
                 }
@@ -2835,7 +2839,9 @@ public class StringUtils {
             final char ch = cs.charAt(i);
             for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch) || j == searchLast || i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
+                    if (Character.isHighSurrogate(ch)
+                            ? j == searchLast || i < csLast && searchChars[j + 1] == cs.charAt(i + 1)
+                            : j == 0 || !Character.isLowSurrogate(ch) || !Character.isHighSurrogate(searchChars[j - 1]) || i > 0 && searchChars[j - 1] == cs.charAt(i - 1)) {
                         return i;
                     }
                 }

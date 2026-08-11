@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.Supplementary.CharU20000;
 import static org.apache.commons.lang3.Supplementary.CharU20001;
+import static org.apache.commons.lang3.Supplementary.CharU24000;
 import static org.apache.commons.lang3.Supplementary.CharUSuppCharHigh;
 import static org.apache.commons.lang3.Supplementary.CharUSuppCharLow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -139,6 +140,23 @@ class StringUtilsContainsTest extends AbstractLangTest {
         // Test:
         assertFalse(StringUtils.containsAny(CharU20000, CharU20001.toCharArray()));
         assertFalse(StringUtils.containsAny(CharU20001, CharU20000.toCharArray()));
+    }
+
+    /**
+     * Two supplementary code points that share their low surrogate but not their high surrogate must not match, otherwise the low half of one pair is treated as
+     * the low half of the other. See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     */
+    @Test
+    void testContainsAny_StringCharArrayWithSharedLowSurrogate() {
+        // Sanity check: same low surrogate, different code point.
+        assertEquals(CharU20000.charAt(1), CharU24000.charAt(1));
+        assertEquals(-1, CharU20000.indexOf(CharU24000));
+        // Test:
+        assertFalse(StringUtils.containsAny(CharU20000, CharU24000.toCharArray()));
+        assertFalse(StringUtils.containsAny(CharU24000, CharU20000.toCharArray()));
+        assertFalse(StringUtils.containsAny("abc" + CharU20000 + "xyz", CharU24000.toCharArray()));
+        // A genuine occurrence of the same pair still matches.
+        assertTrue(StringUtils.containsAny("abc" + CharU24000 + "xyz", CharU24000.toCharArray()));
     }
 
     @Test
@@ -342,6 +360,19 @@ class StringUtilsContainsTest extends AbstractLangTest {
         // Test:
         assertTrue(StringUtils.containsNone(CharU20000, CharU20001.toCharArray()));
         assertTrue(StringUtils.containsNone(CharU20001, CharU20000.toCharArray()));
+    }
+
+    /**
+     * Two supplementary code points that share their low surrogate but not their high surrogate must not match. See
+     * https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     */
+    @Test
+    void testContainsNone_CharArrayWithSharedLowSurrogate() {
+        assertEquals(CharU20000.charAt(1), CharU24000.charAt(1));
+        assertTrue(StringUtils.containsNone(CharU20000, CharU24000.toCharArray()));
+        assertTrue(StringUtils.containsNone(CharU24000, CharU20000.toCharArray()));
+        // A genuine occurrence of the same pair is still found.
+        assertFalse(StringUtils.containsNone("abc" + CharU24000, CharU24000.toCharArray()));
     }
 
     @Test
