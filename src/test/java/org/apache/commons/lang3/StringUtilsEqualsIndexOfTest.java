@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import static org.apache.commons.lang3.Supplementary.CharU20000;
 import static org.apache.commons.lang3.Supplementary.CharU20001;
+import static org.apache.commons.lang3.Supplementary.CharU24000;
 import static org.apache.commons.lang3.Supplementary.CharUSuppCharHigh;
 import static org.apache.commons.lang3.Supplementary.CharUSuppCharLow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -415,6 +416,19 @@ class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(-1, StringUtils.indexOfAny(CharUSuppCharHigh, CharU20001.toCharArray()));
         assertFalse(StringUtils.containsAny(CharUSuppCharHigh, CharU20001.toCharArray()));
         assertEquals(-1, StringUtils.indexOfAny("abc" + CharUSuppCharHigh, CharU20000.toCharArray()));
+    }
+
+    /**
+     * A low surrogate that is the low half of a supplementary code point in the search set must not match the low half of a different code point in the input,
+     * otherwise the returned index points inside a surrogate pair. See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     */
+    @Test
+    void testIndexOfAny_StringCharArrayWithSharedLowSurrogate() {
+        assertEquals(CharU20000.charAt(1), CharU24000.charAt(1));
+        assertEquals(-1, StringUtils.indexOfAny(CharU20000, CharU24000.toCharArray()));
+        assertEquals(-1, StringUtils.indexOfAny("abc" + CharU20000, CharU24000.toCharArray()));
+        // A genuine occurrence of the same pair is found at the start of the pair.
+        assertEquals(3, StringUtils.indexOfAny("abc" + CharU24000, CharU24000.toCharArray()));
     }
 
     @Test

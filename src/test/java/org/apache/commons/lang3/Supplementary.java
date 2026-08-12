@@ -49,6 +49,15 @@ public class Supplementary {
     static final String CharU20001 = "\uD840\uDC01";
 
     /**
+     * Supplementary character U+24000 See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
+     * <p>
+     * Shares its low surrogate (U+DC00) with {@link #CharU20000} but has a different high surrogate, so the two are distinct code points that agree on their
+     * second UTF-16 code unit.
+     * </p>
+     */
+    static final String CharU24000 = "\uD850\uDC00";
+
+    /**
      * Incomplete supplementary character U+20000, <em>high surrogate only</em>.
      * <p>
      * See https://www.oracle.com/technical-resources/articles/javase/supplementary.html
