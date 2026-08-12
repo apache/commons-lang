@@ -399,6 +399,10 @@ class StringUtilsTest extends AbstractLangTest {
                 {null, null},
                 {"", ""},
                 {"a", ""},
+                // U+1F600: a trailing supplementary code point must be dropped whole, not split into a lone surrogate
+                {"\uD83D\uDE00", ""},
+                {"x\uD83D\uDE00", "x"},
+                {"\uD83D\uDE00x", "\uD83D\uDE00"},
         };
         for (final String[] chopCase : chopCases) {
             final String original = chopCase[0];

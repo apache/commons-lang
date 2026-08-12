@@ -794,6 +794,10 @@ public class StringUtils {
             return EMPTY;
         }
         final int lastIdx = strLen - 1;
+        // keep the cut off the middle of a surrogate pair so the result is never left holding a lone surrogate
+        if (splitsSurrogatePair(str, lastIdx)) {
+            return str.substring(0, lastIdx - 1);
+        }
         final String ret = str.substring(0, lastIdx);
         final char last = str.charAt(lastIdx);
         if (last == CharUtils.LF && ret.charAt(lastIdx - 1) == CharUtils.CR) {
