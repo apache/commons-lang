@@ -505,9 +505,10 @@ public class DurationFormatUtils {
      * Formats the time gap as a string, using the specified format. Padding the left-hand side side of numbers with zeroes is optional and the time zone may be
      * specified.
      * <p>
-     * When calculating the difference between months/days, it chooses to calculate months first. So when working out the number of months and days between
-     * January 15th and March 10th, it choose 1 month and 23 days gained by choosing January-&gt;February = 1 month and then calculating days forwards, and not
-     * the 1 month and 26 days gained by choosing March -&gt; February = 1 month and then calculating days backwards.
+     * When calculating the difference between months/days, it chooses to calculate months first, borrowing the length of the month in which the period starts
+     * when the number of days would otherwise be negative. So when working out the number of months and days between January 15th and March 10th, it chooses
+     * 1 month and 26 days gained by choosing March -&gt; February = 1 month and then calculating days backwards, and not the 1 month and 23 days gained by
+     * choosing January-&gt;February = 1 month and then calculating days forwards, as computed by {@link java.time.Period#between}.
      * </p>
      * <p>
      * For more control, the <a href="https://www.joda.org/joda-time/">Joda-Time</a> library is recommended.
