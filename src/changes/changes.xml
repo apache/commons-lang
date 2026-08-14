@@ -242,6 +242,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Fix spurious overflow in Fraction.multiplyBy for unreduced operands (#1769).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Fix low surrogate false match in StringUtils containsAny/containsNone/indexOfAny (#1771).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep StringUtils.chop from splitting a trailing surrogate pair (#1770).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep StringUtils stripStart and stripEnd off surrogate pair boundaries (#1773).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
