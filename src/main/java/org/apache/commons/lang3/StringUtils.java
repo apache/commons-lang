@@ -8091,8 +8091,12 @@ public class StringUtils {
         } else if (stripChars.isEmpty()) {
             return str;
         } else {
-            while (end != 0 && stripChars.indexOf(str.charAt(end - 1)) != INDEX_NOT_FOUND) {
-                end--;
+            while (end != 0) {
+                final int codePoint = str.codePointBefore(end);
+                if (stripChars.indexOf(codePoint) == INDEX_NOT_FOUND) {
+                    break;
+                }
+                end -= Character.charCount(codePoint);
             }
         }
         return str.substring(0, end);
@@ -8137,8 +8141,12 @@ public class StringUtils {
         } else if (stripChars.isEmpty()) {
             return str;
         } else {
-            while (start != strLen && stripChars.indexOf(str.charAt(start)) != INDEX_NOT_FOUND) {
-                start++;
+            while (start != strLen) {
+                final int codePoint = str.codePointAt(start);
+                if (stripChars.indexOf(codePoint) == INDEX_NOT_FOUND) {
+                    break;
+                }
+                start += Character.charCount(codePoint);
             }
         }
         return str.substring(start);
