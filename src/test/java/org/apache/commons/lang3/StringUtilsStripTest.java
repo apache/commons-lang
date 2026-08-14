@@ -242,6 +242,24 @@ class StringUtilsStripTest extends AbstractLangTest {
     }
 
     @Test
+    void testStripSupplementaryCodePoints() {
+        // U+1D51E and U+1D51F share the high surrogate \uD835; U+1D11E shares the low surrogate \uDD1E with U+1D51E.
+        final String mathA = "\uD835\uDD1E"; // U+1D51E
+        final String mathB = "\uD835\uDD1F"; // U+1D51F
+        final String clef = "\uD834\uDD1E";  // U+1D11E
+
+        // A supplementary strip character must not match a code point that only shares one surrogate half.
+        assertEquals(mathA + "abc", StringUtils.stripStart(mathA + "abc", mathB));
+        assertEquals("abc" + clef, StringUtils.stripEnd("abc" + clef, mathA));
+        assertEquals(mathA + "abc" + mathA, StringUtils.strip(mathA + "abc" + mathA, mathB));
+
+        // Genuine membership still strips the whole supplementary code point.
+        assertEquals("abc", StringUtils.stripStart(mathA + mathA + "abc", mathA));
+        assertEquals("abc", StringUtils.stripEnd("abc" + mathA + mathA, mathA));
+        assertEquals("abc", StringUtils.strip(mathA + "abc" + mathA, mathA));
+    }
+
+    @Test
     void testStripToEmptyString() {
         assertEquals("", StringUtils.stripToEmpty(null));
         assertEquals("", StringUtils.stripToEmpty(""));
