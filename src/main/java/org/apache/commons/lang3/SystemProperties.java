@@ -3877,7 +3877,7 @@ public final class SystemProperties {
      */
     public static Path getPath(final String key, final Supplier<Path> defaultIfAbsent) {
         final String str = getProperty(key);
-        return str == null ? defaultIfAbsent != null ? defaultIfAbsent.get() : null : Paths.get(str);
+        return str == null ? Suppliers.get(defaultIfAbsent) : Paths.get(str);
     }
 
     /**
