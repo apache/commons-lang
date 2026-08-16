@@ -1262,7 +1262,7 @@ class EqualsBuilderTest extends AbstractBuilderTest {
      *
      * @param to             A TestObject
      * @param toBis          A TestObject, equal to to and toTer
-     * @param toTer          left-hand side side, equal to to and toBis
+     * @param toTer          left-hand side, equal to to and toBis
      * @param to2            A different TestObject
      * @param oToChange      A TestObject that will be changed
      * @param testTransients whether to test transient instance variables

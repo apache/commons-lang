@@ -363,7 +363,7 @@ public abstract class Strings {
      * <pre>
      * Strings.CS.appendIfMissing(null, null)      = null
      * Strings.CS.appendIfMissing("abc", null)     = "abc"
-     * Strings.CS.appendIfMissing("", "xyz"        = "xyz"
+     * Strings.CS.appendIfMissing("", "xyz")       = "xyz"
      * Strings.CS.appendIfMissing("abc", "xyz")    = "abcxyz"
      * Strings.CS.appendIfMissing("abcxyz", "xyz") = "abcxyz"
      * Strings.CS.appendIfMissing("abcXYZ", "xyz") = "abcXYZxyz"
