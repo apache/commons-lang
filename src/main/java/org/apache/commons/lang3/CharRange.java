@@ -269,6 +269,18 @@ final class CharRange implements Iterable<Character>, Serializable {
             return range.end < start || range.start > end;
         }
         if (range.negated) {
+            // range denotes [0, range.start - 1] union [range.end + 1, Character.MAX_VALUE]
+            final boolean lowEmpty = range.start == 0;
+            final boolean highEmpty = range.end == Character.MAX_VALUE;
+            if (lowEmpty && highEmpty) {
+                return true; // range denotes the empty set
+            }
+            if (lowEmpty) {
+                return end == Character.MAX_VALUE && start <= range.end + 1;
+            }
+            if (highEmpty) {
+                return start == 0 && end + 1 >= range.start;
+            }
             return start == 0 && end == Character.MAX_VALUE;
         }
         return start <= range.start && end >= range.end;
