@@ -244,6 +244,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep StringUtils.chop from splitting a trailing surrogate pair (#1770).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep StringUtils stripStart and stripEnd off surrogate pair boundaries (#1773).</action>
     <action                   type="fix" dev="ggregory" due-to="codeAnqiang-ma, Gary Gregory">Fix the month/day example in DurationFormatUtils.formatPeriod Javadoc (#1772).</action>
+    <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Fix typos in Javadoc and example comments (#1774).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
