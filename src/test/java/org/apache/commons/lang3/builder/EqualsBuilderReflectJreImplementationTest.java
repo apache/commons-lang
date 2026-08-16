@@ -265,7 +265,7 @@ class EqualsBuilderReflectJreImplementationTest extends AbstractBuilderTest {
 
     @Test
     void testRecursive() {
-        // assertions are tricky to to the subclass
+        // assertions are tricky to the subclass
         final MyClass o1 = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"), new MyTemporalAmount("4"));
         // This gives you different instances of MyTemporalAccessor for 1 (and 2) that should be equals by reflection.
         final MyClass o1Bis = new MyClass(new MyCharSequence("1"), new MyTemporal("2"), new MyTemporalAccessor("3"), new MyTemporalAmount("4"));

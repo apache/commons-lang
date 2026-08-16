@@ -3866,7 +3866,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Tests whether whether the provided array is sorted according to natural ordering ({@code false} before {@code true}).
+     * Tests whether the provided array is sorted according to natural ordering ({@code false} before {@code true}).
      *
      * @param array The array to check.
      * @return whether the array is sorted according to natural ordering.

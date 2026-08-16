@@ -283,7 +283,7 @@ class ToStringBuilderTest extends AbstractBuilderTest {
         assertEquals(baseStr + "[<size=3>]", new ToStringBuilder(base).append(null, array, false).toString());
     }
 
-    // Reflection Array Array tests
+    // Reflection Array tests
 
     @Test
     void testAppendByteArrayWithFieldName() {
