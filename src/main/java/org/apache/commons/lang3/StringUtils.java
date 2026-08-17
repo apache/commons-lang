@@ -5161,7 +5161,12 @@ public class StringUtils {
         if (str.length() <= len) {
             return str;
         }
-        return str.substring(0, len);
+        int cut = len;
+        // keep the cut off the middle of a surrogate pair so the result is never left holding a lone surrogate
+        if (splitsSurrogatePair(str, cut)) {
+            cut--;
+        }
+        return str.substring(0, cut);
     }
 
     /**
@@ -5433,10 +5438,20 @@ public class StringUtils {
         if (pos < 0) {
             pos = 0;
         }
-        if (str.length() - pos <= len) {
-            return str.substring(pos);
+        int start = pos;
+        // keep the start off the middle of a surrogate pair so the result is never left holding a lone surrogate
+        if (splitsSurrogatePair(str, start)) {
+            start++;
         }
-        return str.substring(pos, pos + len);
+        if (str.length() - pos <= len) {
+            return str.substring(start);
+        }
+        int end = pos + len;
+        // keep both cuts off the middle of a surrogate pair so the result is never left holding a lone surrogate
+        if (splitsSurrogatePair(str, end)) {
+            end--;
+        }
+        return str.substring(start, Math.max(start, end));
     }
 
     /**
@@ -5660,6 +5675,13 @@ public class StringUtils {
             final int temp = start;
             start = end;
             end = temp;
+        }
+        // keep both cuts off the middle of a surrogate pair so the result is never left holding a lone surrogate
+        if (splitsSurrogatePair(str, start)) {
+            start--;
+        }
+        if (splitsSurrogatePair(str, end)) {
+            end++;
         }
         return str.substring(0, start) + overlay + str.substring(end);
     }
@@ -6955,7 +6977,12 @@ public class StringUtils {
         if (str.length() <= len) {
             return str;
         }
-        return str.substring(str.length() - len);
+        int start = str.length() - len;
+        // keep the cut off the middle of a surrogate pair so the result is never left holding a lone surrogate
+        if (splitsSurrogatePair(str, start)) {
+            start++;
+        }
+        return str.substring(start);
     }
 
     /**
