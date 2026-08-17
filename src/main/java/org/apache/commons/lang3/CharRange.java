@@ -58,9 +58,8 @@ final class CharRange implements Iterable<Character>, Serializable {
         private CharacterIterator(final CharRange r) {
             range = r;
             hasNext = true;
-
             if (range.negated) {
-                if (range.start == 0) {
+                if (range.start == Character.MIN_VALUE) {
                     if (range.end == Character.MAX_VALUE) {
                         // This range is an empty set
                         hasNext = false;
@@ -68,7 +67,7 @@ final class CharRange implements Iterable<Character>, Serializable {
                         current = (char) (range.end + 1);
                     }
                 } else {
-                    current = 0;
+                    current = Character.MIN_VALUE;
                 }
             } else {
                 current = range.start;
@@ -270,7 +269,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         }
         if (range.negated) {
             // range denotes [0, range.start - 1] union [range.end + 1, Character.MAX_VALUE]
-            final boolean lowEmpty = range.start == 0;
+            final boolean lowEmpty = range.start == Character.MIN_VALUE;
             final boolean highEmpty = range.end == Character.MAX_VALUE;
             if (lowEmpty && highEmpty) {
                 return true; // range denotes the empty set
@@ -279,9 +278,9 @@ final class CharRange implements Iterable<Character>, Serializable {
                 return end == Character.MAX_VALUE && start <= range.end + 1;
             }
             if (highEmpty) {
-                return start == 0 && end + 1 >= range.start;
+                return start == Character.MIN_VALUE && end + 1 >= range.start;
             }
-            return start == 0 && end == Character.MAX_VALUE;
+            return start == Character.MIN_VALUE && end == Character.MAX_VALUE;
         }
         return start <= range.start && end >= range.end;
     }
