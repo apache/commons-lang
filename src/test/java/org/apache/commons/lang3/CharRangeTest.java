@@ -261,6 +261,33 @@ class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
+    void testContains_Charrange_negatedArgumentTouchingBounds() {
+        // A negated argument denotes [0, start - 1] union [end + 1, MAX_VALUE]. When its excluded range touches 0 or
+        // MAX_VALUE that set collapses to the empty set or a single contiguous interval, so a non-full range can contain it.
+        final CharRange emptySet = CharRange.isNotIn((char) 0, Character.MAX_VALUE);
+        assertTrue(CharRange.is('x').contains(emptySet));
+        assertTrue(CharRange.isIn((char) 0, Character.MAX_VALUE).contains(emptySet));
+
+        // isNotIn(0, 'a' - 1) denotes ['a', MAX_VALUE]
+        final CharRange fromA = CharRange.isNotIn((char) 0, (char) ('a' - 1));
+        assertTrue(CharRange.isIn('a', Character.MAX_VALUE).contains(fromA));
+        assertTrue(CharRange.isIn('Z', Character.MAX_VALUE).contains(fromA));
+        assertFalse(CharRange.isIn('b', Character.MAX_VALUE).contains(fromA));
+        assertFalse(CharRange.isIn('a', 'z').contains(fromA));
+
+        // isNotIn('b', MAX_VALUE) denotes [0, 'a']
+        final CharRange upToA = CharRange.isNotIn('b', Character.MAX_VALUE);
+        assertTrue(CharRange.isIn((char) 0, 'a').contains(upToA));
+        assertTrue(CharRange.isIn((char) 0, 'b').contains(upToA));
+        assertFalse(CharRange.isIn((char) 1, 'a').contains(upToA));
+        assertFalse(CharRange.isIn((char) 0, 'Z').contains(upToA));
+
+        // A fully interior excluded range is still only contained by the full range.
+        assertFalse(CharRange.is('c').contains(CharRange.isNot('c')));
+        assertTrue(CharRange.isIn((char) 0, Character.MAX_VALUE).contains(CharRange.isNot('c')));
+    }
+
+    @Test
     void testContainsNullArg() {
         final CharRange range = CharRange.is('a');
         final NullPointerException e = assertNullPointerException(() -> range.contains(null));
