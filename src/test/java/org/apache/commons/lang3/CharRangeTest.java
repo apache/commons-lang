@@ -295,6 +295,51 @@ class CharRangeTest extends AbstractLangTest {
     }
 
     @Test
+    void testEmptySet() {
+        // isNotIn(MIN_VALUE, MAX_VALUE) denotes the empty set: it excludes the entire character space.
+        final CharRange emptySet = CharRange.isNotIn(Character.MIN_VALUE, Character.MAX_VALUE);
+        assertTrue(emptySet.isNegated());
+        assertEquals(Character.MIN_VALUE, emptySet.getStart());
+        assertEquals(Character.MAX_VALUE, emptySet.getEnd());
+        // The constructor reverses reversed endpoints, so the reversed construction is the same empty set.
+        assertEquals(emptySet, CharRange.isNotIn(Character.MAX_VALUE, Character.MIN_VALUE));
+        assertEquals(emptySet.hashCode(), CharRange.isNotIn(Character.MAX_VALUE, Character.MIN_VALUE).hashCode());
+
+        // It contains no characters, including both extremes of the character space.
+        assertFalse(emptySet.contains(Character.MIN_VALUE));
+        assertFalse(emptySet.contains('a'));
+        assertFalse(emptySet.contains('x'));
+        assertFalse(emptySet.contains('z'));
+        assertFalse(emptySet.contains(Character.MAX_VALUE));
+
+        // It is contained in every range, plain or negated, single character or not.
+        assertTrue(CharRange.is('a').contains(emptySet));
+        assertTrue(CharRange.is('x').contains(emptySet));
+        assertTrue(CharRange.isIn('a', 'z').contains(emptySet));
+        assertTrue(CharRange.isIn(Character.MIN_VALUE, Character.MAX_VALUE).contains(emptySet));
+        assertTrue(CharRange.isNot('a').contains(emptySet));
+        assertTrue(CharRange.isNotIn('a', 'z').contains(emptySet));
+        assertTrue(CharRange.isNotIn(Character.MIN_VALUE, 'z').contains(emptySet));
+        assertTrue(CharRange.isNotIn('a', Character.MAX_VALUE).contains(emptySet));
+
+        // Iterating over it yields no characters.
+        final Iterator<Character> emptySetIt = emptySet.iterator();
+        assertNotNull(emptySetIt);
+        assertFalse(emptySetIt.hasNext());
+        assertThrows(NoSuchElementException.class, emptySetIt::next);
+
+        // Ranges that exclude a boundary but not the entire character space are NOT empty ...
+        final CharRange fromB = CharRange.isNotIn(Character.MIN_VALUE, 'a'); // denotes ['b', MAX_VALUE]
+        final CharRange upToA = CharRange.isNotIn('a', Character.MAX_VALUE); // denotes [MIN_VALUE, 'a']
+        assertTrue(fromB.contains(Character.MAX_VALUE));
+        assertTrue(upToA.contains(Character.MIN_VALUE));
+        // ... so, unlike the empty set, they are not contained in every range.
+        assertFalse(CharRange.is('a').contains(fromB));
+        assertFalse(CharRange.is('b').contains(upToA));
+        assertFalse(upToA.contains(fromB));
+    }
+
+    @Test
     void testEquals_Object() {
         final CharRange rangea = CharRange.is('a');
         final CharRange rangeae = CharRange.isIn('a', 'e');
@@ -379,6 +424,25 @@ class CharRangeTest extends AbstractLangTest {
         final CharRange sameAsRange1 = CharRange.is('a');
         assertEquals(range1, sameAsRange1, "Equal ranges should be equal");
         assertEquals(range1.hashCode(), sameAsRange1.hashCode(), "Equal ranges should have equal hash codes");
+    }
+
+    @Test
+    void testIsEmpty() {
+        // Only a negated range over the entire character space is empty.
+        assertTrue(CharRange.isNotIn(Character.MIN_VALUE, Character.MAX_VALUE).isEmpty());
+        // The constructor reverses reversed endpoints, so this is the same empty set.
+        assertTrue(CharRange.isNotIn(Character.MAX_VALUE, Character.MIN_VALUE).isEmpty());
+
+        // Negated ranges that exclude a boundary or an interior but not the entire character space are not empty.
+        assertFalse(CharRange.isNotIn(Character.MIN_VALUE, 'a').isEmpty());
+        assertFalse(CharRange.isNotIn('a', Character.MAX_VALUE).isEmpty());
+        assertFalse(CharRange.isNot('a').isEmpty());
+        assertFalse(CharRange.isNotIn('a', 'z').isEmpty());
+
+        // Plain ranges always contain at least one character, even the full character space.
+        assertFalse(CharRange.is('a').isEmpty());
+        assertFalse(CharRange.isIn('a', 'z').isEmpty());
+        assertFalse(CharRange.isIn(Character.MIN_VALUE, Character.MAX_VALUE).isEmpty());
     }
 
     @Test

@@ -58,14 +58,12 @@ final class CharRange implements Iterable<Character>, Serializable {
         private CharacterIterator(final CharRange r) {
             range = r;
             hasNext = true;
-            if (range.negated) {
+            if (range.isEmpty()) {
+                // This range is an empty set
+                hasNext = false;
+            } else if (range.negated) {
                 if (range.start == Character.MIN_VALUE) {
-                    if (range.end == Character.MAX_VALUE) {
-                        // This range is an empty set
-                        hasNext = false;
-                    } else {
-                        current = (char) (range.end + 1);
-                    }
+                    current = (char) (range.end + 1);
                 } else {
                     current = Character.MIN_VALUE;
                 }
@@ -269,15 +267,15 @@ final class CharRange implements Iterable<Character>, Serializable {
         }
         if (range.negated) {
             // range denotes [0, range.start - 1] union [range.end + 1, Character.MAX_VALUE]
-            final boolean lowEmpty = range.start == Character.MIN_VALUE;
-            final boolean highEmpty = range.end == Character.MAX_VALUE;
-            if (lowEmpty && highEmpty) {
+            if (range.isEmpty()) {
                 return true; // range denotes the empty set
             }
-            if (lowEmpty) {
+            if (range.start == Character.MIN_VALUE) {
+                // range denotes [range.end + 1, Character.MAX_VALUE]
                 return end == Character.MAX_VALUE && start <= range.end + 1;
             }
-            if (highEmpty) {
+            if (range.end == Character.MAX_VALUE) {
+                // range denotes [0, range.start - 1]
                 return start == Character.MIN_VALUE && end + 1 >= range.start;
             }
             return start == Character.MIN_VALUE && end == Character.MAX_VALUE;
@@ -330,6 +328,20 @@ final class CharRange implements Iterable<Character>, Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(end, negated, start);
+    }
+
+    /**
+     * Checks if this range denotes the empty set.
+     *
+     * <p>A plain (non-negated) range always contains at least one character and is
+     * therefore never empty. A negated range is empty if and only if it excludes the
+     * entire character space, i.e. if it was created via
+     * {@code isNotIn(Character.MIN_VALUE, Character.MAX_VALUE)}.</p>
+     *
+     * @return {@code true} if this range contains no characters, {@code false} otherwise.
+     */
+    boolean isEmpty() {
+        return negated && start == Character.MIN_VALUE && end == Character.MAX_VALUE;
     }
 
     /**
