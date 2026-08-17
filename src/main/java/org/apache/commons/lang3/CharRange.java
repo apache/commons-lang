@@ -62,7 +62,7 @@ final class CharRange implements Iterable<Character>, Serializable {
                 // This range is an empty set
                 hasNext = false;
             } else if (range.negated) {
-                if (range.start == Character.MIN_VALUE) {
+                if (range.isStartMin()) {
                     current = (char) (range.end + 1);
                 } else {
                     current = Character.MIN_VALUE;
@@ -105,7 +105,7 @@ final class CharRange implements Iterable<Character>, Serializable {
                 if (current == Character.MAX_VALUE) {
                     hasNext = false;
                 } else if (current + 1 == range.start) {
-                    if (range.end == Character.MAX_VALUE) {
+                    if (range.isEndMax()) {
                         hasNext = false;
                     } else {
                         current = (char) (range.end + 1);
@@ -270,15 +270,15 @@ final class CharRange implements Iterable<Character>, Serializable {
             if (range.isEmpty()) {
                 return true; // range denotes the empty set
             }
-            if (range.start == Character.MIN_VALUE) {
+            if (range.isStartMin()) {
                 // range denotes [range.end + 1, Character.MAX_VALUE]
-                return end == Character.MAX_VALUE && start <= range.end + 1;
+                return isEndMax() && start <= range.end + 1;
             }
-            if (range.end == Character.MAX_VALUE) {
+            if (range.isEndMax()) {
                 // range denotes [0, range.start - 1]
-                return start == Character.MIN_VALUE && end + 1 >= range.start;
+                return isStartMin() && end + 1 >= range.start;
             }
-            return start == Character.MIN_VALUE && end == Character.MAX_VALUE;
+            return isStartMin() && isEndMax();
         }
         return start <= range.start && end >= range.end;
     }
@@ -341,7 +341,11 @@ final class CharRange implements Iterable<Character>, Serializable {
      * @return {@code true} if this range contains no characters, {@code false} otherwise.
      */
     boolean isEmpty() {
-        return negated && start == Character.MIN_VALUE && end == Character.MAX_VALUE;
+        return negated && isStartMin() && isEndMax();
+    }
+
+    private boolean isEndMax() {
+        return end == Character.MAX_VALUE;
     }
 
     /**
@@ -354,6 +358,10 @@ final class CharRange implements Iterable<Character>, Serializable {
      */
     public boolean isNegated() {
         return negated;
+    }
+
+    private boolean isStartMin() {
+        return start == Character.MIN_VALUE;
     }
 
     /**
