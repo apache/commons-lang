@@ -454,6 +454,16 @@ class BooleanUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testAnd_object_varargs_wrapper() {
+        assertEquals(false, BooleanUtils.and(Boolean.FALSE, Boolean.TRUE));
+    }
+
+    @Test
+    void testAnd_object_varargs_primitive() {
+        assertEquals(false, BooleanUtils.and(false, true));
+    }
+
+    @Test
     void testAnd_object_nullElementInput() {
         assertEquals(Boolean.FALSE, BooleanUtils.and(new Boolean[] {null}));
     }
