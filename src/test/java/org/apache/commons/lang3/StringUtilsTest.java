@@ -1461,6 +1461,31 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("abcdefzzzz", StringUtils.overlay("abcdef", "zzzz", 10, 8));
     }
 
+    @Test
+    void testOverlaySurrogatePair() {
+        final String grin = "😀";
+        // overlaying across surrogate pair boundary backs off start and advances end
+        assertEquals("X", StringUtils.overlay(grin, "X", 1, 1));
+        assertEquals("aXb", StringUtils.overlay("a" + grin + "b", "X", 1, 3));
+        assertEquals("aXb", StringUtils.overlay("a" + grin + "b", "X", 2, 2));
+
+        final String source = "a" + grin + "b" + grin + "cd" + grin + "ef";
+        for (int start = 0; start <= source.length(); start++) {
+            for (int end = 0; end <= source.length(); end++) {
+                final String result = StringUtils.overlay(source, "X", start, end);
+                for (int i = 0; i < result.length(); i++) {
+                    final char ch = result.charAt(i);
+                    if (Character.isHighSurrogate(ch)) {
+                        assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)), "lone high surrogate in: " + result);
+                        i++; // skip the paired low surrogate
+                    } else {
+                        assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Tests {@code prependIfMissing}.
      */
