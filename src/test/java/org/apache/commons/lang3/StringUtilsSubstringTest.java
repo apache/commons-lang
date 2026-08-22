@@ -17,8 +17,10 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -398,5 +400,95 @@ class StringUtilsSubstringTest extends AbstractLangTest {
             results = StringUtils.substringsBetween("", "[", "]");
             assertEquals(0, results.length);
         }
+
+    @Test
+    void testLeftSurrogatePair() {
+        // U+1F600 GRINNING FACE is a supplementary code point stored as a surrogate pair
+        final String grin = "😀";
+        assertEquals("", StringUtils.left(grin, 0));
+        assertEquals("", StringUtils.left(grin, 1));
+        assertEquals(grin, StringUtils.left(grin, 2));
+        assertEquals(grin, StringUtils.left(grin, 3));
+
+        assertEquals("a", StringUtils.left("a" + grin, 1));
+        assertEquals("a", StringUtils.left("a" + grin, 2));
+        assertEquals("a" + grin, StringUtils.left("a" + grin, 3));
+
+        final String source = "a" + grin + "b" + grin + "cd" + grin + "ef";
+        for (int len = 0; len <= source.length(); len++) {
+            final String result = StringUtils.left(source, len);
+            assertTrue(result.length() <= len, () -> "result longer than len: " + result);
+            for (int i = 0; i < result.length(); i++) {
+                final char ch = result.charAt(i);
+                if (Character.isHighSurrogate(ch)) {
+                    assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)), "lone high surrogate in: " + result);
+                    i++; // skip the paired low surrogate
+                } else {
+                    assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+                }
+            }
+        }
+    }
+
+    @Test
+    void testMidSurrogatePair() {
+        // U+1F600 GRINNING FACE is a supplementary code point stored as a surrogate pair
+        final String grin = "😀";
+        assertEquals("", StringUtils.mid(grin, 0, 0));
+        assertEquals("", StringUtils.mid(grin, 0, 1));
+        assertEquals(grin, StringUtils.mid(grin, 0, 2));
+        assertEquals(grin, StringUtils.mid(grin, 0, 3));
+        assertEquals("", StringUtils.mid(grin, 1, 1));
+        assertEquals("", StringUtils.mid(grin, 1, 2));
+
+        assertEquals("a", StringUtils.mid("a" + grin + "b", 0, 2));
+        assertEquals(grin, StringUtils.mid("a" + grin + "b", 1, 2));
+        assertEquals("b", StringUtils.mid("a" + grin + "b", 2, 2));
+
+        final String source = "a" + grin + "b" + grin + "cd" + grin + "ef";
+        for (int pos = 0; pos <= source.length(); pos++) {
+            for (int len = 0; len <= source.length(); len++) {
+                final String result = StringUtils.mid(source, pos, len);
+                for (int i = 0; i < result.length(); i++) {
+                    final char ch = result.charAt(i);
+                    if (Character.isHighSurrogate(ch)) {
+                        assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)), "lone high surrogate in: " + result);
+                        i++; // skip the paired low surrogate
+                    } else {
+                        assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    void testRightSurrogatePair() {
+        // U+1F600 GRINNING FACE is a supplementary code point stored as a surrogate pair
+        final String grin = "😀";
+        assertEquals("", StringUtils.right(grin, 0));
+        assertEquals("", StringUtils.right(grin, 1));
+        assertEquals(grin, StringUtils.right(grin, 2));
+        assertEquals(grin, StringUtils.right(grin, 3));
+
+        assertEquals("a", StringUtils.right(grin + "a", 1));
+        assertEquals("a", StringUtils.right(grin + "a", 2));
+        assertEquals(grin + "a", StringUtils.right(grin + "a", 3));
+
+        final String source = "a" + grin + "b" + grin + "cd" + grin + "ef";
+        for (int len = 0; len <= source.length(); len++) {
+            final String result = StringUtils.right(source, len);
+            assertTrue(result.length() <= len, () -> "result longer than len: " + result);
+            for (int i = 0; i < result.length(); i++) {
+                final char ch = result.charAt(i);
+                if (Character.isHighSurrogate(ch)) {
+                    assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)), "lone high surrogate in: " + result);
+                    i++; // skip the paired low surrogate
+                } else {
+                    assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+                }
+            }
+        }
+    }
 
 }
