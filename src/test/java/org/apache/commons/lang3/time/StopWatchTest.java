@@ -148,6 +148,17 @@ class StopWatchTest extends AbstractLangTest {
     }
 
     @Test
+    void testFormatSplitTimeExceedingIntMillis() throws Exception {
+        final StopWatch watch = StopWatch.createStarted();
+        // Backdate the start so the split spans more than Integer.MAX_VALUE milliseconds (about 24.86 days).
+        FieldUtils.writeField(watch, "startTimeNanos", System.nanoTime() - TimeUnit.DAYS.toNanos(30), true);
+        watch.split();
+        final long splitMillis = watch.getSplitDuration().toMillis();
+        assertTrue(splitMillis > Integer.MAX_VALUE, "precondition: split must exceed Integer.MAX_VALUE millis");
+        assertEquals(DurationFormatUtils.formatDurationHMS(splitMillis), watch.formatSplitTime(), "formatSplitTime");
+    }
+
+    @Test
     void testFormatSplitTimeWithMessage() {
         final StopWatch watch = new StopWatch(MESSAGE);
         watch.start();
