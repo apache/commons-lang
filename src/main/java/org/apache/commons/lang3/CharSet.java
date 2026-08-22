@@ -175,6 +175,11 @@ public class CharSet implements Serializable {
     private final Set<CharRange> set = Collections.synchronizedSet(new LinkedHashSet<>());
 
     /**
+     * Lock object for synchronizing access.
+     */
+    private final Serializable lock = new SerializableObject();
+
+    /**
      * Constructs a new CharSet using the set syntax.
      * Each string is merged in with the set.
      *
@@ -237,7 +242,7 @@ public class CharSet implements Serializable {
      * @return {@code true} if the set contains the characters.
      */
     public boolean contains(final char ch) {
-        synchronized (set) {
+        synchronized (lock) {
             return set.stream().anyMatch(range -> range.contains(ch));
         }
     }

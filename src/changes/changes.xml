@@ -246,6 +246,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="codeAnqiang-ma, Gary Gregory">Fix the month/day example in DurationFormatUtils.formatPeriod Javadoc (#1772).</action>
     <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Fix typos in Javadoc and example comments (#1774).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Fix CharRange.contains(CharRange) for negated argument ranges (#1775).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix SpotBugs USO_UNSAFE_METHOD_SYNCHRONIZATION in CharSet.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
