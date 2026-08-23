@@ -270,7 +270,20 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         this.toStringFormat = toStringFormat;
         this.style = style != null ? style : ToStringStyle.DEFAULT_STYLE;
         // Don't compare any fields if objects equal
-        this.equals = testObjectsEquals && Objects.equals(left, right);
+        if (testObjectsEquals) {
+            if (left == right || ReflectionDiffBuilder.isRegistered(left, right)) {
+                this.equals = true;
+            } else {
+                try {
+                    ReflectionDiffBuilder.register(left, right);
+                    this.equals = Objects.equals(left, right);
+                } finally {
+                    ReflectionDiffBuilder.unregister(left, right);
+                }
+            }
+        } else {
+            this.equals = false;
+        }
     }
 
     private <F> DiffBuilder<T> add(final String fieldName, final SerializableSupplier<F> left, final SerializableSupplier<F> right, final Class<F> type) {
