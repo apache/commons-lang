@@ -46,7 +46,6 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
   <release version="3.21.0" date="YYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
-    <action                   type="fix" dev="ggregory" due-to="Gaurav Pandey, Gary Gregory">Align ReflectionDiffBuilder with AbstractReflection and add cycle detection to prevent StackOverflowError on cyclic object graphs.</action>
     <action                   type="fix" dev="ggregory" due-to="Javid Khan, Gary Gregory">Stop ExtendedMessageFormat seekNonWs reading past the pattern end.</action>
     <action                   type="fix" dev="ggregory" due-to="ThrawnCA">Fix spelling and grammar in StringUtils #1486.</action>
     <action                   type="fix" dev="ggregory" due-to="Michael Hausegger, Gary Gregory">Add ConversionTest assertions to increase coverage #1489.</action>
@@ -250,6 +249,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix SpotBugs USO_UNSAFE_METHOD_SYNCHRONIZATION in CharSet.</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep StopWatch.formatSplitTime from clamping splits to int millis (#1777).</action>
     <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Keep StringUtils left, right, mid, and overlay off surrogate pair boundaries (#1776).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gaurav Pandey, Gary Gregory">Align ReflectionDiffBuilder with AbstractReflection and add cycle detection to prevent StackOverflowError on cyclic object graphs.</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>

@@ -143,6 +143,17 @@ public class ReflectionDiffBuilder<T> extends AbstractReflection implements Buil
     private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = ThreadLocal.withInitial(HashSet::new);
 
     /**
+     * Constructs a new {@link Builder}.
+     *
+     * @param <T> type of the left and right object.
+     * @return A new {@link Builder}.
+     * @since 3.15.0
+     */
+    public static <T> Builder<T> builder() {
+        return new Builder<>();
+    }
+
+    /**
      * Gets the registry of object pairs being traversed by the reflection
      * methods in the current thread.
      *
@@ -179,6 +190,14 @@ public class ReflectionDiffBuilder<T> extends AbstractReflection implements Buil
         register(lhs, rhs, getRegistry());
     }
 
+    private static String[] toExcludeFieldNames(final String[] excludeFieldNames) {
+        if (excludeFieldNames == null) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        // clone and remove nulls
+        return ArraySorter.sort(ReflectionToStringBuilder.toNoNullStringArray(excludeFieldNames));
+    }
+
     /**
      * Unregisters the given object pair.
      *
@@ -191,25 +210,6 @@ public class ReflectionDiffBuilder<T> extends AbstractReflection implements Buil
      */
     static void unregister(final Object lhs, final Object rhs) {
         unregister(lhs, rhs, getRegistry(), REGISTRY);
-    }
-
-    /**
-     * Constructs a new {@link Builder}.
-     *
-     * @param <T> type of the left and right object.
-     * @return A new {@link Builder}.
-     * @since 3.15.0
-     */
-    public static <T> Builder<T> builder() {
-        return new Builder<>();
-    }
-
-    private static String[] toExcludeFieldNames(final String[] excludeFieldNames) {
-        if (excludeFieldNames == null) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
-        }
-        // clone and remove nulls
-        return ArraySorter.sort(ReflectionToStringBuilder.toNoNullStringArray(excludeFieldNames));
     }
 
     private final DiffBuilder<T> diffBuilder;
