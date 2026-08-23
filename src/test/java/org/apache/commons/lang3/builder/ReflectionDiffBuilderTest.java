@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -543,6 +544,156 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         assertEquals(0, list.getNumberOfDiffs());
         list = firstObject.diffDeprecated(secondObject);
         assertEquals(0, list.getNumberOfDiffs());
+    }
+
+    private static final class CycleDiffableNode implements Diffable<CycleDiffableNode> {
+        @SuppressWarnings("unused")
+        private CycleDiffableNode self;
+        @SuppressWarnings("unused")
+        private final String value;
+
+        CycleDiffableNode(final String value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            return EqualsBuilder.reflectionEquals(this, obj);
+        }
+
+        @Override
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+
+        @Override
+        public DiffResult<CycleDiffableNode> diff(final CycleDiffableNode obj) {
+            return ReflectionDiffBuilder.<CycleDiffableNode>builder()
+                    .setDiffBuilder(DiffBuilder.<CycleDiffableNode>builder()
+                            .setLeft(this)
+                            .setRight(obj)
+                            .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+                            .build())
+                    .build()
+                    .build();
+        }
+    }
+
+    private static final class MutualDiffableNode implements Diffable<MutualDiffableNode> {
+        @SuppressWarnings("unused")
+        private MutualDiffableNode other;
+        @SuppressWarnings("unused")
+        private final String name;
+
+        MutualDiffableNode(final String name) {
+            this.name = name;
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            return EqualsBuilder.reflectionEquals(this, obj);
+        }
+
+        @Override
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+
+        @Override
+        public DiffResult<MutualDiffableNode> diff(final MutualDiffableNode obj) {
+            return ReflectionDiffBuilder.<MutualDiffableNode>builder()
+                    .setDiffBuilder(DiffBuilder.<MutualDiffableNode>builder()
+                            .setLeft(this)
+                            .setRight(obj)
+                            .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+                            .build())
+                    .build()
+                    .build();
+        }
+    }
+
+    @Test
+    void testCycleSelfReferential() {
+        final CycleDiffableNode first = new CycleDiffableNode("a");
+        final CycleDiffableNode second = new CycleDiffableNode("a");
+        first.self = first;
+        second.self = second;
+
+        final DiffResult<CycleDiffableNode> result = first.diff(second);
+        assertEquals(0, result.getNumberOfDiffs());
+        assertTrue(ReflectionDiffBuilder.getRegistry().isEmpty(), "Registry must be empty after diff");
+    }
+
+    @Test
+    void testCycleSelfReferentialWithDifference() {
+        final CycleDiffableNode first = new CycleDiffableNode("a");
+        final CycleDiffableNode second = new CycleDiffableNode("b");
+        first.self = first;
+        second.self = second;
+
+        final DiffResult<CycleDiffableNode> result = first.diff(second);
+        assertEquals(2, result.getNumberOfDiffs());
+        assertTrue(ReflectionDiffBuilder.getRegistry().isEmpty(), "Registry must be empty after diff");
+    }
+
+    @Test
+    void testCycleMutuallyReferential() {
+        final MutualDiffableNode a = new MutualDiffableNode("node");
+        final MutualDiffableNode b = new MutualDiffableNode("node");
+        a.other = b;
+        b.other = a;
+
+        final MutualDiffableNode c = new MutualDiffableNode("node");
+        final MutualDiffableNode d = new MutualDiffableNode("node");
+        c.other = d;
+        d.other = c;
+
+        final DiffResult<MutualDiffableNode> result = a.diff(c);
+        assertEquals(0, result.getNumberOfDiffs());
+        assertTrue(ReflectionDiffBuilder.getRegistry().isEmpty(), "Registry must be empty after diff");
+    }
+
+    @Test
+    void testCycleMutuallyReferentialWithDifference() {
+        final MutualDiffableNode a = new MutualDiffableNode("nodeA");
+        final MutualDiffableNode b = new MutualDiffableNode("nodeB");
+        a.other = b;
+        b.other = a;
+
+        final MutualDiffableNode c = new MutualDiffableNode("nodeA");
+        final MutualDiffableNode d = new MutualDiffableNode("nodeChanged");
+        c.other = d;
+        d.other = c;
+
+        final DiffResult<MutualDiffableNode> result = a.diff(c);
+        assertEquals(1, result.getNumberOfDiffs());
+        assertTrue(ReflectionDiffBuilder.getRegistry().isEmpty(), "Registry must be empty after diff");
+    }
+
+    @Test
+    void testCycleAsymmetric() {
+        final CycleDiffableNode first = new CycleDiffableNode("a");
+        final CycleDiffableNode second = new CycleDiffableNode("a");
+        first.self = first;
+        second.self = null;
+
+        final DiffResult<CycleDiffableNode> result = first.diff(second);
+        assertEquals(1, result.getNumberOfDiffs());
+        assertEquals("self", result.getDiffs().get(0).getFieldName());
+        assertTrue(ReflectionDiffBuilder.getRegistry().isEmpty(), "Registry must be empty after diff");
+    }
+
+    @Test
+    void testBuilderGetAndSetForceAccessible() {
+        final TypeTestClass first = new TypeTestClass();
+        final TypeTestClass second = new TypeTestClass();
+        final ReflectionDiffBuilder.Builder<TypeTestClass> builder = ReflectionDiffBuilder.<TypeTestClass>builder()
+                .setDiffBuilder(DiffBuilder.<TypeTestClass>builder().setLeft(first).setRight(second).build())
+                .setForceAccessible(true);
+        final ReflectionDiffBuilder<TypeTestClass> diffBuilder = builder.get();
+        assertNotNull(diffBuilder);
+        assertTrue(diffBuilder.isForceAccessible());
+        assertEquals(0, diffBuilder.build().getNumberOfDiffs());
     }
 
 }
