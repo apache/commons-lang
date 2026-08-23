@@ -218,6 +218,39 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         }
     }
 
+    private static final class NodeDiffable implements Diffable<NodeDiffable> {
+        @SuppressWarnings("unused")
+        private NodeDiffable next;
+        @SuppressWarnings("unused")
+        private final String id;
+
+        NodeDiffable(final String id) {
+            this.id = id;
+        }
+
+        @Override
+        public DiffResult<NodeDiffable> diff(final NodeDiffable obj) {
+            return ReflectionDiffBuilder.<NodeDiffable>builder()
+                    .setDiffBuilder(DiffBuilder.<NodeDiffable>builder()
+                            .setLeft(this)
+                            .setRight(obj)
+                            .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+                            .build())
+                    .build()
+                    .build();
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            return EqualsBuilder.reflectionEquals(this, obj);
+        }
+
+        @Override
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+    }
+
     @SuppressWarnings("unused")
     private static final class TypeTestChildClass extends TypeTestClass {
         String field = "a";
@@ -409,6 +442,60 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     @Test
+    void testCycleThreeNode() {
+        final NodeDiffable a1 = new NodeDiffable("a");
+        final NodeDiffable b1 = new NodeDiffable("b");
+        final NodeDiffable c1 = new NodeDiffable("c");
+        a1.next = b1;
+        b1.next = c1;
+        c1.next = a1;
+
+        final NodeDiffable a2 = new NodeDiffable("a");
+        final NodeDiffable b2 = new NodeDiffable("b");
+        final NodeDiffable c2 = new NodeDiffable("c");
+        a2.next = b2;
+        b2.next = c2;
+        c2.next = a2;
+
+        final DiffResult<NodeDiffable> result = a1.diff(a2);
+        assertEquals(0, result.getNumberOfDiffs());
+        assertTrue(ReflectionDiffBuilder.getRegistry().isEmpty(), "Registry must be empty after diff");
+    }
+
+    @Test
+    void testCycleThreeNodeWithDifference() {
+        final NodeDiffable a1 = new NodeDiffable("a");
+        final NodeDiffable b1 = new NodeDiffable("b");
+        final NodeDiffable c1 = new NodeDiffable("c");
+        a1.next = b1;
+        b1.next = c1;
+        c1.next = a1;
+
+        final NodeDiffable a2 = new NodeDiffable("a");
+        final NodeDiffable b2 = new NodeDiffable("b");
+        final NodeDiffable c2 = new NodeDiffable("changed");
+        a2.next = b2;
+        b2.next = c2;
+        c2.next = a2;
+
+        final DiffResult<NodeDiffable> result = a1.diff(a2);
+        assertEquals(1, result.getNumberOfDiffs());
+        assertTrue(ReflectionDiffBuilder.getRegistry().isEmpty(), "Registry must be empty after diff");
+    }
+
+    @Test
+    void testCycleWithNullReference() {
+        final CycleDiffableNode first = new CycleDiffableNode("a");
+        final CycleDiffableNode second = new CycleDiffableNode("a");
+        first.self = null;
+        second.self = null;
+
+        final DiffResult<CycleDiffableNode> result = first.diff(second);
+        assertEquals(0, result.getNumberOfDiffs());
+        assertTrue(ReflectionDiffBuilder.getRegistry().isEmpty(), "Registry must be empty after diff");
+    }
+
+    @Test
     void testDifferenceInInherited_field() {
         final TypeTestChildClass firstObject = new TypeTestChildClass();
         firstObject.intField = 99;
@@ -416,6 +503,28 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
 
         final DiffResult<TypeTestClass> list = firstObject.diff(secondObject);
         assertEquals(1, list.getNumberOfDiffs());
+    }
+
+    @Test
+    void testForceAccessibleFalseWithCycle() {
+        final CycleDiffableNode first = new CycleDiffableNode("a");
+        final CycleDiffableNode second = new CycleDiffableNode("a");
+        first.self = first;
+        second.self = second;
+
+        final ReflectionDiffBuilder.Builder<CycleDiffableNode> builder = ReflectionDiffBuilder.<CycleDiffableNode>builder()
+                .setDiffBuilder(DiffBuilder.<CycleDiffableNode>builder()
+                        .setLeft(first)
+                        .setRight(second)
+                        .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+                        .build())
+                .setForceAccessible(false);
+        final ReflectionDiffBuilder<CycleDiffableNode> diffBuilder = builder.get();
+        assertNotNull(diffBuilder);
+        assertFalse(diffBuilder.isForceAccessible());
+        final DiffResult<CycleDiffableNode> result = diffBuilder.build();
+        assertEquals(0, result.getNumberOfDiffs());
+        assertTrue(ReflectionDiffBuilder.getRegistry().isEmpty(), "Registry must be empty after diff");
     }
 
     /*
