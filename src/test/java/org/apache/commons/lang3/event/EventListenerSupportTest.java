@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
@@ -39,6 +40,10 @@ import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
@@ -89,6 +94,32 @@ class EventListenerSupportTest extends AbstractLangTest {
         assertEquals(1, listenerSupport.getListeners().length);
         listenerSupport.removeListener(listener1);
         assertSame(empty, listenerSupport.getListeners());
+    }
+
+    @Test
+    void testAddListenerNoDuplicatesConcurrent() throws InterruptedException {
+        final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
+        final VetoableChangeListener listener = EasyMock.createNiceMock(VetoableChangeListener.class);
+        final int threadCount = 8;
+        final CountDownLatch startLatch = new CountDownLatch(1);
+        final ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+        try {
+            for (int i = 0; i < threadCount; i++) {
+                executor.execute(() -> {
+                    try {
+                        startLatch.await();
+                    } catch (final InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                    listenerSupport.addListener(listener, false);
+                });
+            }
+            startLatch.countDown();
+        } finally {
+            executor.shutdown();
+            assertTrue(executor.awaitTermination(30, TimeUnit.SECONDS));
+        }
+        assertEquals(1, listenerSupport.getListeners().length);
     }
 
     @Test

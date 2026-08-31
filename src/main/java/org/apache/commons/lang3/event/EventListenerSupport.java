@@ -158,7 +158,7 @@ public class EventListenerSupport<L> implements Serializable {
     /**
      * Hold the registered listeners. This list is intentionally a thread-safe copy-on-write-array so that traversals over the list of listeners will be atomic.
      */
-    private List<L> listeners = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<L> listeners = new CopyOnWriteArrayList<>();
 
     /**
      * The proxy representing the collection of listeners. Calls to this proxy object will be sent to all registered listeners.
@@ -242,8 +242,10 @@ public class EventListenerSupport<L> implements Serializable {
      */
     public void addListener(final L listener, final boolean allowDuplicate) {
         Objects.requireNonNull(listener, "listener");
-        if (allowDuplicate || !listeners.contains(listener)) {
+        if (allowDuplicate) {
             listeners.add(listener);
+        } else {
+            listeners.addIfAbsent(listener);
         }
     }
 
