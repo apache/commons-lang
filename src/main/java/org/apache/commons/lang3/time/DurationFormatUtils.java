@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Objects;
 import java.util.TimeZone;
 import java.util.stream.Stream;
@@ -562,47 +561,23 @@ public class DurationFormatUtils {
             hours += HOURS_PER_DAY;
             days -= 1;
         }
-        if (Token.containsTokenWithValue(tokens, M)) {
-            while (days < 0) {
-                days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
-                months -= 1;
-                start.add(Calendar.MONTH, 1);
-            }
-            while (months < 0) {
-                months += 12;
-                years -= 1;
-            }
-            if (!Token.containsTokenWithValue(tokens, y) && years != 0) {
-                while (years != 0) {
-                    months += 12 * years;
-                    years = 0;
-                }
-            }
-        } else {
-            // there are no M's in the format string
-            if (!Token.containsTokenWithValue(tokens, y)) {
-                int target = end.get(Calendar.YEAR);
-                if (months < 0) {
-                    // target is end-year -1
-                    target -= 1;
-                }
-                while (start.get(Calendar.YEAR) != target) {
-                    days += start.getActualMaximum(Calendar.DAY_OF_YEAR) - start.get(Calendar.DAY_OF_YEAR);
-                    // Not sure I grok why this is needed, but the brutal tests show it is
-                    if (start instanceof GregorianCalendar && start.get(Calendar.MONTH) == Calendar.FEBRUARY && start.get(Calendar.DAY_OF_MONTH) == 29) {
-                        days += 1;
-                    }
-                    start.add(Calendar.YEAR, 1);
-                    days += start.get(Calendar.DAY_OF_YEAR);
-                }
+        while (days < 0) {
+            days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
+            months -= 1;
+            start.add(Calendar.MONTH, 1);
+        }
+        while (months < 0) {
+            months += 12;
+            years -= 1;
+        }
+        if (!Token.containsTokenWithValue(tokens, y) && years != 0) {
+            while (years != 0) {
+                months += 12 * years;
                 years = 0;
             }
-            while (start.get(Calendar.MONTH) != end.get(Calendar.MONTH)) {
-                days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
-                start.add(Calendar.MONTH, 1);
-            }
-            months = 0;
-            while (days < 0) {
+        }
+        if (!Token.containsTokenWithValue(tokens, M)) {
+            while (months > 0) {
                 days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
                 months -= 1;
                 start.add(Calendar.MONTH, 1);

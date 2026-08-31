@@ -804,4 +804,31 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertIllegalArgumentException(() -> DurationFormatUtils.formatDuration(1, "[[s"));
         assertIllegalArgumentException(() -> DurationFormatUtils.formatDuration(1, "[s]]"));
     }
+
+    @Test
+    void testFormatPeriodWithoutMonths() {
+        final TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        final Calendar start = Calendar.getInstance(timeZone);
+        start.set(2024, Calendar.DECEMBER, 15, 0, 0, 0);
+        start.set(Calendar.MILLISECOND, 0);
+
+        final Calendar end = Calendar.getInstance(timeZone);
+        end.set(2025, Calendar.JANUARY, 15, 0, 0, 0);
+        end.set(Calendar.MILLISECOND, 0);
+
+        // 31 days elapsed across year boundary
+        assertEquals("0 years 31 days", DurationFormatUtils.formatPeriod(start.getTimeInMillis(), end.getTimeInMillis(), "y' years 'd' days'", false, timeZone));
+        assertEquals("0y 31d", DurationFormatUtils.formatPeriod(start.getTimeInMillis(), end.getTimeInMillis(), "y'y 'd'd'", false, timeZone));
+
+        // 361 days elapsed (less than 1 full year)
+        start.set(2024, Calendar.JANUARY, 15, 0, 0, 0);
+        end.set(2025, Calendar.JANUARY, 10, 0, 0, 0);
+        assertEquals("0 years 361 days", DurationFormatUtils.formatPeriod(start.getTimeInMillis(), end.getTimeInMillis(), "y' years 'd' days'", false, timeZone));
+
+        // Leap year to non-leap year (Feb 29, 2024 to Feb 28, 2025 = 365 days)
+        start.set(2024, Calendar.FEBRUARY, 29, 0, 0, 0);
+        end.set(2025, Calendar.FEBRUARY, 28, 0, 0, 0);
+        assertEquals("0 years 365 days", DurationFormatUtils.formatPeriod(start.getTimeInMillis(), end.getTimeInMillis(), "y' years 'd' days'", false, timeZone));
+    }
 }
+
