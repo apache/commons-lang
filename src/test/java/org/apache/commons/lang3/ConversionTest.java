@@ -1735,7 +1735,7 @@ class ConversionTest extends AbstractLangTest {
      * evaluated in {@code int} arithmetic and silently overflowed for a large count or position, so the documented exception never fired.
      */
     @Test
-    void testLargeCountThrowsIllegalArgumentException() {
+    void testOverflowingCountOrPositionThrowsIllegalArgumentException() {
         final int big = Integer.MAX_VALUE;
         // nBools - 1 + dstPos
         assertIllegalArgumentException(() -> Conversion.binaryToByte(new boolean[]{true}, 0, (byte) 0, big, 2));
