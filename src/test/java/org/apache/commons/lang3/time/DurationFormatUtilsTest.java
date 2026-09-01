@@ -95,7 +95,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertEquals(DurationFormatUtils.formatDuration(endMillis - startMillis, "S"),
                 DurationFormatUtils.formatPeriod(startMillis, endMillis, "S", true, gmt));
     }
-
+    
     private void bruteForce(final int year, final int month, final int day, final String format, final int calendarType) {
         final String msg = year + "-" + month + "-" + day + " to ";
         final Calendar c = Calendar.getInstance();
@@ -574,6 +574,20 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertFormatPeriodOneMilli(Long.MAX_VALUE - 1, Long.MAX_VALUE);
         assertFormatPeriodOneMilli(Long.MIN_VALUE, Long.MIN_VALUE + 1);
         assertFormatPeriodOneMilli((long) Integer.MIN_VALUE - 1, Integer.MIN_VALUE);
+    }
+
+    @Test
+    void testFormatPeriodWithoutMonthsAfterLeapDayAnniversary() {
+        final TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        final Calendar start = Calendar.getInstance(timeZone);
+        start.clear();
+        // 2020 was not a leap year
+        start.set(2020, Calendar.FEBRUARY, 29);
+        final Calendar end = Calendar.getInstance(timeZone);
+        end.clear();
+        // 2021 was not a leap year
+        end.set(2021, Calendar.MARCH, 1);
+        assertEquals("1 years 1 days", DurationFormatUtils.formatPeriod(start.getTimeInMillis(), end.getTimeInMillis(), "y' years 'd' days'", false, timeZone));
     }
 
     /**
