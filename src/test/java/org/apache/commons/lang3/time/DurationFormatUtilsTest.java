@@ -95,7 +95,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertEquals(DurationFormatUtils.formatDuration(endMillis - startMillis, "S"),
                 DurationFormatUtils.formatPeriod(startMillis, endMillis, "S", true, gmt));
     }
-    
+
     private void bruteForce(final int year, final int month, final int day, final String format, final int calendarType) {
         final String msg = year + "-" + month + "-" + day + " to ";
         final Calendar c = Calendar.getInstance();
