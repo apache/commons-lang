@@ -1246,4 +1246,32 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
     }
 
+    @Test
+    void testIsAssignableWildcardWithMultipleUpperBounds() {
+        // ? extends Serializable & Cloneable
+        final WildcardType subject = TypeUtils.wildcardType()
+                .withUpperBounds(Serializable.class, Cloneable.class)
+                .build();
+
+        // ? extends Serializable
+        final WildcardType targetSerializable = TypeUtils.wildcardType()
+                .withUpperBounds(Serializable.class)
+                .build();
+
+        // ? extends Cloneable
+        final WildcardType targetCloneable = TypeUtils.wildcardType()
+                .withUpperBounds(Cloneable.class)
+                .build();
+
+        // ? extends CharSequence
+        final WildcardType targetCharSequence = TypeUtils.wildcardType()
+                .withUpperBounds(CharSequence.class)
+                .build();
+
+        assertTrue(TypeUtils.isAssignable(subject, targetSerializable));
+        assertTrue(TypeUtils.isAssignable(subject, targetCloneable));
+        assertTrue(TypeUtils.isAssignable(subject, TypeUtils.wildcardType().withUpperBounds(Object.class).build()));
+        assertFalse(TypeUtils.isAssignable(subject, targetCharSequence));
+    }
+
 }
