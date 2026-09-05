@@ -36,11 +36,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.DefaultLocale;
@@ -263,11 +263,12 @@ class LocaleUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @ValueSource(strings = {"x", "abcd", "EN", "e1", "en-US", " "})
     void testCountriesByLanguageDoesNotCacheInvalidLanguageCode(final String languageCode) {
-        assertFalse(LocaleUtils.getLcToLocalesMap().containsKey(languageCode));
-        final int cacheSize = LocaleUtils.getLcToLocalesMap().size();
+        final ConcurrentMap<String, List<Locale>> map = LocaleUtils.getLcToLocalesMap();
+        assertFalse(map.containsKey(languageCode));
+        final int cacheSize = map.size();
         assertTrue(LocaleUtils.countriesByLanguage(languageCode).isEmpty());
-        assertEquals(cacheSize, LocaleUtils.getLcToLocalesMap().size());
-        assertFalse(LocaleUtils.getLcToLocalesMap().containsKey(languageCode));
+        assertEquals(cacheSize, map.size());
+        assertFalse(map.containsKey(languageCode));
     }
 
     @Test
@@ -367,6 +368,17 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertLanguageByCountry("GB", new String[]{"en"});
         assertLanguageByCountry("ZZ", new String[0]);
         assertLanguageByCountry("CH", new String[]{"fr", "de", "it"});
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"x", "abcd", "English", "e1", "en-US", " "})
+    void testLanguagesByCountryDoesNotCacheInvalidLanguageCode(final String languageCode) {
+        final ConcurrentMap<String, List<Locale>> map = LocaleUtils.getCcToLocalesMap();
+        assertFalse(map.containsKey(languageCode));
+        final int cacheSize = map.size();
+        assertTrue(LocaleUtils.languagesByCountry(languageCode).isEmpty());
+        assertEquals(cacheSize, map.size());
+        assertFalse(map.containsKey(languageCode));
     }
 
     /**

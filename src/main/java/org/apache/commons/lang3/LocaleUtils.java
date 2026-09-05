@@ -85,6 +85,7 @@ public class LocaleUtils {
      */
     private static final ConcurrentMap<String, List<Locale>> ccToLocalesMap = new ConcurrentHashMap<>();
 
+
     /**
      * Concurrent map of country locales by language.
      */
@@ -133,17 +134,18 @@ public class LocaleUtils {
      * @return An unmodifiable List of Locale objects, not null.
      */
     public static List<Locale> countriesByLanguage(final String languageCode) {
-        if (languageCode == null) {
-            return Collections.emptyList();
-        }
         // Only syntactically valid ISO 639 codes can match an available locale's language; anything
         // else is answered without touching the cache so that arbitrary caller strings are never
         // retained for the lifetime of the class loader.
-        if (!languageCode.isEmpty() && !isISO639LanguageCode(languageCode)) {
+        if (languageCode == null || !languageCode.isEmpty() && !isISO639LanguageCode(languageCode)) {
             return Collections.emptyList();
         }
         return lcToLocalesMap.computeIfAbsent(languageCode, lc -> Collections
                 .unmodifiableList(availableLocaleList(locale -> languageCode.equals(locale.getLanguage()) && !hasCountry(locale) && hasVariant(locale))));
+    }
+
+    static ConcurrentMap<String, List<Locale>> getCcToLocalesMap() {
+        return ccToLocalesMap;
     }
 
     /**
@@ -262,13 +264,10 @@ public class LocaleUtils {
      * @return An unmodifiable List of Locale objects, not null.
      */
     public static List<Locale> languagesByCountry(final String countryCode) {
-        if (countryCode == null) {
-            return Collections.emptyList();
-        }
         // Only syntactically valid ISO 3166 alpha-2 / UN M.49 numeric codes can match an available
         // locale's country; anything else is answered without touching the cache so that arbitrary
-        // caller strings are never retained for the lifetime of the JVM.
-        if (!countryCode.isEmpty() && !isISO3166CountryCode(countryCode) && !isNumericAreaCode(countryCode)) {
+        // caller strings are never retained for the lifetime of the class loader.
+        if (countryCode == null || !countryCode.isEmpty() && !isISO3166CountryCode(countryCode) && !isNumericAreaCode(countryCode)) {
             return Collections.emptyList();
         }
         return ccToLocalesMap.computeIfAbsent(countryCode,
