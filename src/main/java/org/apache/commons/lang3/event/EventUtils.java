@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 
 /**
@@ -74,6 +75,20 @@ public class EventUtils {
          */
         @Override
         public Object invoke(final Object proxy, final Method method, final Object[] parameters) throws Throwable {
+            if (method.getDeclaringClass() == Object.class) {
+                // Handle Object methods locally instead of dispatching them to the bound target,
+                // mirroring java.beans.EventHandler: routine host actions (hash-based collections,
+                // logging, equality checks during listener de-registration) must not invoke the
+                // target method and must not return null into an unboxing context.
+                switch (method.getName()) {
+                case "hashCode":
+                    return Integer.valueOf(System.identityHashCode(proxy));
+                case "equals":
+                    return Boolean.valueOf(proxy == parameters[0]);
+                default: // toString
+                    return ObjectUtils.identityToString(proxy);
+                }
+            }
             if (eventTypes.isEmpty() || eventTypes.contains(method.getName())) {
                 if (hasMatchingParametersMethod(method)) {
                     return MethodUtils.invokeMethod(target, methodName, parameters);

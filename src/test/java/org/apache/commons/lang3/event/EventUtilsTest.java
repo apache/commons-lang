@@ -112,6 +112,14 @@ class EventUtilsTest extends AbstractLangTest {
         }
     }
 
+    public static class ListenerCapturingSource {
+        PropertyChangeListener listener;
+
+        public void addPropertyChangeListener(final PropertyChangeListener listener) {
+            this.listener = listener;
+        }
+    }
+
     public static class PropertyChangeSource {
         private final EventListenerSupport<PropertyChangeListener> listeners = EventListenerSupport.create(PropertyChangeListener.class);
 
@@ -184,6 +192,32 @@ class EventUtilsTest extends AbstractLangTest {
         assertEquals(0, counter.getCount());
         src.setProperty("newValue");
         assertEquals(1, counter.getCount());
+    }
+
+    @Test
+    void testBindEventsToMethodObjectMethodsNotDispatched() {
+        // Empty eventTypes: every listener-interface method is bound, but Object methods must be
+        // handled locally (identity semantics), never dispatched to the bound target method.
+        final ListenerCapturingSource src = new ListenerCapturingSource();
+        final EventCounter counter = new EventCounter();
+        EventUtils.bindEventsToMethod(counter, "eventOccurred", src, PropertyChangeListener.class);
+        final PropertyChangeListener listener = src.listener;
+        assertEquals(listener.hashCode(), listener.hashCode());
+        assertTrue(listener.equals(listener));
+        assertFalse(listener.equals(counter));
+        assertNotNull(listener.toString());
+        assertEquals(0, counter.getCount(), "Object methods must not invoke the bound target method");
+
+        // Non-empty eventTypes: hashCode/equals/toString must not return null (previously an NPE
+        // from unboxing inside hash-based collections).
+        final ListenerCapturingSource src2 = new ListenerCapturingSource();
+        final EventCounter counter2 = new EventCounter();
+        EventUtils.bindEventsToMethod(counter2, "eventOccurred", src2, PropertyChangeListener.class, "propertyChange");
+        final PropertyChangeListener listener2 = src2.listener;
+        assertEquals(listener2.hashCode(), listener2.hashCode());
+        assertTrue(listener2.equals(listener2));
+        assertNotNull(listener2.toString());
+        assertEquals(0, counter2.getCount());
     }
 
     @Test
