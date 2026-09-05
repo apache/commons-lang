@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -630,6 +631,81 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
+     * A write-through recorder used while parsing a pattern that contains a week year ('Y'). Every mutation is delegated to the real target calendar
+     * unchanged, and the raw values assigned to the three week-date fields are additionally captured, so that after all fields are parsed the week date can
+     * be resolved from exactly what was parsed - mirroring {@code java.text.CalendarBuilder}, which {@link java.text.SimpleDateFormat} uses for the same
+     * purpose. (Reading the values back from the calendar instead would normalize them: {@link Calendar#get(int)} resolves the complete date, so a parsed
+     * week 53 read back through a calendar-year interpretation can roll the year and land a full year away.)
+     */
+    private static final class WeekDateRecorder extends GregorianCalendar {
+
+        private static final long serialVersionUID = 1L;
+
+        /** The calendar every mutation is delegated to. */
+        private final Calendar target;
+
+        private transient int weekYearValue;
+        private transient boolean weekYearSet;
+        private transient int weekOfYearValue;
+        private transient boolean weekOfYearSet;
+        private transient int dayOfWeekValue;
+        private transient boolean dayOfWeekSet;
+
+        WeekDateRecorder(final Calendar target) {
+            this.target = target;
+        }
+
+        /**
+         * Resolves the recorded week year through the target calendar's week-date machinery. The parsed 'Y' value was delegated into {@link Calendar#YEAR}
+         * by the number strategy; {@link Calendar#setWeekDate(int, int, int)} reinterprets it as a week year together with the parsed week of year and day
+         * of week, defaulting to week 1 and the calendar's first day-of-week when the pattern did not contain them (the same defaults as
+         * {@code java.text.CalendarBuilder}). The fields set by {@code setWeekDate} take precedence over any month/day fields parsed earlier, which matches
+         * {@link java.text.SimpleDateFormat}.
+         */
+        void applyWeekDate() {
+            if (weekYearSet) {
+                target.setWeekDate(weekYearValue, weekOfYearSet ? weekOfYearValue : 1, dayOfWeekSet ? dayOfWeekValue : target.getFirstDayOfWeek());
+            }
+        }
+
+        @Override
+        public void set(final int field, final int value) {
+            if (target == null) {
+                // Callers from the superclass constructors, before this recorder is fully constructed.
+                super.set(field, value);
+                return;
+            }
+            switch (field) {
+            case Calendar.YEAR:
+                weekYearValue = value;
+                weekYearSet = true;
+                break;
+            case Calendar.WEEK_OF_YEAR:
+                weekOfYearValue = value;
+                weekOfYearSet = true;
+                break;
+            case Calendar.DAY_OF_WEEK:
+                dayOfWeekValue = value;
+                dayOfWeekSet = true;
+                break;
+            default:
+                break;
+            }
+            target.set(field, value);
+        }
+
+        @Override
+        public void setTimeZone(final TimeZone zone) {
+            if (target == null) {
+                // Callers from the superclass constructors, before this recorder is fully constructed.
+                super.setTimeZone(zone);
+                return;
+            }
+            target.setTimeZone(zone);
+        }
+    }
+
+    /**
      * Required for serialization support.
      *
      * @see java.io.Serializable
@@ -638,13 +714,13 @@ public class FastDateParser implements DateParser, Serializable {
 
     static final Locale JAPANESE_IMPERIAL = new Locale("ja", "JP", "JP");
 
+    // helper classes to parse the format string
+
     /**
      * comparator used to sort regex alternatives. Alternatives should be ordered longer first, and shorter last. ('february' before 'feb'). All entries must be
      * lower-case by locale.
      */
     private static final Comparator<String> LONGER_FIRST_LOWERCASE = Comparator.reverseOrder();
-
-    // helper classes to parse the format string
 
     @SuppressWarnings("unchecked") // OK because we are creating an array with no entries
     private static final ConcurrentMap<Locale, Strategy>[] CACHES = new ConcurrentMap[Calendar.FIELD_COUNT];
@@ -809,6 +885,12 @@ public class FastDateParser implements DateParser, Serializable {
     private transient List<StrategyAndWidth> patterns;
 
     /**
+     * Whether the pattern contains a week-year field ('Y'). Derived from the pattern in {@link #init(Calendar)} (called from the constructor and from
+     * readObject), so it does not need to be serialized.
+     */
+    private transient volatile boolean weekYear;
+
+    /**
      * Constructs a new FastDateParser.
      *
      * Use {@link FastDateFormat#getInstance(String, TimeZone, Locale)} or another variation of the factory methods of {@link FastDateFormat} to get a cached
@@ -965,7 +1047,16 @@ public class FastDateParser implements DateParser, Serializable {
         case 'w':
             return WEEK_OF_YEAR_STRATEGY;
         case 'y':
+            return width > 2 ? LITERAL_YEAR_STRATEGY : ABBREVIATED_YEAR_STRATEGY;
         case 'Y':
+            // Week year: the number is parsed like a year (including the two-digit-century adjustment,
+            // as SimpleDateFormat does for 'YY'), but it must be resolved through the calendar's
+            // week-date machinery rather than Calendar.YEAR. Record that this pattern contains a week
+            // year; parse(String, ParsePosition, Calendar) re-resolves the date via setWeekDate,
+            // mirroring FastDatePrinter's WeekYear rule and java.text.CalendarBuilder. When the
+            // calendar does not support week dates, the value falls back to Calendar.YEAR, exactly
+            // like FastDatePrinter's fallback.
+            weekYear = true;
             return width > 2 ? LITERAL_YEAR_STRATEGY : ABBREVIATED_YEAR_STRATEGY;
         case 'X':
             return ISO8601TimeZoneStrategy.getStrategy(width);
@@ -1077,13 +1168,18 @@ public class FastDateParser implements DateParser, Serializable {
         if (!checkLength(source, pos)) {
             return false;
         }
+        final WeekDateRecorder recorder = weekYear && calendar.isWeekDateSupported() ? new WeekDateRecorder(calendar) : null;
+        final Calendar sink = recorder != null ? recorder : calendar;
         final ListIterator<StrategyAndWidth> lt = patterns.listIterator();
         while (lt.hasNext()) {
             final StrategyAndWidth strategyAndWidth = lt.next();
             final int maxWidth = strategyAndWidth.getMaxWidth(lt);
-            if (!strategyAndWidth.strategy.parse(this, calendar, source, pos, maxWidth)) {
+            if (!strategyAndWidth.strategy.parse(this, sink, source, pos, maxWidth)) {
                 return false;
             }
+        }
+        if (recorder != null) {
+            recorder.applyWeekDate();
         }
         return true;
     }

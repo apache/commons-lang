@@ -251,6 +251,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Keep StringUtils left, right, mid, and overlay off surrogate pair boundaries (#1776).</action>
     <action                   type="fix" dev="ggregory" due-to="Gaurav Pandey, Gary Gregory">Align ReflectionDiffBuilder with AbstractReflection and add cycle detection to prevent StackOverflowError on cyclic object graphs.</action>
     <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Fix DurationFormatUtils.formatPeriod() calculation when pattern omits 'M' (#1780).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">FastDateParser parses 'Y' (week year) as plain calendar year; asymmetric with FastDatePrinter and with SimpleDateFormat; boundary dates shift by a full year, silently (f002).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>

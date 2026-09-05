@@ -202,6 +202,29 @@ class FastDateParserTest extends AbstractLangTest {
         return cal;
     }
 
+    @Test
+    void testWeekYearParsing() throws ParseException {
+        // 'Y' must parse as a week year (resolved through Calendar.setWeekDate), matching both SimpleDateFormat
+        // and FastDatePrinter's WeekYear rule, instead of silently mapping to the plain calendar year.
+        final String[][] cases = {
+            { "YYYY-MM-dd", "2025-12-29" }, // the ubiquitous YYYY-for-yyyy slip, at a year boundary
+            { "YYYY-'W'ww-u", "2025-W01-1" },
+            { "YYYY-'W'ww-u", "2020-W53-5" },
+            { "YYYY-'W'ww", "2024-W15" },
+            { "YY-MM-dd", "25-12-29" },
+            { "YYYY", "2025" },
+            { "yyyy-MM-dd", "2024-12-29" } // plain calendar year is unaffected
+        };
+        for (final Locale locale : new Locale[] { Locale.US, Locale.GERMANY }) {
+            for (final String[] testCase : cases) {
+                final SimpleDateFormat sdf = new SimpleDateFormat(testCase[0], locale);
+                final DateParser fdp = getInstance(testCase[0], locale);
+                assertEquals(sdf.parse(testCase[1]), fdp.parse(testCase[1]),
+                        "Pattern " + testCase[0] + " input " + testCase[1] + " locale " + locale);
+            }
+        }
+    }
+
     DateParser getInstance(final String format) {
         return getInstance(null, format, TimeZone.getDefault(), Locale.getDefault());
     }

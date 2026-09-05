@@ -182,6 +182,11 @@
     <Method name="appendFullDigits" params="java.lang.Appendable, int, int"/>
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
+  <Match>
+    <!-- equals/hashCode is never used -->
+    <Class name="org.apache.commons.lang3.time.FastDateParser$WeekDateRecorder"/>
+    <Bug pattern="EQ_DOESNT_OVERRIDE_EQUALS" />
+  </Match>
 
   <!-- Reason: The fallthrough on the switch statement is intentional -->
   <Match>
