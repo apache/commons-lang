@@ -24,7 +24,6 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -120,11 +119,27 @@ public class FastDateParser implements DateParser, Serializable {
          */
         @Override
         void setCalendar(final FastDateParser parser, final Calendar calendar, final String value) {
-            final String lowerCase = value.toLowerCase(locale);
+            String lowerCase = value.toLowerCase(locale);
             Integer iVal = lKeyValues.get(lowerCase);
             if (iVal == null) {
                 // match missing the optional trailing period
                 iVal = lKeyValues.get(lowerCase + '.');
+            }
+            if (iVal == null) {
+                // The regex matches case-insensitively via Unicode case folding ("(?iu)"), which is a
+                // wider equivalence than the toLowerCase(locale) fold used to build the key map; retry
+                // with the root-locale fold so that, for example, ASCII input under locales with
+                // special casing rules still resolves to the same key.
+                lowerCase = value.toLowerCase(Locale.ROOT);
+                iVal = lKeyValues.get(lowerCase);
+                if (iVal == null) {
+                    iVal = lKeyValues.get(lowerCase + '.');
+                }
+            }
+            if (iVal == null) {
+                // Converted to a parse failure by PatternStrategy.parse instead of surfacing as an
+                // undeclared NullPointerException.
+                throw new IllegalArgumentException("Invalid display name for field " + field + ": '" + value + "'");
             }
             // LANG-1669: Mimic fix done in OpenJDK 17 to resolve issue with parsing newly supported day periods added in OpenJDK 16
             if (Calendar.AM_PM != this.field || iVal <= 1) {
@@ -194,11 +209,11 @@ public class FastDateParser implements DateParser, Serializable {
     private static final class ISO8601TimeZoneStrategy extends PatternStrategy {
         // Z, +hh, -hh, +hhmm, -hhmm, +hh:mm or -hh:mm
 
-        private static final Strategy ISO_8601_1_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}))");
+        private static final Strategy ISO_8601_1_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-](?:2[0-3]|[01]\\d)))");
 
-        private static final Strategy ISO_8601_2_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}\\d{2}))");
+        private static final Strategy ISO_8601_2_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-](?:2[0-3]|[01]\\d)[0-5]\\d))");
 
-        private static final Strategy ISO_8601_3_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-]\\d{2}(?::)\\d{2}))");
+        private static final Strategy ISO_8601_3_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-](?:2[0-3]|[01]\\d)(?::)[0-5]\\d))");
 
         /**
          * Factory method for ISO8601TimeZoneStrategies.
@@ -359,8 +374,17 @@ public class FastDateParser implements DateParser, Serializable {
                 pos.setErrorIndex(pos.getIndex());
                 return false;
             }
+            try {
+                setCalendar(parser, calendar, matcher.group(1));
+            } catch (final IllegalArgumentException e) {
+                // A matched field whose value cannot be interpreted (for example an out-of-range GMT
+                // offset or a display name the key map cannot resolve) is a parse failure, reported
+                // through the ParsePosition error index, not an undeclared runtime exception:
+                // the public parse methods declare only ParseException.
+                pos.setErrorIndex(pos.getIndex());
+                return false;
+            }
             pos.setIndex(pos.getIndex() + matcher.end(1));
-            setCalendar(parser, calendar, matcher.group(1));
             return true;
         }
 
@@ -499,7 +523,7 @@ public class FastDateParser implements DateParser, Serializable {
             }
         }
 
-        private static final String RFC_822_TIME_ZONE = "[+-]\\d{4}";
+        private static final String RFC_822_TIME_ZONE = "[+-](?:2[0-3]|[01]\\d)[0-5]\\d";
 
         private static final String GMT_OPTION = TimeZones.GMT_ID + "[+-]\\d{1,2}:\\d{2}";
 
@@ -607,10 +631,11 @@ public class FastDateParser implements DateParser, Serializable {
                     // match missing the optional trailing period
                     tzInfo = tzNames.get(timeZone + '.');
                     if (tzInfo == null) {
-                        // show chars in case this is multiple byte character issue
-                        final char[] charArray = timeZone.toCharArray();
-                        throw new IllegalStateException(String.format("Can't find time zone '%s' (%d %s) in %s", timeZone, charArray.length,
-                                Arrays.toString(charArray), new TreeSet<>(tzNames.keySet())));
+                        // Converted to a parse failure by PatternStrategy.parse instead of surfacing as an
+                        // undeclared IllegalStateException; the message is bounded by the matched input
+                        // (no dump of the entire time zone name table).
+                        throw new IllegalArgumentException(
+                                String.format("Can't find time zone '%s' (%d chars)", timeZone, timeZone.length()));
                     }
                 }
                 calendar.set(Calendar.DST_OFFSET, tzInfo.dstOffset);
@@ -1001,6 +1026,10 @@ public class FastDateParser implements DateParser, Serializable {
         return pattern;
     }
 
+    List<StrategyAndWidth> getPatterns() {
+        return patterns;
+    }
+
     /**
      * Gets a Strategy given a field from a SimpleDateFormat pattern
      *
@@ -1227,6 +1256,7 @@ public class FastDateParser implements DateParser, Serializable {
     public String toString() {
         return "FastDateParser[" + pattern + ", " + locale + ", " + timeZone.getID() + "]";
     }
+
 
     /**
      * Converts all state of this instance to a String handy for debugging.

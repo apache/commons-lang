@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -35,6 +36,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -46,11 +48,13 @@ import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.function.TriFunction;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
@@ -112,6 +116,24 @@ class FastDateParserTest extends AbstractLangTest {
     private static final TimeZone INDIA = TimeZones.getTimeZone("Asia/Calcutta");
 
     private static final Locale SWEDEN = new Locale("sv", "SE");
+
+    private static void assertParseFailure(final DateParser parser, final String source, final int errorIndex) {
+        final ParseException exception = assertThrows(ParseException.class, () -> parser.parse(source), source);
+        assertEquals(errorIndex, exception.getErrorOffset(), source);
+        for (final int startIndex : new int[] { 0, 2 }) {
+            final String input = startIndex == 0 ? source : "##" + source;
+            final ParsePosition datePosition = new ParsePosition(startIndex);
+            assertNull(parser.parse(input, datePosition), input);
+            assertEquals(startIndex + errorIndex, datePosition.getIndex(), input);
+            assertEquals(startIndex + errorIndex, datePosition.getErrorIndex(), input);
+            final ParsePosition calendarPosition = new ParsePosition(startIndex);
+            final Calendar calendar = Calendar.getInstance(TimeZones.GMT, Locale.US);
+            calendar.clear();
+            assertFalse(parser.parse(input, calendarPosition, calendar), input);
+            assertEquals(startIndex + errorIndex, calendarPosition.getIndex(), input);
+            assertEquals(startIndex + errorIndex, calendarPosition.getErrorIndex(), input);
+        }
+    }
 
     static void checkParse(final Locale locale, final Calendar cal, final SimpleDateFormat simpleDateFormat,
             final DateParser dateParser) {
@@ -200,29 +222,6 @@ class FastDateParserTest extends AbstractLangTest {
             cal.set(Calendar.YEAR, year / 100 * 100);
         }
         return cal;
-    }
-
-    @Test
-    void testWeekYearParsing() throws ParseException {
-        // 'Y' must parse as a week year (resolved through Calendar.setWeekDate), matching both SimpleDateFormat
-        // and FastDatePrinter's WeekYear rule, instead of silently mapping to the plain calendar year.
-        final String[][] cases = {
-            { "YYYY-MM-dd", "2025-12-29" }, // the ubiquitous YYYY-for-yyyy slip, at a year boundary
-            { "YYYY-'W'ww-u", "2025-W01-1" },
-            { "YYYY-'W'ww-u", "2020-W53-5" },
-            { "YYYY-'W'ww", "2024-W15" },
-            { "YY-MM-dd", "25-12-29" },
-            { "YYYY", "2025" },
-            { "yyyy-MM-dd", "2024-12-29" } // plain calendar year is unaffected
-        };
-        for (final Locale locale : new Locale[] { Locale.US, Locale.GERMANY }) {
-            for (final String[] testCase : cases) {
-                final SimpleDateFormat sdf = new SimpleDateFormat(testCase[0], locale);
-                final DateParser fdp = getInstance(testCase[0], locale);
-                assertEquals(sdf.parse(testCase[1]), fdp.parse(testCase[1]),
-                        "Pattern " + testCase[0] + " input " + testCase[1] + " locale " + locale);
-            }
-        }
     }
 
     DateParser getInstance(final String format) {
@@ -548,6 +547,39 @@ class FastDateParserTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
+    @CsvSource({
+        "Z, GMT+0:99", "Z, GMT-0:99", "Z, GMT+24:00", "Z, GMT-24:00",
+        "z, GMT+0:99", "z, GMT-0:99", "z, GMT+24:00", "z, GMT-24:00"
+    })
+    void testParseInvalidGmtTimeZoneOffsets(final String zonePattern, final String offset) {
+        final String pattern = "yyyy-MM-dd'T'HH:mm:ss" + zonePattern;
+        final String prefix = "2024-01-01T00:00:00";
+        assertParseFailure(new FastDateParser(pattern, TimeZones.GMT, Locale.US), prefix + offset, prefix.length());
+        assertParseFailure(FastDateFormat.getInstance(pattern, TimeZones.GMT, Locale.US), prefix + offset, prefix.length());
+    }
+
+    @ParameterizedTest
+    @MethodSource(DATE_PARSER_PARAMETERS)
+    void testParseInvalidTimeZoneOffsets(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) {
+        // Out-of-range offsets must not escape as IllegalArgumentException from GmtTimeZone.
+        final String prefix = "2024-01-01T00:00:00";
+        final String[][] cases = {
+            { "X", "+24", "-24", "+99", "-99" },
+            { "XX", "+2400", "-2400", "+0060", "-0060", "+9999" },
+            { "XXX", "+24:00", "-24:00", "+00:60", "-00:60", "+99:99" },
+            { "ZZ", "+24:00", "-24:00", "+00:60", "-00:60", "+99:99" },
+            { "Z", "+2400", "-2400", "+0060", "-0060" },
+            { "z", "+2400", "-2400", "+0060", "-0060" }
+        };
+        for (final String[] testCase : cases) {
+            final DateParser parser = getInstance(dpProvider, "yyyy-MM-dd'T'HH:mm:ss" + testCase[0], TimeZones.GMT, Locale.US);
+            for (int i = 1; i < testCase.length; i++) {
+                assertParseFailure(parser, prefix + testCase[i], prefix.length());
+            }
+        }
+    }
+
+    @ParameterizedTest
     @MethodSource(DATE_PARSER_PARAMETERS)
     void testParseLongShort(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider)
         throws ParseException {
@@ -571,6 +603,23 @@ class FastDateParserTest extends AbstractLangTest {
 
         cal.set(Calendar.ERA, GregorianCalendar.AD);
         assertEquals(cal.getTime(), fdf.parse("03 AD 2 10 PM Saturday 15 33 20 989 -0500"));
+    }
+
+    @Test
+    void testParseMissingTimeZoneName() throws ReflectiveOperationException {
+        final FastDateParser parser = new FastDateParser("yyyy-MM-dd z", TimeZones.GMT, Locale.US);
+        final List<?> patterns = parser.getPatterns();
+        final Object zonePattern = patterns.get(patterns.size() - 1);
+        final Object cachedStrategy = FieldUtils.readField(zonePattern, "strategy", true);
+        // The report supplies no concrete regex/TreeMap mismatch. Simulate a matched name missing
+        // from the lookup using a private strategy instance, leaving the shared cache untouched.
+        final Constructor<?> constructor = cachedStrategy.getClass().getDeclaredConstructor(Locale.class);
+        constructor.setAccessible(true);
+        final Object strategy = constructor.newInstance(Locale.US);
+        final Map<?, ?> names = (Map<?, ?>) FieldUtils.readField(strategy, "tzNames", true);
+        assertNotNull(names.remove("PST"));
+        FieldUtils.writeField(zonePattern, "strategy", strategy, true);
+        assertParseFailure(parser, "2024-01-01 PST", 11);
     }
 
     @ParameterizedTest
@@ -601,7 +650,7 @@ class FastDateParserTest extends AbstractLangTest {
     public void testParsePositionBeyondInputLength() {
         final String source = "Jan";
         final int startingIndex = 10;
-        final String[] patterns = new String[] {"yyyy", "MM", "dd", "HH", "'x'", "-", "/", ":", " 'at' ", "MMM", "EEEE", "a", "z"};
+        final String[] patterns = {"yyyy", "MM", "dd", "HH", "'x'", "-", "/", ":", " 'at' ", "MMM", "EEEE", "a", "z"};
         for (final String pattern : patterns) {
             final DateParser parser = getInstance(pattern);
             final ParsePosition pos1 = new ParsePosition(startingIndex);
@@ -651,6 +700,49 @@ class FastDateParserTest extends AbstractLangTest {
 
         final FastDateParser fastDateParser = new FastDateParser(format, timeZone, locale, centuryStart);
         validateSdfFormatFdpParseEquality(format, locale, timeZone, fastDateParser, in, year, centuryStart);
+    }
+
+    @ParameterizedTest
+    @MethodSource(DATE_PARSER_PARAMETERS)
+    void testParseUnicodeTextLookupFailure(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) {
+        // Unicode regex folding accepts long s and dotted I, but the lower-case map keys differ.
+        assertParseFailure(getInstance(dpProvider, "dd MMMM yyyy", TimeZones.GMT, Locale.US), "01 Augu\u017ft 2024", 3);
+        assertParseFailure(getInstance(dpProvider, "yyyy-MM-dd EEEE", TimeZones.GMT, Locale.US), "2024-08-01 Thur\u017fday", 11);
+        assertParseFailure(getInstance(dpProvider, "yyyy-MM-dd EEEE", TimeZones.GMT, Locale.US), "2024-08-02 FR\u0130DAY", 11);
+    }
+
+    @ParameterizedTest
+    @MethodSource(DATE_PARSER_PARAMETERS)
+    void testParseUnicodeTextLookupSuccess(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) throws ParseException {
+        final DateParser turkish = getInstance(dpProvider, "dd MMMM yyyy", TimeZones.GMT, new Locale("tr", "TR"));
+        // Root-locale fallback resolves ASCII I where Turkish lower-casing produces dotless i.
+        assertEquals(turkish.parse("01 Nisan 2024"), turkish.parse("01 NISAN 2024"));
+        final DateParser german = getInstance(dpProvider, "dd MMMM yyyy", TimeZones.GMT, Locale.GERMANY);
+        assertEquals(german.parse("01 Oktober 2024"), german.parse("01 O\u212atober 2024"));
+    }
+
+    @ParameterizedTest
+    @MethodSource(DATE_PARSER_PARAMETERS)
+    void testParseValidTimeZoneOffsetBoundaries(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) {
+        final String prefix = "2024-01-01T00:00:00";
+        final String[][] cases = {
+            { "X", "Z", "+00", "-00", "+23", "-23" },
+            { "XX", "Z", "+0000", "-0000", "+2359", "-2359" },
+            { "XXX", "Z", "+00:00", "-00:00", "+23:59", "-23:59" },
+            { "ZZ", "Z", "+00:00", "-00:00", "+23:59", "-23:59" },
+            { "Z", "+0000", "-0000", "+2359", "-2359", "GMT+0:00", "GMT-23:59" },
+            { "z", "+0000", "-0000", "+2359", "-2359", "GMT+0:00", "GMT-23:59" }
+        };
+        for (final String[] testCase : cases) {
+            final DateParser parser = getInstance(dpProvider, "yyyy-MM-dd'T'HH:mm:ss" + testCase[0], TimeZones.GMT, Locale.US);
+            for (int i = 1; i < testCase.length; i++) {
+                final String source = prefix + testCase[i];
+                final ParsePosition position = new ParsePosition(0);
+                assertNotNull(parser.parse(source, position), source);
+                assertEquals(source.length(), position.getIndex(), source);
+                assertEquals(-1, position.getErrorIndex(), source);
+            }
+        }
     }
 
     @ParameterizedTest
@@ -798,6 +890,29 @@ class FastDateParserTest extends AbstractLangTest {
             final Date expected = cal.getTime();
             final Date actual = fdp.parse("2000/02/10 " + timeZone.getDisplayName(locale));
             assertEquals(expected, actual, "timeZone:" + timeZone.getID() + " locale:" + locale.getDisplayName());
+        }
+    }
+
+    @Test
+    void testWeekYearParsing() throws ParseException {
+        // 'Y' must parse as a week year (resolved through Calendar.setWeekDate), matching both SimpleDateFormat
+        // and FastDatePrinter's WeekYear rule, instead of silently mapping to the plain calendar year.
+        final String[][] cases = {
+            { "YYYY-MM-dd", "2025-12-29" }, // the ubiquitous YYYY-for-yyyy slip, at a year boundary
+            { "YYYY-'W'ww-u", "2025-W01-1" },
+            { "YYYY-'W'ww-u", "2020-W53-5" },
+            { "YYYY-'W'ww", "2024-W15" },
+            { "YY-MM-dd", "25-12-29" },
+            { "YYYY", "2025" },
+            { "yyyy-MM-dd", "2024-12-29" } // plain calendar year is unaffected
+        };
+        for (final Locale locale : new Locale[] { Locale.US, Locale.GERMANY }) {
+            for (final String[] testCase : cases) {
+                final SimpleDateFormat sdf = new SimpleDateFormat(testCase[0], locale);
+                final DateParser fdp = getInstance(testCase[0], locale);
+                assertEquals(sdf.parse(testCase[1]), fdp.parse(testCase[1]),
+                        "Pattern " + testCase[0] + " input " + testCase[1] + " locale " + locale);
+            }
         }
     }
 
