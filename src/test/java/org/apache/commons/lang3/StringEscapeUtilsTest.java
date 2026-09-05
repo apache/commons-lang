@@ -150,6 +150,45 @@ class StringEscapeUtilsTest extends AbstractLangTest {
                 StringEscapeUtils.escapeEcmaScript("document.getElementById(\"test\").value = '<script>alert('aaa');</script>';"));
     }
 
+    @Test
+    void testEscapeEcmaScriptInlineScriptSequences() {
+        // HTML parser-state sequences remain unchanged, as documented for this string escaper.
+        assertEquals("<!--", StringEscapeUtils.escapeEcmaScript("<!--"));
+        assertEquals("<script", StringEscapeUtils.escapeEcmaScript("<script"));
+        assertEquals("<!--<script>", StringEscapeUtils.escapeEcmaScript("<!--<script>"));
+        assertEquals("<\\/script>", StringEscapeUtils.escapeEcmaScript("</script>"));
+    }
+
+    @Test
+    void testEscapeEcmaScriptLineSeparators() {
+        assertEquals("\\u2028\\u2029", StringEscapeUtils.escapeEcmaScript("\u2028\u2029"));
+    }
+
+    @Test
+    void testEscapeEcmaScriptTemplateLiterals() throws IOException {
+        final String[][] cases = {
+            {"`", "\\`"},
+            {"${", "\\${"},
+            {"${alert(document.cookie)}", "\\${alert(document.cookie)}"},
+            {"`;alert(document.cookie);//", "\\`;alert(document.cookie);\\/\\/"},
+            {"Hello `${name}`!", "Hello \\`\\${name}\\`!"},
+            {"${first}${second}", "\\${first}\\${second}"},
+            {"$${name}", "$\\${name}"},
+            {"\\`", "\\\\\\`"},
+            {"\\${name}", "\\\\\\${name}"},
+            {"$ {name} { } $", "$ {name} { } $"}
+        };
+        for (final String[] pair : cases) {
+            final String input = pair[0];
+            final String expected = pair[1];
+            assertEquals(expected, StringEscapeUtils.escapeEcmaScript(input), input);
+            final StringWriter writer = new StringWriter();
+            StringEscapeUtils.ESCAPE_ECMASCRIPT.translate(input, writer);
+            assertEquals(expected, writer.toString(), input);
+            assertEquals(input, StringEscapeUtils.unescapeEcmaScript(expected), input);
+        }
+    }
+
     /**
      * Tests https://issues.apache.org/jira/browse/LANG-339
      */
@@ -246,6 +285,16 @@ class StringEscapeUtilsTest extends AbstractLangTest {
         final String expected = "\\\"foo\\\" isn't \\\"bar\\\". specials: \\b\\r\\n\\f\\t\\\\\\/";
         final String input = "\"foo\" isn't \"bar\". specials: \b\r\n\f\t\\/";
         assertEquals(expected, StringEscapeUtils.escapeJson(input));
+    }
+
+    @Test
+    void testEscapeJsonTemplateLiteralAndInlineScriptSequences() {
+        // JSON escaping preserves these sequences and does not provide HTML-context encoding.
+        assertEquals("`${alert(document.cookie)}`", StringEscapeUtils.escapeJson("`${alert(document.cookie)}`"));
+        assertEquals("<!--", StringEscapeUtils.escapeJson("<!--"));
+        assertEquals("<script", StringEscapeUtils.escapeJson("<script"));
+        assertEquals("<!--<script>", StringEscapeUtils.escapeJson("<!--<script>"));
+        assertEquals("<\\/script>", StringEscapeUtils.escapeJson("</script>"));
     }
 
     @Test

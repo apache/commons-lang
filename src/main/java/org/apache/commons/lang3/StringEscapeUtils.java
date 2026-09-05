@@ -132,6 +132,8 @@ public class StringEscapeUtils {
                       new String[][] {
                             {"'", "\\'"},
                             {"\"", "\\\""},
+                            {"`", "\\`"},
+                            {"${", "\\${"},
                             {"\\", "\\\\"},
                             {"/", "\\/"}
                       }),
@@ -435,24 +437,36 @@ public class StringEscapeUtils {
 
     /**
      * Escapes the characters in a {@link String} using EcmaScript String rules.
-     * <p>Escapes any values it finds into their EcmaScript String form.
-     * Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.) </p>
+     * <p>
+     * Escapes any values it finds into their EcmaScript String form. Escapes the EcmaScript string delimiters (single quote, double quote and (since ES6) the
+     * backtick) as well as the template-literal interpolation sequence <code>${</code> and control-chars (tab, backslash, cr, ff, etc.).
+     * </p>
+     * <p>
+     * So a tab becomes the characters {@code '\\'} and {@code 't'}.
+     * </p>
+     * <p>
+     * The differences between Java strings and EcmaScript strings handled here are that in EcmaScript, a single quote, the backtick, the <code>${</code>
+     * sequence and forward-slash (/) are escaped.
+     * </p>
+     * <p>
+     * <strong>Scope:</strong> the output is a correctly escaped EcmaScript string literal for any of the three string delimiters, but it is <em>not</em> made
+     * safe for direct embedding inside an HTML inline {@code <script>} block: HTML parser-state sequences such as {@code <!--} and {@code <script} pass through
+     * unchanged (a literal {@code </script>} is neutralized by the forward-slash escape). HTML-context encoding must be applied separately when the result is
+     * placed in HTML.
+     * </p>
+     * <p>
+     * Note that EcmaScript is best known by the JavaScript and ActionScript dialects.
+     * </p>
+     * <p>
+     * Example:
+     * </p>
      *
-     * <p>So a tab becomes the characters {@code '\\'} and
-     * {@code 't'}.</p>
-     *
-     * <p>The only difference between Java strings and EcmaScript strings
-     * is that in EcmaScript, a single quote and forward-slash (/) are escaped.</p>
-     *
-     * <p>Note that EcmaScript is best known by the JavaScript and ActionScript dialects.</p>
-     *
-     * <p>Example:</p>
      * <pre>
      * input string: He didn't say, "Stop!"
      * output string: He didn\'t say, \"Stop!\"
      * </pre>
      *
-     * @param input  String to escape values in, may be null
+     * @param input String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
      * @since 3.0
      */
@@ -527,24 +541,34 @@ public class StringEscapeUtils {
 
     /**
      * Escapes the characters in a {@link String} using Json String rules.
-     * <p>Escapes any values it finds into their Json String form.
-     * Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.) </p>
+     * <p>
+     * Escapes any values it finds into their JSON String form. Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.)
+     * </p>
+     * <p>
+     * So a tab becomes the characters {@code '\\'} and {@code 't'}.
+     * </p>
+     * <p>
+     * The only difference between Java strings and Json strings is that in Json, forward-slash (/) is escaped.
+     * </p>
+     * <p>
+     * <strong>Scope:</strong> the output is a correctly escaped JSON string, but it is <em>not</em> made safe for direct embedding inside an HTML inline
+     * {@code <script>} block: the backtick, <code>${</code>, and HTML parser-state sequences such as {@code <!--} and {@code <script} pass through unchanged
+     * (JSON offers no backslash escape for them; only a literal {@code </script>} is neutralized by the forward-slash escape). HTML-context encoding must be
+     * applied separately when the result is placed in HTML.
+     * </p>
+     * <p>
+     * See https://www.ietf.org/rfc/rfc4627.txt for further details.
+     * </p>
+     * <p>
+     * Example:
+     * </p>
      *
-     * <p>So a tab becomes the characters {@code '\\'} and
-     * {@code 't'}.</p>
-     *
-     * <p>The only difference between Java strings and Json strings
-     * is that in Json, forward-slash (/) is escaped.</p>
-     *
-     * <p>See https://www.ietf.org/rfc/rfc4627.txt for further details.</p>
-     *
-     * <p>Example:</p>
      * <pre>
      * input string: He didn't say, "Stop!"
      * output string: He didn't say, \"Stop!\"
      * </pre>
      *
-     * @param input  String to escape values in, may be null
+     * @param input String to escape values in, may be null
      * @return String with escaped values, {@code null} if null string input
      * @since 3.2
      */
