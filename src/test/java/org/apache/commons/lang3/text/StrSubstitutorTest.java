@@ -211,6 +211,47 @@ class StrSubstitutorTest extends AbstractLangTest {
         assertThrows(IllegalStateException.class, () -> sub2.replace("The ${animal} jumps over the ${target}."), "Cyclic replacement was not detected.");
     }
 
+    /**
+     * Tests that deeply nested (acyclic) variable references hit the depth budget with an
+     * {@link IllegalStateException} instead of recursing towards {@link StackOverflowError}.
+     */
+    @Test
+    void testDeeplyNestedReplacementThrowsIllegalStateException() {
+        final Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < 400; i++) {
+            map.put("v" + i, "${v" + (i + 1) + "}");
+        }
+        map.put("v400", "x");
+        final StrSubstitutor sub = new StrSubstitutor(map);
+        assertThrows(IllegalStateException.class, () -> sub.replace("${v0}"), "Depth budget was not enforced.");
+        // shallow nesting still works, including after a budget-exceeded failure (counters reset per top-level call)
+        assertEquals("x", sub.replace("${v398}"));
+    }
+
+    /**
+     * Tests that exponential acyclic fan-out (each variable expanding to many more) hits the
+     * total-output-size budget with an {@link IllegalStateException} instead of consuming
+     * unbounded CPU and memory. The cycle check cannot detect this shape (no variable repeats
+     * on the substitution stack).
+     */
+    @Test
+    void testExponentialFanOutReplacementThrowsIllegalStateException() {
+        final Map<String, String> map = new HashMap<>();
+        final char[] leafChars = new char[8192];
+        java.util.Arrays.fill(leafChars, 'x');
+        map.put("a6", new String(leafChars));
+        for (int level = 5; level >= 0; level--) {
+            final StringBuilder value = new StringBuilder();
+            for (int i = 0; i < 10; i++) {
+                value.append("${a").append(level + 1).append("}");
+            }
+            map.put("a" + level, value.toString());
+        }
+        // full expansion would be 10^6 leaves * 8 KiB = ~8 GiB
+        final StrSubstitutor sub = new StrSubstitutor(map);
+        assertThrows(IllegalStateException.class, () -> sub.replace("${a0}"), "Size budget was not enforced.");
+    }
+
     @Test
     void testDefaultValueDelimiters() {
         final Map<String, String> map = new HashMap<>();

@@ -171,6 +171,21 @@ public class StrSubstitutor {
     public static final StrMatcher DEFAULT_VALUE_DELIMITER = StrMatcher.stringMatcher(":-");
 
     /**
+     * The maximum nesting depth of variable interpolation. The cyclic-substitution check only rejects a variable
+     * already on the current substitution stack; without a depth bound, deeply nested (acyclic) references and
+     * nested variable names (when {@link #isEnableSubstitutionInVariables()} is on) recurse once per level and
+     * can end in {@link StackOverflowError}.
+     */
+    private static final int MAX_SUBSTITUTION_DEPTH = 256;
+
+    /**
+     * The maximum total number of characters that variable replacement may emit during one top-level substitution.
+     * Bounds exponential acyclic fan-out (each of N references expanding to N more), which the cyclic-substitution
+     * check cannot see.
+     */
+    private static final int MAX_SUBSTITUTION_LENGTH = 16 * 1024 * 1024;
+
+    /**
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the map.
      *
@@ -267,6 +282,17 @@ public class StrSubstitutor {
      * Whether escapes should be preserved.  Default is false;
      */
     private boolean preserveEscapes;
+
+    /**
+     * Current recursion depth of {@link #substitute(StrBuilder, int, int, List)}. Like the rest of this class,
+     * not thread safe.
+     */
+    private int substitutionDepth;
+
+    /**
+     * Total number of characters emitted by variable replacement in the current top-level substitution.
+     */
+    private long substitutionLength;
 
     /**
      * Creates a new instance with defaults for variable prefix and suffix
@@ -1110,8 +1136,37 @@ public class StrSubstitutor {
      * @param priorVariables  The stack keeping track of the replaced variables, may be null.
      * @return The length change that occurs, unless priorVariables is null when the int
      *  represents a boolean flag as to whether any change occurred.
+     * @throws IllegalStateException if the interpolation exceeds {@value #MAX_SUBSTITUTION_DEPTH} nesting levels or
+     *  emits more than {@value #MAX_SUBSTITUTION_LENGTH} characters. These budgets bound recursive expansion that the
+     *  cyclic-substitution check cannot detect (acyclic fan-out, deep nesting). This class is deprecated; the
+     *  Apache Commons Text successor {@code StringSubstitutor} should receive any richer treatment.
      */
-    private int substitute(final StrBuilder buf, final int offset, final int length, List<String> priorVariables) {
+    private int substitute(final StrBuilder buf, final int offset, final int length, final List<String> priorVariables) {
+        if (substitutionDepth == 0) {
+            substitutionLength = 0;
+        }
+        if (substitutionDepth >= MAX_SUBSTITUTION_DEPTH) {
+            throw new IllegalStateException("Maximum interpolation depth (" + MAX_SUBSTITUTION_DEPTH + ") exceeded in variable substitution");
+        }
+        substitutionDepth++;
+        try {
+            return substituteRecursive(buf, offset, length, priorVariables);
+        } finally {
+            substitutionDepth--;
+        }
+    }
+
+    /**
+     * Implements {@link #substitute(StrBuilder, int, int, List)}; only that budget-enforcing wrapper may call this.
+     *
+     * @param buf  The string builder to substitute into, not null.
+     * @param offset  The start offset within the builder, must be valid.
+     * @param length  The length within the builder to be processed, must be valid.
+     * @param priorVariables  The stack keeping track of the replaced variables, may be null.
+     * @return The length change that occurs, unless priorVariables is null when the int
+     *  represents a boolean flag as to whether any change occurred.
+     */
+    private int substituteRecursive(final StrBuilder buf, final int offset, final int length, List<String> priorVariables) {
         final StrMatcher pfxMatcher = getVariablePrefixMatcher();
         final StrMatcher suffMatcher = getVariableSuffixMatcher();
         final char escape = getEscapeChar();
@@ -1201,6 +1256,11 @@ public class StrSubstitutor {
                                 final int varLen = varValue.length();
                                 buf.replace(startPos, endPos, varValue);
                                 altered = true;
+                                substitutionLength += varLen;
+                                if (substitutionLength > MAX_SUBSTITUTION_LENGTH) {
+                                    throw new IllegalStateException("Maximum interpolation size (" + MAX_SUBSTITUTION_LENGTH
+                                            + " characters) exceeded in variable substitution");
+                                }
                                 int change = substitute(buf, startPos, varLen, priorVariables);
                                 change = change + varLen - (endPos - startPos);
                                 pos += change;

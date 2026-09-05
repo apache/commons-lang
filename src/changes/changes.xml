@@ -262,6 +262,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">FastDateParser.parse throws undeclared IllegalArgumentException, NullPointerException, and IllegalStateException on crafted date strings (f010).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Memoizer: default caches the first failure forever, has no size bound or eviction, and runs the user computation inside the ConcurrentHashMap bin lock (blocking unrelated keys, deadlocking reentrant use) (f011).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringEscapeUtils.escapeEcmaScript() misses backtick/template-literal (`, ${) and inline-script parser-state sequences (&lt;!--, &lt;script) - claim 'Deals correctly with quotes' is falsified by ES6 (f012).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StrSubstitutor (deprecated) recursive expansion has a cycle check but no fan-out, depth, or size bound (f013).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
