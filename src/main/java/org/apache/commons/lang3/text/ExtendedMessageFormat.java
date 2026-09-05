@@ -145,14 +145,15 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Consume a quoted string, adding it to {@code appendTo} if
      * specified.
      *
-     * @param pattern pattern to parse
+     * @param pattern pattern to parse, as a char array created once by the caller (avoids copying
+     *        the entire pattern for every token parsed)
      * @param pos current parse position
      * @param appendTo optional StringBuilder to append
      * @return {@code appendTo}
      */
-    private StringBuilder appendQuotedString(final String pattern, final ParsePosition pos,
+    private StringBuilder appendQuotedString(final char[] pattern, final ParsePosition pos,
             final StringBuilder appendTo) {
-        assert pattern.toCharArray()[pos.getIndex()] == QUOTE :
+        assert pattern[pos.getIndex()] == QUOTE :
             "Quoted string must start with quote character";
 
         // handle quote character at the beginning of the string
@@ -162,11 +163,10 @@ public class ExtendedMessageFormat extends MessageFormat {
         next(pos);
 
         final int start = pos.getIndex();
-        final char[] c = pattern.toCharArray();
-        for (int i = pos.getIndex(); i < pattern.length(); i++) {
-            if (c[pos.getIndex()] == QUOTE) {
+        for (int i = pos.getIndex(); i < pattern.length; i++) {
+            if (pattern[pos.getIndex()] == QUOTE) {
                 next(pos);
-                return appendTo == null ? null : appendTo.append(c, start,
+                return appendTo == null ? null : appendTo.append(pattern, start,
                         pos.getIndex() - start);
             }
             next(pos);
@@ -197,19 +197,19 @@ public class ExtendedMessageFormat extends MessageFormat {
         while (pos.getIndex() < pattern.length()) {
             switch (c[pos.getIndex()]) {
             case QUOTE:
-                appendQuotedString(pattern, pos, stripCustom);
+                appendQuotedString(c, pos, stripCustom);
                 break;
             case START_FE:
                 fmtCount++;
-                seekNonWs(pattern, pos);
+                seekNonWs(c, pos);
                 final int start = pos.getIndex();
-                final int index = readArgumentIndex(pattern, next(pos));
+                final int index = readArgumentIndex(pattern, c, next(pos));
                 stripCustom.append(START_FE).append(index);
-                seekNonWs(pattern, pos);
+                seekNonWs(c, pos);
                 Format format = null;
                 String formatDescription = null;
                 if (c[pos.getIndex()] == START_FMT) {
-                    formatDescription = parseFormatDescription(pattern,
+                    formatDescription = parseFormatDescription(pattern, c,
                             next(pos));
                     format = getFormat(formatDescription);
                     if (format == null) {
@@ -298,10 +298,10 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Consume quoted string only
      *
-     * @param pattern pattern to parse
+     * @param pattern pattern to parse, as a char array created once by the caller
      * @param pos current parse position
      */
-    private void getQuotedString(final String pattern, final ParsePosition pos) {
+    private void getQuotedString(final char[] pattern, final ParsePosition pos) {
         appendQuotedString(pattern, pos, null);
     }
 
@@ -325,17 +325,18 @@ public class ExtendedMessageFormat extends MessageFormat {
         }
         final StringBuilder sb = new StringBuilder(pattern.length() * 2);
         final ParsePosition pos = new ParsePosition(0);
+        final char[] chars = pattern.toCharArray();
         int fe = -1;
         int depth = 0;
         while (pos.getIndex() < pattern.length()) {
             final char c = pattern.charAt(pos.getIndex());
             switch (c) {
             case QUOTE:
-                appendQuotedString(pattern, pos, sb);
+                appendQuotedString(chars, pos, sb);
                 break;
             case START_FE:
                 depth++;
-                sb.append(START_FE).append(readArgumentIndex(pattern, next(pos)));
+                sb.append(START_FE).append(readArgumentIndex(pattern, chars, next(pos)));
                 // do not look for custom patterns when they are embedded, e.g. in a choice
                 if (depth == 1) {
                     fe++;
@@ -371,12 +372,13 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Parse the format component of a format element.
      *
      * @param pattern string to parse
+     * @param chars the pattern as a char array created once by the caller
      * @param pos current parse position
      * @return Format description String
      */
-    private String parseFormatDescription(final String pattern, final ParsePosition pos) {
+    private String parseFormatDescription(final String pattern, final char[] chars, final ParsePosition pos) {
         final int start = pos.getIndex();
-        seekNonWs(pattern, pos);
+        seekNonWs(chars, pos);
         final int text = pos.getIndex();
         int depth = 1;
         while (pos.getIndex() < pattern.length()) {
@@ -393,7 +395,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                 next(pos);
                 break;
             case QUOTE:
-                getQuotedString(pattern, pos);
+                getQuotedString(chars, pos);
                 break;
             default:
                 next(pos);
@@ -408,18 +410,19 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Reads the argument index from the current format element
      *
      * @param pattern pattern to parse
+     * @param chars the pattern as a char array created once by the caller
      * @param pos current parse position
      * @return argument index
      */
-    private int readArgumentIndex(final String pattern, final ParsePosition pos) {
+    private int readArgumentIndex(final String pattern, final char[] chars, final ParsePosition pos) {
         final int start = pos.getIndex();
-        seekNonWs(pattern, pos);
+        seekNonWs(chars, pos);
         final StringBuilder result = new StringBuilder();
         boolean error = false;
         for (; !error && pos.getIndex() < pattern.length(); next(pos)) {
             char c = pattern.charAt(pos.getIndex());
             if (Character.isWhitespace(c)) {
-                seekNonWs(pattern, pos);
+                seekNonWs(chars, pos);
                 if (pos.getIndex() >= pattern.length()) {
                     break;
                 }
@@ -449,11 +452,11 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Consume whitespace from the current parse position.
      *
-     * @param pattern String to read
+     * @param buffer the pattern to read, as a char array created once by the caller (avoids
+     *        copying the entire pattern on every call)
      * @param pos current position
      */
-    private void seekNonWs(final String pattern, final ParsePosition pos) {
-        final char[] buffer = pattern.toCharArray();
+    private void seekNonWs(final char[] buffer, final ParsePosition pos) {
         while (pos.getIndex() < buffer.length) {
             final int len = StrMatcher.splitMatcher().isMatch(buffer, pos.getIndex());
             if (len == 0) {
