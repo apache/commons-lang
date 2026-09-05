@@ -473,7 +473,9 @@ class StringEscapeUtilsTest extends AbstractLangTest {
         assertNull(StringEscapeUtils.unescapeJava(null));
         assertNullPointerException(() -> StringEscapeUtils.UNESCAPE_JAVA.translate(null, null));
         assertNullPointerException(() -> StringEscapeUtils.UNESCAPE_JAVA.translate("", null));
-        assertThrows(RuntimeException.class, () -> StringEscapeUtils.unescapeJava("\\u02-3"));
+        // A malformed Unicode escape is not translated by the Unicode unescaper; the aggregate's
+        // stray-backslash rule then drops the lone backslash (same as unescapeJava("\\") == "").
+        assertEquals("u02-3", StringEscapeUtils.unescapeJava("\\u02-3"));
         assertUnescapeJava("", "");
         assertUnescapeJava("test", "test");
         assertUnescapeJava("\ntest\b", "\\ntest\\b");

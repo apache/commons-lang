@@ -18,7 +18,6 @@
 package org.apache.commons.lang3.text.translate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
@@ -32,16 +31,29 @@ class UnicodeUnescaperTest extends AbstractLangTest {
     @Test
     void testLessThanFour() {
         final UnicodeUnescaper uu = new UnicodeUnescaper();
+        // A truncated escape is not a well-formed escape: it passes through untranslated.
         final String input = "\\0047\\u006";
-        assertThrows(IllegalArgumentException.class, () -> uu.translate(input), "A lack of digits in a Unicode escape sequence failed to throw an exception");
+        assertEquals(input, uu.translate(input), "A truncated Unicode escape sequence must pass through untranslated");
+    }
+
+    @Test
+    void testNonAsciiHexDigits() {
+        final UnicodeUnescaper uu = new UnicodeUnescaper();
+        // Integer.parseInt would accept Unicode decimal digits from any script and fullwidth Latin hex
+        // letters via Character.digit; those spellings are not well-formed escapes and pass through.
+        assertEquals("\\u\uFF10\uFF10\uFF12\uFF12", uu.translate("\\u\uFF10\uFF10\uFF12\uFF12"),
+                "Fullwidth digit spellings must pass through untranslated");
+        assertEquals("\\u\u0660\u0660\u0664\u0661", uu.translate("\\u\u0660\u0660\u0664\u0661"),
+                "Arabic-Indic digit spellings must pass through untranslated");
     }
 
     @Test
     void testSignedValue() {
         final UnicodeUnescaper uu = new UnicodeUnescaper();
-        // Integer.parseInt accepts a leading sign, so these used to decode to a bogus char instead of throwing.
-        assertThrows(IllegalArgumentException.class, () -> uu.translate("\\u-047"), "A signed Unicode escape sequence failed to throw an exception");
-        assertThrows(IllegalArgumentException.class, () -> uu.translate("\\u++0047"), "A signed Unicode escape sequence failed to throw an exception");
+        // Integer.parseInt accepts a leading sign, but a sign character is not an ASCII hex digit:
+        // these are not well-formed escapes and pass through untranslated.
+        assertEquals("\\u-047", uu.translate("\\u-047"), "A signed Unicode escape sequence must pass through untranslated");
+        assertEquals("\\u++0047", uu.translate("\\u++0047"), "A signed Unicode escape sequence must pass through untranslated");
         // The documented u+ notation is still accepted.
         assertEquals("G", uu.translate("\\u+0047"), "Failed to unescape Unicode characters with 'u+' notation");
     }
