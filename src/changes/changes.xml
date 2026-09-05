@@ -259,7 +259,9 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">LocaleUtils static caches no longer grows on invalid input to LocaleUtils.countriesByLanguage(String) (f007).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">ExtendedMessageFormat.applyPattern() is quadratic: full pattern.toCharArray() per token (f008).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">WordUtils.wrap(wrapLongWords=false, the 2-arg default) copies the entire remaining string every iteration. (f009).</action>
-    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">FastDateParser.parse throws undeclared IllegalArgumentException, NullPointerException, and IllegalStateException on crafted date strings. (f010).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">FastDateParser.parse throws undeclared IllegalArgumentException, NullPointerException, and IllegalStateException on crafted date strings (f010).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Memoizer: default caches the first failure forever, has no size bound or eviction, and runs the user computation inside the ConcurrentHashMap bin lock (blocking unrelated keys, deadlocking reentrant use) (f011).</action>
+    
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>

@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.function.Function;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -30,10 +31,12 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  * results for the calculation will be cached for future requests.
  *
  * <p>
- * This is not a fully functional cache, there is no way of limiting or removing results once they have been generated.
- * However, it is possible to get the implementation to regenerate the result for a given parameter, if an error was
- * thrown during the previous calculation, by setting the option during the construction of the class. If this is not
- * set the class will return the cached exception.
+ * This is not a fully functional cache: it is unbounded, and there is no way of limiting or removing results once they
+ * have been generated. In particular, note the exception-caching default: unless the {@code recalculate} constructor
+ * option is set to {@code true}, the <em>first</em> exception thrown by a calculation for a given parameter is cached
+ * and rethrown for every future call with that parameter for the lifetime of this instance - a single transient
+ * failure permanently poisons that key. Set {@code recalculate} to {@code true} to retry failed calculations on
+ * subsequent calls instead.
  * </p>
  * <p>
  * Thanks go to Brian Goetz, Tim Peierls and the members of JCP JSR-166 Expert Group for coming up with the
@@ -47,7 +50,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 public class Memoizer<I, O> implements Computable<I, O> {
 
     private final ConcurrentMap<I, Future<O>> cache = new ConcurrentHashMap<>();
-    private final Function<? super I, ? extends Future<O>> mappingFunction;
+    private final Function<? super I, FutureTask<O>> mappingFunction;
     private final boolean recalculate;
 
     /**
@@ -74,7 +77,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      */
     public Memoizer(final Computable<I, O> computable, final boolean recalculate) {
         this.recalculate = recalculate;
-        this.mappingFunction = k -> FutureTasks.run(() -> computable.compute(k));
+        this.mappingFunction = k -> new FutureTask<>(() -> computable.compute(k));
     }
 
     /**
@@ -103,7 +106,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      */
      public Memoizer(final Function<I, O> function, final boolean recalculate) {
         this.recalculate = recalculate;
-        this.mappingFunction = k -> FutureTasks.run(() -> function.apply(k));
+        this.mappingFunction = k -> new FutureTask<>(() -> function.apply(k));
     }
 
     /**
@@ -111,8 +114,15 @@ public class Memoizer<I, O> implements Computable<I, O> {
      *
      * <p>
      * This cache will also cache exceptions that occur during the computation if the {@code recalculate} parameter in the
-     * constructor was set to {@code false}, or not set. Otherwise, if an exception happened on the previous calculation,
+     * constructor was set to {@code false}, or not set: the first exception thrown for a given argument is rethrown for
+     * every future call with that argument. Otherwise, if an exception happened on the previous calculation,
      * the method will attempt again to generate a value.
+     * </p>
+     * <p>
+     * The calculation for a given argument runs at most once per cached entry and executes <em>outside</em> any internal
+     * lock of the backing map (the pattern published in <em>Java Concurrency in Practice</em>): a slow calculation for
+     * one key does not block calls for unrelated keys, and a calculation may itself use this Memoizer without
+     * deadlocking. Concurrent callers for the same argument wait on the same {@link Future}.
      * </p>
      *
      * @param arg The argument for the calculation
@@ -122,7 +132,18 @@ public class Memoizer<I, O> implements Computable<I, O> {
     @Override
     public O compute(final I arg) throws InterruptedException {
         while (true) {
-            final Future<O> future = cache.computeIfAbsent(arg, mappingFunction);
+            Future<O> future = cache.get(arg);
+            if (future == null) {
+                final FutureTask<O> futureTask = mappingFunction.apply(arg);
+                future = cache.putIfAbsent(arg, futureTask);
+                if (future == null) {
+                    // This thread won the race to install the task: run the user computation here,
+                    // outside the ConcurrentHashMap's internal locks. Losing threads (and later
+                    // callers) block on futureTask.get() instead of on a map bin lock.
+                    future = futureTask;
+                    futureTask.run();
+                }
+            }
             try {
                 return future.get();
             } catch (final CancellationException e) {
