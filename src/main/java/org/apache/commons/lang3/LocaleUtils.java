@@ -83,15 +83,15 @@ public class LocaleUtils {
     /**
      * Concurrent map of language locales by country.
      */
-    private static final ConcurrentMap<String, List<Locale>> cLanguagesByCountry = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, List<Locale>> ccToLocalesMap = new ConcurrentHashMap<>();
 
     /**
      * Concurrent map of country locales by language.
      */
-    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, List<Locale>> lcToLocalesMap = new ConcurrentHashMap<>();
 
     /**
-     * Obtains an unmodifiable and sorted list of installed locales.
+     * Gets an unmodifiable and sorted list of installed locales.
      *
      * <p>
      * This method is a wrapper around {@link Locale#getAvailableLocales()}. It is more efficient, as the JDK method must create a new array each time it is
@@ -109,7 +109,7 @@ public class LocaleUtils {
     }
 
     /**
-     * Obtains an unmodifiable set of installed locales.
+     * Gets an unmodifiable set of installed locales.
      *
      * <p>
      * This method is a wrapper around {@link Locale#getAvailableLocales()}. It is more efficient, as the JDK method must create a new array each time it is
@@ -123,7 +123,7 @@ public class LocaleUtils {
     }
 
     /**
-     * Obtains the list of countries supported for a given language.
+     * Gets the list of countries supported for a given language.
      *
      * <p>
      * This method takes a language code and searches to find the countries available for that language. Variant locales are removed.
@@ -136,8 +136,23 @@ public class LocaleUtils {
         if (languageCode == null) {
             return Collections.emptyList();
         }
-        return cCountriesByLanguage.computeIfAbsent(languageCode, lc -> Collections
+        // Only syntactically valid ISO 639 codes can match an available locale's language; anything
+        // else is answered without touching the cache so that arbitrary caller strings are never
+        // retained for the lifetime of the class loader.
+        if (!languageCode.isEmpty() && !isISO639LanguageCode(languageCode)) {
+            return Collections.emptyList();
+        }
+        return lcToLocalesMap.computeIfAbsent(languageCode, lc -> Collections
                 .unmodifiableList(availableLocaleList(locale -> languageCode.equals(locale.getLanguage()) && !hasCountry(locale) && hasVariant(locale))));
+    }
+
+    /**
+     * Gets the cache of country locales by language.
+     *
+     * @return the cache of country locales by language.
+     */
+    static ConcurrentMap<String, List<Locale>> getLcToLocalesMap() {
+        return lcToLocalesMap;
     }
 
     /**
@@ -250,7 +265,13 @@ public class LocaleUtils {
         if (countryCode == null) {
             return Collections.emptyList();
         }
-        return cLanguagesByCountry.computeIfAbsent(countryCode,
+        // Only syntactically valid ISO 3166 alpha-2 / UN M.49 numeric codes can match an available
+        // locale's country; anything else is answered without touching the cache so that arbitrary
+        // caller strings are never retained for the lifetime of the JVM.
+        if (!countryCode.isEmpty() && !isISO3166CountryCode(countryCode) && !isNumericAreaCode(countryCode)) {
+            return Collections.emptyList();
+        }
+        return ccToLocalesMap.computeIfAbsent(countryCode,
                 k -> Collections.unmodifiableList(availableLocaleList(locale -> countryCode.equals(locale.getCountry()) && hasVariant(locale))));
     }
 

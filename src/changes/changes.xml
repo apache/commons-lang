@@ -255,6 +255,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">UnicodeUnescaper.unescapeJava/EcmaScript/Json: malformed \u sequences throw undeclared IllegalArgumentException, AND non-ASCII digit spellings of \u escapes are silently accepted; both arms of one missing ASCII-hex prescan (f004).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">StringUtils.replaceEachRepeatedly derives its recursion budget from the input itself; the documented StackOverflowError protection fails on large tables, and expanding rules amplify text 64x even at the default TTL (f005).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">EventUtils.EventBindingInvocationHandler.invoke() dispatches Object.hashCode/equals/toString into the bound business method (empty-eventTypes default), or returns null -> NPE from hash collections (non-empty) (f006).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">LocaleUtils static caches no longer grows on invalid input to LocaleUtils.countriesByLanguage(String) (f007).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>

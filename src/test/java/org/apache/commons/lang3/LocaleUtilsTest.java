@@ -40,7 +40,9 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
 
@@ -256,6 +258,16 @@ class LocaleUtilsTest extends AbstractLangTest {
         assertCountriesByLanguage("de", new String[]{"DE", "CH", "AT", "LU"});
         assertCountriesByLanguage("zz", new String[0]);
         assertCountriesByLanguage("it", new String[]{"IT", "CH"});
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"x", "abcd", "EN", "e1", "en-US", " "})
+    void testCountriesByLanguageDoesNotCacheInvalidLanguageCode(final String languageCode) {
+        assertFalse(LocaleUtils.getLcToLocalesMap().containsKey(languageCode));
+        final int cacheSize = LocaleUtils.getLcToLocalesMap().size();
+        assertTrue(LocaleUtils.countriesByLanguage(languageCode).isEmpty());
+        assertEquals(cacheSize, LocaleUtils.getLcToLocalesMap().size());
+        assertFalse(LocaleUtils.getLcToLocalesMap().containsKey(languageCode));
     }
 
     @Test
