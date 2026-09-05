@@ -181,6 +181,11 @@
     </Or>
     <Bug pattern="SF_SWITCH_NO_DEFAULT" />
   </Match>
+  <Match>
+    <!-- equals/hashCode is never used -->
+    <Class name="org.apache.commons.lang3.time.FastDateParser$WeekDateRecorder"/>
+    <Bug pattern="EQ_DOESNT_OVERRIDE_EQUALS" />
+  </Match>
 
   <!-- Reason: FindBugs cannot correctly recognize default branches in switch statements without break statements.
    See, e.g., the report at https://sourceforge.net/p/findbugs/bugs/1298 -->
