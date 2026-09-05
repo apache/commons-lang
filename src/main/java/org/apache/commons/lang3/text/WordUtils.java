@@ -713,12 +713,16 @@ public class WordUtils {
                 wrappedLine.append(newLineStr);
                 offset = wrapAt;
             } else {
-                // do not wrap really long word, just extend beyond limit
-                matcher = patternToWrapOn.matcher(str.substring(offset + wrapLength));
+                // do not wrap really long word, just extend beyond limit;
+                // match against a region of the original string rather than copying the entire
+                // unbounded remainder per output line (which is quadratic), mirroring the
+                // windowed substring used by the main loop above
+                matcher = patternToWrapOn.matcher(str);
+                matcher.region(offset + wrapLength, inputLineLength);
                 spaceToWrapAt = -1;
                 if (matcher.find()) {
-                    spaceToWrapAt = matcher.start() + offset + wrapLength;
-                    endOfWrapAt = matcher.end() + offset + wrapLength;
+                    spaceToWrapAt = matcher.start();
+                    endOfWrapAt = matcher.end();
                 }
 
                 if (spaceToWrapAt >= 0) {
