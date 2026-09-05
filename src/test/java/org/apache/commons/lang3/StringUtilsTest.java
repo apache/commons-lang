@@ -1894,8 +1894,9 @@ class StringUtilsTest extends AbstractLangTest {
         assertThrows(IllegalStateException.class,
                 () -> StringUtils.replaceEachRepeatedly("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", new String[] { "aa" }, new String[] { "a" }),
                 "Cannot be resolved within the default time-to-live limit");
-        // Test larger TTL for larger search lists. Replace repeatedly until there are no more possible replacements.
-        assertEquals("000000000", StringUtils.replaceEachRepeatedly("aA0aA0aA0",
+        // The iteration budget is a fixed constant (no longer derived from the search-list size, which let the
+        // input choose the recursion depth): a 61-step replacement chain exceeds the budget and aborts.
+        assertThrows(IllegalStateException.class, () -> StringUtils.replaceEachRepeatedly("aA0aA0aA0",
                 new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
                         "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D",
                         "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
@@ -1903,7 +1904,8 @@ class StringUtilsTest extends AbstractLangTest {
                 new String[]{"b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
                         "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E",
                         "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
-                        "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}));
+                        "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}),
+                "Cannot be resolved within the fixed time-to-live limit");
 
         // Test long infinite cycle: a -> b -> ... -> 9 -> 0 -> a -> b -> ...
         assertThrows(IllegalStateException.class,

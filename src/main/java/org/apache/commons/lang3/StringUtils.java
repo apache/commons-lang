@@ -6485,11 +6485,11 @@ public class StringUtils {
      * @since 2.4
      */
     public static String replaceEach(final String text, final String[] searchList, final String[] replacementList) {
-        return replaceEach(text, searchList, replacementList, false, 0);
+        return replaceEachOnce(text, searchList, replacementList);
     }
 
     /**
-     * Replace all occurrences of Strings within another String. This is a private recursive helper method for
+     * Replace all occurrences of Strings within another String, in a single pass. This is a private helper method for
      * {@link #replaceEachRepeatedly(String, String[], String[])} and {@link #replaceEach(String, String[], String[])}
      *
      * <p>
@@ -6497,44 +6497,35 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     *  StringUtils.replaceEach(null, *, *, *, *)                                                     = null
-     *  StringUtils.replaceEach("", *, *, *, *)                                                       = ""
-     *  StringUtils.replaceEach("aba", null, null, *, *)                                              = "aba"
-     *  StringUtils.replaceEach("aba", new String[0], null, *, *)                                     = "aba"
-     *  StringUtils.replaceEach("aba", null, new String[0], *, *)                                     = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, null, *, *)                                 = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""}, *, >=0)                   = "b"
-     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}, *, >=0)                 = "aba"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}, *, >=0)     = "wcte"
-     *  (example of how it repeats)
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false, >=0) = "dcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true, >=2)  = "tcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *, *)      = Throws {@link IllegalStateException}
+     *  StringUtils.replaceEachOnce(null, *, *)                                                = null
+     *  StringUtils.replaceEachOnce("", *, *)                                                  = ""
+     *  StringUtils.replaceEachOnce("aba", null, null)                                         = "aba"
+     *  StringUtils.replaceEachOnce("aba", new String[0], null)                                = "aba"
+     *  StringUtils.replaceEachOnce("aba", null, new String[0])                                = "aba"
+     *  StringUtils.replaceEachOnce("aba", new String[]{"a"}, null)                            = "aba"
+     *  StringUtils.replaceEachOnce("aba", new String[]{"a"}, new String[]{""})                = "b"
+     *  StringUtils.replaceEachOnce("aba", new String[]{null}, new String[]{"a"})              = "aba"
+     *  StringUtils.replaceEachOnce("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"})  = "wcte"
+     *  StringUtils.replaceEachOnce("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"})  = "dcte"
      * </pre>
+     *
+     * <p>
+     * When no replacement is performed, the {@code text} argument is returned unchanged (same reference); callers rely on this to detect convergence.
+     * </p>
      *
      * @param text            text to search and replace in, no-op if null.
      * @param searchList      The Strings to search for, no-op if null.
      * @param replacementList The Strings to replace them with, no-op if null.
-     * @param repeat          if true, then replace repeatedly until there are no more possible replacements or timeToLive < 0.
-     * @param timeToLive      if less than 0 then there is a circular reference and endless loop.
      * @return The text with any replacements processed, {@code null} if null String input.
-     * @throws IllegalStateException    if the search is repeating and there is an endless loop due to outputs of one being inputs to another.
      * @throws IllegalArgumentException if the lengths of the arrays are not the same (null is ok, and/or size 0).
      * @since 2.4
      */
-    private static String replaceEach(
-            final String text, final String[] searchList, final String[] replacementList, final boolean repeat, final int timeToLive) {
+    private static String replaceEachOnce(final String text, final String[] searchList, final String[] replacementList) {
 
         // Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
         if (isEmpty(text) || ArrayUtils.isEmpty(searchList) || ArrayUtils.isEmpty(replacementList)) {
             return text;
-        }
-
-        // if recursing, this shouldn't be less than 0
-        if (timeToLive < 0) {
-            throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
-                "output of one loop is the input of another");
         }
 
         final int searchLength = searchList.length;
@@ -6633,12 +6624,7 @@ public class StringUtils {
         for (int i = start; i < textLength; i++) {
             buf.append(text.charAt(i));
         }
-        final String result = buf.toString();
-        if (!repeat) {
-            return result;
-        }
-
-        return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
+        return buf.toString();
     }
 
     /**
@@ -6672,8 +6658,20 @@ public class StringUtils {
      * @since 2.4
      */
     public static String replaceEachRepeatedly(final String text, final String[] searchList, final String[] replacementList) {
-        final int timeToLive = Math.max(ArrayUtils.getLength(searchList), DEFAULT_TTL);
-        return replaceEach(text, searchList, replacementList, true, timeToLive);
+        // The iteration budget is a fixed constant, deliberately independent of the caller-supplied
+        // searchList length: deriving the budget from the input would let the input size choose the
+        // recursion depth/amplification (formerly a real StackOverflowError on large search lists).
+        String result = text;
+        for (int timeToLive = DEFAULT_TTL; timeToLive >= 0; timeToLive--) {
+            final String next = replaceEachOnce(result, searchList, replacementList);
+            if (next == result) {
+                // No replacement was performed; converged.
+                return result;
+            }
+            result = next;
+        }
+        throw new IllegalStateException("Aborting to protect against StackOverflowError - " +
+            "output of one loop is the input of another");
     }
 
     /**
