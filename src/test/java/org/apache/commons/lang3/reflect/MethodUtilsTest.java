@@ -34,7 +34,9 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -603,6 +605,39 @@ class MethodUtilsTest extends AbstractLangTest {
             final Method accessibleMethod = MethodUtils.getAccessibleMethod(clazz, "getValue", element);
             assertSame(Mutable.class, accessibleMethod.getDeclaringClass());
         }
+    }
+
+    @ParameterizedTest
+    @ValueSource(classes = {TestMutable.class, TestMutableSubclass.class})
+    void testGetMatchingAccessibleMethodOnNonPublicClass(final Class<?> clazz) {
+        assertSame(Mutable.class, MethodUtils.getMatchingAccessibleMethod(clazz, "getValue").getDeclaringClass());
+        assertSame(Mutable.class,
+                MethodUtils.getMatchingAccessibleMethod(clazz, "setValue", Object.class).getDeclaringClass());
+    }
+
+    @Test
+    void testGetMatchingAccessibleMethodOnNonPublicJdkClass() {
+        assertSame(List.class,
+                MethodUtils.getMatchingAccessibleMethod(Collections.emptyList().getClass(), "size").getDeclaringClass());
+        assertSame(List.class,
+                MethodUtils.getMatchingAccessibleMethod(Arrays.asList(1, 2).getClass(), "size").getDeclaringClass());
+        assertSame(Map.class,
+                MethodUtils.getMatchingAccessibleMethod(Collections.emptyMap().getClass(), "size").getDeclaringClass());
+    }
+
+    @Test
+    void testGetMatchingAccessibleMethodWithNoPublicDeclaration() {
+        assertSame(TestBeanWithInterfaces.class,
+                MethodUtils.getMatchingAccessibleMethod(TestBeanWithInterfaces.class, "foo").getDeclaringClass());
+    }
+
+    @Test
+    void testInvokeMethodOnNonPublicClass() throws Exception {
+        assertEquals(0, MethodUtils.invokeMethod(Collections.emptyList(), "size"));
+        assertEquals(2, MethodUtils.invokeMethod(Arrays.asList(1, 2), "size"));
+        assertEquals(0, MethodUtils.invokeMethod(Collections.emptyMap(), "size"));
+        assertEquals(0, MethodUtils.invokeMethod(Collections.unmodifiableList(new ArrayList<>()), "size"));
+        assertNull(MethodUtils.invokeMethod(new TestMutable(), "getValue"));
     }
 
     @Test

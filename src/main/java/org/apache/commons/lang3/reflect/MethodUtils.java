@@ -369,7 +369,10 @@ public class MethodUtils {
     public static Method getMatchingAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... requestTypes) {
         final Method candidate = getMethodObject(cls, methodName, requestTypes);
         if (candidate != null) {
-            return MemberUtils.setAccessibleWorkaround(candidate);
+            // The exact match may be declared on a non-public class, so prefer the public
+            // declaration the way the search below does.
+            final Method accessibleCandidate = getAccessibleMethod(cls, candidate);
+            return MemberUtils.setAccessibleWorkaround(accessibleCandidate != null ? accessibleCandidate : candidate);
         }
         // search through all methods
         final Method[] methods = cls.getMethods();
