@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>104</version>
+    <version>105</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
@@ -113,10 +113,11 @@
     <commons.javadoc.version>3.11.2</commons.javadoc.version>
     <!-- TEMP HACK END -->
 
+    <agentArgs/>
     <heapSize>-Xmx1G</heapSize>
     <extraArgs/>
     <systemProperties/>
-    <argLine>${heapSize} ${extraArgs} ${systemProperties}</argLine>
+    <argLine>${heapSize} ${extraArgs} ${systemProperties} ${agentArgs}</argLine>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
@@ -528,6 +529,16 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+      <id>java-21-up</id>
+      <activation>
+        <jdk>[21,)</jdk>
+      </activation>
+      <properties>
+        <!-- Preserve the parent's agent-loading option in the custom argLine used by Mockito tests. -->
+        <agentArgs>-XX:+EnableDynamicAgentLoading</agentArgs>
+      </properties>
     </profile>
     <profile>
 	  <!-- Java 25 and up -->
