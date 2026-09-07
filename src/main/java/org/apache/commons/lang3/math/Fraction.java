@@ -556,23 +556,31 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (fraction.numerator == 0) {
             return this;
         }
+        // Knuth 4.5.1 assumes operands in lowest terms and this class does not reduce on
+        // construction, so reduce both first, as multiplyBy does.
+        final int thisGcd = greatestCommonDivisor(numerator, denominator);
+        final int thatGcd = greatestCommonDivisor(fraction.numerator, fraction.denominator);
+        final int thisNumerator = numerator / thisGcd;
+        final int thisDenominator = denominator / thisGcd;
+        final int thatNumerator = fraction.numerator / thatGcd;
+        final int thatDenominator = fraction.denominator / thatGcd;
         // if denominators are randomly distributed, d1 will be 1 about 61%
         // of the time.
-        final int d1 = greatestCommonDivisor(denominator, fraction.denominator);
+        final int d1 = greatestCommonDivisor(thisDenominator, thatDenominator);
         if (d1 == 1) {
             // result is ((u*v' +/- u'v) / u'v')
             // the int cross products u*v' and u'*v can overflow even when the reduced result
             // fits an int, so widen to long and let Math narrow the final numerator back.
-            final long uvp = (long) numerator * fraction.denominator;
-            final long upv = (long) fraction.numerator * denominator;
+            final long uvp = (long) thisNumerator * thatDenominator;
+            final long upv = (long) thatNumerator * thisDenominator;
             final long t = isAdd ? Math.addExact(uvp, upv) : Math.subtractExact(uvp, upv);
-            return new Fraction(Math.toIntExact(t), mulPosAndCheck(denominator, fraction.denominator));
+            return new Fraction(Math.toIntExact(t), mulPosAndCheck(thisDenominator, thatDenominator));
         }
         // the quantity 't' requires 65 bits of precision; see knuth 4.5.1
         // exercise 7. we're going to use a BigInteger.
         // t = u(v'/d1) +/- v(u'/d1)
-        final BigInteger uvp = BigInteger.valueOf(numerator).multiply(BigInteger.valueOf(fraction.denominator / d1));
-        final BigInteger upv = BigInteger.valueOf(fraction.numerator).multiply(BigInteger.valueOf(denominator / d1));
+        final BigInteger uvp = BigInteger.valueOf(thisNumerator).multiply(BigInteger.valueOf(thatDenominator / d1));
+        final BigInteger upv = BigInteger.valueOf(thatNumerator).multiply(BigInteger.valueOf(thisDenominator / d1));
         final BigInteger t = isAdd ? uvp.add(upv) : uvp.subtract(upv);
         // but d2 doesn't need extra precision because
         // d2 = gcd(t,d1) = gcd(t mod d1, d1)
@@ -584,7 +592,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (w.bitLength() > 31) {
             throw new ArithmeticException("overflow: numerator too large after multiply");
         }
-        return new Fraction(w.intValue(), mulPosAndCheck(denominator / d1, fraction.denominator / d2));
+        return new Fraction(w.intValue(), mulPosAndCheck(thisDenominator / d1, thatDenominator / d2));
     }
 
     /**

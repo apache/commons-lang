@@ -65,6 +65,40 @@ class FractionTest extends AbstractLangTest {
     }
 
     @Test
+    void testAddSubtractUnreducedOperands() {
+        // 1073741823/2147483646 is 1/2, and 1/2 + 3/5 is 11/10.
+        Fraction f = Fraction.getFraction(1073741823, 2147483646).add(Fraction.getFraction(3, 5));
+        assertEquals(11, f.getNumerator());
+        assertEquals(10, f.getDenominator());
+
+        f = Fraction.getFraction(1073741823, 2147483646).subtract(Fraction.getFraction(3, 5));
+        assertEquals(-1, f.getNumerator());
+        assertEquals(10, f.getDenominator());
+
+        // 2147483646/2147483646 is 1, and 1 + -11 is -10.
+        f = Fraction.getFraction(2147483646, 2147483646).add(Fraction.getFraction(-11, 1));
+        assertEquals(-10, f.getNumerator());
+        assertEquals(1, f.getDenominator());
+
+        // add() returns the result in reduced form.
+        f = Fraction.getFraction(50, 100).add(Fraction.getFraction(1, 3));
+        assertEquals(5, f.getNumerator());
+        assertEquals(6, f.getDenominator());
+
+        f = Fraction.getFraction(2, 4).add(Fraction.getFraction(1, 2));
+        assertEquals(1, f.getNumerator());
+        assertEquals(1, f.getDenominator());
+
+        // Reducing the operands by hand must not change the answer.
+        assertEquals(Fraction.getFraction(7, 13).reduce().add(Fraction.getFraction(46341, 1073741823).reduce()),
+                Fraction.getFraction(7, 13).add(Fraction.getFraction(46341, 1073741823)));
+
+        // A result that genuinely does not fit an int still overflows.
+        final Fraction maxValue = Fraction.getFraction(-Integer.MAX_VALUE, 1);
+        assertThrows(ArithmeticException.class, () -> maxValue.add(maxValue));
+    }
+
+    @Test
     void testAdd() {
         Fraction f;
         Fraction f1;
