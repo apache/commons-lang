@@ -7078,4 +7078,10 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals("{<null>}", ArrayUtils.toString(new String[]{null}, "<empty>"));
         assertEquals("{pink,blue}", ArrayUtils.toString(new String[]{"pink", "blue"}, "<empty>"));
     }
+
+    @Test
+    public void testContainsNullArrayBoundary() {
+        // Test boundary case: passing null array should safely return false without throwing NPE
+        assertFalse(ArrayUtils.contains((Object[]) null, "testValue"));
+    }
 }
