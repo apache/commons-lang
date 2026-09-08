@@ -1247,16 +1247,11 @@ public class TypeUtils {
                 // now's the time to substitute them.
                 toBound = substituteTypeVariables(toBound, typeVarAssigns);
                 // each lower bound of the target type has to be assignable to
-                // at least one lower bound of the subject type
-                boolean satisfied = false;
+                // each lower bound of the subject type
                 for (final Type bound : lowerBounds) {
-                    if (isAssignable(toBound, bound, typeVarAssigns)) {
-                        satisfied = true;
-                        break;
+                    if (!isAssignable(toBound, bound, typeVarAssigns)) {
+                        return false;
                     }
-                }
-                if (!satisfied) {
-                    return false;
                 }
             }
             return true;
