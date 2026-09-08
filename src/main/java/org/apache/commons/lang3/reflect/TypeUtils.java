@@ -1229,13 +1229,17 @@ public class TypeUtils {
                 // if there are assignments for unresolved type variables,
                 // now's the time to substitute them.
                 toBound = substituteTypeVariables(toBound, typeVarAssigns);
-                // each upper bound of the subject type has to be assignable to
-                // each
-                // upper bound of the target type
+                // at least one upper bound of the subject type has to be assignable to
+                // each upper bound of the target type
+                boolean satisfied = false;
                 for (final Type bound : upperBounds) {
-                    if (!isAssignable(bound, toBound, typeVarAssigns)) {
-                        return false;
+                    if (isAssignable(bound, toBound, typeVarAssigns)) {
+                        satisfied = true;
+                        break;
                     }
+                }
+                if (!satisfied) {
+                    return false;
                 }
             }
             for (Type toBound : toLowerBounds) {
@@ -1243,8 +1247,7 @@ public class TypeUtils {
                 // now's the time to substitute them.
                 toBound = substituteTypeVariables(toBound, typeVarAssigns);
                 // each lower bound of the target type has to be assignable to
-                // each
-                // lower bound of the subject type
+                // each lower bound of the subject type
                 for (final Type bound : lowerBounds) {
                     if (!isAssignable(toBound, bound, typeVarAssigns)) {
                         return false;
