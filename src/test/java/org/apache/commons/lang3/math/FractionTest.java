@@ -119,6 +119,34 @@ class FractionTest extends AbstractLangTest {
     }
 
     @Test
+    void testAddSubtractZeroOperand() {
+        // A zero operand returns the other operand in reduced form.
+        Fraction f = Fraction.ZERO.add(Fraction.getFraction(2, 4));
+        assertEquals(1, f.getNumerator());
+        assertEquals(2, f.getDenominator());
+
+        f = Fraction.getFraction(2, 4).add(Fraction.ZERO);
+        assertEquals(1, f.getNumerator());
+        assertEquals(2, f.getDenominator());
+
+        f = Fraction.ZERO.subtract(Fraction.getFraction(2, 4));
+        assertEquals(-1, f.getNumerator());
+        assertEquals(2, f.getDenominator());
+
+        f = Fraction.getFraction(2, 4).subtract(Fraction.ZERO);
+        assertEquals(1, f.getNumerator());
+        assertEquals(2, f.getDenominator());
+
+        // Integer.MIN_VALUE/2 reduces to -1073741824/1, whose negation fits an int.
+        f = Fraction.ZERO.subtract(Fraction.getFraction(Integer.MIN_VALUE, 2));
+        assertEquals(1073741824, f.getNumerator());
+        assertEquals(1, f.getDenominator());
+
+        // Integer.MIN_VALUE/1 is in lowest terms and still cannot be negated.
+        assertThrows(ArithmeticException.class, () -> Fraction.ZERO.subtract(Fraction.getFraction(Integer.MIN_VALUE, 1)));
+    }
+
+    @Test
     void testAdd() {
         Fraction f;
         Fraction f1;

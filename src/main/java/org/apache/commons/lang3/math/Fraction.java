@@ -551,10 +551,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         Objects.requireNonNull(fraction, "fraction");
         // zero is identity for addition.
         if (numerator == 0) {
-            return isAdd ? fraction : fraction.negate();
+            return isAdd ? fraction.reduce() : fraction.reduce().negate();
         }
         if (fraction.numerator == 0) {
-            return this;
+            return reduce();
         }
         // Knuth 4.5.1 assumes operands in lowest terms and this class does not reduce on
         // construction, so reduce both first, as multiplyBy does.
