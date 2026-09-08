@@ -93,6 +93,26 @@ class FractionTest extends AbstractLangTest {
         assertEquals(Fraction.getFraction(7, 13).reduce().add(Fraction.getFraction(46341, 1073741823).reduce()),
                 Fraction.getFraction(7, 13).add(Fraction.getFraction(46341, 1073741823)));
 
+        // Both operands unreduced: 2/4 + 2/6 is 1/2 + 1/3.
+        f = Fraction.getFraction(2, 4).add(Fraction.getFraction(2, 6));
+        assertEquals(5, f.getNumerator());
+        assertEquals(6, f.getDenominator());
+
+        // Reduced denominators share a factor: 2/4 - 2/12 is 1/2 - 1/6.
+        f = Fraction.getFraction(2, 4).subtract(Fraction.getFraction(2, 12));
+        assertEquals(1, f.getNumerator());
+        assertEquals(3, f.getDenominator());
+
+        // Equal values cancel to 0/1.
+        f = Fraction.getFraction(2, 4).subtract(Fraction.getFraction(3, 6));
+        assertEquals(0, f.getNumerator());
+        assertEquals(1, f.getDenominator());
+
+        // Integer.MIN_VALUE/2 reduces to -1073741824/1 without overflowing.
+        f = Fraction.getFraction(Integer.MIN_VALUE, 2).add(Fraction.getFraction(2, 4));
+        assertEquals(-Integer.MAX_VALUE, f.getNumerator());
+        assertEquals(2, f.getDenominator());
+
         // A result that genuinely does not fit an int still overflows.
         final Fraction maxValue = Fraction.getFraction(-Integer.MAX_VALUE, 1);
         assertThrows(ArithmeticException.class, () -> maxValue.add(maxValue));
