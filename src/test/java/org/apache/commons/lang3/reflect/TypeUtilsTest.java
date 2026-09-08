@@ -1268,10 +1268,32 @@ class TypeUtilsTest<B> extends AbstractLangTest {
                 .withUpperBounds(CharSequence.class)
                 .build();
 
+        // ? extends Serializable & Cloneable
+        final WildcardType targetSerializableAndCloneable = TypeUtils.wildcardType()
+                .withUpperBounds(Serializable.class, Cloneable.class)
+                .build();
+
+        // ? extends Serializable & CharSequence
+        final WildcardType targetSerializableAndCharSequence = TypeUtils.wildcardType()
+                .withUpperBounds(Serializable.class, CharSequence.class)
+                .build();
+
+        // Single target bound satisfied
         assertTrue(TypeUtils.isAssignable(subject, targetSerializable));
         assertTrue(TypeUtils.isAssignable(subject, targetCloneable));
         assertTrue(TypeUtils.isAssignable(subject, TypeUtils.wildcardType().withUpperBounds(Object.class).build()));
         assertFalse(TypeUtils.isAssignable(subject, targetCharSequence));
+
+        // Multiple target bounds where all are satisfied
+        assertTrue(TypeUtils.isAssignable(subject, targetSerializableAndCloneable));
+        assertTrue(TypeUtils.isAssignable(subject, TypeUtils.wildcardType().withUpperBounds(Object.class, Serializable.class).build()));
+
+        // Multiple target bounds where only one is satisfied
+        assertFalse(TypeUtils.isAssignable(subject, targetSerializableAndCharSequence));
+
+        // Reverse direction: single bound cannot satisfy multiple bounds
+        assertFalse(TypeUtils.isAssignable(targetSerializable, subject));
+        assertFalse(TypeUtils.isAssignable(targetCloneable, subject));
     }
 
 }
