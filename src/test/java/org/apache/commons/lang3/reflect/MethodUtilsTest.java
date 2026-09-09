@@ -525,6 +525,30 @@ class MethodUtilsTest extends AbstractLangTest {
         }
     }
 
+    public static class StaticParent {
+        public static String who() {
+            return "parent";
+        }
+    }
+
+    static class StaticChild extends StaticParent {
+        public static String who() {
+            return "child";
+        }
+    }
+
+    public interface StaticLabel {
+        static String label() {
+            return "interface";
+        }
+    }
+
+    static class InstanceLabel implements StaticLabel {
+        public String label() {
+            return "instance";
+        }
+    }
+
     private static class TestMutable implements Mutable<Object> {
         @Override
         public Object getValue() {
@@ -638,6 +662,20 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals(0, MethodUtils.invokeMethod(Collections.emptyMap(), "size"));
         assertEquals(0, MethodUtils.invokeMethod(Collections.unmodifiableList(new ArrayList<>()), "size"));
         assertNull(MethodUtils.invokeMethod(new TestMutable(), "getValue"));
+    }
+
+    @Test
+    void testInvokeStaticMethodOnNonPublicSubclass() throws Exception {
+        // A static method hides rather than overrides, so the subclass's own declaration is invoked.
+        assertSame(StaticChild.class, MethodUtils.getMatchingAccessibleMethod(StaticChild.class, "who").getDeclaringClass());
+        assertEquals("child", MethodUtils.invokeStaticMethod(StaticChild.class, "who"));
+    }
+
+    @Test
+    void testInvokeMethodIgnoresStaticInterfaceMethod() throws Exception {
+        assertSame(InstanceLabel.class, MethodUtils.getMatchingAccessibleMethod(InstanceLabel.class, "label").getDeclaringClass());
+        assertEquals("instance", MethodUtils.invokeMethod(new InstanceLabel(), "label"));
+        assertNull(MethodUtils.getAccessibleMethod(InstanceLabel.class, "label"));
     }
 
     @Test

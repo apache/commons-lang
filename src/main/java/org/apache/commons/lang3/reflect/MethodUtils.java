@@ -179,9 +179,12 @@ public class MethodUtils {
                 if (!ClassUtils.isPublic(anInterface)) {
                     continue;
                 }
-                // Does the method exist on this interface?
+                // Does the method exist on this interface? A static one is not inherited.
                 try {
-                    return anInterface.getDeclaredMethod(methodName, parameterTypes);
+                    final Method declared = anInterface.getDeclaredMethod(methodName, parameterTypes);
+                    if (!MemberUtils.isStatic(declared)) {
+                        return declared;
+                    }
                 } catch (final NoSuchMethodException ignored) {
                     /*
                      * Swallow, if no method is found after the loop then this method returns null.
@@ -370,8 +373,8 @@ public class MethodUtils {
         final Method candidate = getMethodObject(cls, methodName, requestTypes);
         if (candidate != null) {
             // The exact match may be declared on a non-public class, so prefer the public
-            // declaration the way the search below does.
-            final Method accessibleCandidate = getAccessibleMethod(cls, candidate);
+            // declaration the way the search below does; a static method hides, so it is kept.
+            final Method accessibleCandidate = MemberUtils.isStatic(candidate) ? null : getAccessibleMethod(cls, candidate);
             return MemberUtils.setAccessibleWorkaround(accessibleCandidate != null ? accessibleCandidate : candidate);
         }
         // search through all methods
