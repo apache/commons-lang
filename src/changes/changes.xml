@@ -281,6 +281,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Reflection builders' cycle registry unregisters per-visit: cycle-SAFE but DAG-exponential, a 40-level reference diamond drives ~2^40 traversals and unbounded output (f032).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">FastDateFormat static caches grow without bound per distinct pattern/zone/locale, untrusted patterns pin several KB each, forever (f033).</action>
     <action                   type="fix" dev="ggregory" due-to="Jeff Lenamon, Gary Gregory">Fix Fraction.add and subtract for operands not in lowest terms (#1784).</action>
+    <action                   type="fix" dev="ggregory" due-to="Jeff Lenamon, Gary Gregory">Fix MethodUtils.invokeMethod on instances of non-public classes (#1783).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
