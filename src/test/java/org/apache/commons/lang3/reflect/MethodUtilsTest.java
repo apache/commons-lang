@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.awt.Color;
 import java.lang.reflect.Method;
@@ -34,7 +35,9 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,6 +48,8 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.Mutable;
 import org.apache.commons.lang3.mutable.MutableObject;
@@ -523,6 +528,30 @@ class MethodUtilsTest extends AbstractLangTest {
         }
     }
 
+    public static class StaticParent {
+        public static String who() {
+            return "parent";
+        }
+    }
+
+    static class StaticChild extends StaticParent {
+        public static String who() {
+            return "child";
+        }
+    }
+
+    public interface StaticLabel {
+        static String label() {
+            return "interface";
+        }
+    }
+
+    static class InstanceLabel implements StaticLabel {
+        public String label() {
+            return "instance";
+        }
+    }
+
     private static class TestMutable implements Mutable<Object> {
         @Override
         public Object getValue() {
@@ -603,6 +632,63 @@ class MethodUtilsTest extends AbstractLangTest {
             final Method accessibleMethod = MethodUtils.getAccessibleMethod(clazz, "getValue", element);
             assertSame(Mutable.class, accessibleMethod.getDeclaringClass());
         }
+    }
+
+    @ParameterizedTest
+    @ValueSource(classes = {TestMutable.class, TestMutableSubclass.class})
+    void testGetMatchingAccessibleMethodOnNonPublicClass(final Class<?> clazz) {
+        assertSame(Mutable.class, MethodUtils.getMatchingAccessibleMethod(clazz, "getValue").getDeclaringClass());
+        assertSame(Mutable.class,
+                MethodUtils.getMatchingAccessibleMethod(clazz, "setValue", Object.class).getDeclaringClass());
+    }
+
+    @Test
+    void testGetMatchingAccessibleMethodOnNonPublicJdkClass() {
+        assertSame(List.class,
+                MethodUtils.getMatchingAccessibleMethod(Collections.emptyList().getClass(), "size").getDeclaringClass());
+        assertSame(List.class,
+                MethodUtils.getMatchingAccessibleMethod(Arrays.asList(1, 2).getClass(), "size").getDeclaringClass());
+        assertSame(Map.class,
+                MethodUtils.getMatchingAccessibleMethod(Collections.emptyMap().getClass(), "size").getDeclaringClass());
+    }
+
+    @Test
+    void testGetMatchingAccessibleMethodWithNoPublicDeclaration() {
+        assertSame(TestBeanWithInterfaces.class,
+                MethodUtils.getMatchingAccessibleMethod(TestBeanWithInterfaces.class, "foo").getDeclaringClass());
+    }
+
+    @Test
+    void testInvokeMethodOnNonPublicClass() throws Exception {
+        assertEquals(0, MethodUtils.invokeMethod(Collections.emptyList(), "size"));
+        assertEquals(2, MethodUtils.invokeMethod(Arrays.asList(1, 2), "size"));
+        assertEquals(0, MethodUtils.invokeMethod(Collections.emptyMap(), "size"));
+        assertEquals(0, MethodUtils.invokeMethod(Collections.unmodifiableList(new ArrayList<>()), "size"));
+        assertNull(MethodUtils.invokeMethod(new TestMutable(), "getValue"));
+    }
+
+    @Test
+    void testInvokeStaticMethodOnNonPublicSubclass() throws Exception {
+        // A static method hides rather than overrides, so the subclass's own declaration is invoked.
+        assertSame(StaticChild.class, MethodUtils.getMatchingAccessibleMethod(StaticChild.class, "who").getDeclaringClass());
+        assertEquals("child", MethodUtils.invokeStaticMethod(StaticChild.class, "who"));
+    }
+
+    @Test
+    void testInvokeMethodIgnoresStaticInterfaceMethod() throws Exception {
+        assertSame(InstanceLabel.class, MethodUtils.getMatchingAccessibleMethod(InstanceLabel.class, "label").getDeclaringClass());
+        assertEquals("instance", MethodUtils.invokeMethod(new InstanceLabel(), "label"));
+        assertNull(MethodUtils.getAccessibleMethod(InstanceLabel.class, "label"));
+    }
+
+    @Test
+    void testInvokeMethodIgnoresPrivateInterfaceMethod() throws Exception {
+        // A private interface method needs Java 9, so the pair is precompiled under src/test/resources.
+        assumeTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9));
+        final Class<?> labels = Class.forName("org.apache.commons.lang3.reflect.testbed9.PrivateInterfaceLabels");
+        final Object bean = labels.getMethod("newBean").invoke(null);
+        assertEquals("bean", MethodUtils.invokeMethod(bean, "label"));
+        assertNull(MethodUtils.getAccessibleMethod(bean.getClass(), "label"));
     }
 
     @Test
