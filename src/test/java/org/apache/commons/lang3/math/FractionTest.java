@@ -144,6 +144,10 @@ class FractionTest extends AbstractLangTest {
 
         // Integer.MIN_VALUE/1 is in lowest terms and still cannot be negated.
         assertThrows(ArithmeticException.class, () -> Fraction.ZERO.subtract(Fraction.getFraction(Integer.MIN_VALUE, 1)));
+
+        // both operands being unreduced zeros
+        assertEquals(Fraction.ZERO, Fraction.getFraction(0, 2).add(Fraction.getFraction(0, 3)));
+        assertEquals(Fraction.ZERO, Fraction.getFraction(0, 2).subtract(Fraction.getFraction(0, 3)));
     }
 
     @Test
