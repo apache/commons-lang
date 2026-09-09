@@ -31,7 +31,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 /**
- * Test cases for the {@link Fraction} class
+ * Tests {@link Fraction}.
  */
 class FractionTest extends AbstractLangTest {
 
