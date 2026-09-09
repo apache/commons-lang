@@ -228,30 +228,6 @@ class StrSubstitutorTest extends AbstractLangTest {
         assertEquals("x", sub.replace("${v398}"));
     }
 
-    /**
-     * Tests that exponential acyclic fan-out (each variable expanding to many more) hits the
-     * total-output-size budget with an {@link IllegalStateException} instead of consuming
-     * unbounded CPU and memory. The cycle check cannot detect this shape (no variable repeats
-     * on the substitution stack).
-     */
-    @Test
-    void testExponentialFanOutReplacementThrowsIllegalStateException() {
-        final Map<String, String> map = new HashMap<>();
-        final char[] leafChars = new char[8192];
-        java.util.Arrays.fill(leafChars, 'x');
-        map.put("a6", new String(leafChars));
-        for (int level = 5; level >= 0; level--) {
-            final StringBuilder value = new StringBuilder();
-            for (int i = 0; i < 10; i++) {
-                value.append("${a").append(level + 1).append("}");
-            }
-            map.put("a" + level, value.toString());
-        }
-        // full expansion would be 10^6 leaves * 8 KiB = ~8 GiB
-        final StrSubstitutor sub = new StrSubstitutor(map);
-        assertThrows(IllegalStateException.class, () -> sub.replace("${a0}"), "Size budget was not enforced.");
-    }
-
     @Test
     void testDefaultValueDelimiters() {
         final Map<String, String> map = new HashMap<>();
@@ -283,6 +259,30 @@ class StrSubstitutorTest extends AbstractLangTest {
         sub.setValueDelimiterMatcher(null);
         assertEquals("The fox jumps over the lazy dog. ${undefined.number!1234567890}.",
                 sub.replace("The ${animal} jumps over the lazy ${target}. ${undefined.number!1234567890}."));
+    }
+
+    /**
+     * Tests that exponential acyclic fan-out (each variable expanding to many more) hits the
+     * total-output-size budget with an {@link IllegalStateException} instead of consuming
+     * unbounded CPU and memory. The cycle check cannot detect this shape (no variable repeats
+     * on the substitution stack).
+     */
+    @Test
+    void testExponentialFanOutReplacementThrowsIllegalStateException() {
+        final Map<String, String> map = new HashMap<>();
+        final char[] leafChars = new char[8192];
+        java.util.Arrays.fill(leafChars, 'x');
+        map.put("a6", new String(leafChars));
+        for (int level = 5; level >= 0; level--) {
+            final StringBuilder value = new StringBuilder();
+            for (int i = 0; i < 10; i++) {
+                value.append("${a").append(level + 1).append("}");
+            }
+            map.put("a" + level, value.toString());
+        }
+        // full expansion would be 10^6 leaves * 8 KiB = ~8 GiB
+        final StrSubstitutor sub = new StrSubstitutor(map);
+        assertThrows(IllegalStateException.class, () -> sub.replace("${a0}"), "Size budget was not enforced.");
     }
 
     /**

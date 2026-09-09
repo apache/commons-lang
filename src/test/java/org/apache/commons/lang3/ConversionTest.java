@@ -1477,6 +1477,51 @@ class ConversionTest extends AbstractLangTest {
     }
 
     /**
+     * Each converter documents an {@link IllegalArgumentException} when the requested count and position exceed the destination width, but the guard was
+     * evaluated in {@code int} arithmetic and silently overflowed for a large count or position, so the documented exception never fired.
+     */
+    @Test
+    void testOverflowingCountOrPositionThrowsIllegalArgumentException() {
+        final int big = Integer.MAX_VALUE;
+        // nBools - 1 + dstPos
+        assertIllegalArgumentException(() -> Conversion.binaryToByte(new boolean[]{true}, 0, (byte) 0, big, 2));
+        assertIllegalArgumentException(() -> Conversion.binaryToInt(new boolean[]{true}, 0, 0, big, 2));
+        assertIllegalArgumentException(() -> Conversion.binaryToLong(new boolean[]{true}, 0, 0L, big, 2));
+        assertIllegalArgumentException(() -> Conversion.binaryToShort(new boolean[]{true}, 0, (short) 0, big, 2));
+        // nBools - 1 + srcPos
+        assertIllegalArgumentException(() -> Conversion.byteToBinary((byte) 1, big, new boolean[8], 0, 2));
+        assertIllegalArgumentException(() -> Conversion.intToBinary(0, big, new boolean[32], 0, 2));
+        assertIllegalArgumentException(() -> Conversion.longToBinary(0L, big, new boolean[64], 0, 2));
+        assertIllegalArgumentException(() -> Conversion.shortToBinary((short) 0, big, new boolean[16], 0, 2));
+        // (nBytes - 1) * 8 + dstPos
+        assertIllegalArgumentException(() -> Conversion.byteArrayToInt(new byte[]{1}, 0, 0, 0, big));
+        assertIllegalArgumentException(() -> Conversion.byteArrayToLong(new byte[]{1}, 0, 0L, 0, big));
+        assertIllegalArgumentException(() -> Conversion.byteArrayToShort(new byte[]{1}, 0, (short) 0, 0, big));
+        // (nBytes - 1) * 8 + srcPos
+        assertIllegalArgumentException(() -> Conversion.intToByteArray(0, 0, new byte[4], 0, big));
+        assertIllegalArgumentException(() -> Conversion.longToByteArray(0L, 0, new byte[8], 0, big));
+        assertIllegalArgumentException(() -> Conversion.shortToByteArray((short) 0, 0, new byte[2], 0, big));
+        // (nHex - 1) * 4 + dstPos
+        assertIllegalArgumentException(() -> Conversion.hexToByte("f", 0, (byte) 0, 0, big));
+        assertIllegalArgumentException(() -> Conversion.hexToInt("f", 0, 0, 0, big));
+        assertIllegalArgumentException(() -> Conversion.hexToLong("f", 0, 0L, 0, big));
+        assertIllegalArgumentException(() -> Conversion.hexToShort("f", 0, (short) 0, 0, big));
+        // (nHexs - 1) * 4 + srcPos
+        assertIllegalArgumentException(() -> Conversion.byteToHex((byte) 0, 0, "", 0, big));
+        assertIllegalArgumentException(() -> Conversion.intToHex(0, 0, "", 0, big));
+        assertIllegalArgumentException(() -> Conversion.longToHex(0L, 0, "", 0, big));
+        assertIllegalArgumentException(() -> Conversion.shortToHex((short) 0, 0, "", 0, big));
+        // (nInts - 1) * 32 + pos
+        assertIllegalArgumentException(() -> Conversion.intArrayToLong(new int[]{0}, 0, 0L, 0, big));
+        assertIllegalArgumentException(() -> Conversion.longToIntArray(0L, 0, new int[2], 0, big));
+        // (nShorts - 1) * 16 + pos
+        assertIllegalArgumentException(() -> Conversion.shortArrayToInt(new short[]{0}, 0, 0, 0, big));
+        assertIllegalArgumentException(() -> Conversion.shortArrayToLong(new short[]{0}, 0, 0L, 0, big));
+        assertIllegalArgumentException(() -> Conversion.intToShortArray(0, 0, new short[2], 0, big));
+        assertIllegalArgumentException(() -> Conversion.longToShortArray(0L, 0, new short[4], 0, big));
+    }
+
+    /**
      * Tests {@link Conversion#shortArrayToInt(short[], int, int, int, int)}.
      */
     @Test
@@ -1728,50 +1773,5 @@ class ConversionTest extends AbstractLangTest {
                 0xFFEEDDCCBBAA9988L, 0x7766554433221100L), new byte[]{(byte) 0x1, (byte) 0x2}, 2, 0));
         assertIllegalArgumentException(() -> Conversion.uuidToByteArray(new UUID(
                 0xFFEEDDCCBBAA9988L, 0x7766554433221100L), new byte[16], 2, 17));
-    }
-
-    /**
-     * Each converter documents an {@link IllegalArgumentException} when the requested count and position exceed the destination width, but the guard was
-     * evaluated in {@code int} arithmetic and silently overflowed for a large count or position, so the documented exception never fired.
-     */
-    @Test
-    void testOverflowingCountOrPositionThrowsIllegalArgumentException() {
-        final int big = Integer.MAX_VALUE;
-        // nBools - 1 + dstPos
-        assertIllegalArgumentException(() -> Conversion.binaryToByte(new boolean[]{true}, 0, (byte) 0, big, 2));
-        assertIllegalArgumentException(() -> Conversion.binaryToInt(new boolean[]{true}, 0, 0, big, 2));
-        assertIllegalArgumentException(() -> Conversion.binaryToLong(new boolean[]{true}, 0, 0L, big, 2));
-        assertIllegalArgumentException(() -> Conversion.binaryToShort(new boolean[]{true}, 0, (short) 0, big, 2));
-        // nBools - 1 + srcPos
-        assertIllegalArgumentException(() -> Conversion.byteToBinary((byte) 1, big, new boolean[8], 0, 2));
-        assertIllegalArgumentException(() -> Conversion.intToBinary(0, big, new boolean[32], 0, 2));
-        assertIllegalArgumentException(() -> Conversion.longToBinary(0L, big, new boolean[64], 0, 2));
-        assertIllegalArgumentException(() -> Conversion.shortToBinary((short) 0, big, new boolean[16], 0, 2));
-        // (nBytes - 1) * 8 + dstPos
-        assertIllegalArgumentException(() -> Conversion.byteArrayToInt(new byte[]{1}, 0, 0, 0, big));
-        assertIllegalArgumentException(() -> Conversion.byteArrayToLong(new byte[]{1}, 0, 0L, 0, big));
-        assertIllegalArgumentException(() -> Conversion.byteArrayToShort(new byte[]{1}, 0, (short) 0, 0, big));
-        // (nBytes - 1) * 8 + srcPos
-        assertIllegalArgumentException(() -> Conversion.intToByteArray(0, 0, new byte[4], 0, big));
-        assertIllegalArgumentException(() -> Conversion.longToByteArray(0L, 0, new byte[8], 0, big));
-        assertIllegalArgumentException(() -> Conversion.shortToByteArray((short) 0, 0, new byte[2], 0, big));
-        // (nHex - 1) * 4 + dstPos
-        assertIllegalArgumentException(() -> Conversion.hexToByte("f", 0, (byte) 0, 0, big));
-        assertIllegalArgumentException(() -> Conversion.hexToInt("f", 0, 0, 0, big));
-        assertIllegalArgumentException(() -> Conversion.hexToLong("f", 0, 0L, 0, big));
-        assertIllegalArgumentException(() -> Conversion.hexToShort("f", 0, (short) 0, 0, big));
-        // (nHexs - 1) * 4 + srcPos
-        assertIllegalArgumentException(() -> Conversion.byteToHex((byte) 0, 0, "", 0, big));
-        assertIllegalArgumentException(() -> Conversion.intToHex(0, 0, "", 0, big));
-        assertIllegalArgumentException(() -> Conversion.longToHex(0L, 0, "", 0, big));
-        assertIllegalArgumentException(() -> Conversion.shortToHex((short) 0, 0, "", 0, big));
-        // (nInts - 1) * 32 + pos
-        assertIllegalArgumentException(() -> Conversion.intArrayToLong(new int[]{0}, 0, 0L, 0, big));
-        assertIllegalArgumentException(() -> Conversion.longToIntArray(0L, 0, new int[2], 0, big));
-        // (nShorts - 1) * 16 + pos
-        assertIllegalArgumentException(() -> Conversion.shortArrayToInt(new short[]{0}, 0, 0, 0, big));
-        assertIllegalArgumentException(() -> Conversion.shortArrayToLong(new short[]{0}, 0, 0L, 0, big));
-        assertIllegalArgumentException(() -> Conversion.intToShortArray(0, 0, new short[2], 0, big));
-        assertIllegalArgumentException(() -> Conversion.longToShortArray(0L, 0, new short[4], 0, big));
     }
 }

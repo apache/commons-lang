@@ -1277,24 +1277,6 @@ class ClassUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testGetClassStrict() throws Exception {
-        // Same resolution as getClass for exact binary names.
-        assertEquals(String.class, ClassUtils.getClassStrict("java.lang.String"));
-        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClassStrict("org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested"));
-        final ClassLoader classLoader = Inner.DeeplyNested.class.getClassLoader();
-        assertEquals(String.class, ClassUtils.getClassStrict(classLoader, "java.lang.String", true));
-        // No whitespace normalization: whitespace-bearing spellings fail, matching Class.forName.
-        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClassStrict(" java.lang.String"));
-        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClassStrict("java .lang.String"));
-        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClassStrict("java.lang\t.String"));
-        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClassStrict(classLoader, "java.lang.String ", true));
-        assertThrows(NullPointerException.class, () -> ClassUtils.getClassStrict(null));
-        // The normalizing overloads keep their documented behavior.
-        assertEquals(String.class, ClassUtils.getClass(" java.lang.String"));
-        assertEquals(String.class, ClassUtils.getClass("java .lang.String"));
-    }
-
-    @Test
     void testGetClassInvalidArguments() throws Exception {
         assertGetClassThrowsNullPointerException(null);
         assertGetClassThrowsClassNotFound("[][][]");
@@ -1336,6 +1318,24 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals(double.class, ClassUtils.getClass("double"));
         assertEquals(boolean.class, ClassUtils.getClass("boolean"));
         assertEquals(void.class, ClassUtils.getClass("void"));
+    }
+
+    @Test
+    void testGetClassStrict() throws Exception {
+        // Same resolution as getClass for exact binary names.
+        assertEquals(String.class, ClassUtils.getClassStrict("java.lang.String"));
+        assertEquals(Inner.DeeplyNested.class, ClassUtils.getClassStrict("org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested"));
+        final ClassLoader classLoader = Inner.DeeplyNested.class.getClassLoader();
+        assertEquals(String.class, ClassUtils.getClassStrict(classLoader, "java.lang.String", true));
+        // No whitespace normalization: whitespace-bearing spellings fail, matching Class.forName.
+        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClassStrict(" java.lang.String"));
+        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClassStrict("java .lang.String"));
+        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClassStrict("java.lang\t.String"));
+        assertThrows(ClassNotFoundException.class, () -> ClassUtils.getClassStrict(classLoader, "java.lang.String ", true));
+        assertThrows(NullPointerException.class, () -> ClassUtils.getClassStrict(null));
+        // The normalizing overloads keep their documented behavior.
+        assertEquals(String.class, ClassUtils.getClass(" java.lang.String"));
+        assertEquals(String.class, ClassUtils.getClass("java .lang.String"));
     }
 
     /**

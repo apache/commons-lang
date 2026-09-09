@@ -98,6 +98,14 @@ class EventUtilsTest extends AbstractLangTest {
         }
     }
 
+    public static class ListenerCapturingSource {
+        PropertyChangeListener listener;
+
+        public void addPropertyChangeListener(final PropertyChangeListener listener) {
+            this.listener = listener;
+        }
+    }
+
     public interface MultipleEventListener {
         void event1(PropertyChangeEvent e);
 
@@ -109,14 +117,6 @@ class EventUtilsTest extends AbstractLangTest {
 
         public void addMultipleEventListener(final MultipleEventListener listener) {
             listeners.addListener(listener);
-        }
-    }
-
-    public static class ListenerCapturingSource {
-        PropertyChangeListener listener;
-
-        public void addPropertyChangeListener(final PropertyChangeListener listener) {
-            this.listener = listener;
         }
     }
 

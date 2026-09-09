@@ -566,6 +566,52 @@ class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testGetThrowableList_Throwable_jdkNoCause() {
+        final List<?> throwables = ExceptionUtils.getThrowableList(jdkNoCause);
+        assertEquals(1, throwables.size());
+        assertSame(jdkNoCause, throwables.get(0));
+    }
+
+    @Test
+    void testGetThrowableList_Throwable_nested() {
+        final List<?> throwables = ExceptionUtils.getThrowableList(nested);
+        assertEquals(2, throwables.size());
+        assertSame(nested, throwables.get(0));
+        assertSame(withoutCause, throwables.get(1));
+    }
+
+    @Test
+    void testGetThrowableList_Throwable_null() {
+        final List<?> throwables = ExceptionUtils.getThrowableList(null);
+        assertEquals(0, throwables.size());
+    }
+
+    @Test
+    void testGetThrowableList_Throwable_recursiveCause() {
+        final List<?> throwables = ExceptionUtils.getThrowableList(cyclicCause);
+        assertEquals(3, throwables.size());
+        assertSame(cyclicCause, throwables.get(0));
+        assertSame(cyclicCause.getCause(), throwables.get(1));
+        assertSame(cyclicCause.getCause().getCause(), throwables.get(2));
+    }
+
+    @Test
+    void testGetThrowableList_Throwable_withCause() {
+        final List<?> throwables = ExceptionUtils.getThrowableList(withCause);
+        assertEquals(3, throwables.size());
+        assertSame(withCause, throwables.get(0));
+        assertSame(nested, throwables.get(1));
+        assertSame(withoutCause, throwables.get(2));
+    }
+
+    @Test
+    void testGetThrowableList_Throwable_withoutCause() {
+        final List<?> throwables = ExceptionUtils.getThrowableList(withoutCause);
+        assertEquals(1, throwables.size());
+        assertSame(withoutCause, throwables.get(0));
+    }
+
+    @Test
     void testGetThrowableListDeepChain() {
         final CountingException[] chain = new CountingException[10_000];
         for (int i = chain.length - 1; i >= 0; i--) {
@@ -616,52 +662,6 @@ class ExceptionUtilsTest extends AbstractLangTest {
         final List<Throwable> throwables = ExceptionUtils.getThrowableList(exception);
         assertEquals(1, throwables.size());
         assertSame(exception, throwables.get(0));
-    }
-
-    @Test
-    void testGetThrowableList_Throwable_jdkNoCause() {
-        final List<?> throwables = ExceptionUtils.getThrowableList(jdkNoCause);
-        assertEquals(1, throwables.size());
-        assertSame(jdkNoCause, throwables.get(0));
-    }
-
-    @Test
-    void testGetThrowableList_Throwable_nested() {
-        final List<?> throwables = ExceptionUtils.getThrowableList(nested);
-        assertEquals(2, throwables.size());
-        assertSame(nested, throwables.get(0));
-        assertSame(withoutCause, throwables.get(1));
-    }
-
-    @Test
-    void testGetThrowableList_Throwable_null() {
-        final List<?> throwables = ExceptionUtils.getThrowableList(null);
-        assertEquals(0, throwables.size());
-    }
-
-    @Test
-    void testGetThrowableList_Throwable_recursiveCause() {
-        final List<?> throwables = ExceptionUtils.getThrowableList(cyclicCause);
-        assertEquals(3, throwables.size());
-        assertSame(cyclicCause, throwables.get(0));
-        assertSame(cyclicCause.getCause(), throwables.get(1));
-        assertSame(cyclicCause.getCause().getCause(), throwables.get(2));
-    }
-
-    @Test
-    void testGetThrowableList_Throwable_withCause() {
-        final List<?> throwables = ExceptionUtils.getThrowableList(withCause);
-        assertEquals(3, throwables.size());
-        assertSame(withCause, throwables.get(0));
-        assertSame(nested, throwables.get(1));
-        assertSame(withoutCause, throwables.get(2));
-    }
-
-    @Test
-    void testGetThrowableList_Throwable_withoutCause() {
-        final List<?> throwables = ExceptionUtils.getThrowableList(withoutCause);
-        assertEquals(1, throwables.size());
-        assertSame(withoutCause, throwables.get(0));
     }
 
     @Test
