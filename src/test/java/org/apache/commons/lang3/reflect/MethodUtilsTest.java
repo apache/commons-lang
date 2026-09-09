@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.awt.Color;
 import java.lang.reflect.Method;
@@ -47,6 +48,8 @@ import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ClassUtils.Interfaces;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.mutable.Mutable;
 import org.apache.commons.lang3.mutable.MutableObject;
@@ -676,6 +679,16 @@ class MethodUtilsTest extends AbstractLangTest {
         assertSame(InstanceLabel.class, MethodUtils.getMatchingAccessibleMethod(InstanceLabel.class, "label").getDeclaringClass());
         assertEquals("instance", MethodUtils.invokeMethod(new InstanceLabel(), "label"));
         assertNull(MethodUtils.getAccessibleMethod(InstanceLabel.class, "label"));
+    }
+
+    @Test
+    void testInvokeMethodIgnoresPrivateInterfaceMethod() throws Exception {
+        // A private interface method needs Java 9, so the pair is precompiled under src/test/resources.
+        assumeTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9));
+        final Class<?> labels = Class.forName("org.apache.commons.lang3.reflect.testbed9.PrivateInterfaceLabels");
+        final Object bean = labels.getMethod("newBean").invoke(null);
+        assertEquals("bean", MethodUtils.invokeMethod(bean, "label"));
+        assertNull(MethodUtils.getAccessibleMethod(bean.getClass(), "label"));
     }
 
     @Test

@@ -179,10 +179,10 @@ public class MethodUtils {
                 if (!ClassUtils.isPublic(anInterface)) {
                     continue;
                 }
-                // Does the method exist on this interface? A static one is not inherited.
+                // Does the method exist on this interface? A static or private one is not inherited.
                 try {
                     final Method declared = anInterface.getDeclaredMethod(methodName, parameterTypes);
-                    if (!MemberUtils.isStatic(declared)) {
+                    if (MemberUtils.isPublic(declared) && !MemberUtils.isStatic(declared)) {
                         return declared;
                     }
                 } catch (final NoSuchMethodException ignored) {
