@@ -17,14 +17,27 @@ github:
   description: "Apache Commons Lang"
   homepage: https://commons.apache.org/lang/
 
+  rulesets:
+    - name: "Default Branch Protection"
+      type: branch
+      branches:
+        includes:
+          - "~DEFAULT_BRANCH"
+          - "release/*"
+          - "rel/*"
+        excludes: []
+      bypass_teams:
+        - root
+      restrict_deletion: true
+      restrict_force_push: true
 notifications:
-    commits:      commits@commons.apache.org
-    issues:       issues@commons.apache.org
-    pullrequests: issues@commons.apache.org
-    jira_options: link label
-    jobs:         notifications@commons.apache.org
+  commits: commits@commons.apache.org
+  issues: issues@commons.apache.org
+  pullrequests: issues@commons.apache.org
+  jira_options: link label
+  jobs: notifications@commons.apache.org
     # commits_bot_dependabot: dependabot@commons.apache.org
-    issues_bot_dependabot: dependabot@commons.apache.org
-    pullrequests_bot_dependabot: dependabot@commons.apache.org
-    issues_bot_codecov-commenter: notifications@commons.apache.org
-    pullrequests_bot_codecov-commenter: notifications@commons.apache.org
+  issues_bot_dependabot: dependabot@commons.apache.org
+  pullrequests_bot_dependabot: dependabot@commons.apache.org
+  issues_bot_codecov-commenter: notifications@commons.apache.org
+  pullrequests_bot_codecov-commenter: notifications@commons.apache.org
