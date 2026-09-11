@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,11 +17,14 @@
 package org.apache.commons.lang3.concurrent;
 
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 
 /**
+ * <p>
  * A simple implementation of the <a
- * href="https://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> pattern
+ * href="http://martinfowler.com/bliki/CircuitBreaker.html">Circuit Breaker</a> pattern
  * that opens if the requested increment amount is greater than a given threshold.
+ * </p>
  *
  * <p>
  * It contains an internal counter that starts in zero, and each call increments the counter by a given amount.
@@ -47,12 +50,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * </pre>
  *
  * <p>#Thread safe#</p>
- *
- * @since 3.5
- * @deprecated use new {@code SimpleThresholdCircuitBreaker}
+ * @since 3.11
  */
-public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
-
+public class SimpleThresholdCircuitBreaker extends BaseCircuitBreaker<Long> {
     /**
      * The initial value of the internal counter.
      */
@@ -69,13 +69,33 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     private final AtomicLong used;
 
     /**
-     * Creates a new instance of {@link ThresholdCircuitBreaker} and initializes the threshold.
+     * <p>Creates a new instance of {@code ThresholdCircuitBreaker} and initializes the threshold.</p>
      *
-     * @param threshold The threshold.
+     * @param consumer a consumer called every time the circuit breaker state changes
+     * @param threshold the threshold.
      */
-    public ThresholdCircuitBreaker(final long threshold) {
+    public SimpleThresholdCircuitBreaker(Consumer<State> consumer, final long threshold) {
+        super(consumer);
         this.used = new AtomicLong(INITIAL_COUNT);
         this.threshold = threshold;
+    }
+
+    /**
+     * <p>Creates a new instance of {@code ThresholdCircuitBreaker} and initializes the threshold.</p>
+     *
+     * @param threshold the threshold.
+     */
+    public SimpleThresholdCircuitBreaker(final long threshold) {
+        this(null, threshold);
+    }
+
+    /**
+     * Gets the threshold.
+     *
+     * @return the threshold
+     */
+    public long getThreshold() {
+        return threshold;
     }
 
     /**
@@ -83,7 +103,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
      */
     @Override
     public boolean checkState() {
-        return !isOpen();
+        return isOpen();
     }
 
     /**
@@ -98,46 +118,21 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     }
 
     /**
-     * Gets the threshold.
-     *
-     * @return The threshold
-     */
-    public long getThreshold() {
-        return threshold;
-    }
-
-    /**
      * {@inheritDoc}
      *
-     * <p>
-     * If the threshold is zero, the circuit breaker will be in a permanent <em>open</em> state.
-     * </p>
-     * <p>
-     * The internal counter is a protective counter and only moves toward the threshold: negative
-     * increments are rejected, and an increment that would overflow {@link Long#MAX_VALUE} saturates
-     * the counter at {@link Long#MAX_VALUE} and opens the circuit breaker instead of silently wrapping
-     * negative (which would disable the trip condition).
-     * </p>
-     *
-     * @throws IllegalArgumentException if the increment is negative.
+     * <p>If the threshold is zero, the circuit breaker will be in a permanent <em>open</em> state.</p>
      */
     @Override
     public boolean incrementAndCheckState(final Long increment) {
         if (threshold == 0) {
             open();
         }
-        final long delta = increment.longValue();
-        if (delta < 0) {
-            throw new IllegalArgumentException("Increment must not be negative: " + delta);
-        }
-        final long used = this.used.accumulateAndGet(delta, (current, add) -> {
-            final long next = current + add;
-            // Both operands are non-negative, so overflow shows up as a decrease: saturate.
-            return next < current ? Long.MAX_VALUE : next;
-        });
-        if (used > threshold || used == Long.MAX_VALUE) {
+
+        final long used = this.used.addAndGet(increment);
+        if (used > threshold) {
             open();
         }
+
         return checkState();
     }
 
