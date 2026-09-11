@@ -290,7 +290,7 @@ public class TypeUtils {
     // @formatter:off
     private static final AppendableJoiner<Type> AMP_JOINER = AppendableJoiner.<Type>builder()
             .setDelimiter(" & ")
-            .setElementAppender((a, e) -> a.append(toString(e)))
+            .setElementAppender((a, e) -> a.append(toReferenceString(e)))
             .get();
     // @formatter:on
 
@@ -317,6 +317,18 @@ public class TypeUtils {
     // @formatter:on
 
     /**
+     * Type arguments joiner.
+     */
+    // @formatter:off
+    private static final AppendableJoiner<Type> TYPE_ARG_JOINER = AppendableJoiner.<Type>builder()
+            .setPrefix("<")
+            .setSuffix(">")
+            .setDelimiter(", ")
+            .setElementAppender((a, e) -> a.append(toReferenceString(e)))
+            .get();
+    // @formatter:on
+
+    /**
      * A wildcard instance matching {@code ?}.
      *
      * @since 3.2
@@ -327,16 +339,19 @@ public class TypeUtils {
         return object instanceof Type ? toString((Type) object) : object.toString();
     }
 
-    private static void appendRecursiveTypes(final StringBuilder builder, final int[] recursiveTypeIndexes, final Type[] argumentTypes) {
-        for (final Type type : argumentTypes) {
-            // toString() or you get a SO
-            GT_JOINER.join(builder, Objects.toString(type));
+    /**
+     * Formats a {@link Type} as a type reference string (type variables are formatted by name only without bounds).
+     *
+     * @param type The type to format.
+     * @return String.
+     */
+    private static String toReferenceString(final Type type) {
+        if (type instanceof TypeVariable<?>) {
+            return ((TypeVariable<?>) type).getName();
         }
-        final Type[] argumentsFiltered = ArrayUtils.removeAll(argumentTypes, recursiveTypeIndexes);
-        if (argumentsFiltered.length > 0) {
-            GT_JOINER.join(builder, (Object[]) argumentsFiltered);
-        }
+        return toString(type);
     }
+
 
     /**
      * Formats a {@link Class} as a {@link String}.
@@ -387,16 +402,22 @@ public class TypeUtils {
         }
         if (type instanceof WildcardType) {
             final WildcardType wild = (WildcardType) type;
-            return containsTypeVariables(getImplicitLowerBounds(wild)[0]) || containsTypeVariables(getImplicitUpperBounds(wild)[0]);
+            for (final Type bound : getImplicitLowerBounds(wild)) {
+                if (containsTypeVariables(bound)) {
+                    return true;
+                }
+            }
+            for (final Type bound : getImplicitUpperBounds(wild)) {
+                if (containsTypeVariables(bound)) {
+                    return true;
+                }
+            }
+            return false;
         }
         if (type instanceof GenericArrayType) {
             return containsTypeVariables(((GenericArrayType) type).getGenericComponentType());
         }
         return false;
-    }
-
-    private static boolean containsVariableTypeSameParametrizedTypeBound(final TypeVariable<?> typeVariable, final ParameterizedType parameterizedType) {
-        return ArrayUtils.contains(typeVariable.getBounds(), parameterizedType);
     }
 
     /**
@@ -551,17 +572,6 @@ public class TypeUtils {
         return result;
     }
 
-    private static int[] findRecursiveTypes(final ParameterizedType parameterizedType) {
-        final Type[] filteredArgumentTypes = Arrays.copyOf(parameterizedType.getActualTypeArguments(), parameterizedType.getActualTypeArguments().length);
-        int[] indexesToRemove = {};
-        for (int i = 0; i < filteredArgumentTypes.length; i++) {
-            if (filteredArgumentTypes[i] instanceof TypeVariable<?>
-                    && containsVariableTypeSameParametrizedTypeBound((TypeVariable<?>) filteredArgumentTypes[i], parameterizedType)) {
-                indexesToRemove = ArrayUtils.add(indexesToRemove, i);
-            }
-        }
-        return indexesToRemove;
-    }
 
     /**
      * Creates a generic array type instance.
@@ -581,7 +591,7 @@ public class TypeUtils {
      * @return String.
      */
     private static String genericArrayTypeToString(final GenericArrayType genericArrayType) {
-        return String.format("%s[]", toString(genericArrayType.getGenericComponentType()));
+        return String.format("%s[]", toReferenceString(genericArrayType.getGenericComponentType()));
     }
 
     /**
@@ -1450,11 +1460,9 @@ public class TypeUtils {
             }
             builder.append('.').append(raw.getSimpleName());
         }
-        final int[] recursiveTypeIndexes = findRecursiveTypes(parameterizedType);
-        if (recursiveTypeIndexes.length > 0) {
-            appendRecursiveTypes(builder, recursiveTypeIndexes, parameterizedType.getActualTypeArguments());
-        } else {
-            GT_JOINER.join(builder, (Object[]) parameterizedType.getActualTypeArguments());
+        final Type[] typeArguments = parameterizedType.getActualTypeArguments();
+        if (typeArguments.length > 0) {
+            TYPE_ARG_JOINER.join(builder, typeArguments);
         }
         return builder.toString();
     }
@@ -1605,6 +1613,8 @@ public class TypeUtils {
         return true;
     }
 
+    private static final ThreadLocal<Set<TypeVariable<?>>> VISITING = ThreadLocal.withInitial(HashSet::new);
+
     /**
      * Formats a {@link TypeVariable} as a {@link String}.
      *
@@ -1613,23 +1623,19 @@ public class TypeUtils {
      */
     private static String typeVariableToString(final TypeVariable<?> typeVariable) {
         final StringBuilder builder = new StringBuilder(typeVariable.getName());
-        final Type[] bounds = typeVariable.getBounds();
-        if (bounds.length > 0 && !(bounds.length == 1 && Object.class.equals(bounds[0]))) {
-            // https://issues.apache.org/jira/projects/LANG/issues/LANG-1698
-            // There must be a better way to avoid a stack overflow on Java 17 and up.
-            // Bounds are different in Java 17 and up where instead of Object you can get an interface like Comparable.
-            final Type bound = bounds[0];
-            boolean append = true;
-            if (bound instanceof ParameterizedType) {
-                final Type rawType = ((ParameterizedType) bound).getRawType();
-                if (rawType instanceof Class && ((Class<?>) rawType).isInterface()) {
-                    // Avoid recursion and stack overflow on Java 17 and up.
-                    append = false;
+        final Set<TypeVariable<?>> visiting = VISITING.get();
+        if (visiting.add(typeVariable)) {
+            try {
+                final Type[] bounds = typeVariable.getBounds();
+                if (bounds.length > 0 && !(bounds.length == 1 && Object.class.equals(bounds[0]))) {
+                    builder.append(" extends ");
+                    AMP_JOINER.join(builder, bounds);
                 }
-            }
-            if (append) {
-                builder.append(" extends ");
-                AMP_JOINER.join(builder, bounds);
+            } finally {
+                visiting.remove(typeVariable);
+                if (visiting.isEmpty()) {
+                    VISITING.remove();
+                }
             }
         }
         return builder.toString();

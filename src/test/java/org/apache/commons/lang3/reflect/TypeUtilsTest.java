@@ -171,6 +171,26 @@ abstract class Test1<G> {
     public abstract <K, V> Map<? extends K, ? super V[]> m9();
 }
 
+class MySuperClass<T> {
+    // empty
+}
+
+class MyClass<U extends MySuperClass<? super U>> {
+    // empty
+}
+
+class MultiBoundClass<U extends Number & Comparable<? super U>> {
+    // empty
+}
+
+class TwoParams<T extends TwoParams<T, U>, U> {
+    // empty
+}
+
+class InterfaceBound<T extends List<String>> {
+    // empty
+}
+
 /**
  * Tests {@link TypeUtils}.
  *
@@ -1294,6 +1314,53 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         final Type t = getClass().getTypeParameters()[0];
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
         assertEquals(String.class, TypeUtils.wrap(String.class).getType());
+    }
+
+    @Test
+    void testRecursiveTypeWildcardBoundClass() {
+        assertEquals("org.apache.commons.lang3.reflect.MyClass<U extends org.apache.commons.lang3.reflect.MySuperClass<? super U>>",
+                TypeUtils.toString(MyClass.class));
+        assertEquals("U extends org.apache.commons.lang3.reflect.MySuperClass<? super U>",
+                TypeUtils.toString(MyClass.class.getTypeParameters()[0]));
+    }
+
+    @Test
+    void testMultiBoundRecursiveType() {
+        assertEquals("org.apache.commons.lang3.reflect.MultiBoundClass<U extends java.lang.Number & java.lang.Comparable<? super U>>",
+                TypeUtils.toString(MultiBoundClass.class));
+        assertEquals("U extends java.lang.Number & java.lang.Comparable<? super U>",
+                TypeUtils.toString(MultiBoundClass.class.getTypeParameters()[0]));
+    }
+
+    @Test
+    void testInterfaceBoundPreserved() {
+        assertEquals("T extends java.util.List<java.lang.String>",
+                TypeUtils.toString(InterfaceBound.class.getTypeParameters()[0]));
+    }
+
+    @Test
+    void testMultiParamRecursiveType() {
+        final ParameterizedType parameterizedType = TypeUtils.parameterize(TwoParams.class, TwoParams.class.getTypeParameters());
+        assertEquals("org.apache.commons.lang3.reflect.TwoParams<T, U>",
+                TypeUtils.toString(parameterizedType));
+    }
+
+    @Test
+    void testGClassToString() {
+        assertEquals("org.apache.commons.lang3.reflect.AClass.GClass<T extends org.apache.commons.lang3.reflect.AClass.BClass<? extends T> "
+                + "& org.apache.commons.lang3.reflect.AClass.AInterface<org.apache.commons.lang3.reflect.AClass.AInterface<? super T>>>",
+                TypeUtils.toString(AClass.GClass.class));
+    }
+
+    @Test
+    void testContainsTypeVariablesMultiBoundWildcard() {
+        final TypeVariable<?> t = getClass().getTypeParameters()[0];
+        final WildcardType wtUpper = TypeUtils.wildcardType().withUpperBounds(Integer.class, t).build();
+        assertTrue(TypeUtils.containsTypeVariables(wtUpper));
+        final WildcardType wtLower = TypeUtils.wildcardType().withLowerBounds(Integer.class, t).build();
+        assertTrue(TypeUtils.containsTypeVariables(wtLower));
+        final WildcardType wtNone = TypeUtils.wildcardType().withUpperBounds(Integer.class, String.class).build();
+        assertFalse(TypeUtils.containsTypeVariables(wtNone));
     }
 
 }
