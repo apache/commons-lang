@@ -48,13 +48,13 @@ public class FastTimeZone {
      * <p>
      * Note: the underlying regex is lenient — every capture group (sign, hours, minutes, and the {@code GMT} prefix) is optional. Inputs that lack any digit
      * group, such as the empty string, {@code "+"}, {@code "-"}, or {@code "GMT"} alone, still match and the method returns the GMT TimeZone with a raw offset
-     * of zero (mirroring {@link TimeZone#getTimeZone(String)} JDK-parity for unrecognized ids). Only inputs that fail the regex outright return
-     * {@code null}.
+     * of zero (mirroring {@link TimeZone#getTimeZone(String)} JDK-parity for unrecognized ids). Inputs that fail the regex outright, or that match but specify
+     * an out-of-range offset (24 hours or 60 minutes and above), return {@code null}.
      * </p>
      *
      * @param pattern The GMT offset.
      * @return A TimeZone matching the (possibly partial or empty) GMT offset pattern, defaulting to GMT for an unrecognized but parseable input, or
-     *         {@code null} if the pattern fails the regex.
+     *         {@code null} if the pattern fails the regex or specifies an out-of-range offset.
      */
     public static TimeZone getGmtTimeZone(final String pattern) {
         if ("Z".equals(pattern) || "UTC".equals(pattern)) {
@@ -66,6 +66,11 @@ public class FastTimeZone {
             final int minutes = parseInt(m.group(4));
             if (hours == 0 && minutes == 0) {
                 return GREENWICH;
+            }
+            if (hours >= 24 || minutes >= 60) {
+                // A matching but out-of-range offset is not a valid GMT id; report it the documented
+                // way instead of letting the GmtTimeZone constructor throw IllegalArgumentException.
+                return null;
             }
             return new GmtTimeZone(parseSign(m.group(1)), hours, minutes);
         }

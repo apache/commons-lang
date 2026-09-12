@@ -118,6 +118,26 @@ class FastTimeZoneTest extends AbstractLangTest {
     }
 
     @Test
+    void testOutOfRangeOffsetReturnsNull() {
+        // A pattern that matches the regex but whose hours or minutes are out of range is not a valid GMT id.
+        // Before the fix these threw IllegalArgumentException from the GmtTimeZone constructor.
+        assertNull(FastTimeZone.getGmtTimeZone("GMT+24"));
+        assertNull(FastTimeZone.getGmtTimeZone("+24"));
+        assertNull(FastTimeZone.getGmtTimeZone("-24"));
+        assertNull(FastTimeZone.getGmtTimeZone("+99"));
+        assertNull(FastTimeZone.getGmtTimeZone("+12:60"));
+        assertNull(FastTimeZone.getGmtTimeZone("00:99"));
+    }
+
+    @Test
+    void testOutOfRangeOffsetViaGetTimeZoneFallsBack() {
+        // getTimeZone must not propagate the constructor exception; a null GMT result falls back to the JDK lookup.
+        final TimeZone tz = FastTimeZone.getTimeZone("GMT+24");
+        assertNotNull(tz);
+        assertEquals(0, tz.getRawOffset());
+    }
+
+    @Test
     void testPlusOnlyReturnsNonNull() {
         // Sign-only input still matches the regex; hours and minutes default to 0.
         final TimeZone tz = FastTimeZone.getGmtTimeZone("+");
