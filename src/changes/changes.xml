@@ -283,6 +283,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="Jeff Lenamon, Gary Gregory">Fix Fraction.add and subtract for operands not in lowest terms (#1784).</action>
     <action                   type="fix" dev="ggregory" due-to="Jeff Lenamon, Gary Gregory">Fix MethodUtils.invokeMethod on instances of non-public classes (#1783).</action>
     <action                   type="fix" dev="ggregory" due-to="Jeff Lenamon, Gary Gregory">Fraction.add and subtract return the reduced form when an operand is zero (#1787).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Return null for out-of-range offset in FastTimeZone.getGmtTimeZone (#1788).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
