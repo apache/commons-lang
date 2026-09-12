@@ -124,7 +124,7 @@ class FastTimeZoneTest extends AbstractLangTest {
      * from the GmtTimeZone constructor.
      */
     @ParameterizedTest
-    @ValueSource(strings = { "GMT+24", "+24", "-24", "+99", "+12:60", "00:99", "99:99" , "0099", "9999" })
+    @ValueSource(strings = { "GMT+24", "+24", "-24", "+99", "+12:60", "00:99", "99:99", "0099", "9999" })
     void testOutOfRangeOffsetReturnsNull(final String pattern) {
         assertNull(FastTimeZone.getGmtTimeZone(pattern));
     }
