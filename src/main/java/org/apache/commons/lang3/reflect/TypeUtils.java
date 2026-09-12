@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -235,8 +236,8 @@ public class TypeUtils {
          * @param lowerBounds of this type.
          */
         private WildcardTypeImpl(final Type[] upperBounds, final Type[] lowerBounds) {
-            this.upperBounds = ObjectUtils.getIfNull(upperBounds, ArrayUtils.EMPTY_TYPE_ARRAY);
-            this.lowerBounds = ObjectUtils.getIfNull(lowerBounds, ArrayUtils.EMPTY_TYPE_ARRAY);
+            this.upperBounds = upperBounds != null ? upperBounds.clone() : ArrayUtils.EMPTY_TYPE_ARRAY;
+            this.lowerBounds = lowerBounds != null ? lowerBounds.clone() : ArrayUtils.EMPTY_TYPE_ARRAY;
         }
 
         /**
@@ -1560,6 +1561,30 @@ public class TypeUtils {
         return buf.append(':').append(typeVariableToString(typeVariable)).toString();
     }
 
+    private static final ThreadLocal<Set<Type>> VISITING = ThreadLocal.withInitial(() -> Collections.newSetFromMap(new IdentityHashMap<>()));
+
+    private static String toCyclicString(final Type type) {
+        if (type instanceof Class<?>) {
+            return ((Class<?>) type).getSimpleName() + "(cycle)";
+        }
+        if (type instanceof TypeVariable<?>) {
+            return ((TypeVariable<?>) type).getName() + "(cycle)";
+        }
+        if (type instanceof WildcardType) {
+            return "? (cycle)";
+        }
+        if (type instanceof ParameterizedType) {
+            final ParameterizedType pt = (ParameterizedType) type;
+            final Type raw = pt.getRawType();
+            final String rawName = raw instanceof Class<?> ? ((Class<?>) raw).getSimpleName() : raw.getTypeName();
+            return rawName + "(cycle)";
+        }
+        if (type instanceof GenericArrayType) {
+            return "(cycle)";
+        }
+        return ObjectUtils.identityToString(type) + "(cycle)";
+    }
+
     /**
      * Formats a given type as a Java-esque String.
      *
@@ -1570,22 +1595,33 @@ public class TypeUtils {
      */
     public static String toString(final Type type) {
         Objects.requireNonNull(type, "type");
-        if (type instanceof Class<?>) {
-            return classToString((Class<?>) type);
+        final Set<Type> visiting = VISITING.get();
+        if (!visiting.add(type)) {
+            return toCyclicString(type);
         }
-        if (type instanceof ParameterizedType) {
-            return parameterizedTypeToString((ParameterizedType) type);
+        try {
+            if (type instanceof Class<?>) {
+                return classToString((Class<?>) type);
+            }
+            if (type instanceof ParameterizedType) {
+                return parameterizedTypeToString((ParameterizedType) type);
+            }
+            if (type instanceof WildcardType) {
+                return wildcardTypeToString((WildcardType) type);
+            }
+            if (type instanceof TypeVariable<?>) {
+                return typeVariableToString((TypeVariable<?>) type);
+            }
+            if (type instanceof GenericArrayType) {
+                return genericArrayTypeToString((GenericArrayType) type);
+            }
+            throw new IllegalArgumentException(ObjectUtils.identityToString(type));
+        } finally {
+            visiting.remove(type);
+            if (visiting.isEmpty()) {
+                VISITING.remove();
+            }
         }
-        if (type instanceof WildcardType) {
-            return wildcardTypeToString((WildcardType) type);
-        }
-        if (type instanceof TypeVariable<?>) {
-            return typeVariableToString((TypeVariable<?>) type);
-        }
-        if (type instanceof GenericArrayType) {
-            return genericArrayTypeToString((GenericArrayType) type);
-        }
-        throw new IllegalArgumentException(ObjectUtils.identityToString(type));
     }
 
     /**
@@ -1613,8 +1649,6 @@ public class TypeUtils {
         return true;
     }
 
-    private static final ThreadLocal<Set<TypeVariable<?>>> VISITING = ThreadLocal.withInitial(HashSet::new);
-
     /**
      * Formats a {@link TypeVariable} as a {@link String}.
      *
@@ -1623,20 +1657,10 @@ public class TypeUtils {
      */
     private static String typeVariableToString(final TypeVariable<?> typeVariable) {
         final StringBuilder builder = new StringBuilder(typeVariable.getName());
-        final Set<TypeVariable<?>> visiting = VISITING.get();
-        if (visiting.add(typeVariable)) {
-            try {
-                final Type[] bounds = typeVariable.getBounds();
-                if (bounds.length > 0 && !(bounds.length == 1 && Object.class.equals(bounds[0]))) {
-                    builder.append(" extends ");
-                    AMP_JOINER.join(builder, bounds);
-                }
-            } finally {
-                visiting.remove(typeVariable);
-                if (visiting.isEmpty()) {
-                    VISITING.remove();
-                }
-            }
+        final Type[] bounds = typeVariable.getBounds();
+        if (bounds.length > 0 && !(bounds.length == 1 && Object.class.equals(bounds[0]))) {
+            builder.append(" extends ");
+            AMP_JOINER.join(builder, bounds);
         }
         return builder.toString();
     }

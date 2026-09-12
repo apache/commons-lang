@@ -51,6 +51,7 @@ import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
@@ -1361,6 +1362,63 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.containsTypeVariables(wtLower));
         final WildcardType wtNone = TypeUtils.wildcardType().withUpperBounds(Integer.class, String.class).build();
         assertFalse(TypeUtils.containsTypeVariables(wtNone));
+    }
+
+    @Test
+    void testWildcardTypeBuilderDefensiveCopy() {
+        final Type[] bounds = { String.class };
+        final WildcardType wildcard = TypeUtils.wildcardType().withUpperBounds(bounds).build();
+        bounds[0] = Integer.class;
+        assertArrayEquals(new Type[] { String.class }, wildcard.getUpperBounds());
+    }
+
+    @Test
+    void testCyclicWildcardTypeToString() {
+        final WildcardType[] holder = new WildcardType[1];
+        final WildcardType cyclicWildcard = new WildcardType() {
+            @Override
+            public Type[] getUpperBounds() {
+                return new Type[] { holder[0] };
+            }
+
+            @Override
+            public Type[] getLowerBounds() {
+                return ArrayUtils.EMPTY_TYPE_ARRAY;
+            }
+        };
+        holder[0] = cyclicWildcard;
+        assertEquals("? extends ? (cycle)", TypeUtils.toString(cyclicWildcard));
+    }
+
+    @Test
+    void testCyclicParameterizedTypeToString() {
+        final ParameterizedType[] holder = new ParameterizedType[1];
+        final ParameterizedType cyclicType = new ParameterizedType() {
+            @Override
+            public Type[] getActualTypeArguments() {
+                return new Type[] { holder[0] };
+            }
+
+            @Override
+            public Type getRawType() {
+                return List.class;
+            }
+
+            @Override
+            public Type getOwnerType() {
+                return null;
+            }
+        };
+        holder[0] = cyclicType;
+        assertEquals("java.util.List<List(cycle)>", TypeUtils.toString(cyclicType));
+    }
+
+    @Test
+    void testCyclicGenericArrayTypeToString() {
+        final GenericArrayType[] holder = new GenericArrayType[1];
+        final GenericArrayType cyclicType = () -> holder[0];
+        holder[0] = cyclicType;
+        assertEquals("(cycle)[]", TypeUtils.toString(cyclicType));
     }
 
 }
