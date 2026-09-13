@@ -336,21 +336,10 @@ public class TypeUtils {
      */
     public static final WildcardType WILDCARD_ALL = wildcardType().withUpperBounds(Object.class).build();
 
+    private static final ThreadLocal<Set<Type>> VISITING = ThreadLocal.withInitial(() -> Collections.newSetFromMap(new IdentityHashMap<>()));
+
     private static <T> String anyToString(final T object) {
         return object instanceof Type ? toString((Type) object) : object.toString();
-    }
-
-    /**
-     * Formats a {@link Type} as a type reference string (type variables are formatted by name only without bounds).
-     *
-     * @param type The type to format.
-     * @return String.
-     */
-    private static String toReferenceString(final Type type) {
-        if (type instanceof TypeVariable<?>) {
-            return ((TypeVariable<?>) type).getName();
-        }
-        return toString(type);
     }
 
 
@@ -1531,6 +1520,28 @@ public class TypeUtils {
         return type;
     }
 
+    private static String toCyclicString(final Type type) {
+        if (type instanceof Class<?>) {
+            return ((Class<?>) type).getSimpleName() + "(cycle)";
+        }
+        if (type instanceof TypeVariable<?>) {
+            return ((TypeVariable<?>) type).getName() + "(cycle)";
+        }
+        if (type instanceof WildcardType) {
+            return "? (cycle)";
+        }
+        if (type instanceof ParameterizedType) {
+            final ParameterizedType pt = (ParameterizedType) type;
+            final Type raw = pt.getRawType();
+            final String rawName = raw instanceof Class<?> ? ((Class<?>) raw).getSimpleName() : raw.getTypeName();
+            return rawName + "(cycle)";
+        }
+        if (type instanceof GenericArrayType) {
+            return "(cycle)";
+        }
+        return ObjectUtils.identityToString(type) + "(cycle)";
+    }
+
     /**
      * Formats a {@link TypeVariable} including its {@link GenericDeclaration}.
      *
@@ -1561,28 +1572,17 @@ public class TypeUtils {
         return buf.append(':').append(toString(typeVariable)).toString();
     }
 
-    private static final ThreadLocal<Set<Type>> VISITING = ThreadLocal.withInitial(() -> Collections.newSetFromMap(new IdentityHashMap<>()));
-
-    private static String toCyclicString(final Type type) {
-        if (type instanceof Class<?>) {
-            return ((Class<?>) type).getSimpleName() + "(cycle)";
-        }
+    /**
+     * Formats a {@link Type} as a type reference string (type variables are formatted by name only without bounds).
+     *
+     * @param type The type to format.
+     * @return String.
+     */
+    private static String toReferenceString(final Type type) {
         if (type instanceof TypeVariable<?>) {
-            return ((TypeVariable<?>) type).getName() + "(cycle)";
+            return ((TypeVariable<?>) type).getName();
         }
-        if (type instanceof WildcardType) {
-            return "? (cycle)";
-        }
-        if (type instanceof ParameterizedType) {
-            final ParameterizedType pt = (ParameterizedType) type;
-            final Type raw = pt.getRawType();
-            final String rawName = raw instanceof Class<?> ? ((Class<?>) raw).getSimpleName() : raw.getTypeName();
-            return rawName + "(cycle)";
-        }
-        if (type instanceof GenericArrayType) {
-            return "(cycle)";
-        }
-        return ObjectUtils.identityToString(type) + "(cycle)";
+        return toString(type);
     }
 
     /**
