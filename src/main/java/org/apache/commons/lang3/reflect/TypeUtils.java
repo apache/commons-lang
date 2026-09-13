@@ -1457,7 +1457,7 @@ public class TypeUtils {
             if (useOwner instanceof Class<?>) {
                 builder.append(((Class<?>) useOwner).getName());
             } else {
-                builder.append(useOwner);
+                builder.append(toString(useOwner));
             }
             builder.append('.').append(raw.getSimpleName());
         }
@@ -1558,7 +1558,7 @@ public class TypeUtils {
         } else {
             buf.append(d);
         }
-        return buf.append(':').append(typeVariableToString(typeVariable)).toString();
+        return buf.append(':').append(toString(typeVariable)).toString();
     }
 
     private static final ThreadLocal<Set<Type>> VISITING = ThreadLocal.withInitial(() -> Collections.newSetFromMap(new IdentityHashMap<>()));
