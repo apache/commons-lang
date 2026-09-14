@@ -332,6 +332,11 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             numerator /= 2;
             denominator /= 2;
         }
+        // allow -2^31/2^k as a valid fraction (where k>0)
+        if (numerator == Integer.MIN_VALUE && (denominator & 1) == 0) {
+            numerator /= 2;
+            denominator /= 2;
+        }
         if (denominator < 0) {
             if (numerator == Integer.MIN_VALUE || denominator == Integer.MIN_VALUE) {
                 throw new ArithmeticException("overflow: can't negate");

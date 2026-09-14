@@ -1274,4 +1274,10 @@ class FractionTest extends AbstractLangTest {
         f = Fraction.getFraction(-1, 1, Integer.MAX_VALUE);
         assertEquals("-2147483648/2147483647", f.toString());
     }
+    @Test
+    public void testMyReducedFractionFix() {
+        Fraction f = Fraction.getReducedFraction(Integer.MIN_VALUE, -2);
+        assertEquals(1073741824, f.getNumerator());
+        assertEquals(1, f.getDenominator());
+    }
 }
