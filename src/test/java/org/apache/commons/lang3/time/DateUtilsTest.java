@@ -480,7 +480,7 @@ class DateUtilsTest extends AbstractLangTest {
     /**
      * Tests various values with the ceiling method
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testCeiling() throws Exception {
@@ -657,7 +657,7 @@ class DateUtilsTest extends AbstractLangTest {
     /**
      * Tests various values with the ceiling method
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testCeiling_Bugzilla_31395() throws Exception {
@@ -676,7 +676,7 @@ class DateUtilsTest extends AbstractLangTest {
     /**
      * Tests various values with the ceiling method
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testCeiling_MET() throws Exception {
@@ -1000,7 +1000,7 @@ class DateUtilsTest extends AbstractLangTest {
     /**
      * Tests the calendar iterator for month-based ranges
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testMonthIterator() throws Exception {
@@ -1086,7 +1086,7 @@ class DateUtilsTest extends AbstractLangTest {
     /**
      * Tests various values with the round method
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testRound() throws Exception {
@@ -1149,7 +1149,7 @@ class DateUtilsTest extends AbstractLangTest {
     /**
      * Tests various values with the round method
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testRound_MET() throws Exception {
@@ -1192,7 +1192,7 @@ class DateUtilsTest extends AbstractLangTest {
      * Tests the Changes Made by LANG-346 to the DateUtils.modify() private method invoked
      * by DateUtils.round().
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testRoundLang346() throws Exception {
@@ -1466,7 +1466,7 @@ class DateUtilsTest extends AbstractLangTest {
     /**
      * Tests various values with the trunc method.
      *
-     * @throws Exception so we don't have to catch it.
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testTruncate() throws Exception {
@@ -1612,7 +1612,7 @@ class DateUtilsTest extends AbstractLangTest {
     /**
      * Tests various values with the trunc method
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testTruncate_Bugzilla_25560() throws Exception {
@@ -1633,7 +1633,7 @@ class DateUtilsTest extends AbstractLangTest {
     /**
      * Tests various values with the trunc method
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testTruncate_Bugzilla_31395() throws Exception {
