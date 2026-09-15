@@ -45,7 +45,7 @@ import org.apache.commons.lang3.ClassUtils;
 public class ConstructorUtils {
 
     /**
-     * Finds a constructor given a class and signature, checking accessibility.
+     * Gets a constructor given a class and signature, checking accessibility.
      *
      * <p>
      * This finds the constructor and ensures that it is accessible. The constructor signature must match the parameter types exactly.
@@ -55,7 +55,7 @@ public class ConstructorUtils {
      * @param cls            The class to find a constructor for, not {@code null}.
      * @param parameterTypes The array of parameter types, {@code null} treated as empty.
      * @return The constructor, {@code null} if no matching accessible constructor found.
-     * @throws NullPointerException if {@code cls} is {@code null}
+     * @throws NullPointerException Thrown if {@code cls} is {@code null}.
      * @throws SecurityException    Thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class loader
      *                              for the class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the
      *                              class.
@@ -72,7 +72,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * Checks if the specified constructor is accessible.
+     * Gets the specified constructor if it is accessible; otherwise, returns null.
      *
      * <p>
      * This simply ensures that the constructor is accessible.
@@ -82,7 +82,7 @@ public class ConstructorUtils {
      * @param ctor The prototype constructor object, not {@code null}.
      * @return The constructor, {@code null} if no matching accessible constructor found.
      * @see SecurityManager
-     * @throws NullPointerException if {@code ctor} is {@code null}
+     * @throws NullPointerException Thrown if {@code ctor} is {@code null}.
      * @throws SecurityException    Thrown if a security manager is present and a caller's class loader is not the same as or an ancestor of the class loader
      *                              for a class and invocation of {@link SecurityManager#checkPackageAccess(String)} denies access to the package of the class.
      */
@@ -92,7 +92,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * Finds an accessible constructor with compatible parameters.
+     * Gets an accessible constructor with compatible parameters.
      *
      * <p>
      * This checks all the constructor and finds one with compatible parameters This requires that every parameter is assignable from the given parameter types.
