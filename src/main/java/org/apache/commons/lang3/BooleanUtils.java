@@ -94,8 +94,8 @@ public class BooleanUtils {
      * @param array  An array of {@code boolean}s
      * @return The result of the logical 'and' operation. That is {@code false}
      * if any of the parameters is {@code false} and {@code true} otherwise.
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.0.1
      */
     public static boolean and(final boolean... array) {
@@ -126,8 +126,8 @@ public class BooleanUtils {
      * @param array  An array of {@link Boolean}s
      * @return The result of the logical 'and' operation. That is {@code false}
      * if any of the parameters is {@code false} and {@code true} otherwise.
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.0.1
      */
     public static Boolean and(final Boolean... array) {
@@ -173,8 +173,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Checks if a {@link Boolean} value is {@code false},
-     * handling {@code null} by returning {@code false}.
+     * Tests whether a {@link Boolean} value is {@code false}, handling {@code null} by returning {@code false}.
      *
      * <pre>
      *   BooleanUtils.isFalse(Boolean.TRUE)  = false
@@ -191,8 +190,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Checks if a {@link Boolean} value is <em>not</em> {@code false},
-     * handling {@code null} by returning {@code true}.
+     * Tests whether a {@link Boolean} value is <em>not</em> {@code false}, handling {@code null} by returning {@code true}.
      *
      * <pre>
      *   BooleanUtils.isNotFalse(Boolean.TRUE)  = true
@@ -209,8 +207,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Checks if a {@link Boolean} value is <em>not</em> {@code true},
-     * handling {@code null} by returning {@code true}.
+     * Tests whether a {@link Boolean} value is <em>not</em> {@code true}, handling {@code null} by returning {@code true}.
      *
      * <pre>
      *   BooleanUtils.isNotTrue(Boolean.TRUE)  = false
@@ -227,8 +224,7 @@ public class BooleanUtils {
     }
 
     /**
-     * Checks if a {@link Boolean} value is {@code true},
-     * handling {@code null} by returning {@code false}.
+     * Tests whether a {@link Boolean} value is {@code true}, handling {@code null} by returning {@code false}.
      *
      * <pre>
      *   BooleanUtils.isTrue(Boolean.TRUE)  = true
@@ -279,8 +275,8 @@ public class BooleanUtils {
      *
      * @param array  An array of {@code boolean}s
      * @return The result of the one-hot operations
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      */
     public static boolean oneHot(final boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
@@ -310,8 +306,8 @@ public class BooleanUtils {
      *
      * @param array  An array of {@code boolean}s
      * @return The result of the one-hot operations
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      */
     public static Boolean oneHot(final Boolean... array) {
         return Boolean.valueOf(oneHot(ArrayUtils.toPrimitive(array)));
@@ -331,8 +327,8 @@ public class BooleanUtils {
      *
      * @param array  An array of {@code boolean}s
      * @return {@code true} if any of the arguments is {@code true}, and it returns {@code false} otherwise.
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.0.1
      */
     public static boolean or(final boolean... array) {
@@ -364,8 +360,8 @@ public class BooleanUtils {
      *
      * @param array  An array of {@link Boolean}s
      * @return {@code true} if any of the arguments is {@code true}, and it returns {@code false} otherwise.
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.0.1
      */
     public static Boolean or(final Boolean... array) {
@@ -436,8 +432,7 @@ public class BooleanUtils {
      * @param trueValue  The value to match for {@code true}
      * @param falseValue  The value to match for {@code false}
      * @return {@code true} or {@code false}
-     * @throws IllegalArgumentException if {@code value} does not match neither
-     * {@code trueValue} no {@code falseValue}
+     * @throws IllegalArgumentException Thrown if {@code value} does not match neither {@code trueValue} no {@code falseValue}.
      */
     public static boolean toBoolean(final int value, final int trueValue, final int falseValue) {
         if (value == trueValue) {
@@ -464,7 +459,7 @@ public class BooleanUtils {
      * @param trueValue  The value to match for {@code true}, may be {@code null}
      * @param falseValue  The value to match for {@code false}, may be {@code null}
      * @return {@code true} or {@code false}
-     * @throws IllegalArgumentException if no match
+     * @throws IllegalArgumentException Thrown if no match.
      */
     public static boolean toBoolean(final Integer value, final Integer trueValue, final Integer falseValue) {
         if (value == null) {
@@ -527,7 +522,7 @@ public class BooleanUtils {
      * @param trueString  The String to match for {@code true} (case-sensitive), may be {@code null}
      * @param falseString  The String to match for {@code false} (case-sensitive), may be {@code null}
      * @return The boolean value of the string
-     * @throws IllegalArgumentException if the String doesn't match
+     * @throws IllegalArgumentException Thrown if the String doesn't match.
      */
     public static boolean toBoolean(final String str, final String trueString, final String falseString) {
         if (str == trueString) {
@@ -611,7 +606,7 @@ public class BooleanUtils {
      * @param falseValue  The value to match for {@code false}
      * @param nullValue  The value to match for {@code null}
      * @return Boolean.TRUE, Boolean.FALSE, or {@code null}
-     * @throws IllegalArgumentException if no match
+     * @throws IllegalArgumentException Thrown if no match.
      */
     public static Boolean toBooleanObject(final int value, final int trueValue, final int falseValue, final int nullValue) {
         if (value == trueValue) {
@@ -675,7 +670,7 @@ public class BooleanUtils {
      * @param falseValue  The value to match for {@code false}, may be {@code null}
      * @param nullValue  The value to match for {@code null}, may be {@code null}
      * @return Boolean.TRUE, Boolean.FALSE, or {@code null}
-     * @throws IllegalArgumentException if no match
+     * @throws IllegalArgumentException Thrown if no match.
      */
     public static Boolean toBooleanObject(final Integer value, final Integer trueValue, final Integer falseValue, final Integer nullValue) {
         if (value == null) {
@@ -851,7 +846,7 @@ public class BooleanUtils {
      * @param nullString  The String to match for {@code null} (case-sensitive), may be {@code null}
      * @return The Boolean value of the string, {@code null} if either the String matches {@code nullString}
      *  or if {@code null} input and {@code nullString} is {@code null}
-     * @throws IllegalArgumentException if the String doesn't match
+     * @throws IllegalArgumentException Thrown if the String doesn't match.
      */
     public static Boolean toBooleanObject(final String str, final String trueString, final String falseString, final String nullString) {
         if (str == null) {
@@ -1173,8 +1168,8 @@ public class BooleanUtils {
      *
      * @param array  An array of {@code boolean}s
      * @return true if the number of true values in the array is odd; otherwise returns false.
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      */
     public static boolean xor(final boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
@@ -1203,8 +1198,8 @@ public class BooleanUtils {
      *
      * @param array  An array of {@link Boolean}s
      * @return The result of the xor operations
-     * @throws NullPointerException if {@code array} is {@code null}
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      */
     public static Boolean xor(final Boolean... array) {
         ObjectUtils.requireNonEmpty(array, "array");
