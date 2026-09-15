@@ -209,7 +209,7 @@ public class StrSubstitutor {
      * @param prefix  The prefix of variables, not null.
      * @param suffix  The suffix of variables, not null.
      * @return The result of the replace operation.
-     * @throws IllegalArgumentException if the prefix or suffix is null.
+     * @throws IllegalArgumentException Thrown if the prefix or suffix is null.
      */
     public static <V> String replace(final Object source, final Map<String, V> valueMap, final String prefix, final String suffix) {
         return new StrSubstitutor(valueMap, prefix, suffix).replace(source);
@@ -320,7 +320,7 @@ public class StrSubstitutor {
      * @param valueMap  The map with the variables' values, may be null.
      * @param prefix  The prefix for variables, not null.
      * @param suffix  The suffix for variables, not null.
-     * @throws IllegalArgumentException if the prefix or suffix is null.
+     * @throws IllegalArgumentException Thrown if the prefix or suffix is null.
      */
     public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix) {
         this(StrLookup.mapLookup(valueMap), prefix, suffix, DEFAULT_ESCAPE);
@@ -334,7 +334,7 @@ public class StrSubstitutor {
      * @param prefix  The prefix for variables, not null.
      * @param suffix  The suffix for variables, not null.
      * @param escape  The escape character.
-     * @throws IllegalArgumentException if the prefix or suffix is null.
+     * @throws IllegalArgumentException Thrown if the prefix or suffix is null.
      */
     public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix, final char escape) {
         this(StrLookup.mapLookup(valueMap), prefix, suffix, escape);
@@ -349,7 +349,7 @@ public class StrSubstitutor {
      * @param suffix  The suffix for variables, not null.
      * @param escape  The escape character.
      * @param valueDelimiter  The variable default value delimiter, may be null.
-     * @throws IllegalArgumentException if the prefix or suffix is null.
+     * @throws IllegalArgumentException Thrown if the prefix or suffix is null.
      * @since 3.2
      */
     public <V> StrSubstitutor(final Map<String, V> valueMap, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
@@ -372,7 +372,7 @@ public class StrSubstitutor {
      * @param prefix  The prefix for variables, not null.
      * @param suffix  The suffix for variables, not null.
      * @param escape  The escape character.
-     * @throws IllegalArgumentException if the prefix or suffix is null.
+     * @throws IllegalArgumentException Thrown if the prefix or suffix is null.
      */
     public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix, final char escape) {
         setVariableResolver(variableResolver);
@@ -390,7 +390,7 @@ public class StrSubstitutor {
      * @param suffix  The suffix for variables, not null.
      * @param escape  The escape character.
      * @param valueDelimiter  The variable default value delimiter string, may be null.
-     * @throws IllegalArgumentException if the prefix or suffix is null.
+     * @throws IllegalArgumentException Thrown if the prefix or suffix is null.
      * @since 3.2
      */
     public StrSubstitutor(final StrLookup<?> variableResolver, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
@@ -408,7 +408,7 @@ public class StrSubstitutor {
      * @param prefixMatcher  The prefix for variables, not null.
      * @param suffixMatcher  The suffix for variables, not null.
      * @param escape  The escape character.
-     * @throws IllegalArgumentException if the prefix or suffix is null.
+     * @throws IllegalArgumentException Thrown if the prefix or suffix is null.
      */
     public StrSubstitutor(final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher, final char escape) {
         this(variableResolver, prefixMatcher, suffixMatcher, escape, DEFAULT_VALUE_DELIMITER);
@@ -422,7 +422,7 @@ public class StrSubstitutor {
      * @param suffixMatcher  The suffix for variables, not null.
      * @param escape  The escape character.
      * @param valueDelimiterMatcher  The variable default value delimiter matcher, may be null.
-     * @throws IllegalArgumentException if the prefix or suffix is null.
+     * @throws IllegalArgumentException Thrown if the prefix or suffix is null.
      * @since 3.2
      */
     public StrSubstitutor(final StrLookup<?> variableResolver, final StrMatcher prefixMatcher, final StrMatcher suffixMatcher, final char escape,
@@ -1026,7 +1026,7 @@ public class StrSubstitutor {
      *
      * @param prefix  The prefix for variables, not null.
      * @return {@code this} instance.
-     * @throws NullPointerException if the prefix is null.
+     * @throws NullPointerException Thrown if the prefix is null.
      */
     public StrSubstitutor setVariablePrefix(final String prefix) {
         return setVariablePrefixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(prefix, "prefix")));
@@ -1042,7 +1042,7 @@ public class StrSubstitutor {
      *
      * @param prefixMatcher  The prefix matcher to use, null ignored.
      * @return {@code this} instance.
-     * @throws NullPointerException if the prefix matcher is null.
+     * @throws NullPointerException Thrown if the prefix matcher is null.
      */
     public StrSubstitutor setVariablePrefixMatcher(final StrMatcher prefixMatcher) {
         this.prefixMatcher = Objects.requireNonNull(prefixMatcher, "prefixMatcher");
@@ -1082,7 +1082,7 @@ public class StrSubstitutor {
      *
      * @param suffix  The suffix for variables, not null.
      * @return {@code this} instance.
-     * @throws NullPointerException if the suffix is null.
+     * @throws NullPointerException Thrown if the suffix is null.
      */
     public StrSubstitutor setVariableSuffix(final String suffix) {
         return setVariableSuffixMatcher(StrMatcher.stringMatcher(Objects.requireNonNull(suffix, "suffix")));
@@ -1098,7 +1098,7 @@ public class StrSubstitutor {
      *
      * @param suffixMatcher  The suffix matcher to use, null ignored.
      * @return {@code this} instance.
-     * @throws NullPointerException if the suffix matcher is null.
+     * @throws NullPointerException Thrown if the suffix matcher is null.
      */
     public StrSubstitutor setVariableSuffixMatcher(final StrMatcher suffixMatcher) {
         this.suffixMatcher = Objects.requireNonNull(suffixMatcher, "suffixMatcher");
@@ -1136,7 +1136,7 @@ public class StrSubstitutor {
      * @param priorVariables  The stack keeping track of the replaced variables, may be null.
      * @return The length change that occurs, unless priorVariables is null when the int
      *  represents a boolean flag as to whether any change occurred.
-     * @throws IllegalStateException if the interpolation exceeds {@value #MAX_SUBSTITUTION_DEPTH} nesting levels or
+     * @throws IllegalStateException Thrown if the interpolation exceeds {@value #MAX_SUBSTITUTION_DEPTH} nesting levels or
      *  emits more than {@value #MAX_SUBSTITUTION_LENGTH} characters. These budgets bound recursive expansion that the
      *  cyclic-substitution check cannot detect (acyclic fan-out, deep nesting). This class is deprecated; the
      *  Apache Commons Text successor {@code StringSubstitutor} should receive any richer treatment.
