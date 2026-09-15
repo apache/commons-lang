@@ -429,7 +429,7 @@ public class TypeUtils {
      * @param superParameterizedType The super type from which {@code cls}'s type arguments are to be determined, not {@code null}.
      * @return A {@link Map} of the type assignments that could be determined for the type variables in each type in the inheritance hierarchy from {@code type}
      *         to {@code toClass} inclusive.
-     * @throws NullPointerException if either {@code cls} or {@code superParameterizedType} is {@code null}.
+     * @throws NullPointerException Thrown if either {@code cls} or {@code superParameterizedType} is {@code null}.
      */
     public static Map<TypeVariable<?>, Type> determineTypeArguments(final Class<?> cls, final ParameterizedType superParameterizedType) {
         Objects.requireNonNull(cls, "cls");
@@ -647,7 +647,7 @@ public class TypeUtils {
      *
      * @param typeVariable The subject type variable, not {@code null}.
      * @return A non-empty array containing the bounds of the type variable, which could be {@link Object}.
-     * @throws NullPointerException if {@code typeVariable} is {@code null}.
+     * @throws NullPointerException Thrown if {@code typeVariable} is {@code null}.
      */
     public static Type[] getImplicitBounds(final TypeVariable<?> typeVariable) {
         return normalizeUpperToObject(Objects.requireNonNull(typeVariable, "typeVariable").getBounds());
@@ -659,7 +659,7 @@ public class TypeUtils {
      *
      * @param wildcardType The subject wildcard type, not {@code null}.
      * @return A non-empty array containing the lower bounds of the wildcard type, which could be null.
-     * @throws NullPointerException if {@code wildcardType} is {@code null}.
+     * @throws NullPointerException Thrown if {@code wildcardType} is {@code null}.
      */
     public static Type[] getImplicitLowerBounds(final WildcardType wildcardType) {
         Objects.requireNonNull(wildcardType, "wildcardType");
@@ -673,18 +673,18 @@ public class TypeUtils {
      *
      * @param wildcardType The subject wildcard type, not {@code null}.
      * @return A non-empty array containing the upper bounds of the wildcard type.
-     * @throws NullPointerException if {@code wildcardType} is {@code null}.
+     * @throws NullPointerException Thrown if {@code wildcardType} is {@code null}.
      */
     public static Type[] getImplicitUpperBounds(final WildcardType wildcardType) {
         return normalizeUpperToObject(Objects.requireNonNull(wildcardType, "wildcardType").getUpperBounds());
     }
 
     /**
-     * Transforms the passed in type to a {@link Class} object. Type-checking method of convenience.
+     * Gets the raw {@link Class} corresponding to the given type.
      *
      * @param parameterizedType The type to be converted.
      * @return The corresponding {@link Class} object.
-     * @throws IllegalStateException if the conversion fails.
+     * @throws IllegalStateException Thrown if the conversion fails.
      */
     private static Class<?> getRawType(final ParameterizedType parameterizedType) {
         final Type rawType = parameterizedType.getRawType();
@@ -1367,7 +1367,7 @@ public class TypeUtils {
      *
      * @param bounds An array of types representing the upper bounds of either {@link WildcardType} or {@link TypeVariable}, not {@code null}.
      * @return An array containing the values from {@code bounds} minus the redundant types.
-     * @throws NullPointerException if {@code bounds} is {@code null}.
+     * @throws NullPointerException Thrown if {@code bounds} is {@code null}.
      */
     public static Type[] normalizeUpperBounds(final Type[] bounds) {
         Objects.requireNonNull(bounds, "bounds");
@@ -1408,7 +1408,7 @@ public class TypeUtils {
      * @param rawClass        The raw class to create a parameterized type instance for.
      * @param typeVariableMap The map used for parameterization.
      * @return {@link ParameterizedType}.
-     * @throws NullPointerException if either {@code rawClass} or {@code typeVariableMap} is {@code null}.
+     * @throws NullPointerException Thrown if either {@code rawClass} or {@code typeVariableMap} is {@code null}.
      * @since 3.2
      */
     public static final ParameterizedType parameterize(final Class<?> rawClass, final Map<TypeVariable<?>, Type> typeVariableMap) {
@@ -1423,7 +1423,7 @@ public class TypeUtils {
      * @param rawClass      The raw class to create a parameterized type instance for.
      * @param typeArguments The types used for parameterization.
      * @return {@link ParameterizedType}.
-     * @throws NullPointerException if {@code rawClass} is {@code null}.
+     * @throws NullPointerException Thrown if {@code rawClass} is {@code null}.
      * @since 3.2
      */
     public static final ParameterizedType parameterize(final Class<?> rawClass, final Type... typeArguments) {
@@ -1464,7 +1464,7 @@ public class TypeUtils {
      * @param rawClass        The raw class to create a parameterized type instance for.
      * @param typeVariableMap The map used for parameterization.
      * @return {@link ParameterizedType}.
-     * @throws NullPointerException if either {@code rawClass} or {@code typeVariableMap} is {@code null}.
+     * @throws NullPointerException Thrown if either {@code rawClass} or {@code typeVariableMap} is {@code null}.
      * @since 3.2
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass, final Map<TypeVariable<?>, Type> typeVariableMap) {
@@ -1480,7 +1480,7 @@ public class TypeUtils {
      * @param rawClass      The raw class to create a parameterized type instance for.
      * @param typeArguments The types used for parameterization.
      * @return {@link ParameterizedType}.
-     * @throws NullPointerException if {@code rawClass} is {@code null}.
+     * @throws NullPointerException Thrown if {@code rawClass} is {@code null}.
      * @since 3.2
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass, final Type... typeArguments) {
@@ -1507,7 +1507,7 @@ public class TypeUtils {
      * @param type           The type to be replaced.
      * @param typeVarAssigns The map with type variables.
      * @return The replaced type.
-     * @throws IllegalArgumentException if the type cannot be substituted.
+     * @throws IllegalArgumentException Thrown if the type cannot be substituted.
      */
     private static Type substituteTypeVariables(final Type type, final Map<TypeVariable<?>, Type> typeVarAssigns) {
         if (type instanceof TypeVariable<?> && typeVarAssigns != null) {
@@ -1547,7 +1547,7 @@ public class TypeUtils {
      *
      * @param typeVariable The type variable to create a String representation for, not {@code null}.
      * @return String.
-     * @throws NullPointerException if {@code typeVariable} is {@code null}.
+     * @throws NullPointerException Thrown if {@code typeVariable} is {@code null}.
      * @since 3.2
      */
     public static String toLongString(final TypeVariable<?> typeVariable) {
@@ -1590,7 +1590,7 @@ public class TypeUtils {
      *
      * @param type The type to create a String representation for, not {@code null}.
      * @return String.
-     * @throws NullPointerException if {@code type} is {@code null}.
+     * @throws NullPointerException Thrown if {@code type} is {@code null}.
      * @since 3.2
      */
     public static String toString(final Type type) {
@@ -1631,7 +1631,7 @@ public class TypeUtils {
      *
      * @param typeVariableMap specifies the potential types to be assigned to the type variables, not {@code null}.
      * @return whether or not the types can be assigned to their respective type variables.
-     * @throws NullPointerException if {@code typeVariableMap} is {@code null}.
+     * @throws NullPointerException Thrown if {@code typeVariableMap} is {@code null}.
      */
     public static boolean typesSatisfyVariables(final Map<TypeVariable<?>, Type> typeVariableMap) {
         Objects.requireNonNull(typeVariableMap, "typeVariableMap");
