@@ -72,7 +72,7 @@ limitations under the License.
         to subscribe.
       </p>
       <p>
-        <strong>Note:</strong> please don't send patches or attachments to any of the mailing lists;
+        <strong>Note:</strong> Please don't send patches or attachments to any of the mailing lists;
         most of the lists are set up to drop attachments.
         Patches are best handled via the <a href="issue-tracking.html">Issue Tracking</a> system.
         If you have a GitHub account, most components also accept PRs (pull requests).
