@@ -261,7 +261,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * that the latest value set is the value returned from {@link #getDefaultStyle}.</p>
      *
      * @param style  The default {@link ToStringStyle}
-     * @throws NullPointerException if the style is {@code null}
+     * @throws NullPointerException Thrown if the style is {@code null}.
      */
     public static void setDefaultStyle(final ToStringStyle style) {
         defaultStyle = Objects.requireNonNull(style, "style");
@@ -979,7 +979,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      *
      * @param srcObject  The {@link Object} whose class name and id to output
      * @return {@code this} instance.
-     * @throws NullPointerException if {@code srcObject} is {@code null}
+     * @throws NullPointerException Thrown if {@code srcObject} is {@code null}.
      * @since 2.0
      */
     public ToStringBuilder appendAsObjectToString(final Object srcObject) {
