@@ -29,10 +29,10 @@ import java.util.function.IntSupplier;
 public interface FailableByteSupplier<E extends Throwable> {
 
     /**
-     * Supplies a byte.
+     * Gets a byte.
      *
      * @return A result
-     * @throws E if the supplier fails
+     * @throws E Thrown if the supplier fails.
      */
     byte getAsByte() throws E;
 }
