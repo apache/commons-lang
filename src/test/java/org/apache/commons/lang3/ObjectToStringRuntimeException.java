@@ -31,7 +31,7 @@ public class ObjectToStringRuntimeException {
     /**
      * Throws {@link IllegalStateException}.
      *
-     * @throws IllegalStateException always thrown.
+     * @throws IllegalStateException Thrown always.
      */
     @Override
     public String toString() {
