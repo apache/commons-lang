@@ -98,7 +98,7 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * Creates a new CharSet using the syntax described below.
+     * Gets a new CharSet using the syntax described below.
      *
      * <ul>
      *  <li>{@code null} or empty string ("")
@@ -184,7 +184,7 @@ public class CharSet implements Serializable {
      * Each string is merged in with the set.
      *
      * @param set  Strings to merge into the initial set.
-     * @throws NullPointerException if set is {@code null}.
+     * @throws NullPointerException Thrown if set is {@code null}.
      */
     protected CharSet(final String... set) {
         Stream.of(set).forEach(this::add);
