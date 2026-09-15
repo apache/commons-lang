@@ -234,10 +234,8 @@ public class AnnotationUtils {
      * @param a The Annotation for a hash code calculation is desired, not
      * {@code null}
      * @return The calculated hash code
-     * @throws RuntimeException if an {@link Exception} is encountered during
-     * annotation member access
-     * @throws IllegalStateException if an annotation method invocation returns
-     * {@code null}
+     * @throws RuntimeException Thrown if an {@link Exception} is encountered during annotation member access.
+     * @throws IllegalStateException Thrown if an annotation method invocation returns {@code null}.
      */
     public static int hashCode(final Annotation a) {
         int result = 0;
@@ -277,7 +275,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * Checks if the specified type is permitted as an annotation member.
+     * Tests whether the specified type is permitted as an annotation member.
      *
      * <p>The Java language specification only permits certain types to be used
      * in annotations. These include {@link String}, {@link Class}, primitive
