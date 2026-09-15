@@ -62,7 +62,7 @@ public interface FailableBiConsumer<T, U, E extends Throwable> {
      *
      * @param after The operation to perform after this one.
      * @return A composed {@link FailableBiConsumer} like {@link BiConsumer#andThen(BiConsumer)}.
-     * @throws NullPointerException when {@code after} is null.
+     * @throws NullPointerException Thrown when {@code after} is null.
      */
     default FailableBiConsumer<T, U, E> andThen(final FailableBiConsumer<? super T, ? super U, E> after) {
         Objects.requireNonNull(after, "after");
