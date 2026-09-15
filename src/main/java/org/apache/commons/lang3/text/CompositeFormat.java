@@ -74,16 +74,16 @@ public class CompositeFormat extends Format {
     }
 
     /**
-     * Provides access to the parser Format implementation.
+     * Gets the formatter Format implementation.
      *
-     * @return formatter Format implementation
+     * @return The formatter Format implementation.
      */
     public Format getFormatter() {
         return this.formatter;
     }
 
     /**
-     * Provides access to the parser Format implementation.
+     * Gets the parser Format implementation.
      *
      * @return parser Format implementation
      */
@@ -111,7 +111,7 @@ public class CompositeFormat extends Format {
      *
      * @param input String to reformat
      * @return A reformatted String
-     * @throws ParseException thrown by parseObject(String) call
+     * @throws ParseException Thrown by parseObject(String) call.
      */
     public String reformat(final String input) throws ParseException {
         return format(parseObject(input));
