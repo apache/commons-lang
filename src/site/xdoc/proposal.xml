@@ -30,9 +30,9 @@ limitations under the License.
 <subsection name="(0) Rationale">
 
 <p>The standard Java libraries fail to provide enough methods for 
-manipulation of its main components. The <em>Lang</em> Package provides 
+manipulation of their main components. The <em>Lang</em> Package provides
 these extra methods. There are other classes which might justifiably 
-be included in java.lang someday, this package also provides for them.</p>
+be included in java.lang someday; this package also provides for them.</p>
 
 
 </subsection>
