@@ -88,7 +88,7 @@ public abstract class StrMatcher {
         }
 
         /**
-         * Returns whether or not the given character matches.
+         * Tests whether or not the given character matches.
          *
          * @param buffer  The text content to match against, do not change.
          * @param pos  The starting position for the match, valid for buffer.
@@ -114,7 +114,7 @@ public abstract class StrMatcher {
         }
 
         /**
-         * Always returns {@code false}.
+         * Tests whether the characters match. Always returns zero because this matcher never matches.
          *
          * @param buffer  The text content to match against, do not change.
          * @param pos  The starting position for the match, valid for buffer.
