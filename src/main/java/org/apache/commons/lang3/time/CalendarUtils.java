@@ -44,7 +44,7 @@ public class CalendarUtils {
     public static final CalendarUtils INSTANCE = getInstance();
 
     /**
-     * Creates a new instance based on the current time in the default time zone with the default {@link Category#FORMAT} locale.
+     * Gets a new instance based on the current time in the default time zone with the default {@link Category#FORMAT} locale.
      *
      * @return A new instance.
      * @since 3.14.0
@@ -76,7 +76,7 @@ public class CalendarUtils {
     }
 
     /**
-     * Converts a Calendar to a OffsetDateTime.
+     * Converts a Calendar to an OffsetDateTime.
      *
      * @param calendar The Calendar to convert.
      * @return A OffsetDateTime.
