@@ -101,7 +101,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @param left  The left element, may not be null.
      * @param right  The right element, may not  be null.
      * @return An immutable pair formed from the two parameters, not null.
-     * @throws NullPointerException if any input is null.
+     * @throws NullPointerException Thrown if any input is null.
      * @since 3.13.0
      */
     public static <L, R> Pair<L, R> ofNonNull(final L left, final R right) {
