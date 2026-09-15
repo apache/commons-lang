@@ -198,7 +198,7 @@ public class LocaleUtils {
     }
 
     /**
-     * Checks if the locale specified is in the set of available locales.
+     * Tests whether the locale specified is in the set of available locales.
      *
      * @param locale The Locale object to check if it is available.
      * @return true if the locale is a known locale.
@@ -211,7 +211,7 @@ public class LocaleUtils {
      * Tests whether the given String is a <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> alpha-2 country code.
      *
      * @param str The String to check.
-     * @return true, is the given String is a <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> compliant country code.
+     * @return true if the given String is a <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> compliant country code.
      */
     private static boolean isISO3166CountryCode(final String str) {
         return StringUtils.isAllUpperCase(str) && isAlpha2Len(str);
@@ -244,10 +244,10 @@ public class LocaleUtils {
     }
 
     /**
-     * TestsNo whether the given String is a UN M.49 numeric area code.
+     * Tests whether the given String is a UN M.49 numeric area code.
      *
      * @param str The String to check.
-     * @return true, is the given String is a UN M.49 numeric area code.
+     * @return true if the given String is a UN M.49 numeric area code.
      */
     private static boolean isNumericAreaCode(final String str) {
         return StringUtils.isNumeric(str) && isAlpha3Len(str);
@@ -328,8 +328,8 @@ public class LocaleUtils {
      *
      * @param country An ISO 3166 alpha-2 country code or a UN M.49 numeric-3 area code. See the {@linkplain Locale} class description about valid country
      *                values.
-     * @throws NullPointerException thrown if either argument is null.
-     * @return A new new Locale for the given country.
+     * @throws NullPointerException Thrown if either argument is null.
+     * @return A new Locale for the given country.
      * @see Locale#Locale(String, String)
      */
     static Locale ofCountry(final String country) {
@@ -344,7 +344,7 @@ public class LocaleUtils {
      *
      * @param str The String to parse as a Locale.
      * @return A Locale parsed from the given String.
-     * @throws IllegalArgumentException if the given String cannot be parsed.
+     * @throws IllegalArgumentException Thrown if the given String cannot be parsed.
      * @see Locale
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Locale.html#special_cases_constructor">Locale special cases</a>
      */
@@ -422,7 +422,7 @@ public class LocaleUtils {
      *
      * @param str The locale String to convert, null returns null.
      * @return A Locale, null if null input.
-     * @throws IllegalArgumentException if the string is an invalid format.
+     * @throws IllegalArgumentException Thrown if the string is an invalid format.
      * @see Locale#forLanguageTag(String)
      * @see Locale#getISOCountries()
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Locale.html#special_cases_constructor">Locale special cases</a>
