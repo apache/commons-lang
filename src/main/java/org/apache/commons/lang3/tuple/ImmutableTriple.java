@@ -107,7 +107,7 @@ public class ImmutableTriple<L, M, R> extends Triple<L, M, R> {
      * @param middle  The middle element, may not be null.
      * @param right  The right element, may not be null.
      * @return An immutable triple formed from the three parameters, not null.
-     * @throws NullPointerException if any input is null.
+     * @throws NullPointerException Thrown if any input is null.
      * @since 3.13.0
      */
     public static <L, M, R> ImmutableTriple<L, M, R> ofNonNull(final L left, final M middle, final R right) {
