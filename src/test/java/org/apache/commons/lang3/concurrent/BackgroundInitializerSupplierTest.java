@@ -81,7 +81,7 @@ class BackgroundInitializerSupplierTest extends BackgroundInitializerTest {
     /**
      * Tests that close() method closes the wrapped object
      *
-     * @throws Exception
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testClose() throws Exception {
@@ -99,7 +99,7 @@ class BackgroundInitializerSupplierTest extends BackgroundInitializerTest {
     /**
      * Tests that close() wraps a checked exception in a ConcurrentException
      *
-     * @throws Exception
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testCloseWithCheckedException() throws Exception {
@@ -124,7 +124,7 @@ class BackgroundInitializerSupplierTest extends BackgroundInitializerTest {
     /**
      * Tests that close() throws a runtime exception
      *
-     * @throws Exception
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testCloseWithRuntimeException() throws Exception {
