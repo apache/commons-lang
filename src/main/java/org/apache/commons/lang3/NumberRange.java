@@ -38,9 +38,9 @@ public class NumberRange<N extends Number> extends Range<N> {
      * @param number1 The first element, not null.
      * @param number2 The second element, not null.
      * @param comp The comparator to be used, null for natural ordering.
-     * @throws NullPointerException when element1 is null.
-     * @throws NullPointerException when element2 is null.
-     * @throws IllegalArgumentException when element1 or element2 is a floating-point NaN.
+     * @throws NullPointerException Thrown when element1 is null.
+     * @throws NullPointerException Thrown when element2 is null.
+     * @throws IllegalArgumentException Thrown when element1 or element2 is a floating-point NaN.
      */
     public NumberRange(final N number1, final N number2, final Comparator<N> comp) {
         super(number1, number2, comp);
