@@ -138,7 +138,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          *
          * @param name The name to check.
          * @return The initializer with this name.
-         * @throws NoSuchElementException if the name is unknown.
+         * @throws NoSuchElementException Thrown if the name is unknown.
          */
         private BackgroundInitializer<?> checkName(final String name) {
             final BackgroundInitializer<?> init = initializers.get(name);
@@ -156,7 +156,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          *
          * @param name The name of the {@link BackgroundInitializer}.
          * @return The exception thrown by this initializer.
-         * @throws NoSuchElementException if the name cannot be resolved.
+         * @throws NoSuchElementException Thrown if the name cannot be resolved.
          */
         public ConcurrentException getException(final String name) {
             checkName(name);
@@ -169,7 +169,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          *
          * @param name The name of the {@link BackgroundInitializer}.
          * @return The {@link BackgroundInitializer} with this name.
-         * @throws NoSuchElementException if the name cannot be resolved.
+         * @throws NoSuchElementException Thrown if the name cannot be resolved.
          */
         public BackgroundInitializer<?> getInitializer(final String name) {
             return checkName(name);
@@ -182,7 +182,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          *
          * @param name The name of the {@link BackgroundInitializer}.
          * @return The result object produced by this {@code BackgroundInitializer}.
-         * @throws NoSuchElementException if the name cannot be resolved.
+         * @throws NoSuchElementException Thrown if the name cannot be resolved.
          */
         public Object getResultObject(final String name) {
             checkName(name);
@@ -204,7 +204,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
          *
          * @param name The name of the {@link BackgroundInitializer}.
          * @return A flag whether this initializer caused an exception.
-         * @throws NoSuchElementException if the name cannot be resolved.
+         * @throws NoSuchElementException Thrown if the name cannot be resolved.
          */
         public boolean isException(final String name) {
             checkName(name);
@@ -247,8 +247,8 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
      *
      * @param name                  The name of the initializer (must not be {@code null}).
      * @param backgroundInitializer The {@link BackgroundInitializer} to add (must not be {@code null}).
-     * @throws NullPointerException  if either {@code name} or {@code backgroundInitializer} is {@code null}.
-     * @throws IllegalStateException if {@code start()} has already been called.
+     * @throws NullPointerException  Thrown if either {@code name} or {@code backgroundInitializer} is {@code null}.
+     * @throws IllegalStateException Thrown if {@code start()} has already been called.
      */
     public void addInitializer(final String name, final BackgroundInitializer<?> backgroundInitializer) {
         Objects.requireNonNull(name, "name");
@@ -264,8 +264,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
     /**
      * Calls the closer of all child {@code BackgroundInitializer} objects.
      *
-     * @throws ConcurrentException throws an ConcurrentException that will have all other exceptions as suppressed exceptions. ConcurrentException thrown by
-     *                             children will be unwrapped.
+     * @throws ConcurrentException Thrown with all other exceptions as suppressed exceptions. ConcurrentException instances thrown by children are unwrapped.
      * @since 3.14.0
      */
     @Override
