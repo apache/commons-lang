@@ -95,9 +95,9 @@ public class EventListenerSupport<L> implements Serializable {
          * Handles an exception thrown by a listener. By default rethrows the given Throwable.
          *
          * @param t The Throwable
-         * @throws IllegalAccessException thrown by the listener.
-         * @throws IllegalArgumentException thrown by the listener.
-         * @throws InvocationTargetException thrown by the listener.
+         * @throws IllegalAccessException Thrown by the listener.
+         * @throws IllegalArgumentException Thrown by the listener.
+         * @throws InvocationTargetException Thrown by the listener.
          * @since 3.15.0
          */
         protected void handle(final Throwable t) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -114,9 +114,9 @@ public class EventListenerSupport<L> implements Serializable {
          * @param method The listener method that will be called on all of the listeners.
          * @param args event arguments to propagate to the listeners.
          * @return The result of the method call
-         * @throws InvocationTargetException if an error occurs
-         * @throws IllegalArgumentException if an error occurs
-         * @throws IllegalAccessException if an error occurs
+         * @throws InvocationTargetException Thrown if an error occurs.
+         * @throws IllegalArgumentException Thrown if an error occurs.
+         * @throws IllegalAccessException Thrown if an error occurs.
          */
         @Override
         public Object invoke(final Object unusedProxy, final Method method, final Object[] args)
@@ -146,9 +146,9 @@ public class EventListenerSupport<L> implements Serializable {
      * @return An EventListenerSupport object which supports the specified
      *         listener type.
      *
-     * @throws NullPointerException if {@code listenerInterface} is
+     * @throws NullPointerException Thrown if {@code listenerInterface} is
      *         {@code null}.
-     * @throws IllegalArgumentException if {@code listenerInterface} is
+     * @throws IllegalArgumentException Thrown if {@code listenerInterface} is
      *         not an interface.
      */
     public static <T> EventListenerSupport<T> create(final Class<T> listenerInterface) {
@@ -186,9 +186,9 @@ public class EventListenerSupport<L> implements Serializable {
      * @param listenerInterface The type of listener interface that will receive
      *        events posted using this class.
      *
-     * @throws NullPointerException if {@code listenerInterface} is
+     * @throws NullPointerException Thrown if {@code listenerInterface} is
      *         {@code null}.
-     * @throws IllegalArgumentException if {@code listenerInterface} is
+     * @throws IllegalArgumentException Thrown if {@code listenerInterface} is
      *         not an interface.
      */
     public EventListenerSupport(final Class<L> listenerInterface) {
@@ -202,9 +202,9 @@ public class EventListenerSupport<L> implements Serializable {
      *
      * @param listenerInterface The listener interface.
      * @param classLoader       The class loader.
-     * @throws NullPointerException if {@code listenerInterface} or
+     * @throws NullPointerException Thrown if {@code listenerInterface} or
      *         {@code classLoader} is {@code null}.
-     * @throws IllegalArgumentException if {@code listenerInterface} is
+     * @throws IllegalArgumentException Thrown if {@code listenerInterface} is
      *         not an interface.
      */
     public EventListenerSupport(final Class<L> listenerInterface, final ClassLoader classLoader) {
@@ -222,7 +222,7 @@ public class EventListenerSupport<L> implements Serializable {
      * </p>
      *
      * @param listener The event listener (may not be {@code null}).
-     * @throws NullPointerException if {@code listener} is {@code null}.
+     * @throws NullPointerException Thrown if {@code listener} is {@code null}.
      */
     public void addListener(final L listener) {
         addListener(listener, true);
@@ -237,7 +237,7 @@ public class EventListenerSupport<L> implements Serializable {
      * @param listener       The event listener (may not be {@code null}).
      * @param allowDuplicate The flag for determining if duplicate listener objects are allowed to be registered.
      *
-     * @throws NullPointerException if {@code listener} is {@code null}.
+     * @throws NullPointerException Thrown if {@code listener} is {@code null}.
      * @since 3.5
      */
     public void addListener(final L listener, final boolean allowDuplicate) {
@@ -316,7 +316,7 @@ public class EventListenerSupport<L> implements Serializable {
      *
      * @param objectInputStream The input stream.
      * @throws IOException Thrown if an IO error occurs.
-     * @throws ClassNotFoundException if the class cannot be resolved.
+     * @throws ClassNotFoundException Thrown if the class cannot be resolved.
      */
     private void readObject(final ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         @SuppressWarnings("unchecked") // Will throw CCE here if not correct
@@ -331,7 +331,7 @@ public class EventListenerSupport<L> implements Serializable {
      * Removes an event listener.
      *
      * @param listener The event listener (may not be {@code null}).
-     * @throws NullPointerException if {@code listener} is
+     * @throws NullPointerException Thrown if {@code listener} is
      *         {@code null}.
      */
     public void removeListener(final L listener) {
