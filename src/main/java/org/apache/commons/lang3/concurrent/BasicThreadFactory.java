@@ -182,7 +182,7 @@ public class BasicThreadFactory implements ThreadFactory {
          *
          * @param namingPattern The naming pattern (must not be {@code null}).
          * @return A reference to this {@link Builder}.
-         * @throws NullPointerException if the naming pattern is {@code null}.
+         * @throws NullPointerException Thrown if the naming pattern is {@code null}.
          */
         public Builder namingPattern(final String namingPattern) {
             this.namingPattern = Objects.requireNonNull(namingPattern, "pattern");
@@ -220,7 +220,7 @@ public class BasicThreadFactory implements ThreadFactory {
          *
          * @param exceptionHandler The {@link UncaughtExceptionHandler} (must not be {@code null}).
          * @return A reference to this {@link Builder}.
-         * @throws NullPointerException if the exception handler is {@code null}.
+         * @throws NullPointerException Thrown if the exception handler is {@code null}.
          */
         public Builder uncaughtExceptionHandler(
                 final Thread.UncaughtExceptionHandler exceptionHandler) {
@@ -234,7 +234,7 @@ public class BasicThreadFactory implements ThreadFactory {
          *
          * @param factory The wrapped {@link ThreadFactory} (must not be {@code null})
          * @return A reference to this {@link Builder}
-         * @throws NullPointerException if the passed in {@link ThreadFactory} is {@code null}
+         * @throws NullPointerException Thrown if the passed in {@link ThreadFactory} is {@code null}.
          */
         public Builder wrappedFactory(final ThreadFactory factory) {
             this.factory = Objects.requireNonNull(factory, "factory");
