@@ -58,8 +58,8 @@ public class SerializationUtils {
     /**
      * Custom specialization of the standard JDK {@link ObjectInputStream} that uses a custom {@link ClassLoader} to resolve a class. If the specified
      * {@link ClassLoader} is not able to resolve the class, the context classloader of the current thread will be used. This way, the standard deserialization
-     * work also in web-application containers and application servers, no matter in which of the {@link ClassLoader} the particular class that encapsulates
-     * serialization/deserialization lives.
+     * also works in web application containers and application servers, regardless of which {@link ClassLoader} loaded the class that encapsulates
+     * serialization/deserialization.
      *
      * <p>
      * For more in-depth information about the problem for which this class here is a workaround, see the JIRA issue LANG-626.
@@ -87,8 +87,8 @@ public class SerializationUtils {
          *
          * @param desc An instance of class {@link ObjectStreamClass}.
          * @return A {@link Class} object corresponding to {@code desc}.
-         * @throws IOException            Any of the usual Input/Output exceptions.
-         * @throws ClassNotFoundException If class of a serialized object cannot be found.
+         * @throws IOException Thrown if an I/O error occurs.
+         * @throws ClassNotFoundException Thrown if class of a serialized object cannot be found.
          */
         @Override
         protected Class<?> resolveClass(final ObjectStreamClass desc) throws IOException, ClassNotFoundException {
@@ -120,7 +120,7 @@ public class SerializationUtils {
      * @param <T>    the type of the object involved.
      * @param object The {@link Serializable} object to clone.
      * @return The cloned object.
-     * @throws SerializationException (runtime) if the serialization fails.
+     * @throws SerializationException Thrown if the serialization fails.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      */
     public static <T extends Serializable> T clone(final T object) {
@@ -154,8 +154,8 @@ public class SerializationUtils {
      * @param <T>        the object type to be deserialized.
      * @param objectData The serialized object, must not be null.
      * @return The deserialized object.
-     * @throws NullPointerException   if {@code objectData} is {@code null}.
-     * @throws SerializationException (runtime) if the serialization fails.
+     * @throws NullPointerException   Thrown if {@code objectData} is {@code null}.
+     * @throws SerializationException Thrown if the serialization fails.
      * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      */
@@ -190,8 +190,8 @@ public class SerializationUtils {
      * @param <T>         the object type to be deserialized.
      * @param inputStream The serialized object input stream, must not be null.
      * @return The deserialized object.
-     * @throws NullPointerException   if {@code inputStream} is {@code null}.
-     * @throws SerializationException (runtime) if the serialization fails.
+     * @throws NullPointerException   Thrown if {@code inputStream} is {@code null}.
+     * @throws SerializationException Thrown if the serialization fails.
      * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      */
@@ -215,7 +215,7 @@ public class SerializationUtils {
      * @param message detail message to be used in the event that a {@link InvalidObjectException} is thrown.
      * @param <T>     the type of the reference.
      * @return {@code obj} if not {@code null}.
-     * @throws InvalidObjectException if {@code obj} is {@code null}.
+     * @throws InvalidObjectException Thrown if {@code obj} is {@code null}.
      * @see Serializable
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      * @since 3.21.0
@@ -246,7 +246,7 @@ public class SerializationUtils {
      *
      * @param obj The object to serialize to bytes.
      * @return A byte[] with the converted Serializable.
-     * @throws SerializationException (runtime) if the serialization fails.
+     * @throws SerializationException Thrown if the serialization fails.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      */
     public static byte[] serialize(final Serializable obj) {
@@ -269,8 +269,8 @@ public class SerializationUtils {
      *
      * @param obj          The object to serialize to bytes, may be null.
      * @param outputStream The stream to write to, must not be null.
-     * @throws NullPointerException   if {@code outputStream} is {@code null}.
-     * @throws SerializationException (runtime) if the serialization fails.
+     * @throws NullPointerException   Thrown if {@code outputStream} is {@code null}.
+     * @throws SerializationException Thrown if the serialization fails.
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      */
     @SuppressWarnings("resource") // outputStream is managed by the caller
