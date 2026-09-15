@@ -28,10 +28,10 @@ limitations under the License.
 <p>Commons Lang 3.0 is out, and the obvious question is: <em>"So what? What's changed?"</em>.</p>
 </section>
 <section name="The big story">
-<p>Lang is now Java 5 based. We've generified the API, moved certain APIs to support <code>varargs</code> and thrown out any features 
+<p>Lang is now based on Java 5. We've generified the API, moved certain APIs to support <code>varargs</code> and thrown out any features
 that are now supported by Java itself. We've removed the deprecated parts of the API and have also removed some features that 
-were deemed weak or unnecessary. All of this means that Lang 3.0 is not backwards compatible. </p>
-<p>To that end we have changed the package name, allowing Lang 3.0 to sit side-by-side with your previous version of Lang without any bad side effects. The new package name is the exciting and original <code>org.apache.commons.lang3</code>. This also forces you to recompile your code, making sure the compiler can let you know if a backwards incompatibility affects you. </p>
+were deemed weak or unnecessary. All of this means that Lang 3.0 is not backward compatible. </p>
+<p>To that end we have changed the package name, allowing Lang 3.0 to sit side-by-side with your previous version of Lang without any bad side effects. The new package name is the exciting and original <code>org.apache.commons.lang3</code>. This also forces you to recompile your code, making sure the compiler can let you know if a backward incompatibility affects you. </p>
 <p>As you'd expect, there are also new features, enhancements and bugs fixed. </p>
 </section>
 <!--
@@ -41,7 +41,7 @@ were deemed weak or unnecessary. All of this means that Lang 3.0 is not backward
 -->
 <section name="Migrating from 2.x">
 <h3>Java code</h3>
-<p>Despite the label of backwards incompatibility, in the vast majority of cases the simple addition of a <code>'3'</code> to an import statement will suffice for your migration. </p><br/>
+<p>Despite the label of backward incompatibility, in the vast majority of cases the simple addition of a <code>'3'</code> to an import statement will suffice for your migration. </p><br/>
 <p>Change: <code>import org.apache.commons.lang</code> -&gt; <code>import org.apache.commons.lang3</code></p>
 <h3>Maven</h3>
 <p><code>groupId</code>: <code>commons-lang</code> -&gt; <code>org.apache.commons</code></p>
@@ -56,7 +56,7 @@ from the ashes of the old code, focused on providing additional functionality to
 <h3>NestedExceptions</h3>
 <p>In Java 1.4, the notion that all Throwables could be linked to a cause was introduced. In Lang we 
 had provided a NestedException framework to support the same feature, and now that we're jumping from Java 1.3 to 
-Java 5 we are remove this feature. The deprecation section below covers one part of ExceptionUtils that remains until 
+Java 5 we are removing this feature. The deprecation section below covers one part of ExceptionUtils that remains until
 we are on Java 6, where the last remaining parts of the JDK appear to have embraced the new cause API. </p>
 <h3>JVMRandom</h3>
 <p>This class was introduced in Lang 2.0 to support a Random object built around the system seed. This 
@@ -66,7 +66,7 @@ proved to be both an uncommon use case and one with bugs and so was dropped. </p
 <h3>*Exceptions removed</h3>
 <p>Various Exception classes were removed - the lesson in defining more semantically relevant exception classes is that you can keep on coming up with more and more new classes. Simpler to focus on using the main JDK classes. </p>
 <h3>math.*Range</h3>
-<p>The various Range classes in the <code>math</code> package were removed in favour of a new generic Range class. </p>
+<p>The various Range classes in the <code>math</code> package were removed in favor of a new generic Range class. </p>
 <h3>Previous Deprecations</h3>
 <p>All deprecated fields/methods/classes - with a new major version, all of the previously deprecated parts of the API could finally go away. </p>
 <p>If you feel that something was unfairly taken away, please feel free to contact the list. In many cases the possibility exists to reintroduce code. </p>
@@ -116,7 +116,7 @@ and calls its <code>start()</code> method. When it later needs access to the
 <code>EntityManagerFactory</code> created by the initializer it calls the
 <code>get()</code> method; <code>get()</code> returns the object produced by the
 initializer if it is already available or blocks if necessary until initialization
-is complete. Alternatively a convenience method of the <code>ConcurrentUtils</code>
+is complete. Alternatively, a convenience method of the <code>ConcurrentUtils</code>
 class can be used to obtain the object from the initializer which hides the
 checked exception declared by <code>get()</code>:</p>
 <pre>
@@ -135,7 +135,7 @@ available in the <a href="userguide.html#lang.concurrent.">user guide</a>.</p>
 <pre>
     return ESCAPE_XML.translate(input);
 </pre>
-<p>Very simple. Maybe a bit too very simple, let's look a bit deeper. </p>
+<p>Very simple. Maybe a bit too simple; let's look a bit deeper. </p>
 <pre>
     public static final CharSequenceTranslator ESCAPE_XML =
         new AggregateTranslator(
@@ -147,7 +147,7 @@ available in the <a href="userguide.html#lang.concurrent.">user guide</a>.</p>
 <pre>
           StringEscapeUtils.ESCAPE_XML.with( NumericEntityEscaper.between(0x7f, Integer.MAX_VALUE) );
 </pre>
-<p>That takes the standard Commons Lang provided escape functionality, and adds on another translation layer. Another JIRA requested option was to also escape non-printable ASCII, this is now achievable with a modification of the above: </p>
+<p>That takes the standard Commons Lang provided escape functionality, and adds on another translation layer. Another JIRA requested option was to also escape non-printable ASCII; this is now achievable with a modification of the above: </p>
 <pre>
           StringEscapeUtils.ESCAPE_XML.with(
               new AggregateTranslator(
