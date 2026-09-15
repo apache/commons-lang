@@ -75,7 +75,7 @@ public abstract class AbstractConcurrentInitializerTest<T> extends AbstractLangT
     /**
      * Tests a simple invocation of the get() method.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if the object under test throws an exception.
      */
     @Test
     void testGet() throws ConcurrentException {
@@ -85,8 +85,8 @@ public abstract class AbstractConcurrentInitializerTest<T> extends AbstractLangT
     /**
      * Tests whether get() can be invoked from multiple threads concurrently. Always the same object should be returned.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
-     * @throws InterruptedException                                    because the threading API my throw it.
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if the object under test throws an exception.
+     * @throws InterruptedException Thrown if the threading API throws an exception.
      */
     @Test
     void testGetConcurrent() throws ConcurrentException, InterruptedException {
@@ -115,7 +115,7 @@ public abstract class AbstractConcurrentInitializerTest<T> extends AbstractLangT
     /**
      * Tests whether sequential get() invocations always return the same instance.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the object under test may throw it.
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if the object under test throws an exception.
      */
     @Test
     void testGetMultipleTimes() throws ConcurrentException {
@@ -129,7 +129,7 @@ public abstract class AbstractConcurrentInitializerTest<T> extends AbstractLangT
     /**
      * Tests a simple invocation of the isInitialized() method.
      *
-     * @throws Throwable on test failure.
+     * @throws Throwable Thrown if an operation in the test fails.
      */
     @Test
     void testisInitialized() throws Throwable {
