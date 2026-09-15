@@ -181,7 +181,7 @@ public class RegExUtils {
      *              {@code null} if null String input.
      *
      * @throws  java.util.regex.PatternSyntaxException
-     *              if the regular expression's syntax is invalid.
+     *              Thrown if the regular expression's syntax is invalid.
      *
      * @see #replaceAll(String, String, String)
      * @see #removePattern(CharSequence, String)
@@ -302,7 +302,7 @@ public class RegExUtils {
      *              {@code null} if null String input.
      *
      * @throws  java.util.regex.PatternSyntaxException
-     *              if the regular expression's syntax is invalid.
+     *              Thrown if the regular expression's syntax is invalid.
      *
      * @see #replaceFirst(String, String, String)
      * @see String#replaceFirst(String, String)
@@ -500,7 +500,7 @@ public class RegExUtils {
      * @return  the text with any replacements processed,
      *              {@code null} if null String input.
      * @throws  java.util.regex.PatternSyntaxException
-     *              if the regular expression's syntax is invalid.
+     *              Thrown if the regular expression's syntax is invalid.
      * @see #replacePattern(String, String, String)
      * @see String#replaceAll(String, String)
      * @see java.util.regex.Pattern
@@ -635,7 +635,7 @@ public class RegExUtils {
      * @return  the text with the first replacement processed,
      *              {@code null} if null String input.
      * @throws  java.util.regex.PatternSyntaxException
-     *              if the regular expression's syntax is invalid.
+     *              Thrown if the regular expression's syntax is invalid.
      * @see String#replaceFirst(String, String)
      * @see java.util.regex.Pattern
      * @see java.util.regex.Pattern#DOTALL
