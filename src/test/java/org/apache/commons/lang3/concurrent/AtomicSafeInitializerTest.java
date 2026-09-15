@@ -122,8 +122,8 @@ class AtomicSafeInitializerTest extends AbstractConcurrentInitializerTest<Object
     /**
      * Tests that initialize() is called only once.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because {@link #testGetConcurrent()} may throw it.
-     * @throws InterruptedException                                    because {@link #testGetConcurrent()} may throw it.
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if {@link #testGetConcurrent()} throws an exception.
+     * @throws InterruptedException Thrown if {@link #testGetConcurrent()} throws an exception.
      */
     @Test
     void testNumberOfInitializeInvocations() throws ConcurrentException, InterruptedException {
