@@ -145,7 +145,7 @@ public class Functions {
          * @param object1 The first object to test the predicate on
          * @param object2 The second object to test the predicate on
          * @return The predicate's evaluation
-         * @throws T if the predicate fails
+         * @throws T Thrown if the predicate fails.
          */
         boolean test(O1 object1, O2 object2) throws T;
     }
@@ -167,7 +167,7 @@ public class Functions {
          * Calls the callable.
          *
          * @return The value returned from the callable
-         * @throws T if the callable fails
+         * @throws T Thrown if the callable fails.
          */
         R call() throws T;
     }
@@ -236,7 +236,7 @@ public class Functions {
          *
          * @param object The object to test the predicate on
          * @return The predicate's evaluation
-         * @throws T if the predicate fails
+         * @throws T Thrown if the predicate fails.
          */
         boolean test(I object) throws T;
     }
@@ -275,10 +275,10 @@ public class Functions {
     public interface FailableSupplier<R, T extends Throwable> {
 
         /**
-         * Supplies an object
+         * Gets an object.
          *
          * @return A result
-         * @throws T if the supplier fails
+         * @throws T Thrown if the supplier fails.
          */
         R get() throws T;
     }
@@ -466,10 +466,10 @@ public class Functions {
     }
 
     /**
-     * Invokes a supplier, and returns the result.
+     * Gets the result of invoking the supplier.
      *
      * @param supplier The supplier to invoke.
-     * @param <O> The suppliers output type.
+     * @param <O> The supplier's output type.
      * @param <T> The type of checked exception, which the supplier can throw.
      * @return The object, which has been created by the supplier
      * @since 3.10
@@ -483,7 +483,7 @@ public class Functions {
     }
 
     /**
-     * Invokes a boolean supplier, and returns the result.
+     * Gets the result of invoking the boolean supplier.
      *
      * @param supplier The boolean supplier to invoke.
      * @param <T> The type of checked exception, which the supplier can throw.
