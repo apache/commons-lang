@@ -250,9 +250,9 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * thrown.
      *
      * @return The object produced by this initializer.
-     * @throws ConcurrentException if a checked exception occurred during
+     * @throws ConcurrentException Thrown if a checked exception occurred during
      * background processing.
-     * @throws IllegalStateException if {@link #start()} has not been called.
+     * @throws IllegalStateException Thrown if {@link #start()} has not been called.
      */
     @Override
     public T get() throws ConcurrentException {
@@ -296,7 +296,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * start()}.
      *
      * @return The {@link Future} object wrapped by this initializer.
-     * @throws IllegalStateException if {@link #start()} has not been called.
+     * @throws IllegalStateException Thrown if {@link #start()} has not been called.
      */
     public synchronized Future<T> getFuture() {
         if (future == null) {
@@ -372,7 +372,7 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
      * thrown.
      *
      * @param externalExecutor The {@link ExecutorService} to be used.
-     * @throws IllegalStateException if this initializer has already been
+     * @throws IllegalStateException Thrown if this initializer has already been
      * started.
      */
     public final synchronized void setExternalExecutor(final ExecutorService externalExecutor) {
