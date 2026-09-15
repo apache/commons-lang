@@ -74,7 +74,7 @@ public abstract class AbstractCircuitBreaker<T> implements CircuitBreaker<T> {
     public static final String PROPERTY_NAME = "open";
 
     /**
-     * Converts the given state value to a boolean <em>open</em> property.
+     * Tests whether the given state represents an open circuit breaker.
      *
      * @param state The state to be converted
      * @return The boolean open flag
