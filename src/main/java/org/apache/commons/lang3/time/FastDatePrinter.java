@@ -168,7 +168,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         static final Iso8601_Rule ISO8601_HOURS_COLON_MINUTES = new Iso8601_Rule(6);
 
         /**
-         * Factory method for Iso8601_Rules.
+         * Gets the ISO 8601 formatting rule.
          *
          * @param tokenLen A token indicating the length of the TimeZone String to be formatted.
          * @return An Iso8601_Rule that can format TimeZone String of length {@code tokenLen}. If no such
@@ -922,7 +922,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      *
      * @param buffer The buffer to append to.
      * @param value The value to append digits from.
-     * @throws IOException If an I/O error occurs.
+     * @throws IOException Thrown if an I/O error occurs.
      */
     private static void appendDigits(final Appendable buffer, final int value) throws IOException {
         buffer.append((char) (value / 10 + '0'));
@@ -935,7 +935,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param buffer The buffer to append to.
      * @param value The value to append digits from.
      * @param minFieldWidth Minimum field width.
-     * @throws IOException If an I/O error occurs.
+     * @throws IOException Thrown if an I/O error occurs.
      */
     private static void appendFullDigits(final Appendable buffer, int value, int minFieldWidth) throws IOException {
         // specialized paths for 1 to 4 digits -> avoid the memory allocation from the temporary work array
@@ -1063,7 +1063,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern.
      * @param timeZone  non-null time zone to use.
      * @param locale  non-null locale to use.
-     * @throws NullPointerException if pattern, timeZone, or locale is null.
+     * @throws NullPointerException Thrown if pattern, timeZone, or locale is null.
      */
     protected FastDatePrinter(final String pattern, final TimeZone timeZone, final Locale locale) {
         this.pattern = pattern;
@@ -1345,7 +1345,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Returns a list of Rules given a pattern.
      *
      * @return A {@link List} of Rule objects.
-     * @throws IllegalArgumentException if pattern is invalid.
+     * @throws IllegalArgumentException Thrown if pattern is invalid.
      */
     protected List<Rule> parsePattern() {
         final DateFormatSymbols symbols = new DateFormatSymbols(locale);
@@ -1548,7 +1548,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      *
      * @param in ObjectInputStream from which the object is being deserialized.
      * @throws IOException Thrown if there is an IO issue.
-     * @throws ClassNotFoundException if a class cannot be found.
+     * @throws ClassNotFoundException Thrown if a class cannot be found.
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
