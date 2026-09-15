@@ -127,7 +127,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * @param left  The left element, may not be null.
      * @param right  The right element, may not  be null.
      * @return An immutable formed from the two parameters, not null.
-     * @throws NullPointerException if any input is null.
+     * @throws NullPointerException Thrown if any input is null.
      * @since 3.13.0
      */
     public static <L, R> ImmutablePair<L, R> ofNonNull(final L left, final R right) {
@@ -181,13 +181,13 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * Throws {@link UnsupportedOperationException}.
+     * Always throws {@link UnsupportedOperationException}.
      *
      * <p>This pair is immutable, so this operation is not supported.</p>
      *
      * @param value  The value to set
      * @return never
-     * @throws UnsupportedOperationException as this operation is not supported
+     * @throws UnsupportedOperationException Thrown because this operation is not supported.
      */
     @Override
     public R setValue(final R value) {
