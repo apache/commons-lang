@@ -118,7 +118,7 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
      * negative (which would disable the trip condition).
      * </p>
      *
-     * @throws IllegalArgumentException if the increment is negative.
+     * @throws IllegalArgumentException Thrown if the increment is negative.
      */
     @Override
     public boolean incrementAndCheckState(final Long increment) {
