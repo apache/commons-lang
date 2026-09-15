@@ -333,7 +333,7 @@ public class CharUtils {
      *
      * @param ch  The character to convert
      * @return The char value of the Character
-     * @throws NullPointerException if the Character is null
+     * @throws NullPointerException Thrown if the Character is null.
      */
     public static char toChar(final Character ch) {
         return Objects.requireNonNull(ch, "ch").charValue();
@@ -369,8 +369,8 @@ public class CharUtils {
      *
      * @param str  The character to convert
      * @return The char value of the first letter of the String
-     * @throws NullPointerException if the string is null
-     * @throws IllegalArgumentException if the String is empty
+     * @throws NullPointerException Thrown if the string is null.
+     * @throws IllegalArgumentException Thrown if the String is empty.
      */
     public static char toChar(final String str) {
         Validate.notEmpty(str, "The String must not be empty");
@@ -442,7 +442,7 @@ public class CharUtils {
      *
      * @param ch  The character to convert
      * @return The int value of the character
-     * @throws IllegalArgumentException if the character is not ASCII numeric
+     * @throws IllegalArgumentException Thrown if the character is not ASCII numeric.
      */
     public static int toIntValue(final char ch) {
         if (!isAsciiNumeric(ch)) {
@@ -484,8 +484,8 @@ public class CharUtils {
      *
      * @param ch  The character to convert, not null
      * @return The int value of the character
-     * @throws NullPointerException if the Character is null
-     * @throws IllegalArgumentException if the Character is not ASCII numeric
+     * @throws NullPointerException Thrown if the Character is null.
+     * @throws IllegalArgumentException Thrown if the Character is not ASCII numeric.
      */
     public static int toIntValue(final Character ch) {
         return toIntValue(toChar(ch));
