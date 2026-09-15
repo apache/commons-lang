@@ -216,7 +216,7 @@ public class FastDateParser implements DateParser, Serializable {
         private static final Strategy ISO_8601_3_STRATEGY = new ISO8601TimeZoneStrategy("(Z|(?:[+-](?:2[0-3]|[01]\\d)(?::)[0-5]\\d))");
 
         /**
-         * Factory method for ISO8601TimeZoneStrategies.
+         * Gets the ISO 8601 time zone strategy.
          *
          * @param tokenLen A token indicating the length of the TimeZone String to be formatted.
          * @return A ISO8601TimeZoneStrategy that can format TimeZone String of length {@code tokenLen}. If no such strategy exists, an IllegalArgumentException
@@ -358,7 +358,7 @@ public class FastDateParser implements DateParser, Serializable {
         }
 
         /**
-         * Is this field a number? The default implementation returns false.
+         * Tests whether this field is numeric. The default implementation returns false.
          *
          * @return true, if field is a number
          */
@@ -408,7 +408,7 @@ public class FastDateParser implements DateParser, Serializable {
     private abstract static class Strategy {
 
         /**
-         * Is this field a number? The default implementation returns false.
+         * Tests whether this field is numeric. The default implementation returns false.
          *
          * @return true, if field is a number
          */
@@ -1005,7 +1005,7 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * Constructs a Strategy that parses a Text field
+     * Gets a strategy that parses a text field.
      *
      * @param field            The Calendar field
      * @param definingCalendar The calendar to obtain the short and long values
@@ -1190,7 +1190,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @param pos      On input, the position in the source to start parsing, on output, updated position.
      * @param calendar The calendar into which to set parsed fields.
      * @return true, if source has been parsed (pos parsePosition is updated); otherwise false (and pos errorIndex is updated)
-     * @throws IllegalArgumentException when Calendar has been set to be not lenient, and a parsed field is out of range.
+     * @throws IllegalArgumentException Thrown when Calendar has been set to be not lenient, and a parsed field is out of range.
      */
     @Override
     public boolean parse(final String source, final ParsePosition pos, final Calendar calendar) {
@@ -1237,8 +1237,8 @@ public class FastDateParser implements DateParser, Serializable {
      * Creates the object after serialization. This implementation reinitializes the transient properties.
      *
      * @param in ObjectInputStream from which the object is being deserialized.
-     * @throws IOException            if there is an IO issue.
-     * @throws ClassNotFoundException if a class cannot be found.
+     * @throws IOException            Thrown if there is an IO issue.
+     * @throws ClassNotFoundException Thrown if a class cannot be found.
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
