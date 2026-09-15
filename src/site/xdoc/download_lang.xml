@@ -106,7 +106,7 @@ limitations under the License.
         It is essential that you
         <a href="https://www.apache.org/info/verification.html">verify the integrity</a>
         of downloaded files, preferably using the <code>PGP</code> signature (<code>*.asc</code> files);
-        failing that using the <code>SHA512</code> hash (<code>*.sha512</code> checksum files).
+        failing that, using the <code>SHA512</code> hash (<code>*.sha512</code> checksum files).
       </p>
       <p>
         The <a href="https://downloads.apache.org/commons/KEYS">KEYS</a>
