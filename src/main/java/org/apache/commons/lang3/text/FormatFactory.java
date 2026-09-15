@@ -31,7 +31,7 @@ import java.util.Locale;
 public interface FormatFactory {
 
     /**
-     * Create or retrieve a format instance.
+     * Gets a format instance, creating one if necessary.
      *
      * @param name      The format type name.
      * @param arguments Arguments used to create the format instance. This allows the {@link FormatFactory} to implement the "format style" concept from
