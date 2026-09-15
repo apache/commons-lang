@@ -70,7 +70,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      *
      * @param other A predicate that will be logically-ANDed with this predicate.
      * @return A composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
-     * @throws NullPointerException if other is null
+     * @throws NullPointerException Thrown if other is null.
      */
     default FailableBiPredicate<T, U, E> and(final FailableBiPredicate<? super T, ? super U, E> other) {
         Objects.requireNonNull(other, "other");
@@ -91,7 +91,7 @@ public interface FailableBiPredicate<T, U, E extends Throwable> {
      *
      * @param other A predicate that will be logically-ORed with this predicate.
      * @return A composed {@link FailableBiPredicate} like {@link BiPredicate#and(BiPredicate)}.
-     * @throws NullPointerException if other is null
+     * @throws NullPointerException Thrown if other is null.
      */
     default FailableBiPredicate<T, U, E> or(final FailableBiPredicate<? super T, ? super U, E> other) {
         Objects.requireNonNull(other, "other");
