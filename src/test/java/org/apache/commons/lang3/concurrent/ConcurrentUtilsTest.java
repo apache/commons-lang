@@ -43,7 +43,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests constant future.
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testConstantFuture_Integer() throws Exception {
@@ -61,7 +61,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests constant future.
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testConstantFuture_null() throws Exception {
@@ -79,7 +79,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests createIfAbsent() if the map does not contain the key in question.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testCreateIfAbsentKeyNotPresent() throws ConcurrentException {
@@ -97,7 +97,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests createIfAbsent() if the key is found in the map.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testCreateIfAbsentKeyPresent() throws ConcurrentException {
@@ -115,7 +115,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests createIfAbsent() if a null initializer is passed in.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testCreateIfAbsentNullInit() throws ConcurrentException {
@@ -130,7 +130,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests createIfAbsent() if a null map is passed in.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testCreateIfAbsentNullMap() throws ConcurrentException {
@@ -143,7 +143,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests createIfAbsentUnchecked() if an exception is thrown.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testCreateIfAbsentUncheckedException() throws ConcurrentException {
@@ -284,7 +284,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
      * Tests handleCause() for a null parameter or a null cause. In this case the method should do nothing. We can only test
      * that no exception is thrown.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testHandleCauseNull() throws ConcurrentException {
@@ -346,7 +346,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests a successful initialize() operation.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitialize() throws ConcurrentException {
@@ -361,7 +361,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests initialize() for a null argument.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeNull() throws ConcurrentException {
@@ -371,7 +371,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests a successful initializeUnchecked() operation.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeUnchecked() throws ConcurrentException {
@@ -386,7 +386,7 @@ class ConcurrentUtilsTest extends AbstractLangTest {
     /**
      * Tests whether exceptions are correctly handled by initializeUnchecked().
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeUncheckedEx() throws ConcurrentException {
