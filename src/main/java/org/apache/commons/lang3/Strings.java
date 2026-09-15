@@ -190,7 +190,7 @@ public abstract class Strings {
     }
 
     /**
-     * Case-sentive extension.
+     * Case-sensitive extension.
      */
     private static final class CsStrings extends Strings {
 
