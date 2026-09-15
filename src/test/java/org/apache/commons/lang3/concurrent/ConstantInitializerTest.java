@@ -96,7 +96,7 @@ class ConstantInitializerTest extends AbstractLangTest {
     /**
      * Tests whether get() returns the correct object.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testGet() throws ConcurrentException {
