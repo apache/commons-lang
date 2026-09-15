@@ -49,8 +49,7 @@ final class Charsets {
      *
      * @param charsetName A Charset or null.
      * @return The given {@code charset} or the default Charset if {@code charset} is null.
-     * @throws UnsupportedCharsetException If no support for the named charset is available in this instance of the Java
-     *                                     virtual machine
+     * @throws UnsupportedCharsetException Thrown if no support for the named charset is available in this instance of the Java virtual machine.
      */
     static Charset toCharset(final String charsetName) {
         return charsetName == null ? Charset.defaultCharset() : Charset.forName(charsetName);
