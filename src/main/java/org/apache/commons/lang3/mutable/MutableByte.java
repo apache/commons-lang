@@ -62,7 +62,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Constructs a new MutableByte with the specified value.
      *
      * @param value  The initial value to store, not null.
-     * @throws NullPointerException if the object is null.
+     * @throws NullPointerException Thrown if the object is null.
      */
     public MutableByte(final Number value) {
         this.value = value.byteValue();
@@ -72,7 +72,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Constructs a new MutableByte parsing the given string.
      *
      * @param value  The string to parse, not null.
-     * @throws NumberFormatException if the string cannot be parsed into a byte, see {@link Byte#parseByte(String)}.
+     * @throws NumberFormatException Thrown if the string cannot be parsed into a byte, see {@link Byte#parseByte(String)}.
      * @since 2.5
      */
     public MutableByte(final String value) {
@@ -93,7 +93,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Adds a value to the value of this instance.
      *
      * @param operand  The value to add, not null.
-     * @throws NullPointerException if the object is null.
+     * @throws NullPointerException Thrown if the object is null.
      * @since 2.2
      */
     public void add(final Number operand) {
@@ -118,7 +118,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * immediately after the addition operation. This method is not thread safe.
      *
      * @param operand The quantity to add, not null.
-     * @throws NullPointerException if {@code operand} is null.
+     * @throws NullPointerException Thrown if {@code operand} is null.
      * @return The value associated with this instance after adding the operand.
      * @since 3.5
      */
@@ -207,8 +207,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     }
 
     /**
-     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
-     * immediately prior to the addition operation. This method is not thread safe.
+     * Gets this instance's current value, then adds {@code operand}. This method is not thread-safe.
      *
      * @param operand The quantity to add, not null.
      * @return The value associated with this instance immediately before the operand was added.
@@ -221,11 +220,10 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     }
 
     /**
-     * Increments this instance's value by {@code operand}; this method returns the value associated with the instance
-     * immediately prior to the addition operation. This method is not thread safe.
+     * Gets this instance's current value, then adds {@code operand}. This method is not thread-safe.
      *
      * @param operand The quantity to add, not null.
-     * @throws NullPointerException if {@code operand} is null.
+     * @throws NullPointerException Thrown if {@code operand} is null.
      * @return The value associated with this instance immediately before the operand was added.
      * @since 3.5
      */
@@ -236,8 +234,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     }
 
     /**
-     * Decrements this instance's value by 1; this method returns the value associated with the instance
-     * immediately prior to the decrement operation. This method is not thread safe.
+     * Gets this instance's current value, then decrements it by 1. This method is not thread-safe.
      *
      * @return The value associated with the instance before it was decremented.
      * @since 3.5
@@ -249,8 +246,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     }
 
     /**
-     * Increments this instance's value by 1; this method returns the value associated with the instance
-     * immediately prior to the increment operation. This method is not thread safe.
+     * Gets this instance's current value, then increments it by 1. This method is not thread-safe.
      *
      * @return The value associated with the instance before it was incremented.
      * @since 3.5
@@ -337,7 +333,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Sets the value from any Number instance.
      *
      * @param value  The value to set, not null.
-     * @throws NullPointerException if the object is null.
+     * @throws NullPointerException Thrown if the object is null.
      */
     @Override
     public void setValue(final Number value) {
@@ -358,7 +354,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * Subtracts a value from the value of this instance.
      *
      * @param operand  The value to subtract, not null.
-     * @throws NullPointerException if the object is null.
+     * @throws NullPointerException Thrown if the object is null.
      * @since 2.2
      */
     public void subtract(final Number operand) {
