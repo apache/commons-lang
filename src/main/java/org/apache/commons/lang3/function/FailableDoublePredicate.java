@@ -64,7 +64,7 @@ public interface FailableDoublePredicate<E extends Throwable> {
      *
      * @param other A predicate that will be logically-ANDed with this predicate.
      * @return A composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
-     * @throws NullPointerException if other is null
+     * @throws NullPointerException Thrown if other is null.
      */
     default FailableDoublePredicate<E> and(final FailableDoublePredicate<E> other) {
         Objects.requireNonNull(other, "other");
@@ -85,7 +85,7 @@ public interface FailableDoublePredicate<E extends Throwable> {
      *
      * @param other A predicate that will be logically-ORed with this predicate.
      * @return A composed {@link FailableDoublePredicate} like {@link DoublePredicate#and(DoublePredicate)}.
-     * @throws NullPointerException if other is null
+     * @throws NullPointerException Thrown if other is null.
      */
     default FailableDoublePredicate<E> or(final FailableDoublePredicate<E> other) {
         Objects.requireNonNull(other, "other");
