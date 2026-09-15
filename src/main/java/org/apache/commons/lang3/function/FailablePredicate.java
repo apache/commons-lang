@@ -67,7 +67,7 @@ public interface FailablePredicate<T, E extends Throwable> {
      *
      * @param other A predicate that will be logically-ANDed with this predicate.
      * @return A composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
-     * @throws NullPointerException if other is null
+     * @throws NullPointerException Thrown if other is null.
      */
     default FailablePredicate<T, E> and(final FailablePredicate<? super T, E> other) {
         Objects.requireNonNull(other, "other");
@@ -88,7 +88,7 @@ public interface FailablePredicate<T, E extends Throwable> {
      *
      * @param other A predicate that will be logically-ORed with this predicate.
      * @return A composed {@link FailablePredicate} like {@link Predicate#and(Predicate)}.
-     * @throws NullPointerException if other is null
+     * @throws NullPointerException Thrown if other is null.
      */
     default FailablePredicate<T, E> or(final FailablePredicate<? super T, E> other) {
         Objects.requireNonNull(other, "other");
@@ -100,7 +100,7 @@ public interface FailablePredicate<T, E extends Throwable> {
      *
      * @param object The object to test the predicate on
      * @return The predicate's evaluation
-     * @throws E if the predicate fails
+     * @throws E Thrown if the predicate fails.
      */
     boolean test(T object) throws E;
 }
