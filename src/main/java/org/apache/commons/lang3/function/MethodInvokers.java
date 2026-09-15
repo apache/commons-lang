@@ -231,7 +231,7 @@ public final class MethodInvokers {
      *
      * @param method The method to test.
      * @return The given method.
-     * @throws NullPointerException if {@code method} is {@code null}.
+     * @throws NullPointerException Thrown if {@code method} is {@code null}.
      */
     private static Method requireMethod(final Method method) {
         return Objects.requireNonNull(method, "method");
