@@ -5663,7 +5663,7 @@ class ArrayUtilsTest extends AbstractLangTest {
         // data is 1 short for expected at the end
         System.arraycopy(sig, 0, data, 0, sig.length - 1);
         assertFalse(ArrayUtils.startsWith(data, sig));
-        // data is mimatched at the start
+        // data is mismatched at the start
         System.arraycopy(sig, 0, data, 0, sig.length);
         data[0] = 0;
         assertFalse(ArrayUtils.startsWith(data, sig));
