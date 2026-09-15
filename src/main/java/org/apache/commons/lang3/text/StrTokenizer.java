@@ -402,10 +402,10 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Unsupported ListIterator operation.
+     * Always throws {@link UnsupportedOperationException}.
      *
      * @param obj this parameter ignored.
-     * @throws UnsupportedOperationException always.
+     * @throws UnsupportedOperationException Thrown always.
      */
     @Override
     public void add(final String obj) {
@@ -467,7 +467,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * it will be at the start of the token list.
      *
      * @return A new instance of this Tokenizer which has been reset.
-     * @throws CloneNotSupportedException if there is a problem cloning.
+     * @throws CloneNotSupportedException Thrown if there is a problem cloning.
      */
     Object cloneReset() throws CloneNotSupportedException {
         // this method exists to enable 100% test coverage
@@ -565,7 +565,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Checks whether there are any more tokens.
+     * Tests whether there are any more tokens.
      *
      * @return true if there are more tokens.
      */
@@ -576,7 +576,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Checks whether there are any previous tokens that can be iterated to.
+     * Tests whether there are any previous tokens that can be iterated to.
      *
      * @return true if there are previous tokens.
      */
@@ -587,8 +587,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Gets whether the tokenizer currently returns empty tokens as null.
-     * The default for this property is false.
+     * Tests whether the tokenizer currently returns empty tokens as null. The default for this property is false.
      *
      * @return true if empty tokens are returned as null.
      */
@@ -597,8 +596,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Gets whether the tokenizer currently ignores empty tokens.
-     * The default for this property is true.
+     * Tests whether the tokenizer currently ignores empty tokens. The default for this property is true.
      *
      * @return true if empty tokens are not returned.
      */
@@ -607,8 +605,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Checks if the characters at the index specified match the quote
-     * already matched in readNextToken().
+     * Tests whether the characters at the index specified match the quote already matched in readNextToken().
      *
      * @param srcChars  The character array being tokenized.
      * @param pos  The position to check for a quote.
@@ -630,7 +627,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * Gets the next token.
      *
      * @return The next String token.
-     * @throws NoSuchElementException if there are no more elements.
+     * @throws NoSuchElementException Thrown if there are no more elements.
      */
     @Override
     public String next() {
@@ -841,9 +838,9 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Unsupported ListIterator operation.
+     * Always throws {@link UnsupportedOperationException}.
      *
-     * @throws UnsupportedOperationException always.
+     * @throws UnsupportedOperationException Thrown always.
      */
     @Override
     public void remove() {
@@ -897,10 +894,10 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Unsupported ListIterator operation.
+     * Always throws {@link UnsupportedOperationException}.
      *
      * @param obj this parameter ignored.
-     * @throws UnsupportedOperationException always.
+     * @throws UnsupportedOperationException Thrown always.
      */
     @Override
     public void set(final String obj) {
