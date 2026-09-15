@@ -197,7 +197,7 @@ public class Streams {
         /**
          * Throws IllegalStateException if this stream is already terminated.
          *
-         * @throws IllegalStateException if this stream is already terminated.
+         * @throws IllegalStateException Thrown if this stream is already terminated.
          */
         protected void assertNotTerminated() {
             if (terminated) {
@@ -372,7 +372,7 @@ public class Streams {
         /**
          * Marks this stream as terminated.
          *
-         * @throws IllegalStateException if this stream is already terminated.
+         * @throws IllegalStateException Thrown if this stream is already terminated.
          */
         protected void makeTerminated() {
             assertNotTerminated();
