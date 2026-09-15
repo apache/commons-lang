@@ -136,7 +136,7 @@ public class LazyInitializer<T> extends AbstractConcurrentInitializer<T, Concurr
      * Gets the object wrapped by this instance. On first access the object is created. After that it is cached and can be accessed pretty fast.
      *
      * @return The object initialized by this {@link LazyInitializer}.
-     * @throws ConcurrentException if an error occurred during initialization of the object.
+     * @throws ConcurrentException Thrown if an error occurred during initialization of the object.
      */
     @Override
     public T get() throws ConcurrentException {
