@@ -305,7 +305,7 @@ final class MemberUtils {
     }
 
     /**
-     * Default access superclass workaround.
+     * Sets accessibility to work around reflection issues with public members of a superclass with default access.
      * <p>
      * When a {@code public} class has a default access superclass with {@code public} members,
      * these members are accessible. Calling them from compiled code works fine.
