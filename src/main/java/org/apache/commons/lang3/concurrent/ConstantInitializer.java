@@ -84,7 +84,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
      * returns the object passed to the constructor.
      *
      * @return The object managed by this initializer
-     * @throws ConcurrentException if an error occurs
+     * @throws ConcurrentException Thrown if an error occurs.
      */
     @Override
     public T get() throws ConcurrentException {
@@ -92,9 +92,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
     }
 
     /**
-     * Directly returns the object that was passed to the constructor. This is
-     * the same object as returned by {@code get()}. However, this method does
-     * not declare that it throws an exception.
+     * Gets the object passed to the constructor. This is the same object returned by {@code get()}, but this method does not declare a checked exception.
      *
      * @return The object managed by this initializer
      */
@@ -114,8 +112,7 @@ public class ConstantInitializer<T> implements ConcurrentInitializer<T> {
     }
 
     /**
-     * As a {@link ConstantInitializer} is initialized on construction this will
-     * always return true.
+     * Tests whether this initializer is initialized. Always returns true because initialization occurs during construction.
      *
      * @return true.
      * @since 3.14.0
