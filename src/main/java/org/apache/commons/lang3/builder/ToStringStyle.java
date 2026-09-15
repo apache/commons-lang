@@ -1982,7 +1982,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * Gets whether to output array content detail.
+     * Tests whether to output array content detail.
      *
      * @return The current array content detail setting.
      */
@@ -1991,7 +1991,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * Gets whether to use full detail when the caller doesn't specify.
+     * Tests whether full detail is used when the caller does not specify a detail level.
      *
      * @return The current defaultFullDetail flag.
      */
@@ -2000,7 +2000,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * Gets whether the field separator should be added at the end of each buffer.
+     * Tests whether the field separator should be added at the end of each buffer.
      *
      * @return fieldSeparatorAtEnd flag.
      * @since 2.0
@@ -2010,7 +2010,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * Gets whether the field separator should be added at the start of each buffer.
+     * Tests whether the field separator should be added at the start of each buffer.
      *
      * @return The fieldSeparatorAtStart flag.
      * @since 2.0
@@ -2020,7 +2020,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * Is this field to be output in full detail.
+     * Tests whether this field should be output in full detail.
      *
      * <p>
      * This method converts a detail request into a detail level. The calling code may request full detail ({@code true}), but a subclass might ignore that and
@@ -2042,7 +2042,7 @@ public abstract class ToStringStyle implements Serializable {
     // These methods are not expected to be overridden, except to make public
     // (They are not public so that immutable subclasses can be written)
     /**
-     * Gets whether to use the class name.
+     * Tests whether to use the class name.
      *
      * @return The current useClassName flag.
      */
@@ -2051,7 +2051,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * Gets whether to use the field names passed in.
+     * Tests whether to use the field names passed in.
      *
      * @return The current useFieldNames flag.
      */
@@ -2060,7 +2060,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * Gets whether to use the identity hash code.
+     * Tests whether to use the identity hash code.
      *
      * @return The current useIdentityHashCode flag.
      */
@@ -2069,7 +2069,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * Gets whether to output short or long class names.
+     * Tests whether short class names should be output.
      *
      * @return The current useShortClassName flag.
      * @since 2.0
