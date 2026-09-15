@@ -48,7 +48,7 @@ public interface Diffable<T> {
      *
      * @param obj The object to diff against, can be {@code null}
      * @return A list of differences
-     * @throws NullPointerException if the specified object is {@code null}
+     * @throws NullPointerException Thrown if the specified object is {@code null}.
      */
     DiffResult<T> diff(T obj);
 }
