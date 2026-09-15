@@ -78,7 +78,7 @@ class BackgroundInitializerTest extends AbstractLangTest {
          * Records this invocation. Optionally throws an exception or sleeps a
          * while.
          *
-         * @throws Exception in case of an error.
+         * @throws Exception Thrown in case of an error.
          */
         protected CloseableCounter initializeInternal() throws Exception {
             if (ex != null) {
@@ -259,7 +259,7 @@ class BackgroundInitializerTest extends AbstractLangTest {
     /**
      * Tests the get() method if waiting for the initialization is interrupted.
      *
-     * @throws InterruptedException because we're making use of Java's concurrent API
+     * @throws InterruptedException Thrown if a concurrent operation in the test fails.
      */
     @Test
     void testGetInterruptedException() throws InterruptedException {
@@ -397,7 +397,7 @@ class BackgroundInitializerTest extends AbstractLangTest {
     /**
      * Tests that setting an executor after start() causes an exception.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException because the test implementation may throw it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if the test implementation throws an exception.
      */
     @Test
     void testSetExternalExecutorAfterStart() throws ConcurrentException, InterruptedException {
