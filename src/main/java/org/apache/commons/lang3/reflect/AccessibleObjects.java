@@ -25,7 +25,7 @@ import java.lang.reflect.AccessibleObject;
 class AccessibleObjects {
 
     /**
-     * Delegates to {@link AccessibleObject#isAccessible()} if {@code accessibleObject} isn't null.
+     * Tests whether {@code accessibleObject} is non-null and {@link AccessibleObject#isAccessible()} returns true.
      *
      * @param accessibleObject The accessible object.
      * @return The value of the object's {@code accessible} flag
@@ -35,7 +35,7 @@ class AccessibleObjects {
     }
 
     /**
-     * Delegates to {@link AccessibleObject#setAccessible(boolean)} only if {@link AccessibleObject#isAccessible()} returns false. This avoid a
+     * Sets accessibility using {@link AccessibleObject#setAccessible(boolean)} only if {@link AccessibleObject#isAccessible()} returns false. This avoids a
      * permission check if there is a security manager.
      *
      * @param accessibleObject The accessible object.
