@@ -145,9 +145,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param object
      *            the Object to be output
      * @return The String result
-     * @throws IllegalArgumentException
-     *             if the Object is {@code null}
-     *
+     * @throws IllegalArgumentException Thrown if the Object is {@code null}.
      * @see ToStringExclude
      * @see ToStringSummary
      */
@@ -178,9 +176,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param style
      *            the style of the {@code toString} to create, may be {@code null}
      * @return The String result
-     * @throws IllegalArgumentException
-     *             if the Object or {@link ToStringStyle} is {@code null}
-     *
+     * @throws IllegalArgumentException Thrown if the Object or {@link ToStringStyle} is {@code null}.
      * @see ToStringExclude
      * @see ToStringSummary
      */
@@ -217,9 +213,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param outputTransients
      *            whether to include transient fields
      * @return The String result
-     * @throws IllegalArgumentException
-     *             if the Object is {@code null}
-     *
+     * @throws IllegalArgumentException Thrown if the Object is {@code null}.
      * @see ToStringExclude
      * @see ToStringSummary
      */
@@ -263,9 +257,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param outputStatics
      *            whether to include static fields
      * @return The String result
-     * @throws IllegalArgumentException
-     *             if the Object is {@code null}
-     *
+     * @throws IllegalArgumentException Thrown if the Object is {@code null}.
      * @see ToStringExclude
      * @see ToStringSummary
      * @since 2.1
@@ -317,9 +309,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param reflectUpToClass
      *            the superclass to reflect up to (inclusive), may be {@code null}
      * @return The String result
-     * @throws IllegalArgumentException
-     *             if the Object is {@code null}
-     *
+     * @throws IllegalArgumentException Thrown if the Object is {@code null}.
      * @see ToStringExclude
      * @see ToStringSummary
      * @since 3.6
@@ -372,9 +362,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param reflectUpToClass
      *            the superclass to reflect up to (inclusive), may be {@code null}
      * @return The String result
-     * @throws IllegalArgumentException
-     *             if the Object is {@code null}
-     *
+     * @throws IllegalArgumentException Thrown if the Object is {@code null}.
      * @see ToStringExclude
      * @see ToStringSummary
      * @since 2.1
@@ -690,16 +678,13 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Calls {@code java.lang.reflect.Field.get(Object)}.
+     * Gets the field value using {@code java.lang.reflect.Field.get(Object)}.
      *
      * @param field
      *            The Field to query.
      * @return The Object from the given Field.
-     * @throws IllegalArgumentException
-     *             see {@link java.lang.reflect.Field#get(Object)}
-     * @throws IllegalAccessException
-     *             see {@link java.lang.reflect.Field#get(Object)}
-     *
+     * @throws IllegalArgumentException Thrown as described in {@link java.lang.reflect.Field#get(Object)}.
+     * @throws IllegalAccessException Thrown as described in {@link java.lang.reflect.Field#get(Object)}.
      * @see java.lang.reflect.Field#get(Object)
      */
     protected Object getValue(final Field field) throws IllegalAccessException {
@@ -707,7 +692,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Gets whether or not to append static fields.
+     * Tests whether or not to append static fields.
      *
      * @return Whether or not to append static fields.
      * @since 2.1
@@ -717,7 +702,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Gets whether or not to append transient fields.
+     * Tests whether or not to append transient fields.
      *
      * @return Whether or not to append transient fields.
      */
@@ -726,7 +711,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Gets whether or not to append fields whose values are null.
+     * Tests whether or not to append fields whose values are null.
      *
      * @return Whether or not to append fields whose values are null.
      * @since 3.6
