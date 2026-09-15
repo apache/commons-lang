@@ -179,7 +179,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Gets whether to output array content detail.
+     * Tests whether to output array content detail.
      *
      * @return The current array content detail setting
      */
@@ -189,8 +189,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Gets whether to use full detail when the caller doesn't
-     * specify.
+     * Tests whether full detail is used when the caller does not specify a detail level.
      *
      * @return The current defaultFullDetail flag
      */
@@ -200,8 +199,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Gets whether the field separator should be added at the end
-     * of each buffer.
+     * Tests whether the field separator should be added at the end of each buffer.
      *
      * @return fieldSeparatorAtEnd flag
      * @since 2.0
@@ -212,8 +210,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Gets whether the field separator should be added at the start
-     * of each buffer.
+     * Tests whether the field separator should be added at the start of each buffer.
      *
      * @return The fieldSeparatorAtStart flag
      * @since 2.0
@@ -224,7 +221,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Gets whether to use the class name.
+     * Tests whether to use the class name.
      *
      * @return The current useClassName flag
      */
@@ -234,7 +231,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Gets whether to use the field names passed in.
+     * Tests whether to use the field names passed in.
      *
      * @return The current useFieldNames flag
      */
@@ -244,7 +241,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Gets whether to use the identity hash code.
+     * Tests whether to use the identity hash code.
      *
      * @return The current useIdentityHashCode flag
      */
@@ -254,7 +251,7 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Gets whether to output short or long class names.
+     * Tests whether short class names should be output.
      *
      * @return The current useShortClassName flag
      * @since 2.0
