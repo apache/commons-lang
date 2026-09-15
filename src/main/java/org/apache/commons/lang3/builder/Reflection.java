@@ -26,7 +26,7 @@ import java.util.Objects;
 final class Reflection {
 
     /**
-     * Delegates to {@link Field#get(Object)} and rethrows {@link IllegalAccessException} as {@link IllegalArgumentException}.
+     * Gets the field value using {@link Field#get(Object)} and rethrows {@link IllegalAccessException} as {@link IllegalArgumentException}.
      *
      * @param field The receiver of the get call.
      * @param obj   The argument of the get call.
