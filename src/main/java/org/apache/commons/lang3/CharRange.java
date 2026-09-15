@@ -121,9 +121,9 @@ final class CharRange implements Iterable<Character>, Serializable {
         }
 
         /**
-         * Always throws UnsupportedOperationException.
+         * Always throws {@link UnsupportedOperationException}.
          *
-         * @throws UnsupportedOperationException Always thrown.
+         * @throws UnsupportedOperationException Thrown always.
          * @see java.util.Iterator#remove()
          */
         @Override
@@ -255,7 +255,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      *
      * @param range  The range to check against.
      * @return {@code true} if this range entirely contains the input range.
-     * @throws NullPointerException if {@code null} input.
+     * @throws NullPointerException Thrown if {@code null} input.
      */
     public boolean contains(final CharRange range) {
         Objects.requireNonNull(range, "range");
@@ -331,7 +331,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * Checks if this range denotes the empty set.
+     * Tests whether this range denotes the empty set.
      *
      * <p>A plain (non-negated) range always contains at least one character and is
      * therefore never empty. A negated range is empty if and only if it excludes the
@@ -349,7 +349,7 @@ final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * Is this {@link CharRange} negated.
+     * Tests whether this {@link CharRange} is negated.
      *
      * <p>A negated range includes everything except that defined by the
      * start and end characters.</p>
@@ -382,9 +382,9 @@ final class CharRange implements Iterable<Character>, Serializable {
      * instance always has {@code start <= end}; a stream that violates this did not come from the constructor and is rejected.
      *
      * @param in See {@link Serializable}.
-     * @throws IOException            See {@link Serializable}.
-     * @throws ClassNotFoundException See {@link Serializable}.
-     * @throws InvalidObjectException If {@code start} is greater than {@code end}.
+     * @throws IOException Thrown as described in {@link Serializable}.
+     * @throws ClassNotFoundException Thrown as described in {@link Serializable}.
+     * @throws InvalidObjectException Thrown if {@code start} is greater than {@code end}.
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
