@@ -848,8 +848,7 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     }
 
     /**
-     * Returns {@code true} if the fields that have been checked
-     * are all equal.
+     * Tests whether all fields checked so far are equal.
      *
      * @return boolean
      */
