@@ -53,7 +53,7 @@ public class EventUtils {
         }
 
         /**
-         * Checks whether a method for the passed in parameters can be found.
+         * Tests whether a method for the passed in parameters can be found.
          *
          * @param method The listener method invoked.
          * @return A flag whether the parameters could be matched.
@@ -69,9 +69,9 @@ public class EventUtils {
          * @param method The method to be invoked.
          * @param parameters The parameters for the method invocation.
          * @return The result of the method call.
-         * @throws SecurityException if an underlying accessible object's method denies the request.
+         * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
          * @see SecurityManager#checkPermission
-         * @throws Throwable if an error occurs
+         * @throws Throwable Thrown if an error occurs.
          */
         @Override
         public Object invoke(final Object proxy, final Method method, final Object[] parameters) throws Throwable {
@@ -107,7 +107,7 @@ public class EventUtils {
      * @param listenerType  The event listener type.
      * @param listener      The listener.
      * @param <L>           the event listener type.
-     * @throws IllegalArgumentException if the object doesn't support the listener type.
+     * @throws IllegalArgumentException Thrown if the object doesn't support the listener type.
      */
     public static <L> void addEventListener(final Object eventSource, final Class<L> listenerType, final L listener) {
         try {
