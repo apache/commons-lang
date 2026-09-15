@@ -57,7 +57,7 @@ public class TimeZones {
     static final String[] SORTED_AVAILABLE_IDS = ArraySorter.sort(TimeZone.getAvailableIDs().clone());
 
     /**
-     * Delegates to {@link TimeZone#getTimeZone(String)}, on Java 25 and up, maps an ID if it's a key in {@link ZoneId#SHORT_IDS}.
+     * Gets the time zone using {@link TimeZone#getTimeZone(String)}. On Java 25 and later, maps IDs found in {@link ZoneId#SHORT_IDS}.
      * <p>
      * On Java 25, calling {@link TimeZone#getTimeZone(String)} with an ID in {@link ZoneId#SHORT_IDS} writes a message to {@link System#err} in the form:
      * </p>
