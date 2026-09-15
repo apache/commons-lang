@@ -59,7 +59,7 @@ public class ConcurrentException extends Exception {
      *
      * @param msg The error message
      * @param cause The cause of this exception
-     * @throws IllegalArgumentException if the cause is not a checked exception
+     * @throws IllegalArgumentException Thrown if the cause is not a checked exception.
      */
     public ConcurrentException(final String msg, final Throwable cause) {
         super(msg, ConcurrentUtils.checkedException(cause));
@@ -70,7 +70,7 @@ public class ConcurrentException extends Exception {
      * with the given cause.
      *
      * @param cause The cause of this exception
-     * @throws IllegalArgumentException if the cause is not a checked exception
+     * @throws IllegalArgumentException Thrown if the cause is not a checked exception.
      */
     public ConcurrentException(final Throwable cause) {
         super(ConcurrentUtils.checkedException(cause));
