@@ -48,7 +48,7 @@ public interface FailableDoubleToLongFunction<E extends Throwable> {
      *
      * @param value The function argument
      * @return The function result
-     * @throws E if the operation fails
+     * @throws E Thrown if the operation fails.
      */
     int applyAsLong(double value) throws E;
 }
