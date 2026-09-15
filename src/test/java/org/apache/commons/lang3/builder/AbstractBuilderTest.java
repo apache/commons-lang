@@ -61,7 +61,7 @@ class AbstractBuilderTest extends AbstractLangTest {
     }
 
     /**
-     * Delegates to {@link AbstractReflection#getForceAccessible()}.
+     * Tests whether reflection should force accessibility, using {@link AbstractReflection#getForceAccessible()}.
      *
      * @return {@link AbstractReflection#getForceAccessible()}.
      */
