@@ -51,7 +51,7 @@ public class ConcurrentRuntimeException extends RuntimeException {
      *
      * @param msg The error message
      * @param cause The cause of this exception
-     * @throws IllegalArgumentException if the cause is not a checked exception
+     * @throws IllegalArgumentException Thrown if the cause is not a checked exception.
      */
     public ConcurrentRuntimeException(final String msg, final Throwable cause) {
         super(msg, ConcurrentUtils.checkedException(cause));
@@ -62,7 +62,7 @@ public class ConcurrentRuntimeException extends RuntimeException {
      * initializes it with the given cause.
      *
      * @param cause The cause of this exception
-     * @throws IllegalArgumentException if the cause is not a checked exception
+     * @throws IllegalArgumentException Thrown if the cause is not a checked exception.
      */
     public ConcurrentRuntimeException(final Throwable cause) {
         super(ConcurrentUtils.checkedException(cause));
