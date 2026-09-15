@@ -44,7 +44,7 @@ public final class DoubleRange extends NumberRange<Double> {
      * @param fromInclusive The first value that defines the edge of the range, inclusive.
      * @param toInclusive The second value that defines the edge of the range, inclusive.
      * @return The range object, not null.
-     * @throws IllegalArgumentException if either value is NaN.
+     * @throws IllegalArgumentException Thrown if either value is NaN.
      */
     public static DoubleRange of(final double fromInclusive, final double toInclusive) {
         return of(Double.valueOf(fromInclusive), Double.valueOf(toInclusive));
@@ -64,8 +64,8 @@ public final class DoubleRange extends NumberRange<Double> {
      * @param fromInclusive The first value that defines the edge of the range, inclusive.
      * @param toInclusive The second value that defines the edge of the range, inclusive.
      * @return The range object, not null.
-     * @throws NullPointerException if either element is null.
-     * @throws IllegalArgumentException if either element is NaN.
+     * @throws NullPointerException Thrown if either element is null.
+     * @throws IllegalArgumentException Thrown if either element is NaN.
      */
     public static DoubleRange of(final Double fromInclusive, final Double toInclusive) {
         return new DoubleRange(fromInclusive, toInclusive);
@@ -76,9 +76,9 @@ public final class DoubleRange extends NumberRange<Double> {
      *
      * @param number1 The first element, not null.
      * @param number2 The second element, not null.
-     * @throws NullPointerException when element1 is null.
-     * @throws NullPointerException when element2 is null.
-     * @throws IllegalArgumentException when element1 or element2 is NaN.
+     * @throws NullPointerException Thrown when element1 is null.
+     * @throws NullPointerException Thrown when element2 is null.
+     * @throws IllegalArgumentException Thrown when element1 or element2 is NaN.
      */
     private DoubleRange(final Double number1, final Double number2) {
         super(number1, number2, null);
