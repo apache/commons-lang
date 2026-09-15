@@ -74,7 +74,7 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * the {@link Callable} to be executed in a background thread.
      *
      * @param call The {@link Callable} (must not be {@code null}).
-     * @throws IllegalArgumentException if the {@link Callable} is {@code null}.
+     * @throws IllegalArgumentException Thrown if the {@link Callable} is {@code null}.
      */
     public CallableBackgroundInitializer(final Callable<T> call) {
         checkCallable(call);
@@ -87,7 +87,7 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      *
      * @param call The {@link Callable} (must not be {@code null}).
      * @param exec An external {@link ExecutorService} to be used for task execution.
-     * @throws IllegalArgumentException if the {@link Callable} is {@code null}.
+     * @throws IllegalArgumentException Thrown if the {@link Callable} is {@code null}.
      */
     public CallableBackgroundInitializer(final Callable<T> call, final ExecutorService exec) {
         super(exec);
@@ -99,7 +99,7 @@ public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
      * Tests the passed in {@link Callable} and throws an exception if it is undefined.
      *
      * @param callable The object to check.
-     * @throws IllegalArgumentException if the {@link Callable} is {@code null}.
+     * @throws IllegalArgumentException Thrown if the {@link Callable} is {@code null}.
      */
     private void checkCallable(final Callable<T> callable) {
         Objects.requireNonNull(callable, "callable");
