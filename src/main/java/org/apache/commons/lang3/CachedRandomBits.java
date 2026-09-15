@@ -98,7 +98,7 @@ final class CachedRandomBits {
      *
      * @param bits number of bits to generate, MUST be between 1 and 32 (inclusive)
      * @return random integer containing exactly the requested number of random bits
-     * @throws IllegalArgumentException if bits is not between 1 and 32
+     * @throws IllegalArgumentException Thrown if bits is not between 1 and 32.
      */
     public int nextBits(final int bits) {
         if (bits > MAX_BITS || bits <= 0) {
