@@ -39,7 +39,7 @@ import org.apache.commons.lang3.function.FailableBiConsumer;
  * </p>
  *
  * <pre>{@code
- * // A reuseable instance
+ * // A reusable instance
  * private static final AppendableJoiner<Object> JOINER = AppendableJoiner.builder()
  *     .setPrefix("[")
  *     .setSuffix("]")
@@ -291,7 +291,7 @@ public final class AppendableJoiner<T> {
      * @param appendable The target.
      * @param elements   The source.
      * @return The given StringBuilder.
-     * @throws IOException If an I/O error occurs
+     * @throws IOException Thrown if an I/O error occurs.
      */
     public <A extends Appendable> A joinA(final A appendable, final Iterable<T> elements) throws IOException {
         return joinIterable(appendable, prefix, suffix, delimiter, appender, elements);
@@ -304,7 +304,7 @@ public final class AppendableJoiner<T> {
      * @param appendable The target.
      * @param elements   The source.
      * @return The given StringBuilder.
-     * @throws IOException If an I/O error occurs
+     * @throws IOException Thrown if an I/O error occurs.
      */
     public <A extends Appendable> A joinA(final A appendable, @SuppressWarnings("unchecked") final T... elements) throws IOException {
         return joinA(appendable, prefix, suffix, delimiter, appender, elements);
