@@ -171,7 +171,7 @@ public abstract class AbstractConcurrentInitializer<T, E extends Exception> impl
      * </p>
      *
      * @return The managed data object.
-     * @throws E if an error occurs during object creation.
+     * @throws E Thrown if an error occurs during object creation.
      */
     @SuppressWarnings("unchecked")
     protected T initialize() throws E {
