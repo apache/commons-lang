@@ -226,7 +226,7 @@ public class ObjectUtils {
      * @param <T> The type of the object.
      * @param obj The object to clone, null returns null.
      * @return The clone if the object implements {@link Cloneable} otherwise {@code null}.
-     * @throws CloneFailedException if the object is cloneable and the clone operation fails.
+     * @throws CloneFailedException Thrown if the object is cloneable and the clone operation fails.
      * @since 3.0
      */
     public static <T> T clone(final T obj) {
@@ -269,7 +269,7 @@ public class ObjectUtils {
      * @param <T> The type of the object.
      * @param obj The object to clone, null returns null.
      * @return The clone if the object implements {@link Cloneable} otherwise the object itself.
-     * @throws CloneFailedException if the object is cloneable and the clone operation fails.
+     * @throws CloneFailedException Thrown if the object is cloneable and the clone operation fails.
      * @since 3.0
      */
     public static <T> T cloneIfPossible(final T obj) {
@@ -483,7 +483,7 @@ public class ObjectUtils {
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
      * @param v The byte literal (as an int) value to return.
-     * @throws IllegalArgumentException if the value passed to v is larger than a byte, that is, smaller than -128 or larger than 127.
+     * @throws IllegalArgumentException Thrown if the value passed to v is larger than a byte, that is, smaller than -128 or larger than 127.
      * @return The byte v, unchanged.
      * @since 3.2
      */
@@ -504,7 +504,7 @@ public class ObjectUtils {
      * This way any jars that refer to this field do not have to recompile themselves if the field's value changes at some future date.
      *
      * @param v The short literal (as an int) value to return.
-     * @throws IllegalArgumentException if the value passed to v is larger than a short, that is, smaller than -32768 or larger than 32767.
+     * @throws IllegalArgumentException Thrown if the value passed to v is larger than a short, that is, smaller than -32768 or larger than 32767.
      * @return The byte v, unchanged.
      * @since 3.2
      */
@@ -593,7 +593,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Delegates to {@link Object#getClass()} using generics.
+     * Gets the object's class using {@link Object#getClass()} with generics.
      *
      * @param <T> The argument type or null.
      * @param object The argument.
@@ -606,9 +606,8 @@ public class ObjectUtils {
     }
 
     /**
-     * Executes the given suppliers in order and returns the first return value where a value other than {@code null} is returned. Once a non-{@code null} value
-     * is obtained, all following suppliers are not executed anymore. If all the return values are {@code null} or no suppliers are provided then {@code null}
-     * is returned.
+     * Gets the first non-null result from the given suppliers. Suppliers are invoked in order until a non-null result is found. If all results are null,
+     * returns null.
      *
      * <pre>{@code
      * ObjectUtils.firstNonNullLazy(null, () -> null)                                  = null
@@ -635,11 +634,10 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the given {@code object} is it is non-null, otherwise returns the Supplier's {@link Supplier#get()}
-     * value.
+     * Gets the given {@code object} if it is non-null; otherwise, gets the value from {@link Supplier#get()}.
      *
      * <p>
-     * The caller responsible for thread-safety and exception handling of default value supplier.
+     * The caller is responsible for thread safety and exception handling for the default value supplier.
      * </p>
      *
      * <pre>{@code
@@ -668,7 +666,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns a default value if the object passed is {@code null}.
+     * Gets the given object, or the default value if the object is {@code null}.
      *
      * <pre>
      * ObjectUtils.getIfNull(null, null)      = null
@@ -1048,8 +1046,8 @@ public class ObjectUtils {
      * @param comparator to use for comparisons.
      * @param items to compare.
      * @return T at middle position.
-     * @throws NullPointerException if items or comparator is {@code null}.
-     * @throws IllegalArgumentException if items is empty or contains {@code null} values.
+     * @throws NullPointerException Thrown if items or comparator is {@code null}.
+     * @throws IllegalArgumentException Thrown if items is empty or contains {@code null} values.
      * @since 3.0.1
      */
     @SafeVarargs
@@ -1068,8 +1066,8 @@ public class ObjectUtils {
      * @param <T>   type of values processed by this method.
      * @param items to compare.
      * @return T at middle position.
-     * @throws NullPointerException     if items is {@code null}.
-     * @throws IllegalArgumentException if items is empty or contains {@code null} values.
+     * @throws NullPointerException     Thrown if items is {@code null}.
+     * @throws IllegalArgumentException Thrown if items is empty or contains {@code null} values.
      * @since 3.0.1
      */
     @SafeVarargs
@@ -1177,8 +1175,8 @@ public class ObjectUtils {
      * @param <T> The type of the reference.
      * @param obj The object reference to check for nullity.
      * @return {@code obj} if not {@code null}.
-     * @throws NullPointerException     if {@code obj} is {@code null}.
-     * @throws IllegalArgumentException if {@code obj} is empty per {@link #isEmpty(Object)}.
+     * @throws NullPointerException     Thrown if {@code obj} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code obj} is empty per {@link #isEmpty(Object)}.
      * @see #isEmpty(Object)
      * @since 3.12.0
      */
@@ -1200,8 +1198,8 @@ public class ObjectUtils {
      * @param obj The object reference to check for nullity.
      * @param message The exception message.
      * @return {@code obj} if not {@code null}.
-     * @throws NullPointerException     if {@code obj} is {@code null}.
-     * @throws IllegalArgumentException if {@code obj} is empty per {@link #isEmpty(Object)}.
+     * @throws NullPointerException     Thrown if {@code obj} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code obj} is empty per {@link #isEmpty(Object)}.
      * @see #isEmpty(Object)
      * @since 3.12.0
      */
@@ -1318,9 +1316,9 @@ public class ObjectUtils {
      *
      * @param obj The receiver of the wait call.
      * @param duration How long to wait.
-     * @throws IllegalArgumentException if the timeout duration is negative.
-     * @throws IllegalMonitorStateException if the current thread is not the owner of the {@code obj}'s monitor.
-     * @throws InterruptedException if any thread interrupted the current thread before or while the current thread was
+     * @throws IllegalArgumentException Thrown if the timeout duration is negative.
+     * @throws IllegalMonitorStateException Thrown if the current thread is not the owner of the {@code obj}'s monitor.
+     * @throws InterruptedException Thrown if any thread interrupted the current thread before or while the current thread was
      *         waiting for a notification. The <em>interrupted status</em> of the current thread is cleared when this
      *         exception is thrown.
      * @see Object#wait(long, int)
