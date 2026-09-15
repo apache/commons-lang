@@ -237,7 +237,7 @@ class FastDateParserTest extends AbstractLangTest {
     }
 
     /**
-     * Override this method in derived tests to change the construction of instances
+     * Gets the parser instance to use for testing. Override this method in derived tests to change how instances are constructed.
      *
      * @param dpProvider TODO
      * @param format The format string to use
@@ -505,7 +505,7 @@ class FastDateParserTest extends AbstractLangTest {
     /**
      * Tests that pre-1000AD years get padded with yyyy
      *
-     * @throws ParseException so we don't have to catch it
+     * @throws ParseException Thrown if an operation in the test fails.
      */
     @Test
     void testLowYearPadding() throws ParseException {
@@ -826,7 +826,7 @@ class FastDateParserTest extends AbstractLangTest {
     /**
      * Test case for {@link FastDateParser#FastDateParser(String, TimeZone, Locale)}.
      *
-     * @throws ParseException so we don't have to catch it
+     * @throws ParseException Thrown if an operation in the test fails.
      */
     @Test
     @ReadsDefaultLocale
