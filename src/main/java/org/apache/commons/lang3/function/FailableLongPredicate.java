@@ -64,7 +64,7 @@ public interface FailableLongPredicate<E extends Throwable> {
      *
      * @param other A predicate that will be logically-ANDed with this predicate.
      * @return A composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
-     * @throws NullPointerException if other is null
+     * @throws NullPointerException Thrown if other is null.
      */
     default FailableLongPredicate<E> and(final FailableLongPredicate<E> other) {
         Objects.requireNonNull(other, "other");
@@ -85,7 +85,7 @@ public interface FailableLongPredicate<E extends Throwable> {
      *
      * @param other A predicate that will be logically-ORed with this predicate.
      * @return A composed {@link FailableLongPredicate} like {@link LongPredicate#and(LongPredicate)}.
-     * @throws NullPointerException if other is null
+     * @throws NullPointerException Thrown if other is null.
      */
     default FailableLongPredicate<E> or(final FailableLongPredicate<E> other) {
         Objects.requireNonNull(other, "other");
