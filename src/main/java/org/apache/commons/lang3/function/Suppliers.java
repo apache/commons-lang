@@ -36,7 +36,7 @@ public class Suppliers {
     private static Supplier NUL = () -> null;
 
     /**
-     * Null-safe call to {@link Supplier#get()}.
+     * Gets the result of {@link Supplier#get()}, or null if the supplier is null.
      *
      * @param <T> The type of results supplied by this supplier.
      * @param supplier The supplier or null.
