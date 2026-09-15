@@ -127,7 +127,7 @@ public class Memoizer<I, O> implements Computable<I, O> {
      *
      * @param arg The argument for the calculation
      * @return The result of the calculation
-     * @throws InterruptedException thrown if the calculation is interrupted
+     * @throws InterruptedException Thrown if the calculation is interrupted.
      */
     @Override
     public O compute(final I arg) throws InterruptedException {
@@ -158,11 +158,11 @@ public class Memoizer<I, O> implements Computable<I, O> {
     }
 
     /**
-     * This method launders a Throwable to either a RuntimeException, Error or any other Exception wrapped in an
-     * IllegalStateException.
+     * Always throws an unchecked exception or error, rethrowing a {@link RuntimeException} or {@link Error} unchanged
+     * and wrapping any other throwable in an {@link IllegalStateException}.
      *
-     * @param throwable The throwable to laundered
-     * @return A RuntimeException, Error or an IllegalStateException
+     * @param throwable The throwable to rethrow or wrap.
+     * @return Never returns normally.
      */
     private RuntimeException launderException(final Throwable throwable) {
         throw new IllegalStateException("Unchecked exception", ExceptionUtils.throwUnchecked(throwable));
