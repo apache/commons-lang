@@ -95,7 +95,7 @@ public class ClassUtilsGetShortClassNameTest {
     }
 
     /**
-     * Anonymous and local classes follow a separate code path that calls {@code getShortClassName(c.getName())} directly. The compiler-generated ordinal (fpr
+     * Anonymous and local classes follow a separate code path that calls {@code getShortClassName(c.getName())} directly. The compiler-generated ordinal (for
      * example, {@code $1}) is preserved by the legacy contract, so the short name ends with {@code ".<digits>"}.
      */
     @Test
