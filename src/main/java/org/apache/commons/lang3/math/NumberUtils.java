@@ -178,7 +178,7 @@ public class NumberUtils {
      *
      * @param str A {@link String} to convert, may be null.Return
      * @return converted {@link BigDecimal} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @throws NumberFormatException Thrown if the value cannot be converted.
      */
     public static BigDecimal createBigDecimal(final String str) {
         if (str == null) {
@@ -202,7 +202,7 @@ public class NumberUtils {
      *
      * @param str A {@link String} to convert, may be null.
      * @return converted {@link BigInteger} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @throws NumberFormatException Thrown if the value cannot be converted.
      * @since 3.2
      */
     public static BigInteger createBigInteger(final String str) {
@@ -250,7 +250,7 @@ public class NumberUtils {
      *
      * @param str A {@link String} to convert, may be null.
      * @return converted {@link Double} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @throws NumberFormatException Thrown if the value cannot be converted.
      */
     public static Double createDouble(final String str) {
         if (str == null) {
@@ -268,7 +268,7 @@ public class NumberUtils {
      *
      * @param str A {@link String} to convert, may be null.
      * @return converted {@link Float} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @throws NumberFormatException Thrown if the value cannot be converted.
      */
     public static Float createFloat(final String str) {
         if (str == null) {
@@ -288,7 +288,7 @@ public class NumberUtils {
      *
      * @param str A {@link String} to convert, may be null.
      * @return converted {@link Integer} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @throws NumberFormatException Thrown if the value cannot be converted.
      */
     public static Integer createInteger(final String str) {
         if (str == null) {
@@ -309,7 +309,7 @@ public class NumberUtils {
      *
      * @param str A {@link String} to convert, may be null.
      * @return converted {@link Long} (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @throws NumberFormatException Thrown if the value cannot be converted.
      * @since 3.1
      */
     public static Long createLong(final String str) {
@@ -350,7 +350,7 @@ public class NumberUtils {
      *
      * @param str String containing a number, may be null.
      * @return Number created from the string (or null if the input is null).
-     * @throws NumberFormatException if the value cannot be converted.
+     * @throws NumberFormatException Thrown if the value cannot be converted.
      */
     public static Number createNumber(final String str) {
         if (str == null) {
@@ -528,7 +528,7 @@ public class NumberUtils {
      * @param str     The string representation of the number.
      * @param stopPos The position of the exponent or decimal point.
      * @return mantissa of the given number.
-     * @throws NumberFormatException if no mantissa can be retrieved.
+     * @throws NumberFormatException Thrown if no mantissa can be retrieved.
      */
     private static String getMantissa(final String str, final int stopPos) {
         final char firstChar = str.charAt(0);
@@ -672,7 +672,7 @@ public class NumberUtils {
     }
 
     /**
-     * Utility method for {@link #createNumber(java.lang.String)}.
+     * Tests whether the magnitude of the number is zero. Used by {@link #createNumber(java.lang.String)}.
      *
      * <p>
      * This will check if the magnitude of the number is zero by checking if there are only zeros before and after the decimal place.
@@ -710,8 +710,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from max(byte[]) to max(byte...).
      */
     public static byte max(final byte... array) {
@@ -750,8 +750,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @see IEEE754rUtils#max(double[]) IEEE754rUtils for a version of this method that handles NaN differently.
      * @since 3.4 Changed signature from max(double[]) to max(double...)
      */
@@ -788,8 +788,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @see IEEE754rUtils#max(float[]) IEEE754rUtils for a version of this method that handles NaN differently.
      * @since 3.4 Changed signature from max(float[]) to max(float...).
      */
@@ -860,8 +860,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from max(int[]) to max(int...).
      */
     public static int max(final int... array) {
@@ -900,8 +900,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from max(long[]) to max(long...).
      */
     public static long max(final long... array) {
@@ -941,8 +941,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The maximum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from max(short[]) to max(short...).
      */
     public static short max(final short... array) {
@@ -981,8 +981,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from min(byte[]) to min(byte...).
      */
     public static byte min(final byte... array) {
@@ -1021,8 +1021,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @see IEEE754rUtils#min(double[]) IEEE754rUtils for a version of this method that handles NaN differently.
      * @since 3.4 Changed signature from min(double[]) to min(double...).
      */
@@ -1059,8 +1059,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @see IEEE754rUtils#min(float[]) IEEE754rUtils for a version of this method that handles NaN differently.
      * @since 3.4 Changed signature from min(float[]) to min(float...).
      */
@@ -1097,8 +1097,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from min(int[]) to min(int...).
      */
     public static int min(final int... array) {
@@ -1137,8 +1137,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from min(long[]) to min(long...).
      */
     public static long min(final long... array) {
@@ -1178,8 +1178,8 @@ public class NumberUtils {
      *
      * @param array An array, must not be null or empty.
      * @return The minimum value in the array.
-     * @throws NullPointerException     if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from min(short[]) to min(short...).
      */
     public static short min(final short... array) {
@@ -1478,7 +1478,7 @@ public class NumberUtils {
      *
      * @param str          The string to convert, may be null.
      * @param defaultValue The default value.
-     * @return The long represented by the string, or the default if conver sion fails.
+     * @return The long represented by the string, or the default if conversion fails.
      * @since 2.1
      */
     public static long toLong(final String str, final long defaultValue) {
@@ -1672,8 +1672,8 @@ public class NumberUtils {
      * Checks if the specified array is neither null nor empty.
      *
      * @param array The array to check.
-     * @throws IllegalArgumentException if {@code array} is empty.
-     * @throws NullPointerException     if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
+     * @throws NullPointerException     Thrown if {@code array} is {@code null}.
      */
     private static void validateArray(final Object array) {
         Objects.requireNonNull(array, "array");
