@@ -26,7 +26,7 @@ limitations under the License.
 <section name='Developer guide for Commons "Lang"'>
 
 <h1>The Commons <em>Lang</em> Package</h1>
-<h2>Developers Guide</h2>
+<h2>Developers' Guide</h2>
 <br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#PackageStructure">[Package Structure]</a>
@@ -55,7 +55,7 @@ if possible.</p>
 <p>The main package for Lang is <code>org.apache.commons.lang3</code>. Subpackages should
 be created for each group of related items. </p>
 
-<p>Each package should have a <code>package.html</code> file for javadoc. This should
+<p>Each package should have a <code>package.html</code> file for Javadoc. This should
 describe the use of the package and its scope.</p>
 
 
@@ -72,11 +72,11 @@ as opposed to <code>Number</code>) should be dealt with in one Utils class where
 Each Utils class shall:</p>
 
 <ul>
-<li>be a single, static method based, class</li>
+<li>be a single class based on static methods</li>
 <li>have a name consisting of the interface name plus 'Utils'</li>
 <li>deal with one class or interface and its variations (subclasses)</li>
 <li>provide methods that perform useful utility functions</li>
-<li>the class will not be final</li>
+<li>not be final</li>
 <li>for null parameters, rather than throwing an Exception, consider performing a Null patterned concept, such as returning 0 or ""</li>
 </ul>
 
@@ -93,14 +93,13 @@ developers mailing list.</p>
 <a name="Javadoc"></a>
 <h3>4.  JAVADOC</h3>
 
-<p>The Sun javadoc guidelines are the starting point for Lang. These points are 
+<p>The Sun Javadoc guidelines are the starting point for Lang. These points are
 an extension to make it easier for users reading the generated 
-docs and developers with javadoc-popup capabilities from within their IDE.</p>
+docs and developers with Javadoc popup capabilities from within their IDE.</p>
 
 <h4>General</h4>
-<p>References to other objects, interfaces or methods use the @link-tag the 
-first time it is referenced in a class or interface. On the following 
-references always enclose it inside &lt;code&gt;&lt;/code&gt;.</p>
+<p>Use the @link tag the first time an object, interface, or method is referenced in a class or interface. For subsequent
+references, always enclose it inside &lt;code&gt;&lt;/code&gt;.</p>
 
 <p>References to <code>null</code>, <code>this</code>, <code>long</code>,
 <code>int</code>, <code>short</code>, <code>char</code>, <code>byte</code>,
@@ -115,9 +114,9 @@ enclose with &lt;p&gt;&lt;/p&gt;.</p>
 and if it is needed how it is done. If it is necessary include 
 description of the parameters, what they are used for and how. Enclose 
 with &lt;p&gt;&lt;/p&gt; where it is needed, try to divide into smaller parts (not 
-to small!) to enhance readability of the generated Javadoc.</p>
+too small!) to enhance readability of the generated Javadoc.</p>
 
-<p>If an example is needed enclose it with &lt;pre&gt;&lt;/pre&gt;.
+<p>If an example is needed, enclose it with &lt;pre&gt;&lt;/pre&gt;.
 It should be supported with an explanation within a normal paragraph.</p>
 
 <h4>Exception throwing</h4>
@@ -126,12 +125,12 @@ IllegalArgumentException, even if the argument was null. Do not throw
 NullPointerException. (Obviously, you should document what the code actually does!)</p>
 
 <h4>Deprecations</h4>
-<p>When deprecating a method or class include a clear reference to when the method will be deleted.
+<p>When deprecating a method or class, include a clear reference to when the method will be deleted.
 This should be of the form 'Method will be removed in Commons Lang 3.0.'. </p>
 
 <h4>Language used in code/comments</h4>
-<p>It has been decided to casually standardize on US-English.
-To avoid misplaced jeers of 'americanisation', the people making this decision largely write in non-US-English.
+<p>It has been decided to casually standardize on US English.
+To avoid misplaced jeers of 'Americanization', the people making this decision largely write in English other than US English.
 However, it's not something to get worked up about.  Lots of spelling differences will creep in all over.</p>
 
 <a name="Building"></a>
