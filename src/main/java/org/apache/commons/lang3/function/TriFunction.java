@@ -46,7 +46,7 @@ public interface TriFunction<T, U, V, R> {
      * @param <W> The type of output of the {@code after} function, and of the composed function
      * @param after The function to apply after this function is applied
      * @return A composed function that first applies this function and then applies the {@code after} function
-     * @throws NullPointerException if after is null
+     * @throws NullPointerException Thrown if after is null.
      */
     default <W> TriFunction<T, U, V, W> andThen(final Function<? super R, ? extends W> after) {
         Objects.requireNonNull(after, "after");
