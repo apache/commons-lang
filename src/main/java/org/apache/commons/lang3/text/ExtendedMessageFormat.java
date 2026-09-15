@@ -98,7 +98,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Create a new ExtendedMessageFormat for the default locale.
      *
      * @param pattern  The pattern to use, not null
-     * @throws IllegalArgumentException in case of a bad pattern.
+     * @throws IllegalArgumentException Thrown in case of a bad pattern.
      */
     public ExtendedMessageFormat(final String pattern) {
         this(pattern, Locale.getDefault());
@@ -109,7 +109,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param pattern  The pattern to use, not null
      * @param locale  The locale to use, not null
-     * @throws IllegalArgumentException in case of a bad pattern.
+     * @throws IllegalArgumentException Thrown in case of a bad pattern.
      */
     public ExtendedMessageFormat(final String pattern, final Locale locale) {
         this(pattern, locale, null);
@@ -121,7 +121,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param pattern  The pattern to use, not null.
      * @param locale  The locale to use.
      * @param registry  The registry of format factories, may be null.
-     * @throws IllegalArgumentException in case of a bad pattern.
+     * @throws IllegalArgumentException Thrown in case of a bad pattern.
      */
     public ExtendedMessageFormat(final String pattern, final Locale locale, final Map<String, ? extends FormatFactory> registry) {
         super(EMPTY_PATTERN);
@@ -135,7 +135,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      *
      * @param pattern  The pattern to use, not null
      * @param registry  The registry of format factories, may be null
-     * @throws IllegalArgumentException in case of a bad pattern.
+     * @throws IllegalArgumentException Thrown in case of a bad pattern.
      */
     public ExtendedMessageFormat(final String pattern, final Map<String, ? extends FormatFactory> registry) {
         this(pattern, Locale.getDefault(), registry);
@@ -296,7 +296,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Consume quoted string only
+     * Gets to the end of the quoted string by advancing the parse position.
      *
      * @param pattern pattern to parse, as a char array created once by the caller
      * @param pos current parse position
@@ -467,11 +467,11 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Throws UnsupportedOperationException - see class Javadoc for details.
+     * Always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
      *
      * @param formatElementIndex format element index
      * @param newFormat The new format
-     * @throws UnsupportedOperationException always thrown since this isn't supported by ExtendMessageFormat
+     * @throws UnsupportedOperationException Thrown always because this operation is not supported.
      */
     @Override
     public void setFormat(final int formatElementIndex, final Format newFormat) {
@@ -479,11 +479,11 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Throws UnsupportedOperationException - see class Javadoc for details.
+     * Always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
      *
      * @param argumentIndex argument index
      * @param newFormat The new format
-     * @throws UnsupportedOperationException always thrown since this isn't supported by ExtendMessageFormat
+     * @throws UnsupportedOperationException Thrown always because this operation is not supported.
      */
     @Override
     public void setFormatByArgumentIndex(final int argumentIndex, final Format newFormat) {
@@ -491,10 +491,10 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Throws UnsupportedOperationException - see class Javadoc for details.
+     * Always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
      *
      * @param newFormats new formats
-     * @throws UnsupportedOperationException always thrown since this isn't supported by ExtendMessageFormat
+     * @throws UnsupportedOperationException Thrown always because this operation is not supported.
      */
     @Override
     public void setFormats(final Format[] newFormats) {
@@ -502,10 +502,10 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Throws UnsupportedOperationException - see class Javadoc for details.
+     * Always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
      *
      * @param newFormats new formats
-     * @throws UnsupportedOperationException always thrown since this isn't supported by ExtendMessageFormat
+     * @throws UnsupportedOperationException Thrown always because this operation is not supported.
      */
     @Override
     public void setFormatsByArgumentIndex(final Format[] newFormats) {
