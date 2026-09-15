@@ -43,14 +43,14 @@ import org.junit.jupiter.api.Test;
 class SystemUtilsTest extends AbstractLangTest {
 
     /**
-     * Returns the value of the SystemUtils.IS_JAVA_X field for the versions >= 9.
+     * Gets the value of the SystemUtils.IS_JAVA_X field for the versions >= 9.
      */
     private boolean getIS_JAVA(final int version) throws Exception {
         return SystemUtils.class.getField("IS_JAVA_" + version).getBoolean(null);
     }
 
     /**
-     * Returns the last supported version with the SystemUtils.IS_JAVA_X fields.
+     * Gets the last supported version with the SystemUtils.IS_JAVA_X fields.
      */
     public int getLastSupportedJavaVersion() {
         int lastSupportedVersion = 0;
