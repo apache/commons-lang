@@ -114,7 +114,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
         /**
          * Invokes the latch if one is set.
          *
-         * @throws InterruptedException because it is declared that way in TimedSemaphore
+         * @throws InterruptedException Thrown if a TimedSemaphore operation fails.
          */
         @Override
         public synchronized void acquire() throws InterruptedException {
@@ -134,7 +134,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
         }
 
         /**
-         * Returns the number of invocations of the endOfPeriod() method.
+         * Gets the number of invocations of the endOfPeriod() method.
          *
          * @return The endOfPeriod() invocations
          */
@@ -211,7 +211,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
     /**
      * Tests the acquire() method if a limit is set.
      *
-     * @throws InterruptedException so we don't have to catch it
+     * @throws InterruptedException Thrown if an operation in the test fails.
      */
     @Test
     void testAcquireLimit() throws InterruptedException {
@@ -243,7 +243,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
      * semaphore a large number of times. While it runs at last one end of a
      * period should be reached.
      *
-     * @throws InterruptedException so we don't have to catch it
+     * @throws InterruptedException Thrown if an operation in the test fails.
      */
     @Test
     void testAcquireMultiplePeriods() throws InterruptedException {
@@ -264,7 +264,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
      * semaphore's limit is set to 1, so in each period only a single thread can
      * acquire the semaphore.
      *
-     * @throws InterruptedException so we don't have to catch it
+     * @throws InterruptedException Thrown if an operation in the test fails.
      */
     @Test
     void testAcquireMultipleThreads() throws InterruptedException {
@@ -298,7 +298,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
      * that calls the semaphore a large number of times. Even if the semaphore's
      * period does not end, the thread should never block.
      *
-     * @throws InterruptedException so we don't have to catch it
+     * @throws InterruptedException Thrown if an operation in the test fails.
      */
     @Test
     void testAcquireNoLimit() throws InterruptedException {
@@ -318,7 +318,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
     /**
      * Tests whether the available non-blocking calls can be queried.
      *
-     * @throws InterruptedException so we don't have to catch it
+     * @throws InterruptedException Thrown if an operation in the test fails.
      */
     @Test
     void testGetAvailablePermits() throws InterruptedException {
@@ -339,7 +339,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
     /**
      * Tests the methods for statistics.
      *
-     * @throws InterruptedException so we don't have to catch it
+     * @throws InterruptedException Thrown if an operation in the test fails.
      */
     @Test
     void testGetAverageCallsPerPeriod() throws InterruptedException {
@@ -412,7 +412,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
     /**
      * Tests multiple invocations of the shutdown() method.
      *
-     * @throws InterruptedException so we don't have to catch it
+     * @throws InterruptedException Thrown if an operation in the test fails.
      */
     @Test
     void testShutdownMultipleTimes() throws InterruptedException {
@@ -459,7 +459,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
      * Tests the shutdown() method for a shared executor after the task was
      * started. In this case the task must be canceled.
      *
-     * @throws InterruptedException so we don't have to catch it
+     * @throws InterruptedException Thrown if an operation in the test fails.
      */
     @Test
     void testShutdownSharedExecutorTask() throws InterruptedException {
@@ -538,7 +538,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
     /**
      * Tests starting the timer.
      *
-     * @throws InterruptedException so we don't have to catch it
+     * @throws InterruptedException Thrown if an operation in the test fails.
      */
     @Test
     void testStartTimer() throws InterruptedException {
