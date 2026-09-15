@@ -87,7 +87,7 @@ class CallableBackgroundInitializerTest extends AbstractLangTest {
     /**
      * Tests the implementation of initialize().
      *
-     * @throws Exception so we don't have to catch it
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testInitialize() throws Exception {
