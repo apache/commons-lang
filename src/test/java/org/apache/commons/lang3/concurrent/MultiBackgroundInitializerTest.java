@@ -167,7 +167,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * @param child The child initializer
      * @param expExec The expected executor service (null if the executor should
      * not be checked)
-     * @throws ConcurrentException if an error occurs
+     * @throws ConcurrentException Thrown if an error occurs.
      */
     private void checkChild(final BackgroundInitializer<?> child,
             final ExecutorService expExec) throws ConcurrentException {
@@ -185,7 +185,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * operate with both an external and a temporary executor service.
      *
      * @return The result object produced by the initializer
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     private MultiBackgroundInitializer.MultiBackgroundInitializerResults checkInitialize()
             throws ConcurrentException {
@@ -210,7 +210,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
     }
 
     /**
-     * An overrideable method to create concrete implementations of
+     * An overridable method to create concrete implementations of
      * {@code BackgroundInitializer} used for defining background tasks
      * for {@code MultiBackgroundInitializer}.
      */
@@ -227,7 +227,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tries to add another child initializer after the start() method has been
      * called. This should not be allowed.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testAddInitializerAfterStart() throws ConcurrentException {
@@ -259,7 +259,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tests the behavior of initialize() if a child initializer has a specific
      * executor service. Then this service should not be overridden.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeChildWithExecutor() throws ConcurrentException, InterruptedException {
@@ -285,7 +285,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tests the behavior of the initializer if one of the child initializers
      * throws a checked exception.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeEx() throws ConcurrentException {
@@ -304,7 +304,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
     /**
      * Tests background processing if an external executor service is provided.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeExternalExec() throws ConcurrentException, InterruptedException {
@@ -324,7 +324,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tests whether MultiBackgroundInitializers can be combined in a nested
      * way.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeNested() throws ConcurrentException {
@@ -356,7 +356,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
     /**
      * Tests the background processing if there are no child initializers.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeNoChildren() throws ConcurrentException {
@@ -371,7 +371,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tests the isSuccessful() method of the result object if at least one
      * child initializer has thrown an exception.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeResultsIsSuccessfulFalse()
@@ -389,7 +389,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tests the isSuccessful() method of the result object if no child
      * initializer has thrown an exception.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeResultsIsSuccessfulTrue()
@@ -419,7 +419,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
     /**
      * Tests background processing if a temporary executor is used.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testInitializeTempExec() throws ConcurrentException {
@@ -468,7 +468,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tries to query the exception of an unknown child initializer from the
      * results object. This should cause an exception.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testResultGetExceptionUnknown() throws ConcurrentException {
@@ -480,7 +480,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tries to query an unknown child initializer from the results object. This
      * should cause an exception.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testResultGetInitializerUnknown() throws ConcurrentException {
@@ -492,7 +492,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tries to query the results of an unknown child initializer from the
      * results object. This should cause an exception.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testResultGetResultObjectUnknown() throws ConcurrentException {
@@ -503,7 +503,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
     /**
      * Tests that the set with the names of the initializers cannot be modified.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testResultInitializerNamesModify() throws ConcurrentException {
@@ -519,7 +519,7 @@ class MultiBackgroundInitializerTest extends AbstractLangTest {
      * Tries to query the exception flag of an unknown child initializer from
      * the results object. This should cause an exception.
      *
-     * @throws org.apache.commons.lang3.concurrent.ConcurrentException so we don't have to catch it
+     * @throws org.apache.commons.lang3.concurrent.ConcurrentException Thrown if an operation in the test fails.
      */
     @Test
     void testResultIsExceptionUnknown() throws ConcurrentException {
