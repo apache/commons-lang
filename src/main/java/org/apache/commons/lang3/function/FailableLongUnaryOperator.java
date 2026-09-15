@@ -58,7 +58,7 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
      *
      * @param after The operator to apply after this one.
      * @return A composed {@link FailableLongUnaryOperator} like {@link LongUnaryOperator#andThen(LongUnaryOperator)}.
-     * @throws NullPointerException if after is null.
+     * @throws NullPointerException Thrown if after is null.
      * @see #compose(FailableLongUnaryOperator)
      */
     default FailableLongUnaryOperator<E> andThen(final FailableLongUnaryOperator<E> after) {
@@ -80,7 +80,7 @@ public interface FailableLongUnaryOperator<E extends Throwable> {
      *
      * @param before The operator to apply before this one.
      * @return A composed {@link FailableLongUnaryOperator} like {@link LongUnaryOperator#compose(LongUnaryOperator)}.
-     * @throws NullPointerException if before is null.
+     * @throws NullPointerException Thrown if before is null.
      * @see #andThen(FailableLongUnaryOperator)
      */
     default FailableLongUnaryOperator<E> compose(final FailableLongUnaryOperator<E> before) {
