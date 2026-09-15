@@ -51,7 +51,7 @@ public class AutoCloseables {
      *
      * @param closeable The resource to close, may be null.
      * @param consumer  Consume the Exception thrown by {@link AutoCloseable#close()}.
-     * @throws Exception As thrown by the consumer.
+     * @throws Exception Thrown if the consumer throws an exception.
      */
     public static void close(final AutoCloseable closeable, final FailableConsumer<Exception, Exception> consumer) throws Exception {
         if (closeable != null) {
