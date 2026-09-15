@@ -52,7 +52,7 @@ public class FieldUtils {
      *            the {@link Class} to query
      * @return An array of Fields (possibly empty).
      * @throws NullPointerException
-     *             if the class is {@code null}.
+     *             Thrown if the class is {@code null}.
      * @since 3.2
      */
     public static Field[] getAllFields(final Class<?> cls) {
@@ -66,7 +66,7 @@ public class FieldUtils {
      *            the {@link Class} to query
      * @return A list of Fields (possibly empty).
      * @throws NullPointerException
-     *             if the class is {@code null}.
+     *             Thrown if the class is {@code null}.
      * @since 3.2
      */
     public static List<Field> getAllFieldsList(final Class<?> cls) {
@@ -89,10 +89,10 @@ public class FieldUtils {
      *            the field name to obtain.
      * @return The Field object.
      * @throws NullPointerException
-     *             if the class is {@code null}.
+     *             Thrown if the class is {@code null}.
      * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank, or empty.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field name is {@code null}, blank, or empty.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Field getDeclaredField(final Class<?> cls, final String fieldName) {
@@ -113,10 +113,10 @@ public class FieldUtils {
      *            match {@code public} fields.
      * @return The Field object
      * @throws NullPointerException
-     *             if the class is {@code null}.
+     *             Thrown if the class is {@code null}.
      * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank, or empty.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field name is {@code null}, blank, or empty.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Field getDeclaredField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
@@ -147,10 +147,9 @@ public class FieldUtils {
      *            the field name to obtain.
      * @return The Field object.
      * @throws NullPointerException
-     *             if the class is {@code null}.
-     * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank, or empty
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the class is {@code null}.
+     * @throws IllegalArgumentException Thrown if the field name is {@code null}, blank, or empty.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Field getField(final Class<?> cls, final String fieldName) {
@@ -170,10 +169,10 @@ public class FieldUtils {
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @return The Field object.
-     * @throws NullPointerException if the class is {@code null}.
-     * @throws IllegalArgumentException if the field name is blank or empty or is matched at multiple places
+     * @throws NullPointerException Thrown if the class is {@code null}.
+     * @throws IllegalArgumentException Thrown if the field name is blank or empty or is matched at multiple places
      * in the inheritance hierarchy.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Field getField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
@@ -211,7 +210,7 @@ public class FieldUtils {
             }
         }
         // check the public interface case. This must be manually searched for
-        // incase there is a public supersuperclass field hidden by a private/package
+        // in case there is a public supersuperclass field hidden by a private/package
         // superclass field.
         Field match = null;
         for (final Class<?> class1 : ClassUtils.getAllInterfaces(cls)) {
@@ -236,7 +235,7 @@ public class FieldUtils {
      *            the {@link Annotation} that must be present on a field to be matched.
      * @return A list of Fields (possibly empty).
      * @throws NullPointerException
-     *            if the class or annotation are {@code null}.
+     *            Thrown if the class or annotation are {@code null}.
      * @since 3.4
      */
     public static List<Field> getFieldsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
@@ -253,7 +252,7 @@ public class FieldUtils {
      *            the {@link Annotation} that must be present on a field to be matched
      * @return An array of Fields (possibly empty).
      * @throws NullPointerException
-     *            if the class or annotation are {@code null}.
+     *            Thrown if the class or annotation are {@code null}.
      * @since 3.4
      */
     public static Field[] getFieldsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
@@ -269,12 +268,11 @@ public class FieldUtils {
      *            the field name to obtain.
      * @return The value of the field.
      * @throws NullPointerException
-     *             if {@code target} is {@code null}.
+     *             Thrown if {@code target} is {@code null}.
      * @throws IllegalArgumentException
-     *             if {@code fieldName} is {@code null}, blank or empty, or could not be found.
-     * @throws IllegalAccessException
-     *             if the named field is not {@code public}
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if {@code fieldName} is {@code null}, blank or empty, or could not be found.
+     * @throws IllegalAccessException Thrown if the named field is not {@code public}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readDeclaredField(final Object target, final String fieldName) throws IllegalAccessException {
@@ -294,12 +292,12 @@ public class FieldUtils {
      *            match public fields.
      * @return The Field object.
      * @throws NullPointerException
-     *             if {@code target} is {@code null}.
+     *             Thrown if {@code target} is {@code null}.
      * @throws IllegalArgumentException
-     *             if {@code fieldName} is {@code null}, blank or empty, or could not be found.
+     *             Thrown if {@code fieldName} is {@code null}, blank or empty, or could not be found.
      * @throws IllegalAccessException
-     *             if the field is not made accessible.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not made accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readDeclaredField(final Object target, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
@@ -321,12 +319,11 @@ public class FieldUtils {
      *            the field name to obtain.
      * @return The value of the field.
      * @throws NullPointerException
-     *             if the class is {@code null}, or the field could not be found.
+     *             Thrown if the class is {@code null}, or the field could not be found.
      * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank, empty, or is not {@code static}.
-     * @throws IllegalAccessException
-     *             if the field is not accessible
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field name is {@code null}, blank, empty, or is not {@code static}.
+     * @throws IllegalAccessException Thrown if the field is not accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readDeclaredStaticField(final Class<?> cls, final String fieldName) throws IllegalAccessException {
@@ -346,12 +343,11 @@ public class FieldUtils {
      *            match {@code public} fields.
      * @return The Field object
      * @throws NullPointerException
-     *             if the class is {@code null}, or the field could not be found.
+     *             Thrown if the class is {@code null}, or the field could not be found.
      * @throws IllegalArgumentException
-     *             if the field name is blank or empty, is not {@code static}.
-     * @throws IllegalAccessException
-     *             if the field is not made accessible
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field name is blank or empty, is not {@code static}.
+     * @throws IllegalAccessException Thrown if the field is not made accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readDeclaredStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
@@ -370,10 +366,10 @@ public class FieldUtils {
      *            the object to call on, may be {@code null} for {@code static} fields.
      * @return The field value
      * @throws NullPointerException
-     *             if the field is {@code null}.
+     *             Thrown if the field is {@code null}.
      * @throws IllegalAccessException
-     *             if the field is not accessible.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readField(final Field field, final Object target) throws IllegalAccessException {
@@ -392,12 +388,12 @@ public class FieldUtils {
      *            {@link AccessibleObject#setAccessible(boolean)} method.
      * @return The field value
      * @throws NullPointerException
-     *             if the field is {@code null}.
+     *             Thrown if the field is {@code null}.
      * @throws IllegalAccessException
-     *             if the field is not made accessible.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not made accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readField(final Field field, final Object target, final boolean forceAccess) throws IllegalAccessException {
@@ -414,12 +410,12 @@ public class FieldUtils {
      *            the field name to obtain.
      * @return The value of the field.
      * @throws NullPointerException
-     *             if the target is {@code null}.
+     *             Thrown if the target is {@code null}.
      * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank, empty, or could not be found.
+     *             Thrown if the field name is {@code null}, blank, empty, or could not be found.
      * @throws IllegalAccessException
-     *             if the named field is not {@code public}.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the named field is not {@code public}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readField(final Object target, final String fieldName) throws IllegalAccessException {
@@ -439,12 +435,12 @@ public class FieldUtils {
      *            match {@code public} fields.
      * @return The field value
      * @throws NullPointerException
-     *             if {@code target} is {@code null}.
+     *             Thrown if {@code target} is {@code null}.
      * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank, empty, or could not be found.
+     *             Thrown if the field name is {@code null}, blank, empty, or could not be found.
      * @throws IllegalAccessException
-     *             if the named field is not made accessible.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the named field is not made accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readField(final Object target, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
@@ -465,12 +461,12 @@ public class FieldUtils {
      *            the field name to obtain.
      * @return The value of the field.
      * @throws NullPointerException
-     *             if the class is {@code null}, or the field could not be found.
+     *             Thrown if the class is {@code null}, or the field could not be found.
      * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank or empty, or is not {@code static}.
+     *             Thrown if the field name is {@code null}, blank or empty, or is not {@code static}.
      * @throws IllegalAccessException
-     *             if the field is not accessible.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readStaticField(final Class<?> cls, final String fieldName) throws IllegalAccessException {
@@ -490,12 +486,12 @@ public class FieldUtils {
      *            match {@code public} fields.
      * @return The Field object.
      * @throws NullPointerException
-     *             if the class is {@code null}, or the field could not be found.
+     *             Thrown if the class is {@code null}, or the field could not be found.
      * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank or empty, or is not {@code static}.
+     *             Thrown if the field name is {@code null}, blank or empty, or is not {@code static}.
      * @throws IllegalAccessException
-     *             if the field is not made accessible.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not made accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readStaticField(final Class<?> cls, final String fieldName, final boolean forceAccess) throws IllegalAccessException {
@@ -512,12 +508,11 @@ public class FieldUtils {
      *            to read.
      * @return The field value.
      * @throws NullPointerException
-     *             if the field is {@code null}.
+     *             Thrown if the field is {@code null}.
      * @throws IllegalArgumentException
-     *             if the field is not {@code static}.
-     * @throws IllegalAccessException
-     *             if the field is not accessible
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not {@code static}.
+     * @throws IllegalAccessException Thrown if the field is not accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readStaticField(final Field field) throws IllegalAccessException {
@@ -534,12 +529,12 @@ public class FieldUtils {
      *            {@link AccessibleObject#setAccessible(boolean)} method.
      * @return The field value.
      * @throws NullPointerException
-     *             if the field is {@code null}.
+     *             Thrown if the field is {@code null}.
      * @throws IllegalArgumentException
-     *             if the field is not {@code static}.
+     *             Thrown if the field is not {@code static}.
      * @throws IllegalAccessException
-     *             if the field is not made accessible.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not made accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Object readStaticField(final Field field, final boolean forceAccess) throws IllegalAccessException {
@@ -554,8 +549,8 @@ public class FieldUtils {
      * @param field
      *            to remove the final modifier.
      * @throws NullPointerException
-     *             if the field is {@code null}.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is {@code null}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      * @since 3.2
      */
@@ -573,8 +568,8 @@ public class FieldUtils {
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws NullPointerException
-     *             if the field is {@code null}.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is {@code null}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      * @since 3.3
      * @deprecated As of Java 12, we can no longer drop the {@code final} modifier, thus
@@ -627,13 +622,12 @@ public class FieldUtils {
      * @param value
      *            the new value.
      * @throws NullPointerException
-     *             if {@code target} is {@code null}.
+     *             Thrown if {@code target} is {@code null}.
      * @throws IllegalArgumentException
-     *             if {@code fieldName} is {@code null}, blank or empty, or could not be found,
+     *             Thrown if {@code fieldName} is {@code null}, blank or empty, or could not be found,
      *             or {@code value} is not assignable.
-     * @throws IllegalAccessException
-     *             if the field is not made accessible
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @throws IllegalAccessException Thrown if the field is not made accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeDeclaredField(final Object target, final String fieldName, final Object value) throws IllegalAccessException {
@@ -653,12 +647,9 @@ public class FieldUtils {
      *            whether to break scope restrictions using the
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
-     * @throws IllegalArgumentException
-     *             if {@code fieldName} is {@code null}, blank or empty, or could not be found,
-     *             or {@code value} is not assignable
-     * @throws IllegalAccessException
-     *             if the field is not made accessible
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @throws IllegalArgumentException Thrown if {@code fieldName} is {@code null}, blank or empty, or could not be found, or {@code value} is not assignable.
+     * @throws IllegalAccessException Thrown if the field is not made accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeDeclaredField(final Object target, final String fieldName, final Object value, final boolean forceAccess)
@@ -681,12 +672,11 @@ public class FieldUtils {
      * @param value
      *            the new value.
      * @throws NullPointerException
-     *             if {@code cls} is {@code null} or the field cannot be located.
+     *             Thrown if {@code cls} is {@code null} or the field cannot be located.
      * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank, empty, not {@code static}, or {@code value} is not assignable.
-     * @throws IllegalAccessException
-     *             if the field is not {@code public} or is {@code final}
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field name is {@code null}, blank, empty, not {@code static}, or {@code value} is not assignable.
+     * @throws IllegalAccessException Thrown if the field is not {@code public} or is {@code final}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeDeclaredStaticField(final Class<?> cls, final String fieldName, final Object value) throws IllegalAccessException {
@@ -706,12 +696,11 @@ public class FieldUtils {
      *            whether to break scope restrictions using the {@code AccessibleObject#setAccessible(boolean)} method.
      *            {@code false} will only match {@code public} fields.
      * @throws NullPointerException
-     *             if {@code cls} is {@code null} or the field cannot be located.
+     *             Thrown if {@code cls} is {@code null} or the field cannot be located.
      * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank, empty, not {@code static}, or {@code value} is not assignable.
-     * @throws IllegalAccessException
-     *             if the field is not made accessible or is {@code final}
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field name is {@code null}, blank, empty, not {@code static}, or {@code value} is not assignable.
+     * @throws IllegalAccessException Thrown if the field is not made accessible or is {@code final}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeDeclaredStaticField(final Class<?> cls, final String fieldName, final Object value, final boolean forceAccess)
@@ -732,12 +721,12 @@ public class FieldUtils {
      * @param value
      *            the new value.
      * @throws NullPointerException
-     *             if the field is {@code null}.
+     *             Thrown if the field is {@code null}.
      * @throws IllegalArgumentException
-     *             if {@code value} is not assignable.
+     *             Thrown if {@code value} is not assignable.
      * @throws IllegalAccessException
-     *             if the field is not accessible or is {@code final}.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not accessible or is {@code final}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeField(final Field field, final Object target, final Object value) throws IllegalAccessException {
@@ -758,12 +747,11 @@ public class FieldUtils {
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws NullPointerException
-     *             if the field is {@code null}.
+     *             Thrown if the field is {@code null}.
      * @throws IllegalArgumentException
-     *             if {@code value} is not assignable.
-     * @throws IllegalAccessException
-     *             if the field is not made accessible or is {@code final}
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if {@code value} is not assignable.
+     * @throws IllegalAccessException Thrown if the field is not made accessible or is {@code final}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeField(final Field field, final Object target, final Object value, final boolean forceAccess)
@@ -782,13 +770,13 @@ public class FieldUtils {
      * @param value
      *            the new value.
      * @throws NullPointerException
-     *             if {@code target} is {@code null}.
+     *             Thrown if {@code target} is {@code null}.
      * @throws IllegalArgumentException
-     *             if {@code fieldName} is {@code null}, blank, empty, or could not be found,
+     *             Thrown if {@code fieldName} is {@code null}, blank, empty, or could not be found,
      *             or {@code value} is not assignable.
      * @throws IllegalAccessException
-     *             if the field is not accessible.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeField(final Object target, final String fieldName, final Object value) throws IllegalAccessException {
@@ -809,13 +797,13 @@ public class FieldUtils {
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws NullPointerException
-     *             if {@code target} is {@code null}.
+     *             Thrown if {@code target} is {@code null}.
      * @throws IllegalArgumentException
-     *             if {@code fieldName} is {@code null}, blank, empty, or could not be found,
+     *             Thrown if {@code fieldName} is {@code null}, blank, empty, or could not be found,
      *             or {@code value} is not assignable.
      * @throws IllegalAccessException
-     *             if the field is not made accessible.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not made accessible.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeField(final Object target, final String fieldName, final Object value, final boolean forceAccess)
@@ -838,13 +826,12 @@ public class FieldUtils {
      * @param value
      *            the new value.
      * @throws NullPointerException
-     *             if {@code target} is {@code null}.
+     *             Thrown if {@code target} is {@code null}.
      * @throws IllegalArgumentException
-     *             if {@code fieldName} is {@code null}, blank or empty, the field cannot be located or is
+     *             Thrown if {@code fieldName} is {@code null}, blank or empty, the field cannot be located or is
      *             not {@code static}, or {@code value} is not assignable.
-     * @throws IllegalAccessException
-     *             if the field is not {@code public} or is {@code final}
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @throws IllegalAccessException Thrown if the field is not {@code public} or is {@code final}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeStaticField(final Class<?> cls, final String fieldName, final Object value) throws IllegalAccessException {
@@ -865,12 +852,12 @@ public class FieldUtils {
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws NullPointerException
-     *             if {@code cls} is {@code null} or the field cannot be located.
+     *             Thrown if {@code cls} is {@code null} or the field cannot be located.
      * @throws IllegalArgumentException
-     *             if {@code fieldName} is {@code null}, blank or empty, the field not {@code static}, or {@code value} is not assignable.
+     *             Thrown if {@code fieldName} is {@code null}, blank or empty, the field not {@code static}, or {@code value} is not assignable.
      * @throws IllegalAccessException
-     *             if the field is not made accessible or is {@code final}.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not made accessible or is {@code final}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeStaticField(final Class<?> cls, final String fieldName, final Object value, final boolean forceAccess)
@@ -889,12 +876,12 @@ public class FieldUtils {
      * @param value
      *            the new value.
      * @throws NullPointerException
-     *              if the field is {@code null}.
+     *              Thrown if the field is {@code null}.
      * @throws IllegalArgumentException
-     *              if the field is not {@code static}, or {@code value} is not assignable.
+     *              Thrown if the field is not {@code static}, or {@code value} is not assignable.
      * @throws IllegalAccessException
-     *             if the field is not {@code public} or is {@code final}.
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *             Thrown if the field is not {@code public} or is {@code final}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeStaticField(final Field field, final Object value) throws IllegalAccessException {
@@ -913,12 +900,11 @@ public class FieldUtils {
      *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
      *            match {@code public} fields.
      * @throws NullPointerException
-     *              if the field is {@code null}.
+     *              Thrown if the field is {@code null}.
      * @throws IllegalArgumentException
-     *              if the field is not {@code static}, or {@code value} is not assignable.
-     * @throws IllegalAccessException
-     *             if the field is not made accessible or is {@code final}
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     *              Thrown if the field is not {@code static}, or {@code value} is not assignable.
+     * @throws IllegalAccessException Thrown if the field is not made accessible or is {@code final}.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static void writeStaticField(final Field field, final Object value, final boolean forceAccess) throws IllegalAccessException {
