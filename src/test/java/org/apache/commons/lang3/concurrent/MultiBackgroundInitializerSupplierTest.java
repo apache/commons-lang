@@ -90,7 +90,7 @@ class MultiBackgroundInitializerSupplierTest extends MultiBackgroundInitializerT
     /**
      * Tests that close() method closes the wrapped object
      *
-     * @throws Exception
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testClose()
@@ -141,7 +141,7 @@ class MultiBackgroundInitializerSupplierTest extends MultiBackgroundInitializerT
     /**
      * Tests that close() wraps a checked exception from a child initializer in an ConcurrentException as the first suppressed under in an ConcurrentException
      *
-     * @throws Exception
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testCloseWithCheckedException() throws Exception {
@@ -174,7 +174,7 @@ class MultiBackgroundInitializerSupplierTest extends MultiBackgroundInitializerT
     /**
      * Tests that close() wraps a runtime exception from a child initializer as the first suppressed under in an ConcurrentException
      *
-     * @throws Exception
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testCloseWithRuntimeException() throws Exception {
@@ -208,7 +208,7 @@ class MultiBackgroundInitializerSupplierTest extends MultiBackgroundInitializerT
      * Tests that calling close() on a MultiBackgroundInitializer with two children that both throw exceptions throws
      * an ConcurrentException and both the child exceptions are present
      *
-     * @throws Exception
+     * @throws Exception Thrown if an operation in the test fails.
      */
     @Test
     void testCloseWithTwoExceptions()
