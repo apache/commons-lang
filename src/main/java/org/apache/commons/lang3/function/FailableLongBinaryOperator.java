@@ -34,7 +34,7 @@ public interface FailableLongBinaryOperator<E extends Throwable> {
      * @param left The first operand
      * @param right The second operand
      * @return The operator result
-     * @throws E if the operation fails
+     * @throws E Thrown if the operation fails.
      */
     long applyAsLong(long left, long right) throws E;
 }
