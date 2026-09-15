@@ -93,7 +93,7 @@ class FastDatePrinterTest extends AbstractLangTest {
     }
 
     /**
-     * Override this method in derived tests to change the construction of instances
+     * Gets the printer instance to use for testing. Override this method in derived tests to change how instances are constructed.
      *
      * @param format   The format string to use
      * @param timeZone The time zone to use
