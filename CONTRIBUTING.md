@@ -41,7 +41,7 @@
 Contributing to Apache Commons Lang
 ======================
 
-Have you found a bug or have an idea for a cool new feature? Contributing code is a great way to give something back to the open-source community.
+Have you found a bug or do you have an idea for a cool new feature? Contributing code is a great way to give something back to the open-source community.
 Before you dig right into the code, we need contributors to follow a few guidelines to have a chance of keeping on top of things.
 
 Getting Started
@@ -49,7 +49,7 @@ Getting Started
 
 + Make sure you have a [JIRA account](https://issues.apache.org/jira/).
 + Make sure you have a [GitHub account](https://github.com/signup). This is not essential, but makes providing patches much easier.
-+ If you're planning to implement a new feature it makes sense to discuss your changes on the [dev list](https://commons.apache.org/mail-lists.html) first. This way you can make sure you're not wasting your time on something that isn't considered to be in Apache Commons Lang's scope.
++ If you're planning to implement a new feature, it makes sense to discuss your changes on the [dev list](https://commons.apache.org/mail-lists.html) first. This way you can make sure you're not wasting your time on something that isn't considered to be in Apache Commons Lang's scope.
 + Submit a [Jira Ticket][jira] for your issue, assuming one does not already exist.
   + Clearly describe the issue including steps to reproduce when it is a bug.
   + Make sure you fill in the earliest version that you know has the issue.
@@ -60,7 +60,7 @@ Making Changes
 --------------
 
 + Create a _topic branch_ for your isolated work.
-  * Usually you should base your branch from the `master` branch.
+  * Usually you should base your branch on the `master` branch.
   * A good topic branch name can be the JIRA bug ID plus a keyword, e.g. `LANG-123-InputStream`.
   * If you have submitted multiple JIRA issues, try to maintain separate branches and pull requests.
 + Make commits of logical units.
@@ -68,7 +68,7 @@ Making Changes
   * For example, `[LANG-123] Close input stream sooner`
 + Respect the original code style:
   + Only use spaces for indentation; you can check for unnecessary whitespace with `git diff` before committing.
-  + Create minimal diffs - disable _On Save_ actions like _Reformat Source Code_ or _Organize Imports_. If you feel the source code should be reformatted create a separate PR for this change first.
+  + Create minimal diffs - disable _On Save_ actions like _Reformat Source Code_ or _Organize Imports_. If you feel the source code should be reformatted, create a separate PR for this change first.
 + Write unit tests that match behavioral changes, where the tests fail if the changes to the runtime are not applied. This may not always be possible but is a best practice.
 Unit tests are typically in the `src/test/java` directory.
 + Run a successful build using the default [Maven](https://maven.apache.org/) goal with `mvn`; that's `mvn` on the command line by itself.
