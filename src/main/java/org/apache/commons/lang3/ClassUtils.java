@@ -205,7 +205,7 @@ public class ClassUtils {
      *
      * @param classes The classes to change.
      * @return A {@link List} of class names corresponding to the Class objects, {@code null} if null input.
-     * @throws ClassCastException if {@code classes} contains a non-{@link Class} entry.
+     * @throws ClassCastException Thrown if {@code classes} contains a non-{@link Class} entry.
      */
     public static List<String> convertClassesToClassNames(final List<Class<?>> classes) {
         return classes == null ? null : classes.stream().map(e -> getName(e, null)).collect(Collectors.toList());
@@ -221,7 +221,7 @@ public class ClassUtils {
      *
      * @param classNames The classNames to change.
      * @return A {@link List} of Class objects corresponding to the class names, {@code null} if null input.
-     * @throws ClassCastException if classNames contains a non String entry.
+     * @throws ClassCastException Thrown if classNames contains a non String entry.
      */
     public static List<Class<?>> convertClassNamesToClasses(final List<String> classNames) {
         if (classNames == null) {
@@ -244,7 +244,7 @@ public class ClassUtils {
      * @param cls The class to get the abbreviated name for, may be {@code null}.
      * @param lengthHint The desired length of the abbreviated name.
      * @return The abbreviated name or an empty string.
-     * @throws IllegalArgumentException if len &lt;= 0.
+     * @throws IllegalArgumentException Thrown if len &lt;= 0.
      * @see #getAbbreviatedName(String, int)
      * @since 3.4
      */
@@ -325,7 +325,7 @@ public class ClassUtils {
      * @param lengthHint The desired length of the abbreviated name.
      * @return The abbreviated name or an empty string if the specified class name is {@code null} or empty string. The
      *         abbreviated name may be longer than the desired length if it cannot be abbreviated to the desired length.
-     * @throws IllegalArgumentException if {@code len <= 0}.
+     * @throws IllegalArgumentException Thrown if {@code len <= 0}.
      * @since 3.4
      */
     public static String getAbbreviatedName(final String className, final int lengthHint) {
@@ -482,11 +482,10 @@ public class ClassUtils {
     }
 
     /**
-     * Converts a given name of class into canonical format. If name of class is not a name of array class it returns
-     * unchanged name.
+     * Gets the canonical form of the given class name. Non-array class names are returned unchanged.
      *
      * <p>
-     * The method does not change the {@code $} separators in case the class is inner class.
+     * The method does not change the {@code $} separators if the class is an inner class.
      * </p>
      *
      * <p>
@@ -500,7 +499,7 @@ public class ClassUtils {
      *
      * @param name The name of class.
      * @return canonical form of class name.
-     * @throws IllegalArgumentException if the class name is invalid.
+     * @throws IllegalArgumentException Thrown if the class name is invalid.
      */
     private static String getCanonicalName(final String name) {
         String className = StringUtils.deleteWhitespace(name);
@@ -564,8 +563,8 @@ public class ClassUtils {
      * @param classLoader The class loader to use to load the class.
      * @param className The class name.
      * @return The class represented by {@code className} using the {@code classLoader}.
-     * @throws NullPointerException if the className is null.
-     * @throws ClassNotFoundException if the class is not found.
+     * @throws NullPointerException Thrown if the className is null.
+     * @throws ClassNotFoundException Thrown if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
      * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see Class#forName(String, boolean, ClassLoader)
@@ -598,8 +597,8 @@ public class ClassUtils {
      * @param className The class name.
      * @param initialize whether the class must be initialized.
      * @return The class represented by {@code className} using the {@code classLoader}.
-     * @throws NullPointerException if the className is null.
-     * @throws ClassNotFoundException if the class is not found.
+     * @throws NullPointerException Thrown if the className is null.
+     * @throws ClassNotFoundException Thrown if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
      * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see Class#forName(String, boolean, ClassLoader)
@@ -612,15 +611,16 @@ public class ClassUtils {
     }
 
     /**
-     * Implements {@link #getClass(ClassLoader, String, boolean)} and {@link #getClassStrict(ClassLoader, String, boolean)}.
+     * Gets a class using the shared implementation of {@link #getClass(ClassLoader, String, boolean)} and
+     * {@link #getClassStrict(ClassLoader, String, boolean)}.
      *
      * @param classLoader The class loader to use to load the class.
      * @param className The class name.
      * @param initialize whether the class must be initialized.
      * @param normalizeWhitespace whether to delete all whitespace from the class name before resolving it.
      * @return The class represented by {@code className} using the {@code classLoader}.
-     * @throws NullPointerException if the className is null.
-     * @throws ClassNotFoundException if the class is not found.
+     * @throws NullPointerException Thrown if the className is null.
+     * @throws ClassNotFoundException Thrown if the class is not found.
      */
     private static Class<?> getClass(final ClassLoader classLoader, final String className, final boolean initialize, final boolean normalizeWhitespace)
             throws ClassNotFoundException {
@@ -660,8 +660,8 @@ public class ClassUtils {
      *
      * @param className The class name
      * @return The class represented by {@code className} using the current thread's context class loader
-     * @throws NullPointerException if the className is null
-     * @throws ClassNotFoundException if the class is not found
+     * @throws NullPointerException Thrown if the className is null.
+     * @throws ClassNotFoundException Thrown if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
      * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see Class#forName(String, boolean, ClassLoader)
@@ -693,8 +693,8 @@ public class ClassUtils {
      * @param className The class name.
      * @param initialize whether the class must be initialized.
      * @return The class represented by {@code className} using the current thread's context class loader.
-     * @throws NullPointerException if the className is null.
-     * @throws ClassNotFoundException if the class is not found.
+     * @throws NullPointerException Thrown if the className is null.
+     * @throws ClassNotFoundException Thrown if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
      * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see Class#forName(String, boolean, ClassLoader)
@@ -726,8 +726,8 @@ public class ClassUtils {
      * @param className The class name.
      * @param initialize whether the class must be initialized.
      * @return The class represented by {@code className} using the {@code classLoader}.
-     * @throws NullPointerException if the className is null.
-     * @throws ClassNotFoundException if the class is not found.
+     * @throws NullPointerException Thrown if the className is null.
+     * @throws ClassNotFoundException Thrown if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
      * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see Class#forName(String, boolean, ClassLoader)
@@ -754,8 +754,8 @@ public class ClassUtils {
      *
      * @param className The class name.
      * @return The class represented by {@code className} using the current thread's context class loader.
-     * @throws NullPointerException if the className is null.
-     * @throws ClassNotFoundException if the class is not found.
+     * @throws NullPointerException Thrown if the className is null.
+     * @throws ClassNotFoundException Thrown if the class is not found.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
      * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see Class#forName(String)
@@ -769,7 +769,7 @@ public class ClassUtils {
     }
 
     /**
-     * Delegates to {@link Class#getComponentType()} using generics.
+     * Gets the array component type using {@link Class#getComponentType()} with generics.
      *
      * @param <T> The array class type.
      * @param cls A class or null.
@@ -783,7 +783,7 @@ public class ClassUtils {
     }
 
     /**
-     * Null-safe version of {@code cls.getName()}
+     * Gets the class name, handling {@code null} safely.
      *
      * @param cls The class for which to get the class name; may be null.
      * @return The class name or the empty string in case the argument is {@code null}.
@@ -795,7 +795,7 @@ public class ClassUtils {
     }
 
     /**
-     * Null-safe version of {@code cls.getName()}
+     * Gets the class name, handling {@code null} safely.
      *
      * @param cls The class for which to get the class name; may be null.
      * @param valueIfNull The return value if the argument {@code cls} is {@code null}.
@@ -812,7 +812,7 @@ public class ClassUtils {
     }
 
     /**
-     * Null-safe version of {@code object.getClass().getName()}
+     * Gets the object's class name, handling {@code null} safely.
      *
      * @param object The object for which to get the class name; may be null.
      * @return The class name or the empty String.
@@ -824,7 +824,7 @@ public class ClassUtils {
     }
 
     /**
-     * Null-safe version of {@code object.getClass().getSimpleName()}
+     * Gets the object's class name, handling {@code null} safely.
      *
      * @param object The object for which to get the class name; may be null.
      * @param valueIfNull The value to return if {@code object} is {@code null}.
@@ -969,9 +969,9 @@ public class ClassUtils {
      * @param methodName The name of the method.
      * @param parameterTypes The list of parameters.
      * @return The method.
-     * @throws NullPointerException if the class is null.
-     * @throws SecurityException if a security violation occurred.
-     * @throws NoSuchMethodException if the method is not found in the given class or if the method doesn't conform with the
+     * @throws NullPointerException Thrown if the class is null.
+     * @throws SecurityException Thrown if a security violation occurred.
+     * @throws NoSuchMethodException Thrown if the method is not found in the given class or if the method doesn't conform with the
      *         requirements.
      */
     public static Method getPublicMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) throws NoSuchMethodException {
@@ -1236,7 +1236,7 @@ public class ClassUtils {
     }
 
     /**
-     * Null-safe version of {@code cls.getSimpleName()}
+     * Gets the simple class name, handling {@code null} safely.
      *
      * @param cls The class for which to get the simple name; may be null.
      * @return The simple class name or the empty string in case the argument is {@code null}.
@@ -1248,7 +1248,7 @@ public class ClassUtils {
     }
 
     /**
-     * Null-safe version of {@code cls.getSimpleName()}
+     * Gets the simple class name, handling {@code null} safely.
      *
      * @param cls The class for which to get the simple name; may be null.
      * @param valueIfNull The value to return if null.
@@ -1261,7 +1261,7 @@ public class ClassUtils {
     }
 
     /**
-     * Null-safe version of {@code object.getClass().getSimpleName()}
+     * Gets the object's simple class name, handling {@code null} safely.
      *
      * <p>
      * It is to note that this method is overloaded and in case the argument {@code object} is a {@link Class} object then
@@ -1281,7 +1281,7 @@ public class ClassUtils {
     }
 
     /**
-     * Null-safe version of {@code object.getClass().getSimpleName()}
+     * Gets the object's simple class name, handling {@code null} safely.
      *
      * @param object The object for which to get the simple class name; may be null.
      * @param valueIfNull The value to return if {@code object} is {@code null}.
@@ -1715,7 +1715,7 @@ public class ClassUtils {
      *
      * @param className The class name.
      * @return The converted name.
-     * @throws NullPointerException     if the className is null.
+     * @throws NullPointerException     Thrown if the className is null.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
      * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      * @see <a href="https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html#jvms-4.4.1">JVM: Array dimension limits in JVM Specification
@@ -1732,7 +1732,7 @@ public class ClassUtils {
      *
      * @param className The class name.
      * @return The converted name.
-     * @throws NullPointerException     if the className is null.
+     * @throws NullPointerException     Thrown if the className is null.
      * @throws IllegalArgumentException Thrown if the class name represents an array with more dimensions than the JVM supports, 255.
      * @throws IllegalArgumentException Thrown if the class name length is greater than 65,535.
      */
