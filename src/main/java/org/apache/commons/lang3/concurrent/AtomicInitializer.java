@@ -129,7 +129,7 @@ public class AtomicInitializer<T> extends AbstractConcurrentInitializer<T, Concu
      * object.
      *
      * @return The object created by this {@link AtomicInitializer}.
-     * @throws ConcurrentException if an error occurred during initialization of the object.
+     * @throws ConcurrentException Thrown if an error occurred during initialization of the object.
      */
     @Override
     public T get() throws ConcurrentException {
