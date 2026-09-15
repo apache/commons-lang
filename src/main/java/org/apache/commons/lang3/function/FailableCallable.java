@@ -31,7 +31,7 @@ public interface FailableCallable<R, E extends Throwable> {
      * Calls the callable.
      *
      * @return The value returned from the callable
-     * @throws E if the callable fails
+     * @throws E Thrown if the callable fails.
      */
     R call() throws E;
 }
