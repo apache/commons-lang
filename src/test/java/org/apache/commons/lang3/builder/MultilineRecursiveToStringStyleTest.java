@@ -169,7 +169,7 @@ class MultilineRecursiveToStringStyleTest extends AbstractBuilderTest {
     }
 
     /**
-     * Create an expected to String for the given WithArraysInstance
+     * Gets the expected string representation for the given WithArrays instance.
      * @param wa                 Instance
      * @param arrayType          Type - empty used to indicate expect all nulls
      * @param expectedArrayValue Expected value for the array type
