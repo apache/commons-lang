@@ -253,7 +253,7 @@ public class ReflectionDiffBuilder<T> extends AbstractReflection implements Buil
      * @param left  {@code this} object.
      * @param right The object to diff against.
      * @param style The style will use when outputting the objects, {@code null} uses the default
-     * @throws IllegalArgumentException if {@code left} or {@code right} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code left} or {@code right} is {@code null}.
      * @deprecated Use {@link Builder}.
      */
     @Deprecated
@@ -273,7 +273,7 @@ public class ReflectionDiffBuilder<T> extends AbstractReflection implements Buil
     /**
      * Appends fields using reflection.
      *
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     private void appendFields(final Class<?> clazz) {
@@ -293,7 +293,7 @@ public class ReflectionDiffBuilder<T> extends AbstractReflection implements Buil
     /**
      * {@inheritDoc}
      *
-     * @throws SecurityException if an underlying accessible object's method denies the request.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     @Override
