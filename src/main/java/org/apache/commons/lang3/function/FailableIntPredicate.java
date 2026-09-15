@@ -64,7 +64,7 @@ public interface FailableIntPredicate<E extends Throwable> {
      *
      * @param other A predicate that will be logically-ANDed with this predicate.
      * @return A composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
-     * @throws NullPointerException if other is null
+     * @throws NullPointerException Thrown if other is null.
      */
     default FailableIntPredicate<E> and(final FailableIntPredicate<E> other) {
         Objects.requireNonNull(other, "other");
@@ -85,7 +85,7 @@ public interface FailableIntPredicate<E extends Throwable> {
      *
      * @param other A predicate that will be logically-ORed with this predicate.
      * @return A composed {@link FailableIntPredicate} like {@link IntPredicate#and(IntPredicate)}.
-     * @throws NullPointerException if other is null
+     * @throws NullPointerException Thrown if other is null.
      */
     default FailableIntPredicate<E> or(final FailableIntPredicate<E> other) {
         Objects.requireNonNull(other, "other");
