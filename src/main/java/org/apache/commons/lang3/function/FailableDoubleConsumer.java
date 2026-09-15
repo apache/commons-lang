@@ -57,7 +57,7 @@ public interface FailableDoubleConsumer<E extends Throwable> {
      *
      * @param after The operation to perform after this one.
      * @return A composed {@link FailableDoubleConsumer} like {@link DoubleConsumer#andThen(DoubleConsumer)}.
-     * @throws NullPointerException when {@code after} is null.
+     * @throws NullPointerException Thrown when {@code after} is null.
      */
     default FailableDoubleConsumer<E> andThen(final FailableDoubleConsumer<E> after) {
         Objects.requireNonNull(after, "after");
