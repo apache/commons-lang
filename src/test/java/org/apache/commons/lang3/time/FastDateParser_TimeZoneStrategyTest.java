@@ -235,7 +235,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     /**
      * Breaks randomly on GitHub for Locale "pt_PT", TimeZone "Etc/UTC" if we do not check if the Locale's language is "undetermined".
      *
-     * @throws ParseException
+     * @throws ParseException Thrown if an operation in the test fails.
      */
     private void testTimeZoneStrategyPattern_TimeZone_getAvailableIDs(final Locale locale) {
         Objects.requireNonNull(locale, "locale");
@@ -260,7 +260,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      * zone[] size = '7', zIndex = 3, tzDisplay = 'Horário do Meridiano de Greenwich'
      * }</pre>
      *
-     * @throws ParseException Test failure
+     * @throws ParseException Thrown if an operation in the test fails.
      */
     @Test
     void testTimeZoneStrategyPatternPortugal_PT() throws ParseException {
@@ -270,7 +270,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     /**
      * Breaks randomly on GitHub CI for Java 25 and Locale "pt_ST", TimeZone "Hora padrão de Damasco".
      *
-     * @throws ParseException Test failure
+     * @throws ParseException Thrown if an operation in the test fails.
      */
     @Test
     void testTimeZoneStrategyPatternPortugal_ST() throws ParseException {
@@ -280,7 +280,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     /**
      * Breaks randomly on GitHub CI for Java 25 and Locale "pt_TL", TimeZone "Hora padrão de Damasco".
      *
-     * @throws ParseException Test failure
+     * @throws ParseException Thrown if an operation in the test fails.
      */
     @Test
     void testTimeZoneStrategyPatternPortugal_TL() throws ParseException {
@@ -296,7 +296,7 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
      * zone[] size = '7', zIndex = 3, tzDisplay = 'Srednje vreme po Griniču'
      * }</pre>
      *
-     * @throws ParseException Test failure
+     * @throws ParseException Thrown if an operation in the test fails.
      */
     @Test
     void testTimeZoneStrategyPatternSuriname() throws ParseException {
