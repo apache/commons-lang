@@ -60,7 +60,7 @@ public interface FailableSupplier<T, E extends Throwable> {
      * Supplies an object
      *
      * @return A result
-     * @throws E if the supplier fails
+     * @throws E Thrown if the supplier fails.
      */
     T get() throws E;
 }
