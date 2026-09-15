@@ -66,7 +66,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * Constructs a new MutableBoolean with the specified value.
      *
      * @param value  The initial value to store, not null
-     * @throws NullPointerException if the object is null
+     * @throws NullPointerException Thrown if the object is null.
      */
     public MutableBoolean(final Boolean value) {
         this.value = value.booleanValue();
@@ -132,7 +132,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
-     * Checks if the current value is {@code false}.
+     * Tests whether the current value is {@code false}.
      *
      * @return {@code true} if the current value is {@code false}
      * @since 2.5
@@ -142,7 +142,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
     }
 
     /**
-     * Checks if the current value is {@code true}.
+     * Tests whether the current value is {@code true}.
      *
      * @return {@code true} if the current value is {@code true}
      * @since 2.5
@@ -182,7 +182,7 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
      * Sets the value from any Boolean instance.
      *
      * @param value  The value to set, not null
-     * @throws NullPointerException if the object is null
+     * @throws NullPointerException Thrown if the object is null.
      */
     @Override
     public void setValue(final Boolean value) {
