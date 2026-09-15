@@ -68,8 +68,7 @@ public abstract class AbstractReflection {
         }
 
         /**
-         * Whether the {@link AbstractReflection} subclass will call {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)} on
-         * inaccessible fields.
+         * Sets whether inaccessible fields are made accessible by calling {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)}.
          * <p>
          * In general, controls whether the instances built by this builder will force the accessible flag for reflection.
          * </p>
@@ -80,10 +79,10 @@ public abstract class AbstractReflection {
          * This default is read from the system property {@code "AbstractReflection.forceAccessible"}, which defaults to true for compatibility.
          * </p>
          * <p>
-         * The parsing rules are as {@link Boolean#parseBoolean(String)}.
+         * The parsing rules are defined by {@link Boolean#parseBoolean(String)}.
          * </p>
          * <p>
-         * See subclassses for specific behavior.
+         * See subclasses for specific behavior.
          * </p>
          *
          * @param forceAccessible Whether to force accessibility by calling {@link AccessibleObject#setAccessible(boolean)
@@ -98,9 +97,9 @@ public abstract class AbstractReflection {
     }
 
     /**
-     * Tests whether the system property {@code "AbstractReflection.forceAccessible"} is set to true.
+     * Gets whether the system property {@code "AbstractReflection.forceAccessible"} is set to true.
      * <p>
-     * The parsing rules are as {@link Boolean#parseBoolean(String)}.
+     * The parsing rules are defined by {@link Boolean#parseBoolean(String)}.
      * </p>
      * <p>
      * If the property is not set, return true.
@@ -125,8 +124,8 @@ public abstract class AbstractReflection {
     }
 
     /**
-     * If {@code forceAccessible} is true, makes {@code accessibleObject} accessible by calling {@link AccessibleObject#setAccessible(boolean)
-     * AccessibleObject#setAccessible(true)} but <em>only</em> if it is not already accessible.
+     * Sets {@code accessibleObject} to be accessible if {@code forceAccessible} is true and the object is not already accessible. Calls
+     * {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)}.
      *
      * @param forceAccessible  Whether to call {@link AccessibleObject#setAccessible(boolean)} if the object is not already accessible.
      * @param accessibleObject The accessible object to set; may be {@code null}.
@@ -203,8 +202,8 @@ public abstract class AbstractReflection {
     }
 
     /**
-     * If {@code forceAccessible} flag is true, the field is made accessible by calling {@link AccessibleObject#setAccessible(boolean)
-     * AccessibleObject#setAccessible(true)} but <em>only</em> if the field is not already accessible.
+     * Sets the field to be accessible if {@code forceAccessible} is true and the field is not already accessible. Calls
+     * {@link AccessibleObject#setAccessible(boolean) AccessibleObject#setAccessible(true)}.
      *
      * @param field The field to set; may be {@code null}.
      * @return {@code true} if {@code field} is non-null and accessible after this call; {@code false} otherwise.
