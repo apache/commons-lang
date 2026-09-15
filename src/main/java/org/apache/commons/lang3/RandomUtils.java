@@ -120,7 +120,7 @@ public class RandomUtils {
      *
      * @param count The size of the returned array.
      * @return The random byte array.
-     * @throws IllegalArgumentException if {@code count} is negative.
+     * @throws IllegalArgumentException Thrown if {@code count} is negative.
      * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
     @Deprecated
@@ -146,7 +146,7 @@ public class RandomUtils {
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
+     * @throws IllegalArgumentException Thrown if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
      * @return The random double.
      * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -173,7 +173,7 @@ public class RandomUtils {
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
+     * @throws IllegalArgumentException Thrown if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
      * @return The random float.
      * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -200,7 +200,7 @@ public class RandomUtils {
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
+     * @throws IllegalArgumentException Thrown if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
      * @return The random integer.
      * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -227,7 +227,7 @@ public class RandomUtils {
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
+     * @throws IllegalArgumentException Thrown if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
      * @return The random long.
      * @deprecated Use {@link #secure()}, {@link #secureStrong()}, or {@link #insecure()}.
      */
@@ -309,7 +309,7 @@ public class RandomUtils {
      *
      * @param count The size of the returned array.
      * @return The random byte array.
-     * @throws IllegalArgumentException if {@code count} is negative.
+     * @throws IllegalArgumentException Thrown if {@code count} is negative.
      * @since 3.16.0
      */
     public byte[] randomBytes(final int count) {
@@ -335,7 +335,7 @@ public class RandomUtils {
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
+     * @throws IllegalArgumentException Thrown if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
      * @return The random double.
      * @since 3.16.0
      */
@@ -364,7 +364,7 @@ public class RandomUtils {
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
+     * @throws IllegalArgumentException Thrown if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
      * @return The random float.
      * @since 3.16.0
      */
@@ -393,7 +393,7 @@ public class RandomUtils {
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
+     * @throws IllegalArgumentException Thrown if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
      * @return The random integer.
      * @since 3.16.0
      */
@@ -439,7 +439,7 @@ public class RandomUtils {
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
+     * @throws IllegalArgumentException Thrown if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
      * @return The random long.
      * @since 3.16.0
      */
