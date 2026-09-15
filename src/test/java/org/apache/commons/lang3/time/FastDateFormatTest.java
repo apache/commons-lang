@@ -384,7 +384,7 @@ class FastDateFormatTest extends AbstractLangTest {
     /**
      * Tests [LANG-1767] FastDateFormat.parse can not recognize "CEST" Timezone.
      *
-     * @throws ParseException Throws on test failure.
+     * @throws ParseException Thrown if an operation in the test fails.
      */
     @Test
     void testParseCentralEuropeanSummerTime() throws ParseException {
