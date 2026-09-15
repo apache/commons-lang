@@ -87,7 +87,7 @@ class StopWatchTest extends AbstractLangTest {
      * Sleeps the requested duration plus one millisecond. On Java 8, sleeping for 2 or 20 millis can sleep for a tiny bit less.
      *
      * @param duration How long to sleep.
-     * @throws InterruptedException if any thread has interrupted the current thread.
+     * @throws InterruptedException Thrown if any thread has interrupted the current thread.
      */
     private void sleepPlus1(final Duration duration) throws InterruptedException {
         ThreadUtils.sleep(duration.plusMillis(1));
