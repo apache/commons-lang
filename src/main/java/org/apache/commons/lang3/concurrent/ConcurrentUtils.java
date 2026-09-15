@@ -104,8 +104,7 @@ public class ConcurrentUtils {
      *
      * @param ex The {@link Throwable} to check
      * @return A flag whether the passed in exception is a checked exception
-     * @throws IllegalArgumentException if the {@link Throwable} is not a
-     * checked exception
+     * @throws IllegalArgumentException Thrown if the {@link Throwable} is not a checked exception.
      */
     static Throwable checkedException(final Throwable ex) {
         Validate.isTrue(ExceptionUtils.isChecked(ex), "Not a checked exception: %s", ex);
@@ -148,7 +147,7 @@ public class ConcurrentUtils {
      * @param init The {@link ConcurrentInitializer} for creating the value
      * @return The value stored in the map after this operation; this may or may
      * not be the object created by the {@link ConcurrentInitializer}
-     * @throws ConcurrentException if the initializer throws an exception
+     * @throws ConcurrentException Thrown if the initializer throws an exception.
      */
     public static <K, V> V createIfAbsent(final ConcurrentMap<K, V> map, final K key,
             final ConcurrentInitializer<V> init) throws ConcurrentException {
@@ -176,7 +175,7 @@ public class ConcurrentUtils {
      * @param init The {@link ConcurrentInitializer} for creating the value
      * @return The value stored in the map after this operation; this may or may
      * not be the object created by the {@link ConcurrentInitializer}
-     * @throws ConcurrentRuntimeException if the initializer throws an exception
+     * @throws ConcurrentRuntimeException Thrown if the initializer throws an exception.
      */
     public static <K, V> V createIfAbsentUnchecked(final ConcurrentMap<K, V> map,
             final K key, final ConcurrentInitializer<V> init) {
@@ -243,8 +242,7 @@ public class ConcurrentUtils {
      * without throwing an exception.
      *
      * @param ex The exception to be handled
-     * @throws ConcurrentException if the cause of the {@code
-     * ExecutionException} is a checked exception
+     * @throws ConcurrentException Thrown if the cause of the {@code ExecutionException} is a checked exception.
      */
     public static void handleCause(final ExecutionException ex) throws ConcurrentException {
         final ConcurrentException cause = extractCause(ex);
@@ -262,9 +260,8 @@ public class ConcurrentUtils {
      * code that does not want to deal with checked exceptions.
      *
      * @param ex The exception to be handled
-     * @throws ConcurrentRuntimeException if the cause of the {@code
-     * ExecutionException} is a checked exception; this exception is then
-     * wrapped in the thrown runtime exception
+     * @throws ConcurrentRuntimeException Thrown if the cause of the {@code ExecutionException} is a checked exception; this exception is then wrapped in the
+     *         thrown runtime exception.
      */
     public static void handleCauseUnchecked(final ExecutionException ex) {
         final ConcurrentRuntimeException cause = extractCauseUnchecked(ex);
@@ -283,8 +280,7 @@ public class ConcurrentUtils {
      * @param <T> The type of the object produced by the initializer
      * @param initializer The {@link ConcurrentInitializer} to be invoked
      * @return The object managed by the {@link ConcurrentInitializer}
-     * @throws ConcurrentException if the {@link ConcurrentInitializer} throws
-     * an exception
+     * @throws ConcurrentException Thrown if the {@link ConcurrentInitializer} throws an exception.
      */
     public static <T> T initialize(final ConcurrentInitializer<T> initializer)
             throws ConcurrentException {
@@ -302,7 +298,7 @@ public class ConcurrentUtils {
      * @param <T> The type of the object produced by the initializer
      * @param initializer The {@link ConcurrentInitializer} to be invoked
      * @return The object managed by the {@link ConcurrentInitializer}
-     * @throws ConcurrentRuntimeException if the initializer throws an exception
+     * @throws ConcurrentRuntimeException Thrown if the initializer throws an exception.
      */
     public static <T> T initializeUnchecked(final ConcurrentInitializer<T> initializer) {
         try {
