@@ -80,7 +80,7 @@ public interface FailableConsumer<T, E extends Throwable> {
      *
      * @param after The operation to perform after this operation
      * @return A composed {@link Consumer} like {@link Consumer#andThen(Consumer)}.
-     * @throws NullPointerException when {@code after} is null
+     * @throws NullPointerException Thrown when {@code after} is null.
      */
     default FailableConsumer<T, E> andThen(final FailableConsumer<? super T, E> after) {
         Objects.requireNonNull(after, "after");
