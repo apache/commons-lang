@@ -69,7 +69,7 @@ public interface DateParser {
      *
      * @param source A {@link String} whose beginning should be parsed.
      * @return A {@link Date} parsed from the string.
-     * @throws ParseException if the beginning of the specified string cannot be parsed.
+     * @throws ParseException Thrown if the beginning of the specified string cannot be parsed.
      */
     Date parse(String source) throws ParseException;
 
@@ -82,7 +82,7 @@ public interface DateParser {
      * @param pos A {@link ParsePosition} object with index and error index information
      * as described above.
      * @return A {@link Date} parsed from the string. In case of error, returns null.
-     * @throws NullPointerException if text or pos is null.
+     * @throws NullPointerException Thrown if text or pos is null.
      */
     Date parse(String source, ParsePosition pos);
 
@@ -96,7 +96,7 @@ public interface DateParser {
      * @param pos On input, the position in the source to start parsing, on output, updated position.
      * @param calendar The calendar into which to set parsed fields.
      * @return true, if source has been parsed (pos parsePosition is updated); otherwise false (and pos errorIndex is updated)
-     * @throws IllegalArgumentException when Calendar has been set to be not lenient, and a parsed field is
+     * @throws IllegalArgumentException Thrown when Calendar has been set to be not lenient, and a parsed field is
      * out of range.
      *
      * @since 3.5
@@ -108,7 +108,7 @@ public interface DateParser {
      *
      * @param source A {@link String} whose beginning should be parsed.
      * @return A {@link java.util.Date} object.
-     * @throws ParseException if the beginning of the specified string cannot be parsed.
+     * @throws ParseException Thrown if the beginning of the specified string cannot be parsed.
      * @see java.text.DateFormat#parseObject(String)
      */
     Object parseObject(String source) throws ParseException;
