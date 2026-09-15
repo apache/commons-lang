@@ -29,10 +29,10 @@ import java.util.function.IntSupplier;
 public interface FailableIntSupplier<E extends Throwable> {
 
     /**
-     * Supplies an int.
+     * Gets an int.
      *
      * @return A result
-     * @throws E if the supplier fails
+     * @throws E Thrown if the supplier fails.
      */
     int getAsInt() throws E;
 }
