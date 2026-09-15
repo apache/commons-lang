@@ -197,7 +197,7 @@ public class LockingVisitors {
             }
 
             /**
-             * Set the lock used from accept methods.
+             * Sets the lock used by accept methods.
              *
              * @param lock The lock.
              * @return {@code this} instance.
@@ -208,7 +208,7 @@ public class LockingVisitors {
             }
 
             /**
-             * Set the resource.
+             * Sets the resource.
              *
              * @param object The resource.
              * @return {@code this} instance.
@@ -219,7 +219,7 @@ public class LockingVisitors {
             }
 
             /**
-             * Supplies the read lock.
+             * Sets the supplier of the read lock.
              *
              * @param readLockSupplier Supplies the read lock.
              * @return {@code this} instance.
@@ -230,7 +230,7 @@ public class LockingVisitors {
             }
 
             /**
-             * Supplies the write lock.
+             * Sets the supplier of the write lock.
              *
              * @param writeLockSupplier Supplies the write lock.
              * @return {@code this} instance.
