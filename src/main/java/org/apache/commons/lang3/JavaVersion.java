@@ -218,7 +218,7 @@ public enum JavaVersion {
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
 
     /**
-     * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
+     * Gets the enumeration constant corresponding to the given Java version string. This method is used internally.
      *
      * @param versionStr The Java version as string.
      * @return The corresponding enumeration constant or {@code null} if the version is unknown.
@@ -312,7 +312,7 @@ public enum JavaVersion {
     }
 
     /**
-     * Transforms the given string with a Java version number to the corresponding constant of this enumeration class. This method is used internally.
+     * Gets the enumeration constant corresponding to the given Java version string. This method is used internally.
      *
      * @param versionStr The Java version as string.
      * @return The corresponding enumeration constant or {@code null} if the version is unknown.
