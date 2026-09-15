@@ -51,7 +51,7 @@ public class DurationUtils {
      * @param <T> The function exception.
      * @param consumer Accepting function.
      * @param duration The duration to pick apart.
-     * @throws T See the function signature.
+     * @throws T Thrown as described in the function signature.
      * @see StopWatch
      */
     @SuppressWarnings("boxing") // boxing unavoidable
@@ -162,7 +162,7 @@ public class DurationUtils {
      * @param <E> The type of exception throw by the lambda.
      * @param consumer What to execute.
      * @return The Duration of execution.
-     * @throws E thrown by the lambda.
+     * @throws E Thrown by the lambda.
      * @see StopWatch
      * @since 3.13.0
      */
@@ -176,7 +176,7 @@ public class DurationUtils {
      * @param <E> The type of exception throw by the lambda.
      * @param runnable What to execute.
      * @return The Duration of execution.
-     * @throws E thrown by the lambda.
+     * @throws E Thrown by the lambda.
      * @see StopWatch
      * @since 3.13.0
      */
