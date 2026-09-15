@@ -182,7 +182,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Introspects the {@link Throwable} to obtain the cause.
+     * Gets the cause by introspecting the {@link Throwable}.
      *
      * <p>
      * The method searches for methods with specific names that return a {@link Throwable} object. This will pick up most wrapping exceptions, including those
@@ -190,7 +190,7 @@ public class ExceptionUtils {
      * </p>
      *
      * <p>
-     * The default list searched for are:
+     * The default list of method names to search for is:
      * </p>
      * <ul>
      * <li>{@code getCause()}</li>
@@ -218,7 +218,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Introspects the {@link Throwable} to obtain the cause.
+     * Gets the cause by introspecting the {@link Throwable}.
      *
      * <p>
      * A {@code null} set of method names means use the default set. A {@code null} in the set of method names will be ignored.
@@ -301,7 +301,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Walks the {@link Throwable} to obtain its root cause.
+     * Gets the root cause by walking the exception chain.
      *
      * <p>This method walks through the exception chain until the last element,
      * the root cause of the chain, using {@link Throwable#getCause()}, and
@@ -694,7 +694,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Checks if a throwable represents a checked exception
+     * Tests whether a throwable represents a checked exception.
      *
      * @param throwable
      *            The throwable to check.
@@ -747,7 +747,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Checks if a throwable represents an unchecked exception
+     * Tests whether a throwable represents an unchecked exception.
      *
      * @param throwable
      *            The throwable to check.
@@ -814,7 +814,7 @@ public class ExceptionUtils {
      *
      * @param throwable  The throwable to output, may be null.
      * @param printStream  The stream to output to, may not be null.
-     * @throws NullPointerException if the printStream is {@code null}.
+     * @throws NullPointerException Thrown if the printStream is {@code null}.
      * @since 2.0
      */
     @SuppressWarnings("resource")
@@ -851,7 +851,7 @@ public class ExceptionUtils {
      *
      * @param throwable  The throwable to output, may be null.
      * @param printWriter  The writer to output to, may not be null.
-     * @throws NullPointerException if the printWriter is {@code null}.
+     * @throws NullPointerException Thrown if the printWriter is {@code null}.
      * @since 2.0
      */
     @SuppressWarnings("resource")
@@ -869,7 +869,7 @@ public class ExceptionUtils {
      *
      * @param causeFrames  stack trace of a cause throwable.
      * @param wrapperFrames  stack trace of a wrapper throwable.
-     * @throws NullPointerException if either argument is null.
+     * @throws NullPointerException Thrown if either argument is null.
      * @since 2.0
      */
     public static void removeCommonFrames(final List<String> causeFrames, final List<String> wrapperFrames) {
