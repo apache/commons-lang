@@ -212,7 +212,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     }
 
     /**
-     * Provides the message explaining the exception, including the contextual data.
+     * Gets the message explaining the exception, including the contextual data.
      *
      * @see Throwable#getMessage()
      * @return The message, never null
@@ -223,7 +223,7 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     }
 
     /**
-     * Provides the message explaining the exception without the contextual data.
+     * Gets the message explaining the exception without the contextual data.
      *
      * @see Throwable#getMessage()
      * @return The message
