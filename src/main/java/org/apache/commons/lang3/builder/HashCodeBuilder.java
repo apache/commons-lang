@@ -327,10 +327,8 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @param object
      *            the Object to create a {@code hashCode} for
      * @return int hash code
-     * @throws NullPointerException
-     *             if the Object is {@code null}
-     * @throws IllegalArgumentException
-     *             if the number is zero or even
+     * @throws NullPointerException Thrown if the Object is {@code null}.
+     * @throws IllegalArgumentException Thrown if the number is zero or even.
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber, final Object object) {
@@ -370,10 +368,8 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @param testTransients
      *            whether to include transient fields
      * @return int hash code
-     * @throws NullPointerException
-     *             if the Object is {@code null}
-     * @throws IllegalArgumentException
-     *             if the number is zero or even
+     * @throws NullPointerException Thrown if the Object is {@code null}.
+     * @throws IllegalArgumentException Thrown if the number is zero or even.
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber, final Object object,
@@ -421,10 +417,8 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @param excludeFields
      *            array of field names to exclude from use in calculation of hash code
      * @return int hash code
-     * @throws NullPointerException
-     *             if the Object is {@code null}
-     * @throws IllegalArgumentException
-     *             if the number is zero or even
+     * @throws NullPointerException Thrown if the Object is {@code null}.
+     * @throws IllegalArgumentException Thrown if the number is zero or even.
      * @see HashCodeExclude
      * @since 2.0
      */
@@ -469,8 +463,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @param testTransients
      *            whether to include transient fields
      * @return int hash code
-     * @throws NullPointerException
-     *             if the object is {@code null}
+     * @throws NullPointerException Thrown if the object is {@code null}.
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final boolean testTransients) {
@@ -506,8 +499,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @param excludeFields
      *            Collection of String field names to exclude from use in calculation of hash code
      * @return int hash code
-     * @throws NullPointerException
-     *             if the object is {@code null}
+     * @throws NullPointerException Thrown if the object is {@code null}.
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final Collection<String> excludeFields) {
@@ -542,8 +534,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * @param excludeFields
      *            array of field names to exclude from use in calculation of hash code
      * @return int hash code
-     * @throws NullPointerException
-     *             if the object is {@code null}
+     * @throws NullPointerException Thrown if the object is {@code null}.
      * @see HashCodeExclude
      */
     public static int reflectionHashCode(final Object object, final String... excludeFields) {
@@ -616,8 +607,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      *            an odd number used as the initial value
      * @param multiplierOddNumber
      *            an odd number used as the multiplier
-     * @throws IllegalArgumentException
-     *             if the number is even
+     * @throws IllegalArgumentException Thrown if the number is even.
      */
     public HashCodeBuilder(final int initialOddNumber, final int multiplierOddNumber) {
         this(builder().setInitialOddNumber(initialOddNumber).setMultiplierOddNumber(multiplierOddNumber));
