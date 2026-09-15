@@ -1382,7 +1382,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * </p>
      *
      * @param appendable  The appendable to append data to
-     * @throws IOException  if an I/O error occurs
+     * @throws IOException Thrown if an I/O error occurs.
      * @since 3.4
      * @see #readFrom(Readable)
      */
@@ -1591,7 +1591,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param index  The index to retrieve, must be valid.
      * @return The character at the index.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      * @see #setCharAt(int, char)
      * @see #deleteCharAt(int)
      */
@@ -1666,7 +1666,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex The start index, inclusive, must be valid.
      * @param endIndex   The end index, exclusive, must be valid except that if too large it is treated as end of string.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder delete(final int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
@@ -1738,7 +1738,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param index  The index to delete.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      * @see #charAt(int)
      * @see #setCharAt(int, char)
      */
@@ -1804,7 +1804,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex  The start index, must be valid.
      * @param endIndex  The end index (exclusive), must be valid.
      * @param len  The length, must be valid.
-     * @throws IndexOutOfBoundsException if any index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if any index is invalid.
      */
     private void deleteImpl(final int startIndex, final int endIndex, final int len) {
         System.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);
@@ -1930,7 +1930,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Copies the character array into the specified array.
+     * Gets the characters by copying them into the specified array.
      *
      * @param destination  The destination array, null will cause an array to be created.
      * @return The input array, unless that was null or too small.
@@ -1944,14 +1944,14 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Copies the character array into the specified array.
+     * Gets the characters by copying them into the specified array.
      *
      * @param startIndex  first index to copy, inclusive, must be valid.
      * @param endIndex  last index, exclusive, must be valid.
      * @param destination  The destination array, must not be null or too small.
      * @param destinationIndex  The index to start copying in destination.
-     * @throws NullPointerException if the array is null.
-     * @throws IndexOutOfBoundsException if any index is invalid.
+     * @throws NullPointerException Thrown if the array is null.
+     * @throws IndexOutOfBoundsException Thrown if any index is invalid.
      */
     public void getChars(final int startIndex, final int endIndex, final char[] destination, final int destinationIndex) {
         if (startIndex < 0) {
@@ -2107,7 +2107,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  The index to add at, must be valid.
      * @param value  The value to insert.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder insert(int index, final boolean value) {
         validateIndex(index);
@@ -2138,7 +2138,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  The index to add at, must be valid.
      * @param value  The value to insert.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder insert(final int index, final char value) {
         validateIndex(index);
@@ -2156,7 +2156,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  The index to add at, must be valid.
      * @param chars  The char array to insert.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder insert(final int index, final char[] chars) {
         validateIndex(index);
@@ -2182,7 +2182,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param offset  The offset into the character array to start at, must be valid.
      * @param length  The length of the character array part to copy, must be positive.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if any index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if any index is invalid.
      */
     public StrBuilder insert(final int index, final char[] chars, final int offset, final int length) {
         validateIndex(index);
@@ -2210,7 +2210,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  The index to add at, must be valid.
      * @param value  The value to insert.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder insert(final int index, final double value) {
         return insert(index, String.valueOf(value));
@@ -2222,7 +2222,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  The index to add at, must be valid.
      * @param value  The value to insert.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder insert(final int index, final float value) {
         return insert(index, String.valueOf(value));
@@ -2234,7 +2234,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  The index to add at, must be valid.
      * @param value  The value to insert.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder insert(final int index, final int value) {
         return insert(index, String.valueOf(value));
@@ -2246,7 +2246,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  The index to add at, must be valid.
      * @param value  The value to insert.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder insert(final int index, final long value) {
         return insert(index, String.valueOf(value));
@@ -2259,7 +2259,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  The index to add at, must be valid.
      * @param obj  The object to insert.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder insert(final int index, final Object obj) {
         if (obj == null) {
@@ -2275,7 +2275,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  The index to add at, must be valid.
      * @param str  The string to insert.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder insert(final int index, String str) {
         validateIndex(index);
@@ -2296,7 +2296,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Checks is the string builder is empty (convenience Collections API style method).
+     * Tests whether the string builder is empty (convenience Collections API style method).
      * <p>
      * This method is the same as checking {@link #length()} and is provided to match the
      * API of Collections.
@@ -2309,7 +2309,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Checks is the string builder is not empty (convenience Collections API style method).
+     * Tests whether the string builder is not empty (convenience Collections API style method).
      * <p>
      * This method is the same as checking {@link #length()} and is provided to match the
      * API of Collections.
@@ -2545,7 +2545,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param endIndex   The end index, exclusive, must be valid except that if too large it is treated as end of string.
      * @param replaceStr The string to replace with, null means delete range.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public StrBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
         endIndex = validateRange(startIndex, endIndex);
@@ -2567,7 +2567,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param endIndex     The end index, exclusive, must be valid except that if too large it is treated as end of string.
      * @param replaceCount The number of times to replace, -1 for replace all.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if start index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if start index is invalid.
      */
     public StrBuilder replace(final StrMatcher matcher, final String replaceStr, final int startIndex, int endIndex, final int replaceCount) {
         endIndex = validateRange(startIndex, endIndex);
@@ -2692,7 +2692,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param removeLen  The length to remove (endIndex - startIndex), must be valid.
      * @param insertStr  The string to replace with, null means delete range.
      * @param insertLen  The length of the insert string, must be valid.
-     * @throws IndexOutOfBoundsException if any index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if any index is invalid.
      */
     private void replaceImpl(final int startIndex, final int endIndex, final int removeLen, final String insertStr, final int insertLen) {
         final int newSize = size - removeLen + insertLen;
@@ -2723,7 +2723,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param to  The end index (exclusive), must be valid.
      * @param replaceCount  The number of times to replace, -1 for replace all.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if any index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if any index is invalid.
      */
     private StrBuilder replaceImpl(
             final StrMatcher matcher, final String replaceStr,
@@ -2811,7 +2811,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param index  The index to set.
      * @param ch  The new character.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      * @see #charAt(int)
      * @see #deleteCharAt(int)
      */
@@ -2824,12 +2824,11 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
     }
 
     /**
-     * Updates the length of the builder by either dropping the last characters
-     * or adding filler of Unicode zero.
+     * Sets the length of the builder by removing trailing characters or adding Unicode zero characters.
      *
      * @param length  The length to set to, must be zero or positive.
      * @return {@code this} instance.
-     * @throws IndexOutOfBoundsException if the length is negative.
+     * @throws IndexOutOfBoundsException Thrown if the length is negative.
      */
     public StrBuilder setLength(final int length) {
         if (length < 0) {
@@ -2935,7 +2934,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      *
      * @param start  The start index, inclusive, must be valid.
      * @return The new string.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public String substring(final int start) {
         return substring(start, size);
@@ -2951,7 +2950,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex The start index, inclusive, must be valid.
      * @param endIndex   The end index, exclusive, must be valid except that if too large it is treated as end of string.
      * @return The new string.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     public String substring(final int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
@@ -2976,7 +2975,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex The start index, inclusive, must be valid.
      * @param endIndex   The end index, exclusive, must be valid except that if too large it is treated as end of string.
      * @return A new array that holds part of the contents of the builder.
-     * @throws IndexOutOfBoundsException if startIndex is invalid, or if endIndex is invalid (but endIndex greater than size is valid).
+     * @throws IndexOutOfBoundsException Thrown if startIndex is invalid, or if endIndex is invalid (but endIndex greater than size is valid).
      */
     public char[] toCharArray(final int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
@@ -3055,7 +3054,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * Validates parameters defining a single index in the builder.
      *
      * @param index  The index, must be valid.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     protected void validateIndex(final int index) {
         if (index < 0 || index > size) {
@@ -3069,7 +3068,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable, Build
      * @param startIndex The start index, inclusive, must be valid.
      * @param endIndex   The end index, exclusive, must be valid except that if too large it is treated as end of string.
      * @return The new string.
-     * @throws IndexOutOfBoundsException if the index is invalid.
+     * @throws IndexOutOfBoundsException Thrown if the index is invalid.
      */
     protected int validateRange(final int startIndex, int endIndex) {
         if (startIndex < 0) {
