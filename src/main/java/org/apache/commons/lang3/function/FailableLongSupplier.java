@@ -29,10 +29,10 @@ import java.util.function.LongSupplier;
 public interface FailableLongSupplier<E extends Throwable> {
 
     /**
-     * Supplies a long.
+     * Gets a long.
      *
      * @return A result
-     * @throws E if the supplier fails
+     * @throws E Thrown if the supplier fails.
      */
     long getAsLong() throws E;
 }
