@@ -35,7 +35,7 @@ public class ClassPathUtils {
      *
      * @param path The source path.
      * @return A package name.
-     * @throws NullPointerException if {@code path} is null.
+     * @throws NullPointerException Thrown if {@code path} is null.
      * @since 3.13.0
      */
     public static String packageToPath(final String path) {
@@ -47,7 +47,7 @@ public class ClassPathUtils {
      *
      * @param path The source path.
      * @return A package name.
-     * @throws NullPointerException if {@code path} is null.
+     * @throws NullPointerException Thrown if {@code path} is null.
      * @since 3.13.0
      */
     public static String pathToPackage(final String path) {
@@ -68,7 +68,7 @@ public class ClassPathUtils {
      * @param context      The context for constructing the name.
      * @param resourceName The resource name to construct the fully qualified name for.
      * @return The fully qualified name of the resource with name {@code resourceName}.
-     * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
+     * @throws NullPointerException Thrown if either {@code context} or {@code resourceName} is null.
      */
     public static String toFullyQualifiedName(final Class<?> context, final String resourceName) {
         Objects.requireNonNull(context, "context");
@@ -90,7 +90,7 @@ public class ClassPathUtils {
      * @param context      The context for constructing the name.
      * @param resourceName The resource name to construct the fully qualified name for.
      * @return The fully qualified name of the resource with name {@code resourceName}.
-     * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
+     * @throws NullPointerException Thrown if either {@code context} or {@code resourceName} is null.
      */
     public static String toFullyQualifiedName(final Package context, final String resourceName) {
         Objects.requireNonNull(context, "context");
@@ -112,7 +112,7 @@ public class ClassPathUtils {
      * @param context      The context for constructing the path.
      * @param resourceName The resource name to construct the fully qualified path for.
      * @return The fully qualified path of the resource with name {@code resourceName}.
-     * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
+     * @throws NullPointerException Thrown if either {@code context} or {@code resourceName} is null.
      */
     public static String toFullyQualifiedPath(final Class<?> context, final String resourceName) {
         Objects.requireNonNull(context, "context");
@@ -134,7 +134,7 @@ public class ClassPathUtils {
      * @param context      The context for constructing the path.
      * @param resourceName The resource name to construct the fully qualified path for.
      * @return The fully qualified path of the resource with name {@code resourceName}.
-     * @throws NullPointerException if either {@code context} or {@code resourceName} is null.
+     * @throws NullPointerException Thrown if either {@code context} or {@code resourceName} is null.
      */
     public static String toFullyQualifiedPath(final Package context, final String resourceName) {
         Objects.requireNonNull(context, "context");
