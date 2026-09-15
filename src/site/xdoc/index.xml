@@ -28,14 +28,14 @@ limitations under the License.
 
 <p>
 The standard Java libraries fail to provide enough methods for
-manipulation of its core classes. Apache Commons Lang provides
+manipulation of their core classes. Apache Commons Lang provides
 these extra methods.
 </p>
 
 <p>
 Apache Commons Lang provides a host of helper utilities for the java.lang API, notably
 String manipulation methods, basic numerical methods, object reflection, concurrency, creation and serialization
-and System properties. Additionally it contains basic enhancements to java.util.Date and a series of utilities dedicated to help with
+and System properties. Additionally, it contains basic enhancements to java.util.Date and a series of utilities dedicated to helping with
 building methods, such as hashCode, toString and equals.
 </p>
 <p>
@@ -59,7 +59,7 @@ The Javadoc API documents are available online:
 <li>Older releases - see the <a href="changes.html">Release History</a> page</li>
 </ul>
 <p>
-The <a href="scm.html">git repository</a> can be
+The <a href="scm.html">Git repository</a> can be
 <a href="https://gitbox.apache.org/repos/asf?p=commons-lang.git">browsed</a>, or you can browse/contribute via <a href="https://github.com/apache/commons-lang">GitHub</a>.
 </p>
 </section>
@@ -75,19 +75,19 @@ The <a href="scm.html">git repository</a> can be
 </ul>
 
 <p>
-For information on previous releases see the <a href="changes.html">Release History</a>, and to download previous releases see the <a href="https://archive.apache.org/dist/commons/lang/">Commons Lang Archive</a>.
+For information on previous releases, see the <a href="changes.html">Release History</a>, and to download previous releases, see the <a href="https://archive.apache.org/dist/commons/lang/">Commons Lang Archive</a>.
 </p>
 </section>
 <!-- ================================================== -->
 <section name="Getting Involved">
 <p>
-The <a href="mail-lists.html">commons developer mailing list</a> is the main channel of communication for contributors. Please remember that the lists are shared between all commons components, so prefix your email by [lang]. </p>
+The <a href="mail-lists.html">commons developer mailing list</a> is the main channel of communication for contributors. Please remember that the lists are shared between all Commons components, so prefix your email subject with [lang]. </p>
 <p>You can also peruse <a href="issue-tracking.html">JIRA</a>. Specific links of interest for JIRA are:</p>
 <ul>
 <li>Ideas looking for code: <a href="https://issues.apache.org/jira/issues/?jql=project%20%3D%20LANG%20AND%20resolution%20%3D%20Unresolved%20AND%20fixVersion%20%3D%20%22Patch%20Needed%22%20ORDER%20BY%20priority%20DESC">Patch Needed</a></li>
 <li>Issues with patches, looking for reviews: <a href="https://issues.apache.org/jira/issues/?jql=fixVersion%20%3D%20%22Review%20Patch%22%20AND%20project%20%3D%20LANG%20AND%20resolution%20%3D%20Unresolved%20ORDER%20BY%20priority%20DESC">Review Patch</a></li>
 </ul>
-<p>Alternatively you can go through the <em>Needs Work</em> tags in the <a href="taglist.html">TagList report</a>.</p>
+<p>Alternatively, you can go through the <em>Needs Work</em> tags in the <a href="taglist.html">TagList report</a>.</p>
 <p>If you'd like to offer up pull requests via GitHub rather than applying patches to JIRA, we have a <a href="https://github.com/apache/commons-lang/">GitHub mirror</a>. </p>
 </section>
 <!-- ================================================== -->
@@ -96,8 +96,8 @@ The <a href="mail-lists.html">commons developer mailing list</a> is the main cha
 The <a href="mail-lists.html">commons mailing lists</a> act as the main support forum.
 The user list is suitable for most library usage queries.
 The dev list is intended for the development discussion.
-Please remember that the lists are shared between all commons components,
-so prefix your email by [lang].
+Please remember that the lists are shared between all Commons components,
+so prefix your email subject with [lang].
 </p>
 <p>
 Bug reports and enhancements are also welcomed via the <a href="issue-tracking.html">JIRA</a> issue tracker.
