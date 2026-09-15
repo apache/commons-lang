@@ -34,8 +34,8 @@ public class IEEE754rUtils {
      *
      * @param array  An array, must not be null or empty.
      * @return The maximum value in the array.
-     * @throws NullPointerException if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from max(double[]) to max(double...)
      */
     public static double max(final double... array) {
@@ -89,8 +89,8 @@ public class IEEE754rUtils {
      *
      * @param array  An array, must not be null or empty.
      * @return The maximum value in the array.
-     * @throws NullPointerException if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from max(float[]) to max(float...)
      */
     public static float max(final float... array) {
@@ -144,8 +144,8 @@ public class IEEE754rUtils {
      *
      * @param array  An array, must not be null or empty.
      * @return The minimum value in the array.
-     * @throws NullPointerException if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from min(double[]) to min(double...).
      */
     public static double min(final double... array) {
@@ -199,8 +199,8 @@ public class IEEE754rUtils {
      *
      * @param array  An array, must not be null or empty.
      * @return The minimum value in the array.
-     * @throws NullPointerException if {@code array} is {@code null}.
-     * @throws IllegalArgumentException if {@code array} is empty.
+     * @throws NullPointerException Thrown if {@code array} is {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.4 Changed signature from min(float[]) to min(float...).
      */
     public static float min(final float... array) {
