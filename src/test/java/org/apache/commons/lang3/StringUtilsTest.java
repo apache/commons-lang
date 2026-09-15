@@ -3033,7 +3033,7 @@ class StringUtilsTest extends AbstractLangTest {
     /**
      * Tests {@link StringUtils#toString(byte[], String)}
      *
-     * @throws UnsupportedEncodingException because the method under test max throw it
+     * @throws UnsupportedEncodingException Thrown if the method under test throws an exception.
      * @see StringUtils#toString(byte[], String)
      */
     @Test
