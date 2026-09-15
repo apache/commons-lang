@@ -83,8 +83,8 @@ class FastDateParserReadObjectTest {
      *
      * @param bytes serialized form
      * @return The deserialized object
-     * @throws IOException            if an I/O error occurs
-     * @throws ClassNotFoundException if the class of the serialized object cannot be found
+     * @throws IOException Thrown if an I/O error occurs.
+     * @throws ClassNotFoundException Thrown if the class of the serialized object cannot be found.
      */
     private static Object deserialize(final byte[] bytes) throws IOException, ClassNotFoundException {
         try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes))) {
