@@ -66,7 +66,7 @@ public class DiffResult<T> implements Iterable<Diff<?>> {
      *            {@link ToStringStyle#DEFAULT_STYLE} is used
      * @param toStringFormat
      *            Two-argument format string for {@link String#format(String, Object...)}, for example {@code "%s differs from %s"}.
-     * @throws NullPointerException if {@code lhs}, {@code rhs} or {@code diffs} are {@code null}.
+     * @throws NullPointerException Thrown if {@code lhs}, {@code rhs} or {@code diffs} are {@code null}.
      */
     DiffResult(final T lhs, final T rhs, final List<Diff<?>> diffList, final ToStringStyle style, final String toStringFormat) {
         this.diffList = Objects.requireNonNull(diffList, "diffList");
