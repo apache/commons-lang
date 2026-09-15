@@ -258,7 +258,7 @@ public class TimedSemaphore {
      * @param timePeriod The time period.
      * @param timeUnit   The unit for the period.
      * @param limit      The limit for the semaphore.
-     * @throws IllegalArgumentException if the period is less or equals 0.
+     * @throws IllegalArgumentException Thrown if the period is less or equals 0.
      * @deprecated Use {@link #builder()} and {@link Builder}.
      */
     @Deprecated
@@ -274,7 +274,7 @@ public class TimedSemaphore {
      * @param timePeriod The time period.
      * @param timeUnit   The unit for the period.
      * @param limit      The limit for the semaphore.
-     * @throws IllegalArgumentException if the period is less or equals 0.
+     * @throws IllegalArgumentException Thrown if the period is less or equals 0.
      * @deprecated Use {@link #builder()} and {@link Builder}.
      */
     @Deprecated
@@ -287,8 +287,8 @@ public class TimedSemaphore {
      * already been invoked, calling this method will cause an exception. The very first call of this method starts the timer task which monitors the time
      * period set for this {@link TimedSemaphore}. From now on the semaphore is active.
      *
-     * @throws InterruptedException  if the thread gets interrupted.
-     * @throws IllegalStateException if this semaphore is already shut down.
+     * @throws InterruptedException  Thrown if the thread gets interrupted.
+     * @throws IllegalStateException Thrown if this semaphore is already shut down.
      */
     public synchronized void acquire() throws InterruptedException {
         prepareAcquire();
@@ -476,7 +476,7 @@ public class TimedSemaphore {
      * <strong>true</strong>. Otherwise, this method returns immediately with the result <strong>false</strong>.
      *
      * @return <strong>true</strong> if a permit could be acquired; <strong>false</strong> otherwise.
-     * @throws IllegalStateException if this semaphore is already shut down.
+     * @throws IllegalStateException Thrown if this semaphore is already shut down.
      * @since 3.5
      */
     public synchronized boolean tryAcquire() {
