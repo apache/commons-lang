@@ -398,10 +398,10 @@ public class Failable {
     }
 
     /**
-     * Invokes a supplier, and returns the result.
+     * Gets the result of invoking the supplier.
      *
      * @param supplier The supplier to invoke.
-     * @param <T> The suppliers output type.
+     * @param <T> The supplier's output type.
      * @param <E> The type of checked exception, which the supplier can throw.
      * @return The object, which has been created by the supplier
      */
@@ -414,7 +414,7 @@ public class Failable {
     }
 
     /**
-     * Invokes a boolean supplier, and returns the result.
+     * Gets the result of invoking the boolean supplier.
      *
      * @param supplier The boolean supplier to invoke.
      * @param <E> The type of checked exception, which the supplier can throw.
@@ -429,7 +429,7 @@ public class Failable {
     }
 
     /**
-     * Invokes a double supplier, and returns the result.
+     * Gets the result of invoking the double supplier.
      *
      * @param supplier The double supplier to invoke.
      * @param <E> The type of checked exception, which the supplier can throw.
@@ -444,7 +444,7 @@ public class Failable {
     }
 
     /**
-     * Invokes an int supplier, and returns the result.
+     * Gets the result of invoking the int supplier.
      *
      * @param supplier The int supplier to invoke.
      * @param <E> The type of checked exception, which the supplier can throw.
@@ -459,7 +459,7 @@ public class Failable {
     }
 
     /**
-     * Invokes a long supplier, and returns the result.
+     * Gets the result of invoking the long supplier.
      *
      * @param supplier The long supplier to invoke.
      * @param <E> The type of checked exception, which the supplier can throw.
@@ -474,7 +474,7 @@ public class Failable {
     }
 
     /**
-     * Invokes a short supplier, and returns the result.
+     * Gets the result of invoking the short supplier.
      *
      * @param supplier The short supplier to invoke.
      * @param <E> The type of checked exception, which the supplier can throw.
