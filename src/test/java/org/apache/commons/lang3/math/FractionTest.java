@@ -1115,6 +1115,30 @@ class FractionTest extends AbstractLangTest {
     }
 
     @Test
+    void testReducedFactoryIntegerMinValue() {
+        Fraction f = Fraction.getReducedFraction(Integer.MIN_VALUE, -2);
+        assertEquals(1073741824, f.getNumerator());
+        assertEquals(1, f.getDenominator());
+
+        f = Fraction.getReducedFraction(Integer.MIN_VALUE, -6);
+        assertEquals(1073741824, f.getNumerator());
+        assertEquals(3, f.getDenominator());
+
+        f = Fraction.getReducedFraction(Integer.MIN_VALUE, Integer.MIN_VALUE);
+        assertEquals(1, f.getNumerator());
+        assertEquals(1, f.getDenominator());
+
+        assertThrows(ArithmeticException.class, () -> Fraction.getReducedFraction(Integer.MIN_VALUE, -1));
+        assertThrows(ArithmeticException.class, () -> Fraction.getReducedFraction(Integer.MIN_VALUE, -3));
+
+        f = Fraction.getReducedFraction(-2, Integer.MIN_VALUE);
+        assertEquals(1, f.getNumerator());
+        assertEquals(1073741824, f.getDenominator());
+
+        assertThrows(ArithmeticException.class, () -> Fraction.getReducedFraction(-7, Integer.MIN_VALUE));
+    }
+
+    @Test
     void testSubtract() {
         Fraction f;
         Fraction f1;
