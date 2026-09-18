@@ -1,0 +1,108 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Test harness for the build-analytics-collectors Maven extension collector
+# (philips-internal/build-analytics-collectors PR #36) against this repository.
+name: Build Analytics Maven Collector
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+permissions:
+  contents: read
+
+jobs:
+  maven-dependency-collector:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout commons-lang
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 #v6.1.0
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Checkout build analytics collector
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: philips-internal/build-analytics-collectors
+          # TODO: replace with the branch backing PR #36 once confirmed
+          ref: main
+          path: .ba-collectors
+          token: ${{ secrets.BUILD_ANALYTICS_COLLECTORS_TOKEN }}
+          persist-credentials: false
+
+      # java-parquet-writer is a prerequisite dependency for the maven-extension collector
+      - name: Build and install java-parquet-writer
+        run: mvn -B -q install -DskipTests
+        working-directory: .ba-collectors/libs/java-parquet-writer
+
+      - name: Build and install maven-extension collector
+        id: maven-extension-collector
+        run: |
+          mvn -B -q install -DskipTests
+          echo "artifact_version=$(mvn -B -q help:evaluate -Dexpression=project.version -DforceStdout)" >> "$GITHUB_OUTPUT"
+        working-directory: .ba-collectors/collectors/maven-extension
+
+      - name: Register extension in commons-lang build
+        run: |
+          mkdir -p .mvn
+          cat > .mvn/extensions.xml <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <extensions xmlns="http://maven.apache.org/EXTENSIONS/1.2.0"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="http://maven.apache.org/EXTENSIONS/1.2.0 http://maven.apache.org/xsd/core-extensions-1.2.0.xsd">
+            <extension>
+              <groupId>com.philips.seit</groupId>
+              <artifactId>build-analytics-maven-extension</artifactId>
+              <version>${{ steps.maven-extension-collector.outputs.artifact_version }}</version>
+            </extension>
+          </extensions>
+          EOF
+
+      - name: Run instrumented Maven build
+        env:
+          BA_OUTPUT_DIR: ${{ github.workspace }}/build-analytics-output
+          BA_PROJECT: ${{ github.event.repository.name }}
+          BA_BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: |
+          mkdir -p "$BA_OUTPUT_DIR"
+          mvn -B verify
+          test -f "$BA_OUTPUT_DIR"/*_manifest.json
+          test -f "$BA_OUTPUT_DIR"/*.parquet
+
+      - name: Upload Maven build analytics
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: maven-build-analytics-${{ github.run_id }}
+          path: build-analytics-output/
+          if-no-files-found: warn
+          retention-days: 14
