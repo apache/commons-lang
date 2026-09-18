@@ -328,8 +328,8 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (numerator == 0) {
             return ZERO; // normalize zero.
         }
-        // allow 2^k/-2^31 as a valid fraction (where k>0)
-        if (denominator == Integer.MIN_VALUE && (numerator & 1) == 0) {
+        // Reduce common powers of two before sign normalization to avoid negating Integer.MIN_VALUE.
+        while ((numerator & 1) == 0 && (denominator & 1) == 0) {
             numerator /= 2;
             denominator /= 2;
         }
