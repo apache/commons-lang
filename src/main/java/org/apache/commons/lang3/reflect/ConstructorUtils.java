@@ -64,6 +64,9 @@ public class ConstructorUtils {
      */
     public static <T> Constructor<T> getAccessibleConstructor(final Class<T> cls, final Class<?>... parameterTypes) {
         Objects.requireNonNull(cls, "cls");
+        if (!isAccessible(cls)) {
+            return null;
+        }
         try {
             return getAccessibleConstructor(cls.getConstructor(parameterTypes));
         } catch (final NoSuchMethodException e) {
@@ -114,10 +117,16 @@ public class ConstructorUtils {
      */
     public static <T> Constructor<T> getMatchingAccessibleConstructor(final Class<T> cls, final Class<?>... parameterTypes) {
         Objects.requireNonNull(cls, "cls");
+        if (!isAccessible(cls)) {
+            return null;
+        }
         // see if we can find the constructor directly
         // most of the time this works and it's much faster
         try {
-            return MemberUtils.setAccessibleWorkaround(cls.getConstructor(parameterTypes));
+            final Constructor<T> ctor = getAccessibleConstructor(cls.getConstructor(parameterTypes));
+            if (ctor != null) {
+                return MemberUtils.setAccessibleWorkaround(ctor);
+            }
         } catch (final NoSuchMethodException ignored) {
             // ignore
         }
