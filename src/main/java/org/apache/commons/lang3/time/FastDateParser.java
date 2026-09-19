@@ -940,7 +940,8 @@ public class FastDateParser implements DateParser, Serializable {
      */
     protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
         this.pattern = Objects.requireNonNull(pattern, "pattern");
-        this.timeZone = Objects.requireNonNull(timeZone, "timeZone");
+        // TimeZone is mutable and instances are shared through the FastDateFormat cache.
+        this.timeZone = (TimeZone) Objects.requireNonNull(timeZone, "timeZone").clone();
         this.locale = LocaleUtils.toLocale(locale);
         final Calendar definingCalendar = Calendar.getInstance(timeZone, this.locale);
         final int centuryStartYear;
@@ -1108,7 +1109,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     @Override
     public TimeZone getTimeZone() {
-        return timeZone;
+        return (TimeZone) timeZone.clone();
     }
 
     /**
