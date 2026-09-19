@@ -219,7 +219,8 @@ abstract class AbstractFormatCache<F extends Format> {
      */
     public F getInstance(final String pattern, final TimeZone timeZone, final Locale locale) {
         Objects.requireNonNull(pattern, "pattern");
-        final TimeZone actualTimeZone = TimeZones.toTimeZone(timeZone);
+        // Snapshot the mutable zone so the cache key and formatter retain the same rules.
+        final TimeZone actualTimeZone = (TimeZone) TimeZones.toTimeZone(timeZone).clone();
         final Locale actualLocale = LocaleUtils.toLocale(locale);
         final ArrayKey key = new ArrayKey(pattern, actualTimeZone, actualLocale);
         // Bound the cache: it is static and process-lifetime, so unbounded-cardinality keys

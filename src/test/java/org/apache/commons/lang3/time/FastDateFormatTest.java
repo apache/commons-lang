@@ -35,6 +35,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -491,6 +492,27 @@ class FastDateFormatTest extends AbstractLangTest {
         assertEquals(TimeZones.getTimeZone("UTC"), printer.getTimeZone());
         assertEquals("1970-01-01 00:00 +0000", printer.format(new Date(0)));
         assertEquals(new Date(0), parser.parse("1970-01-01 00:00"));
+    }
+
+    @Test
+    void testTimeZoneCacheKeyIsCopied() throws ParseException {
+        final SimpleTimeZone timeZone = new SimpleTimeZone(0, "CacheKeyCopy", Calendar.MARCH, 1, 0, 0, Calendar.OCTOBER, 1, 0, 0);
+        timeZone.setStartYear(2000);
+        final TimeZone originalTimeZone = (TimeZone) timeZone.clone();
+        final String pattern = "yyyy-MM-dd HH:mm";
+        final FastDateFormat original = FastDateFormat.getInstance(pattern, timeZone, Locale.US);
+        final Date date = Date.from(Instant.parse("2026-06-01T00:00:00Z"));
+        assertEquals("2026-06-01 01:00", original.format(date));
+
+        // Changing the DST start year preserves the hash code but changes the zone's rules and equality.
+        timeZone.setStartYear(2100);
+        final FastDateFormat changed = FastDateFormat.getInstance(pattern, (TimeZone) timeZone.clone(), Locale.US);
+        assertNotSame(original, changed);
+        assertSame(original, FastDateFormat.getInstance(pattern, originalTimeZone, Locale.US));
+        assertEquals("2026-06-01 01:00", original.format(date));
+        assertEquals("2026-06-01 00:00", changed.format(date));
+        assertEquals(date, original.parse("2026-06-01 01:00"));
+        assertEquals(date, changed.parse("2026-06-01 00:00"));
     }
 
     /**
