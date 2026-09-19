@@ -28,16 +28,13 @@ import org.apache.commons.lang3.ClassUtils;
  * Utility reflection methods focused on constructors, modeled after {@link MethodUtils}.
  *
  * <h2>Known Limitations</h2>
- * <h3>Accessing Public Constructors In A Default Access Superclass</h3>
+ * <h3>Accessing Constructors In A Non-Public Class</h3>
  * <p>
- * There is an issue when invoking {@code public} constructors contained in a default access superclass. Reflection correctly locates these constructors and
- * assigns them as {@code public}. However, an {@link IllegalAccessException} is thrown if the constructor is invoked.
- * </p>
- *
- * <p>
- * {@link ConstructorUtils} contains a workaround for this situation: it will attempt to call {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)}
- * on this constructor. If this call succeeds, then the method can be invoked as normal. This call will only succeed when the application has sufficient
- * security privileges. If this call fails then a warning will be logged and the method may fail.
+ * Constructors in non-public classes (such as package-private classes or classes enclosed in non-public classes) are
+ * not accessible. Methods such as {@link #getAccessibleConstructor(Class, Class[])} and
+ * {@link #getMatchingAccessibleConstructor(Class, Class[])} return {@code null} when invoked on non-public classes.
+ * Consequently, invocation methods such as {@link #invokeConstructor(Class, Object...)} and
+ * {@link #invokeExactConstructor(Class, Object...)} throw a {@link NoSuchMethodException}.
  * </p>
  *
  * @since 2.5
@@ -64,6 +61,9 @@ public class ConstructorUtils {
      */
     public static <T> Constructor<T> getAccessibleConstructor(final Class<T> cls, final Class<?>... parameterTypes) {
         Objects.requireNonNull(cls, "cls");
+        if (!isAccessible(cls)) {
+            return null;
+        }
         try {
             return getAccessibleConstructor(cls.getConstructor(parameterTypes));
         } catch (final NoSuchMethodException e) {
@@ -114,10 +114,16 @@ public class ConstructorUtils {
      */
     public static <T> Constructor<T> getMatchingAccessibleConstructor(final Class<T> cls, final Class<?>... parameterTypes) {
         Objects.requireNonNull(cls, "cls");
+        if (!isAccessible(cls)) {
+            return null;
+        }
         // see if we can find the constructor directly
         // most of the time this works and it's much faster
         try {
-            return MemberUtils.setAccessibleWorkaround(cls.getConstructor(parameterTypes));
+            final Constructor<T> ctor = getAccessibleConstructor(cls.getConstructor(parameterTypes));
+            if (ctor != null) {
+                return MemberUtils.setAccessibleWorkaround(ctor);
+            }
         } catch (final NoSuchMethodException ignored) {
             // ignore
         }
