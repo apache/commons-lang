@@ -286,6 +286,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Return null for out-of-range offset in FastTimeZone.getGmtTimeZone (#1788).</action>
     <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Fix TypeUtils.toString() recursion and bound handling on recursive generic types (#1789).</action>
     <action                   type="fix" dev="ggregory" due-to="尹茂椿萱, makarandhinge, Gary Gregory" issue="LANG-1834">Fix Fraction reduction for Integer.MIN_VALUE (#1794).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Defensively clone the TimeZone in FastDatePrinter and FastDateParser (#1795).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
