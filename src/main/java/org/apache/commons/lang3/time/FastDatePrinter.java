@@ -1067,7 +1067,8 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     protected FastDatePrinter(final String pattern, final TimeZone timeZone, final Locale locale) {
         this.pattern = pattern;
-        this.timeZone = timeZone;
+        // TimeZone is mutable and instances are shared through the FastDateFormat cache.
+        this.timeZone = (TimeZone) timeZone.clone();
         this.locale = LocaleUtils.toLocale(locale);
         init();
     }
@@ -1304,7 +1305,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      */
     @Override
     public TimeZone getTimeZone() {
-        return timeZone;
+        return (TimeZone) timeZone.clone();
     }
 
     /**

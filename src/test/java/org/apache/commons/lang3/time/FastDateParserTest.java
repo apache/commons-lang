@@ -863,6 +863,20 @@ class FastDateParserTest extends AbstractLangTest {
         testSdfAndFdp(dpProvider, "yyyy-MM-dd 'QED'", "2003-02-10 qed", true);
     }
 
+    /**
+     * Mutating the TimeZone passed to the constructor or returned by the getter must not change the parser.
+     */
+    @Test
+    void testTimeZoneIsCopied() throws ParseException {
+        final TimeZone timeZone = TimeZones.getTimeZone("UTC");
+        final FastDateParser parser = new FastDateParser("yyyy-MM-dd HH:mm", timeZone, Locale.US);
+        timeZone.setRawOffset(5 * 3_600_000);
+        assertEquals(new Date(0), parser.parse("1970-01-01 00:00"));
+        parser.getTimeZone().setRawOffset(5 * 3_600_000);
+        assertEquals(TimeZones.getTimeZone("UTC"), parser.getTimeZone());
+        assertEquals(new Date(0), parser.parse("1970-01-01 00:00"));
+    }
+
     @Test
     @ReadsDefaultLocale
     void testTimeZoneMatches() {

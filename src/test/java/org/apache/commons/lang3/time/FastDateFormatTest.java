@@ -478,4 +478,32 @@ class FastDateFormatTest extends AbstractLangTest {
         assertEquals(FastDateFormat.getTimeInstance(FastDateFormat.LONG),
                 FastDateFormat.getTimeInstance(FastDateFormat.LONG, TimeZone.getDefault(), Locale.getDefault()));
     }
+
+    /**
+     * Mutating the TimeZone passed to the factory must not change the cached, shared instance.
+     */
+    @Test
+    void testTimeZoneArgumentIsCopied() throws ParseException {
+        final TimeZone timeZone = TimeZones.getTimeZone("UTC");
+        final FastDateFormat printer = FastDateFormat.getInstance("yyyy-MM-dd HH:mm Z", timeZone, Locale.US);
+        final FastDateFormat parser = FastDateFormat.getInstance("yyyy-MM-dd HH:mm", timeZone, Locale.US);
+        timeZone.setRawOffset(5 * 3_600_000);
+        assertEquals(TimeZones.getTimeZone("UTC"), printer.getTimeZone());
+        assertEquals("1970-01-01 00:00 +0000", printer.format(new Date(0)));
+        assertEquals(new Date(0), parser.parse("1970-01-01 00:00"));
+    }
+
+    /**
+     * Mutating the TimeZone returned by the getter must not change the cached, shared instance.
+     */
+    @Test
+    void testTimeZoneGetterReturnsCopy() throws ParseException {
+        final FastDateFormat printer = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss Z", TimeZones.getTimeZone("UTC"), Locale.US);
+        final FastDateFormat parser = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss", TimeZones.getTimeZone("UTC"), Locale.US);
+        printer.getTimeZone().setRawOffset(5 * 3_600_000);
+        parser.getTimeZone().setRawOffset(5 * 3_600_000);
+        assertEquals(TimeZones.getTimeZone("UTC"), printer.getTimeZone());
+        assertEquals("1970-01-01 00:00:00 +0000", printer.format(new Date(0)));
+        assertEquals(new Date(0), parser.parse("1970-01-01 00:00:00"));
+    }
 }

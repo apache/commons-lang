@@ -591,7 +591,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * This zone is always used for {@link Date} formatting.
      * </p>
      *
-     * @return The time zone.
+     * @return A copy of the time zone, changing it has no effect on this formatter.
      */
     @Override
     public TimeZone getTimeZone() {
