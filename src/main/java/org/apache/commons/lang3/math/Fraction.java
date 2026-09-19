@@ -321,7 +321,8 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param numerator   The numerator, for example the three in 'three sevenths'
      * @param denominator The denominator, for example the seven in 'three sevenths'
      * @return A new fraction instance, with the numerator and denominator reduced
-     * @throws ArithmeticException Thrown if the denominator is {@code zero}.
+     * @throws ArithmeticException Thrown if the denominator is {@code zero}, or the reduced numerator or positive denominator cannot be represented as an
+     *                             {@code int}.
      */
     public static Fraction getReducedFraction(int numerator, int denominator) {
         checkDenominator(denominator);
