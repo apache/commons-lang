@@ -13,9 +13,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+notifications:
+    commits:      commits@commons.apache.org
+    issues:       issues@commons.apache.org
+    pullrequests: issues@commons.apache.org
+    jira_options: link label
+    jobs:         notifications@commons.apache.org
+    # commits_bot_dependabot: dependabot@commons.apache.org
+    issues_bot_dependabot: dependabot@commons.apache.org
+    pullrequests_bot_dependabot: dependabot@commons.apache.org
+    issues_bot_codecov-commenter: notifications@commons.apache.org
+    pullrequests_bot_codecov-commenter: notifications@commons.apache.org
+
 github:
   description: "Apache Commons Lang"
   homepage: https://commons.apache.org/lang/
+
+pull_requests:
   # allow auto-merge
   allow_auto_merge: false
   # enable updating head branches of pull requests
@@ -35,15 +49,3 @@ github:
         - root
       restrict_deletion: true
       restrict_force_push: true
-
-notifications:
-    commits:      commits@commons.apache.org
-    issues:       issues@commons.apache.org
-    pullrequests: issues@commons.apache.org
-    jira_options: link label
-    jobs:         notifications@commons.apache.org
-    # commits_bot_dependabot: dependabot@commons.apache.org
-    issues_bot_dependabot: dependabot@commons.apache.org
-    pullrequests_bot_dependabot: dependabot@commons.apache.org
-    issues_bot_codecov-commenter: notifications@commons.apache.org
-    pullrequests_bot_codecov-commenter: notifications@commons.apache.org
