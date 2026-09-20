@@ -609,6 +609,12 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(Long.valueOf(Integer.MAX_VALUE + 1L), NumberUtils.createNumber("" + (Integer.MAX_VALUE + 1L)), "createNumber(String) 5 failed");
         assertEquals(Long.valueOf(12345), NumberUtils.createNumber("12345L"), "createNumber(String) 6 failed");
         assertEquals(Long.valueOf(12345), NumberUtils.createNumber("12345l"), "createNumber(String) 6 failed");
+        assertEquals(Long.valueOf(12345), NumberUtils.createNumber("+12345L"), "createNumber(String) +L failed");
+        assertEquals(Long.valueOf(12345), NumberUtils.createNumber("+12345l"), "createNumber(String) +l failed");
+        assertEquals(Long.valueOf(-12345), NumberUtils.createNumber("-12345L"), "createNumber(String) -L failed");
+        assertEquals(Long.valueOf(-12345), NumberUtils.createNumber("-12345l"), "createNumber(String) -l failed");
+        assertEquals(Long.valueOf(0), NumberUtils.createNumber("+0L"), "createNumber(String) +0L failed");
+        assertEquals(Long.valueOf(0), NumberUtils.createNumber("+0l"), "createNumber(String) +0l failed");
         assertEquals(Float.valueOf("-1234.5"), NumberUtils.createNumber("-1234.5"), "createNumber(String) 7 failed");
         assertEquals(Integer.valueOf("-12345"), NumberUtils.createNumber("-12345"), "createNumber(String) 8 failed");
         assertEquals(0xFADE, NumberUtils.createNumber("0xFADE").intValue(), "createNumber(String) 9a failed");
@@ -621,6 +627,8 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(Double.valueOf("1.1E-200"), NumberUtils.createNumber("1.1E-200"), "createNumber(String) 14 failed");
         assertNull(NumberUtils.createNumber(null), "createNumber(null) failed");
         assertEquals(new BigInteger("12345678901234567890"), NumberUtils.createNumber("12345678901234567890L"), "createNumber(String) failed");
+        assertEquals(new BigInteger("12345678901234567890"), NumberUtils.createNumber("+12345678901234567890L"), "createNumber(String) failed");
+        assertEquals(new BigInteger("12345678901234567890"), NumberUtils.createNumber("+12345678901234567890l"), "createNumber(String) failed");
         assertEquals(new BigDecimal("1.1E-700"), NumberUtils.createNumber("1.1E-700F"), "createNumber(String) 15 failed");
         assertEquals(Long.valueOf("10" + Integer.MAX_VALUE), NumberUtils.createNumber("10" + Integer.MAX_VALUE + "L"), "createNumber(String) 16 failed");
         assertEquals(Long.valueOf("10" + Integer.MAX_VALUE), NumberUtils.createNumber("10" + Integer.MAX_VALUE), "createNumber(String) 17 failed");
@@ -833,6 +841,11 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsCreatableWithCreateNumber("123.4E21D", true);
         compareIsCreatableWithCreateNumber("-221.23F", true);
         compareIsCreatableWithCreateNumber("22338L", true);
+        compareIsCreatableWithCreateNumber("+22338L", true);
+        compareIsCreatableWithCreateNumber("+22338l", true);
+        compareIsCreatableWithCreateNumber("+0L", true);
+        compareIsCreatableWithCreateNumber("+0l", true);
+        compareIsCreatableWithCreateNumber("+12345678901234567890L", true);
         compareIsCreatableWithCreateNumber(null, false);
         compareIsCreatableWithCreateNumber("", false);
         compareIsCreatableWithCreateNumber(" ", false);

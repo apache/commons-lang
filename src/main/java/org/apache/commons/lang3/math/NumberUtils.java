@@ -439,7 +439,7 @@ public class NumberUtils {
             switch (lastChar) {
             case 'l':
             case 'L':
-                if (dec == null && exp == null && (!numeric.isEmpty() && numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
+                if (dec == null && exp == null && (!numeric.isEmpty() && isSign(numeric.charAt(0)) && isDigits(numeric.substring(1)) || isDigits(numeric))) {
                     try {
                         return createLong(numeric);
                     } catch (final NumberFormatException ignored) {
