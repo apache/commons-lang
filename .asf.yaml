@@ -16,6 +16,25 @@
 github:
   description: "Apache Commons Lang"
   homepage: https://commons.apache.org/lang/
+  # allow auto-merge
+  allow_auto_merge: false
+  # enable updating head branches of pull requests
+  allow_update_branch: true
+  # auto-delete head branches after being merged
+  del_branch_on_merge: true
+
+  rulesets:
+    - name: "Protect Main Branches"
+      type: branch
+      branches:
+        includes:
+          - main
+          - master
+        excludes: []
+      bypass_teams:
+        - root
+      restrict_deletion: true
+      restrict_force_push: true
 
 notifications:
     commits:      commits@commons.apache.org
@@ -28,18 +47,3 @@ notifications:
     pullrequests_bot_dependabot: dependabot@commons.apache.org
     issues_bot_codecov-commenter: notifications@commons.apache.org
     pullrequests_bot_codecov-commenter: notifications@commons.apache.org
-
-# Branch rulesets to block force pushes and prevent deletions on main branches
-branch_rulesets:
-  - name: "Protect Main Branches"
-    target: "branch"
-    enforcement: "active" # Options: active, evaluate, disabled
-    conditions:
-      ref_name:
-        include:
-          - "refs/heads/main"
-          - "refs/heads/master"
-        exclude: []
-    rules:
-      - type: "deletion" # Prevents branch deletions
-      - type: "non_fast_forward" # Blocks force pushes completely
