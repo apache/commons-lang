@@ -23,9 +23,13 @@ import org.apache.commons.lang3.ObjectUtils;
 /**
  * Helper translating {@link Comparable#compareTo} results to booleans.
  *
- * <p>Example: {@code boolean x = ComparableUtils.is(myComparable).lessThanOrEqualTo(otherComparable)}</p>
+ * <p>
+ * Example: {@code boolean x = ComparableUtils.is(myComparable).lessThanOrEqualTo(otherComparable)}
+ * </p>
  *
- * <p>#ThreadSafe#</p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
  * @since 3.10
  */

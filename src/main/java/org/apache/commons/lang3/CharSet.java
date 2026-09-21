@@ -27,9 +27,13 @@ import java.util.stream.Stream;
 /**
  * A set of characters.
  *
- * <p>Instances are immutable, but instances of subclasses may not be.</p>
+ * <p>
+ * Instances are immutable, but instances of subclasses may not be.
+ * </p>
  *
- * <p>#ThreadSafe#</p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
  * @since 1.0
  */
@@ -113,7 +117,9 @@ public class CharSet implements Serializable {
      *  - set containing all the characters from the individual sets</li>
      * </ul>
      *
-     * <p>The matching order is:</p>
+     * <p>
+     * The matching order is:
+     * </p>
      * <ol>
      *  <li>Negated multi character range, such as "^a-e"</li>
      *  <li>Ordinary multi character range, such as "a-e"</li>
@@ -121,27 +127,39 @@ public class CharSet implements Serializable {
      *  <li>Ordinary single character, such as "a"</li>
      * </ol>
      *
-     * <p>Matching works left to right. Once a match is found the
-     * search starts again from the next character.</p>
+     * <p>
+     * Matching works left to right. Once a match is found the
+     * search starts again from the next character.
+     * </p>
      *
-     * <p>If the same range is defined twice using the same syntax, only
+     * <p>
+     * If the same range is defined twice using the same syntax, only
      * one range will be kept.
-     * Thus, "a-ca-c" creates only one range of "a-c".</p>
+     * Thus, "a-ca-c" creates only one range of "a-c".
+     * </p>
      *
-     * <p>If the start and end of a range are in the wrong order,
+     * <p>
+     * If the start and end of a range are in the wrong order,
      * they are reversed. Thus "a-e" is the same as "e-a".
      * As a result, "a-ee-a" would create only one range,
-     * as the "a-e" and "e-a" are the same.</p>
+     * as the "a-e" and "e-a" are the same.
+     * </p>
      *
-     * <p>The set of characters represented is the union of the specified ranges.</p>
+     * <p>
+     * The set of characters represented is the union of the specified ranges.
+     * </p>
      *
-     * <p>There are two ways to add a literal negation character ({@code ^}):</p>
+     * <p>
+     * There are two ways to add a literal negation character ({@code ^}):
+     * </p>
      * <ul>
      *     <li>As the last character in a string, e.g. {@code CharSet.getInstance("a-z^")}</li>
      *     <li>As a separate element, e.g. {@code CharSet.getInstance("^", "a-z")}</li>
      * </ul>
      *
-     * <p>Examples using the negation character:</p>
+     * <p>
+     * Examples using the negation character:
+     * </p>
      * <pre>
      *     CharSet.getInstance("^a-c").contains('a') = false
      *     CharSet.getInstance("^a-c").contains('d') = true
@@ -152,7 +170,9 @@ public class CharSet implements Serializable {
      *     CharSet.getInstance("^", "a-c").contains('^') = true
      * </pre>
      *
-     * <p>All CharSet objects returned by this method will be immutable.</p>
+     * <p>
+     * All CharSet objects returned by this method will be immutable.
+     * </p>
      *
      * @param setStrs  Strings to merge into the set, may be null.
      * @return A CharSet instance.
@@ -251,8 +271,10 @@ public class CharSet implements Serializable {
      * Compares two {@link CharSet} objects, returning true if they represent
      * exactly the same set of characters defined in the same way.
      *
-     * <p>The two sets {@code abc} and {@code a-c} are <em>not</em>
-     * equal according to this method.</p>
+     * <p>
+     * The two sets {@code abc} and {@code a-c} are <em>not</em>
+     * equal according to this method.
+     * </p>
      *
      * @param obj  The object to compare.
      * @return true if equal.

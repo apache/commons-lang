@@ -32,19 +32,27 @@ import org.apache.commons.lang3.tuple.Pair;
 /**
  * Assists in implementing {@link Comparable#compareTo(Object)} methods.
  *
- * <p>It is consistent with {@code equals(Object)} and
+ * <p>
+ * It is consistent with {@code equals(Object)} and
  * {@code hashCode()} built with {@link EqualsBuilder} and
- * {@link HashCodeBuilder}.</p>
+ * {@link HashCodeBuilder}.
+ * </p>
  *
- * <p>Two Objects that compare equal using {@code equals(Object)} should normally
- * also compare equal using {@code compareTo(Object)}.</p>
+ * <p>
+ * Two Objects that compare equal using {@code equals(Object)} should normally
+ * also compare equal using {@code compareTo(Object)}.
+ * </p>
  *
- * <p>All relevant fields should be included in the calculation of the
+ * <p>
+ * All relevant fields should be included in the calculation of the
  * comparison. Derived fields may be ignored. The same fields, in the same
  * order, should be used in both {@code compareTo(Object)} and
- * {@code equals(Object)}.</p>
+ * {@code equals(Object)}.
+ * </p>
  *
- * <p>To use this class write code as follows:</p>
+ * <p>
+ * To use this class write code as follows:
+ * </p>
  *
  * <pre>
  * public class MyClass {
@@ -66,21 +74,27 @@ import org.apache.commons.lang3.tuple.Pair;
  * }
  * </pre>
  *
- * <p>Values are compared in the order they are appended to the builder. If any comparison returns
+ * <p>
+ * Values are compared in the order they are appended to the builder. If any comparison returns
  * a non-zero result, then that value will be the result returned by {@code toComparison()} and all
- * subsequent comparisons are skipped.</p>
+ * subsequent comparisons are skipped.
+ * </p>
  *
- * <p>Alternatively, there are {@link #reflectionCompare(Object, Object) reflectionCompare} methods that use
+ * <p>
+ * Alternatively, there are {@link #reflectionCompare(Object, Object) reflectionCompare} methods that use
  * reflection to determine the fields to append. Because fields can be private,
  * {@code reflectionCompare} uses {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} to
  * bypass normal access control checks. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also
- * slower than appending explicitly.</p>
+ * slower than appending explicitly.
+ * </p>
  * <p>
  * See also {@link AbstractBuilder#setForceAccessible(boolean)}
  * </p>
- * <p>A typical implementation of {@code compareTo(Object)} using
- * {@code reflectionCompare} looks like:</p>
+ * <p>
+ * A typical implementation of {@code compareTo(Object)} using
+ * {@code reflectionCompare} looks like:
+ * </p>
 
  * <pre>
  * public int compareTo(Object o) {
@@ -88,9 +102,11 @@ import org.apache.commons.lang3.tuple.Pair;
  * }
  * </pre>
  *
- * <p>The reflective methods compare object fields in the order returned by
+ * <p>
+ * The reflective methods compare object fields in the order returned by
  * {@link Class#getDeclaredFields()}. The fields of the class are compared first, followed by those
- * of its parent classes (in order from the bottom to the top of the class hierarchy).</p>
+ * of its parent classes (in order from the bottom to the top of the class hierarchy).
+ * </p>
  *
  * @see Comparable
  * @see Object#equals(Object)

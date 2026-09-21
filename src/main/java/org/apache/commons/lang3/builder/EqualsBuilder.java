@@ -31,23 +31,31 @@ import org.apache.commons.lang3.tuple.Pair;
 /**
  * Assists in implementing {@link Object#equals(Object)} methods.
  *
- * <p>This class provides methods to build a good equals method for any
+ * <p>
+ * This class provides methods to build a good equals method for any
  * class. It follows rules laid out in
  * <a href="https://www.oracle.com/java/technologies/effectivejava.html">Effective Java</a>
  * , by Joshua Bloch. In particular the rule for comparing {@code doubles},
  * {@code floats}, and arrays can be tricky. Also, making sure that
  * {@code equals()} and {@code hashCode()} are consistent can be
- * difficult.</p>
+ * difficult.
+ * </p>
  *
- * <p>Two Objects that compare as equals must generate the same hash code,
- * but two Objects with the same hash code do not have to be equal.</p>
+ * <p>
+ * Two Objects that compare as equals must generate the same hash code,
+ * but two Objects with the same hash code do not have to be equal.
+ * </p>
  *
- * <p>All relevant fields should be included in the calculation of equals.
+ * <p>
+ * All relevant fields should be included in the calculation of equals.
  * Derived fields may be ignored. In particular, any field used in
  * generating a hash code must be used in the equals method, and vice
- * versa.</p>
+ * versa.
+ * </p>
  *
- * <p>Typical use for the code is as follows:</p>
+ * <p>
+ * Typical use for the code is as follows:
+ * </p>
  * <pre>
  * public boolean equals(Object obj) {
  *   if (obj == null) { return false; }
@@ -65,26 +73,32 @@ import org.apache.commons.lang3.tuple.Pair;
  *  }
  * </pre>
  *
- * <p>Alternatively, there is a method that uses reflection to determine
+ * <p>
+ * Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method,
  * {@code reflectionEquals}, uses {@code AccessibleObject.setAccessible} to
  * change the visibility of the fields. This will fail under a security
  * manager, unless the appropriate permissions are set up correctly. It is
  * also slower than testing explicitly.  Non-primitive fields are compared using
- * {@code equals()}.</p>
+ * {@code equals()}.
+ * </p>
  * <p>
  * See also {@link AbstractBuilder#setForceAccessible(boolean)}
  * </p>
  *
- * <p>A typical invocation for this method would look like:</p>
+ * <p>
+ * A typical invocation for this method would look like:
+ * </p>
  * <pre>
  * public boolean equals(Object obj) {
  *   return EqualsBuilder.reflectionEquals(this, obj);
  * }
  * </pre>
  *
- * <p>The {@link EqualsExclude} annotation can be used to exclude fields from being
- * used by the {@code reflectionEquals} methods.</p>
+ * <p>
+ * The {@link EqualsExclude} annotation can be used to exclude fields from being
+ * used by the {@code reflectionEquals} methods.
+ * </p>
  *
  * @since 1.0
  * @see AbstractBuilder#setForceAccessible(boolean)
@@ -171,17 +185,23 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Uses reflection to determine if the two {@link Object}s
      * are equal.
      *
-     * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
+     * <p>
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly. Non-primitive fields are compared using
-     * {@code equals()}.</p>
+     * {@code equals()}.
+     * </p>
      *
-     * <p>If the TestTransients parameter is set to {@code true}, transient
+     * <p>
+     * If the TestTransients parameter is set to {@code true}, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the {@link Object}.</p>
+     * derived fields, and not part of the value of the {@link Object}.
+     * </p>
      *
-     * <p>Static fields will not be tested. Superclass fields will be included.</p>
+     * <p>
+     * Static fields will not be tested. Superclass fields will be included.
+     * </p>
      *
      * @param lhs  {@code this} object
      * @param rhs  The other object
@@ -197,32 +217,41 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Uses reflection to determine if the two {@link Object}s
      * are equal.
      *
-     * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
+     * <p>
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly. Non-primitive fields are compared using
-     * {@code equals()}.</p>
+     * {@code equals()}.
+     * </p>
      *
-     * <p>If the testTransients parameter is set to {@code true}, transient
+     * <p>
+     * If the testTransients parameter is set to {@code true}, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the {@link Object}.</p>
+     * derived fields, and not part of the value of the {@link Object}.
+     * </p>
      *
-     * <p>Static fields will not be included. Superclass fields will be appended
+     * <p>
+     * Static fields will not be included. Superclass fields will be appended
      * up to and including the specified superclass. A null superclass is treated
-     * as java.lang.Object.</p>
+     * as java.lang.Object.
+     * </p>
      *
-     * <p>If the testRecursive parameter is set to {@code true}, non primitive
+     * <p>
+     * If the testRecursive parameter is set to {@code true}, non primitive
      * (and non primitive wrapper) field types will be compared by
      * {@link EqualsBuilder} recursively instead of invoking their
      * {@code equals()} method. Leading to a deep reflection equals test.
      *
-     * <p>Note on graph shape: the internal registry that prevents infinite recursion on
+     * <p>
+     * Note on graph shape: the internal registry that prevents infinite recursion on
      * cyclic object graphs is a visit stack, not a visited set - object pairs reachable
      * more than once through shared (acyclic) references are re-compared on every path.
      * On deeply nested graphs with many shared references (reference "diamonds"), the
      * comparison cost can grow exponentially with nesting depth. Do not use recursive
      * reflection equality on object graphs built from untrusted input (for example,
-     * graphs materialized by an identity-preserving deserializer).</p>
+     * graphs materialized by an identity-preserving deserializer).
+     * </p>
      *
      * @param lhs  {@code this} object
      * @param rhs  The other object
@@ -259,19 +288,25 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Uses reflection to determine if the two {@link Object}s
      * are equal.
      *
-     * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
+     * <p>
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly. Non-primitive fields are compared using
-     * {@code equals()}.</p>
+     * {@code equals()}.
+     * </p>
      *
-     * <p>If the testTransients parameter is set to {@code true}, transient
+     * <p>
+     * If the testTransients parameter is set to {@code true}, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the {@link Object}.</p>
+     * derived fields, and not part of the value of the {@link Object}.
+     * </p>
      *
-     * <p>Static fields will not be included. Superclass fields will be appended
+     * <p>
+     * Static fields will not be included. Superclass fields will be appended
      * up to and including the specified superclass. A null superclass is treated
-     * as java.lang.Object.</p>
+     * as java.lang.Object.
+     * </p>
      *
      * @param lhs  {@code this} object
      * @param rhs  The other object
@@ -292,16 +327,22 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Uses reflection to determine if the two {@link Object}s
      * are equal.
      *
-     * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
+     * <p>
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly. Non-primitive fields are compared using
-     * {@code equals()}.</p>
+     * {@code equals()}.
+     * </p>
      *
-     * <p>Transient members will be not be tested, as they are likely derived
-     * fields, and not part of the value of the Object.</p>
+     * <p>
+     * Transient members will be not be tested, as they are likely derived
+     * fields, and not part of the value of the Object.
+     * </p>
      *
-     * <p>Static fields will not be tested. Superclass fields will be included.</p>
+     * <p>
+     * Static fields will not be tested. Superclass fields will be included.
+     * </p>
      *
      * @param lhs  {@code this} object
      * @param rhs  The other object
@@ -317,16 +358,22 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Uses reflection to determine if the two {@link Object}s
      * are equal.
      *
-     * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
+     * <p>
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly. Non-primitive fields are compared using
-     * {@code equals()}.</p>
+     * {@code equals()}.
+     * </p>
      *
-     * <p>Transient members will be not be tested, as they are likely derived
-     * fields, and not part of the value of the Object.</p>
+     * <p>
+     * Transient members will be not be tested, as they are likely derived
+     * fields, and not part of the value of the Object.
+     * </p>
      *
-     * <p>Static fields will not be tested. Superclass fields will be included.</p>
+     * <p>
+     * Static fields will not be tested. Superclass fields will be included.
+     * </p>
      *
      * @param lhs  {@code this} object
      * @param rhs  The other object
@@ -382,7 +429,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Constructor for EqualsBuilder.
      *
-     * <p>Starts off assuming that equals is {@code true}.</p>
+     * <p>
+     * Starts off assuming that equals is {@code true}.
+     * </p>
      *
      * @see Object#equals(Object)
      */
@@ -416,7 +465,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Deep comparison of array of {@code boolean}. Length and all
      * values are compared.
      *
-     * <p>The method {@link #append(boolean, boolean)} is used.</p>
+     * <p>
+     * The method {@link #append(boolean, boolean)} is used.
+     * </p>
      *
      * @param lhs  The left-hand side {@code boolean[]}
      * @param rhs  The right-hand side {@code boolean[]}
@@ -454,7 +505,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Deep comparison of array of {@code byte}. Length and all
      * values are compared.
      *
-     * <p>The method {@link #append(byte, byte)} is used.</p>
+     * <p>
+     * The method {@link #append(byte, byte)} is used.
+     * </p>
      *
      * @param lhs  The left-hand side {@code byte[]}
      * @param rhs  The right-hand side {@code byte[]}
@@ -492,7 +545,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Deep comparison of array of {@code char}. Length and all
      * values are compared.
      *
-     * <p>The method {@link #append(char, char)} is used.</p>
+     * <p>
+     * The method {@link #append(char, char)} is used.
+     * </p>
      *
      * @param lhs  The left-hand side {@code char[]}
      * @param rhs  The right-hand side {@code char[]}
@@ -516,10 +571,14 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Test if two {@code double}s are equal by testing that the
      * pattern of bits returned by {@code doubleToLong} are equal.
      *
-     * <p>This handles NaNs, Infinities, and {@code -0.0}.</p>
+     * <p>
+     * This handles NaNs, Infinities, and {@code -0.0}.
+     * </p>
      *
-     * <p>It is compatible with the hash code generated by
-     * {@link HashCodeBuilder}.</p>
+     * <p>
+     * It is compatible with the hash code generated by
+     * {@link HashCodeBuilder}.
+     * </p>
      *
      * @param lhs  The left-hand side {@code double}
      * @param rhs  The right-hand side {@code double}
@@ -536,7 +595,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Deep comparison of array of {@code double}. Length and all
      * values are compared.
      *
-     * <p>The method {@link #append(double, double)} is used.</p>
+     * <p>
+     * The method {@link #append(double, double)} is used.
+     * </p>
      *
      * @param lhs  The left-hand side {@code double[]}
      * @param rhs  The right-hand side {@code double[]}
@@ -560,10 +621,14 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Test if two {@code float}s are equal by testing that the
      * pattern of bits returned by doubleToLong are equal.
      *
-     * <p>This handles NaNs, Infinities, and {@code -0.0}.</p>
+     * <p>
+     * This handles NaNs, Infinities, and {@code -0.0}.
+     * </p>
      *
-     * <p>It is compatible with the hash code generated by
-     * {@link HashCodeBuilder}.</p>
+     * <p>
+     * It is compatible with the hash code generated by
+     * {@link HashCodeBuilder}.
+     * </p>
      *
      * @param lhs  The left-hand side {@code float}
      * @param rhs  The right-hand side {@code float}
@@ -580,7 +645,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Deep comparison of array of {@code float}. Length and all
      * values are compared.
      *
-     * <p>The method {@link #append(float, float)} is used.</p>
+     * <p>
+     * The method {@link #append(float, float)} is used.
+     * </p>
      *
      * @param lhs  The left-hand side {@code float[]}
      * @param rhs  The right-hand side {@code float[]}
@@ -618,7 +685,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Deep comparison of array of {@code int}. Length and all
      * values are compared.
      *
-     * <p>The method {@link #append(int, int)} is used.</p>
+     * <p>
+     * The method {@link #append(int, int)} is used.
+     * </p>
      *
      * @param lhs  The left-hand side {@code int[]}
      * @param rhs  The right-hand side {@code int[]}
@@ -658,7 +727,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Deep comparison of array of {@code long}. Length and all
      * values are compared.
      *
-     * <p>The method {@link #append(long, long)} is used.</p>
+     * <p>
+     * The method {@link #append(long, long)} is used.
+     * </p>
      *
      * @param lhs  The left-hand side {@code long[]}
      * @param rhs  The right-hand side {@code long[]}
@@ -714,11 +785,15 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Performs a deep comparison of two {@link Object} arrays.
      *
-     * <p>This also will be called for the top level of
-     * multi-dimensional, ragged, and multi-typed arrays.</p>
+     * <p>
+     * This also will be called for the top level of
+     * multi-dimensional, ragged, and multi-typed arrays.
+     * </p>
      *
-     * <p>Note that this method does not compare the type of the arrays; it only
-     * compares the contents.</p>
+     * <p>
+     * Note that this method does not compare the type of the arrays; it only
+     * compares the contents.
+     * </p>
      *
      * @param lhs  The left-hand side {@code Object[]}
      * @param rhs  The right-hand side {@code Object[]}
@@ -764,7 +839,9 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Deep comparison of array of {@code short}. Length and all
      * values are compared.
      *
-     * <p>The method {@link #append(short, short)} is used.</p>
+     * <p>
+     * The method {@link #append(short, short)} is used.
+     * </p>
      *
      * @param lhs  The left-hand side {@code short[]}
      * @param rhs  The right-hand side {@code short[]}
@@ -859,25 +936,35 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     /**
      * Tests if two {@code objects} by using reflection.
      *
-     * <p>It uses {@code AccessibleObject.setAccessible} to gain access to private
+     * <p>
+     * It uses {@code AccessibleObject.setAccessible} to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly. Non-primitive fields are compared using
-     * {@code equals()}.</p>
+     * {@code equals()}.
+     * </p>
      *
-     * <p>If the testTransients field is set to {@code true}, transient
+     * <p>
+     * If the testTransients field is set to {@code true}, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the {@link Object}.</p>
+     * derived fields, and not part of the value of the {@link Object}.
+     * </p>
      *
-     * <p>Static fields will not be included. Superclass fields will be appended
+     * <p>
+     * Static fields will not be included. Superclass fields will be appended
      * up to and including the specified superclass in field {@code reflectUpToClass}.
-     * A null superclass is treated as java.lang.Object.</p>
+     * A null superclass is treated as java.lang.Object.
+     * </p>
      *
-     * <p>Field names listed in field {@code excludeFields} will be ignored.</p>
+     * <p>
+     * Field names listed in field {@code excludeFields} will be ignored.
+     * </p>
      *
-     * <p>If either class of the compared objects is contained in
+     * <p>
+     * If either class of the compared objects is contained in
      * {@code bypassReflectionClasses}, both objects are compared by calling
-     * the equals method of the left-hand side object with the right-hand side object as an argument.</p>
+     * the equals method of the left-hand side object with the right-hand side object as an argument.
+     * </p>
      *
      * @param lhs  The left-hand side object
      * @param rhs  The right-hand side object
@@ -984,10 +1071,12 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * Sets {@link Class}es whose instances should be compared by calling their {@code equals}
      * although being in recursive mode. So the fields of these classes will not be compared recursively by reflection.
      *
-     * <p>Here you should name classes having non-transient fields which are cache fields being set lazily.<br>
+     * <p>
+     * Here you should name classes having non-transient fields which are cache fields being set lazily.<br>
      * Prominent example being {@link String} class with its hash code cache field. Due to the importance
      * of the {@link String} class, it is included in the default bypasses classes. Usually, if you use
-     * your own set of classes here, remember to include {@link String} class, too.</p>
+     * your own set of classes here, remember to include {@link String} class, too.
+     * </p>
      *
      * @param bypassReflectionClasses  classes to bypass reflection test
      * @return {@code this} instance.
@@ -1038,9 +1127,11 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
      * String objects, which cache a hash value, are automatically excluded from recursive testing.
      * You may specify other exceptions by calling {@link #setBypassReflectionClasses(List)}.
      *
-     * <p>Cycle protection is a visit stack, not a visited set: shared (acyclic) references are
+     * <p>
+     * Cycle protection is a visit stack, not a visited set: shared (acyclic) references are
      * re-compared on every path, so deeply nested graphs with many shared references can be
-     * exponentially expensive to compare. Avoid on object graphs built from untrusted input.</p>
+     * exponentially expensive to compare. Avoid on object graphs built from untrusted input.
+     * </p>
      *
      * @param testRecursive whether to do a recursive test
      * @return {@code this} instance.

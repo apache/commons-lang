@@ -19,8 +19,10 @@
  * Provides classes and methods to work with dates and durations.
  * These classes are immutable (and therefore thread-safe) apart from {@link org.apache.commons.lang3.time.StopWatch}.
  *
- * <p>The time package contains some basic utilities for manipulating time (a delorean, police box and grandfather clock?).
- * These include a {@link org.apache.commons.lang3.time.StopWatch} for simple performance measurements and an optimized {@link org.apache.commons.lang3.time.FastDateFormat} class.</p>
+ * <p>
+ * The time package contains some basic utilities for manipulating time (a delorean, police box and grandfather clock?).
+ * These include a {@link org.apache.commons.lang3.time.StopWatch} for simple performance measurements and an optimized {@link org.apache.commons.lang3.time.FastDateFormat} class.
+ * </p>
  *
  * @since 2.0
  */

@@ -55,13 +55,16 @@ import org.apache.commons.lang3.Validate;
  * found is used for this format element.
  * </p>
  *
- * <p><strong>NOTICE:</strong> The various subformat mutator methods are considered unnecessary; they exist on the parent
+ * <p>
+ * <strong>NOTICE:</strong> The various subformat mutator methods are considered unnecessary; they exist on the parent
  * class to allow the type of customization which it is the job of this class to provide in
  * a configurable fashion.  These methods have thus been disabled and will throw
  * {@link UnsupportedOperationException} if called.
  * </p>
  *
- * <p>Limitations inherited from {@link java.text.MessageFormat}:</p>
+ * <p>
+ * Limitations inherited from {@link java.text.MessageFormat}:
+ * </p>
  * <ul>
  * <li>When using "choice" subformats, support for nested formatting instructions is limited
  *     to that provided by the base class.</li>
@@ -467,11 +470,11 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
+     * Sets no format and always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
      *
      * @param formatElementIndex format element index
      * @param newFormat The new format
-     * @throws UnsupportedOperationException Thrown always because this operation is not supported.
+     * @throws UnsupportedOperationException Thrown because this operation is not supported.
      */
     @Override
     public void setFormat(final int formatElementIndex, final Format newFormat) {
@@ -479,11 +482,11 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
+     * Sets no format and always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
      *
      * @param argumentIndex argument index
      * @param newFormat The new format
-     * @throws UnsupportedOperationException Thrown always because this operation is not supported.
+     * @throws UnsupportedOperationException Thrown because this operation is not supported.
      */
     @Override
     public void setFormatByArgumentIndex(final int argumentIndex, final Format newFormat) {
@@ -491,10 +494,10 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
+     * Sets no format and always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
      *
      * @param newFormats new formats
-     * @throws UnsupportedOperationException Thrown always because this operation is not supported.
+     * @throws UnsupportedOperationException Thrown because this operation is not supported.
      */
     @Override
     public void setFormats(final Format[] newFormats) {
@@ -502,10 +505,10 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
+     * Sets no format and always throws {@link UnsupportedOperationException}. See the class Javadoc for details.
      *
      * @param newFormats new formats
-     * @throws UnsupportedOperationException Thrown always because this operation is not supported.
+     * @throws UnsupportedOperationException Thrown because this operation is not supported.
      */
     @Override
     public void setFormatsByArgumentIndex(final Format[] newFormats) {

@@ -41,42 +41,56 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  * FastDatePrinter is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.
  *
- * <p>To obtain a FastDatePrinter, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}
- * or another variation of the factory methods of {@link FastDateFormat}.</p>
+ * <p>
+ * To obtain a FastDatePrinter, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}
+ * or another variation of the factory methods of {@link FastDateFormat}.
+ * </p>
  *
- * <p>Since FastDatePrinter is thread safe, you can use a static member instance:</p>
+ * <p>
+ * Since FastDatePrinter is thread safe, you can use a static member instance:
+ * </p>
  * {@code
  *     private static final DatePrinter DATE_PRINTER = FastDateFormat.getInstance("yyyy-MM-dd");
  * }
  *
- * <p>This class can be used as a direct replacement to
+ * <p>
+ * This class can be used as a direct replacement to
  * {@link SimpleDateFormat} in most formatting situations.
  * This class is especially useful in multi-threaded server environments.
  * {@link SimpleDateFormat} is not thread-safe in any JDK version,
  * nor will it be as Sun have closed the bug/RFE.
  * </p>
  *
- * <p>Only formatting is supported by this class, but all patterns are compatible with
- * SimpleDateFormat (except time zones and some year patterns - see below).</p>
+ * <p>
+ * Only formatting is supported by this class, but all patterns are compatible with
+ * SimpleDateFormat (except time zones and some year patterns - see below).
+ * </p>
  *
- * <p>Java 1.4 introduced a new pattern letter, {@code 'Z'}, to represent
+ * <p>
+ * Java 1.4 introduced a new pattern letter, {@code 'Z'}, to represent
  * time zones in RFC822 format (for example, {@code +0800} or {@code -1100}).
- * This pattern letter can be used here (on all JDK versions).</p>
+ * This pattern letter can be used here (on all JDK versions).
+ * </p>
  *
- * <p>In addition, the pattern {@code 'ZZ'} has been made to represent
+ * <p>
+ * In addition, the pattern {@code 'ZZ'} has been made to represent
  * ISO 8601 extended format time zones (for example, {@code +08:00} or {@code -11:00}).
  * This introduces a minor incompatibility with Java 1.4, but at a gain of
- * useful functionality.</p>
+ * useful functionality.
+ * </p>
  *
- * <p>Starting with JDK7, ISO 8601 support was added using the pattern {@code 'X'}.
+ * <p>
+ * Starting with JDK7, ISO 8601 support was added using the pattern {@code 'X'}.
  * To maintain compatibility, {@code 'ZZ'} will continue to be supported, but using
  * one of the {@code 'X'} formats is recommended.
  *
- * <p>Javadoc cites for the year pattern: <i>For formatting, if the number of
+ * <p>
+ * Javadoc cites for the year pattern: <i>For formatting, if the number of
  * pattern letters is 2, the year is truncated to 2 digits; otherwise it is
  * interpreted as a number.</i> Starting with Java 1.7 a pattern of 'Y' or
  * 'YYY' will be formatted as '2003', while it was '03' in former Java
- * versions. FastDatePrinter implements the behavior of Java 7.</p>
+ * versions. FastDatePrinter implements the behavior of Java 7.
+ * </p>
  *
  * @since 3.2
  * @see FastDateParser
@@ -1283,8 +1297,10 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * Gets an estimate for the maximum string length that the
      * formatter will produce.
      *
-     * <p>The actual formatted length will almost always be less than or
-     * equal to this amount.</p>
+     * <p>
+     * The actual formatted length will almost always be less than or
+     * equal to this amount.
+     * </p>
      *
      * @return The maximum formatted length.
      */

@@ -27,9 +27,13 @@ import java.util.Objects;
 /**
  * A contiguous range of characters, optionally negated.
  *
- * <p>Instances are immutable.</p>
+ * <p>
+ * Instances are immutable.
+ * </p>
  *
- * <p>#ThreadSafe#</p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
  * @since 1.0
  * @since 3.21.0 {@code serialVersionUID} changed from {@code 8270183163158333422L} to {@code 2L}.
@@ -40,7 +44,9 @@ final class CharRange implements Iterable<Character>, Serializable {
 
     /**
      * Character {@link Iterator}.
-     * <p>#NotThreadSafe#</p>
+     * <p>
+     * #NotThreadSafe#
+     * </p>
      */
     private static final class CharacterIterator implements Iterator<Character> {
 
@@ -123,7 +129,7 @@ final class CharRange implements Iterable<Character>, Serializable {
         /**
          * Always throws {@link UnsupportedOperationException}.
          *
-         * @throws UnsupportedOperationException Thrown always.
+         * @throws UnsupportedOperationException Thrown because this operation is unsupported.
          * @see java.util.Iterator#remove()
          */
         @Override
@@ -157,8 +163,10 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Constructs a {@link CharRange} over a set of characters.
      *
-     * <p>If start and end are in the wrong order, they are reversed.
-     * Thus {@code a-e} is the same as {@code e-a}.</p>
+     * <p>
+     * If start and end are in the wrong order, they are reversed.
+     * Thus {@code a-e} is the same as {@code e-a}.
+     * </p>
      *
      * @param start  first character, inclusive, in this range.
      * @param end  last character, inclusive, in this range.
@@ -172,8 +180,10 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Constructs a negated {@link CharRange} over a single character.
      *
-     * <p>A negated range includes everything except that defined by the
-     * single character.</p>
+     * <p>
+     * A negated range includes everything except that defined by the
+     * single character.
+     * </p>
      *
      * @param ch  only character in this range.
      * @return The new CharRange object.
@@ -186,11 +196,15 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Constructs a negated {@link CharRange} over a set of characters.
      *
-     * <p>A negated range includes everything except that defined by the
-     * start and end characters.</p>
+     * <p>
+     * A negated range includes everything except that defined by the
+     * start and end characters.
+     * </p>
      *
-     * <p>If start and end are in the wrong order, they are reversed.
-     * Thus {@code a-e} is the same as {@code e-a}.</p>
+     * <p>
+     * If start and end are in the wrong order, they are reversed.
+     * Thus {@code a-e} is the same as {@code e-a}.
+     * </p>
      *
      * @param start  first character, inclusive, in this range.
      * @param end  last character, inclusive, in this range.
@@ -217,11 +231,15 @@ final class CharRange implements Iterable<Character>, Serializable {
      * Constructs a {@link CharRange} over a set of characters,
      * optionally negating the range.
      *
-     * <p>A negated range includes everything except that defined by the
-     * start and end characters.</p>
+     * <p>
+     * A negated range includes everything except that defined by the
+     * start and end characters.
+     * </p>
      *
-     * <p>If start and end are in the wrong order, they are reversed.
-     * Thus {@code a-e} is the same as {@code e-a}.</p>
+     * <p>
+     * If start and end are in the wrong order, they are reversed.
+     * Thus {@code a-e} is the same as {@code e-a}.
+     * </p>
      *
      * @param start  first character, inclusive, in this range.
      * @param end  last character, inclusive, in this range.
@@ -333,10 +351,12 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Tests whether this range denotes the empty set.
      *
-     * <p>A plain (non-negated) range always contains at least one character and is
+     * <p>
+     * A plain (non-negated) range always contains at least one character and is
      * therefore never empty. A negated range is empty if and only if it excludes the
      * entire character space, i.e. if it was created via
-     * {@code isNotIn(Character.MIN_VALUE, Character.MAX_VALUE)}.</p>
+     * {@code isNotIn(Character.MIN_VALUE, Character.MAX_VALUE)}.
+     * </p>
      *
      * @return {@code true} if this range contains no characters, {@code false} otherwise.
      */
@@ -351,8 +371,10 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Tests whether this {@link CharRange} is negated.
      *
-     * <p>A negated range includes everything except that defined by the
-     * start and end characters.</p>
+     * <p>
+     * A negated range includes everything except that defined by the
+     * start and end characters.
+     * </p>
      *
      * @return {@code true} if negated.
      */
@@ -367,7 +389,9 @@ final class CharRange implements Iterable<Character>, Serializable {
     /**
      * Returns an iterator which can be used to walk through the characters described by this range.
      *
-     * <p>#NotThreadSafe# the iterator is not thread-safe</p>
+     * <p>
+     * #NotThreadSafe# the iterator is not thread-safe
+     * </p>
      *
      * @return An iterator to the chars represented by this range
      * @since 2.5

@@ -21,7 +21,9 @@ import java.util.Objects;
 /**
  * A mutable triple consisting of three {@link Object} elements.
  *
- * <p>Not #ThreadSafe#</p>
+ * <p>
+ * Not #ThreadSafe#
+ * </p>
  *
  * @param <L> The left element type.
  * @param <M> The middle element type.

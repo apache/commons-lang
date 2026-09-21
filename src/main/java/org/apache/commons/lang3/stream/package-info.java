@@ -18,9 +18,11 @@
 /**
  * Provides utility classes to complement those in {@link java.util.stream}.
  *
- * <p>Contains utilities to allow streaming of failable functional interfaces from the
+ * <p>
+ * Contains utilities to allow streaming of failable functional interfaces from the
  * {@code org.apache.commons.lang3.functions} package allowing streaming of functional expressions
  * that may raise an Exception.
+ * </p>
  *
  * @since 3.11
  */

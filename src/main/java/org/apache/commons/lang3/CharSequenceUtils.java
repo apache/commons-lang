@@ -394,9 +394,11 @@ public class CharSequenceUtils {
      * Returns a new {@link CharSequence} that is a subsequence of this
      * sequence starting with the {@code char} value at the specified index.
      *
-     * <p>This provides the {@link CharSequence} equivalent to {@link String#substring(int)}.
+     * <p>
+     * This provides the {@link CharSequence} equivalent to {@link String#substring(int)}.
      * The length (in {@code char}) of the returned sequence is {@code length() - start},
-     * so if {@code start == end} then an empty sequence is returned.</p>
+     * so if {@code start == end} then an empty sequence is returned.
+     * </p>
      *
      * @param cs  The specified subsequence, null returns null.
      * @param start  The start index, inclusive, valid.
@@ -445,8 +447,10 @@ public class CharSequenceUtils {
      * {@link CharSequenceUtils} instances should NOT be constructed in
      * standard programming.
      *
-     * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean
+     * instance to operate.
+     * </p>
      *
      * @deprecated TODO Make private in 4.0.
      */

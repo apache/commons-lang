@@ -94,8 +94,10 @@ import org.apache.commons.lang3.stream.Streams;
  *      - the number of changes needed to change one String into another</li>
  * </ul>
  *
- * <p>The {@link StringUtils} class defines certain words related to
- * String handling.</p>
+ * <p>
+ * The {@link StringUtils} class defines certain words related to
+ * String handling.
+ * </p>
  *
  * <ul>
  *  <li>null - {@code null}</li>
@@ -105,19 +107,27 @@ import org.apache.commons.lang3.stream.Streams;
  *  <li>trim - the characters &lt;= 32 as in {@link String#trim()}</li>
  * </ul>
  *
- * <p>{@link StringUtils} handles {@code null} input Strings quietly.
+ * <p>
+ * {@link StringUtils} handles {@code null} input Strings quietly.
  * That is to say that a {@code null} input will return {@code null}.
  * Where a {@code boolean} or {@code int} is being returned
- * details vary by method.</p>
+ * details vary by method.
+ * </p>
  *
- * <p>A side effect of the {@code null} handling is that a
+ * <p>
+ * A side effect of the {@code null} handling is that a
  * {@link NullPointerException} should be considered a bug in
- * {@link StringUtils}.</p>
+ * {@link StringUtils}.
+ * </p>
  *
- * <p>Methods in this class include sample code in their Javadoc comments to explain their operation.
- * The symbol {@code *} is used to indicate any input including {@code null}.</p>
+ * <p>
+ * Methods in this class include sample code in their Javadoc comments to explain their operation.
+ * The symbol {@code *} is used to indicate any input including {@code null}.
+ * </p>
  *
- * <p>#ThreadSafe#</p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
  * @see String
  * @since 1.0
@@ -493,7 +503,9 @@ public class StringUtils {
      * StringUtils.appendIfMissingIgnoreCase("abcxyz", "xyz") = "abcxyz"
      * StringUtils.appendIfMissingIgnoreCase("abcXYZ", "xyz") = "abcXYZ"
      * </pre>
-     * <p>With additional suffixes,</p>
+     * <p>
+     * With additional suffixes,
+     * </p>
      * <pre>
      * StringUtils.appendIfMissingIgnoreCase(null, null, null)       = null
      * StringUtils.appendIfMissingIgnoreCase("abc", null, null)      = "abc"
@@ -1008,7 +1020,9 @@ public class StringUtils {
      * Tests if CharSequence contains a search CharSequence, handling {@code null}.
      * This method uses {@link String#indexOf(String)} if possible.
      *
-     * <p>A {@code null} CharSequence will return {@code false}.</p>
+     * <p>
+     * A {@code null} CharSequence will return {@code false}.
+     * </p>
      *
      * <pre>
      * StringUtils.contains(null, *)     = false
@@ -3268,8 +3282,10 @@ public class StringUtils {
     /**
      * Tests if the CharSequence contains only uppercase characters.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty String (length()=0) will return {@code false}.</p>
+     * <p>
+     * {@code null} will return {@code false}.
+     * An empty String (length()=0) will return {@code false}.
+     * </p>
      *
      * <pre>
      * StringUtils.isAllUpperCase(null)   = false

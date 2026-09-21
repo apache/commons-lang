@@ -97,7 +97,7 @@ final class GmtTimeZone extends TimeZone {
     }
 
     /**
-     * Always throws {@link UnsupportedOperationException}.
+     * Sets no raw offset and always throws {@link UnsupportedOperationException}.
      */
     @Override
     public void setRawOffset(final int offsetMillis) {

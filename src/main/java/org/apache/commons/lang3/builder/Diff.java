@@ -80,7 +80,7 @@ public abstract class Diff<T> extends Pair<T, T> {
     }
 
     /**
-     * Always throws {@link UnsupportedOperationException}.
+     * Sets no value and always throws {@link UnsupportedOperationException}.
      *
      * @param value
      *            ignored.

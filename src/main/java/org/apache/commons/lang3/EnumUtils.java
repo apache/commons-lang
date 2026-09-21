@@ -33,7 +33,9 @@ import org.apache.commons.lang3.stream.Streams;
 /**
  * Provides methods for Java enums.
  *
- * <p>#ThreadSafe#</p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
  * @since 3.0
  */
@@ -80,10 +82,14 @@ public class EnumUtils {
     /**
      * Creates a long bit vector representation of the given array of Enum values.
      *
-     * <p>This generates a value that is usable by {@link EnumUtils#processBitVector}.</p>
+     * <p>
+     * This generates a value that is usable by {@link EnumUtils#processBitVector}.
+     * </p>
      *
-     * <p>Do not use this method if you have more than 64 values in your Enum, as this
-     * would create a value greater than a long can hold.</p>
+     * <p>
+     * Do not use this method if you have more than 64 values in your Enum, as this
+     * would create a value greater than a long can hold.
+     * </p>
      *
      * @param enumClass The class of the enum we are working with, not {@code null}.
      * @param values    The values we want to convert, not {@code null}.
@@ -103,10 +109,14 @@ public class EnumUtils {
     /**
      * Creates a long bit vector representation of the given subset of an Enum.
      *
-     * <p>This generates a value that is usable by {@link EnumUtils#processBitVector}.</p>
+     * <p>
+     * This generates a value that is usable by {@link EnumUtils#processBitVector}.
+     * </p>
      *
-     * <p>Do not use this method if you have more than 64 values in your Enum, as this
-     * would create a value greater than a long can hold.</p>
+     * <p>
+     * Do not use this method if you have more than 64 values in your Enum, as this
+     * would create a value greater than a long can hold.
+     * </p>
      *
      * @param enumClass The class of the enum we are working with, not {@code null}.
      * @param values    The values we want to convert, not {@code null}, neither containing {@code null}.
@@ -132,9 +142,13 @@ public class EnumUtils {
     /**
      * Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.
      *
-     * <p>This generates a value that is usable by {@link EnumUtils#processBitVectors}.</p>
+     * <p>
+     * This generates a value that is usable by {@link EnumUtils#processBitVectors}.
+     * </p>
      *
-     * <p>Use this method if you have more than 64 values in your Enum.</p>
+     * <p>
+     * Use this method if you have more than 64 values in your Enum.
+     * </p>
      *
      * @param enumClass The class of the enum we are working with, not {@code null}.
      * @param values    The values we want to convert, not {@code null}, neither containing {@code null}.
@@ -162,9 +176,13 @@ public class EnumUtils {
     /**
      * Creates a bit vector representation of the given subset of an Enum using as many {@code long}s as needed.
      *
-     * <p>This generates a value that is usable by {@link EnumUtils#processBitVectors}.</p>
+     * <p>
+     * This generates a value that is usable by {@link EnumUtils#processBitVectors}.
+     * </p>
      *
-     * <p>Use this method if you have more than 64 values in your Enum.</p>
+     * <p>
+     * Use this method if you have more than 64 values in your Enum.
+     * </p>
      *
      * @param enumClass The class of the enum we are working with, not {@code null}.
      * @param values    The values we want to convert, not {@code null}, neither containing {@code null}.
@@ -191,8 +209,10 @@ public class EnumUtils {
     /**
      * Gets the enum for the class, returning {@code null} if not found.
      *
-     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
-     * for an invalid enum name.</p>
+     * <p>
+     * This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name.
+     * </p>
      *
      * @param <E> The type of the enumeration.
      * @param enumClass  The class of the enum to query, not null.
@@ -206,8 +226,10 @@ public class EnumUtils {
     /**
      * Gets the enum for the class, returning {@code defaultEnum} if not found.
      *
-     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
-     * for an invalid enum name.</p>
+     * <p>
+     * This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name.
+     * </p>
      *
      * @param <E> The type of the enumeration.
      * @param enumClass   The class of the enum to query, null returns default enum.
@@ -230,8 +252,10 @@ public class EnumUtils {
     /**
      * Gets the enum for the class, returning {@code null} if not found.
      *
-     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
-     * for an invalid enum name and performs case insensitive matching of the name.</p>
+     * <p>
+     * This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name and performs case insensitive matching of the name.
+     * </p>
      *
      * @param <E>         the type of the enumeration.
      * @param enumClass   The class of the enum to query, may be null.
@@ -246,8 +270,10 @@ public class EnumUtils {
     /**
      * Gets the enum for the class, returning {@code defaultEnum} if not found.
      *
-     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
-     * for an invalid enum name and performs case insensitive matching of the name.</p>
+     * <p>
+     * This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name and performs case insensitive matching of the name.
+     * </p>
      *
      * @param <E>         the type of the enumeration.
      * @param enumClass   The class of the enum to query, null returns default enum.
@@ -264,7 +290,9 @@ public class EnumUtils {
     /**
      * Gets the {@link List} of enums.
      *
-     * <p>This method is useful when you need a list of enums rather than an array.</p>
+     * <p>
+     * This method is useful when you need a list of enums rather than an array.
+     * </p>
      *
      * @param <E> The type of the enumeration.
      * @param enumClass  The class of the enum to query, not null.
@@ -277,7 +305,9 @@ public class EnumUtils {
     /**
      * Gets the {@link Map} of enums by name.
      *
-     * <p>This method is useful when you need a map of enums by name.</p>
+     * <p>
+     * This method is useful when you need a map of enums by name.
+     * </p>
      *
      * @param <E> The type of the enumeration.
      * @param enumClass  The class of the enum to query, not null.
@@ -352,8 +382,10 @@ public class EnumUtils {
     /**
      * Gets the enum for the class, returning {@code defaultEnum} if not found.
      *
-     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
-     * for an invalid enum name and performs case insensitive matching of the name.</p>
+     * <p>
+     * This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name and performs case insensitive matching of the name.
+     * </p>
      *
      * @param <E>         the type of the enumeration.
      * @param enumClass   The class of the enum to query, null returns default enum.
@@ -413,7 +445,9 @@ public class EnumUtils {
      * Convert a long value created by {@link EnumUtils#generateBitVector} into the set of
      * enum values that it represents.
      *
-     * <p>If you store this value, beware any changes to the enum that would affect ordinal values.</p>
+     * <p>
+     * If you store this value, beware any changes to the enum that would affect ordinal values.
+     * </p>
      *
      * @param enumClass The class of the enum we are working with, not {@code null}.
      * @param value     The long value representation of a set of enum values.
@@ -431,7 +465,9 @@ public class EnumUtils {
      * Convert a {@code long[]} created by {@link EnumUtils#generateBitVectors} into the set of
      * enum values that it represents.
      *
-     * <p>If you store this value, beware any changes to the enum that would affect ordinal values.</p>
+     * <p>
+     * If you store this value, beware any changes to the enum that would affect ordinal values.
+     * </p>
      *
      * @param enumClass The class of the enum we are working with, not {@code null}.
      * @param values     The long[] bearing the representation of a set of enum values, the least significant digits rightmost, not {@code null}.

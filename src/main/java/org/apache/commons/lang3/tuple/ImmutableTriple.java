@@ -21,11 +21,15 @@ import java.util.Objects;
 /**
  * An immutable triple consisting of three {@link Object} elements.
  *
- * <p>Although the implementation is immutable, there is no restriction on the objects
+ * <p>
+ * Although the implementation is immutable, there is no restriction on the objects
  * that may be stored. If mutable objects are stored in the triple, then the triple
- * itself effectively becomes mutable.</p>
+ * itself effectively becomes mutable.
+ * </p>
  *
- * <p>#ThreadSafe# if all three objects are thread-safe.</p>
+ * <p>
+ * #ThreadSafe# if all three objects are thread-safe.
+ * </p>
  *
  * @param <L> The left element type.
  * @param <M> The middle element type.

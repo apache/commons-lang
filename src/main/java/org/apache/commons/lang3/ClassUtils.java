@@ -1756,7 +1756,7 @@ public class ClassUtils {
             }
             final int cnLen = canonicalName.length() - (arrIdx + 2); // account for the ending ';'
             if (cnLen > MAX_CLASS_NAME_LENGTH) {
-                throw new IllegalArgumentException(String.format("Class name greater than maxium length %,d", MAX_CLASS_NAME_LENGTH));
+                throw new IllegalArgumentException(String.format("Class name greater than maximum length %,d", MAX_CLASS_NAME_LENGTH));
             }
         }
         final String arrayMarker = "[]";
@@ -1764,7 +1764,7 @@ public class ClassUtils {
         // The class name length without array markers.
         final int cnLen = arrIdx > 0 ? arrIdx : canonicalName.length();
         if (cnLen > MAX_CLASS_NAME_LENGTH && !encodedName) {
-            throw new IllegalArgumentException(String.format("Class name greater than maxium length %,d", MAX_CLASS_NAME_LENGTH));
+            throw new IllegalArgumentException(String.format("Class name greater than maximum length %,d", MAX_CLASS_NAME_LENGTH));
         }
         if (canonicalName.endsWith(arrayMarker)) {
             // Reject malformed inputs like "java.lang.String[]junk[]" or

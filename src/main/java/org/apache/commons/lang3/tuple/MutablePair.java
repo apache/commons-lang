@@ -22,7 +22,9 @@ import java.util.Objects;
 /**
  * A mutable pair consisting of two {@link Object} elements.
  *
- * <p>Not #ThreadSafe#</p>
+ * <p>
+ * Not #ThreadSafe#
+ * </p>
  *
  * @param <L> The left element type.
  * @param <R> The right element type.

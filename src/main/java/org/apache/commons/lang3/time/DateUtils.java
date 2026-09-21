@@ -37,7 +37,8 @@ import org.apache.commons.lang3.LocaleUtils;
  * A suite of utilities surrounding the use of the
  * {@link java.util.Calendar} and {@link java.util.Date} object.
  *
- * <p>DateUtils contains a lot of common methods considering manipulations
+ * <p>
+ * DateUtils contains a lot of common methods considering manipulations
  * of Dates or Calendars. Some methods require some extra explanation.
  * The truncate, ceiling and round methods could be considered the Math.floor(),
  * Math.ceil() or Math.round versions for dates
@@ -104,7 +105,7 @@ public class DateUtils {
         /**
          * Always throws {@link UnsupportedOperationException}.
          *
-         * @throws UnsupportedOperationException Thrown always.
+         * @throws UnsupportedOperationException Thrown because this operation is unsupported.
          * @see java.util.Iterator#remove()
          */
         @Override
@@ -335,10 +336,12 @@ public class DateUtils {
      * Gets a date ceiling, leaving the field specified as the most
      * significant field.
      *
-     * <p>For example, if you had the date-time of 28 Mar 2002
+     * <p>
+     * For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 14:00:00.000.  If this was passed with MONTH, it would
-     * return 1 Apr 2002 0:00:00.000.</p>
+     * return 1 Apr 2002 0:00:00.000.
+     * </p>
      *
      * @param calendar  The date to work with, not null.
      * @param field  The field from {@link Calendar} or {@code SEMI_MONTH}.
@@ -356,10 +359,12 @@ public class DateUtils {
      * Gets a date ceiling, leaving the field specified as the most
      * significant field.
      *
-     * <p>For example, if you had the date-time of 28 Mar 2002
+     * <p>
+     * For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 14:00:00.000.  If this was passed with MONTH, it would
-     * return 1 Apr 2002 0:00:00.000.</p>
+     * return 1 Apr 2002 0:00:00.000.
+     * </p>
      *
      * @param date  The date to work with, not null.
      * @param field  The field from {@link Calendar} or {@code SEMI_MONTH}.
@@ -376,10 +381,12 @@ public class DateUtils {
      * Gets a date ceiling, leaving the field specified as the most
      * significant field.
      *
-     * <p>For example, if you had the date-time of 28 Mar 2002
+     * <p>
+     * For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 14:00:00.000.  If this was passed with MONTH, it would
-     * return 1 Apr 2002 0:00:00.000.</p>
+     * return 1 Apr 2002 0:00:00.000.
+     * </p>
      *
      * @param date  The date to work with, either {@link Date} or {@link Calendar}, not null.
      * @param field  The field from {@link Calendar} or {@code SEMI_MONTH}.
@@ -474,17 +481,21 @@ public class DateUtils {
      * Gets the number of days within the
      * fragment. All datefields greater than the fragment will be ignored.
      *
-     * <p>Asking the days of any date will only return the number of days
+     * <p>
+     * Asking the days of any date will only return the number of days
      * of the current month (resulting in a number between 1 and 31). This
      * method will retrieve the number of days for any fragment.
      * For example, if you want to calculate the number of days past this year,
      * your fragment is Calendar.YEAR. The result will be all days of the
-     * past month(s).</p>
+     * past month(s).
+     * </p>
      *
-     * <p>Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
+     * <p>
+     * Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
      * Calendar.DAY_OF_YEAR and Calendar.DATE, Calendar.HOUR_OF_DAY,
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
-     * A fragment less than or equal to a DAY field will return 0.</p>
+     * A fragment less than or equal to a DAY field will return 0.
+     * </p>
      *
      * <ul>
      *  <li>January 28, 2008 with Calendar.MONTH as fragment will return 28
@@ -514,17 +525,21 @@ public class DateUtils {
      * Gets the number of days within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
-     * <p>Asking the days of any date will only return the number of days
+     * <p>
+     * Asking the days of any date will only return the number of days
      * of the current month (resulting in a number between 1 and 31). This
      * method will retrieve the number of days for any fragment.
      * For example, if you want to calculate the number of days past this year,
      * your fragment is Calendar.YEAR. The result will be all days of the
-     * past month(s).</p>
+     * past month(s).
+     * </p>
      *
-     * <p>Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
+     * <p>
+     * Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
      * Calendar.DAY_OF_YEAR and Calendar.DATE, Calendar.HOUR_OF_DAY,
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
-     * A fragment less than or equal to a DAY field will return 0.</p>
+     * A fragment less than or equal to a DAY field will return 0.
+     * </p>
      *
      * <ul>
      *  <li>January 28, 2008 with Calendar.MONTH as fragment will return 28
@@ -552,17 +567,21 @@ public class DateUtils {
      * Gets the number of hours within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
-     * <p>Asking the hours of any date will only return the number of hours
+     * <p>
+     * Asking the hours of any date will only return the number of hours
      * of the current day (resulting in a number between 0 and 23). This
      * method will retrieve the number of hours for any fragment.
      * For example, if you want to calculate the number of hours past this month,
      * your fragment is Calendar.MONTH. The result will be all hours of the
-     * past day(s).</p>
+     * past day(s).
+     * </p>
      *
-     * <p>Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
+     * <p>
+     * Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
      * Calendar.DAY_OF_YEAR and Calendar.DATE, Calendar.HOUR_OF_DAY,
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
-     * A fragment less than or equal to a HOUR field will return 0.</p>
+     * A fragment less than or equal to a HOUR field will return 0.
+     * </p>
      *
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7
@@ -590,17 +609,21 @@ public class DateUtils {
      * Gets the number of hours within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
-     * <p>Asking the hours of any date will only return the number of hours
+     * <p>
+     * Asking the hours of any date will only return the number of hours
      * of the current day (resulting in a number between 0 and 23). This
      * method will retrieve the number of hours for any fragment.
      * For example, if you want to calculate the number of hours past this month,
      * your fragment is Calendar.MONTH. The result will be all hours of the
-     * past day(s).</p>
+     * past day(s).
+     * </p>
      *
-     * <p>Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
+     * <p>
+     * Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
      * Calendar.DAY_OF_YEAR and Calendar.DATE, Calendar.HOUR_OF_DAY,
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
-     * A fragment less than or equal to a HOUR field will return 0.</p>
+     * A fragment less than or equal to a HOUR field will return 0.
+     * </p>
      *
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7
@@ -628,17 +651,21 @@ public class DateUtils {
      * Gets the number of milliseconds within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
-     * <p>Asking the milliseconds of any date will only return the number of milliseconds
+     * <p>
+     * Asking the milliseconds of any date will only return the number of milliseconds
      * of the current second (resulting in a number between 0 and 999). This
      * method will retrieve the number of milliseconds for any fragment.
      * For example, if you want to calculate the number of seconds past today,
      * your fragment is Calendar.DATE or Calendar.DAY_OF_YEAR. The result will
-     * be all seconds of the past hour(s), minutes(s) and second(s).</p>
+     * be all seconds of the past hour(s), minutes(s) and second(s).
+     * </p>
      *
-     * <p>Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
+     * <p>
+     * Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
      * Calendar.DAY_OF_YEAR and Calendar.DATE, Calendar.HOUR_OF_DAY,
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
-     * A fragment less than or equal to a MILLISECOND field will return 0.</p>
+     * A fragment less than or equal to a MILLISECOND field will return 0.
+     * </p>
      *
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538
@@ -666,17 +693,21 @@ public class DateUtils {
      * Gets the number of milliseconds within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
-     * <p>Asking the milliseconds of any date will only return the number of milliseconds
+     * <p>
+     * Asking the milliseconds of any date will only return the number of milliseconds
      * of the current second (resulting in a number between 0 and 999). This
      * method will retrieve the number of milliseconds for any fragment.
      * For example, if you want to calculate the number of milliseconds past today,
      * your fragment is Calendar.DATE or Calendar.DAY_OF_YEAR. The result will
-     * be all milliseconds of the past hour(s), minutes(s) and second(s).</p>
+     * be all milliseconds of the past hour(s), minutes(s) and second(s).
+     * </p>
      *
-     * <p>Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
+     * <p>
+     * Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
      * Calendar.DAY_OF_YEAR and Calendar.DATE, Calendar.HOUR_OF_DAY,
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
-     * A fragment less than or equal to a SECOND field will return 0.</p>
+     * A fragment less than or equal to a SECOND field will return 0.
+     * </p>
      *
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538</li>
@@ -701,17 +732,21 @@ public class DateUtils {
      * Gets the number of minutes within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
-     * <p>Asking the minutes of any date will only return the number of minutes
+     * <p>
+     * Asking the minutes of any date will only return the number of minutes
      * of the current hour (resulting in a number between 0 and 59). This
      * method will retrieve the number of minutes for any fragment.
      * For example, if you want to calculate the number of minutes past this month,
      * your fragment is Calendar.MONTH. The result will be all minutes of the
-     * past day(s) and hour(s).</p>
+     * past day(s) and hour(s).
+     * </p>
      *
-     * <p>Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
+     * <p>
+     * Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
      * Calendar.DAY_OF_YEAR and Calendar.DATE, Calendar.HOUR_OF_DAY,
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
-     * A fragment less than or equal to a MINUTE field will return 0.</p>
+     * A fragment less than or equal to a MINUTE field will return 0.
+     * </p>
      *
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15
@@ -739,17 +774,21 @@ public class DateUtils {
      * Gets the number of minutes within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
-     * <p>Asking the minutes of any date will only return the number of minutes
+     * <p>
+     * Asking the minutes of any date will only return the number of minutes
      * of the current hour (resulting in a number between 0 and 59). This
      * method will retrieve the number of minutes for any fragment.
      * For example, if you want to calculate the number of minutes past this month,
      * your fragment is Calendar.MONTH. The result will be all minutes of the
-     * past day(s) and hour(s).</p>
+     * past day(s) and hour(s).
+     * </p>
      *
-     * <p>Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
+     * <p>
+     * Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
      * Calendar.DAY_OF_YEAR and Calendar.DATE, Calendar.HOUR_OF_DAY,
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
-     * A fragment less than or equal to a MINUTE field will return 0.</p>
+     * A fragment less than or equal to a MINUTE field will return 0.
+     * </p>
      *
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15
@@ -777,17 +816,21 @@ public class DateUtils {
      * Gets the number of seconds within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
-     * <p>Asking the seconds of any date will only return the number of seconds
+     * <p>
+     * Asking the seconds of any date will only return the number of seconds
      * of the current minute (resulting in a number between 0 and 59). This
      * method will retrieve the number of seconds for any fragment.
      * For example, if you want to calculate the number of seconds past today,
      * your fragment is Calendar.DATE or Calendar.DAY_OF_YEAR. The result will
-     * be all seconds of the past hour(s) and minutes(s).</p>
+     * be all seconds of the past hour(s) and minutes(s).
+     * </p>
      *
-     * <p>Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
+     * <p>
+     * Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
      * Calendar.DAY_OF_YEAR and Calendar.DATE, Calendar.HOUR_OF_DAY,
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
-     * A fragment less than or equal to a SECOND field will return 0.</p>
+     * A fragment less than or equal to a SECOND field will return 0.
+     * </p>
      *
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10
@@ -815,17 +858,21 @@ public class DateUtils {
      * Gets the number of seconds within the
      * fragment. All date fields greater than the fragment will be ignored.
      *
-     * <p>Asking the seconds of any date will only return the number of seconds
+     * <p>
+     * Asking the seconds of any date will only return the number of seconds
      * of the current minute (resulting in a number between 0 and 59). This
      * method will retrieve the number of seconds for any fragment.
      * For example, if you want to calculate the number of seconds past today,
      * your fragment is Calendar.DATE or Calendar.DAY_OF_YEAR. The result will
-     * be all seconds of the past hour(s) and minutes(s).</p>
+     * be all seconds of the past hour(s) and minutes(s).
+     * </p>
      *
-     * <p>Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
+     * <p>
+     * Valid fragments are: Calendar.YEAR, Calendar.MONTH, both
      * Calendar.DAY_OF_YEAR and Calendar.DATE, Calendar.HOUR_OF_DAY,
      * Calendar.MINUTE, Calendar.SECOND and Calendar.MILLISECOND
-     * A fragment less than or equal to a SECOND field will return 0.</p>
+     * A fragment less than or equal to a SECOND field will return 0.
+     * </p>
      *
      * <ul>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10
@@ -852,7 +899,8 @@ public class DateUtils {
     /**
      * Tests whether two calendar objects are on the same day ignoring time.
      *
-     * <p>28 Mar 2002 13:45 and 28 Mar 2002 06:01 would return true.
+     * <p>
+     * 28 Mar 2002 13:45 and 28 Mar 2002 06:01 would return true.
      * 28 Mar 2002 13:45 and 12 Mar 2002 13:45 would return false.
      * </p>
      *
@@ -873,7 +921,8 @@ public class DateUtils {
     /**
      * Tests whether two date objects are on the same day ignoring time.
      *
-     * <p>28 Mar 2002 13:45 and 28 Mar 2002 06:01 would return true.
+     * <p>
+     * 28 Mar 2002 13:45 and 28 Mar 2002 06:01 would return true.
      * 28 Mar 2002 13:45 and 12 Mar 2002 13:45 would return false.
      * </p>
      *
@@ -890,7 +939,9 @@ public class DateUtils {
     /**
      * Tests whether two calendar objects represent the same instant in time.
      *
-     * <p>This method compares the long millisecond time of the two objects.</p>
+     * <p>
+     * This method compares the long millisecond time of the two objects.
+     * </p>
      *
      * @param cal1  The first calendar, not altered, not null.
      * @param cal2  The second calendar, not altered, not null.
@@ -907,7 +958,9 @@ public class DateUtils {
     /**
      * Tests whether two date objects represent the same instant in time.
      *
-     * <p>This method compares the long millisecond time of the two objects.</p>
+     * <p>
+     * This method compares the long millisecond time of the two objects.
+     * </p>
      *
      * @param date1  The first date, not altered, not null.
      * @param date2  The second date, not altered, not null.
@@ -924,8 +977,10 @@ public class DateUtils {
     /**
      * Tests whether two calendar objects represent the same local time.
      *
-     * <p>This method compares the values of the fields of the two objects.
-     * In addition, both calendars must be the same of the same type.</p>
+     * <p>
+     * This method compares the values of the fields of the two objects.
+     * In addition, both calendars must be the same of the same type.
+     * </p>
      *
      * @param cal1  The first calendar, not altered, not null.
      * @param cal2  The second calendar, not altered, not null.
@@ -950,13 +1005,17 @@ public class DateUtils {
      * Constructs an {@link Iterator} over each day in a date
      * range defined by a focus date and range style.
      *
-     * <p>For instance, passing Thursday, July 4, 2002 and a
+     * <p>
+     * For instance, passing Thursday, July 4, 2002 and a
      * {@code RANGE_MONTH_SUNDAY} will return an {@link Iterator}
      * that starts with Sunday, June 30, 2002 and ends with Saturday, August 3,
-     * 2002, returning a Calendar instance for each intermediate day.</p>
+     * 2002, returning a Calendar instance for each intermediate day.
+     * </p>
      *
-     * <p>This method provides an iterator that returns Calendar objects.
-     * The days are progressed using {@link Calendar#add(int, int)}.</p>
+     * <p>
+     * This method provides an iterator that returns Calendar objects.
+     * The days are progressed using {@link Calendar#add(int, int)}.
+     * </p>
      *
      * @param calendar  The date to work with, not null.
      * @param rangeStyle  The style constant to use. Must be one of
@@ -1046,13 +1105,17 @@ public class DateUtils {
      * Constructs an {@link Iterator} over each day in a date
      * range defined by a focus date and range style.
      *
-     * <p>For instance, passing Thursday, July 4, 2002 and a
+     * <p>
+     * For instance, passing Thursday, July 4, 2002 and a
      * {@code RANGE_MONTH_SUNDAY} will return an {@link Iterator}
      * that starts with Sunday, June 30, 2002 and ends with Saturday, August 3,
-     * 2002, returning a Calendar instance for each intermediate day.</p>
+     * 2002, returning a Calendar instance for each intermediate day.
+     * </p>
      *
-     * <p>This method provides an iterator that returns Calendar objects.
-     * The days are progressed using {@link Calendar#add(int, int)}.</p>
+     * <p>
+     * This method provides an iterator that returns Calendar objects.
+     * The days are progressed using {@link Calendar#add(int, int)}.
+     * </p>
      *
      * @param focus  The date to work with, not null.
      * @param rangeStyle  The style constant to use. Must be one of
@@ -1074,10 +1137,12 @@ public class DateUtils {
      * Constructs an {@link Iterator} over each day in a date
      * range defined by a focus date and range style.
      *
-     * <p>For instance, passing Thursday, July 4, 2002 and a
+     * <p>
+     * For instance, passing Thursday, July 4, 2002 and a
      * {@code RANGE_MONTH_SUNDAY} will return an {@link Iterator}
      * that starts with Sunday, June 30, 2002 and ends with Saturday, August 3,
-     * 2002, returning a Calendar instance for each intermediate day.</p>
+     * 2002, returning a Calendar instance for each intermediate day.
+     * </p>
      *
      * @param calendar  The date to work with, either {@link Date} or {@link Calendar}, not null.
      * @param rangeStyle  The style constant to use. Must be one of the range
@@ -1242,9 +1307,11 @@ public class DateUtils {
      * Parses a string representing a date by trying a variety of different parsers,
      * using the default date format symbols for the given locale.
      *
-     * <p>The parse will try each parse pattern in turn.
+     * <p>
+     * The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.
-     * If no parse patterns match, a ParseException is thrown.</p>
+     * If no parse patterns match, a ParseException is thrown.
+     * </p>
      * The parser will be lenient toward the parsed date.
      *
      * @param str  The date to parse, not null.
@@ -1263,9 +1330,11 @@ public class DateUtils {
     /**
      * Parses a string representing a date by trying a variety of different parsers.
      *
-     * <p>The parse will try each parse pattern in turn.
+     * <p>
+     * The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.
-     * If no parse patterns match, a ParseException is thrown.</p>
+     * If no parse patterns match, a ParseException is thrown.
+     * </p>
      * The parser will be lenient toward the parsed date.
      *
      * @param str  The date to parse, not null.
@@ -1282,9 +1351,11 @@ public class DateUtils {
      * Parses a string representing a date by trying a variety of different parsers,
      * using the default date format symbols for the given locale.
      *
-     * <p>The parse will try each parse pattern in turn.
+     * <p>
+     * The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.
-     * If no parse patterns match, a ParseException is thrown.</p>
+     * If no parse patterns match, a ParseException is thrown.
+     * </p>
      * The parser parses strictly - it does not allow for dates such as "February 942, 1996".
      *
      * @param str  The date to parse, not null.
@@ -1303,9 +1374,11 @@ public class DateUtils {
     /**
      * Parses a string representing a date by trying a variety of different parsers.
      *
-     * <p>The parse will try each parse pattern in turn.
+     * <p>
+     * The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.
-     * If no parse patterns match, a ParseException is thrown.</p>
+     * If no parse patterns match, a ParseException is thrown.
+     * </p>
      * The parser parses strictly - it does not allow for dates such as "February 942, 1996".
      *
      * @param str  The date to parse, not null.
@@ -1322,9 +1395,11 @@ public class DateUtils {
     /**
      * Parses a string representing a date by trying a variety of different parsers.
      *
-     * <p>The parse will try each parse pattern in turn.
+     * <p>
+     * The parse will try each parse pattern in turn.
      * A parse is only deemed successful if it parses the whole of the input string.
-     * If no parse patterns match, a ParseException is thrown.</p>
+     * If no parse patterns match, a ParseException is thrown.
+     * </p>
      *
      * @param dateStr  The date to parse, not null.
      * @param locale The locale to use when interpreting the pattern, can be null in which
@@ -1370,12 +1445,15 @@ public class DateUtils {
      * Rounds a date, leaving the field specified as the most
      * significant field.
      *
-     * <p>For example, if you had the date-time of 28 Mar 2002
+     * <p>
+     * For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
-     * would return 1 April 2002 0:00:00.000.</p>
+     * would return 1 April 2002 0:00:00.000.
+     * </p>
      *
-     * <p>For a date in a time zone that handles the change to daylight
+     * <p>
+     * For a date in a time zone that handles the change to daylight
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a
      * date that crosses this time would produce the following values:
@@ -1402,12 +1480,15 @@ public class DateUtils {
      * Rounds a date, leaving the field specified as the most
      * significant field.
      *
-     * <p>For example, if you had the date-time of 28 Mar 2002
+     * <p>
+     * For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
-     * would return 1 April 2002 0:00:00.000.</p>
+     * would return 1 April 2002 0:00:00.000.
+     * </p>
      *
-     * <p>For a date in a time zone that handles the change to daylight
+     * <p>
+     * For a date in a time zone that handles the change to daylight
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a
      * date that crosses this time would produce the following values:
@@ -1433,12 +1514,15 @@ public class DateUtils {
      * Rounds a date, leaving the field specified as the most
      * significant field.
      *
-     * <p>For example, if you had the date-time of 28 Mar 2002
+     * <p>
+     * For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
-     * would return 1 April 2002 0:00:00.000.</p>
+     * would return 1 April 2002 0:00:00.000.
+     * </p>
      *
-     * <p>For a date in a time zone that handles the change to daylight
+     * <p>
+     * For a date in a time zone that handles the change to daylight
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a
      * date that crosses this time would produce the following values:
@@ -1706,10 +1790,12 @@ public class DateUtils {
      * Truncates a date, leaving the field specified as the most
      * significant field.
      *
-     * <p>For example, if you had the date-time of 28 Mar 2002
+     * <p>
+     * For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 13:00:00.000.  If this was passed with MONTH, it would
-     * return 1 Mar 2002 0:00:00.000.</p>
+     * return 1 Mar 2002 0:00:00.000.
+     * </p>
      *
      * @param date  The date to work with, not null.
      * @param field  The field from {@link Calendar} or {@code SEMI_MONTH}.
@@ -1726,10 +1812,12 @@ public class DateUtils {
      * Truncates a date, leaving the field specified as the most
      * significant field.
      *
-     * <p>For example, if you had the date-time of 28 Mar 2002
+     * <p>
+     * For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 13:00:00.000.  If this was passed with MONTH, it would
-     * return 1 Mar 2002 0:00:00.000.</p>
+     * return 1 Mar 2002 0:00:00.000.
+     * </p>
      *
      * @param date  The date to work with, not null.
      * @param field  The field from {@link Calendar} or {@code SEMI_MONTH}.
@@ -1745,10 +1833,12 @@ public class DateUtils {
      * Truncates a date, leaving the field specified as the most
      * significant field.
      *
-     * <p>For example, if you had the date-time of 28 Mar 2002
+     * <p>
+     * For example, if you had the date-time of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 13:00:00.000.  If this was passed with MONTH, it would
-     * return 1 Mar 2002 0:00:00.000.</p>
+     * return 1 Mar 2002 0:00:00.000.
+     * </p>
      *
      * @param date  The date to work with, either {@link Date} or {@link Calendar}, not null.
      * @param field  The field from {@link Calendar} or {@code SEMI_MONTH}.
@@ -1855,8 +1945,10 @@ public class DateUtils {
      * standard programming. Instead, the static methods on the class should
      * be used, such as {@code DateUtils.parseDate(str);}.
      *
-     * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean
+     * instance to operate.
+     * </p>
      *
      * @deprecated TODO Make private in 4.0.
      */

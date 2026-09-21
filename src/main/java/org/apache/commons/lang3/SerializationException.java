@@ -19,9 +19,13 @@ package org.apache.commons.lang3;
 /**
  * Exception thrown when the Serialization process fails.
  *
- * <p>The original error is wrapped within this one.</p>
+ * <p>
+ * The original error is wrapped within this one.
+ * </p>
  *
- * <p>#NotThreadSafe# because Throwable is not thread-safe</p>
+ * <p>
+ * #NotThreadSafe# because Throwable is not thread-safe
+ * </p>
  *
  * @since 1.0
  */

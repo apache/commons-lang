@@ -32,7 +32,8 @@ import java.util.regex.Pattern;
  *   <li>An invalid index into an array/collection/map/string causes an {@link IndexOutOfBoundsException}.</li>
  * </ul>
  *
- * <p>All exceptions messages are
+ * <p>
+ * All exceptions messages are
  * <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#syntax">format strings</a>
  * as defined by the Java platform. For example:
  *
@@ -41,7 +42,9 @@ import java.util.regex.Pattern;
  * Validate.notNull(surname, "The surname must not be %s", null);
  * </pre>
  *
- * <p>#ThreadSafe#</p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
  * @see String#format(String, Object...)
  * @since 2.0
@@ -211,7 +214,9 @@ public class Validate {
      *
      * <pre>Validate.finite(myDouble);</pre>
      *
-     * <p>The message of the exception is &quot;The value is invalid: %f&quot;.</p>
+     * <p>
+     * The message of the exception is &quot;The value is invalid: %f&quot;.
+     * </p>
      *
      * @param value  The value to validate.
      * @throws IllegalArgumentException Thrown if the value is infinite or Not-a-Number (NaN).
@@ -385,11 +390,15 @@ public class Validate {
     /**
      * Tests whether the argument can be converted to the specified class; otherwise, throws an exception.
      *
-     * <p>This method is useful when validating that there will be no casting errors.</p>
+     * <p>
+     * This method is useful when validating that there will be no casting errors.
+     * </p>
      *
      * <pre>Validate.isAssignableFrom(SuperClass.class, object.getClass());</pre>
      *
-     * <p>The message format of the exception is &quot;Cannot assign {type} to {superType}&quot;</p>
+     * <p>
+     * The message format of the exception is &quot;Cannot assign {type} to {superType}&quot;
+     * </p>
      *
      * @param superType  The class must be validated against, not null.
      * @param type  The class to check, not null.
@@ -408,12 +417,16 @@ public class Validate {
     /**
      * Tests whether the argument can be converted to the specified class; otherwise, throws an exception.
      *
-     * <p>This method is useful when validating if there will be no casting errors.</p>
+     * <p>
+     * This method is useful when validating if there will be no casting errors.
+     * </p>
      *
      * <pre>Validate.isAssignableFrom(SuperClass.class, object.getClass());</pre>
      *
-     * <p>The message of the exception is &quot;The validated object cannot be converted to the&quot;
-     * followed by the name of the class and &quot;class&quot;</p>
+     * <p>
+     * The message of the exception is &quot;The validated object cannot be converted to the&quot;
+     * followed by the name of the class and &quot;class&quot;
+     * </p>
      *
      * @param superType  The class must be validated against, not null.
      * @param type  The class to check, not null.
@@ -432,11 +445,15 @@ public class Validate {
     /**
      * Tests whether the argument is an instance of the specified class; otherwise, throws an exception.
      *
-     * <p>This method is useful when validating according to an arbitrary class</p>
+     * <p>
+     * This method is useful when validating according to an arbitrary class
+     * </p>
      *
      * <pre>Validate.isInstanceOf(OkClass.class, object);</pre>
      *
-     * <p>The message of the exception is &quot;Expected type: {type}, actual: {obj_type}&quot;</p>
+     * <p>
+     * The message of the exception is &quot;Expected type: {type}, actual: {obj_type}&quot;
+     * </p>
      *
      * @param type  The class the object must be validated against, not null.
      * @param obj  The object to check, null throws an exception.
@@ -481,8 +498,10 @@ public class Validate {
      * Validate.isTrue(i &gt; 0);
      * Validate.isTrue(myObject.isOk());</pre>
      *
-     * <p>The message of the exception is &quot;The validated expression is
-     * false&quot;.</p>
+     * <p>
+     * The message of the exception is &quot;The validated expression is
+     * false&quot;.
+     * </p>
      *
      * @param expression  The boolean expression to check.
      * @throws IllegalArgumentException Thrown if expression is {@code false}.
@@ -503,8 +522,10 @@ public class Validate {
      *
      * <pre>Validate.isTrue(d &gt; 0.0, "The value must be greater than zero: &#37;s", d);</pre>
      *
-     * <p>For performance reasons, the double value is passed as a separate parameter and
-     * appended to the exception message only in the case of an error.</p>
+     * <p>
+     * For performance reasons, the double value is passed as a separate parameter and
+     * appended to the exception message only in the case of an error.
+     * </p>
      *
      * @param expression  The boolean expression to check.
      * @param message  The {@link String#format(String, Object...)} exception message if invalid, not null.
@@ -527,8 +548,10 @@ public class Validate {
      *
      * <pre>Validate.isTrue(i &gt; 0.0, "The value must be greater than zero: &#37;d", i);</pre>
      *
-     * <p>For performance reasons, the long value is passed as a separate parameter and
-     * appended to the exception message only in the case of an error.</p>
+     * <p>
+     * For performance reasons, the long value is passed as a separate parameter and
+     * appended to the exception message only in the case of an error.
+     * </p>
      *
      * @param expression  The boolean expression to check.
      * @param message  The {@link String#format(String, Object...)} exception message if invalid, not null.
@@ -595,7 +618,9 @@ public class Validate {
      *
      * <pre>Validate.matchesPattern("hi", "[a-z]*");</pre>
      *
-     * <p>The syntax of the pattern is the one used in the {@link Pattern} class.</p>
+     * <p>
+     * The syntax of the pattern is the one used in the {@link Pattern} class.
+     * </p>
      *
      * @param input  The character sequence to validate, not null.
      * @param pattern  The regular expression pattern, not null.
@@ -616,7 +641,9 @@ public class Validate {
      *
      * <pre>Validate.matchesPattern("hi", "[a-z]*", "%s does not match %s", "hi" "[a-z]*");</pre>
      *
-     * <p>The syntax of the pattern is the one used in the {@link Pattern} class.</p>
+     * <p>
+     * The syntax of the pattern is the one used in the {@link Pattern} class.
+     * </p>
      *
      * @param input  The character sequence to validate, not null.
      * @param pattern  The regular expression pattern, not null.
@@ -640,12 +667,15 @@ public class Validate {
      *
      * <pre>Validate.noNullElements(myCollection);</pre>
      *
-     * <p>If the iterable is {@code null}, then the message in the exception
+     * <p>
+     * If the iterable is {@code null}, then the message in the exception
      * is &quot;The validated object is null&quot;.
      *
-     * <p>If the array has a {@code null} element, then the message in the
+     * <p>
+     * If the array has a {@code null} element, then the message in the
      * exception is &quot;The validated iterable contains null element at index:
-     * &quot; followed by the index.</p>
+     * &quot; followed by the index.
+     * </p>
      *
      * @param <T> The iterable type.
      * @param iterable  The iterable to check, validated not null by this method.
@@ -665,12 +695,15 @@ public class Validate {
      *
      * <pre>Validate.noNullElements(myCollection, "The collection contains null at position %d");</pre>
      *
-     * <p>If the iterable is {@code null}, then the message in the exception
+     * <p>
+     * If the iterable is {@code null}, then the message in the exception
      * is &quot;The validated object is null&quot;.
      *
-     * <p>If the iterable has a {@code null} element, then the iteration
+     * <p>
+     * If the iterable has a {@code null} element, then the iteration
      * index of the invalid element is appended to the {@code values}
-     * argument.</p>
+     * argument.
+     * </p>
      *
      * @param <T> The iterable type.
      * @param iterable  The iterable to check, validated not null by this method.
@@ -699,12 +732,16 @@ public class Validate {
      *
      * <pre>Validate.noNullElements(myArray);</pre>
      *
-     * <p>If the array is {@code null}, then the message in the exception
-     * is &quot;The validated object is null&quot;.</p>
+     * <p>
+     * If the array is {@code null}, then the message in the exception
+     * is &quot;The validated object is null&quot;.
+     * </p>
      *
-     * <p>If the array has a {@code null} element, then the message in the
+     * <p>
+     * If the array has a {@code null} element, then the message in the
      * exception is &quot;The validated array contains null element at index:
-     * &quot; followed by the index.</p>
+     * &quot; followed by the index.
+     * </p>
      *
      * @param <T> The array type.
      * @param array  The array to check, validated not null by this method.
@@ -724,12 +761,15 @@ public class Validate {
      *
      * <pre>Validate.noNullElements(myArray, "The array contain null at position %d");</pre>
      *
-     * <p>If the array is {@code null}, then the message in the exception
+     * <p>
+     * If the array is {@code null}, then the message in the exception
      * is &quot;The validated object is null&quot;.
      *
-     * <p>If the array has a {@code null} element, then the iteration
+     * <p>
+     * If the array has a {@code null} element, then the iteration
      * index of the invalid element is appended to the {@code values}
-     * argument.</p>
+     * argument.
+     * </p>
      *
      * @param <T> The array type.
      * @param array  The array to check, validated not null by this method.
@@ -752,14 +792,16 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument character sequence is
+     * Validates that the specified argument character sequence is
      * neither {@code null}, a length of zero (no characters), empty
      * nor whitespace; otherwise throwing an exception.
      *
      * <pre>Validate.notBlank(myString);</pre>
      *
-     * <p>The message in the exception is &quot;The validated character
+     * <p>
+     * The message in the exception is &quot;The validated character
      * sequence is blank&quot;.
+     * </p>
      *
      * @param <T> The character sequence type.
      * @param chars  The character sequence to check, validated not null by this method.
@@ -801,13 +843,15 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument collection is neither {@code null}
+     * Validates that the specified argument collection is neither {@code null}
      * nor a size of zero (no elements); otherwise throwing an exception.
      *
      * <pre>Validate.notEmpty(myCollection);</pre>
      *
-     * <p>The message in the exception is &quot;The validated collection is
+     * <p>
+     * The message in the exception is &quot;The validated collection is
      * empty&quot;.
+     * </p>
      *
      * @param <T> The collection type.
      * @param collection  The collection to check, validated not null by this method.
@@ -821,13 +865,15 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument map is neither {@code null}
+     * Validates that the specified argument map is neither {@code null}
      * nor a size of zero (no elements); otherwise throwing an exception.
      *
      * <pre>Validate.notEmpty(myMap);</pre>
      *
-     * <p>The message in the exception is &quot;The validated map is
+     * <p>
+     * The message in the exception is &quot;The validated map is
      * empty&quot;.
+     * </p>
      *
      * @param <T> The map type.
      * @param map  The map to check, validated not null by this method.
@@ -841,14 +887,16 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument character sequence is
+     * Validates that the specified argument character sequence is
      * neither {@code null} nor a length of zero (no characters);
      * otherwise throwing an exception with the specified message.
      *
      * <pre>Validate.notEmpty(myString);</pre>
      *
-     * <p>The message in the exception is &quot;The validated
+     * <p>
+     * The message in the exception is &quot;The validated
      * character sequence is empty&quot;.
+     * </p>
      *
      * @param <T> The character sequence type.
      * @param chars  The character sequence to check, validated not null by this method.
@@ -862,7 +910,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument collection is neither {@code null}
+     * Validates that the specified argument collection is neither {@code null}
      * nor a size of zero (no elements); otherwise throwing an exception
      * with the specified message.
      *
@@ -934,13 +982,15 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument array is neither {@code null}
+     * Validates that the specified argument array is neither {@code null}
      * nor a length of zero (no elements); otherwise throwing an exception.
      *
      * <pre>Validate.notEmpty(myArray);</pre>
      *
-     * <p>The message in the exception is &quot;The validated array is
+     * <p>
+     * The message in the exception is &quot;The validated array is
      * empty&quot;.
+     * </p>
      *
      * @param <T> The array type.
      * @param array  The array to check, validated not null by this method.
@@ -954,7 +1004,7 @@ public class Validate {
     }
 
     /**
-     * <p>Validates that the specified argument array is neither {@code null}
+     * Validates that the specified argument array is neither {@code null}
      * nor a length of zero (no elements); otherwise throwing an exception
      * with the specified message.
      *
@@ -983,8 +1033,10 @@ public class Validate {
      *
      * <pre>Validate.notNaN(myDouble);</pre>
      *
-     * <p>The message of the exception is &quot;The validated value is not a
-     * number&quot;.</p>
+     * <p>
+     * The message of the exception is &quot;The validated value is not a
+     * number&quot;.
+     * </p>
      *
      * @param value  The value to validate.
      * @throws IllegalArgumentException Thrown if the value is not a number.
@@ -1020,8 +1072,10 @@ public class Validate {
      *
      * <pre>Validate.notNull(myObject, "The object must not be null");</pre>
      *
-     * <p>The message of the exception is &quot;The validated object is
+     * <p>
+     * The message of the exception is &quot;The validated object is
      * null&quot;.
+     * </p>
      *
      * @param <T> The object type.
      * @param object  The object to check.
@@ -1063,9 +1117,11 @@ public class Validate {
      *
      * <pre>Validate.validIndex(myCollection, 2);</pre>
      *
-     * <p>If the index is invalid, then the message of the exception
+     * <p>
+     * If the index is invalid, then the message of the exception
      * is &quot;The validated collection index is invalid: &quot;
-     * followed by the index.</p>
+     * followed by the index.
+     * </p>
      *
      * @param <T> The collection type.
      * @param collection  The collection to check, validated not null by this method.
@@ -1086,13 +1142,17 @@ public class Validate {
      *
      * <pre>Validate.validIndex(myStr, 2);</pre>
      *
-     * <p>If the character sequence is {@code null}, then the message
+     * <p>
+     * If the character sequence is {@code null}, then the message
      * of the exception is &quot;The validated object is
-     * null&quot;.</p>
+     * null&quot;.
+     * </p>
      *
-     * <p>If the index is invalid, then the message of the exception
+     * <p>
+     * If the index is invalid, then the message of the exception
      * is &quot;The validated character sequence index is invalid: &quot;
-     * followed by the index.</p>
+     * followed by the index.
+     * </p>
      *
      * @param <T> The character sequence type.
      * @param chars  The character sequence to check, validated not null by this method.
@@ -1113,8 +1173,10 @@ public class Validate {
      *
      * <pre>Validate.validIndex(myCollection, 2, "The collection index is invalid: ");</pre>
      *
-     * <p>If the collection is {@code null}, then the message of the
-     * exception is &quot;The validated object is null&quot;.</p>
+     * <p>
+     * If the collection is {@code null}, then the message of the
+     * exception is &quot;The validated object is null&quot;.
+     * </p>
      *
      * @param <T> The collection type.
      * @param collection  The collection to check, validated not null by this method.
@@ -1142,8 +1204,10 @@ public class Validate {
      *
      * <pre>Validate.validIndex(myStr, 2, "The string index is invalid: ");</pre>
      *
-     * <p>If the character sequence is {@code null}, then the message
-     * of the exception is &quot;The validated object is null&quot;.</p>
+     * <p>
+     * If the character sequence is {@code null}, then the message
+     * of the exception is &quot;The validated object is null&quot;.
+     * </p>
      *
      * @param <T> The character sequence type.
      * @param chars  The character sequence to check, validated not null by this method.
@@ -1170,12 +1234,16 @@ public class Validate {
      *
      * <pre>Validate.validIndex(myArray, 2);</pre>
      *
-     * <p>If the array is {@code null}, then the message of the exception
-     * is &quot;The validated object is null&quot;.</p>
+     * <p>
+     * If the array is {@code null}, then the message of the exception
+     * is &quot;The validated object is null&quot;.
+     * </p>
      *
-     * <p>If the index is invalid, then the message of the exception is
+     * <p>
+     * If the index is invalid, then the message of the exception is
      * &quot;The validated array index is invalid: &quot; followed by the
-     * index.</p>
+     * index.
+     * </p>
      *
      * @param <T> The array type.
      * @param array  The array to check, validated not null by this method.
@@ -1196,8 +1264,10 @@ public class Validate {
      *
      * <pre>Validate.validIndex(myArray, 2, "The array index is invalid: ");</pre>
      *
-     * <p>If the array is {@code null}, then the message of the exception
-     * is &quot;The validated object is null&quot;.</p>
+     * <p>
+     * If the array is {@code null}, then the message of the exception
+     * is &quot;The validated object is null&quot;.
+     * </p>
      *
      * @param <T> The array type.
      * @param array  The array to check, validated not null by this method.
@@ -1228,8 +1298,10 @@ public class Validate {
      * Validate.validState(field &gt; 0);
      * Validate.validState(this.isOk());</pre>
      *
-     * <p>The message of the exception is &quot;The validated state is
-     * false&quot;.</p>
+     * <p>
+     * The message of the exception is &quot;The validated state is
+     * false&quot;.
+     * </p>
      *
      * @param expression  The boolean expression to check.
      * @throws IllegalStateException Thrown if expression is {@code false}.

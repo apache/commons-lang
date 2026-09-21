@@ -24,8 +24,10 @@ import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
 /**
  * Assists in implementing {@link Object#toString()} methods.
  *
- * <p>This class enables a good and consistent {@code toString()} to be built for any
- * class or object. This class aims to simplify the process by:</p>
+ * <p>
+ * This class enables a good and consistent {@code toString()} to be built for any
+ * class or object. This class aims to simplify the process by:
+ * </p>
  * <ul>
  *  <li>allowing field names</li>
  *  <li>handling all types consistently</li>
@@ -35,7 +37,9 @@ import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
  *  <li>handling class hierarchies</li>
  * </ul>
  *
- * <p>To use this class write code as follows:</p>
+ * <p>
+ * To use this class write code as follows:
+ * </p>
  *
  * <pre>
  * public class Person {
@@ -55,24 +59,32 @@ import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
  * }
  * </pre>
  *
- * <p>This will produce a toString of the format:
- * {@code Person@7f54[name=Stephen,age=29,smoker=false]}</p>
+ * <p>
+ * This will produce a toString of the format:
+ * {@code Person@7f54[name=Stephen,age=29,smoker=false]}
+ * </p>
  *
- * <p>To add the superclass {@code toString}, use {@link #appendSuper}.
+ * <p>
+ * To add the superclass {@code toString}, use {@link #appendSuper}.
  * To append the {@code toString} from an object that is delegated
- * to (or any other object), use {@link #appendToString}.</p>
+ * to (or any other object), use {@link #appendToString}.
+ * </p>
  *
- * <p>Alternatively, there is a method that uses reflection to determine
+ * <p>
+ * Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method,
  * {@code reflectionToString}, uses {@code AccessibleObject.setAccessible} to
  * change the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also
- * slower than testing explicitly.</p>
+ * slower than testing explicitly.
+ * </p>
  * <p>
  * See also {@link AbstractBuilder#setForceAccessible(boolean)}
  * </p>
  *
- * <p>A typical invocation for this method would look like:</p>
+ * <p>
+ * A typical invocation for this method would look like:
+ * </p>
  *
  * <pre>
  * public String toString() {
@@ -80,14 +92,18 @@ import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
  * }
  * </pre>
  *
- * <p>You can also use the builder to debug 3rd party objects:</p>
+ * <p>
+ * You can also use the builder to debug 3rd party objects:
+ * </p>
  *
  * <pre>
  * System.out.println("An object: " + ToStringBuilder.reflectionToString(anObject));
  * </pre>
  *
- * <p>The exact format of the {@code toString} is determined by
- * the {@link ToStringStyle} passed into the constructor.</p>
+ * <p>
+ * The exact format of the {@code toString} is determined by
+ * the {@link ToStringStyle} passed into the constructor.
+ * </p>
  *
  * @see AbstractBuilder#setForceAccessible(boolean)
  * @since 1.0
@@ -169,18 +185,24 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Gets the default {@link ToStringStyle} to use.
      *
-     * <p>This method gets a singleton default value, typically for the whole JVM.
+     * <p>
+     * This method gets a singleton default value, typically for the whole JVM.
      * Changing this default should generally only be done during application startup.
      * It is recommended to pass a {@link ToStringStyle} to the constructor instead
-     * of using this global default.</p>
+     * of using this global default.
+     * </p>
      *
-     * <p>This method can be used from multiple threads.
+     * <p>
+     * This method can be used from multiple threads.
      * Internally, a {@code volatile} variable is used to provide the guarantee
      * that the latest value set using {@link #setDefaultStyle} is the value returned.
-     * It is strongly recommended that the default style is only changed during application startup.</p>
+     * It is strongly recommended that the default style is only changed during application startup.
+     * </p>
      *
-     * <p>One reason for changing the default could be to have a verbose style during
-     * development and a compact style in production.</p>
+     * <p>
+     * One reason for changing the default could be to have a verbose style during
+     * development and a compact style in production.
+     * </p>
      *
      * @return The default {@link ToStringStyle}, never null
      */
@@ -251,14 +273,18 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Sets the default {@link ToStringStyle} to use.
      *
-     * <p>This method sets a singleton default value, typically for the whole JVM.
+     * <p>
+     * This method sets a singleton default value, typically for the whole JVM.
      * Changing this default should generally only be done during application startup.
      * It is recommended to pass a {@link ToStringStyle} to the constructor instead
-     * of changing this global default.</p>
+     * of changing this global default.
+     * </p>
      *
-     * <p>This method is not intended for use from multiple threads.
+     * <p>
+     * This method is not intended for use from multiple threads.
      * Internally, a {@code volatile} variable is used to provide the guarantee
-     * that the latest value set is the value returned from {@link #getDefaultStyle}.</p>
+     * that the latest value set is the value returned from {@link #getDefaultStyle}.
+     * </p>
      *
      * @param style  The default {@link ToStringStyle}
      * @throws NullPointerException Thrown if the style is {@code null}.
@@ -293,7 +319,9 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Constructs a builder for the specified object using the default output style.
      *
-     * <p>This default style is obtained from {@link #getDefaultStyle()}.</p>
+     * <p>
+     * This default style is obtained from {@link #getDefaultStyle()}.
+     * </p>
      *
      * @param object  The Object to build a {@code toString} for, not recommended to be null
      */
@@ -304,7 +332,9 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Constructs a builder for the specified object using the defined output style.
      *
-     * <p>If the style is {@code null}, the default style is used.</p>
+     * <p>
+     * If the style is {@code null}, the default style is used.
+     * </p>
      *
      * @param object  The Object to build a {@code toString} for, not recommended to be null
      * @param style  The style of the {@code toString} to create, null uses the default style
@@ -316,9 +346,13 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Constructs a builder for the specified object.
      *
-     * <p>If the style is {@code null}, the default style is used.</p>
+     * <p>
+     * If the style is {@code null}, the default style is used.
+     * </p>
      *
-     * <p>If the buffer is {@code null}, a new one is created.</p>
+     * <p>
+     * If the buffer is {@code null}, a new one is created.
+     * </p>
      *
      * @param object  The Object to build a {@code toString} for, not recommended to be null
      * @param style  The style of the {@code toString} to create, null uses the default style
@@ -574,10 +608,12 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code boolean}
      * array.
      *
-     * <p>A boolean parameter controls the level of detail to show.
+     * <p>
+     * A boolean parameter controls the level of detail to show.
      * Setting {@code true} will output the array in full. Setting
      * {@code false} will output a summary, typically the size of
-     * the array.</p>
+     * the array.
+     * </p>
      *
      * @param fieldName  The field name
      * @param array  The array to add to the {@code toString}
@@ -619,10 +655,12 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code byte}
      * array.
      *
-     * <p>A boolean parameter controls the level of detail to show.
+     * <p>
+     * A boolean parameter controls the level of detail to show.
      * Setting {@code true} will output the array in full. Setting
      * {@code false} will output a summary, typically the size of
      * the array.
+     * </p>
      *
      * @param fieldName  The field name
      * @param array  The array to add to the {@code toString}
@@ -665,10 +703,12 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code char}
      * array.
      *
-     * <p>A boolean parameter controls the level of detail to show.
+     * <p>
+     * A boolean parameter controls the level of detail to show.
      * Setting {@code true} will output the array in full. Setting
      * {@code false} will output a summary, typically the size of
-     * the array.</p>
+     * the array.
+     * </p>
      *
      * @param fieldName  The field name
      * @param array  The array to add to the {@code toString}
@@ -711,10 +751,12 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code double}
      * array.
      *
-     * <p>A boolean parameter controls the level of detail to show.
+     * <p>
+     * A boolean parameter controls the level of detail to show.
      * Setting {@code true} will output the array in full. Setting
      * {@code false} will output a summary, typically the size of
-     * the array.</p>
+     * the array.
+     * </p>
      *
      * @param fieldName  The field name
      * @param array  The array to add to the {@code toString}
@@ -757,10 +799,12 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code float}
      * array.
      *
-     * <p>A boolean parameter controls the level of detail to show.
+     * <p>
+     * A boolean parameter controls the level of detail to show.
      * Setting {@code true} will output the array in full. Setting
      * {@code false} will output a summary, typically the size of
-     * the array.</p>
+     * the array.
+     * </p>
      *
      * @param fieldName  The field name
      * @param array  The array to add to the {@code toString}
@@ -803,10 +847,12 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@code int}
      * array.
      *
-     * <p>A boolean parameter controls the level of detail to show.
+     * <p>
+     * A boolean parameter controls the level of detail to show.
      * Setting {@code true} will output the array in full. Setting
      * {@code false} will output a summary, typically the size of
-     * the array.</p>
+     * the array.
+     * </p>
      *
      * @param fieldName  The field name
      * @param array  The array to add to the {@code toString}
@@ -849,10 +895,12 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code long}
      * array.
      *
-     * <p>A boolean parameter controls the level of detail to show.
+     * <p>
+     * A boolean parameter controls the level of detail to show.
      * Setting {@code true} will output the array in full. Setting
      * {@code false} will output a summary, typically the size of
-     * the array.</p>
+     * the array.
+     * </p>
      *
      * @param fieldName  The field name
      * @param array  The array to add to the {@code toString}
@@ -910,10 +958,12 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} an {@link Object}
      * array.
      *
-     * <p>A boolean parameter controls the level of detail to show.
+     * <p>
+     * A boolean parameter controls the level of detail to show.
      * Setting {@code true} will output the array in full. Setting
      * {@code false} will output a summary, typically the size of
-     * the array.</p>
+     * the array.
+     * </p>
      *
      * @param fieldName  The field name
      * @param array  The array to add to the {@code toString}
@@ -956,10 +1006,12 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * Appends to the {@code toString} a {@code short}
      * array.
      *
-     * <p>A boolean parameter controls the level of detail to show.
+     * <p>
+     * A boolean parameter controls the level of detail to show.
      * Setting {@code true} will output the array in full. Setting
      * {@code false} will output a summary, typically the size of
      * the array.
+     * </p>
      *
      * @param fieldName  The field name
      * @param array  The array to add to the {@code toString}
@@ -990,10 +1042,14 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Append the {@code toString} from the superclass.
      *
-     * <p>This method assumes that the superclass uses the same {@link ToStringStyle}
-     * as this one.</p>
+     * <p>
+     * This method assumes that the superclass uses the same {@link ToStringStyle}
+     * as this one.
+     * </p>
      *
-     * <p>If {@code superToString} is {@code null}, no change is made.</p>
+     * <p>
+     * If {@code superToString} is {@code null}, no change is made.
+     * </p>
      *
      * @param superToString  The result of {@code super.toString()}
      * @return {@code this} instance.
@@ -1009,9 +1065,11 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Append the {@code toString} from another object.
      *
-     * <p>This method is useful where a class delegates most of the implementation of
+     * <p>
+     * This method is useful where a class delegates most of the implementation of
      * its properties to another class. You can then call {@code toString()} on
-     * the other class and pass the result into this method.</p>
+     * the other class and pass the result into this method.
+     * </p>
      *
      * <pre>
      *   private AnotherObject delegate;
@@ -1024,10 +1082,14 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      *       toString();
      *   }</pre>
      *
-     * <p>This method assumes that the other object uses the same {@link ToStringStyle}
-     * as this one.</p>
+     * <p>
+     * This method assumes that the other object uses the same {@link ToStringStyle}
+     * as this one.
+     * </p>
      *
-     * <p>If the {@code toString} is {@code null}, no change is made.</p>
+     * <p>
+     * If the {@code toString} is {@code null}, no change is made.
+     * </p>
      *
      * @param toString  The result of {@code toString()} on another object
      * @return {@code this} instance.
@@ -1085,10 +1147,14 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     /**
      * Returns the built {@code toString}.
      *
-     * <p>This method appends the end of data indicator, and can only be called once.
-     * Use {@link #getStringBuffer} to get the current string state.</p>
+     * <p>
+     * This method appends the end of data indicator, and can only be called once.
+     * Use {@link #getStringBuffer} to get the current string state.
+     * </p>
      *
-     * <p>If the object is {@code null}, return the style's {@code nullText}</p>
+     * <p>
+     * If the object is {@code null}, return the style's {@code nullText}
+     * </p>
      *
      * @return The String {@code toString}
      */

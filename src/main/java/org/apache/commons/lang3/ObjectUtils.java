@@ -50,7 +50,9 @@ import org.apache.commons.lang3.time.DurationUtils;
  * Each method documents its behavior in more detail.
  * </p>
  *
- * <p>#ThreadSafe#</p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
  * @see Consumers
  * @see Suppliers

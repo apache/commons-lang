@@ -137,7 +137,7 @@ final class ImmutableTimeZone extends TimeZone {
     }
 
     /**
-     * Always throws {@link UnsupportedOperationException}.
+     * Sets no time zone property and always throws {@link UnsupportedOperationException}.
      */
     @Override
     public void setID(final String ID) {
@@ -145,7 +145,7 @@ final class ImmutableTimeZone extends TimeZone {
     }
 
     /**
-     * Always throws {@link UnsupportedOperationException}.
+     * Sets no time zone property and always throws {@link UnsupportedOperationException}.
      */
     @Override
     public void setRawOffset(final int offsetMillis) {

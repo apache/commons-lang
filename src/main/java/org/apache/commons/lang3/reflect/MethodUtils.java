@@ -51,9 +51,11 @@ import org.apache.commons.lang3.stream.Streams;
  *
  * <h2>Known Limitations</h2>
  * <h3>Accessing Public Methods In A Default Access Superclass</h3>
- * <p>There is an issue when invoking {@code public} methods contained in a default access superclass on JREs prior to 1.4.
+ * <p>
+ * There is an issue when invoking {@code public} methods contained in a default access superclass on JREs prior to 1.4.
  * Reflection locates these methods fine and correctly assigns them as {@code public}.
- * However, an {@link IllegalAccessException} is thrown if the method is invoked.</p>
+ * However, an {@link IllegalAccessException} is thrown if the method is invoked.
+ * </p>
  *
  * <p>
  * {@link MethodUtils} contains a workaround for this situation.

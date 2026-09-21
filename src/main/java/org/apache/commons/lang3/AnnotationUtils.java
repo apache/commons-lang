@@ -28,18 +28,24 @@ import org.apache.commons.lang3.exception.UncheckedException;
 /**
  * Helper methods for working with {@link Annotation} instances.
  *
- * <p>This class contains various utility methods that make working with
- * annotations simpler.</p>
+ * <p>
+ * This class contains various utility methods that make working with
+ * annotations simpler.
+ * </p>
  *
- * <p>{@link Annotation} instances are always proxy objects; unfortunately
+ * <p>
+ * {@link Annotation} instances are always proxy objects; unfortunately
  * dynamic proxies cannot be depended upon to know how to implement certain
  * methods in the same manner as would be done by "natural" {@link Annotation}s.
  * The methods presented in this class can be used to avoid that possibility. It
  * is of course also possible for dynamic proxies to actually delegate their
  * e.g. {@link Annotation#equals(Object)}/{@link Annotation#hashCode()}/
- * {@link Annotation#toString()} implementations to {@link AnnotationUtils}.</p>
+ * {@link Annotation#toString()} implementations to {@link AnnotationUtils}.
+ * </p>
  *
- * <p>#ThreadSafe#</p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
  * @since 3.0
  */
@@ -277,10 +283,12 @@ public class AnnotationUtils {
     /**
      * Tests whether the specified type is permitted as an annotation member.
      *
-     * <p>The Java language specification only permits certain types to be used
+     * <p>
+     * The Java language specification only permits certain types to be used
      * in annotations. These include {@link String}, {@link Class}, primitive
      * types, {@link Annotation}, {@link Enum}, and single-dimensional arrays of
-     * these types.</p>
+     * these types.
+     * </p>
      *
      * @param type The type to check, {@code null}
      * @return {@code true} if the type is a valid type to use in an annotation
@@ -350,8 +358,10 @@ public class AnnotationUtils {
      * {@link AnnotationUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used statically.
      *
-     * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean
+     * instance to operate.
+     * </p>
      *
      * @deprecated TODO Make private in 4.0.
      */

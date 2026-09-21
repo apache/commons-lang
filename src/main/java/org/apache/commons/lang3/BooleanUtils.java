@@ -26,11 +26,15 @@ import org.apache.commons.lang3.math.NumberUtils;
 /**
  * Operations on boolean primitives and Boolean objects.
  *
- * <p>This class tries to handle {@code null} input gracefully.
+ * <p>
+ * This class tries to handle {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
- * Each method documents its behavior in more detail.</p>
+ * Each method documents its behavior in more detail.
+ * </p>
  *
- * <p>#ThreadSafe#</p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
  * @since 2.0
  */
@@ -243,10 +247,14 @@ public class BooleanUtils {
     /**
      * Negates the specified boolean.
      *
-     * <p>If {@code null} is passed in, {@code null} will be returned.</p>
+     * <p>
+     * If {@code null} is passed in, {@code null} will be returned.
+     * </p>
      *
-     * <p>NOTE: This returns {@code null} and will throw a {@link NullPointerException}
-     * if unboxed to a boolean.</p>
+     * <p>
+     * NOTE: This returns {@code null} and will throw a {@link NullPointerException}
+     * if unboxed to a boolean.
+     * </p>
      *
      * <pre>
      *   BooleanUtils.negate(Boolean.TRUE)  = Boolean.FALSE;
@@ -417,8 +425,10 @@ public class BooleanUtils {
     /**
      * Converts an int to a boolean specifying the conversion values.
      *
-     * <p>If the {@code trueValue} and {@code falseValue} are the same number then
-     * the return value will be {@code true} in case {@code value} matches it.</p>
+     * <p>
+     * If the {@code trueValue} and {@code falseValue} are the same number then
+     * the return value will be {@code true} in case {@code value} matches it.
+     * </p>
      *
      * <pre>
      *   BooleanUtils.toBoolean(0, 1, 0) = false
@@ -480,11 +490,14 @@ public class BooleanUtils {
     /**
      * Converts a String to a boolean (optimized for performance).
      *
-     * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'} or {@code 'yes'}
+     * <p>
+     * {@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'} or {@code 'yes'}
      * (case insensitive) will return {@code true}. Otherwise,
-     * {@code false} is returned.</p>
+     * {@code false} is returned.
+     * </p>
      *
-     * <p>This method performs 4 times faster (JDK1.4) than
+     * <p>
+     * This method performs 4 times faster (JDK1.4) than
      * {@code Boolean.valueOf(String)}. However, this method accepts
      * 'on' and 'yes', 't', 'y' as true values.
      *
@@ -586,11 +599,15 @@ public class BooleanUtils {
     /**
      * Converts an int to a Boolean specifying the conversion values.
      *
-     * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
-     * if unboxed to a {@code boolean}.</p>
+     * <p>
+     * NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
+     * if unboxed to a {@code boolean}.
+     * </p>
      *
-     * <p>The checks are done first for the {@code trueValue}, then for the {@code falseValue} and
-     * finally for the {@code nullValue}.</p>
+     * <p>
+     * The checks are done first for the {@code trueValue}, then for the {@code falseValue} and
+     * finally for the {@code nullValue}.
+     * </p>
      *
      * <pre>
      *   BooleanUtils.toBooleanObject(0, 0, 2, 3) = Boolean.TRUE
@@ -625,10 +642,14 @@ public class BooleanUtils {
      * Converts an Integer to a Boolean using the convention that {@code zero}
      * is {@code false}, every other numeric value is {@code true}.
      *
-     * <p>{@code null} will be converted to {@code null}.</p>
+     * <p>
+     * {@code null} will be converted to {@code null}.
+     * </p>
      *
-     * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
-     * if unboxed to a {@code boolean}.</p>
+     * <p>
+     * NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
+     * if unboxed to a {@code boolean}.
+     * </p>
      *
      * <pre>
      *   BooleanUtils.toBooleanObject(Integer.valueOf(0))    = Boolean.FALSE
@@ -650,11 +671,15 @@ public class BooleanUtils {
     /**
      * Converts an Integer to a Boolean specifying the conversion values.
      *
-     * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
-     * if unboxed to a {@code boolean}.</p>
+     * <p>
+     * NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
+     * if unboxed to a {@code boolean}.
+     * </p>
      *
-     * <p>The checks are done first for the {@code trueValue}, then for the {@code falseValue} and
-     * finally for the {@code nullValue}.</p>
+     * <p>
+     * The checks are done first for the {@code trueValue}, then for the {@code falseValue} and
+     * finally for the {@code nullValue}.
+     * </p>
      **
      * <pre>
      *   BooleanUtils.toBooleanObject(Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(2), Integer.valueOf(3)) = Boolean.TRUE
@@ -696,14 +721,18 @@ public class BooleanUtils {
     /**
      * Converts a String to a Boolean.
      *
-     * <p>{@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'}, {@code 'yes'}
+     * <p>
+     * {@code 'true'}, {@code 'on'}, {@code 'y'}, {@code 't'}, {@code 'yes'}
      * or {@code '1'} (case insensitive) will return {@code true}.
      * {@code 'false'}, {@code 'off'}, {@code 'n'}, {@code 'f'}, {@code 'no'}
      * or {@code '0'} (case insensitive) will return {@code false}.
-     * Otherwise, {@code null} is returned.</p>
+     * Otherwise, {@code null} is returned.
+     * </p>
      *
-     * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
-     * if unboxed to a {@code boolean}.</p>
+     * <p>
+     * NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
+     * if unboxed to a {@code boolean}.
+     * </p>
      *
      * <pre>
      *   // Case is not significant
@@ -825,8 +854,10 @@ public class BooleanUtils {
     /**
      * Converts a String to a Boolean throwing an exception if no match.
      *
-     * <p>NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
-     * if unboxed to a {@code boolean}.</p>
+     * <p>
+     * NOTE: This method may return {@code null} and may throw a {@link NullPointerException}
+     * if unboxed to a {@code boolean}.
+     * </p>
      *
      * <pre>
      *   BooleanUtils.toBooleanObject("true", "true", "false", "null")   = Boolean.TRUE
@@ -962,7 +993,9 @@ public class BooleanUtils {
      * Converts a Boolean to an Integer using the convention that
      * {@code zero} is {@code false}.
      *
-     * <p>{@code null} will be converted to {@code null}.</p>
+     * <p>
+     * {@code null} will be converted to {@code null}.
+     * </p>
      *
      * <pre>
      *   BooleanUtils.toIntegerObject(Boolean.TRUE)  = Integer.valueOf(1)
@@ -1210,8 +1243,10 @@ public class BooleanUtils {
      * {@link BooleanUtils} instances should NOT be constructed in standard programming.
      * Instead, the class should be used as {@code BooleanUtils.negate(true);}.
      *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean instance
+     * to operate.
+     * </p>
      *
      * @deprecated TODO Make private in 4.0.
      */

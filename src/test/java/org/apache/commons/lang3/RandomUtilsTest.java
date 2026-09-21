@@ -150,7 +150,9 @@ class RandomUtilsTest extends AbstractLangTest {
      * return (long) nextDouble(startInclusive, endExclusive);
      * </pre>
      *
-     * <p>See LANG-1592.</p>
+     * <p>
+     * See LANG-1592.
+     * </p>
      */
     @Test
     void testLargeValueRangeLong() {
@@ -174,7 +176,9 @@ class RandomUtilsTest extends AbstractLangTest {
      * return (long) nextDouble(startInclusive, endExclusive);
      * </pre>
      *
-     * <p>See LANG-1592.</p>
+     * <p>
+     * See LANG-1592.
+     * </p>
      */
     @ParameterizedTest
     @MethodSource("randomProvider")

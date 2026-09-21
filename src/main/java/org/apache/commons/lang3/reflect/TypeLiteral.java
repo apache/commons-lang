@@ -62,7 +62,8 @@ import org.apache.commons.lang3.Validate;
  * to a type variable while simultaneously making it short work to obtain a
  * {@link Type} instance for any given type, inline.
  * </p>
- * <p>Additionally {@link TypeLiteral} implements the {@link Typed} interface which
+ * <p>
+ * Additionally {@link TypeLiteral} implements the {@link Typed} interface which
  * is a generalization of this concept, and which may be implemented in custom classes.
  * It is suggested that APIs be defined in terms of the interface, in the following manner:
  * </p>

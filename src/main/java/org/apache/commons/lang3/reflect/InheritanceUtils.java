@@ -55,8 +55,10 @@ public class InheritanceUtils {
      * Instead, the class should be used as
      * {@code MethodUtils.getAccessibleMethod(method)}.
      *
-     * <p>This constructor is {@code public} to permit tools that require a JavaBean
-     * instance to operate.</p>
+     * <p>
+     * This constructor is {@code public} to permit tools that require a JavaBean
+     * instance to operate.
+     * </p>
      *
      * @deprecated TODO Make private in 4.0.
      */

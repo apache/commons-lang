@@ -405,7 +405,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      * Always throws {@link UnsupportedOperationException}.
      *
      * @param obj this parameter ignored.
-     * @throws UnsupportedOperationException Thrown always.
+     * @throws UnsupportedOperationException Thrown because this operation is unsupported.
      */
     @Override
     public void add(final String obj) {
@@ -840,7 +840,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     /**
      * Always throws {@link UnsupportedOperationException}.
      *
-     * @throws UnsupportedOperationException Thrown always.
+     * @throws UnsupportedOperationException Thrown because this operation is unsupported.
      */
     @Override
     public void remove() {
@@ -894,10 +894,10 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     }
 
     /**
-     * Always throws {@link UnsupportedOperationException}.
+     * Sets no token and always throws {@link UnsupportedOperationException}.
      *
      * @param obj this parameter ignored.
-     * @throws UnsupportedOperationException Thrown always.
+     * @throws UnsupportedOperationException Thrown because this operation is unsupported.
      */
     @Override
     public void set(final String obj) {

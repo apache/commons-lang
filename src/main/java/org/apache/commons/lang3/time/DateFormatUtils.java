@@ -24,15 +24,21 @@ import java.util.TimeZone;
 /**
  * Date and time formatting utilities and constants.
  *
- * <p>Formatting is performed using the thread-safe
- * {@link org.apache.commons.lang3.time.FastDateFormat} class.</p>
+ * <p>
+ * Formatting is performed using the thread-safe
+ * {@link org.apache.commons.lang3.time.FastDateFormat} class.
+ * </p>
  *
- * <p>Note that the JDK has a bug wherein calling Calendar.get(int) will
- * override any previously called Calendar.clear() calls. See LANG-755.</p>
+ * <p>
+ * Note that the JDK has a bug wherein calling Calendar.get(int) will
+ * override any previously called Calendar.clear() calls. See LANG-755.
+ * </p>
  *
- * <p>Note that when using capital YYYY instead of lowercase yyyy, the formatter
+ * <p>
+ * Note that when using capital YYYY instead of lowercase yyyy, the formatter
  * will assume current year as week year is not supported. See {@link java.util.GregorianCalendar}
- * Week Year section for an explanation on the difference between calendar and week years.</p>
+ * Week Year section for an explanation on the difference between calendar and week years.
+ * </p>
  *
  * @since 2.0
  */
@@ -406,8 +412,10 @@ public class DateFormatUtils {
     /**
      * DateFormatUtils instances should NOT be constructed in standard programming.
      *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean instance
+     * to operate.
+     * </p>
      *
      * @deprecated TODO Make private in 4.0.
      */

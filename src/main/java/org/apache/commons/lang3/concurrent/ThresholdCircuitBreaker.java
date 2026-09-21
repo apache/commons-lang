@@ -46,7 +46,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * }
  * </pre>
  *
- * <p>#Thread safe#</p>
+ * <p>
+ * #Thread safe#
+ * </p>
  *
  * @since 3.5
  */
@@ -88,7 +90,9 @@ public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
     /**
      * {@inheritDoc}
      *
-     * <p>Resets the internal counter back to its initial value (zero).</p>
+     * <p>
+     * Resets the internal counter back to its initial value (zero).
+     * </p>
      */
     @Override
     public void close() {

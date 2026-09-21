@@ -78,7 +78,9 @@ public class Functions {
     /**
      * A functional interface like {@link BiConsumer} that declares a {@link Throwable}.
      *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
+     * <p>
+     * TODO for 4.0: Move to org.apache.commons.lang3.function.
+     * </p>
      *
      * @param <O1> Consumed type 1.
      * @param <O2> Consumed type 2.
@@ -102,7 +104,9 @@ public class Functions {
     /**
      * A functional interface like {@link BiFunction} that declares a {@link Throwable}.
      *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
+     * <p>
+     * TODO for 4.0: Move to org.apache.commons.lang3.function.
+     * </p>
      *
      * @param <O1> Input type 1.
      * @param <O2> Input type 2.
@@ -128,7 +132,9 @@ public class Functions {
     /**
      * A functional interface like {@link BiPredicate} that declares a {@link Throwable}.
      *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
+     * <p>
+     * TODO for 4.0: Move to org.apache.commons.lang3.function.
+     * </p>
      *
      * @param <O1> Predicate type 1.
      * @param <O2> Predicate type 2.
@@ -153,7 +159,9 @@ public class Functions {
     /**
      * A functional interface like {@link java.util.concurrent.Callable} that declares a {@link Throwable}.
      *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
+     * <p>
+     * TODO for 4.0: Move to org.apache.commons.lang3.function.
+     * </p>
      *
      * @param <R> Return type.
      * @param <T> Thrown exception.
@@ -175,7 +183,9 @@ public class Functions {
     /**
      * A functional interface like {@link Consumer} that declares a {@link Throwable}.
      *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
+     * <p>
+     * TODO for 4.0: Move to org.apache.commons.lang3.function.
+     * </p>
      *
      * @param <O> Consumed type 1.
      * @param <T> Thrown exception.
@@ -197,7 +207,9 @@ public class Functions {
     /**
      * A functional interface like {@link Function} that declares a {@link Throwable}.
      *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
+     * <p>
+     * TODO for 4.0: Move to org.apache.commons.lang3.function.
+     * </p>
      *
      * @param <I> Input type 1.
      * @param <R> Return type.
@@ -221,7 +233,9 @@ public class Functions {
     /**
      * A functional interface like {@link Predicate} that declares a {@link Throwable}.
      *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
+     * <p>
+     * TODO for 4.0: Move to org.apache.commons.lang3.function.
+     * </p>
      *
      * @param <I> Predicate type 1.
      * @param <T> Thrown exception.
@@ -244,7 +258,9 @@ public class Functions {
     /**
      * A functional interface like {@link Runnable} that declares a {@link Throwable}.
      *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
+     * <p>
+     * TODO for 4.0: Move to org.apache.commons.lang3.function.
+     * </p>
      *
      * @param <T> Thrown exception.
      * @deprecated Use {@link org.apache.commons.lang3.function.FailableRunnable}.
@@ -264,7 +280,9 @@ public class Functions {
     /**
      * A functional interface like {@link Supplier} that declares a {@link Throwable}.
      *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
+     * <p>
+     * TODO for 4.0: Move to org.apache.commons.lang3.function.
+     * </p>
      *
      * @param <R> Return type.
      * @param <T> Thrown exception.

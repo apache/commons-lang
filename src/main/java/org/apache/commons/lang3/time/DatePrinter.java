@@ -168,7 +168,9 @@ public interface DatePrinter {
     /**
      * Gets the time zone used by this printer.
      *
-     * <p>This zone is always used for {@link Date} printing.</p>
+     * <p>
+     * This zone is always used for {@link Date} printing.
+     * </p>
      *
      * @return The time zone.
      */

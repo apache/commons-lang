@@ -188,14 +188,16 @@ public class RecursiveToStringStyle extends ToStringStyle {
     /**
      * {@inheritDoc}
      *
-     * <p>In addition to the cycle check performed by the superclass, this implementation keeps a
+     * <p>
+     * In addition to the cycle check performed by the superclass, this implementation keeps a
      * per-thread set of objects already rendered in detail during the current top-level call.
      * Values that this style would traverse structurally (see {@link #accept(Class)}) are rendered
      * in detail at most once; later identity-equal occurrences are appended in the abbreviated
      * {@code Object.toString()} format. This bounds the traversal to one visit per object, so
      * shared (acyclic) references cannot cause exponential re-traversal. If an output-length limit
      * was configured and the buffer has reached it, a {@code "...<truncated>"} marker is appended
-     * instead of the value.</p>
+     * instead of the value.
+     * </p>
      */
     @Override
     protected void appendInternal(final StringBuffer buffer, final String fieldName, final Object value, final boolean detail) {

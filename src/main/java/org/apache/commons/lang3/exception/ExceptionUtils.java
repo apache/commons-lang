@@ -70,7 +70,9 @@ public class ExceptionUtils {
      * Used when printing stack frames to denote the start of a
      * wrapped exception.
      *
-     * <p>Package private for accessibility by test suite.</p>
+     * <p>
+     * Package private for accessibility by test suite.
+     * </p>
      */
     static final String WRAPPED_MARKER = " [wrapped] ";
 
@@ -270,7 +272,9 @@ public class ExceptionUtils {
     /**
      * Gets the default names used when searching for the cause of an exception.
      *
-     * <p>This may be modified and used in the overloaded getCause(Throwable, String[]) method.</p>
+     * <p>
+     * This may be modified and used in the overloaded getCause(Throwable, String[]) method.
+     * </p>
      *
      * @return cloned array of the default method names.
      * @since 3.0
@@ -303,14 +307,18 @@ public class ExceptionUtils {
     /**
      * Gets the root cause by walking the exception chain.
      *
-     * <p>This method walks through the exception chain until the last element,
+     * <p>
+     * This method walks through the exception chain until the last element,
      * the root cause of the chain, using {@link Throwable#getCause()}, and
-     * returns that exception.</p>
+     * returns that exception.
+     * </p>
      *
-     * <p>This method handles recursive cause chains that might
+     * <p>
+     * This method handles recursive cause chains that might
      * otherwise cause infinite loops. The cause chain is processed until
      * the end, or until the next item in the chain is already
-     * processed. If we detect a loop, then return the element before the loop.</p>
+     * processed. If we detect a loop, then return the element before the loop.
+     * </p>
      *
      * @param throwable  The throwable to get the root cause for, may be null.
      * @return The root cause of the {@link Throwable},
@@ -341,10 +349,12 @@ public class ExceptionUtils {
      * Gets a compact stack trace for the root cause of the supplied
      * {@link Throwable}.
      *
-     * <p>The output of this method is consistent across JDK versions.
+     * <p>
+     * The output of this method is consistent across JDK versions.
      * It consists of the root exception followed by each of its wrapping
      * exceptions separated by '[wrapped]'. Note that this is the opposite
-     * order to the JDK1.4 display.</p>
+     * order to the JDK1.4 display.
+     * </p>
      *
      * <p>
      * <strong>Note:</strong> the frames are recovered by re-parsing the text produced by {@link Throwable#printStackTrace()}, they are not read from
@@ -411,10 +421,12 @@ public class ExceptionUtils {
      * is not included. Only the trace of the specified exception is
      * returned, any caused by trace is stripped.
      *
-     * <p>This works by re-parsing the text produced by {@link Throwable#printStackTrace()}: a line is treated as a frame if, after leading
+     * <p>
+     * This works by re-parsing the text produced by {@link Throwable#printStackTrace()}: a line is treated as a frame if, after leading
      * whitespace, it starts with {@code "at "} followed by a class/method reference and {@code '('} (see {@link #isStackFrame(String)}). It
      * will mis-parse if the exception message contains a line of exactly that shape: such a line is counted as a frame and the real frames
-     * that follow the remaining message lines are dropped.</p>
+     * that follow the remaining message lines are dropped.
+     * </p>
      *
      * @param throwable is any throwable.
      * @return List of stack frames.
@@ -440,7 +452,9 @@ public class ExceptionUtils {
     /**
      * Gets an array where each element is a line from the argument.
      *
-     * <p>The end of line is determined by the value of {@link System#lineSeparator()}.</p>
+     * <p>
+     * The end of line is determined by the value of {@link System#lineSeparator()}.
+     * </p>
      *
      * @param stackTrace  A stack trace String.
      * @return An array where each element is a line from the argument.
@@ -494,14 +508,18 @@ public class ExceptionUtils {
      * Gets a count of the number of {@link Throwable} objects in the
      * exception chain.
      *
-     * <p>A throwable without cause will return {@code 1}.
+     * <p>
+     * A throwable without cause will return {@code 1}.
      * A throwable with one cause will return {@code 2} and so on.
-     * A {@code null} throwable will return {@code 0}.</p>
+     * A {@code null} throwable will return {@code 0}.
+     * </p>
      *
-     * <p>This method handles recursive cause chains
+     * <p>
+     * This method handles recursive cause chains
      * that might otherwise cause infinite loops. The cause chain is
      * processed until the end, or until the next item in the
-     * chain is already in the result.</p>
+     * chain is already in the result.
+     * </p>
      *
      * @param throwable  The throwable to inspect, may be null.
      * @return The count of throwables, zero on null input.
@@ -514,16 +532,20 @@ public class ExceptionUtils {
      * Gets the list of {@link Throwable} objects in the
      * exception chain.
      *
-     * <p>A throwable without cause will return a list containing
+     * <p>
+     * A throwable without cause will return a list containing
      * one element - the input throwable.
      * A throwable with one cause will return a list containing
      * two elements. - the input throwable and the cause throwable.
-     * A {@code null} throwable will return a list of size zero.</p>
+     * A {@code null} throwable will return a list of size zero.
+     * </p>
      *
-     * <p>This method handles recursive cause chains that might
+     * <p>
+     * This method handles recursive cause chains that might
      * otherwise cause infinite loops. The cause chain is processed until
      * the end, or until the next item in the chain is already
-     * in the result list, compared by identity.</p>
+     * in the result list, compared by identity.
+     * </p>
      *
      * @param throwable  The throwable to inspect, may be null.
      * @return The list of throwables, never null.
@@ -543,16 +565,20 @@ public class ExceptionUtils {
      * Gets the list of {@link Throwable} objects in the
      * exception chain.
      *
-     * <p>A throwable without cause will return an array containing
+     * <p>
+     * A throwable without cause will return an array containing
      * one element - the input throwable.
      * A throwable with one cause will return an array containing
      * two elements. - the input throwable and the cause throwable.
-     * A {@code null} throwable will return an array of size zero.</p>
+     * A {@code null} throwable will return an array of size zero.
+     * </p>
      *
-     * <p>This method handles recursive cause chains
+     * <p>
+     * This method handles recursive cause chains
      * that might otherwise cause infinite loops. The cause chain is
      * processed until the end, or until the next item in the
-     * chain is already in the result array.</p>
+     * chain is already in the result array.
+     * </p>
      *
      * @param throwable  The throwable to inspect, may be null.
      * @return The array of throwables, never null.
@@ -625,9 +651,11 @@ public class ExceptionUtils {
      * Subclasses of the specified class do not match - see
      * {@link #indexOfType(Throwable, Class)} for the opposite.
      *
-     * <p>A {@code null} throwable returns {@code -1}.
+     * <p>
+     * A {@code null} throwable returns {@code -1}.
      * A {@code null} type returns {@code -1}.
-     * No match in the chain returns {@code -1}.</p>
+     * No match in the chain returns {@code -1}.
+     * </p>
      *
      * @param throwable  The throwable to inspect, may be null.
      * @param clazz  The class to search for, subclasses do not match, null returns -1.
@@ -661,9 +689,11 @@ public class ExceptionUtils {
      * Subclasses of the specified class do match - see
      * {@link #indexOfThrowable(Throwable, Class)} for the opposite.
      *
-     * <p>A {@code null} throwable returns {@code -1}.
+     * <p>
+     * A {@code null} throwable returns {@code -1}.
      * A {@code null} type returns {@code -1}.
-     * No match in the chain returns {@code -1}.</p>
+     * No match in the chain returns {@code -1}.
+     * </p>
      *
      * @param throwable  The throwable to inspect, may be null.
      * @param type  The type to search for, subclasses match, null returns -1.
@@ -715,9 +745,11 @@ public class ExceptionUtils {
      * JVM-language name mangling, without maintaining a character whitelist that could reject a legitimate frame (and thereby suppress
      * it and every frame below it).
      *
-     * <p>This is deliberately stricter than matching any line whose first non-whitespace characters are {@code "at"}, so that ordinary
+     * <p>
+     * This is deliberately stricter than matching any line whose first non-whitespace characters are {@code "at"}, so that ordinary
      * message text such as {@code " attack detected"} or {@code "at your request"} is not mistaken for a frame; a message line crafted to
-     * match the full frame syntax is still indistinguishable from a real frame.</p>
+     * match the full frame syntax is still indistinguishable from a real frame.
+     * </p>
      *
      * @param token one line of printed stack trace text.
      * @return whether the line has the syntax of a printed stack frame.
@@ -793,16 +825,22 @@ public class ExceptionUtils {
     /**
      * Prints a compact stack trace for the root cause of a throwable.
      *
-     * <p>The compact stack trace starts with the root cause and prints
+     * <p>
+     * The compact stack trace starts with the root cause and prints
      * stack frames up to the place where it was caught and wrapped.
      * Then it prints the wrapped exception and continues with stack frames
-     * until the wrapper exception is caught and wrapped again, etc.</p>
+     * until the wrapper exception is caught and wrapped again, etc.
+     * </p>
      *
-     * <p>The output of this method is consistent across JDK versions.
-     * Note that this is the opposite order to the JDK1.4 display.</p>
+     * <p>
+     * The output of this method is consistent across JDK versions.
+     * Note that this is the opposite order to the JDK1.4 display.
+     * </p>
      *
-     * <p>The method is equivalent to {@code printStackTrace} for throwables
-     * that don't have nested causes.</p>
+     * <p>
+     * The method is equivalent to {@code printStackTrace} for throwables
+     * that don't have nested causes.
+     * </p>
      *
      * <p>
      * <strong>Note:</strong> the frames are recovered by re-parsing the text produced by {@link Throwable#printStackTrace()}, they are not read from
@@ -830,16 +868,22 @@ public class ExceptionUtils {
     /**
      * Prints a compact stack trace for the root cause of a throwable.
      *
-     * <p>The compact stack trace starts with the root cause and prints
+     * <p>
+     * The compact stack trace starts with the root cause and prints
      * stack frames up to the place where it was caught and wrapped.
      * Then it prints the wrapped exception and continues with stack frames
-     * until the wrapper exception is caught and wrapped again, etc.</p>
+     * until the wrapper exception is caught and wrapped again, etc.
+     * </p>
      *
-     * <p>The output of this method is consistent across JDK versions.
-     * Note that this is the opposite order to the JDK1.4 display.</p>
+     * <p>
+     * The output of this method is consistent across JDK versions.
+     * Note that this is the opposite order to the JDK1.4 display.
+     * </p>
      *
-     * <p>The method is equivalent to {@code printStackTrace} for throwables
-     * that don't have nested causes.</p>
+     * <p>
+     * The method is equivalent to {@code printStackTrace} for throwables
+     * that don't have nested causes.
+     * </p>
      *
      * <p>
      * <strong>Note:</strong> the frames are recovered by re-parsing the text produced by {@link Throwable#printStackTrace()}, they are not read from
@@ -1026,9 +1070,11 @@ public class ExceptionUtils {
      * Subclasses of the specified class do not match - see
      * {@link #throwableOfType(Throwable, Class)} for the opposite.
      *
-     * <p>A {@code null} throwable returns {@code null}.
+     * <p>
+     * A {@code null} throwable returns {@code null}.
      * A {@code null} type returns {@code null}.
-     * No match in the chain returns {@code null}.</p>
+     * No match in the chain returns {@code null}.
+     * </p>
      *
      * @param <T> The type of Throwable you are searching.
      * @param throwable  The throwable to inspect, may be null.
@@ -1066,9 +1112,11 @@ public class ExceptionUtils {
      * Subclasses of the specified class do match - see
      * {@link #throwableOfThrowable(Throwable, Class)} for the opposite.
      *
-     * <p>A {@code null} throwable returns {@code null}.
+     * <p>
+     * A {@code null} throwable returns {@code null}.
      * A {@code null} type returns {@code null}.
-     * No match in the chain returns {@code null}.</p>
+     * No match in the chain returns {@code null}.
+     * </p>
      *
      * @param <T> The type of Throwable you are searching.
      * @param throwable  The throwable to inspect, may be null.

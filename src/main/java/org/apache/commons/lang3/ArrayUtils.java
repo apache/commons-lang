@@ -2274,10 +2274,14 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.</p>
+     * <p>
+     * A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2304,7 +2308,9 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2319,10 +2325,14 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.</p>
+     * <p>
+     * A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2349,7 +2359,9 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array.
      *
-     * <p>This method returns empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2369,7 +2381,9 @@ public class ArrayUtils {
      * defined by valueToFind - tolerance and valueToFind + tolerance, each time between the nearest integers.
      * </p>
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2385,10 +2399,14 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.</p>
+     * <p>
+     * A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2420,10 +2438,14 @@ public class ArrayUtils {
      * defined by valueToFind - tolerance and valueToFind + tolerance, between the nearest integers.
      * </p>
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.</p>
+     * <p>
+     * A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2451,7 +2473,9 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2466,10 +2490,14 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return empty BitSet.</p>
+     * <p>
+     * A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return empty BitSet.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2496,7 +2524,9 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2511,10 +2541,14 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.</p>
+     * <p>
+     * A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2541,7 +2575,9 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2556,10 +2592,14 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.</p>
+     * <p>
+     * A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2586,7 +2626,9 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given object in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param objectToFind  The object to find, may be {@code null}.
@@ -2601,10 +2643,14 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given object in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.</p>
+     * <p>
+     * A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param objectToFind  The object to find, may be {@code null}.
@@ -2631,7 +2677,9 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -2646,10 +2694,14 @@ public class ArrayUtils {
     /**
      * Finds the indices of the given value in the array starting at the given index.
      *
-     * <p>This method returns an empty BitSet for a {@code null} input array.</p>
+     * <p>
+     * This method returns an empty BitSet for a {@code null} input array.
+     * </p>
      *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return an empty BitSet.</p>
+     * <p>
+     * A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return an empty BitSet.
+     * </p>
      *
      * @param array  The array to search for the object, may be {@code null}.
      * @param valueToFind  The value to find.
@@ -7150,8 +7202,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of the given boolean array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array  The array to shift, may be {@code null}.
      * @param offset
@@ -7168,8 +7222,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of a series of elements in the given boolean array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array
      *            the array to shift, may be {@code null}.
@@ -7220,8 +7276,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of the given byte array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array  The array to shift, may be {@code null}.
      * @param offset
@@ -7238,8 +7296,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of a series of elements in the given byte array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array
      *            the array to shift, may be {@code null}.
@@ -7290,8 +7350,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of the given char array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array  The array to shift, may be {@code null}.
      * @param offset
@@ -7308,8 +7370,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of a series of elements in the given char array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array
      *            the array to shift, may be {@code null}.
@@ -7360,8 +7424,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of the given double array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array  The array to shift, may be {@code null}.
      * @param offset
@@ -7378,8 +7444,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of a series of elements in the given double array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array
      *            the array to shift, may be {@code null}.
@@ -7430,8 +7498,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of the given float array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array  The array to shift, may be {@code null}.
      * @param offset
@@ -7448,8 +7518,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of a series of elements in the given float array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array
      *            the array to shift, may be {@code null}.
@@ -7500,8 +7572,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of the given int array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array  The array to shift, may be {@code null}.
      * @param offset
@@ -7518,8 +7592,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of a series of elements in the given int array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array
      *            the array to shift, may be {@code null}.
@@ -7570,8 +7646,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of the given long array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array  The array to shift, may be {@code null}.
      * @param offset
@@ -7588,8 +7666,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of a series of elements in the given long array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array
      *            the array to shift, may be {@code null}.
@@ -7640,8 +7720,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of the given array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array  The array to shift, may be {@code null}.
      * @param offset
@@ -7658,8 +7740,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of a series of elements in the given array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array
      *            the array to shift, may be {@code null}.
@@ -7710,8 +7794,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of the given short array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array  The array to shift, may be {@code null}.
      * @param offset
@@ -7728,8 +7814,10 @@ public class ArrayUtils {
     /**
      * Shifts the order of a series of elements in the given short array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for {@code null} or empty input arrays.</p>
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
+     * does nothing for {@code null} or empty input arrays.
+     * </p>
      *
      * @param array
      *            the array to shift, may be {@code null}.
@@ -8393,9 +8481,11 @@ public class ArrayUtils {
     /**
      * Swaps two elements in the given boolean array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).</p>
+     * Negative indices are promoted to 0(zero).
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8418,11 +8508,13 @@ public class ArrayUtils {
     /**
      * Swaps a series of elements in the given boolean array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or
+     * <p>
+     * This method does nothing for a {@code null} or empty input array or
      * for overflow indices. Negative indices are promoted to 0(zero). If any
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
-     * are swapped.</p>
+     * are swapped.
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8456,9 +8548,11 @@ public class ArrayUtils {
     /**
      * Swaps two elements in the given byte array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).</p>
+     * Negative indices are promoted to 0(zero).
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8481,11 +8575,13 @@ public class ArrayUtils {
     /**
      * Swaps a series of elements in the given byte array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or
+     * <p>
+     * This method does nothing for a {@code null} or empty input array or
      * for overflow indices. Negative indices are promoted to 0(zero). If any
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
-     * are swapped.</p>
+     * are swapped.
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8519,9 +8615,11 @@ public class ArrayUtils {
     /**
      * Swaps two elements in the given char array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).</p>
+     * Negative indices are promoted to 0(zero).
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8544,11 +8642,13 @@ public class ArrayUtils {
     /**
      * Swaps a series of elements in the given char array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or
+     * <p>
+     * This method does nothing for a {@code null} or empty input array or
      * for overflow indices. Negative indices are promoted to 0(zero). If any
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
-     * are swapped.</p>
+     * are swapped.
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8582,9 +8682,11 @@ public class ArrayUtils {
     /**
      * Swaps two elements in the given double array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).</p>
+     * Negative indices are promoted to 0(zero).
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8607,11 +8709,13 @@ public class ArrayUtils {
     /**
      * Swaps a series of elements in the given double array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or
+     * <p>
+     * This method does nothing for a {@code null} or empty input array or
      * for overflow indices. Negative indices are promoted to 0(zero). If any
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
-     * are swapped.</p>
+     * are swapped.
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8645,9 +8749,11 @@ public class ArrayUtils {
     /**
      * Swaps two elements in the given float array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).</p>
+     * Negative indices are promoted to 0(zero).
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8670,11 +8776,13 @@ public class ArrayUtils {
     /**
      * Swaps a series of elements in the given float array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or
+     * <p>
+     * This method does nothing for a {@code null} or empty input array or
      * for overflow indices. Negative indices are promoted to 0(zero). If any
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
-     * are swapped.</p>
+     * are swapped.
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8709,9 +8817,11 @@ public class ArrayUtils {
     /**
      * Swaps two elements in the given int array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).</p>
+     * Negative indices are promoted to 0(zero).
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8734,11 +8844,13 @@ public class ArrayUtils {
     /**
      * Swaps a series of elements in the given int array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or
+     * <p>
+     * This method does nothing for a {@code null} or empty input array or
      * for overflow indices. Negative indices are promoted to 0(zero). If any
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
-     * are swapped.</p>
+     * are swapped.
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8772,9 +8884,11 @@ public class ArrayUtils {
     /**
      * Swaps two elements in the given long array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).</p>
+     * Negative indices are promoted to 0(zero).
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8797,11 +8911,13 @@ public class ArrayUtils {
     /**
      * Swaps a series of elements in the given long array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or
+     * <p>
+     * This method does nothing for a {@code null} or empty input array or
      * for overflow indices. Negative indices are promoted to 0(zero). If any
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
-     * are swapped.</p>
+     * are swapped.
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8835,9 +8951,11 @@ public class ArrayUtils {
     /**
      * Swaps two elements in the given array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).</p>
+     * Negative indices are promoted to 0(zero).
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8860,11 +8978,13 @@ public class ArrayUtils {
     /**
      * Swaps a series of elements in the given array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or
+     * <p>
+     * This method does nothing for a {@code null} or empty input array or
      * for overflow indices. Negative indices are promoted to 0(zero). If any
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
-     * are swapped.</p>
+     * are swapped.
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8898,9 +9018,11 @@ public class ArrayUtils {
     /**
      * Swaps two elements in the given short array.
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
+     * <p>
+     * There is no special handling for multi-dimensional arrays. This method
      * does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).</p>
+     * Negative indices are promoted to 0(zero).
+     * </p>
      *
      * Examples:
      * <ul>
@@ -8923,11 +9045,13 @@ public class ArrayUtils {
     /**
      * Swaps a series of elements in the given short array.
      *
-     * <p>This method does nothing for a {@code null} or empty input array or
+     * <p>
+     * This method does nothing for a {@code null} or empty input array or
      * for overflow indices. Negative indices are promoted to 0(zero). If any
      * of the sub-arrays to swap falls outside of the given array, then the
      * swap is stopped at the end of the array and as many as possible elements
-     * are swapped.</p>
+     * are swapped.
+     * </p>
      *
      * Examples:
      * <ul>
@@ -9055,7 +9179,9 @@ public class ArrayUtils {
     /**
      * Converts an array of primitive booleans to objects.
      *
-     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     * <p>
+     * This method returns {@code null} for a {@code null} input array.
+     * </p>
      *
      * @param array  A {@code boolean} array.
      * @return A {@link Boolean} array, {@code null} if null array input.
@@ -9073,7 +9199,9 @@ public class ArrayUtils {
     /**
      * Converts an array of primitive bytes to objects.
      *
-     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     * <p>
+     * This method returns {@code null} for a {@code null} input array.
+     * </p>
      *
      * @param array  A {@code byte} array.
      * @return A {@link Byte} array, {@code null} if null array input.
@@ -9091,7 +9219,9 @@ public class ArrayUtils {
     /**
      * Converts an array of primitive chars to objects.
      *
-     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     * <p>
+     * This method returns {@code null} for a {@code null} input array.
+     * </p>
      *
      * @param array A {@code char} array.
      * @return A {@link Character} array, {@code null} if null array input.
@@ -9109,7 +9239,9 @@ public class ArrayUtils {
     /**
      * Converts an array of primitive doubles to objects.
      *
-     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     * <p>
+     * This method returns {@code null} for a {@code null} input array.
+     * </p>
      *
      * @param array  A {@code double} array.
      * @return A {@link Double} array, {@code null} if null array input.
@@ -9127,7 +9259,9 @@ public class ArrayUtils {
     /**
      * Converts an array of primitive floats to objects.
      *
-     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     * <p>
+     * This method returns {@code null} for a {@code null} input array.
+     * </p>
      *
      * @param array  A {@code float} array.
      * @return A {@link Float} array, {@code null} if null array input.
@@ -9145,7 +9279,9 @@ public class ArrayUtils {
     /**
      * Converts an array of primitive ints to objects.
      *
-     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     * <p>
+     * This method returns {@code null} for a {@code null} input array.
+     * </p>
      *
      * @param array  An {@code int} array.
      * @return An {@link Integer} array, {@code null} if null array input.
@@ -9163,7 +9299,9 @@ public class ArrayUtils {
     /**
      * Converts an array of primitive longs to objects.
      *
-     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     * <p>
+     * This method returns {@code null} for a {@code null} input array.
+     * </p>
      *
      * @param array  A {@code long} array.
      * @return A {@link Long} array, {@code null} if null array input.
@@ -9181,7 +9319,9 @@ public class ArrayUtils {
     /**
      * Converts an array of primitive shorts to objects.
      *
-     * <p>This method returns {@code null} for a {@code null} input array.</p>
+     * <p>
+     * This method returns {@code null} for a {@code null} input array.
+     * </p>
      *
      * @param array  A {@code short} array.
      * @return A {@link Short} array, {@code null} if null array input.

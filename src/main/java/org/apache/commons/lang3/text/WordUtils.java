@@ -25,9 +25,11 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Operations on Strings that contain words.
  *
- * <p>This class tries to handle {@code null} input gracefully.
+ * <p>
+ * This class tries to handle {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
- * Each method documents its behavior in more detail.</p>
+ * Each method documents its behavior in more detail.
+ * </p>
  *
  * @since 2.0
  * @deprecated As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use Apache Commons Text
@@ -43,10 +45,12 @@ public class WordUtils {
      * rest of each word to lowercase at the same time,
      * use {@link #capitalizeFully(String)}.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A {@code null} input String returns {@code null}.
      * Capitalization uses the Unicode title case, normally equivalent to
-     * upper case.</p>
+     * upper case.
+     * </p>
      *
      * <pre>
      * WordUtils.capitalize(null)        = null
@@ -69,13 +73,17 @@ public class WordUtils {
      * rest of each word to lowercase at the same time,
      * use {@link #capitalizeFully(String, char[])}.
      *
-     * <p>The delimiters represent a set of characters understood to separate words.
+     * <p>
+     * The delimiters represent a set of characters understood to separate words.
      * The first string character and the first non-delimiter character after a
-     * delimiter will be capitalized.</p>
+     * delimiter will be capitalized.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.
+     * <p>
+     * A {@code null} input String returns {@code null}.
      * Capitalization uses the Unicode title case, normally equivalent to
-     * upper case.</p>
+     * upper case.
+     * </p>
      *
      * <pre>
      * WordUtils.capitalize(null, *)            = null
@@ -117,10 +125,12 @@ public class WordUtils {
      * that is each word is made up of a titlecase character and then a series of
      * lowercase characters.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A {@code null} input String returns {@code null}.
      * Capitalization uses the Unicode title case, normally equivalent to
-     * upper case.</p>
+     * upper case.
+     * </p>
      *
      * <pre>
      * WordUtils.capitalizeFully(null)        = null
@@ -140,13 +150,17 @@ public class WordUtils {
      * that is each word is made up of a titlecase character and then a series of
      * lowercase characters.
      *
-     * <p>The delimiters represent a set of characters understood to separate words.
+     * <p>
+     * The delimiters represent a set of characters understood to separate words.
      * The first string character and the first non-delimiter character after a
-     * delimiter will be capitalized.</p>
+     * delimiter will be capitalized.
+     * </p>
      *
-     * <p>A {@code null} input String returns {@code null}.
+     * <p>
+     * A {@code null} input String returns {@code null}.
      * Capitalization uses the Unicode title case, normally equivalent to
-     * upper case.</p>
+     * upper case.
+     * </p>
      *
      * <pre>
      * WordUtils.capitalizeFully(null, *)            = null
@@ -210,11 +224,15 @@ public class WordUtils {
     /**
      * Extracts the initial characters from each word in the String.
      *
-     * <p>All first characters after whitespace are returned as a new string.
-     * Their case is not changed.</p>
+     * <p>
+     * All first characters after whitespace are returned as a new string.
+     * Their case is not changed.
+     * </p>
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
-     * A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * WordUtils.initials(null)             = null
@@ -235,13 +253,17 @@ public class WordUtils {
     /**
      * Extracts the initial characters from each word in the String.
      *
-     * <p>All first characters after the defined delimiters are returned as a new string.
-     * Their case is not changed.</p>
+     * <p>
+     * All first characters after the defined delimiters are returned as a new string.
+     * Their case is not changed.
+     * </p>
      *
-     * <p>If the delimiters array is null, then Whitespace is used.
+     * <p>
+     * If the delimiters array is null, then Whitespace is used.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A {@code null} input String returns {@code null}.
-     * An empty delimiter array returns an empty String.</p>
+     * An empty delimiter array returns an empty String.
+     * </p>
      *
      * <pre>
      * WordUtils.initials(null, *)                = null
@@ -301,8 +323,10 @@ public class WordUtils {
     /**
      * Tests if the code point is a delimiter.
      *
-     * <p>A {@code null} {@code delimiters} array treats any whitespace code point, as defined by
-     * {@link Character#isWhitespace(int)}, as a delimiter.</p>
+     * <p>
+     * A {@code null} {@code delimiters} array treats any whitespace code point, as defined by
+     * {@link Character#isWhitespace(int)}, as a delimiter.
+     * </p>
      *
      * @param codePoint  The code point to check.
      * @param delimiters  The delimiters, {@code null} matches whitespace.
@@ -330,8 +354,10 @@ public class WordUtils {
      *  <li>Other Lower case character converts to Upper case</li>
      * </ul>
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
-     * A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * StringUtils.swapCase(null)                 = null
@@ -374,8 +400,10 @@ public class WordUtils {
      * Uncapitalizes all the whitespace separated words in a String.
      * Only the first character of each word is changed.
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
-     * A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * WordUtils.uncapitalize(null)        = null
@@ -395,12 +423,16 @@ public class WordUtils {
      * Uncapitalizes all the whitespace separated words in a String.
      * Only the first character of each word is changed.
      *
-     * <p>The delimiters represent a set of characters understood to separate words.
+     * <p>
+     * The delimiters represent a set of characters understood to separate words.
      * The first string character and the first non-delimiter character after a
-     * delimiter will be uncapitalized.</p>
+     * delimiter will be uncapitalized.
+     * </p>
      *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
-     * A {@code null} input String returns {@code null}.</p>
+     * <p>
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A {@code null} input String returns {@code null}.
+     * </p>
      *
      * <pre>
      * WordUtils.uncapitalize(null, *)            = null
@@ -439,11 +471,15 @@ public class WordUtils {
     /**
      * Wraps a single line of text, identifying words by {@code ' '}.
      *
-     * <p>New lines will be separated by the system property line separator.
-     * Very long words, such as URLs will <em>not</em> be wrapped.</p>
+     * <p>
+     * New lines will be separated by the system property line separator.
+     * Very long words, such as URLs will <em>not</em> be wrapped.
+     * </p>
      *
-     * <p>Leading spaces on a new line are stripped.
-     * Trailing spaces are not stripped.</p>
+     * <p>
+     * Leading spaces on a new line are stripped.
+     * Trailing spaces are not stripped.
+     * </p>
      *
      * <table border="1">
      *  <caption>Examples</caption>
@@ -492,8 +528,10 @@ public class WordUtils {
     /**
      * Wraps a single line of text, identifying words by {@code ' '}.
      *
-     * <p>Leading spaces on a new line are stripped.
-     * Trailing spaces are not stripped.</p>
+     * <p>
+     * Leading spaces on a new line are stripped.
+     * Trailing spaces are not stripped.
+     * </p>
      *
      * <table border="1">
      *  <caption>Examples</caption>
@@ -569,8 +607,10 @@ public class WordUtils {
     /**
      * Wraps a single line of text, identifying words by {@code wrapOn}.
      *
-     * <p>Leading spaces on a new line are stripped.
-     * Trailing spaces are not stripped.</p>
+     * <p>
+     * Leading spaces on a new line are stripped.
+     * Trailing spaces are not stripped.
+     * </p>
      *
      * <table border="1">
      *  <caption>Examples</caption>
@@ -746,8 +786,10 @@ public class WordUtils {
      * standard programming. Instead, the class should be used as
      * {@code WordUtils.wrap("foo bar", 20);}.
      *
-     * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean
+     * instance to operate.
+     * </p>
      */
     public WordUtils() {
     }

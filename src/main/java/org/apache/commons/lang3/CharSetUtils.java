@@ -21,11 +21,15 @@ import org.apache.commons.lang3.stream.Streams;
 /**
  * Operations on {@link CharSet} instances.
  *
- * <p>This class handles {@code null} input gracefully.
+ * <p>
+ * This class handles {@code null} input gracefully.
  * An exception will not be thrown for a {@code null} input.
- * Each method documents its behavior in more detail.</p>
+ * Each method documents its behavior in more detail.
+ * </p>
  *
- * <p>#ThreadSafe#</p>
+ * <p>
+ * #ThreadSafe#
+ * </p>
  *
  * @see CharSet
  * @since 1.0
@@ -240,8 +244,10 @@ public class CharSetUtils {
      * CharSetUtils instances should NOT be constructed in standard programming.
      * Instead, the class should be used as {@code CharSetUtils.evaluateSet(null);}.
      *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
+     * <p>
+     * This constructor is public to permit tools that require a JavaBean instance
+     * to operate.
+     * </p>
      *
      * @deprecated TODO Make private in 4.0.
      */

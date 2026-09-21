@@ -27,11 +27,13 @@ import org.apache.commons.lang3.tuple.Pair;
  * An exception trace itself is often insufficient to provide rapid diagnosis of the issue.
  * Frequently what is needed is a select few pieces of local contextual data.
  * Providing this data is tricky however, due to concerns over formatting and nulls.
- * </p><p>
+ * </p>
+ * <p>
  * The contexted exception approach allows the exception to be created together with a
  * list of context label-value pairs. This additional information is automatically included in
  * the message and printed stack trace.
- * </p><p>
+ * </p>
+ * <p>
  * An unchecked version of this exception is provided by ContextedRuntimeException.
  * </p>
  * <p>

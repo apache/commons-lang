@@ -87,7 +87,8 @@ final class CachedRandomBits {
     /**
      * Generates a random integer with the specified number of bits.
      *
-     * <p>This method efficiently generates random bits by using a byte cache and bit manipulation:
+     * <p>
+     * This method efficiently generates random bits by using a byte cache and bit manipulation:
      * <ul>
      *   <li>Uses a byte array cache to avoid frequent calls to the underlying random number generator</li>
      *   <li>Extracts bits from each byte using bit shifting and masking</li>

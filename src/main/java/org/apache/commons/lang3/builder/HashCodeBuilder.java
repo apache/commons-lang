@@ -100,8 +100,10 @@ import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
  * }
  * </pre>
  *
- * <p>The {@link HashCodeExclude} annotation can be used to exclude fields from being
- * used by the {@code reflectionHashCode} methods.</p>
+ * <p>
+ * The {@link HashCodeExclude} annotation can be used to exclude fields from being
+ * used by the {@code reflectionHashCode} methods.
+ * </p>
  *
  * @see AbstractBuilder#setForceAccessible(boolean)
  * @since 1.0

@@ -24,12 +24,16 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 /**
  * A triple consisting of three elements.
  *
- * <p>This class is an abstract implementation defining the basic API.
- * It refers to the elements as 'left', 'middle' and 'right'.</p>
+ * <p>
+ * This class is an abstract implementation defining the basic API.
+ * It refers to the elements as 'left', 'middle' and 'right'.
+ * </p>
  *
- * <p>Subclass implementations may be mutable or immutable.
+ * <p>
+ * Subclass implementations may be mutable or immutable.
  * However, there is no restriction on the type of the stored objects that may be stored.
- * If mutable objects are stored in the triple, then the triple itself effectively becomes mutable.</p>
+ * If mutable objects are stored in the triple, then the triple itself effectively becomes mutable.
+ * </p>
  *
  * @param <L> The left element type.
  * @param <M> The middle element type.
@@ -187,10 +191,12 @@ public abstract class Triple<L, M, R> implements Comparable<Triple<L, M, R>>, Se
     /**
      * Formats the receiver using the given format.
      *
-     * <p>This uses {@link java.util.Formattable} to perform the formatting. Three variables may
+     * <p>
+     * This uses {@link java.util.Formattable} to perform the formatting. Three variables may
      * be used to embed the left and right elements. Use {@code %1$s} for the left
      * element, {@code %2$s} for the middle and {@code %3$s} for the right element.
-     * The default format used by {@code toString()} is {@code (%1$s,%2$s,%3$s)}.</p>
+     * The default format used by {@code toString()} is {@code (%1$s,%2$s,%3$s)}.
+     * </p>
      *
      * @param format  The format string, optionally containing {@code %1$s}, {@code %2$s} and {@code %3$s}, not null.
      * @return The formatted string, not null.

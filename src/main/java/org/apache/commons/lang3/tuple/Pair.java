@@ -27,13 +27,17 @@ import org.apache.commons.lang3.function.FailableBiFunction;
 /**
  * A pair consisting of two elements.
  *
- * <p>This class is an abstract implementation defining the basic API.
+ * <p>
+ * This class is an abstract implementation defining the basic API.
  * It refers to the elements as 'left' and 'right'. It also implements the
- * {@code Map.Entry} interface where the key is 'left' and the value is 'right'.</p>
+ * {@code Map.Entry} interface where the key is 'left' and the value is 'right'.
+ * </p>
  *
- * <p>Subclass implementations may be mutable or immutable.
+ * <p>
+ * Subclass implementations may be mutable or immutable.
  * However, there is no restriction on the type of the stored objects that may be stored.
- * If mutable objects are stored in the pair, then the pair itself effectively becomes mutable.</p>
+ * If mutable objects are stored in the pair, then the pair itself effectively becomes mutable.
+ * </p>
  *
  * @param <L> The left element type.
  * @param <R> The right element type.
@@ -180,8 +184,10 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Gets the key from this pair.
      *
-     * <p>This method implements the {@code Map.Entry} interface returning the
-     * left element as the key.</p>
+     * <p>
+     * This method implements the {@code Map.Entry} interface returning the
+     * left element as the key.
+     * </p>
      *
      * @return The left element as the key, may be null.
      */
@@ -193,7 +199,9 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Gets the left element from this pair.
      *
-     * <p>When treated as a key-value pair, this is the key.</p>
+     * <p>
+     * When treated as a key-value pair, this is the key.
+     * </p>
      *
      * @return The left element, may be null.
      */
@@ -202,7 +210,9 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Gets the right element from this pair.
      *
-     * <p>When treated as a key-value pair, this is the value.</p>
+     * <p>
+     * When treated as a key-value pair, this is the value.
+     * </p>
      *
      * @return The right element, may be null.
      */
@@ -211,8 +221,10 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Gets the value from this pair.
      *
-     * <p>This method implements the {@code Map.Entry} interface returning the
-     * right element as the value.</p>
+     * <p>
+     * This method implements the {@code Map.Entry} interface returning the
+     * right element as the value.
+     * </p>
      *
      * @return The right element as the value, may be null.
      */

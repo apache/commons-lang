@@ -17,7 +17,9 @@
 
 /**
  * Provides high-level uses of the {@code java.lang.reflect} APIs.
- * <p>These classes are immutable and thread-safe.</p>
+ * <p>
+ * These classes are immutable and thread-safe.
+ * </p>
  *
  * @since 3.0
  */
