@@ -289,6 +289,7 @@ java.lang.NullPointerException: Cannot invoke
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Defensively clone the TimeZone in FastDatePrinter and FastDateParser (#1795).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Defensively clone time zones used as FastDateFormat cache keys to prevent caller mutations from returning formatters with stale time zone rules.</action>
     <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Fix ConstructorUtils.getMatchingAccessibleConstructor on non-public classes (#1793).</action>
+    <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Fix NumberUtils.createNumber() and isCreatable() for positive Long literals with explicit '+' sign (#1796).</action>
     <!-- ADD -->
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_27.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_27.</action>
