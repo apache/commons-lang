@@ -615,6 +615,12 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(Long.valueOf(-12345), NumberUtils.createNumber("-12345l"), "createNumber(String) -l failed");
         assertEquals(Long.valueOf(0), NumberUtils.createNumber("+0L"), "createNumber(String) +0L failed");
         assertEquals(Long.valueOf(0), NumberUtils.createNumber("+0l"), "createNumber(String) +0l failed");
+        assertEquals(Long.valueOf(Long.MAX_VALUE), NumberUtils.createNumber("+" + Long.MAX_VALUE + "L"), "createNumber(String) +Long.MAX_VALUE L failed");
+        assertEquals(Long.valueOf(Long.MAX_VALUE), NumberUtils.createNumber("+" + Long.MAX_VALUE + "l"), "createNumber(String) +Long.MAX_VALUE l failed");
+        assertEquals(Long.valueOf(Long.MAX_VALUE), NumberUtils.createNumber(Long.MAX_VALUE + "L"), "createNumber(String) Long.MAX_VALUE L failed");
+        assertEquals(Long.valueOf(Long.MAX_VALUE), NumberUtils.createNumber(Long.MAX_VALUE + "l"), "createNumber(String) Long.MAX_VALUE l failed");
+        assertEquals(Long.valueOf(Long.MIN_VALUE), NumberUtils.createNumber(Long.MIN_VALUE + "L"), "createNumber(String) Long.MIN_VALUE L failed");
+        assertEquals(Long.valueOf(Long.MIN_VALUE), NumberUtils.createNumber(Long.MIN_VALUE + "l"), "createNumber(String) Long.MIN_VALUE l failed");
         assertEquals(Float.valueOf("-1234.5"), NumberUtils.createNumber("-1234.5"), "createNumber(String) 7 failed");
         assertEquals(Integer.valueOf("-12345"), NumberUtils.createNumber("-12345"), "createNumber(String) 8 failed");
         assertEquals(0xFADE, NumberUtils.createNumber("0xFADE").intValue(), "createNumber(String) 9a failed");
@@ -629,6 +635,10 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(new BigInteger("12345678901234567890"), NumberUtils.createNumber("12345678901234567890L"), "createNumber(String) failed");
         assertEquals(new BigInteger("12345678901234567890"), NumberUtils.createNumber("+12345678901234567890L"), "createNumber(String) failed");
         assertEquals(new BigInteger("12345678901234567890"), NumberUtils.createNumber("+12345678901234567890l"), "createNumber(String) failed");
+        final BigInteger overMaxLong = BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE);
+        assertEquals(overMaxLong, NumberUtils.createNumber("+" + overMaxLong + "L"), "createNumber(String) +overMaxLong L failed");
+        assertEquals(overMaxLong, NumberUtils.createNumber("+" + overMaxLong + "l"), "createNumber(String) +overMaxLong l failed");
+        assertEquals(overMaxLong, NumberUtils.createNumber(overMaxLong + "L"), "createNumber(String) overMaxLong L failed");
         assertEquals(new BigDecimal("1.1E-700"), NumberUtils.createNumber("1.1E-700F"), "createNumber(String) 15 failed");
         assertEquals(Long.valueOf("10" + Integer.MAX_VALUE), NumberUtils.createNumber("10" + Integer.MAX_VALUE + "L"), "createNumber(String) 16 failed");
         assertEquals(Long.valueOf("10" + Integer.MAX_VALUE), NumberUtils.createNumber("10" + Integer.MAX_VALUE), "createNumber(String) 17 failed");
@@ -726,6 +736,19 @@ class NumberUtilsTest extends AbstractLangTest {
     // Check that the code fails to create a valid number when there are multiple trailing 'D' characters (LANG-1205)
     void testCreateNumberFailure_8() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("1234.5DD"));
+    }
+
+    @Test
+    // Check that the code fails to create a valid number with malformed signs for Long literals
+    void testCreateNumberFailure_9() {
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("++1L"));
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("++1l"));
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("--1L"));
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("--1l"));
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("+-1L"));
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("-+1L"));
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("+L"));
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("-L"));
     }
 
     // Tests to show when magnitude causes switch to next Number type
@@ -845,6 +868,14 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsCreatableWithCreateNumber("+22338l", true);
         compareIsCreatableWithCreateNumber("+0L", true);
         compareIsCreatableWithCreateNumber("+0l", true);
+        compareIsCreatableWithCreateNumber("+" + Long.MAX_VALUE + "L", true);
+        compareIsCreatableWithCreateNumber("+" + Long.MAX_VALUE + "l", true);
+        compareIsCreatableWithCreateNumber(Long.MAX_VALUE + "L", true);
+        compareIsCreatableWithCreateNumber(Long.MAX_VALUE + "l", true);
+        compareIsCreatableWithCreateNumber(Long.MIN_VALUE + "L", true);
+        compareIsCreatableWithCreateNumber(Long.MIN_VALUE + "l", true);
+        compareIsCreatableWithCreateNumber("+" + BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE) + "L", true);
+        compareIsCreatableWithCreateNumber("+" + BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE) + "l", true);
         compareIsCreatableWithCreateNumber("+12345678901234567890L", true);
         compareIsCreatableWithCreateNumber(null, false);
         compareIsCreatableWithCreateNumber("", false);
@@ -855,6 +886,14 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsCreatableWithCreateNumber("-+2", false);
         compareIsCreatableWithCreateNumber("+-2", false);
         compareIsCreatableWithCreateNumber("++2", false);
+        compareIsCreatableWithCreateNumber("++1L", false);
+        compareIsCreatableWithCreateNumber("++1l", false);
+        compareIsCreatableWithCreateNumber("--1L", false);
+        compareIsCreatableWithCreateNumber("--1l", false);
+        compareIsCreatableWithCreateNumber("+-1L", false);
+        compareIsCreatableWithCreateNumber("-+1L", false);
+        compareIsCreatableWithCreateNumber("+L", false);
+        compareIsCreatableWithCreateNumber("-L", false);
         compareIsCreatableWithCreateNumber(".12.3", false);
         compareIsCreatableWithCreateNumber("-123E", false);
         compareIsCreatableWithCreateNumber("-123E+-212", false);
