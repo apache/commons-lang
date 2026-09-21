@@ -70,6 +70,7 @@ class JavaVersionTest extends AbstractLangTest {
         assertEquals(JavaVersion.JAVA_25, JavaVersion.get("25"));
         assertEquals(JavaVersion.JAVA_26, JavaVersion.get("26"));
         assertEquals(JavaVersion.JAVA_27, JavaVersion.get("27"));
+        assertEquals(JavaVersion.JAVA_28, JavaVersion.get("28"));
     }
 
     @Test
