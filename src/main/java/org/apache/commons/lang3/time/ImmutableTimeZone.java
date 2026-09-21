@@ -45,6 +45,21 @@ final class ImmutableTimeZone extends TimeZone {
      * {@inheritDoc}
      */
     @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof TimeZone)) {
+            return false;
+        }
+        final TimeZone other = (TimeZone) obj;
+        return timeZone.equals(other instanceof ImmutableTimeZone ? ((ImmutableTimeZone) other).timeZone : other);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String getDisplayName(final boolean daylight, final int style, final Locale locale) {
         return timeZone.getDisplayName(daylight, style, locale);
     }
@@ -87,6 +102,14 @@ final class ImmutableTimeZone extends TimeZone {
     @Override
     public int getRawOffset() {
         return timeZone.getRawOffset();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return timeZone.hashCode();
     }
 
     /**
