@@ -18,6 +18,8 @@
 package org.apache.commons.lang3.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -60,6 +62,20 @@ class ImmutableTimeZoneTest extends AbstractLangTest {
     }
 
     @Test
+    void testEquals() {
+        final ImmutableTimeZone anotherUtc = new ImmutableTimeZone((TimeZone) UTC.clone());
+        assertEquals(utcImmutable, utcImmutable);
+        assertEquals(utcImmutable, anotherUtc);
+        assertEquals(anotherUtc, utcImmutable);
+        assertNotEquals(utcImmutable, newYorkImmutable);
+        assertEquals(utcImmutable, UTC);
+        assertEquals(utcImmutable, UTC.clone());
+        assertNotEquals(utcImmutable, NEW_YORK);
+        assertFalse(utcImmutable.equals(null));
+        assertFalse(utcImmutable.equals("UTC"));
+    }
+
+    @Test
     void testGetDisplayNameDelegatesToWrappedTimeZone() {
         assertEquals(UTC.getDisplayName(false, TimeZone.LONG, Locale.US), utcImmutable.getDisplayName(false, TimeZone.LONG, Locale.US));
         assertEquals(NEW_YORK.getDisplayName(true, TimeZone.SHORT, Locale.US), newYorkImmutable.getDisplayName(true, TimeZone.SHORT, Locale.US));
@@ -95,6 +111,13 @@ class ImmutableTimeZoneTest extends AbstractLangTest {
     void testGetRawOffsetDelegatesToWrappedTimeZone() {
         assertEquals(UTC.getRawOffset(), utcImmutable.getRawOffset());
         assertEquals(NEW_YORK.getRawOffset(), newYorkImmutable.getRawOffset());
+    }
+
+    @Test
+    void testHashCode() {
+        final ImmutableTimeZone anotherUtc = new ImmutableTimeZone((TimeZone) UTC.clone());
+        assertEquals(UTC.hashCode(), utcImmutable.hashCode());
+        assertEquals(utcImmutable.hashCode(), anotherUtc.hashCode());
     }
 
     @Test
