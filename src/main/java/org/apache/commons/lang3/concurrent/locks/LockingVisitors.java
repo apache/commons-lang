@@ -33,8 +33,9 @@ import org.apache.commons.lang3.function.Suppliers;
 /**
  * Combines the monitor and visitor pattern to work with {@link Lock}s as an alternative to synchronization.
  * <p>
- * Locking may be preferable to synchronization or when an application needs a distinction between read access (multiple threads may have read access
- * concurrently) and write access (only one thread may have write access at any given time).
+ * The read and write methods use the locks supplied by the visitor. A {@link ReentrantLockVisitor} uses one exclusive lock for both methods.
+ * A {@link ReadWriteLockVisitor} uses the underlying read and write locks, while a {@link StampedLockVisitor} uses its read and write
+ * {@link Lock} views. Read operations may run concurrently only when the supplied lock supports shared reads.
  * </p>
  * <p>
  * For example, to use this class with a {@link ReentrantLock}:
@@ -155,8 +156,8 @@ public class LockingVisitors {
         public static class LVBuilder<O, L, B extends LVBuilder<O, L, B>> extends AbstractSupplier<LockVisitor<O, L>, B, RuntimeException> {
 
             /**
-             * The lock object, untyped, since, for example {@link StampedLock} does not implement a locking interface in
-             * Java 8.
+             * The underlying lock object. Its type varies because {@link StampedLock} does not implement {@link Lock} or
+             * {@link ReadWriteLock}.
              */
             L lock;
 
@@ -166,12 +167,12 @@ public class LockingVisitors {
             O object;
 
             /**
-             * Supplies the read lock, usually from the lock object.
+             * Supplies the lock used by read methods.
              */
             private Supplier<Lock> readLockSupplier;
 
             /**
-             * Supplies the write lock, usually from the lock object.
+             * Supplies the lock used by write methods.
              */
             private Supplier<Lock> writeLockSupplier;
 
@@ -197,7 +198,7 @@ public class LockingVisitors {
             }
 
             /**
-             * Sets the lock used by accept methods.
+             * Sets the underlying lock returned by {@link LockVisitor#getLock()}.
              *
              * @param lock The lock.
              * @return {@code this} instance.
@@ -219,7 +220,7 @@ public class LockingVisitors {
             }
 
             /**
-             * Sets the supplier of the read lock.
+             * Sets the supplier of the lock used by read methods.
              *
              * @param readLockSupplier Supplies the read lock.
              * @return {@code this} instance.
@@ -230,7 +231,7 @@ public class LockingVisitors {
             }
 
             /**
-             * Sets the supplier of the write lock.
+             * Sets the supplier of the lock used by write methods.
              *
              * @param writeLockSupplier Supplies the write lock.
              * @return {@code this} instance.
@@ -242,8 +243,8 @@ public class LockingVisitors {
         }
 
         /**
-         * The lock object, untyped, since, for example {@link StampedLock} does not implement a locking interface in
-         * Java 8.
+         * The underlying lock object. Its type varies because {@link StampedLock} does not implement {@link Lock} or
+         * {@link ReadWriteLock}.
          */
         private final L lock;
 
@@ -253,12 +254,12 @@ public class LockingVisitors {
         private final O object;
 
         /**
-         * Supplies the read lock, usually from the lock object.
+         * Supplies the lock used by read methods.
          */
         private final Supplier<Lock> readLockSupplier;
 
         /**
-         * Supplies the write lock, usually from the lock object.
+         * Supplies the lock used by write methods.
          */
         private final Supplier<Lock> writeLockSupplier;
 
@@ -279,8 +280,8 @@ public class LockingVisitors {
          *
          * @param object The object to guard.
          * @param lock The locking object.
-         * @param readLockSupplier Supplies the read lock, usually from the lock object.
-         * @param writeLockSupplier Supplies the write lock, usually from the lock object.
+         * @param readLockSupplier Supplies the lock used by read methods.
+         * @param writeLockSupplier Supplies the lock used by write methods.
          */
         protected LockVisitor(final O object, final L lock, final Supplier<Lock> readLockSupplier, final Supplier<Lock> writeLockSupplier) {
             this.object = Objects.requireNonNull(object, "object");
@@ -290,19 +291,11 @@ public class LockingVisitors {
         }
 
         /**
-         * Provides read (shared, non-exclusive) access to The object to protect. More precisely, what the method
-         * will do (in the given order):
+         * Invokes the consumer while holding the lock supplied for read operations.
+         * The lock is released in a {@code finally} block after the consumer returns or throws. Whether other readers can proceed concurrently depends on the
+         * supplied lock.
          *
-         * <ol>
-         * <li>Obtain a read (shared) lock on The object to protect. The current thread may block, until such a
-         * lock is granted.</li>
-         * <li>Invokes the given {@link FailableConsumer consumer}, passing the locked object as the parameter.</li>
-         * <li>Release the lock, as soon as the consumers invocation is done. If the invocation results in an error, the
-         * lock will be released anyways.</li>
-         * </ol>
-         *
-         * @param consumer The consumer, which is being invoked to use the hidden object, which will be passed as the
-         *        consumers parameter.
+         * @param consumer The consumer of the guarded object.
          * @see #acceptWriteLocked(FailableConsumer)
          * @see #applyReadLocked(FailableFunction)
          */
@@ -311,19 +304,10 @@ public class LockingVisitors {
         }
 
         /**
-         * Provides write (exclusive) access to The object to protect. More precisely, what the method will do (in
-         * the given order):
+         * Invokes the consumer while holding the lock supplied for write operations.
+         * The lock is released in a {@code finally} block after the consumer returns or throws.
          *
-         * <ol>
-         * <li>Obtain a write (shared) lock on The object to protect. The current thread may block, until such a
-         * lock is granted.</li>
-         * <li>Invokes the given {@link FailableConsumer consumer}, passing the locked object as the parameter.</li>
-         * <li>Release the lock, as soon as the consumers invocation is done. If the invocation results in an error, the
-         * lock will be released anyways.</li>
-         * </ol>
-         *
-         * @param consumer The consumer, which is being invoked to use the hidden object, which will be passed as the
-         *        consumers parameter.
+         * @param consumer The consumer of the guarded object.
          * @see #acceptReadLocked(FailableConsumer)
          * @see #applyWriteLocked(FailableFunction)
          */
@@ -332,36 +316,13 @@ public class LockingVisitors {
         }
 
         /**
-         * Provides read (shared, non-exclusive) access to The object to protect for the purpose of computing a
-         * result object. More precisely, what the method will do (in the given order):
+         * Applies the function while holding the lock supplied for read operations.
+         * The lock is released in a {@code finally} block after the function returns or throws. Whether other readers can proceed concurrently depends on the
+         * supplied lock.
          *
-         * <ol>
-         * <li>Obtain a read (shared) lock on The object to protect. The current thread may block, until such a
-         * lock is granted.</li>
-         * <li>Invokes the given {@link FailableFunction function}, passing the locked object as the parameter,
-         * receiving the functions result.</li>
-         * <li>Release the lock, as soon as the consumers invocation is done. If the invocation results in an error, the
-         * lock will be released anyways.</li>
-         * <li>Return the result object, that has been received from the functions invocation.</li>
-         * </ol>
-         * <p>
-         * <em>Example:</em> Consider that the hidden object is a list, and we wish to know the current size of the
-         * list. This might be achieved with the following:
-         * </p>
-         * <pre>{@code
-         * private Lock<List<Object>> listLock;
-         *
-         * public int getCurrentListSize() {
-         *     final Integer sizeInteger = listLock.applyReadLocked(list -> Integer.valueOf(list.size));
-         *     return sizeInteger.intValue();
-         * }
-         * }
-         * </pre>
-         *
-         * @param <T> The result type (both the functions, and this method's.)
-         * @param function The function, which is being invoked to compute the result. The function will receive the
-         *        hidden object.
-         * @return The result object, which has been returned by the functions invocation.
+         * @param <T> The result type.
+         * @param function The function applied to the guarded object.
+         * @return The function result.
          * @throws NullPointerException Thrown if the lock supplier is null or returns null.
          * @see #acceptReadLocked(FailableConsumer)
          * @see #applyWriteLocked(FailableFunction)
@@ -371,26 +332,15 @@ public class LockingVisitors {
         }
 
         /**
-         * Provides write (exclusive) access to The object to protect for the purpose of computing a result object.
-         * More precisely, what the method will do (in the given order):
+         * Applies the function while holding the lock supplied for write operations.
+         * The lock is released in a {@code finally} block after the function returns or throws.
          *
-         * <ol>
-         * <li>Obtain a read (shared) lock on The object to protect. The current thread may block, until such a
-         * lock is granted.</li>
-         * <li>Invokes the given {@link FailableFunction function}, passing the locked object as the parameter,
-         * receiving the functions result.</li>
-         * <li>Release the lock, as soon as the consumers invocation is done. If the invocation results in an error, the
-         * lock will be released anyways.</li>
-         * <li>Return the result object, that has been received from the functions invocation.</li>
-         * </ol>
-         *
-         * @param <T> The result type (both the functions, and this method's.)
-         * @param function The function, which is being invoked to compute the result. The function will receive the
-         *        hidden object.
-         * @return The result object, which has been returned by the functions invocation.
+         * @param <T> The result type.
+         * @param function The function applied to the guarded object.
+         * @return The function result.
          * @throws NullPointerException Thrown if the lock supplier is null or returns null.
-         * @see #acceptReadLocked(FailableConsumer)
-         * @see #applyWriteLocked(FailableFunction)
+         * @see #acceptWriteLocked(FailableConsumer)
+         * @see #applyReadLocked(FailableFunction)
          */
         public <T> T applyWriteLocked(final FailableFunction<O, T, ?> function) {
             return lockApplyUnlock(writeLockSupplier, function);
@@ -415,13 +365,11 @@ public class LockingVisitors {
         }
 
         /**
-         * This method provides the default implementation for {@link #acceptReadLocked(FailableConsumer)}, and
+         * Implements {@link #acceptReadLocked(FailableConsumer)} and
          * {@link #acceptWriteLocked(FailableConsumer)}.
          *
-         * @param lockSupplier A supplier for the lock. (This provides, in fact, a long, because a {@link StampedLock} is used
-         *        internally.)
-         * @param consumer The consumer, which is to be given access to The object to protect, which will be passed
-         *        as a parameter.
+         * @param lockSupplier Supplies the {@link Lock} to acquire and release, including a {@link StampedLock} view.
+         * @param consumer The consumer of the guarded object.
          * @see #acceptReadLocked(FailableConsumer)
          * @see #acceptWriteLocked(FailableConsumer)
          */
@@ -436,15 +384,13 @@ public class LockingVisitors {
         }
 
         /**
-         * This method provides the actual implementation for {@link #applyReadLocked(FailableFunction)}, and
+         * Implements {@link #applyReadLocked(FailableFunction)} and
          * {@link #applyWriteLocked(FailableFunction)}.
          *
-         * @param <T> The result type (both the functions, and this method's.)
-         * @param lockSupplier A supplier for the lock. (This provides, in fact, a long, because a {@link StampedLock} is used
-         *        internally.)
-         * @param function The function, which is being invoked to compute the result object. This function will receive
-         *        The object to protect as a parameter.
-         * @return The result object, which has been returned by the functions invocation.
+         * @param <T> The result type.
+         * @param lockSupplier Supplies the {@link Lock} to acquire and release, including a {@link StampedLock} view.
+         * @param function The function applied to the guarded object.
+         * @return The function result.
          * @throws NullPointerException Thrown if the lock supplier is null or returns null.
          * @see #applyReadLocked(FailableFunction)
          * @see #applyWriteLocked(FailableFunction)
@@ -462,7 +408,8 @@ public class LockingVisitors {
     }
 
     /**
-     * Wraps a {@link ReadWriteLock} and object to protect. To access the object, use the methods {@link #acceptReadLocked(FailableConsumer)},
+     * Wraps a {@link ReadWriteLock} and object to protect. Read methods use {@link ReadWriteLock#readLock()}, and write methods use
+     * {@link ReadWriteLock#writeLock()}. To access the object, use the methods {@link #acceptReadLocked(FailableConsumer)},
      * {@link #acceptWriteLocked(FailableConsumer)}, {@link #applyReadLocked(FailableFunction)}, and {@link #applyWriteLocked(FailableFunction)}. The visitor
      * holds the lock while the consumer or function is called.
      *
@@ -533,7 +480,8 @@ public class LockingVisitors {
     }
 
     /**
-     * Wraps a {@link ReentrantLock} and object to protect. To access the object, use the methods {@link #acceptReadLocked(FailableConsumer)},
+     * Wraps a {@link ReentrantLock} and object to protect. Both read and write methods acquire the same exclusive lock.
+     * To access the object, use the methods {@link #acceptReadLocked(FailableConsumer)},
      * {@link #acceptWriteLocked(FailableConsumer)}, {@link #applyReadLocked(FailableFunction)}, and {@link #applyWriteLocked(FailableFunction)}. The visitor
      * holds the lock while the consumer or function is called.
      *
@@ -596,7 +544,7 @@ public class LockingVisitors {
         /**
          * Creates a new instance with the given object and lock.
          * <p>
-         * This visitor uses the given ReentrantLock for all of its accept and apply methods.
+         * This visitor uses the given {@link ReentrantLock} for both read and write methods; both acquire it exclusively.
          * </p>
          *
          * @param object The object to protect. The caller is supposed to drop all references to the locked object.
@@ -609,7 +557,8 @@ public class LockingVisitors {
     }
 
     /**
-     * Wraps a {@link StampedLock} and object to protect. To access the object, use the methods {@link #acceptReadLocked(FailableConsumer)},
+     * Wraps a {@link StampedLock} and object to protect. Read methods use {@link StampedLock#asReadLock()}, and write methods use
+     * {@link StampedLock#asWriteLock()}. To access the object, use the methods {@link #acceptReadLocked(FailableConsumer)},
      * {@link #acceptWriteLocked(FailableConsumer)}, {@link #applyReadLocked(FailableFunction)}, and {@link #applyWriteLocked(FailableFunction)}. The visitor
      * holds the lock while the consumer or function is called.
      *
