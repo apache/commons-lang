@@ -738,8 +738,10 @@ class NumberUtilsTest extends AbstractLangTest {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("1234.5DD"));
     }
 
+    /**
+     * Reject malformed signs in Long-suffixed numbers.
+     */
     @Test
-    // Check that the code fails to create a valid number with malformed signs for Long literals
     void testCreateNumberFailure_9() {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("++1L"));
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("++1l"));
