@@ -221,6 +221,29 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
     }
 
+    /**
+     * Field exclusions configured on the outer {@link ReflectionToStringBuilder} must also apply while
+     * recursively rendering nested objects, not just to the outer object's own fields.
+     *
+     * @see <a href="https://issues.apache.org/jira/browse/LANG-1249">LANG-1249</a>
+     */
+    @Test
+    void testExcludeFieldNamesAppliesToNestedObjects() {
+        final Person p = new Person();
+        p.name = "John Doe";
+        p.age = 33;
+        p.smoker = false;
+        p.job = new Job();
+        p.job.title = "Manager";
+        final String baseStr = p.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p));
+        final String jobStr = p.job.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(p.job));
+        final ReflectionToStringBuilder builder = new ReflectionToStringBuilder(p, new RecursiveToStringStyle());
+        builder.setExcludeFieldNames("title");
+        final String expected = baseStr
+                + (builder.isForceAccessible() ? "[age=33,job=" + jobStr + "[],name=John Doe,smoker=false]" : "[age=<null>,job=<null>,name=<null>,smoker=<null>]");
+        assertEquals(expected, builder.toString());
+    }
+
     @Test
     void testPerson() {
         final Person p = new Person();
