@@ -45,19 +45,21 @@ Apache Commons Lang
 
 [![Java CI](https://github.com/apache/commons-lang/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-lang/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.commons/commons-lang3?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.commons/commons-lang3)
-[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.20.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.20.0)
+[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-lang3/3.21.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-lang3/3.21.0)
 [![CodeQL](https://github.com/apache/commons-lang/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-lang/actions/workflows/codeql-analysis.yml)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-lang/badge)](https://scorecard.dev/viewer/?uri=github.com/apache/commons-lang)
 
-Apache Commons Lang, a package of Java utility classes for the
-  classes that are in java.lang's hierarchy, or are considered to be so
-  standard as to justify existence in java.lang.
+Apache Commons Lang is a package of Java utility classes for the Java lang packages,
+  classes that could be considered standard to justify their existence in java.lang.
 
-  The code is tested using the latest revision of the JDK for supported
-  LTS releases: 8, 11, 17, 21 and 25 currently.
+  The code is tested using the latest revision of the JDK for supported LTS releases: 8, 11, 17, 21, and 25.
   See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
-  
+
   Please ensure your build environment is up-to-date and kindly report any build issues.
+
+  Starting with Commons Lang 3.9, we target Java 8 and use those features.
+
+  For advice on upgrading from 2.x to 3.x, see https://commons.apache.org/lang/article3_0.html
 
 Documentation
 -------------
@@ -76,7 +78,7 @@ Alternatively, you can pull it from the central Maven repositories:
 <dependency>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-lang3</artifactId>
-  <version>3.20.0</version>
+  <version>3.21.0</version>
 </dependency>
 ```
 
@@ -91,11 +93,11 @@ From a command shell, run `mvn` without arguments to invoke the default Maven go
 Contributing
 ------------
 
-We accept Pull Requests via GitHub. The [developer mailing list](https://commons.apache.org/mail-lists.html) is the main channel of communication for contributors.
+We accept pull requests via GitHub. The [developer mailing list](https://commons.apache.org/mail-lists.html) is the main channel of communication for contributors.
 There are some guidelines which will make applying PRs easier for us:
 + No tabs! Please use spaces for indentation.
 + Respect the existing code style for each file.
-+ Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted, create a separate PR for this change.
++ Create minimal diffs: disable on-save actions like reformatting source code or organizing imports. If you feel the source code should be reformatted, create a separate PR for this change.
 + Provide JUnit tests for your changes and make sure your changes don't break any existing tests by running `mvn`.
 + Before you push a PR, run `mvn` (without arguments). This runs the default goal which contains all build checks.
 + To see the code coverage report, regardless of coverage failures, run `mvn clean site -Dcommons.jacoco.haltOnFailure=false -Pjacoco`
@@ -119,9 +121,9 @@ Additional Resources
 + [Apache Commons Homepage](https://commons.apache.org/)
 + [Apache Issue Tracker (JIRA)](https://issues.apache.org/jira/browse/LANG)
 + [Apache Commons Slack Channel](https://the-asf.slack.com/archives/C60NVB8AD)
-+ [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
 
 Apache Commons Components
 -------------------------
 
-Please see the [list of components](https://commons.apache.org/components.html)
++ [List of Apache Commons components](https://commons.apache.org/components.html): homepages and documentation for all components.
++ [`REPOSITORIES.md`](https://github.com/apache/commons-parent/blob/master/REPOSITORIES.md): overview of the code repositories and their build status.

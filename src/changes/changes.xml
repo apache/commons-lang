@@ -44,7 +44,7 @@ The <action> type attribute can be add,update,fix,remove.
     <title>Apache Commons Lang Release Notes</title>
   </properties>
   <body>
-  <release version="3.21.0" date="YYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+  <release version="3.21.0" date="2026-09-22" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="Javid Khan, Gary Gregory">Stop ExtendedMessageFormat seekNonWs reading past the pattern end.</action>
     <action                   type="fix" dev="ggregory" due-to="ThrawnCA">Fix spelling and grammar in StringUtils #1486.</action>
@@ -128,9 +128,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Lars Helge Øverland, Gary Gregory">Fix StopWatch's stopInstant match stopTimeNanos when split is called #1610.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix NullPointerException in StopWatch.getStopTime().</action>
     <action                   type="fix" dev="ggregory" due-to="Volkmar W. Pogatzki, Gary Gregory">Add "ppc64le" to ArchUtils #1625. See https://bugs.gentoo.org/972590
-Bug 972590 - dev-java/commons-lang-3.20.0:
-java.lang.NullPointerException: Cannot invoke
-"org.apache.commons.lang3.arch.Processor.toString()" because "&lt;local1&gt;"</action>
+      Bug 972590 - dev-java/commons-lang-3.20.0:
+      java.lang.NullPointerException: Cannot invoke
+      "org.apache.commons.lang3.arch.Processor.toString()" because "&lt;local1&gt;"</action>
     <action issue="LANG-1821" type="fix" dev="ggregory" due-to="FloydDsilva, Gary Gregory, Rob Tompkins">NumberUtils.isCreatable(String) should match NumberUtils.createNumber(String), exactly #1626.</action>
     <action                   type="fix" dev="ggregory" due-to="尹茂椿萱, Gary Gregory">NumberUtils.isCreatable fails for hexadecimal numbers with long type qualifier.</action>
     <action                   type="fix" dev="ggregory" due-to="ax1nch, Gary Gregory">NumberUtils.createNumber() performance: Short-circuit check based on pre-derived candidate Double #1628.</action>

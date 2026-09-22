@@ -41,17 +41,17 @@
 Contributing to Apache Commons Lang
 ======================
 
-Have you found a bug or do you have an idea for a cool new feature? Contributing code is a great way to give something back to the open-source community.
-Before you dig right into the code, we need contributors to follow a few guidelines to have a chance of keeping on top of things.
+Have you found a bug, or do you have an idea for a cool new feature? Contributing code is a great way to give something back to the open-source community.
+Before you dig right into the code, please review these guidelines to help us manage contributions.
 
 Getting Started
 ---------------
 
 + Make sure you have a [JIRA account](https://issues.apache.org/jira/).
-+ Make sure you have a [GitHub account](https://github.com/signup). This is not essential, but makes providing patches much easier.
++ Make sure you have a [GitHub account](https://github.com/signup). This is not essential, but it makes providing patches much easier.
 + If you're planning to implement a new feature, it makes sense to discuss your changes on the [dev list](https://commons.apache.org/mail-lists.html) first. This way you can make sure you're not wasting your time on something that isn't considered to be in Apache Commons Lang's scope.
 + Submit a [Jira Ticket][jira] for your issue, assuming one does not already exist.
-  + Clearly describe the issue including steps to reproduce when it is a bug.
+  + Clearly describe the issue, including steps to reproduce it if it is a bug.
   + Make sure you fill in the earliest version that you know has the issue.
 + Find the corresponding [repository on GitHub](https://github.com/apache/?query=commons-),
 [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) and check out your forked repository. If you don't have a GitHub account, you can still clone the Commons repository.
@@ -60,16 +60,16 @@ Making Changes
 --------------
 
 + Create a _topic branch_ for your isolated work.
-  * Usually you should base your branch on the `master` branch.
-  * A good topic branch name can be the JIRA bug ID plus a keyword, e.g. `LANG-123-InputStream`.
+  * Usually, you should base your branch on the `master` branch.
+  * A good topic branch name can be the JIRA bug ID plus a keyword, e.g., `LANG-123-InputStream`.
   * If you have submitted multiple JIRA issues, try to maintain separate branches and pull requests.
 + Make commits of logical units.
   * Make sure your commit messages are meaningful and in the proper format. Your commit message should contain the key of the JIRA issue.
   * For example, `[LANG-123] Close input stream sooner`
 + Respect the original code style:
   + Only use spaces for indentation; you can check for unnecessary whitespace with `git diff` before committing.
-  + Create minimal diffs - disable _On Save_ actions like _Reformat Source Code_ or _Organize Imports_. If you feel the source code should be reformatted, create a separate PR for this change first.
-+ Write unit tests that match behavioral changes, where the tests fail if the changes to the runtime are not applied. This may not always be possible but is a best practice.
+  + Create minimal diffs: disable _On Save_ actions like _Reformat Source Code_ or _Organize Imports_. If you feel the source code should be reformatted, create a separate PR for this change first.
++ Write unit tests that match behavioral changes, where the tests fail if the changes to the runtime are not applied. This may not always be possible, but it is a best practice.
 Unit tests are typically in the `src/test/java` directory.
 + Run a successful build using the default [Maven](https://maven.apache.org/) goal with `mvn`; that's `mvn` on the command line by itself.
 + Write a pull request description that is detailed enough to understand what the pull request does, how, and why.
@@ -95,7 +95,7 @@ Submitting Changes
 + Push your changes to a topic branch in your fork of the repository.
 + Submit a _Pull Request_ to the corresponding repository in the `apache` organization.
   * Verify _Files Changed_ shows only your intended changes and does not
-  include additional files like `target/*.class`
+  include additional files like `target/*.class`.
 + Update your JIRA ticket and include a link to the pull request in the ticket.
 
 If you prefer to not use GitHub, then you can instead use
@@ -110,7 +110,6 @@ Additional Resources
 + [Contributor License Agreement][cla]
 + [General GitHub documentation](https://docs.github.com/)
 + [GitHub pull request documentation](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
-+ [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
 
 [cla]:https://www.apache.org/licenses/#clas
 [jira]:https://issues.apache.org/jira/browse/LANG
