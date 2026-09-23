@@ -8033,7 +8033,8 @@ public class StringUtils {
         }
         final StringBuilder decomposed = new StringBuilder(Normalizer.normalize(input, Normalizer.Form.NFKD));
         convertRemainingAccentCharacters(decomposed);
-        return STRIP_ACCENTS_PATTERN.matcher(decomposed).replaceAll(EMPTY);
+        final String stripped = STRIP_ACCENTS_PATTERN.matcher(decomposed).replaceAll(EMPTY);
+        return Normalizer.normalize(stripped, Normalizer.Form.NFC);
     }
 
     /**
