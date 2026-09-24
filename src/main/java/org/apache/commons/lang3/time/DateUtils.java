@@ -52,7 +52,10 @@ import org.apache.commons.lang3.LocaleUtils;
  * Several methods are provided for adding to {@link Date} objects, of the form
  * {@code addXXX(Date date, int amount)}. It is important to note these methods
  * use a {@link Calendar} internally (with default time zone and locale) and may
- * be affected by changes to daylight saving time (DST).
+ * be affected by changes to daylight saving time (DST). Overloaded methods of the form
+ * {@code addXXX(Date date, int amount, TimeZone timeZone)} allow caller control over the
+ * time zone used; for instance, specifying {@link TimeZones#GMT} ensures absolute physical
+ * time arithmetic without DST adjustments.
  * </p>
  *
  * @since 2.0
@@ -221,9 +224,23 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is null.
      */
     private static Date add(final Date date, final int calendarField, final int amount) {
-        validateDateNotNull(date);
-        final Calendar c = Calendar.getInstance();
-        c.setTime(date);
+        return add(date, calendarField, amount, null);
+    }
+
+    /**
+     * Adds to a date returning a new object using the specified time zone.
+     * The original {@link Date} is unchanged.
+     *
+     * @param date  The date, not null.
+     * @param calendarField  The calendar field to add to.
+     * @param amount  The amount to add, may be negative.
+     * @param timeZone  The time zone to use, null means default time zone.
+     * @return The new {@link Date} with the amount added.
+     * @throws NullPointerException Thrown if the date is null.
+     * @since 3.21.0
+     */
+    public static Date add(final Date date, final int calendarField, final int amount, final TimeZone timeZone) {
+        final Calendar c = toCalendar(date, TimeZones.toTimeZone(timeZone));
         c.add(calendarField, amount);
         return c.getTime();
     }
@@ -238,7 +255,22 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is null.
      */
     public static Date addDays(final Date date, final int amount) {
-        return add(date, Calendar.DAY_OF_MONTH, amount);
+        return add(date, Calendar.DAY_OF_MONTH, amount, null);
+    }
+
+    /**
+     * Adds a number of days to a date returning a new object using the specified time zone.
+     * The original {@link Date} is unchanged.
+     *
+     * @param date  The date, not null.
+     * @param amount  The amount to add, may be negative.
+     * @param timeZone  The time zone to use, null means default time zone.
+     * @return The new {@link Date} with the amount added.
+     * @throws NullPointerException Thrown if the date is null.
+     * @since 3.21.0
+     */
+    public static Date addDays(final Date date, final int amount, final TimeZone timeZone) {
+        return add(date, Calendar.DAY_OF_MONTH, amount, timeZone);
     }
 
     /**
@@ -251,7 +283,22 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is null.
      */
     public static Date addHours(final Date date, final int amount) {
-        return add(date, Calendar.HOUR_OF_DAY, amount);
+        return add(date, Calendar.HOUR_OF_DAY, amount, null);
+    }
+
+    /**
+     * Adds a number of hours to a date returning a new object using the specified time zone.
+     * The original {@link Date} is unchanged.
+     *
+     * @param date  The date, not null.
+     * @param amount  The amount to add, may be negative.
+     * @param timeZone  The time zone to use, null means default time zone.
+     * @return The new {@link Date} with the amount added.
+     * @throws NullPointerException Thrown if the date is null.
+     * @since 3.21.0
+     */
+    public static Date addHours(final Date date, final int amount, final TimeZone timeZone) {
+        return add(date, Calendar.HOUR_OF_DAY, amount, timeZone);
     }
 
     /**
@@ -264,7 +311,22 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is null.
      */
     public static Date addMilliseconds(final Date date, final int amount) {
-        return add(date, Calendar.MILLISECOND, amount);
+        return add(date, Calendar.MILLISECOND, amount, null);
+    }
+
+    /**
+     * Adds a number of milliseconds to a date returning a new object using the specified time zone.
+     * The original {@link Date} is unchanged.
+     *
+     * @param date  The date, not null.
+     * @param amount  The amount to add, may be negative.
+     * @param timeZone  The time zone to use, null means default time zone.
+     * @return The new {@link Date} with the amount added.
+     * @throws NullPointerException Thrown if the date is null.
+     * @since 3.21.0
+     */
+    public static Date addMilliseconds(final Date date, final int amount, final TimeZone timeZone) {
+        return add(date, Calendar.MILLISECOND, amount, timeZone);
     }
 
     /**
@@ -277,7 +339,22 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is null.
      */
     public static Date addMinutes(final Date date, final int amount) {
-        return add(date, Calendar.MINUTE, amount);
+        return add(date, Calendar.MINUTE, amount, null);
+    }
+
+    /**
+     * Adds a number of minutes to a date returning a new object using the specified time zone.
+     * The original {@link Date} is unchanged.
+     *
+     * @param date  The date, not null.
+     * @param amount  The amount to add, may be negative.
+     * @param timeZone  The time zone to use, null means default time zone.
+     * @return The new {@link Date} with the amount added.
+     * @throws NullPointerException Thrown if the date is null.
+     * @since 3.21.0
+     */
+    public static Date addMinutes(final Date date, final int amount, final TimeZone timeZone) {
+        return add(date, Calendar.MINUTE, amount, timeZone);
     }
 
     /**
@@ -290,7 +367,22 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is null.
      */
     public static Date addMonths(final Date date, final int amount) {
-        return add(date, Calendar.MONTH, amount);
+        return add(date, Calendar.MONTH, amount, null);
+    }
+
+    /**
+     * Adds a number of months to a date returning a new object using the specified time zone.
+     * The original {@link Date} is unchanged.
+     *
+     * @param date  The date, not null.
+     * @param amount  The amount to add, may be negative.
+     * @param timeZone  The time zone to use, null means default time zone.
+     * @return The new {@link Date} with the amount added.
+     * @throws NullPointerException Thrown if the date is null.
+     * @since 3.21.0
+     */
+    public static Date addMonths(final Date date, final int amount, final TimeZone timeZone) {
+        return add(date, Calendar.MONTH, amount, timeZone);
     }
 
     /**
@@ -303,7 +395,22 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is null.
      */
     public static Date addSeconds(final Date date, final int amount) {
-        return add(date, Calendar.SECOND, amount);
+        return add(date, Calendar.SECOND, amount, null);
+    }
+
+    /**
+     * Adds a number of seconds to a date returning a new object using the specified time zone.
+     * The original {@link Date} is unchanged.
+     *
+     * @param date  The date, not null.
+     * @param amount  The amount to add, may be negative.
+     * @param timeZone  The time zone to use, null means default time zone.
+     * @return The new {@link Date} with the amount added.
+     * @throws NullPointerException Thrown if the date is null.
+     * @since 3.21.0
+     */
+    public static Date addSeconds(final Date date, final int amount, final TimeZone timeZone) {
+        return add(date, Calendar.SECOND, amount, timeZone);
     }
 
     /**
@@ -316,7 +423,22 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is null.
      */
     public static Date addWeeks(final Date date, final int amount) {
-        return add(date, Calendar.WEEK_OF_YEAR, amount);
+        return add(date, Calendar.WEEK_OF_YEAR, amount, null);
+    }
+
+    /**
+     * Adds a number of weeks to a date returning a new object using the specified time zone.
+     * The original {@link Date} is unchanged.
+     *
+     * @param date  The date, not null.
+     * @param amount  The amount to add, may be negative.
+     * @param timeZone  The time zone to use, null means default time zone.
+     * @return The new {@link Date} with the amount added.
+     * @throws NullPointerException Thrown if the date is null.
+     * @since 3.21.0
+     */
+    public static Date addWeeks(final Date date, final int amount, final TimeZone timeZone) {
+        return add(date, Calendar.WEEK_OF_YEAR, amount, timeZone);
     }
 
     /**
@@ -329,7 +451,22 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is null.
      */
     public static Date addYears(final Date date, final int amount) {
-        return add(date, Calendar.YEAR, amount);
+        return add(date, Calendar.YEAR, amount, null);
+    }
+
+    /**
+     * Adds a number of years to a date returning a new object using the specified time zone.
+     * The original {@link Date} is unchanged.
+     *
+     * @param date  The date, not null.
+     * @param amount  The amount to add, may be negative.
+     * @param timeZone  The time zone to use, null means default time zone.
+     * @return The new {@link Date} with the amount added.
+     * @throws NullPointerException Thrown if the date is null.
+     * @since 3.21.0
+     */
+    public static Date addYears(final Date date, final int amount, final TimeZone timeZone) {
+        return add(date, Calendar.YEAR, amount, timeZone);
     }
 
     /**
