@@ -477,6 +477,222 @@ class DateUtilsTest extends AbstractLangTest {
         assertNullPointerException(() -> DateUtils.addYears(null, 0));
     }
 
+    @Test
+    void testAddWithTimeZone() {
+        Date result = DateUtils.add(BASE_DATE, Calendar.DAY_OF_MONTH, 0, TimeZones.GMT);
+        assertNotSame(BASE_DATE, result);
+        assertEquals(BASE_DATE.getTime(), result.getTime());
+
+        result = DateUtils.add(BASE_DATE, Calendar.DAY_OF_MONTH, 1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() + 86400000L, result.getTime());
+
+        result = DateUtils.add(BASE_DATE, Calendar.DAY_OF_MONTH, 1, null);
+        assertEquals(DateUtils.addDays(BASE_DATE, 1), result);
+
+        assertNullPointerException(() -> DateUtils.add(null, Calendar.DAY_OF_MONTH, 1, TimeZones.GMT));
+    }
+
+    @Test
+    void testAddDaysWithTimeZone() {
+        Date result = DateUtils.addDays(BASE_DATE, 0, TimeZones.GMT);
+        assertNotSame(BASE_DATE, result);
+        assertEquals(BASE_DATE.getTime(), result.getTime());
+
+        result = DateUtils.addDays(BASE_DATE, 1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() + 86400000L, result.getTime());
+
+        result = DateUtils.addDays(BASE_DATE, -1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() - 86400000L, result.getTime());
+
+        result = DateUtils.addDays(BASE_DATE, 1, null);
+        assertEquals(DateUtils.addDays(BASE_DATE, 1), result);
+
+        assertNullPointerException(() -> DateUtils.addDays(null, 0, TimeZones.GMT));
+    }
+
+    @Test
+    void testAddHoursWithTimeZone() {
+        Date result = DateUtils.addHours(BASE_DATE, 0, TimeZones.GMT);
+        assertNotSame(BASE_DATE, result);
+        assertEquals(BASE_DATE.getTime(), result.getTime());
+
+        result = DateUtils.addHours(BASE_DATE, 1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() + 3600000L, result.getTime());
+
+        result = DateUtils.addHours(BASE_DATE, -1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() - 3600000L, result.getTime());
+
+        result = DateUtils.addHours(BASE_DATE, 1, null);
+        assertEquals(DateUtils.addHours(BASE_DATE, 1), result);
+
+        assertNullPointerException(() -> DateUtils.addHours(null, 0, TimeZones.GMT));
+    }
+
+    @Test
+    void testAddMillisecondsWithTimeZone() {
+        Date result = DateUtils.addMilliseconds(BASE_DATE, 0, TimeZones.GMT);
+        assertNotSame(BASE_DATE, result);
+        assertEquals(BASE_DATE.getTime(), result.getTime());
+
+        result = DateUtils.addMilliseconds(BASE_DATE, 1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() + 1L, result.getTime());
+
+        result = DateUtils.addMilliseconds(BASE_DATE, -1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() - 1L, result.getTime());
+
+        result = DateUtils.addMilliseconds(BASE_DATE, 1, null);
+        assertEquals(DateUtils.addMilliseconds(BASE_DATE, 1), result);
+
+        assertNullPointerException(() -> DateUtils.addMilliseconds(null, 0, TimeZones.GMT));
+    }
+
+    @Test
+    void testAddMinutesWithTimeZone() {
+        Date result = DateUtils.addMinutes(BASE_DATE, 0, TimeZones.GMT);
+        assertNotSame(BASE_DATE, result);
+        assertEquals(BASE_DATE.getTime(), result.getTime());
+
+        result = DateUtils.addMinutes(BASE_DATE, 1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() + 60000L, result.getTime());
+
+        result = DateUtils.addMinutes(BASE_DATE, -1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() - 60000L, result.getTime());
+
+        result = DateUtils.addMinutes(BASE_DATE, 1, null);
+        assertEquals(DateUtils.addMinutes(BASE_DATE, 1), result);
+
+        assertNullPointerException(() -> DateUtils.addMinutes(null, 0, TimeZones.GMT));
+    }
+
+    @Test
+    void testAddMonthsWithTimeZone() {
+        final TimeZone tz = TimeZones.GMT;
+        final Calendar cal = Calendar.getInstance(tz);
+        cal.setTime(BASE_DATE);
+
+        Date result = DateUtils.addMonths(BASE_DATE, 0, tz);
+        assertNotSame(BASE_DATE, result);
+        assertEquals(BASE_DATE.getTime(), result.getTime());
+
+        result = DateUtils.addMonths(BASE_DATE, 1, tz);
+        final Calendar calResult = Calendar.getInstance(tz);
+        calResult.setTime(result);
+        assertEquals(cal.get(Calendar.MONTH) + 1, calResult.get(Calendar.MONTH));
+
+        result = DateUtils.addMonths(BASE_DATE, 1, null);
+        assertEquals(DateUtils.addMonths(BASE_DATE, 1), result);
+
+        assertNullPointerException(() -> DateUtils.addMonths(null, 0, tz));
+    }
+
+    @Test
+    void testAddSecondsWithTimeZone() {
+        Date result = DateUtils.addSeconds(BASE_DATE, 0, TimeZones.GMT);
+        assertNotSame(BASE_DATE, result);
+        assertEquals(BASE_DATE.getTime(), result.getTime());
+
+        result = DateUtils.addSeconds(BASE_DATE, 1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() + 1000L, result.getTime());
+
+        result = DateUtils.addSeconds(BASE_DATE, -1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() - 1000L, result.getTime());
+
+        result = DateUtils.addSeconds(BASE_DATE, 1, null);
+        assertEquals(DateUtils.addSeconds(BASE_DATE, 1), result);
+
+        assertNullPointerException(() -> DateUtils.addSeconds(null, 0, TimeZones.GMT));
+    }
+
+    @Test
+    void testAddWeeksWithTimeZone() {
+        Date result = DateUtils.addWeeks(BASE_DATE, 0, TimeZones.GMT);
+        assertNotSame(BASE_DATE, result);
+        assertEquals(BASE_DATE.getTime(), result.getTime());
+
+        result = DateUtils.addWeeks(BASE_DATE, 1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() + 7 * 86400000L, result.getTime());
+
+        result = DateUtils.addWeeks(BASE_DATE, -1, TimeZones.GMT);
+        assertEquals(BASE_DATE.getTime() - 7 * 86400000L, result.getTime());
+
+        result = DateUtils.addWeeks(BASE_DATE, 1, null);
+        assertEquals(DateUtils.addWeeks(BASE_DATE, 1), result);
+
+        assertNullPointerException(() -> DateUtils.addWeeks(null, 0, TimeZones.GMT));
+    }
+
+    @Test
+    void testAddYearsWithTimeZone() {
+        final TimeZone tz = TimeZones.GMT;
+        final Calendar cal = Calendar.getInstance(tz);
+        cal.setTime(BASE_DATE);
+
+        Date result = DateUtils.addYears(BASE_DATE, 0, tz);
+        assertNotSame(BASE_DATE, result);
+        assertEquals(BASE_DATE.getTime(), result.getTime());
+
+        result = DateUtils.addYears(BASE_DATE, 1, tz);
+        final Calendar calResult = Calendar.getInstance(tz);
+        calResult.setTime(result);
+        assertEquals(cal.get(Calendar.YEAR) + 1, calResult.get(Calendar.YEAR));
+
+        result = DateUtils.addYears(BASE_DATE, 1, null);
+        assertEquals(DateUtils.addYears(BASE_DATE, 1), result);
+
+        assertNullPointerException(() -> DateUtils.addYears(null, 0, tz));
+    }
+
+    @Test
+    void testAddDaysDaylightSavingTimeLANG796() {
+        final TimeZone brusselsTz = TimeZone.getTimeZone("Europe/Brussels");
+
+        // 2012-03-25 00:00:00 CET: Brussels spring DST transition (23-hour day)
+        final Calendar calSpring = Calendar.getInstance(brusselsTz);
+        calSpring.clear();
+        calSpring.set(2012, Calendar.MARCH, 25, 0, 0, 0);
+        final Date inputSpring = calSpring.getTime();
+        assertEquals(1332630000000L, inputSpring.getTime());
+
+        // In Europe/Brussels: calendar day advances to 2012-03-26 00:00:00 CEST (23 hours elapsed)
+        final Date outputSpringBrussels = DateUtils.addDays(inputSpring, 1, brusselsTz);
+        assertEquals(1332712800000L, outputSpringBrussels.getTime());
+        assertEquals(23 * 3600 * 1000L, outputSpringBrussels.getTime() - inputSpring.getTime());
+
+        final Calendar calSpringResult = Calendar.getInstance(brusselsTz);
+        calSpringResult.setTime(outputSpringBrussels);
+        assertEquals(2012, calSpringResult.get(Calendar.YEAR));
+        assertEquals(Calendar.MARCH, calSpringResult.get(Calendar.MONTH));
+        assertEquals(26, calSpringResult.get(Calendar.DAY_OF_MONTH));
+        assertEquals(0, calSpringResult.get(Calendar.HOUR_OF_DAY));
+
+        // With TimeZones.GMT: absolute physical 24-hour day addition without DST interference
+        final Date outputSpringGmt = DateUtils.addDays(inputSpring, 1, TimeZones.GMT);
+        assertEquals(inputSpring.getTime() + 24 * 3600 * 1000L, outputSpringGmt.getTime());
+        assertEquals(24 * 3600 * 1000L, outputSpringGmt.getTime() - inputSpring.getTime());
+
+        // 2012-10-28 00:00:00 CEST: Brussels autumn DST transition (25-hour day)
+        final Calendar calAutumn = Calendar.getInstance(brusselsTz);
+        calAutumn.clear();
+        calAutumn.set(2012, Calendar.OCTOBER, 28, 0, 0, 0);
+        final Date inputAutumn = calAutumn.getTime();
+
+        // In Europe/Brussels: calendar day advances to 2012-10-29 00:00:00 CET (25 hours elapsed)
+        final Date outputAutumnBrussels = DateUtils.addDays(inputAutumn, 1, brusselsTz);
+        assertEquals(25 * 3600 * 1000L, outputAutumnBrussels.getTime() - inputAutumn.getTime());
+
+        final Calendar calAutumnResult = Calendar.getInstance(brusselsTz);
+        calAutumnResult.setTime(outputAutumnBrussels);
+        assertEquals(2012, calAutumnResult.get(Calendar.YEAR));
+        assertEquals(Calendar.OCTOBER, calAutumnResult.get(Calendar.MONTH));
+        assertEquals(29, calAutumnResult.get(Calendar.DAY_OF_MONTH));
+        assertEquals(0, calAutumnResult.get(Calendar.HOUR_OF_DAY));
+
+        // With TimeZones.GMT: exactly 24 hours elapsed
+        final Date outputAutumnGmt = DateUtils.addDays(inputAutumn, 1, TimeZones.GMT);
+        assertEquals(inputAutumn.getTime() + 24 * 3600 * 1000L, outputAutumnGmt.getTime());
+        assertEquals(24 * 3600 * 1000L, outputAutumnGmt.getTime() - inputAutumn.getTime());
+    }
+
     /**
      * Tests various values with the ceiling method
      *
