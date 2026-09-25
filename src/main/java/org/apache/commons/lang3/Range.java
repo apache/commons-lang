@@ -37,7 +37,6 @@ import java.util.Objects;
  *
  * @param <T> The type of range values.
  * @since 3.0
- * @since 3.21.0 {@code serialVersionUID} changed from {@code 1L} to {@code 2L}.
  */
 public class Range<T> implements Serializable {
 
@@ -62,9 +61,8 @@ public class Range<T> implements Serializable {
      * Serialization version.
      *
      * @see java.io.Serializable
-     * @since 3.21.0 {@code serialVersionUID} changed from {@code 1L} to {@value}.
      */
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates a range with the specified minimum and maximum values (both inclusive).
@@ -257,7 +255,7 @@ public class Range<T> implements Serializable {
     /**
      * Cached output hashCode (class is immutable).
      */
-    private final int hashCode;
+    private transient int hashCode;
 
     /**
      * The maximum value in this range (inclusive).
@@ -613,21 +611,15 @@ public class Range<T> implements Serializable {
     }
 
     /**
-     * Validates the cached hashCode after deserialization. Throws a {@link InvalidObjectException} when the stored hashCode does not match the canonical hash
-     * of the deserialized minimum/maximum.
+     * Validates the endpoints and comparator and recomputes the cached hash code after deserialization.
      *
      * @param in See {@link Serializable}.
      * @throws IOException Thrown as described in {@link Serializable}.
      * @throws ClassNotFoundException Thrown as described in {@link Serializable}.
-     * @throws InvalidObjectException Thrown if the hashCode doesn't match the minimum and maximum.
+     * @throws InvalidObjectException Thrown if the endpoints or comparator violate the range invariants.
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        // Reject streams whose cached hashCode does not match the canonical hash of the deserialized minimum/maximum: a crafted stream cannot supply a forged
-        // value.
-        if (hashCode != hash(minimum, maximum)) {
-            throw new InvalidObjectException("Range hashCode does not match minimum/maximum.");
-        }
         SerializationUtils.requireNonNull(maximum, "maximum null");
         SerializationUtils.requireNonNull(minimum, "minimum null");
         SerializationUtils.requireNonNull(comparator, "comparator null");
@@ -639,6 +631,7 @@ public class Range<T> implements Serializable {
         if (comparator.compare(minimum, maximum) > 0) {
             throw new InvalidObjectException("Range minimum is greater than maximum under the comparator.");
         }
+        hashCode = hash(minimum, maximum);
     }
 
     /**

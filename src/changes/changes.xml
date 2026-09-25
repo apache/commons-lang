@@ -137,7 +137,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1823" type="fix" dev="ggregory" due-to="尹茂椿萱, Gary Gregory">LocaleUtils.toLocale cannot parse valid JDK Locale string containing '#' #1630.</action>
     <action issue="LANG-879"  type="fix" dev="ggregory" due-to="Matthew T. Adams, Gary Gregory">LocaleUtils test fails with new Locale "ja_JP_JP_#u-ca-japanese" of JDK7.</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">Fix typo in SystemProperties.JDK_XML_ENTITY_REPLACEMENT_LIMIT (#1631).</action>
-    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">Harden Range.readObject() to reject bad cached hash code (#1633).</action>
+    <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">Recompute Range cached hash codes on deserialization while retaining endpoint and comparator validation (#1633).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">Harden Fraction.readObject() to reject bad cached hash code (#1634).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">NumberUtils.createNumber(String): Float shortcut can bypass exact decimal parsing (#1635).</action>
     <action                   type="fix" dev="ggregory" due-to="Omkhar Arasaratnam, Gary Gregory">StringUtils.joins() for primitive types can throw OOME before index check (#1636).</action>
@@ -316,6 +316,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory, gaurav kumar pandey">Fix TypeUtils.isAssignable() for wildcards with multiple upper bounds (#1782).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_28.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_28.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Preserve serialization compatibility with 3.20.0 for Range, IntegerRange, LongRange, and DoubleRange by retaining Range serialVersionUID 1L. Streams written by 3.21.0 RC1 with UID 2L require reading with RC1 and exporting endpoint and comparator values before rebuilding ranges with this release.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 105 #1498.</action>
     <action                   type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.14.0 to 1.15.0.</action>
