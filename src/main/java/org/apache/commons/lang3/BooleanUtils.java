@@ -102,7 +102,8 @@ public class BooleanUtils {
      * @throws IllegalArgumentException Thrown if {@code array} is empty.
      * @since 3.0.1
      */
-    public static boolean and(final boolean... array) {
+    
+    public static boolean and(boolean[] array) {
         ObjectUtils.requireNonEmpty(array, "array");
         for (final boolean element : array) {
             if (!element) {
