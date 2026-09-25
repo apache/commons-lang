@@ -26,7 +26,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
-  <version>3.21.0-SNAPSHOT</version>
+  <version>3.21.0</version>
   <name>Apache Commons Lang</name>
   <inceptionYear>2001</inceptionYear>
   <description>
@@ -122,7 +122,7 @@
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
-    <project.build.outputTimestamp>2025-11-16T12:58:18Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2026-09-25T19:47:33Z</project.build.outputTimestamp>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <!--
