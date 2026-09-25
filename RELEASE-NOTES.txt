@@ -151,7 +151,7 @@ Fixed Bugs:
 * LANG-1823: LocaleUtils.toLocale cannot parse valid JDK Locale string containing '#' #1630. Thanks to ????, Gary Gregory.
 * LANG-879:  LocaleUtils test fails with new Locale "ja_JP_JP_#u-ca-japanese" of JDK7. Thanks to Matthew T. Adams, Gary Gregory.
 *            Fix typo in SystemProperties.JDK_XML_ENTITY_REPLACEMENT_LIMIT (#1631). Thanks to Omkhar Arasaratnam, Gary Gregory.
-*            Harden Range.readObject() to reject bad cached hash code (#1633). Thanks to Omkhar Arasaratnam, Gary Gregory.
+*            Recompute Range cached hash codes on deserialization while retaining endpoint and comparator validation (#1633). Thanks to Omkhar Arasaratnam, Gary Gregory.
 *            Harden Fraction.readObject() to reject bad cached hash code (#1634). Thanks to Omkhar Arasaratnam, Gary Gregory.
 *            NumberUtils.createNumber(String): Float shortcut can bypass exact decimal parsing (#1635). Thanks to Omkhar Arasaratnam, Gary Gregory.
 *            StringUtils.joins() for primitive types can throw OOME before index check (#1636). Thanks to Omkhar Arasaratnam, Gary Gregory.
@@ -306,6 +306,8 @@ Fixed Bugs:
 *            Fix NumberUtils.createNumber() and isCreatable() for positive Long literals with explicit '+' sign (#1796). Thanks to gaurav kumar pandey, Gary Gregory.
 *            Fix StrBuilder.lastIndexOf(String) start index for an empty search (#1759). Thanks to alhudz, Gary Gregory.
 *            Fix int overflow in Conversion count and position bounds guards (#1779). Thanks to alhudz, Gary Gregory.
+*            Preserve serialization compatibility with 3.20.0 for Range, IntegerRange, LongRange, and DoubleRange by retaining Range serialVersionUID 1L.
+             Streams written by 3.21.0 RC1 with UID 2L require reading with RC1 and exporting endpoint and comparator values before rebuilding ranges with this release.
 
 Changes:
 *            Bump org.apache.commons:commons-parent from 92 to 105 #1498. Thanks to Gary Gregory, Dependabot.

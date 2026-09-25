@@ -18,7 +18,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,6 +29,7 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Objects;
@@ -37,9 +38,42 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests that a serialized {@link Range} can't store a bad cached hashCode.
+ * Tests range invariants and hash code reconstruction during deserialization.
  */
 class RangeReadObjectTest {
+
+    private static final class ChangingHashEndpoint extends IdentityEndpoint {
+        private static final long serialVersionUID = 1L;
+        private transient int hash = 123;
+
+        ChangingHashEndpoint(final int value) {
+            super(value);
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            return this == other;
+        }
+
+        @Override
+        public int hashCode() {
+            return hash;
+        }
+    }
+
+    private static class IdentityEndpoint implements Serializable, Comparable<IdentityEndpoint> {
+        private static final long serialVersionUID = 1L;
+        private final int value;
+
+        IdentityEndpoint(final int value) {
+            this.value = value;
+        }
+
+        @Override
+        public int compareTo(final IdentityEndpoint other) {
+            return Integer.compare(value, other.value);
+        }
+    }
 
     /**
      * Standin class used only to drive {@link ObjectOutputStream#writeObject(Object)} into emitting a stream that matches the wire format of {@link Range} but
@@ -48,17 +82,15 @@ class RangeReadObjectTest {
      */
     private static final class RangeForge implements Serializable {
 
-        private static final long serialVersionUID = 2L; // matches Range.serialVersionUID
+        private static final long serialVersionUID = 1L; // matches Range.serialVersionUID
         private final Object comparator;
-        private final int hashCode;
         private final Object maximum;
         private final Object minimum;
 
-        RangeForge(final Object comparator, final Object minimum, final Object maximum, final int hashCode) {
+        RangeForge(final Object comparator, final Object minimum, final Object maximum) {
             this.comparator = comparator;
             this.minimum = minimum;
             this.maximum = maximum;
-            this.hashCode = hashCode;
         }
     }
 
@@ -73,7 +105,7 @@ class RangeReadObjectTest {
      * {@link Range}. Because the field set, types, order, and serialVersionUID all match, default deserialization assigns each forged value to the
      * corresponding Range field via reflection (bypassing the constructor).
      */
-    private static byte[] forgeRangeStream(final Object comparator, final Object minimum, final Object maximum, final int hashCode) throws IOException {
+    private static byte[] forgeRangeStream(final Object comparator, final Object minimum, final Object maximum) throws IOException {
         // Build the legitimate-shape bytes via RangeForge, then rewrite the embedded class name.
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try (ObjectOutputStream oos = new ObjectOutputStream(baos) {
@@ -89,42 +121,76 @@ class RangeReadObjectTest {
                 }
             }
         }) {
-            oos.writeObject(new RangeForge(comparator, minimum, maximum, hashCode));
+            oos.writeObject(new RangeForge(comparator, minimum, maximum));
         }
         return baos.toByteArray();
     }
 
     @Test
-    void testBadHashCodeRejected() throws Exception {
+    void testCachedHashCodeRecomputed() throws Exception {
         final Range<Integer> range = Range.of(1, 100);
-        final byte[] bytes = SerializationUtils.serialize(range);
-        // Locate the legitimate hashCode int in the serialized stream and overwrite it.
-        final int hashCode = (Integer) FieldUtils.readDeclaredField(range, "hashCode", true);
-        final byte[] edited = SerializationUtilsTest.replaceLastInt(bytes, hashCode, 0xDEADBEEF);
-        final SerializationException ex = assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(edited),
-                "Bad hashCode in stream must be rejected with InvalidObjectException");
-        assertInstanceOf(InvalidObjectException.class, ex.getCause());
-        assertEquals("java.io.InvalidObjectException: Range hashCode does not match minimum/maximum.", ex.getMessage());
+        FieldUtils.writeDeclaredField(range, "hashCode", 0xDEADBEEF, true);
+        final Range<Integer> copy = SerializationUtils.roundtrip(range);
+        assertEquals(Range.of(1, 100).hashCode(), copy.hashCode());
+        assertEquals(range, copy);
     }
 
-    /**
-     * Forged stream with {@code comparator == null}; F-004 hashCode check passes because we set hashCode canonically; {@code contains()} then NPEs on
-     * {@code comparator.compare(...)}.
-     */
+    @Test
+    void testCloneIdentityHashEndpoints() {
+        final Range<IdentityEndpoint> original = Range.of(new IdentityEndpoint(1), new IdentityEndpoint(2));
+        final Range<IdentityEndpoint> copy = SerializationUtils.clone(original);
+        assertNotSame(original.getMinimum(), copy.getMinimum());
+        assertNotSame(original.getMaximum(), copy.getMaximum());
+        assertEquals(0, original.getMinimum().compareTo(copy.getMinimum()));
+        assertEquals(0, original.getMaximum().compareTo(copy.getMaximum()));
+        assertEquals(Objects.hash(copy.getMinimum(), copy.getMaximum()), copy.hashCode());
+    }
+
     @Test
     void testComparatorNullViaForgedStream() throws Exception {
         final Integer min = Integer.valueOf(1);
         final Integer max = Integer.valueOf(10);
-        final int canonicalHash = Objects.hash(min, max);
-        final byte[] forged = forgeRangeStream(null, min, max, canonicalHash);
+        final byte[] forged = forgeRangeStream(null, min, max);
         assertThrows(InvalidObjectException.class, () -> deserialize(forged));
     }
 
-    /**
-     * Forged stream: minimum=1, maximum=10, hashCode=hash(1,10) (all legitimate), but comparator replaced with a reversed ordering. The hashCode gate passes
-     * (comparator excluded from the hash) and the null gates pass (comparator is non-null); the ordering invariant is the only one violated. The deserialized
-     * Range still reports endpoints [1,10] but {@code contains(5)} returns false because it trusts the reversed comparator.
-     */
+    @Test
+    void testDeserializeVersion320() {
+        // Streams generated using Commons Lang 3.20.0, with endpoints 1 and 2.
+        final Range<?>[] expected = {Range.of(1, 2), IntegerRange.of(1, 2), LongRange.of(1, 2), DoubleRange.of(1, 2)};
+        final String[] streams = {
+            "rO0ABXNyAB5vcmcuYXBhY2hlLmNvbW1vbnMubGFuZzMuUmFuZ2UAAAAAAAAAAQIAA0wACmNvbXBhcmF0b3J0ABZMamF2YS91dGls" +
+                "L0NvbXBhcmF0b3I7TAAHbWF4aW11bXQAEkxqYXZhL2xhbmcvT2JqZWN0O0wAB21pbmltdW1xAH4AAnhwfnIAM29yZy5hcGFjaGUu" +
+                "Y29tbW9ucy5sYW5nMy5SYW5nZSRDb21wYXJhYmxlQ29tcGFyYXRvcgAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAA" +
+                "AAASAAB4cHQACElOU1RBTkNFc3IAEWphdmEubGFuZy5JbnRlZ2VyEuKgpPeBhzgCAAFJAAV2YWx1ZXhyABBqYXZhLmxhbmcuTnVt" +
+                "YmVyhqyVHQuU4IsCAAB4cAAAAAJzcQB+AAgAAAAB",
+            "rO0ABXNyACVvcmcuYXBhY2hlLmNvbW1vbnMubGFuZzMuSW50ZWdlclJhbmdlAAAAAAAAAAECAAB4cgAkb3JnLmFwYWNoZS5jb21t" +
+                "b25zLmxhbmczLk51bWJlclJhbmdlAAAAAAAAAAECAAB4cgAeb3JnLmFwYWNoZS5jb21tb25zLmxhbmczLlJhbmdlAAAAAAAAAAEC" +
+                "AANMAApjb21wYXJhdG9ydAAWTGphdmEvdXRpbC9Db21wYXJhdG9yO0wAB21heGltdW10ABJMamF2YS9sYW5nL09iamVjdDtMAAdt" +
+                "aW5pbXVtcQB+AAR4cH5yADNvcmcuYXBhY2hlLmNvbW1vbnMubGFuZzMuUmFuZ2UkQ29tcGFyYWJsZUNvbXBhcmF0b3IAAAAAAAAA" +
+                "ABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAhJTlNUQU5DRXNyABFqYXZhLmxhbmcuSW50ZWdlchLioKT3gYc4" +
+                "AgABSQAFdmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAACc3EAfgAKAAAAAQ==",
+            "rO0ABXNyACJvcmcuYXBhY2hlLmNvbW1vbnMubGFuZzMuTG9uZ1JhbmdlAAAAAAAAAAECAAB4cgAkb3JnLmFwYWNoZS5jb21tb25z" +
+                "LmxhbmczLk51bWJlclJhbmdlAAAAAAAAAAECAAB4cgAeb3JnLmFwYWNoZS5jb21tb25zLmxhbmczLlJhbmdlAAAAAAAAAAECAANM" +
+                "AApjb21wYXJhdG9ydAAWTGphdmEvdXRpbC9Db21wYXJhdG9yO0wAB21heGltdW10ABJMamF2YS9sYW5nL09iamVjdDtMAAdtaW5p" +
+                "bXVtcQB+AAR4cH5yADNvcmcuYXBhY2hlLmNvbW1vbnMubGFuZzMuUmFuZ2UkQ29tcGFyYWJsZUNvbXBhcmF0b3IAAAAAAAAAABIA" +
+                "AHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAhJTlNUQU5DRXNyAA5qYXZhLmxhbmcuTG9uZzuL5JDMjyPfAgABSgAF" +
+                "dmFsdWV4cgAQamF2YS5sYW5nLk51bWJlcoaslR0LlOCLAgAAeHAAAAAAAAAAAnNxAH4ACgAAAAAAAAAB",
+            "rO0ABXNyACRvcmcuYXBhY2hlLmNvbW1vbnMubGFuZzMuRG91YmxlUmFuZ2UAAAAAAAAAAQIAAHhyACRvcmcuYXBhY2hlLmNvbW1v" +
+                "bnMubGFuZzMuTnVtYmVyUmFuZ2UAAAAAAAAAAQIAAHhyAB5vcmcuYXBhY2hlLmNvbW1vbnMubGFuZzMuUmFuZ2UAAAAAAAAAAQIA" +
+                "A0wACmNvbXBhcmF0b3J0ABZMamF2YS91dGlsL0NvbXBhcmF0b3I7TAAHbWF4aW11bXQAEkxqYXZhL2xhbmcvT2JqZWN0O0wAB21p" +
+                "bmltdW1xAH4ABHhwfnIAM29yZy5hcGFjaGUuY29tbW9ucy5sYW5nMy5SYW5nZSRDb21wYXJhYmxlQ29tcGFyYXRvcgAAAAAAAAAA" +
+                "EgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQACElOU1RBTkNFc3IAEGphdmEubGFuZy5Eb3VibGWAs8JKKWv7BAIA" +
+                "AUQABXZhbHVleHIAEGphdmEubGFuZy5OdW1iZXKGrJUdC5TgiwIAAHhwQAAAAAAAAABzcQB+AAo/8AAAAAAAAA=="
+        };
+        for (int i = 0; i < streams.length; i++) {
+            final Range<?> actual = SerializationUtils.deserialize(Base64.getDecoder().decode(streams[i]));
+            assertEquals(expected[i].getClass(), actual.getClass());
+            assertEquals(expected[i], actual);
+            assertEquals(expected[i].hashCode(), actual.hashCode());
+        }
+    }
+
     @Test
     void testForgedReversedComparatorBreaksContains() throws Exception {
         final Range<Integer> reference = Range.of(Integer.valueOf(1), Integer.valueOf(10));
@@ -137,47 +203,41 @@ class RangeReadObjectTest {
         assertTrue(reference.contains(Integer.valueOf(5)));
     }
 
-    /**
-     * Forged stream with {@code maximum == null}; symmetric to F-061b.
-     */
     @Test
     void testMaximumNullViaForgedStream() throws Exception {
         final Integer min = Integer.valueOf(1);
-        final int canonicalHash = Objects.hash(min, (Object) null);
         final Object comparator = Range.of(Integer.valueOf(1), Integer.valueOf(2)).getComparator();
-        final byte[] forged = forgeRangeStream(comparator, min, null, canonicalHash);
+        final byte[] forged = forgeRangeStream(comparator, min, null);
         assertThrows(InvalidObjectException.class, () -> deserialize(forged));
     }
 
-    /**
-     * Forged stream with {@code minimum == null}; {@code Objects.hash(null, max)} is a valid int, so the F-004 check passes. {@code contains()} NPEs
-     * because {@code comparator.compare(element, null)} unboxes null (or, for ComparableComparator, calls {@code element.compareTo(null)} which is an
-     * NPE-by-contract).
-     */
     @Test
     void testMinimumNullViaForgedStream() throws Exception {
         final Integer max = Integer.valueOf(10);
-        final int canonicalHash = Objects.hash((Object) null, max);
         // comparator must be non-null here so we isolate the minimum-null gap.
         // We use ComparableComparator.INSTANCE via deserialization round-trip of a real Range.
         final Object comparator = Range.of(Integer.valueOf(1), Integer.valueOf(2)).getComparator();
-        final byte[] forged = forgeRangeStream(comparator, null, max, canonicalHash);
+        final byte[] forged = forgeRangeStream(comparator, null, max);
         assertThrows(InvalidObjectException.class, () -> deserialize(forged));
     }
 
-    /**
-     * Forged stream with a NaN maximum and a canonically matching hashCode: the hashCode gate passes and the
-     * comparator ordering gate passes (NaN sorts above everything under Double.compareTo), so only the NaN
-     * endpoint gate stands between the stream and a half-unbounded fail-open range.
-     */
+
     @Test
     void testNaNEndpointViaForgedStream() throws Exception {
         final Double min = Double.valueOf(5.0);
         final Double max = Double.valueOf(Double.NaN);
-        final int canonicalHash = Objects.hash(min, max);
         final Object comparator = Range.of(Integer.valueOf(1), Integer.valueOf(2)).getComparator();
-        final byte[] forged = forgeRangeStream(comparator, min, max, canonicalHash);
+        final byte[] forged = forgeRangeStream(comparator, min, max);
         assertThrows(InvalidObjectException.class, () -> deserialize(forged));
+    }
+
+    @Test
+    void testRoundTripChangingHashEndpoints() {
+        final Range<ChangingHashEndpoint> original = Range.of(new ChangingHashEndpoint(1), new ChangingHashEndpoint(2));
+        final Range<ChangingHashEndpoint> copy = SerializationUtils.roundtrip(original);
+        assertEquals(123, original.getMinimum().hashCode());
+        assertEquals(0, copy.getMinimum().hashCode());
+        assertEquals(Objects.hash(copy.getMinimum(), copy.getMaximum()), copy.hashCode());
     }
 
     @Test
