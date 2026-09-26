@@ -2035,9 +2035,11 @@ class ArrayUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testMaxArrayLength() {
+    void testMaxArrayLength() throws NoSuchFieldException {
         assertEquals(Integer.MAX_VALUE - 8, ArrayUtils.SAFE_MAX_ARRAY_LENGTH);
         assertEquals(Integer.MAX_VALUE - 8, ArrayUtils.SOFT_MAX_ARRAY_LENGTH);
+        assertTrue(Modifier.isFinal(ArrayUtils.class.getField("SOFT_MAX_ARRAY_LENGTH").getModifiers()));
+        assertTrue(Modifier.isFinal(ArrayUtils.class.getField("SAFE_MAX_ARRAY_LENGTH").getModifiers()));
     }
 
     @Test
