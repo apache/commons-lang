@@ -1227,15 +1227,7 @@ public class DateUtils {
                 }
 
                 if (field == SEMI_MONTH) {
-                    // This is a special case that's hard to generalize
-                    // If the date is 1, we round up to 16, otherwise
-                    // we subtract 15 days and add 1 month
-                    if (val.get(Calendar.DATE) == 1) {
-                        val.add(Calendar.DATE, 15);
-                    } else {
-                        val.add(Calendar.DATE, -15);
-                        val.add(Calendar.MONTH, 1);
-                    }
+                    onSemiMonth(val);
                     // Fix for LANG-440 START
                 } else if (field == Calendar.AM_PM) {
                     // This is a special case
@@ -1305,6 +1297,18 @@ public class DateUtils {
             }
         }
         throw new IllegalArgumentException("The field " + field + " is not supported");
+    }
+
+    private static void onSemiMonth(final Calendar val) {
+        // This is a special case that's hard to generalize
+        // If the date is 1, we round up to 16, otherwise
+        // we subtract 15 days and add 1 month
+        if (val.get(Calendar.DATE) == 1) {
+            val.add(Calendar.DATE, 15);
+        } else {
+            val.add(Calendar.DATE, -15);
+            val.add(Calendar.MONTH, 1);
+        }
     }
 
     /**
