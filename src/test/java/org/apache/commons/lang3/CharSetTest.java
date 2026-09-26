@@ -18,10 +18,12 @@
  */
 package org.apache.commons.lang3;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Modifier;
@@ -434,6 +436,66 @@ class CharSetTest extends AbstractLangTest {
         assertTrue(CharSet.getInstance("^a-cd-f").contains('d'));
         assertTrue(CharSet.getInstance("a-c^").contains('^'));
         assertTrue(CharSet.getInstance("^", "a-c").contains('^'));
+    }
+
+    @Test
+    void testToArray_empty() {
+        assertArrayEquals(new char[0], CharSet.EMPTY.toArray());
+        assertArrayEquals(new char[0], CharSet.getInstance("").toArray());
+    }
+
+    @Test
+    void testToArray_singleChar() {
+        assertArrayEquals(new char[] { 'a' }, CharSet.getInstance("a").toArray());
+    }
+
+    @Test
+    void testToArray_range() {
+        assertArrayEquals(new char[] { 'a', 'b', 'c' }, CharSet.getInstance("a-c").toArray());
+    }
+
+    @Test
+    void testToArray_multipleRanges() {
+        // result must be sorted and deduplicated across ranges
+        final char[] result = CharSet.getInstance("A-Z", "a-z", "0-9").toArray();
+        assertEquals(62, result.length);
+        // spot-check ordering: digits < uppercase < lowercase
+        assertTrue(result[0] >= '0' && result[0] <= '9');
+        assertTrue(result[10] >= 'A' && result[10] <= 'Z');
+        assertTrue(result[36] >= 'a' && result[36] <= 'z');
+    }
+
+    @Test
+    void testToArray_overlappingRanges() {
+        // a-c and b-d overlap; result should be a-d without duplicates
+        assertArrayEquals(new char[] { 'a', 'b', 'c', 'd' }, CharSet.getInstance("a-c", "b-d").toArray());
+    }
+
+    @Test
+    void testToArray_staticInstances() {
+        assertEquals(26, CharSet.ASCII_ALPHA_LOWER.toArray().length);
+        assertEquals(26, CharSet.ASCII_ALPHA_UPPER.toArray().length);
+        assertEquals(10, CharSet.ASCII_NUMERIC.toArray().length);
+        assertEquals(52, CharSet.ASCII_ALPHA.toArray().length);
+    }
+
+    @Test
+    void testToArray_useCaseFromJira() {
+        // The motivating use-case: build a legal-character array from readable range specs
+        final char[] chars = CharSet.getInstance("A-Z", "a-z", "0-9", "-", "_@()&#*[]").toArray();
+        // 26 + 26 + 10 + individual special chars (no duplicates)
+        assertTrue(chars.length > 62);
+        // every produced character must be recognised by contains()
+        final CharSet set = CharSet.getInstance("A-Z", "a-z", "0-9", "-", "_@()&#*[]");
+        for (final char c : chars) {
+            assertTrue(set.contains(c), "Unexpected character in toArray(): " + c);
+        }
+    }
+
+    @Test
+    void testToArray_negatedRangeThrows() {
+        assertThrows(IllegalStateException.class, () -> CharSet.getInstance("^a-z").toArray());
+        assertThrows(IllegalStateException.class, () -> CharSet.getInstance("^a").toArray());
     }
 
     @Test

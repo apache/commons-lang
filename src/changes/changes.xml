@@ -316,6 +316,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="add" dev="ggregory" due-to="Gary Gregory, gaurav kumar pandey">Fix TypeUtils.isAssignable() for wildcards with multiple upper bounds (#1782).</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add JavaVersion.JAVA_28.</action>
     <action                   type="add" dev="ggregory" due-to="Gary Gregory">Add SystemUtils.IS_JAVA_28.</action>
+    <action issue="LANG-1412" type="add" due-to="Pratham Bhalla">Add CharSet.toArray() to expose the set of characters as a sorted char array.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Preserve serialization compatibility with 3.20.0 for Range, IntegerRange, LongRange, and DoubleRange by retaining Range serialVersionUID 1L. Streams written by 3.21.0 RC1 with UID 2L require reading with RC1 and exporting endpoint and comparator values before rebuilding ranges with this release.</action>
     <!-- UPDATE -->
     <action                   type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 92 to 105 #1498.</action>

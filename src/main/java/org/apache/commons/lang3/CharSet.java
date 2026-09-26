@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import java.io.Serializable;
+import java.util.BitSet;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -313,6 +314,46 @@ public class CharSet implements Serializable {
     @Override
     public int hashCode() {
         return 89 + set.hashCode();
+    }
+
+    /**
+     * Gets the characters in this set as a sorted array.
+     *
+     * <p>
+     * Overlapping ranges are merged and duplicates are removed. The returned array
+     * is in ascending character order.
+     * </p>
+     *
+     * <p>
+     * Negated ranges (e.g. {@code ^a-z}) are not supported; the method throws
+     * {@link IllegalStateException} if any negated range is present.
+     * </p>
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     *     char[] legal = CharSet.getInstance("A-Z", "a-z", "0-9", "-", "_").toArray();
+     * </pre>
+     *
+     * @return a sorted {@code char} array of every character in this set.
+     * @throws IllegalStateException if this set contains a negated range.
+     * @since 3.21.0
+     */
+    public char[] toArray() {
+        synchronized (lock) {
+            final BitSet bits = new BitSet();
+            for (final CharRange range : set) {
+                if (range.isNegated()) {
+                    throw new IllegalStateException("toArray() is not supported for negated ranges.");
+                }
+                bits.set(range.getStart(), range.getEnd() + 1);
+            }
+            final char[] result = new char[bits.cardinality()];
+            int i = 0;
+            for (int bit = bits.nextSetBit(0); bit >= 0; bit = bits.nextSetBit(bit + 1)) {
+                result[i++] = (char) bit;
+            }
+            return result;
+        }
     }
 
     /**
