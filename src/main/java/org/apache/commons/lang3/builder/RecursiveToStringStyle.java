@@ -17,6 +17,8 @@
 package org.apache.commons.lang3.builder;
 
 import java.util.Collection;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
@@ -57,6 +59,11 @@ import org.apache.commons.lang3.mutable.MutableBoolean;
  * re-traversed. This keeps traversal cost linear in the size of the object graph; without it, shared references (reference "diamonds") would be re-traversed
  * exponentially. An optional output-length limit can be set via {@link RecursiveToStringStyle.Builder#setMaxOutputLength(int)}; once the produced string
  * reaches the limit, further nested objects are replaced by a {@code "...<truncated>"} marker.
+ * </p>
+ * <p>
+ * Field exclusions: if the top-level {@link ReflectionToStringBuilder} is configured with
+ * {@link ReflectionToStringBuilder#setExcludeFieldNames(String...) excludeFieldNames}, those field names are excluded at every
+ * level of the recursive traversal, not just on the top-level object.
  * </p>
  *
  * @since 3.2
@@ -106,12 +113,61 @@ public class RecursiveToStringStyle extends ToStringStyle {
     private static final String TRUNCATED_TEXT = "...<truncated>";
 
     /**
+     * Per-thread stack of the {@code excludeFieldNames} that the {@link ReflectionToStringBuilder} which started
+     * the current top-level {@code toString()} call was configured with. {@link ReflectionToStringBuilder#toString()}
+     * pushes onto this stack before rendering and pops afterward, so that {@link #appendDetail(StringBuffer, String, Object)}
+     * can reapply the same exclusions while recursing into nested objects; without this, an exclusion set on the
+     * outer builder would silently stop applying once traversal enters a nested object (LANG-1249). A stack, rather
+     * than a single field, correctly restores the enclosing value if recursion re-enters this style reentrantly on
+     * the same thread with a different exclusion list. Backed by a {@link LinkedList} rather than an
+     * {@link java.util.ArrayDeque} because {@code excludeFieldNames} is commonly {@code null} (no exclusions
+     * configured), and {@code ArrayDeque} does not permit {@code null} elements.
+     */
+    private static final ThreadLocal<Deque<String[]>> CURRENT_EXCLUDE_FIELD_NAMES = ThreadLocal.withInitial(LinkedList::new);
+
+    /**
      * Creates a new {@link Builder} for {@link RecursiveToStringStyle} instances.
      *
      * @return a new {@link Builder} for {@link RecursiveToStringStyle} instances.
      */
     public static Builder builder() {
         return new Builder();
+    }
+
+    /**
+     * Gets the exclude field names active for the current recursive traversal on this thread, if any.
+     *
+     * @return the exclude field names most recently pushed by {@link #pushExcludeFieldNames(String[])} and not yet
+     *         popped, or {@code null} if none are active.
+     */
+    private static String[] currentExcludeFieldNames() {
+        final Deque<String[]> stack = CURRENT_EXCLUDE_FIELD_NAMES.get();
+        return stack.isEmpty() ? null : stack.peek();
+    }
+
+    /**
+     * Pops the exclude field names most recently pushed by {@link #pushExcludeFieldNames(String[])}, restoring
+     * whatever value was active before it, if any.
+     */
+    static void popExcludeFieldNames() {
+        final Deque<String[]> stack = CURRENT_EXCLUDE_FIELD_NAMES.get();
+        stack.pop();
+        if (stack.isEmpty()) {
+            CURRENT_EXCLUDE_FIELD_NAMES.remove();
+        }
+    }
+
+    /**
+     * Pushes the exclude field names that a top-level {@link ReflectionToStringBuilder} was configured with, so
+     * that {@link #appendDetail(StringBuffer, String, Object)} can apply the same exclusions while recursing into
+     * nested objects. Every call must be paired with a matching {@link #popExcludeFieldNames()}, typically in a
+     * {@code finally} block, so the stack stays balanced even if rendering throws.
+     *
+     * @param excludeFieldNames the exclude field names to make active for the current recursive traversal on this
+     *        thread; may be {@code null}, meaning no exclusions.
+     */
+    static void pushExcludeFieldNames(final String[] excludeFieldNames) {
+        CURRENT_EXCLUDE_FIELD_NAMES.get().push(excludeFieldNames);
     }
 
     /**
@@ -176,10 +232,26 @@ public class RecursiveToStringStyle extends ToStringStyle {
         appendDetail(buffer, fieldName, coll.toArray());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * If the current top-level {@link ReflectionToStringBuilder#toString()} call was configured with
+     * {@link ReflectionToStringBuilder#setExcludeFieldNames(String...) excludeFieldNames}, those same field names
+     * are also excluded while rendering this nested object, and recursively for any further nesting beneath it.
+     * Without this, a field exclusion applied to the top-level object would silently stop applying as soon as
+     * traversal entered a nested object (LANG-1249).
+     * </p>
+     */
     @Override
     public void appendDetail(final StringBuffer buffer, final String fieldName, final Object value) {
         if (value != null && accept(value.getClass())) {
-            buffer.append(ReflectionToStringBuilder.toString(value, this));
+            final ReflectionToStringBuilder nestedBuilder = new ReflectionToStringBuilder(value, this);
+            final String[] excludeFieldNames = currentExcludeFieldNames();
+            if (excludeFieldNames != null) {
+                nestedBuilder.setExcludeFieldNames(excludeFieldNames);
+            }
+            buffer.append(nestedBuilder.toString());
         } else {
             super.appendDetail(buffer, fieldName, value);
         }
