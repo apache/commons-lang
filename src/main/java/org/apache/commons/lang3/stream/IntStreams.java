@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.stream;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 /**
@@ -37,7 +38,9 @@ public class IntStreams {
      */
     @SafeVarargs // Creating a stream from an array is safe
     public static IntStream of(final int... values) {
-        return values == null ? IntStream.empty() : IntStream.of(values);
+        return Optional.ofNullable(values)
+            .map(IntStream::of)
+            .orElseGet(IntStream::empty);
     }
 
     /**
