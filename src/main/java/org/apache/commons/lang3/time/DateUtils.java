@@ -1243,37 +1243,29 @@ public class DateUtils {
             int offset = 0;
             boolean offsetSet = false;
             // These are special types of fields that require different rounding rules
-            switch (field) {
-            case SEMI_MONTH:
-                if (aField[0] == Calendar.DATE) {
-                    // If we're going to drop the DATE field's value,
-                    // we want to do this our own way.
-                    // We need to subtract 1 since the date has a minimum of 1
-                    offset = val.get(Calendar.DATE) - 1;
-                    // If we're above 15 days adjustment, that means we're in the
-                    // bottom half of the month and should stay accordingly.
-                    if (offset >= 15) {
-                        offset -= 15;
-                    }
-                    // Record whether we're in the top or bottom half of that range
-                    roundUp = offset > 7;
-                    offsetSet = true;
+            if (field == SEMI_MONTH && aField[0] == Calendar.DATE) {
+                // If we're going to drop the DATE field's value,
+                // we want to do this our own way.
+                // We need to subtract 1 since the date has a minimum of 1
+                offset = val.get(Calendar.DATE) - 1;
+                // If we're above 15 days adjustment, that means we're in the
+                // bottom half of the month and should stay accordingly.
+                if (offset >= 15) {
+                    offset -= 15;
                 }
-                break;
-            case Calendar.AM_PM:
-                if (aField[0] == Calendar.HOUR_OF_DAY) {
-                    // If we're going to drop the HOUR field's value,
-                    // we want to do this our own way.
-                    offset = val.get(Calendar.HOUR_OF_DAY);
-                    if (offset >= 12) {
-                        offset -= 12;
-                    }
-                    roundUp = offset >= 6;
-                    offsetSet = true;
+                // Record whether we're in the top or bottom half of that range
+                roundUp = offset > 7;
+                offsetSet = true;
+            }
+            if (field == Calendar.AM_PM && aField[0] == Calendar.HOUR_OF_DAY) {
+                // If we're going to drop the HOUR field's value,
+                // we want to do this our own way.
+                offset = val.get(Calendar.HOUR_OF_DAY);
+                if (offset >= 12) {
+                    offset -= 12;
                 }
-                break;
-            default:
-                break;
+                roundUp = offset >= 6;
+                offsetSet = true;
             }
             if (!offsetSet) {
                 final int min = val.getActualMinimum(aField[0]);
