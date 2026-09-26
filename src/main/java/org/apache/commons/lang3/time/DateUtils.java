@@ -1230,15 +1230,7 @@ public class DateUtils {
                     onSemiMonth(val);
                     // Fix for LANG-440 START
                 } else if (field == Calendar.AM_PM) {
-                    // This is a special case
-                    // If the time is 0, we round up to 12, otherwise
-                    // we subtract 12 hours and add 1 day
-                    if (val.get(Calendar.HOUR_OF_DAY) == 0) {
-                        val.add(Calendar.HOUR_OF_DAY, 12);
-                    } else {
-                        val.add(Calendar.HOUR_OF_DAY, -12);
-                        val.add(Calendar.DATE, 1);
-                    }
+                    onAmPm(val);
                     // Fix for LANG-440 END
                 } else {
                     // We need at add one to this field since the
@@ -1308,6 +1300,18 @@ public class DateUtils {
         } else {
             val.add(Calendar.DATE, -15);
             val.add(Calendar.MONTH, 1);
+        }
+    }
+
+    private static void onAmPm(final Calendar val) {
+        // This is a special case
+        // If the time is 0, we round up to 12, otherwise
+        // we subtract 12 hours and add 1 day
+        if (val.get(Calendar.HOUR_OF_DAY) == 0) {
+            val.add(Calendar.HOUR_OF_DAY, 12);
+        } else {
+            val.add(Calendar.HOUR_OF_DAY, -12);
+            val.add(Calendar.DATE, 1);
         }
     }
 
