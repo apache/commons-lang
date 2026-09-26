@@ -1222,34 +1222,36 @@ public class DateUtils {
                 }
 
                 // This is our field... we stop looping
-                if (modType == ModifyType.CEILING && originalMillis != val.getTimeInMillis() || modType == ModifyType.ROUND && roundUp) {
-                    if (field == SEMI_MONTH) {
-                        // This is a special case that's hard to generalize
-                        // If the date is 1, we round up to 16, otherwise
-                        // we subtract 15 days and add 1 month
-                        if (val.get(Calendar.DATE) == 1) {
-                            val.add(Calendar.DATE, 15);
-                        } else {
-                            val.add(Calendar.DATE, -15);
-                            val.add(Calendar.MONTH, 1);
-                        }
-                        // Fix for LANG-440 START
-                    } else if (field == Calendar.AM_PM) {
-                        // This is a special case
-                        // If the time is 0, we round up to 12, otherwise
-                        // we subtract 12 hours and add 1 day
-                        if (val.get(Calendar.HOUR_OF_DAY) == 0) {
-                            val.add(Calendar.HOUR_OF_DAY, 12);
-                        } else {
-                            val.add(Calendar.HOUR_OF_DAY, -12);
-                            val.add(Calendar.DATE, 1);
-                        }
-                        // Fix for LANG-440 END
+                if ((modType != ModifyType.CEILING || originalMillis == val.getTimeInMillis()) && (modType != ModifyType.ROUND || !roundUp)) {
+                    return val;
+                }
+
+                if (field == SEMI_MONTH) {
+                    // This is a special case that's hard to generalize
+                    // If the date is 1, we round up to 16, otherwise
+                    // we subtract 15 days and add 1 month
+                    if (val.get(Calendar.DATE) == 1) {
+                        val.add(Calendar.DATE, 15);
                     } else {
-                        // We need at add one to this field since the
-                        // last number causes us to round up
-                        val.add(aField[0], 1);
+                        val.add(Calendar.DATE, -15);
+                        val.add(Calendar.MONTH, 1);
                     }
+                    // Fix for LANG-440 START
+                } else if (field == Calendar.AM_PM) {
+                    // This is a special case
+                    // If the time is 0, we round up to 12, otherwise
+                    // we subtract 12 hours and add 1 day
+                    if (val.get(Calendar.HOUR_OF_DAY) == 0) {
+                        val.add(Calendar.HOUR_OF_DAY, 12);
+                    } else {
+                        val.add(Calendar.HOUR_OF_DAY, -12);
+                        val.add(Calendar.DATE, 1);
+                    }
+                    // Fix for LANG-440 END
+                } else {
+                    // We need at add one to this field since the
+                    // last number causes us to round up
+                    val.add(aField[0], 1);
                 }
                 return val;
             }
