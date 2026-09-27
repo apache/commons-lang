@@ -236,7 +236,9 @@ public class TypeUtils {
          * @param lowerBounds of this type.
          */
         private WildcardTypeImpl(final Type[] upperBounds, final Type[] lowerBounds) {
-            this.upperBounds = upperBounds != null ? upperBounds.clone() : ArrayUtils.EMPTY_TYPE_ARRAY;
+            // A wildcard with no explicit upper bound has an implicit upper bound of Object, per
+            // WildcardType.getUpperBounds(); returning an empty array breaks equals() with a JDK wildcard.
+            this.upperBounds = ArrayUtils.isNotEmpty(upperBounds) ? upperBounds.clone() : new Type[] {Object.class};
             this.lowerBounds = lowerBounds != null ? lowerBounds.clone() : ArrayUtils.EMPTY_TYPE_ARRAY;
         }
 
