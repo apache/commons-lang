@@ -969,7 +969,7 @@ public class RandomStringUtils {
      * @since 3.5
      */
     public String nextGraph(final int count) {
-        return next(count, 33, 126, false, false);
+        return next(count, 33, 127, false, false);
     }
 
     /**
@@ -1034,7 +1034,7 @@ public class RandomStringUtils {
      * @since 3.16.0
      */
     public String nextPrint(final int count) {
-        return next(count, 32, 126, false, false);
+        return next(count, 32, 127, false, false);
     }
 
     /**
