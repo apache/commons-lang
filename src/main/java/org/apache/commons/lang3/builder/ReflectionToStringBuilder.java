@@ -818,6 +818,14 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     /**
      * Gets the String built by this builder.
      *
+     * <p>
+     * If the {@linkplain #getStyle() style} is a {@link RecursiveToStringStyle}, this builder's
+     * {@link #excludeFieldNames} are made available to it for the duration of this call, so that the same
+     * exclusions apply while the style recursively renders nested objects (LANG-1249). Without this, an exclusion
+     * set here would apply only to this object's own fields, not to fields of the same name found while
+     * recursing into nested objects.
+     * </p>
+     *
      * @return The built string
      */
     @Override
@@ -828,13 +836,24 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
         validate();
 
-        Class<?> clazz = getObject().getClass();
-        appendFieldsIn(clazz);
-        while (clazz.getSuperclass() != null && clazz != getUpToClass()) {
-            clazz = clazz.getSuperclass();
-            appendFieldsIn(clazz);
+        final ToStringStyle style = getStyle();
+        final boolean recursiveStyle = style instanceof RecursiveToStringStyle;
+        if (recursiveStyle) {
+            ((RecursiveToStringStyle) style).pushExcludeFieldNames(excludeFieldNames);
         }
-        return super.toString();
+        try {
+            Class<?> clazz = getObject().getClass();
+            appendFieldsIn(clazz);
+            while (clazz.getSuperclass() != null && clazz != getUpToClass()) {
+                clazz = clazz.getSuperclass();
+                appendFieldsIn(clazz);
+            }
+            return super.toString();
+        } finally {
+            if (recursiveStyle) {
+                ((RecursiveToStringStyle) style).popExcludeFieldNames();
+            }
+        }
     }
 
     /**
