@@ -30,6 +30,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Random;
+import java.util.function.IntFunction;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
@@ -46,9 +47,41 @@ class RandomStringUtilsTest extends AbstractLangTest {
 
     private static final int LOOP_COUNT = 1_000;
 
+    /** Characters generated per iteration when checking that a documented range boundary is reachable. */
+    private static final int BOUNDARY_SAMPLE_LENGTH = 100;
+
     /** Maximum safe value for count to avoid overflow: (21x + 3) / 5 + 10 < 0x0FFF_FFFF */
     private static final int MAX_SAFE_COUNT = 63_913_201;
 
+
+    /**
+     * Asserts that a generator produces both ends of an inclusive character range and nothing outside it.
+     * <p>
+     * The random number generator of a {@link RandomStringUtils} instance cannot be injected, so reaching a boundary is
+     * sampled rather than forced: {@value #LOOP_COUNT} strings of {@value #BOUNDARY_SAMPLE_LENGTH} characters. Over a sample
+     * that size, a correct generator missing a given boundary character is not a failure mode that can be observed in
+     * practice.
+     * </p>
+     *
+     * @param generator    Generator under test, called with a character count.
+     * @param minInclusive Lowest character the generator is documented to produce.
+     * @param maxInclusive Highest character the generator is documented to produce.
+     */
+    private static void assertInclusiveRange(final IntFunction<String> generator, final char minInclusive, final char maxInclusive) {
+        boolean minFound = false;
+        boolean maxFound = false;
+        for (int i = 0; i < LOOP_COUNT; i++) {
+            final String randString = generator.apply(BOUNDARY_SAMPLE_LENGTH);
+            for (int j = 0; j < randString.length(); j++) {
+                final char ch = randString.charAt(j);
+                assertTrue(ch >= minInclusive && ch <= maxInclusive, () -> "character out of range: " + (int) ch);
+                minFound |= ch == minInclusive;
+                maxFound |= ch == maxInclusive;
+            }
+        }
+        assertTrue(minFound, () -> "character not generated in " + LOOP_COUNT + " attempts: " + (int) minInclusive);
+        assertTrue(maxFound, () -> "character not generated in " + LOOP_COUNT + " attempts: " + (int) maxInclusive);
+    }
 
     static Stream<RandomStringUtils> randomProvider() {
         return Stream.of(RandomStringUtils.secure(), RandomStringUtils.secureStrong(), RandomStringUtils.insecure());
@@ -747,37 +780,29 @@ class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Verifies that {@link RandomStringUtils#nextGraph(int)} only generates characters in the POSIX {@code [:graph:]} range
-     * from {@code '!'} (0x21) through {@code '~'} (0x7E).
+     * Verifies that {@link RandomStringUtils#nextGraph(int)} generates both ends of the POSIX {@code [:graph:]} class,
+     * {@code '!'} (0x21) and {@code '~'} (0x7E), and nothing outside it.
      *
      * @param rsu The instance to test
+     * @see #assertInclusiveRange(IntFunction, char, char)
      */
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testRandomGraphIncludesTilde(final RandomStringUtils rsu) {
-        final String randString = rsu.nextGraph(100);
-        for (int i = 0; i < randString.length(); i++) {
-            final char ch = randString.charAt(i);
-            assertTrue(ch >= 33 && ch <= 126,
-                    () -> "nextGraph generated out-of-range character: " + (int) ch);
-        }
+        assertInclusiveRange(rsu::nextGraph, '!', '~');
     }
 
     /**
-     * Verifies that {@link RandomStringUtils#nextPrint(int)} only generates characters in the POSIX {@code [:print:]} range
-     * from space (0x20) through {@code '~'} (0x7E).
+     * Verifies that {@link RandomStringUtils#nextPrint(int)} generates both ends of the POSIX {@code [:print:]} class,
+     * space (0x20) and {@code '~'} (0x7E), and nothing outside it.
      *
      * @param rsu The instance to test
+     * @see #assertInclusiveRange(IntFunction, char, char)
      */
     @ParameterizedTest
     @MethodSource("randomProvider")
     void testRandomPrintIncludesTilde(final RandomStringUtils rsu) {
-        final String randString = rsu.nextPrint(100);
-        for (int i = 0; i < randString.length(); i++) {
-            final char ch = randString.charAt(i);
-            assertTrue(ch >= 32 && ch <= 126,
-                    () -> "nextPrint generated out-of-range character: " + (int) ch);
-        }
+        assertInclusiveRange(rsu::nextPrint, ' ', '~');
     }
 
     @ParameterizedTest
