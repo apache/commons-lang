@@ -24,10 +24,12 @@ import java.text.DateFormatSymbols;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -35,6 +37,7 @@ import java.util.concurrent.ConcurrentMap;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.LocaleUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
@@ -1285,6 +1288,35 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         throw new IllegalArgumentException("Unknown class: " + ClassUtils.getName(obj, "<null>"));
     }
 
+    /**
+     * Gets the era names for the calendar this printer formats with.
+     * <p>
+     * {@link DateFormatSymbols#getEras()} only knows the two Gregorian eras. A locale whose default calendar is not Gregorian, like the Thai Buddhist or
+     * Japanese Imperial calendar, prints that calendar's year, so the era names have to come from that calendar as well, as {@link SimpleDateFormat} and
+     * {@link FastDateParser} do. The Japanese Imperial calendar also has more than two eras, so indexing the Gregorian names by its era value would throw an
+     * {@link ArrayIndexOutOfBoundsException}.
+     * </p>
+     *
+     * @param symbols the date format symbols for this printer's locale.
+     * @param style   {@link Calendar#SHORT} or {@link Calendar#LONG}.
+     * @return the era names, indexed by the {@link Calendar#ERA} value.
+     */
+    private String[] getEras(final DateFormatSymbols symbols, final int style) {
+        final Calendar calendar = newCalendar();
+        // The Buddhist calendar extends GregorianCalendar, so test the calendar type rather than the class.
+        if ("gregory".equals(calendar.getCalendarType())) {
+            return symbols.getEras();
+        }
+        final Map<String, Integer> displayNames = calendar.getDisplayNames(Calendar.ERA, style, locale);
+        if (displayNames == null) {
+            return symbols.getEras();
+        }
+        final String[] eras = new String[calendar.getMaximum(Calendar.ERA) + 1];
+        Arrays.fill(eras, StringUtils.EMPTY);
+        displayNames.forEach((name, era) -> eras[era] = name);
+        return eras;
+    }
+
     /* (non-Javadoc)
      * @see org.apache.commons.lang3.time.DatePrinter#getLocale()
      */
@@ -1368,7 +1400,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         final DateFormatSymbols symbols = new DateFormatSymbols(locale);
         final List<Rule> rules = new ArrayList<>();
 
-        final String[] ERAs = symbols.getEras();
         final String[] months = symbols.getMonths();
         final String[] shortMonths = symbols.getShortMonths();
         final String[] weekdays = symbols.getWeekdays();
@@ -1393,7 +1424,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
             switch (c) {
             case 'G': // era designator (text)
-                rule = new TextField(Calendar.ERA, ERAs);
+                rule = new TextField(Calendar.ERA, getEras(symbols, tokenLen >= 4 ? Calendar.LONG : Calendar.SHORT));
                 break;
             case 'y': // year (number)
             case 'Y': // week year

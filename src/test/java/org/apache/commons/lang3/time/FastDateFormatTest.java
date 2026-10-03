@@ -291,6 +291,21 @@ class FastDateFormatTest extends AbstractLangTest {
     }
 
     /**
+     * Tests that a formatted era parses back when the locale's calendar is not Gregorian.
+     */
+    @Test
+    void testEraRoundTripNonGregorianCalendar() throws ParseException {
+        final Calendar cal = Calendar.getInstance(TimeZones.GMT, Locale.US);
+        cal.clear();
+        cal.set(2024, Calendar.MAY, 1);
+        final Date date = cal.getTime();
+        for (final Locale locale : new Locale[] { new Locale("th", "TH"), new Locale("ja", "JP", "JP") }) {
+            final FastDateFormat format = FastDateFormat.getInstance("G yyyy-MM-dd", TimeZones.GMT, locale);
+            assertEquals(date, format.parse(format.format(date)), locale::toString);
+        }
+    }
+
+    /**
      * Pre-patch: UnsupportedOperationException when formatting a Japanese Imperial
      * <p>
      * Calendar with 'Y' (week-year) pattern. Post-patch: falls back to Calendar.YEAR and formats successfully.
