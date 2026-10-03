@@ -1622,6 +1622,21 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testWildcardTypeImplicitUpperBound() throws NoSuchFieldException {
+        final WildcardType built = TypeUtils.wildcardType().build();
+        // An unbounded wildcard has an implicit upper bound of Object, per WildcardType.getUpperBounds().
+        assertArrayEquals(new Type[] { Object.class }, built.getUpperBounds());
+        // equals() must be symmetric with a JDK unbounded wildcard.
+        final WildcardType jdk = (WildcardType) ((ParameterizedType) TypeUtilsTest.class.getField("wildcardComparable")
+                .getGenericType()).getActualTypeArguments()[0];
+        assertEquals(built, jdk);
+        assertEquals(jdk, built);
+        // Equal wildcards must share a hash code.
+        assertEquals(TypeUtils.WILDCARD_ALL, built);
+        assertEquals(TypeUtils.WILDCARD_ALL.hashCode(), built.hashCode());
+    }
+
+    @Test
     void testWrap() {
         final Type t = getClass().getTypeParameters()[0];
         assertTrue(TypeUtils.equals(t, TypeUtils.wrap(t).getType()));
