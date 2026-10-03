@@ -5524,7 +5524,7 @@ public class StringUtils {
                 whitespacesCount++;
             } else {
                 startWhitespaces = false;
-                newChars[count++] = actualChar == 160 ? 32 : actualChar;
+                newChars[count++] = actualChar;
                 whitespacesCount = 0;
             }
         }

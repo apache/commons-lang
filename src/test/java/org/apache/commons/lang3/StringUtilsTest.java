@@ -1410,6 +1410,8 @@ class StringUtilsTest extends AbstractLangTest {
     void testNormalizeSpace() {
         // Java says a non-breaking whitespace is not a whitespace.
         assertFalse(Character.isWhitespace('\u00A0'));
+        assertEquals("a\u00A0b", StringUtils.normalizeSpace("a\u00A0b"));
+        assertEquals("a\u00A0 b", StringUtils.normalizeSpace("a\u00A0 b"));
         //
         assertNull(StringUtils.normalizeSpace(null));
         assertEquals("", StringUtils.normalizeSpace(""));
@@ -1428,7 +1430,7 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("a", StringUtils.normalizeSpace("  a  "));
         assertEquals("a b c", StringUtils.normalizeSpace("  a  b   c  "));
         assertEquals("a b c", StringUtils.normalizeSpace("a\t\f\r  b\u000B   c\n"));
-        assertEquals("a   b c", StringUtils.normalizeSpace("a\t\f\r  " + HARD_SPACE + HARD_SPACE + "b\u000B   c\n"));
+        assertEquals("a \u00A0\u00A0b c", StringUtils.normalizeSpace("a\t\f\r  " + HARD_SPACE + HARD_SPACE + "b\u000B   c\n"));
         assertEquals("b", StringUtils.normalizeSpace("\u0000b"));
         assertEquals("b", StringUtils.normalizeSpace("b\u0000"));
     }
