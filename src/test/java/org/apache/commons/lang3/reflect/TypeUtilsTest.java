@@ -1571,6 +1571,7 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     void testUnboundedWildcardType() {
         final WildcardType unbounded = TypeUtils.wildcardType().withLowerBounds((Type) null).withUpperBounds().build();
         assertTrue(TypeUtils.equals(TypeUtils.WILDCARD_ALL, unbounded));
+        assertEquals(TypeUtils.WILDCARD_ALL.hashCode(), unbounded.hashCode());
         assertArrayEquals(new Type[] { Object.class }, TypeUtils.getImplicitUpperBounds(unbounded));
         assertArrayEquals(new Type[] { null }, TypeUtils.getImplicitLowerBounds(unbounded));
         assertEquals("?", TypeUtils.toString(unbounded));
@@ -1619,6 +1620,32 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertArrayEquals(new Type[] { String.class }, wildcardLower.getLowerBounds());
         wildcardLower.getLowerBounds()[0] = Integer.class;
         assertArrayEquals(new Type[] { String.class }, wildcardLower.getLowerBounds());
+    }
+
+    @Test
+    void testWildcardTypeImplicitUpperBound() throws NoSuchFieldException {
+        final WildcardType built = TypeUtils.wildcardType().build();
+        // An unbounded wildcard has an implicit upper bound of Object, per WildcardType.getUpperBounds().
+        assertArrayEquals(new Type[] { Object.class }, built.getUpperBounds());
+        // equals() must be symmetric with a JDK unbounded wildcard.
+        final WildcardType jdk = (WildcardType) ((ParameterizedType) TypeUtilsTest.class.getField("wildcardComparable")
+                .getGenericType()).getActualTypeArguments()[0];
+        assertEquals(built, jdk);
+        assertEquals(jdk, built);
+        // Equal wildcards must share a hash code.
+        assertEquals(jdk.hashCode(), built.hashCode());
+        assertEquals(TypeUtils.WILDCARD_ALL, built);
+        assertEquals(TypeUtils.WILDCARD_ALL.hashCode(), built.hashCode());
+    }
+
+    @Test
+    void testWildcardTypeRedundantUpperBound() {
+        // equals() ignores a redundant upper bound, so hashCode() must ignore it too.
+        final WildcardType redundant = TypeUtils.wildcardType().withUpperBounds(Collection.class, List.class).build();
+        final WildcardType simple = TypeUtils.wildcardType().withUpperBounds(List.class).build();
+        assertEquals(simple, redundant);
+        assertEquals(redundant, simple);
+        assertEquals(simple.hashCode(), redundant.hashCode());
     }
 
     @Test

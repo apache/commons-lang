@@ -236,7 +236,9 @@ public class TypeUtils {
          * @param lowerBounds of this type.
          */
         private WildcardTypeImpl(final Type[] upperBounds, final Type[] lowerBounds) {
-            this.upperBounds = upperBounds != null ? upperBounds.clone() : ArrayUtils.EMPTY_TYPE_ARRAY;
+            // A wildcard with no explicit upper bound has an implicit upper bound of Object, per
+            // WildcardType.getUpperBounds(); returning an empty array breaks equals() with a JDK wildcard.
+            this.upperBounds = ArrayUtils.isNotEmpty(upperBounds) ? upperBounds.clone() : new Type[] {Object.class};
             this.lowerBounds = lowerBounds != null ? lowerBounds.clone() : ArrayUtils.EMPTY_TYPE_ARRAY;
         }
 
@@ -269,11 +271,10 @@ public class TypeUtils {
          */
         @Override
         public int hashCode() {
-            int result = 73 << 8;
-            result |= Arrays.hashCode(upperBounds);
-            result <<= 8;
-            result |= Arrays.hashCode(lowerBounds);
-            return result;
+            // Same algorithm as the JDK's WildcardType, over the bounds that equals() compares, so that equal wildcards share a hash code.
+            // A lone null lower bound means no lower bound, which the JDK reports as an empty array.
+            final Type[] lower = lowerBounds.length == 1 && lowerBounds[0] == null ? ArrayUtils.EMPTY_TYPE_ARRAY : lowerBounds;
+            return Arrays.hashCode(lower) ^ Arrays.hashCode(getImplicitUpperBounds(this));
         }
 
         /**
