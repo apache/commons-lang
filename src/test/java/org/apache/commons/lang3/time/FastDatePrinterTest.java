@@ -168,6 +168,31 @@ class FastDatePrinterTest extends AbstractLangTest {
     }
 
     /**
+     * Tests that 'G' names the era of the calendar being formatted when that calendar is not of the type the locale defaults to, like SimpleDateFormat.
+     */
+    @Test
+    void testEraMixedCalendarTypes() {
+        final Calendar cal = Calendar.getInstance(TimeZones.GMT, Locale.US);
+        cal.clear();
+        cal.set(2024, Calendar.MAY, 1);
+        final Date date = cal.getTime();
+        // Gregorian, Thai Buddhist and Japanese Imperial calendars.
+        final Locale[] locales = { Locale.US, new Locale("th", "TH"), new Locale("ja", "JP", "JP") };
+        for (final Locale locale : locales) {
+            for (final Locale calendarLocale : locales) {
+                final Calendar calendar = Calendar.getInstance(TimeZones.GMT, calendarLocale);
+                calendar.setTime(date);
+                for (final String pattern : new String[] { "G", "GGGG" }) {
+                    final SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);
+                    sdf.setCalendar((Calendar) calendar.clone());
+                    assertEquals(sdf.format(date), getInstance(pattern, TimeZones.GMT, locale).format(calendar),
+                            () -> locale + " " + calendar.getCalendarType() + " " + pattern);
+                }
+            }
+        }
+    }
+
+    /**
      * Tests that 'G' uses the era names of the locale's calendar when that calendar is not Gregorian, like SimpleDateFormat.
      */
     @Test
