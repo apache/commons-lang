@@ -1632,6 +1632,7 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals(built, jdk);
         assertEquals(jdk, built);
         // Equal wildcards must share a hash code.
+        assertEquals(jdk.hashCode(), built.hashCode());
         assertEquals(TypeUtils.WILDCARD_ALL, built);
         assertEquals(TypeUtils.WILDCARD_ALL.hashCode(), built.hashCode());
     }

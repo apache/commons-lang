@@ -271,11 +271,8 @@ public class TypeUtils {
          */
         @Override
         public int hashCode() {
-            int result = 73 << 8;
-            result |= Arrays.hashCode(upperBounds);
-            result <<= 8;
-            result |= Arrays.hashCode(lowerBounds);
-            return result;
+            // Same algorithm as the JDK's WildcardType, so that equal wildcards share a hash code.
+            return Arrays.hashCode(lowerBounds) ^ Arrays.hashCode(upperBounds);
         }
 
         /**
