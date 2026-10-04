@@ -271,8 +271,10 @@ public class TypeUtils {
          */
         @Override
         public int hashCode() {
-            // Same algorithm as the JDK's WildcardType, so that equal wildcards share a hash code.
-            return Arrays.hashCode(lowerBounds) ^ Arrays.hashCode(upperBounds);
+            // Same algorithm as the JDK's WildcardType, over the bounds that equals() compares, so that equal wildcards share a hash code.
+            // A lone null lower bound means no lower bound, which the JDK reports as an empty array.
+            final Type[] lower = lowerBounds.length == 1 && lowerBounds[0] == null ? ArrayUtils.EMPTY_TYPE_ARRAY : lowerBounds;
+            return Arrays.hashCode(lower) ^ Arrays.hashCode(getImplicitUpperBounds(this));
         }
 
         /**
