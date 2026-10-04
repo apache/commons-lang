@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.builder.AbstractReflection;
@@ -217,7 +218,7 @@ public class AnnotationUtils {
         }
         try {
             for (final Method m : type1.getDeclaredMethods()) {
-                if (m.getParameterTypes().length == 0
+                if (isAnnotationMember(m) && m.getParameterTypes().length == 0
                         && isValidAnnotationMemberType(m.getReturnType())) {
                     AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
                     final Object v1 = m.invoke(a1);
@@ -247,6 +248,9 @@ public class AnnotationUtils {
         int result = 0;
         final Class<? extends Annotation> type = a.annotationType();
         for (final Method m : type.getDeclaredMethods()) {
+            if (!isAnnotationMember(m)) {
+                continue;
+            }
             try {
                 AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
                 final Object value = m.invoke(a);
@@ -278,6 +282,17 @@ public class AnnotationUtils {
             return part1 ^ hashCode((Annotation) value);
         }
         return part1 ^ value.hashCode();
+    }
+
+    /**
+     * Tests whether the specified method declares an annotation member.
+     *
+     * @param method The method to check
+     * @return whether the method is public, abstract and non-synthetic
+     */
+    private static boolean isAnnotationMember(final Method method) {
+        final int modifiers = method.getModifiers();
+        return Modifier.isPublic(modifiers) && Modifier.isAbstract(modifiers) && !method.isSynthetic();
     }
 
     /**
@@ -341,8 +356,8 @@ public class AnnotationUtils {
     public static String toString(final Annotation a) {
         final ToStringBuilder builder = new ToStringBuilder(a, TO_STRING_STYLE);
         for (final Method m : a.annotationType().getDeclaredMethods()) {
-            if (m.getParameterTypes().length > 0) {
-                continue; // what?
+            if (!isAnnotationMember(m) || m.getParameterTypes().length > 0) {
+                continue;
             }
             try {
                 AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
