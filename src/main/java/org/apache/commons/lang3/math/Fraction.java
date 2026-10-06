@@ -922,13 +922,15 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @return A {@link String} form of the fraction
      */
     public String toProperString() {
-        if (toProperString == null) {
+        // Read the lazily initialized field only once: a second racy read may see null.
+        String result = toProperString;
+        if (result == null) {
             if (numerator == 0) {
-                toProperString = "0";
+                result = "0";
             } else if (numerator == denominator) {
-                toProperString = "1";
+                result = "1";
             } else if (numerator == -1 * denominator) {
-                toProperString = "-1";
+                result = "-1";
             } else if ((numerator > 0 ? -numerator : numerator) < -denominator) {
                 // note that we do the magnitude comparison test above with
                 // NEGATIVE (not positive) numbers, since negative numbers
@@ -936,15 +938,16 @@ public final class Fraction extends Number implements Comparable<Fraction> {
                 // is handled incorrectly.
                 final int properNumerator = getProperNumerator();
                 if (properNumerator == 0) {
-                    toProperString = Integer.toString(getProperWhole());
+                    result = Integer.toString(getProperWhole());
                 } else {
-                    toProperString = getProperWhole() + " " + properNumerator + "/" + getDenominator();
+                    result = getProperWhole() + " " + properNumerator + "/" + getDenominator();
                 }
             } else {
-                toProperString = getNumerator() + "/" + getDenominator();
+                result = getNumerator() + "/" + getDenominator();
             }
+            toProperString = result;
         }
-        return toProperString;
+        return result;
     }
 
     /**
@@ -957,9 +960,12 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      */
     @Override
     public String toString() {
-        if (toString == null) {
-            toString = getNumerator() + "/" + getDenominator();
+        // Read the lazily initialized field only once: a second racy read may see null.
+        String result = toString;
+        if (result == null) {
+            result = getNumerator() + "/" + getDenominator();
+            toString = result;
         }
-        return toString;
+        return result;
     }
 }

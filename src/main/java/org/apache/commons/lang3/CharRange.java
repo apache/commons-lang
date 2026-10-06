@@ -424,7 +424,9 @@ final class CharRange implements Iterable<Character>, Serializable {
      */
     @Override
     public String toString() {
-        if (iToString == null) {
+        // Read the lazily initialized field only once: a second racy read may see null.
+        String result = iToString;
+        if (result == null) {
             final StringBuilder buf = new StringBuilder(4);
             if (isNegated()) {
                 buf.append('^');
@@ -434,8 +436,9 @@ final class CharRange implements Iterable<Character>, Serializable {
                 buf.append('-');
                 buf.append(end);
             }
-            iToString = buf.toString();
+            result = buf.toString();
+            iToString = result;
         }
-        return iToString;
+        return result;
     }
 }
