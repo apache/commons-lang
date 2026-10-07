@@ -266,6 +266,28 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         // empty
     }
 
+    /** LANG-1836: non-static inner classes whose owner type is parameterized. */
+    static class Outer<T> {
+
+        class Inner {
+            // empty
+        }
+
+        class InnerU<U> {
+            // empty
+        }
+
+        Map.Entry<T, Integer> entry;
+
+        Inner inner;
+
+        InnerU<Integer> innerUInteger;
+
+        InnerU<T> innerUT;
+
+        Map<T, T> map;
+    }
+
     public class Tester implements This<String, B> {
         // empty
     }
@@ -495,6 +517,18 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.containsTypeVariables(wtLower));
         final WildcardType wtNone = TypeUtils.wildcardType().withUpperBounds(Integer.class, String.class).build();
         assertFalse(TypeUtils.containsTypeVariables(wtNone));
+    }
+
+    @Test
+    void testContainsTypeVariablesOwnerType() throws NoSuchFieldException {
+        // LANG-1836: Outer<T>.Inner
+        assertTrue(TypeUtils.containsTypeVariables(Outer.class.getDeclaredField("inner").getGenericType()));
+        // Outer<T>.InnerU<Integer>
+        assertTrue(TypeUtils.containsTypeVariables(Outer.class.getDeclaredField("innerUInteger").getGenericType()));
+        // Outer<String>.Inner
+        assertFalse(TypeUtils.containsTypeVariables(TypeUtils.parameterizeWithOwner(TypeUtils.parameterize(Outer.class, String.class), Outer.Inner.class)));
+        // Map.Entry<String, Integer>: the owner is the raw Map.class, which declares type parameters but binds none.
+        assertFalse(TypeUtils.containsTypeVariables(TypeUtils.parameterizeWithOwner(Map.class, Map.Entry.class, String.class, Integer.class)));
     }
 
     @Test
@@ -1587,6 +1621,35 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals("java.util.ArrayList<E>", TypeUtils.unrollVariables(null, parameterizedType).getTypeName());
         final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(variables[0], String.class);
         assertEquals("java.util.ArrayList<java.lang.String>", TypeUtils.unrollVariables(mapping, parameterizedType).getTypeName());
+    }
+
+    @Test
+    void testUnrollVariablesOwnerType() throws NoSuchFieldException {
+        // LANG-1836
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        final ParameterizedType outerString = TypeUtils.parameterize(Outer.class, String.class);
+        // Outer<T>.Inner -> Outer<String>.Inner
+        assertEquals(TypeUtils.parameterizeWithOwner(outerString, Outer.Inner.class),
+                TypeUtils.unrollVariables(mapping, Outer.class.getDeclaredField("inner").getGenericType()));
+        // Outer<T>.InnerU<Integer> -> Outer<String>.InnerU<Integer>
+        assertEquals(TypeUtils.parameterizeWithOwner(outerString, Outer.InnerU.class, Integer.class),
+                TypeUtils.unrollVariables(mapping, Outer.class.getDeclaredField("innerUInteger").getGenericType()));
+        // Outer<T>.InnerU<T> -> Outer<String>.InnerU<String>
+        assertEquals(TypeUtils.parameterizeWithOwner(outerString, Outer.InnerU.class, String.class),
+                TypeUtils.unrollVariables(mapping, Outer.class.getDeclaredField("innerUT").getGenericType()));
+        // Map.Entry<T, Integer> -> Map.Entry<String, Integer>: the raw owner Map.class is left unchanged.
+        assertEquals(TypeUtils.parameterizeWithOwner(Map.class, Map.Entry.class, String.class, Integer.class),
+                TypeUtils.unrollVariables(mapping, Outer.class.getDeclaredField("entry").getGenericType()));
+    }
+
+    @Test
+    void testUnrollVariablesRepeatedVariable() throws NoSuchFieldException {
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        // Map<T, T> -> Map<String, String>: every occurrence of T is unrolled, not only the first.
+        assertEquals(TypeUtils.parameterize(Map.class, String.class, String.class),
+                TypeUtils.unrollVariables(mapping, Outer.class.getDeclaredField("map").getGenericType()));
     }
 
     @SuppressWarnings("unlikely-arg-type")

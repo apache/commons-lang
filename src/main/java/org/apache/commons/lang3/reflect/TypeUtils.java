@@ -384,12 +384,15 @@ public class TypeUtils {
             return ((Class<?>) type).getTypeParameters().length > 0;
         }
         if (type instanceof ParameterizedType) {
-            for (final Type arg : ((ParameterizedType) type).getActualTypeArguments()) {
+            final ParameterizedType parameterizedType = (ParameterizedType) type;
+            for (final Type arg : parameterizedType.getActualTypeArguments()) {
                 if (containsTypeVariables(arg)) {
                     return true;
                 }
             }
-            return false;
+            // A raw Class owner (for example Map.class for Map.Entry<String, Integer>) binds no variables.
+            final Type ownerType = parameterizedType.getOwnerType();
+            return ownerType != null && !(ownerType instanceof Class<?>) && containsTypeVariables(ownerType);
         }
         if (type instanceof WildcardType) {
             final WildcardType wild = (WildcardType) type;
@@ -1728,25 +1731,24 @@ public class TypeUtils {
                 if (!visited.add(var)) {
                     return var;
                 }
-                return unrollVariables(typeArguments, typeArguments.get(type), visited);
+                final Type unrolled = unrollVariables(typeArguments, typeArguments.get(type), visited);
+                // Only guard against cycles: the same variable may legitimately occur more than once in a type.
+                visited.remove(var);
+                return unrolled;
             }
             if (type instanceof ParameterizedType) {
                 final ParameterizedType p = (ParameterizedType) type;
-                final Map<TypeVariable<?>, Type> parameterizedTypeArguments;
-                if (p.getOwnerType() == null) {
-                    parameterizedTypeArguments = typeArguments;
-                } else {
-                    parameterizedTypeArguments = new HashMap<>(typeArguments);
-                    parameterizedTypeArguments.putAll(getTypeArguments(p));
-                }
                 final Type[] args = p.getActualTypeArguments().clone();
                 for (int i = 0; i < args.length; i++) {
-                    final Type unrolled = unrollVariables(parameterizedTypeArguments, args[i], visited);
+                    final Type unrolled = unrollVariables(typeArguments, args[i], visited);
                     if (unrolled != null) {
                         args[i] = unrolled;
                     }
                 }
-                return parameterizeWithOwner(p.getOwnerType(), (Class<?>) p.getRawType(), args);
+                // A raw Class owner (for example Map.class for Map.Entry<T, Integer>) has nothing to unroll.
+                final Type owner = p.getOwnerType();
+                final Type unrolledOwner = owner != null && !(owner instanceof Class<?>) ? unrollVariables(typeArguments, owner, visited) : owner;
+                return parameterizeWithOwner(unrolledOwner, (Class<?>) p.getRawType(), args);
             }
             if (type instanceof WildcardType) {
                 final WildcardType wild = (WildcardType) type;
