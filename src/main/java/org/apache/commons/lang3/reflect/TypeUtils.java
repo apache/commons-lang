@@ -371,13 +371,25 @@ public class TypeUtils {
 
     /**
      * Tests, recursively, whether any of the type parameters associated with {@code type} are bound to variables.
+     * <p>
+     * The owner type of a parameterized type, for example {@code Outer<T>} of {@code Outer<T>.Inner}, is checked as well.
+     * </p>
      *
      * @param type The type to check for type variables.
      * @return Whether any of the type parameters associated with {@code type} are bound to variables.
      * @since 3.2
      */
     public static boolean containsTypeVariables(final Type type) {
-        return containsTypeVariables(type, new HashSet<>());
+        return containsTypeVariables(type, newIdentitySet());
+    }
+
+    /**
+     * Creates a set that compares by identity, so that cycle detection never calls {@code hashCode()} or {@code equals()} of a custom {@link Type}.
+     *
+     * @return A new identity-based set.
+     */
+    private static Set<Type> newIdentitySet() {
+        return Collections.newSetFromMap(new IdentityHashMap<>());
     }
 
     private static boolean containsTypeVariables(final Type type, final Set<Type> visited) {
@@ -1688,11 +1700,11 @@ public class TypeUtils {
      * @param visited       set of visited type variables for cycle detection.
      * @return {@code bounds} with any variables reassigned.
      */
-    private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds, final Set<TypeVariable<?>> visited) {
+    private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds, final Set<TypeVariable<?>> visited, final Set<Type> unrolling) {
         Type[] result = bounds;
         int i = 0;
         for (; i < result.length; i++) {
-            final Type unrolled = unrollVariables(typeArguments, result[i], visited);
+            final Type unrolled = unrollVariables(typeArguments, result[i], visited, unrolling);
             if (unrolled == null) {
                 result = ArrayUtils.remove(result, i--);
             } else {
@@ -1733,39 +1745,69 @@ public class TypeUtils {
         if (typeArguments == null) {
             typeArguments = Collections.emptyMap();
         }
-        return unrollVariables(typeArguments, type, new HashSet<>());
+        return unrollVariables(typeArguments, type, new HashSet<>(), newIdentitySet());
     }
 
-    private static Type unrollVariables(final Map<TypeVariable<?>, Type> typeArguments, final Type type, final Set<TypeVariable<?>> visited) {
+    /**
+     * Tests whether following the owner types of the given type leads back to a type that was already seen. Only a custom {@link ParameterizedType} can do that.
+     *
+     * @param type The type whose owner chain to check.
+     * @return Whether the owner chain of {@code type} is cyclic.
+     */
+    private static boolean hasCyclicOwnerChain(final ParameterizedType type) {
+        final Set<Type> seen = newIdentitySet();
+        seen.add(type);
+        for (Type owner = type.getOwnerType(); owner instanceof ParameterizedType; owner = ((ParameterizedType) owner).getOwnerType()) {
+            if (!seen.add(owner)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Type unrollVariables(final Map<TypeVariable<?>, Type> typeArguments, final Type type, final Set<TypeVariable<?>> visited, final Set<Type> unrolling) {
         if (containsTypeVariables(type)) {
             if (type instanceof TypeVariable<?>) {
                 final TypeVariable<?> var = (TypeVariable<?>) type;
                 if (!visited.add(var)) {
                     return var;
                 }
-                final Type unrolled = unrollVariables(typeArguments, typeArguments.get(type), visited);
+                final Type unrolled = unrollVariables(typeArguments, typeArguments.get(type), visited, unrolling);
                 // Only guard against cycles: the same variable may legitimately occur more than once in a type.
                 visited.remove(var);
                 return unrolled;
             }
             if (type instanceof ParameterizedType) {
                 final ParameterizedType p = (ParameterizedType) type;
-                final Type[] args = p.getActualTypeArguments().clone();
-                for (int i = 0; i < args.length; i++) {
-                    final Type unrolled = unrollVariables(typeArguments, args[i], visited);
-                    if (unrolled != null) {
-                        args[i] = unrolled;
-                    }
+                if (hasCyclicOwnerChain(p) || !unrolling.add(p)) {
+                    return p;
                 }
-                // A raw Class owner (for example Map.class for Map.Entry<T, Integer>) has nothing to unroll.
-                final Type owner = p.getOwnerType();
-                final Type unrolledOwner = owner != null && !(owner instanceof Class<?>) ? unrollVariables(typeArguments, owner, visited) : owner;
-                return parameterizeWithOwner(unrolledOwner, (Class<?>) p.getRawType(), args);
+                try {
+                    final Type[] args = p.getActualTypeArguments().clone();
+                    for (int i = 0; i < args.length; i++) {
+                        final Type unrolled = unrollVariables(typeArguments, args[i], visited, unrolling);
+                        if (unrolled != null) {
+                            args[i] = unrolled;
+                        }
+                    }
+                    final Type owner = p.getOwnerType();
+                    final Type unrolledOwner = owner != null && !(owner instanceof Class<?>) ? unrollVariables(typeArguments, owner, visited, unrolling) : owner;
+                    return parameterizeWithOwner(unrolledOwner, (Class<?>) p.getRawType(), args);
+                } finally {
+                    unrolling.remove(p);
+                }
             }
             if (type instanceof WildcardType) {
                 final WildcardType wild = (WildcardType) type;
-                return wildcardType().withUpperBounds(unrollBounds(typeArguments, wild.getUpperBounds(), visited))
-                        .withLowerBounds(unrollBounds(typeArguments, wild.getLowerBounds(), visited)).build();
+                if (!unrolling.add(wild)) {
+                    return wild;
+                }
+                try {
+                    return wildcardType().withUpperBounds(unrollBounds(typeArguments, wild.getUpperBounds(), visited, unrolling))
+                            .withLowerBounds(unrollBounds(typeArguments, wild.getLowerBounds(), visited, unrolling)).build();
+                } finally {
+                    unrolling.remove(wild);
+                }
             }
         }
         return type;

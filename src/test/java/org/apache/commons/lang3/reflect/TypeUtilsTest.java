@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -47,6 +48,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -264,6 +266,56 @@ class TypeUtilsTest<B> extends AbstractLangTest {
 
     public class Other<T> implements This<String, T> {
         // empty
+    }
+
+    /**
+     * A custom {@link ParameterizedType} with a structural {@code hashCode()}, whose owner can be set after construction so that tests can create cycles.
+     */
+    private static final class CyclicParameterizedType implements ParameterizedType {
+
+        private final Class<?> rawType;
+        private final Type[] typeArguments;
+        private Type ownerType;
+
+        CyclicParameterizedType(final Class<?> rawType, final Type... typeArguments) {
+            this.rawType = rawType;
+            this.typeArguments = typeArguments;
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            return this == obj;
+        }
+
+        @Override
+        public Type[] getActualTypeArguments() {
+            return typeArguments.clone();
+        }
+
+        @Override
+        public Type getOwnerType() {
+            return ownerType;
+        }
+
+        @Override
+        public Type getRawType() {
+            return rawType;
+        }
+
+        @Override
+        public String toString() {
+            return "CyclicParameterizedType<" + rawType.getName() + ">";
+        }
+
+        @Override
+        public int hashCode() {
+            // Structural like the JDK implementation: it follows the owner, so a cycle would overflow the stack.
+            return Objects.hash(rawType, Arrays.hashCode(typeArguments), ownerType);
+        }
+
+        void setOwnerType(final Type ownerType) {
+            this.ownerType = ownerType;
+        }
     }
 
     /** LANG-1836: non-static inner classes whose owner type is parameterized. */
@@ -1644,6 +1696,14 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testContainsTypeVariablesSelfOwnedTypeWithStructuralHashCode() {
+        // LANG-1836: detecting the cycle must not call hashCode(), which would follow the owner again.
+        final CyclicParameterizedType self = new CyclicParameterizedType(Outer.Inner.class);
+        self.setOwnerType(self);
+        assertFalse(TypeUtils.containsTypeVariables(self));
+    }
+
+    @Test
     void testContainsTypeVariablesCyclicOwnerType() {
         // LANG-1836: a (custom) ParameterizedType that is its own owner must not cause a StackOverflowError.
         final ParameterizedType[] self = new ParameterizedType[1];
@@ -1675,6 +1735,53 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         final Type outerExtendsT = TypeUtils.parameterizeWithOwner(TypeUtils.parameterize(Outer.class, extendsT), Outer.Inner.class);
         final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, outerExtendsT);
         assertEquals(outerExtendsT, TypeUtils.unrollVariables(mapping, t));
+    }
+
+    @Test
+    void testUnrollVariablesCyclicOwnerChain() {
+        // LANG-1836: A -> owner B<T> -> owner A is left as it is and must not cause a StackOverflowError.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType a = new CyclicParameterizedType(Outer.Inner.class);
+        final CyclicParameterizedType b = new CyclicParameterizedType(Outer.class, t);
+        a.setOwnerType(b);
+        b.setOwnerType(a);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        final ParameterizedType unrolled = (ParameterizedType) TypeUtils.unrollVariables(mapping, a);
+        assertEquals(Outer.Inner.class, unrolled.getRawType());
+        assertSame(b, unrolled.getOwnerType());
+    }
+
+    @Test
+    void testUnrollVariablesCyclicOwnerChainFromEitherType() {
+        // LANG-1836: the cycle is left alone whichever type of the cycle is unrolled first.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType a = new CyclicParameterizedType(Outer.Inner.class);
+        final CyclicParameterizedType b = new CyclicParameterizedType(Outer.class, t);
+        a.setOwnerType(b);
+        b.setOwnerType(a);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        assertSame(b, TypeUtils.unrollVariables(mapping, b));
+    }
+
+    @Test
+    void testUnrollVariablesSelfOwnedTypeWithTypeVariable() {
+        // LANG-1836
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType self = new CyclicParameterizedType(Outer.InnerU.class, t);
+        self.setOwnerType(self);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        assertSame(self, TypeUtils.unrollVariables(mapping, self));
+    }
+
+    @Test
+    void testUnrollVariablesCycleThroughTypeArgumentAndOwner() {
+        // LANG-1836: Map<Inner, T> whose argument Inner has the Map as its owner. Such a type is invalid and rejected as such instead of overflowing the stack.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType inner = new CyclicParameterizedType(Outer.Inner.class);
+        final CyclicParameterizedType map = new CyclicParameterizedType(Map.class, inner, t);
+        inner.setOwnerType(map);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        assertThrows(IllegalArgumentException.class, () -> TypeUtils.unrollVariables(mapping, map));
     }
 
     @Test
