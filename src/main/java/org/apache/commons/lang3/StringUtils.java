@@ -5275,12 +5275,19 @@ public class StringUtils {
         }
         final int padLen = padStr.length();
         final int strLen = str.length();
-        final int pads = size - strLen;
+        int pads = size - strLen;
         if (pads <= 0) {
             return str; // returns original String when possible
         }
         if (padLen == 1 && pads <= PAD_LIMIT) {
             return leftPad(str, size, padStr.charAt(0));
+        }
+        // keep the cut off the middle of a surrogate pair so the result is never left holding a lone surrogate
+        if (splitsSurrogatePair(padStr, pads % padLen)) {
+            pads--;
+        }
+        if (pads <= 0) {
+            return str;
         }
         if (pads == padLen) {
             return padStr.concat(str);
@@ -7089,12 +7096,19 @@ public class StringUtils {
         }
         final int padLen = padStr.length();
         final int strLen = str.length();
-        final int pads = size - strLen;
+        int pads = size - strLen;
         if (pads <= 0) {
             return str; // returns original String when possible
         }
         if (padLen == 1 && pads <= PAD_LIMIT) {
             return rightPad(str, size, padStr.charAt(0));
+        }
+        // keep the cut off the middle of a surrogate pair so the result is never left holding a lone surrogate
+        if (splitsSurrogatePair(padStr, pads % padLen)) {
+            pads--;
+        }
+        if (pads <= 0) {
+            return str;
         }
         if (pads == padLen) {
             return str.concat(padStr);

@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
   <release version="3.21.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
+    <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey">Keep StringUtils leftPad, rightPad, and center off surrogate pair boundaries.</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Include 0x7E (~) in RandomStringUtils nextGraph and nextPrint (#1808).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Default unbounded WildcardType upper bound to Object in TypeUtils (#1807).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Take FastDatePrinter era names from the locale's calendar (#1800).</action>
