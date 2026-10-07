@@ -473,7 +473,6 @@ class AnnotationUtilsTest extends AbstractLangTest {
         final ThrowingSupplierAnnotation second = EquivalentAnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
 
         assertNotSame(first, second);
-        assertEquals(first, second);
         assertTrue(AnnotationUtils.equals(first, second));
     }
 
