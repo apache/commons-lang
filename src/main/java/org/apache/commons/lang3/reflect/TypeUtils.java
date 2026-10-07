@@ -1681,17 +1681,6 @@ public class TypeUtils {
     }
 
     /**
-     * Unrolls variables in a type bounds array.
-     *
-     * @param typeArguments assignments {@link Map}.
-     * @param bounds        in which to expand variables.
-     * @return {@code bounds} with any variables reassigned.
-     */
-    private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds) {
-        return unrollBounds(typeArguments, bounds, new HashSet<>());
-    }
-
-    /**
      * Unrolls variables in a type bounds array, preserving cycle state.
      *
      * @param typeArguments assignments {@link Map}.

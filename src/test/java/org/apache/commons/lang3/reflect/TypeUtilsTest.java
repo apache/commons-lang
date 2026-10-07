@@ -1644,6 +1644,40 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testContainsTypeVariablesCyclicOwnerType() {
+        // LANG-1836: a (custom) ParameterizedType that is its own owner must not cause a StackOverflowError.
+        final ParameterizedType[] self = new ParameterizedType[1];
+        self[0] = new ParameterizedType() {
+
+            @Override
+            public Type[] getActualTypeArguments() {
+                return new Type[0];
+            }
+
+            @Override
+            public Type getOwnerType() {
+                return self[0];
+            }
+
+            @Override
+            public Type getRawType() {
+                return Outer.Inner.class;
+            }
+        };
+        assertFalse(TypeUtils.containsTypeVariables(self[0]));
+    }
+
+    @Test
+    void testUnrollVariablesWildcardCycleThroughOwnerType() {
+        // LANG-1836: {T -> Outer<? extends T>.Inner} must not cause a StackOverflowError when T is unrolled.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final WildcardType extendsT = TypeUtils.wildcardType().withUpperBounds(t).build();
+        final Type outerExtendsT = TypeUtils.parameterizeWithOwner(TypeUtils.parameterize(Outer.class, extendsT), Outer.Inner.class);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, outerExtendsT);
+        assertEquals(outerExtendsT, TypeUtils.unrollVariables(mapping, t));
+    }
+
+    @Test
     void testUnrollVariablesRepeatedVariable() throws NoSuchFieldException {
         final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
         final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
