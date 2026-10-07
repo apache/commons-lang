@@ -377,6 +377,10 @@ public class TypeUtils {
      * @since 3.2
      */
     public static boolean containsTypeVariables(final Type type) {
+        return containsTypeVariables(type, new HashSet<>());
+    }
+
+    private static boolean containsTypeVariables(final Type type, final Set<Type> visited) {
         if (type instanceof TypeVariable<?>) {
             return true;
         }
@@ -386,30 +390,37 @@ public class TypeUtils {
         if (type instanceof ParameterizedType) {
             final ParameterizedType parameterizedType = (ParameterizedType) type;
             for (final Type arg : parameterizedType.getActualTypeArguments()) {
-                if (containsTypeVariables(arg)) {
+                if (containsTypeVariables(arg, visited)) {
                     return true;
                 }
             }
             // A raw Class owner (for example Map.class for Map.Entry<String, Integer>) binds no variables.
             final Type ownerType = parameterizedType.getOwnerType();
-            return ownerType != null && !(ownerType instanceof Class<?>) && containsTypeVariables(ownerType);
+            if (ownerType != null && !(ownerType instanceof Class<?>) && visited.add(ownerType)) {
+                try {
+                    return containsTypeVariables(ownerType, visited);
+                } finally {
+                    visited.remove(ownerType);
+                }
+            }
+            return false;
         }
         if (type instanceof WildcardType) {
             final WildcardType wild = (WildcardType) type;
             for (final Type bound : getImplicitLowerBounds(wild)) {
-                if (containsTypeVariables(bound)) {
+                if (containsTypeVariables(bound, visited)) {
                     return true;
                 }
             }
             for (final Type bound : getImplicitUpperBounds(wild)) {
-                if (containsTypeVariables(bound)) {
+                if (containsTypeVariables(bound, visited)) {
                     return true;
                 }
             }
             return false;
         }
         if (type instanceof GenericArrayType) {
-            return containsTypeVariables(((GenericArrayType) type).getGenericComponentType());
+            return containsTypeVariables(((GenericArrayType) type).getGenericComponentType(), visited);
         }
         return false;
     }
@@ -1677,10 +1688,22 @@ public class TypeUtils {
      * @return {@code bounds} with any variables reassigned.
      */
     private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds) {
+        return unrollBounds(typeArguments, bounds, new HashSet<>());
+    }
+
+    /**
+     * Unrolls variables in a type bounds array, preserving cycle state.
+     *
+     * @param typeArguments assignments {@link Map}.
+     * @param bounds        in which to expand variables.
+     * @param visited       set of visited type variables for cycle detection.
+     * @return {@code bounds} with any variables reassigned.
+     */
+    private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds, final Set<TypeVariable<?>> visited) {
         Type[] result = bounds;
         int i = 0;
         for (; i < result.length; i++) {
-            final Type unrolled = unrollVariables(typeArguments, result[i]);
+            final Type unrolled = unrollVariables(typeArguments, result[i], visited);
             if (unrolled == null) {
                 result = ArrayUtils.remove(result, i--);
             } else {
@@ -1752,8 +1775,8 @@ public class TypeUtils {
             }
             if (type instanceof WildcardType) {
                 final WildcardType wild = (WildcardType) type;
-                return wildcardType().withUpperBounds(unrollBounds(typeArguments, wild.getUpperBounds()))
-                        .withLowerBounds(unrollBounds(typeArguments, wild.getLowerBounds())).build();
+                return wildcardType().withUpperBounds(unrollBounds(typeArguments, wild.getUpperBounds(), visited))
+                        .withLowerBounds(unrollBounds(typeArguments, wild.getLowerBounds(), visited)).build();
             }
         }
         return type;
