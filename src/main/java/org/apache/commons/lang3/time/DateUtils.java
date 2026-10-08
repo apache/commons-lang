@@ -51,8 +51,12 @@ import org.apache.commons.lang3.LocaleUtils;
  * <p>
  * Several methods are provided for adding to {@link Date} objects, of the form
  * {@code addXXX(Date date, int amount)}. It is important to note these methods
- * use a {@link Calendar} internally (with default time zone and locale) and may
- * be affected by changes to daylight saving time (DST).
+ * use a {@link Calendar} internally (with default time zone and locale) and perform
+ * calendar-based arithmetic which may be affected by changes to Daylight Saving Time (DST).
+ * For instance, adding one day across a DST change will result in a calendar day that may
+ * represent 23 or 25 hours rather than exactly 86,400,000 milliseconds. Callers needing
+ * fixed elapsed-time arithmetic should consider using {@link java.time.Instant} or
+ * direct millisecond calculations.
  * </p>
  *
  * @since 2.0
@@ -214,6 +218,11 @@ public class DateUtils {
      * Adds to a date returning a new object.
      * The original {@link Date} is unchanged.
      *
+     * <p>
+     * This method uses a {@link Calendar} internally with the default time zone and locale,
+     * and may be affected by Daylight Saving Time (DST) transitions.
+     * </p>
+     *
      * @param date  The date, not null.
      * @param calendarField  The calendar field to add to.
      * @param amount  The amount to add, may be negative.
@@ -232,6 +241,13 @@ public class DateUtils {
      * Adds a number of days to a date returning a new object.
      * The original {@link Date} is unchanged.
      *
+     * <p>
+     * This method uses a {@link Calendar} internally with the default time zone and locale.
+     * As a result, the calculation performs calendar day addition rather than fixed 24-hour
+     * (86,400,000 millisecond) duration addition, and may be affected by Daylight Saving Time (DST)
+     * transitions.
+     * </p>
+     *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
      * @return The new {@link Date} with the amount added.
@@ -244,6 +260,11 @@ public class DateUtils {
     /**
      * Adds a number of hours to a date returning a new object.
      * The original {@link Date} is unchanged.
+     *
+     * <p>
+     * This method uses a {@link Calendar} internally with the default time zone and locale,
+     * and may be affected by Daylight Saving Time (DST) transitions.
+     * </p>
      *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
@@ -258,6 +279,10 @@ public class DateUtils {
      * Adds a number of milliseconds to a date returning a new object.
      * The original {@link Date} is unchanged.
      *
+     * <p>
+     * This method uses a {@link Calendar} internally with the default time zone and locale.
+     * </p>
+     *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
      * @return The new {@link Date} with the amount added.
@@ -270,6 +295,10 @@ public class DateUtils {
     /**
      * Adds a number of minutes to a date returning a new object.
      * The original {@link Date} is unchanged.
+     *
+     * <p>
+     * This method uses a {@link Calendar} internally with the default time zone and locale.
+     * </p>
      *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
@@ -284,6 +313,11 @@ public class DateUtils {
      * Adds a number of months to a date returning a new object.
      * The original {@link Date} is unchanged.
      *
+     * <p>
+     * This method uses a {@link Calendar} internally with the default time zone and locale,
+     * and may be affected by Daylight Saving Time (DST) transitions.
+     * </p>
+     *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
      * @return The new {@link Date} with the amount added.
@@ -296,6 +330,10 @@ public class DateUtils {
     /**
      * Adds a number of seconds to a date returning a new object.
      * The original {@link Date} is unchanged.
+     *
+     * <p>
+     * This method uses a {@link Calendar} internally with the default time zone and locale.
+     * </p>
      *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
@@ -310,6 +348,11 @@ public class DateUtils {
      * Adds a number of weeks to a date returning a new object.
      * The original {@link Date} is unchanged.
      *
+     * <p>
+     * This method uses a {@link Calendar} internally with the default time zone and locale,
+     * and may be affected by Daylight Saving Time (DST) transitions.
+     * </p>
+     *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
      * @return The new {@link Date} with the amount added.
@@ -322,6 +365,11 @@ public class DateUtils {
     /**
      * Adds a number of years to a date returning a new object.
      * The original {@link Date} is unchanged.
+     *
+     * <p>
+     * This method uses a {@link Calendar} internally with the default time zone and locale,
+     * and may be affected by Daylight Saving Time (DST) transitions.
+     * </p>
      *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
