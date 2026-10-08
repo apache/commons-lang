@@ -649,6 +649,9 @@ public class StringUtils {
      *
      * <p>
      * If the size is less than the String length, the String is returned. A {@code null} String returns {@code null}. A negative size is treated as zero.
+     * If the requested padding length on either side would split a Unicode surrogate pair in {@code padStr}, the padding is shortened by one {@code char}
+     * (via delegation to {@link #leftPad(String, int, String)} and {@link #rightPad(String, int, String)}) so the result never contains an unpaired
+     * surrogate. In that case, the returned String has a length of {@code size - 1}.
      * </p>
      *
      * <pre>
@@ -661,6 +664,8 @@ public class StringUtils {
      * StringUtils.center("a", 4, "yz")   = "yayz"
      * StringUtils.center("abc", 7, null) = "  abc  "
      * StringUtils.center("abc", 7, "")   = "  abc  "
+     * StringUtils.center("a", 2, "😀")   = "a"
+     * StringUtils.center("a", 3, "😀")   = "a😀"
      * </pre>
      *
      * @param str    The String to center, may be null.
@@ -5246,7 +5251,9 @@ public class StringUtils {
      * Left pad a String with a specified String.
      *
      * <p>
-     * Pad to a size of {@code size}.
+     * Pad to a size of {@code size}. If the requested padding length would split a Unicode surrogate pair in {@code padStr},
+     * the padding is shortened by one {@code char} so the result never contains an unpaired surrogate. In that case, the
+     * returned String has a length of {@code size - 1}.
      * </p>
      *
      * <pre>
@@ -5259,6 +5266,8 @@ public class StringUtils {
      * StringUtils.leftPad("bat", -1, "yz") = "bat"
      * StringUtils.leftPad("bat", 5, null)  = "  bat"
      * StringUtils.leftPad("bat", 5, "")    = "  bat"
+     * StringUtils.leftPad("a", 2, "😀")    = "a"
+     * StringUtils.leftPad("a", 3, "😀")    = "😀a"
      * </pre>
      *
      * @param str    The String to pad out, may be null.
@@ -7067,7 +7076,9 @@ public class StringUtils {
      * Right pad a String with a specified String.
      *
      * <p>
-     * The String is padded to the size of {@code size}.
+     * The String is padded to the size of {@code size}. If the requested padding length would split a Unicode surrogate pair
+     * in {@code padStr}, the padding is shortened by one {@code char} so the result never contains an unpaired surrogate.
+     * In that case, the returned String has a length of {@code size - 1}.
      * </p>
      *
      * <pre>
@@ -7080,6 +7091,8 @@ public class StringUtils {
      * StringUtils.rightPad("bat", -1, "yz") = "bat"
      * StringUtils.rightPad("bat", 5, null)  = "bat  "
      * StringUtils.rightPad("bat", 5, "")    = "bat  "
+     * StringUtils.rightPad("a", 2, "😀")    = "a"
+     * StringUtils.rightPad("a", 3, "😀")    = "a😀"
      * </pre>
      *
      * @param str    The String to pad out, may be null.
