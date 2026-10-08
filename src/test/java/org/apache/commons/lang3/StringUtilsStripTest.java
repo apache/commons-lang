@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -56,16 +55,46 @@ class StringUtilsStripTest extends AbstractLangTest {
     }
 
     @Test
+    void testStripAccentsBengali() {
+        // Bengali vowel sign O, both precomposed and decomposed.
+        assertEquals("\u09CB", StringUtils.stripAccents("\u09CB"));
+        assertEquals("\u09CB", StringUtils.stripAccents("\u09C7\u09BE"));
+    }
+
+    @Test
     void testStripAccentsIWithBar() {
         assertEquals("I i I i I", StringUtils.stripAccents("\u0197 \u0268 \u1D7B \u1DA4 \u1DA7"));
     }
 
     @Test
-    @Disabled
+    void testStripAccentsJapanese() {
+        // Katakana GA retains its dakuten in precomposed, decomposed, and halfwidth forms.
+        assertEquals("\u30AC", StringUtils.stripAccents("\u30AC"));
+        assertEquals("\u30AC", StringUtils.stripAccents("\u30AB\u3099"));
+        assertEquals("\u30AC", StringUtils.stripAccents("\uFF76\uFF9E"));
+    }
+
+    @Test
     void testStripAccentsKorean() {
         // LANG-1655
         final String input = "\uC78A\uC9C0\uB9C8 \uB10C \uD750\uB9B0 \uC5B4\uB460\uC0AC\uC774 \uC67C\uC190\uC73C\uB85C \uADF8\uB9B0 \uBCC4 \uD558\uB098";
         assertEquals(input, StringUtils.stripAccents(input), "Failed to handle Korean text");
+    }
+
+    @Test
+    void testStripAccentsKoreanJamo() {
+        // Compose modern Jamo with and without a trailing consonant.
+        assertEquals("\uAC00", StringUtils.stripAccents("\u1100\u1161"));
+        assertEquals("\uAC01", StringUtils.stripAccents("\u1100\u1161\u11A8"));
+        // Compatibility Jamo are still folded before composition.
+        assertEquals("\uAC00", StringUtils.stripAccents("\u3131\u314F"));
+    }
+
+    @Test
+    void testStripAccentsKoreanWithLatinAccents() {
+        final String expected = "\uAC00 \uAC01 cafe deja vu";
+        assertEquals(expected, StringUtils.stripAccents("\uAC00 \uAC01 caf\u00E9 d\u00E9j\u00E0 vu"));
+        assertEquals(expected, StringUtils.stripAccents("\u1100\u1161 \u1100\u1161\u11A8 cafe\u0301 de\u0301ja\u0300 vu"));
     }
 
     /**
