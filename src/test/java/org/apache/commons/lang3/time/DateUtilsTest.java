@@ -338,6 +338,51 @@ class DateUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testAddDaysDaylightSavingTime() {
+        final TimeZone defaultZone = TimeZone.getDefault();
+        try {
+            final TimeZone brusselsTz = TimeZone.getTimeZone("Europe/Brussels");
+            TimeZone.setDefault(brusselsTz);
+
+            // 2012-03-25 00:00:00 CET: Brussels spring DST transition (23-hour day)
+            final Calendar calSpring = Calendar.getInstance(brusselsTz);
+            calSpring.clear();
+            calSpring.set(2012, Calendar.MARCH, 25, 0, 0, 0);
+            final Date inputSpring = calSpring.getTime();
+
+            // In Europe/Brussels: calendar day advances to 2012-03-26 00:00:00 CEST (23 hours elapsed)
+            final Date outputSpring = DateUtils.addDays(inputSpring, 1);
+            assertEquals(23 * 3600 * 1000L, outputSpring.getTime() - inputSpring.getTime());
+
+            final Calendar calSpringResult = Calendar.getInstance(brusselsTz);
+            calSpringResult.setTime(outputSpring);
+            assertEquals(2012, calSpringResult.get(Calendar.YEAR));
+            assertEquals(Calendar.MARCH, calSpringResult.get(Calendar.MONTH));
+            assertEquals(26, calSpringResult.get(Calendar.DAY_OF_MONTH));
+            assertEquals(0, calSpringResult.get(Calendar.HOUR_OF_DAY));
+
+            // 2012-10-28 00:00:00 CEST: Brussels autumn DST transition (25-hour day)
+            final Calendar calAutumn = Calendar.getInstance(brusselsTz);
+            calAutumn.clear();
+            calAutumn.set(2012, Calendar.OCTOBER, 28, 0, 0, 0);
+            final Date inputAutumn = calAutumn.getTime();
+
+            // In Europe/Brussels: calendar day advances to 2012-10-29 00:00:00 CET (25 hours elapsed)
+            final Date outputAutumn = DateUtils.addDays(inputAutumn, 1);
+            assertEquals(25 * 3600 * 1000L, outputAutumn.getTime() - inputAutumn.getTime());
+
+            final Calendar calAutumnResult = Calendar.getInstance(brusselsTz);
+            calAutumnResult.setTime(outputAutumn);
+            assertEquals(2012, calAutumnResult.get(Calendar.YEAR));
+            assertEquals(Calendar.OCTOBER, calAutumnResult.get(Calendar.MONTH));
+            assertEquals(29, calAutumnResult.get(Calendar.DAY_OF_MONTH));
+            assertEquals(0, calAutumnResult.get(Calendar.HOUR_OF_DAY));
+        } finally {
+            TimeZone.setDefault(defaultZone);
+        }
+    }
+
+    @Test
     void testAddHours() throws Exception {
         Date result = DateUtils.addHours(BASE_DATE, 0);
         assertNotSame(BASE_DATE, result);
