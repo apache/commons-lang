@@ -269,12 +269,13 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     /**
-     * A custom {@link ParameterizedType} with a structural {@code hashCode()}, whose owner can be set after construction so that tests can create cycles.
+     * A custom {@link ParameterizedType} with a structural {@code hashCode()}, whose owner and type arguments can be set after construction so that tests can
+     * create cycles.
      */
     private static final class CyclicParameterizedType implements ParameterizedType {
 
         private final Class<?> rawType;
-        private final Type[] typeArguments;
+        private Type[] typeArguments;
         private Type ownerType;
 
         CyclicParameterizedType(final Class<?> rawType, final Type... typeArguments) {
@@ -315,6 +316,10 @@ class TypeUtilsTest<B> extends AbstractLangTest {
 
         void setOwnerType(final Type ownerType) {
             this.ownerType = ownerType;
+        }
+
+        void setTypeArguments(final Type... typeArguments) {
+            this.typeArguments = typeArguments;
         }
     }
 
@@ -1728,6 +1733,34 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testContainsTypeVariablesSelfReferencingTypeArgument() {
+        // LANG-1836: a (custom) ParameterizedType that is its own type argument must not cause a StackOverflowError.
+        final CyclicParameterizedType self = new CyclicParameterizedType(List.class);
+        self.setTypeArguments(self);
+        assertFalse(TypeUtils.containsTypeVariables(self));
+    }
+
+    @Test
+    void testContainsTypeVariablesMutuallyReferencingTypeArguments() {
+        // LANG-1836
+        final CyclicParameterizedType a = new CyclicParameterizedType(List.class);
+        final CyclicParameterizedType b = new CyclicParameterizedType(List.class);
+        a.setTypeArguments(b);
+        b.setTypeArguments(a);
+        assertFalse(TypeUtils.containsTypeVariables(a));
+        assertFalse(TypeUtils.containsTypeVariables(b));
+    }
+
+    @Test
+    void testContainsTypeVariablesSelfReferencingTypeArgumentBesideVariable() {
+        // LANG-1836: cutting the cycle must not hide a variable that is found elsewhere.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType self = new CyclicParameterizedType(Map.class);
+        self.setTypeArguments(self, t);
+        assertTrue(TypeUtils.containsTypeVariables(self));
+    }
+
+    @Test
     void testUnrollVariablesWildcardCycleThroughOwnerType() {
         // LANG-1836: {T -> Outer<? extends T>.Inner} must not cause a StackOverflowError when T is unrolled.
         final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
@@ -1735,6 +1768,18 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         final Type outerExtendsT = TypeUtils.parameterizeWithOwner(TypeUtils.parameterize(Outer.class, extendsT), Outer.Inner.class);
         final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, outerExtendsT);
         assertEquals(outerExtendsT, TypeUtils.unrollVariables(mapping, t));
+    }
+
+    @Test
+    void testUnrollVariablesSelfReferencingTypeArgument() {
+        // LANG-1836: the cycle through the type argument is left as it is while the variable is still unrolled.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType self = new CyclicParameterizedType(Map.class);
+        self.setTypeArguments(self, t);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        final Type[] unrolledArguments = ((ParameterizedType) TypeUtils.unrollVariables(mapping, self)).getActualTypeArguments();
+        assertSame(self, unrolledArguments[0]);
+        assertEquals(String.class, unrolledArguments[1]);
     }
 
     @Test
