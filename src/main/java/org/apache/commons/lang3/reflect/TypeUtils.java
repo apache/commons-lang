@@ -1698,6 +1698,7 @@ public class TypeUtils {
      * @param typeArguments assignments {@link Map}.
      * @param bounds        in which to expand variables.
      * @param visited       set of visited type variables for cycle detection.
+     * @param unrolling     identity-based types currently being unrolled to prevent recursion cycles.
      * @return {@code bounds} with any variables reassigned.
      */
     private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds, final Set<TypeVariable<?>> visited, final Set<Type> unrolling) {
