@@ -218,8 +218,7 @@ public class AnnotationUtils {
         }
         try {
             for (final Method m : type1.getDeclaredMethods()) {
-                if (isAnnotationMember(m) && m.getParameterTypes().length == 0
-                        && isValidAnnotationMemberType(m.getReturnType())) {
+                if (isAnnotationMember(m)) {
                     AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
                     final Object v1 = m.invoke(a1);
                     final Object v2 = m.invoke(a2);
@@ -288,11 +287,13 @@ public class AnnotationUtils {
      * Tests whether the specified method declares an annotation member.
      *
      * @param method The method to check
-     * @return whether the method is public, abstract and non-synthetic
+     * @return whether the method is public, abstract, non-synthetic, has no parameters,
+     *         and has a valid annotation member return type
      */
     private static boolean isAnnotationMember(final Method method) {
         final int modifiers = method.getModifiers();
-        return Modifier.isPublic(modifiers) && Modifier.isAbstract(modifiers) && !method.isSynthetic();
+        return Modifier.isPublic(modifiers) && Modifier.isAbstract(modifiers) && !method.isSynthetic()
+                && method.getParameterCount() == 0 && isValidAnnotationMemberType(method.getReturnType());
     }
 
     /**
@@ -356,7 +357,7 @@ public class AnnotationUtils {
     public static String toString(final Annotation a) {
         final ToStringBuilder builder = new ToStringBuilder(a, TO_STRING_STYLE);
         for (final Method m : a.annotationType().getDeclaredMethods()) {
-            if (!isAnnotationMember(m) || m.getParameterTypes().length > 0) {
+            if (!isAnnotationMember(m)) {
                 continue;
             }
             try {
