@@ -341,6 +341,37 @@ class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testCenterSurrogatePair() {
+        final String grin = "😀";
+        assertEquals("a", StringUtils.center("a", 2, grin));
+        assertEquals("a😀", StringUtils.center("a", 3, grin));
+        assertEquals("a😀", StringUtils.center("a", 4, grin));
+        assertEquals("😀a😀", StringUtils.center("a", 5, grin));
+        assertEquals("😀a😀", StringUtils.center("a", 6, grin));
+        assertEquals("😀a😀😀", StringUtils.center("a", 7, grin));
+
+        final String[] testStrings = {"", "a", "hello", grin, "a" + grin + "b"};
+        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + "🎉"};
+        for (final String str : testStrings) {
+            for (final String padStr : padStrings) {
+                for (int size = 0; size <= 15; size++) {
+                    final String result = StringUtils.center(str, size, padStr);
+                    for (int i = 0; i < result.length(); i++) {
+                        final char ch = result.charAt(i);
+                        if (Character.isHighSurrogate(ch)) {
+                            assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
+                                    "lone high surrogate in: " + result);
+                            i++; // skip the paired low surrogate
+                        } else {
+                            assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
     void testChomp() {
 
         final String[][] chompCases = {
@@ -1360,6 +1391,35 @@ class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testLeftPadSurrogatePair() {
+        final String grin = "😀";
+        assertEquals("a", StringUtils.leftPad("a", 2, grin));
+        assertEquals("😀a", StringUtils.leftPad("a", 3, grin));
+        assertEquals("😀a", StringUtils.leftPad("a", 4, grin));
+        assertEquals("😀😀a", StringUtils.leftPad("a", 5, grin));
+
+        final String[] testStrings = {"", "a", "hello", grin, "a" + grin + "b"};
+        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + "🎉"};
+        for (final String str : testStrings) {
+            for (final String padStr : padStrings) {
+                for (int size = 0; size <= 15; size++) {
+                    final String result = StringUtils.leftPad(str, size, padStr);
+                    for (int i = 0; i < result.length(); i++) {
+                        final char ch = result.charAt(i);
+                        if (Character.isHighSurrogate(ch)) {
+                            assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
+                                    "lone high surrogate in: " + result);
+                            i++; // skip the paired low surrogate
+                        } else {
+                            assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
     void testLength_CharBuffer() {
         assertEquals(0, StringUtils.length(CharBuffer.wrap("")));
         assertEquals(1, StringUtils.length(CharBuffer.wrap("A")));
@@ -2266,6 +2326,35 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("abc  ", StringUtils.rightPad("abc", 5, null));
         assertEquals("abc  ", StringUtils.rightPad("abc", 5, ""));
         assertEquals("abc", StringUtils.rightPad("abc", Integer.MIN_VALUE, " "));
+    }
+
+    @Test
+    void testRightPadSurrogatePair() {
+        final String grin = "😀";
+        assertEquals("a", StringUtils.rightPad("a", 2, grin));
+        assertEquals("a😀", StringUtils.rightPad("a", 3, grin));
+        assertEquals("a😀", StringUtils.rightPad("a", 4, grin));
+        assertEquals("a😀😀", StringUtils.rightPad("a", 5, grin));
+
+        final String[] testStrings = {"", "a", "hello", grin, "a" + grin + "b"};
+        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + "🎉"};
+        for (final String str : testStrings) {
+            for (final String padStr : padStrings) {
+                for (int size = 0; size <= 15; size++) {
+                    final String result = StringUtils.rightPad(str, size, padStr);
+                    for (int i = 0; i < result.length(); i++) {
+                        final char ch = result.charAt(i);
+                        if (Character.isHighSurrogate(ch)) {
+                            assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
+                                    "lone high surrogate in: " + result);
+                            i++; // skip the paired low surrogate
+                        } else {
+                            assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Test
