@@ -50,10 +50,6 @@ class AnnotationUtilsTest extends AbstractLangTest {
     private static final class AnnotatedClass {
     }
 
-    @ThrowingSupplierAnnotation
-    private static final class EquivalentAnnotatedClass {
-    }
-
     @Retention(RetentionPolicy.RUNTIME)
     public @interface FunctionAnnotation {
         Function<String, String> FUNCTION = value -> value;
@@ -469,8 +465,13 @@ class AnnotationUtilsTest extends AbstractLangTest {
 
     @Test
     void testEquivalenceWithoutInvokingSupplier() {
-        final ThrowingSupplierAnnotation first = AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
-        final ThrowingSupplierAnnotation second = EquivalentAnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        final ThrowingSupplierAnnotation first =
+                AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        final ThrowingSupplierAnnotation second =
+                (ThrowingSupplierAnnotation) Proxy.newProxyInstance(
+                        ThrowingSupplierAnnotation.class.getClassLoader(),
+                        new Class<?>[] { ThrowingSupplierAnnotation.class },
+                        (proxy, method, args) -> method.invoke(first, args));
 
         assertNotSame(first, second);
         assertTrue(AnnotationUtils.equals(first, second));
