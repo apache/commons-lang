@@ -605,4 +605,10 @@ class AnnotationUtilsTest extends AbstractLangTest {
         assertEquals("@" + SupplierAnnotation.class.getName() + "(value=member)", AnnotationUtils.toString(annotation));
     }
 
+    @Test
+    void testToStringWithThrowingSupplier() {
+        final ThrowingSupplierAnnotation annotation = AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        assertEquals("@" + ThrowingSupplierAnnotation.class.getName() + "(value=member)", AnnotationUtils.toString(annotation));
+    }
+
 }
