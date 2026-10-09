@@ -545,6 +545,15 @@ class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testHashCodeWithoutInvokingSupplier() {
+        final ThrowingSupplierAnnotation annotation =
+                AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        final int expected = (127 * "value".hashCode()) ^ "member".hashCode();
+
+        assertEquals(expected, AnnotationUtils.hashCode(annotation));
+    }
+
+    @Test
     void testIsValidAnnotationMemberType() {
         for (final Class<?> type : new Class[] { byte.class, short.class, int.class, char.class,
                 long.class, float.class, double.class, boolean.class, String.class, Class.class,
