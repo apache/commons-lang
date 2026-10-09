@@ -1770,10 +1770,12 @@ public class TypeUtils {
             if (!visited.add(var)) {
                 return var;
             }
-            final Type unrolled = unrollVariables(typeArguments, typeArguments.get(type), visited, unrolling);
-            // Only guard against cycles: the same variable may legitimately occur more than once in a type.
-            visited.remove(var);
-            return unrolled;
+            try {
+                return unrollVariables(typeArguments, typeArguments.get(type), visited, unrolling);
+            } finally {
+                // Only guard against cycles: the same variable may legitimately occur more than once in a type.
+                visited.remove(var);
+            }
         }
         if (type instanceof ParameterizedType && containsTypeVariables(type)) {
             final ParameterizedType p = (ParameterizedType) type;
