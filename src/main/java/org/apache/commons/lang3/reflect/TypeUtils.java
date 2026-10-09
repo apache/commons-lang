@@ -1777,39 +1777,71 @@ public class TypeUtils {
                 visited.remove(var);
             }
         }
-        if (type instanceof ParameterizedType && containsTypeVariables(type)) {
+        if (type instanceof ParameterizedType) {
             final ParameterizedType p = (ParameterizedType) type;
             if (hasCyclicOwnerChain(p) || !unrolling.add(p)) {
                 return p;
             }
             try {
-                final Type[] args = p.getActualTypeArguments().clone();
+                final Type[] args = p.getActualTypeArguments();
+                final Type[] unrolledArgs = args.clone();
+                boolean changed = false;
                 for (int i = 0; i < args.length; i++) {
                     final Type unrolled = unrollVariables(typeArguments, args[i], visited, unrolling);
-                    if (unrolled != null) {
-                        args[i] = unrolled;
+                    if (unrolled != null && unrolled != args[i]) {
+                        unrolledArgs[i] = unrolled;
+                        changed = true;
                     }
                 }
                 final Type owner = p.getOwnerType();
                 final Type unrolledOwner = owner != null && !(owner instanceof Class<?>) ? unrollVariables(typeArguments, owner, visited, unrolling) : owner;
-                return parameterizeWithOwner(unrolledOwner, (Class<?>) p.getRawType(), args);
+                if (!changed && unrolledOwner == owner) {
+                    return p;
+                }
+                return parameterizeWithOwner(unrolledOwner, (Class<?>) p.getRawType(), unrolledArgs);
             } finally {
                 unrolling.remove(p);
             }
         }
-        if (type instanceof WildcardType && containsTypeVariables(type)) {
+        if (type instanceof WildcardType) {
             final WildcardType wild = (WildcardType) type;
             if (!unrolling.add(wild)) {
                 return wild;
             }
             try {
-                return wildcardType().withUpperBounds(unrollBounds(typeArguments, wild.getUpperBounds(), visited, unrolling))
-                        .withLowerBounds(unrollBounds(typeArguments, wild.getLowerBounds(), visited, unrolling)).build();
+                final Type[] upperBounds = wild.getUpperBounds();
+                final Type[] lowerBounds = wild.getLowerBounds();
+                final Type[] unrolledUpperBounds = unrollBounds(typeArguments, upperBounds.clone(), visited, unrolling);
+                final Type[] unrolledLowerBounds = unrollBounds(typeArguments, lowerBounds.clone(), visited, unrolling);
+                if (isSameTypes(upperBounds, unrolledUpperBounds) && isSameTypes(lowerBounds, unrolledLowerBounds)) {
+                    return wild;
+                }
+                return wildcardType().withUpperBounds(unrolledUpperBounds).withLowerBounds(unrolledLowerBounds).build();
             } finally {
                 unrolling.remove(wild);
             }
         }
         return type;
+    }
+
+    /**
+     * Tests whether two type arrays hold the very same types, compared by identity so that no {@code equals()} or {@code hashCode()} of a custom {@link Type}
+     * is called.
+     *
+     * @param types      The first array.
+     * @param otherTypes The second array.
+     * @return Whether both arrays have the same length and the same types at each index.
+     */
+    private static boolean isSameTypes(final Type[] types, final Type[] otherTypes) {
+        if (types.length != otherTypes.length) {
+            return false;
+        }
+        for (int i = 0; i < types.length; i++) {
+            if (types[i] != otherTypes[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

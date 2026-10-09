@@ -1820,13 +1820,25 @@ class TypeUtilsTest<B> extends AbstractLangTest {
 
     @Test
     void testUnrollVariablesCycleThroughTypeArgumentAndOwner() {
-        // LANG-1836: Map<Inner, T> whose argument Inner has the Map as its owner. Such a type is invalid and rejected as such instead of overflowing the stack.
+        // LANG-1836: Map<Inner, T> whose argument Inner has the Map as its owner. The cycle is left as it is instead of overflowing the stack, while T is unrolled.
         final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
         final CyclicParameterizedType inner = new CyclicParameterizedType(Outer.Inner.class);
         final CyclicParameterizedType map = new CyclicParameterizedType(Map.class, inner, t);
         inner.setOwnerType(map);
         final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
-        assertThrows(IllegalArgumentException.class, () -> TypeUtils.unrollVariables(mapping, map));
+        final Type[] unrolledArguments = ((ParameterizedType) TypeUtils.unrollVariables(mapping, map)).getActualTypeArguments();
+        assertSame(inner, unrolledArguments[0]);
+        assertEquals(String.class, unrolledArguments[1]);
+    }
+
+    @Test
+    void testUnrollVariablesReturnsTheSameTypeWhenNothingChanges() {
+        // LANG-1836: a type that unrolling does not change is returned as it is instead of being rebuilt.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final Type listOfT = TypeUtils.parameterize(List.class, t);
+        assertSame(listOfT, TypeUtils.unrollVariables(Collections.emptyMap(), listOfT));
+        final Type listOfString = TypeUtils.parameterize(List.class, String.class);
+        assertSame(listOfString, TypeUtils.unrollVariables(Collections.emptyMap(), listOfString));
     }
 
     @Test
