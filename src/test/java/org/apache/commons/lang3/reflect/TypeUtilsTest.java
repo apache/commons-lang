@@ -331,7 +331,12 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         }
 
         class InnerU<U> {
-            // empty
+
+            class Deep<V> {
+                // empty
+            }
+
+            Deep<T> deep;
         }
 
         Map.Entry<T, Integer> entry;
@@ -598,6 +603,22 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.containsTypeVariables(wtLower));
         final WildcardType wtNone = TypeUtils.wildcardType().withUpperBounds(Integer.class, String.class).build();
         assertFalse(TypeUtils.containsTypeVariables(wtNone));
+    }
+
+    @Test
+    void testContainsTypeVariablesMultiLevelOwnerType() throws NoSuchFieldException {
+        final Type type = Outer.InnerU.class.getDeclaredField("deep").getGenericType();
+        assertTrue(TypeUtils.containsTypeVariables(type));
+        final Type outer = TypeUtils.parameterize(Outer.class, String.class);
+        final Type inner = TypeUtils.parameterizeWithOwner(outer, Outer.InnerU.class, Integer.class);
+        assertFalse(TypeUtils.containsTypeVariables(TypeUtils.parameterizeWithOwner(inner, Outer.InnerU.Deep.class, String.class)));
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final TypeVariable<?> u = Outer.InnerU.class.getTypeParameters()[0];
+        final Type variableOuter = TypeUtils.parameterize(Outer.class, t);
+        final Type outerOnly = TypeUtils.parameterizeWithOwner(variableOuter, Outer.InnerU.class, Integer.class);
+        assertTrue(TypeUtils.containsTypeVariables(TypeUtils.parameterizeWithOwner(outerOnly, Outer.InnerU.Deep.class, String.class)));
+        final Type innerOnly = TypeUtils.parameterizeWithOwner(outer, Outer.InnerU.class, u);
+        assertTrue(TypeUtils.containsTypeVariables(TypeUtils.parameterizeWithOwner(innerOnly, Outer.InnerU.Deep.class, String.class)));
     }
 
     @Test
@@ -1780,6 +1801,34 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testUnrollVariablesMultiLevelOwnerType() throws NoSuchFieldException {
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final TypeVariable<?> u = Outer.InnerU.class.getTypeParameters()[0];
+        final Map<TypeVariable<?>, Type> mapping = new HashMap<>();
+        mapping.put(t, String.class);
+        mapping.put(u, Integer.class);
+        final Type original = Outer.InnerU.class.getDeclaredField("deep").getGenericType();
+        final Type outer = TypeUtils.parameterize(Outer.class, String.class);
+        final Type inner = TypeUtils.parameterizeWithOwner(outer, Outer.InnerU.class, Integer.class);
+        final Type expected = TypeUtils.parameterizeWithOwner(inner, Outer.InnerU.Deep.class, String.class);
+        assertEquals(expected, TypeUtils.unrollVariables(mapping, original));
+        assertTrue(TypeUtils.containsTypeVariables(original));
+    }
+
+    @Test
+    void testUnrollVariablesMutuallyCyclicAssignments() {
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final TypeVariable<?> u = Outer.InnerU.class.getTypeParameters()[0];
+        final Map<TypeVariable<?>, Type> mapping = new HashMap<>();
+        mapping.put(t, u);
+        mapping.put(u, t);
+        assertSame(t, TypeUtils.unrollVariables(mapping, t));
+        assertSame(u, TypeUtils.unrollVariables(mapping, u));
+        final Type repeated = TypeUtils.parameterize(Map.class, t, t);
+        assertSame(repeated, TypeUtils.unrollVariables(mapping, repeated));
+    }
+
+    @Test
     void testUnrollVariablesOwnerType() throws NoSuchFieldException {
         // LANG-1836
         final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
@@ -1819,6 +1868,24 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testUnrollVariablesReturnsTheSameWildcardWhenNothingChanges() {
+        final WildcardType concrete = TypeUtils.wildcardType().withUpperBounds(Number.class).build();
+        assertSame(concrete, TypeUtils.unrollVariables(Collections.emptyMap(), concrete));
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final WildcardType variable = TypeUtils.wildcardType().withLowerBounds(t).build();
+        assertSame(variable, TypeUtils.unrollVariables(Collections.singletonMap(t, t), variable));
+    }
+
+    @Test
+    void testUnrollVariablesSelfCyclicAssignment() {
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final Map<TypeVariable<?>, Type> mapping = Collections.singletonMap(t, t);
+        assertSame(t, TypeUtils.unrollVariables(mapping, t));
+        final Type repeated = TypeUtils.parameterize(Map.class, t, t);
+        assertSame(repeated, TypeUtils.unrollVariables(mapping, repeated));
+    }
+
+    @Test
     void testUnrollVariablesSelfOwnedTypeWithTypeVariable() {
         // LANG-1836
         final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
@@ -1838,6 +1905,24 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         final Type[] unrolledArguments = ((ParameterizedType) TypeUtils.unrollVariables(mapping, self)).getActualTypeArguments();
         assertSame(self, unrolledArguments[0]);
         assertEquals(String.class, unrolledArguments[1]);
+    }
+
+    @Test
+    void testUnrollVariablesWildcardBounds() {
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final Map<TypeVariable<?>, Type> mapping = Collections.singletonMap(t, String.class);
+        final WildcardType upper = TypeUtils.wildcardType().withUpperBounds(t).build();
+        final WildcardType lower = TypeUtils.wildcardType().withLowerBounds(t).build();
+        final Type original = TypeUtils.parameterize(Map.class, upper, lower);
+        final Type expected = TypeUtils.parameterize(Map.class,
+                TypeUtils.wildcardType().withUpperBounds(String.class).build(),
+                TypeUtils.wildcardType().withLowerBounds(String.class).build());
+        assertEquals(expected, TypeUtils.unrollVariables(mapping, original));
+        assertArrayEquals(new Type[] { t }, upper.getUpperBounds());
+        assertArrayEquals(new Type[0], upper.getLowerBounds());
+        assertArrayEquals(new Type[] { Object.class }, lower.getUpperBounds());
+        assertArrayEquals(new Type[] { t }, lower.getLowerBounds());
+        assertArrayEquals(new Type[] { upper, lower }, ((ParameterizedType) original).getActualTypeArguments());
     }
 
     @Test
