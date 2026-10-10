@@ -219,9 +219,8 @@ public class AnnotationUtils {
         try {
             for (final Method m : type1.getDeclaredMethods()) {
                 if (isAnnotationMember(m)) {
-                    AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
-                    final Object v1 = m.invoke(a1);
-                    final Object v2 = m.invoke(a2);
+                    final Object v1 = invokeAnnotationMember(m, a1);
+                    final Object v2 = invokeAnnotationMember(m, a2);
                     if (!memberEquals(m.getReturnType(), v1, v2)) {
                         return false;
                     }
@@ -251,8 +250,7 @@ public class AnnotationUtils {
                 continue;
             }
             try {
-                AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
-                final Object value = m.invoke(a);
+                final Object value = invokeAnnotationMember(m, a);
                 if (value == null) {
                     throw new IllegalStateException(String.format("Annotation method %s returned null", m));
                 }
@@ -281,6 +279,26 @@ public class AnnotationUtils {
             return part1 ^ hashCode((Annotation) value);
         }
         return part1 ^ value.hashCode();
+    }
+
+    /**
+     * Invokes an annotation member, enabling reflective access only when needed.
+     *
+     * @param method the annotation member method
+     * @param annotation the annotation instance
+     * @return the annotation member value
+     * @throws ReflectiveOperationException if the method cannot be invoked
+     */
+    private static Object invokeAnnotationMember(final Method method, final Annotation annotation)
+            throws ReflectiveOperationException {
+        try {
+            return method.invoke(annotation);
+        } catch (final IllegalAccessException ex) {
+            if (!AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), method)) {
+                throw ex;
+            }
+            return method.invoke(annotation);
+        }
     }
 
     /**
@@ -361,8 +379,7 @@ public class AnnotationUtils {
                 continue;
             }
             try {
-                AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
-                builder.append(m.getName(), m.invoke(a));
+                builder.append(m.getName(), invokeAnnotationMember(m, a));
             } catch (final ReflectiveOperationException ex) {
                 throw new UncheckedException(ex);
             }
