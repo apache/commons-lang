@@ -117,6 +117,20 @@ public class AnnotationUtils {
     }
 
     /**
+     * Helper method for generating a hash code for an array of annotations.
+     *
+     * @param annotations The array
+     * @return A hash code for the specified array
+     */
+    private static int annotationArrayMemberHash(final Annotation[] annotations) {
+        int result = 1;
+        for (final Annotation annotation : annotations) {
+            result = 31 * result + (annotation == null ? 0 : hashCode(annotation));
+        }
+        return result;
+    }
+
+    /**
      * Helper method for comparing two objects of an array type.
      *
      * @param componentType The component type of the array
@@ -163,6 +177,9 @@ public class AnnotationUtils {
      * @return A hash code for the specified array
      */
     private static int arrayMemberHash(final Class<?> componentType, final Object o) {
+        if (componentType.isAnnotation()) {
+            return annotationArrayMemberHash((Annotation[]) o);
+        }
         if (componentType.equals(Byte.TYPE)) {
             return Arrays.hashCode((byte[]) o);
         }
