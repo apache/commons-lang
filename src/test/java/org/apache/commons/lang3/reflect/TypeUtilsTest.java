@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -47,6 +48,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -264,6 +266,83 @@ class TypeUtilsTest<B> extends AbstractLangTest {
 
     public class Other<T> implements This<String, T> {
         // empty
+    }
+
+    /**
+     * A custom {@link ParameterizedType} with a structural {@code hashCode()}, whose owner and type arguments can be set after construction so that tests can
+     * create cycles.
+     */
+    private static final class CyclicParameterizedType implements ParameterizedType {
+
+        private final Class<?> rawType;
+        private Type[] typeArguments;
+        private Type ownerType;
+
+        CyclicParameterizedType(final Class<?> rawType, final Type... typeArguments) {
+            this.rawType = rawType;
+            this.typeArguments = typeArguments;
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            return this == obj;
+        }
+
+        @Override
+        public Type[] getActualTypeArguments() {
+            return typeArguments.clone();
+        }
+
+        @Override
+        public Type getOwnerType() {
+            return ownerType;
+        }
+
+        @Override
+        public Type getRawType() {
+            return rawType;
+        }
+
+        @Override
+        public String toString() {
+            return "CyclicParameterizedType<" + rawType.getName() + ">";
+        }
+
+        @Override
+        public int hashCode() {
+            // Structural like the JDK implementation: it follows the owner, so a cycle would overflow the stack.
+            return Objects.hash(rawType, Arrays.hashCode(typeArguments), ownerType);
+        }
+
+        void setOwnerType(final Type ownerType) {
+            this.ownerType = ownerType;
+        }
+
+        void setTypeArguments(final Type... typeArguments) {
+            this.typeArguments = typeArguments;
+        }
+    }
+
+    /** LANG-1836: non-static inner classes whose owner type is parameterized. */
+    static class Outer<T> {
+
+        class Inner {
+            // empty
+        }
+
+        class InnerU<U> {
+            // empty
+        }
+
+        Map.Entry<T, Integer> entry;
+
+        Inner inner;
+
+        InnerU<Integer> innerUInteger;
+
+        InnerU<T> innerUT;
+
+        Map<T, T> map;
     }
 
     public class Tester implements This<String, B> {
@@ -495,6 +574,18 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.containsTypeVariables(wtLower));
         final WildcardType wtNone = TypeUtils.wildcardType().withUpperBounds(Integer.class, String.class).build();
         assertFalse(TypeUtils.containsTypeVariables(wtNone));
+    }
+
+    @Test
+    void testContainsTypeVariablesOwnerType() throws NoSuchFieldException {
+        // LANG-1836: Outer<T>.Inner
+        assertTrue(TypeUtils.containsTypeVariables(Outer.class.getDeclaredField("inner").getGenericType()));
+        // Outer<T>.InnerU<Integer>
+        assertTrue(TypeUtils.containsTypeVariables(Outer.class.getDeclaredField("innerUInteger").getGenericType()));
+        // Outer<String>.Inner
+        assertFalse(TypeUtils.containsTypeVariables(TypeUtils.parameterizeWithOwner(TypeUtils.parameterize(Outer.class, String.class), Outer.Inner.class)));
+        // Map.Entry<String, Integer>: the owner is the raw Map.class, which declares type parameters but binds none.
+        assertFalse(TypeUtils.containsTypeVariables(TypeUtils.parameterizeWithOwner(Map.class, Map.Entry.class, String.class, Integer.class)));
     }
 
     @Test
@@ -1587,6 +1678,176 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals("java.util.ArrayList<E>", TypeUtils.unrollVariables(null, parameterizedType).getTypeName());
         final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(variables[0], String.class);
         assertEquals("java.util.ArrayList<java.lang.String>", TypeUtils.unrollVariables(mapping, parameterizedType).getTypeName());
+    }
+
+    @Test
+    void testUnrollVariablesOwnerType() throws NoSuchFieldException {
+        // LANG-1836
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        final ParameterizedType outerString = TypeUtils.parameterize(Outer.class, String.class);
+        // Outer<T>.Inner -> Outer<String>.Inner
+        assertEquals(TypeUtils.parameterizeWithOwner(outerString, Outer.Inner.class),
+                TypeUtils.unrollVariables(mapping, Outer.class.getDeclaredField("inner").getGenericType()));
+        // Outer<T>.InnerU<Integer> -> Outer<String>.InnerU<Integer>
+        assertEquals(TypeUtils.parameterizeWithOwner(outerString, Outer.InnerU.class, Integer.class),
+                TypeUtils.unrollVariables(mapping, Outer.class.getDeclaredField("innerUInteger").getGenericType()));
+        // Outer<T>.InnerU<T> -> Outer<String>.InnerU<String>
+        assertEquals(TypeUtils.parameterizeWithOwner(outerString, Outer.InnerU.class, String.class),
+                TypeUtils.unrollVariables(mapping, Outer.class.getDeclaredField("innerUT").getGenericType()));
+        // Map.Entry<T, Integer> -> Map.Entry<String, Integer>: the raw owner Map.class is left unchanged.
+        assertEquals(TypeUtils.parameterizeWithOwner(Map.class, Map.Entry.class, String.class, Integer.class),
+                TypeUtils.unrollVariables(mapping, Outer.class.getDeclaredField("entry").getGenericType()));
+    }
+
+    @Test
+    void testContainsTypeVariablesSelfOwnedTypeWithStructuralHashCode() {
+        // LANG-1836: detecting the cycle must not call hashCode(), which would follow the owner again.
+        final CyclicParameterizedType self = new CyclicParameterizedType(Outer.Inner.class);
+        self.setOwnerType(self);
+        assertFalse(TypeUtils.containsTypeVariables(self));
+    }
+
+    @Test
+    void testContainsTypeVariablesCyclicOwnerType() {
+        // LANG-1836: a (custom) ParameterizedType that is its own owner must not cause a StackOverflowError.
+        final ParameterizedType[] self = new ParameterizedType[1];
+        self[0] = new ParameterizedType() {
+
+            @Override
+            public Type[] getActualTypeArguments() {
+                return new Type[0];
+            }
+
+            @Override
+            public Type getOwnerType() {
+                return self[0];
+            }
+
+            @Override
+            public Type getRawType() {
+                return Outer.Inner.class;
+            }
+        };
+        assertFalse(TypeUtils.containsTypeVariables(self[0]));
+    }
+
+    @Test
+    void testContainsTypeVariablesSelfReferencingTypeArgument() {
+        // LANG-1836: a (custom) ParameterizedType that is its own type argument must not cause a StackOverflowError.
+        final CyclicParameterizedType self = new CyclicParameterizedType(List.class);
+        self.setTypeArguments(self);
+        assertFalse(TypeUtils.containsTypeVariables(self));
+    }
+
+    @Test
+    void testContainsTypeVariablesMutuallyReferencingTypeArguments() {
+        // LANG-1836
+        final CyclicParameterizedType a = new CyclicParameterizedType(List.class);
+        final CyclicParameterizedType b = new CyclicParameterizedType(List.class);
+        a.setTypeArguments(b);
+        b.setTypeArguments(a);
+        assertFalse(TypeUtils.containsTypeVariables(a));
+        assertFalse(TypeUtils.containsTypeVariables(b));
+    }
+
+    @Test
+    void testContainsTypeVariablesSelfReferencingTypeArgumentBesideVariable() {
+        // LANG-1836: cutting the cycle must not hide a variable that is found elsewhere.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType self = new CyclicParameterizedType(Map.class);
+        self.setTypeArguments(self, t);
+        assertTrue(TypeUtils.containsTypeVariables(self));
+    }
+
+    @Test
+    void testUnrollVariablesWildcardCycleThroughOwnerType() {
+        // LANG-1836: {T -> Outer<? extends T>.Inner} must not cause a StackOverflowError when T is unrolled.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final WildcardType extendsT = TypeUtils.wildcardType().withUpperBounds(t).build();
+        final Type outerExtendsT = TypeUtils.parameterizeWithOwner(TypeUtils.parameterize(Outer.class, extendsT), Outer.Inner.class);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, outerExtendsT);
+        assertEquals(outerExtendsT, TypeUtils.unrollVariables(mapping, t));
+    }
+
+    @Test
+    void testUnrollVariablesSelfReferencingTypeArgument() {
+        // LANG-1836: the cycle through the type argument is left as it is while the variable is still unrolled.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType self = new CyclicParameterizedType(Map.class);
+        self.setTypeArguments(self, t);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        final Type[] unrolledArguments = ((ParameterizedType) TypeUtils.unrollVariables(mapping, self)).getActualTypeArguments();
+        assertSame(self, unrolledArguments[0]);
+        assertEquals(String.class, unrolledArguments[1]);
+    }
+
+    @Test
+    void testUnrollVariablesCyclicOwnerChain() {
+        // LANG-1836: A -> owner B<T> -> owner A is left as it is and must not cause a StackOverflowError.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType a = new CyclicParameterizedType(Outer.Inner.class);
+        final CyclicParameterizedType b = new CyclicParameterizedType(Outer.class, t);
+        a.setOwnerType(b);
+        b.setOwnerType(a);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        final ParameterizedType unrolled = (ParameterizedType) TypeUtils.unrollVariables(mapping, a);
+        assertEquals(Outer.Inner.class, unrolled.getRawType());
+        assertSame(b, unrolled.getOwnerType());
+    }
+
+    @Test
+    void testUnrollVariablesCyclicOwnerChainFromEitherType() {
+        // LANG-1836: the cycle is left alone whichever type of the cycle is unrolled first.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType a = new CyclicParameterizedType(Outer.Inner.class);
+        final CyclicParameterizedType b = new CyclicParameterizedType(Outer.class, t);
+        a.setOwnerType(b);
+        b.setOwnerType(a);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        assertSame(b, TypeUtils.unrollVariables(mapping, b));
+    }
+
+    @Test
+    void testUnrollVariablesSelfOwnedTypeWithTypeVariable() {
+        // LANG-1836
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType self = new CyclicParameterizedType(Outer.InnerU.class, t);
+        self.setOwnerType(self);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        assertSame(self, TypeUtils.unrollVariables(mapping, self));
+    }
+
+    @Test
+    void testUnrollVariablesCycleThroughTypeArgumentAndOwner() {
+        // LANG-1836: Map<Inner, T> whose argument Inner has the Map as its owner. The cycle is left as it is instead of overflowing the stack, while T is unrolled.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final CyclicParameterizedType inner = new CyclicParameterizedType(Outer.Inner.class);
+        final CyclicParameterizedType map = new CyclicParameterizedType(Map.class, inner, t);
+        inner.setOwnerType(map);
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        final Type[] unrolledArguments = ((ParameterizedType) TypeUtils.unrollVariables(mapping, map)).getActualTypeArguments();
+        assertSame(inner, unrolledArguments[0]);
+        assertEquals(String.class, unrolledArguments[1]);
+    }
+
+    @Test
+    void testUnrollVariablesReturnsTheSameTypeWhenNothingChanges() {
+        // LANG-1836: a type that unrolling does not change is returned as it is instead of being rebuilt.
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final Type listOfT = TypeUtils.parameterize(List.class, t);
+        assertSame(listOfT, TypeUtils.unrollVariables(Collections.emptyMap(), listOfT));
+        final Type listOfString = TypeUtils.parameterize(List.class, String.class);
+        assertSame(listOfString, TypeUtils.unrollVariables(Collections.emptyMap(), listOfString));
+    }
+
+    @Test
+    void testUnrollVariablesRepeatedVariable() throws NoSuchFieldException {
+        final TypeVariable<?> t = Outer.class.getTypeParameters()[0];
+        final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
+        // Map<T, T> -> Map<String, String>: every occurrence of T is unrolled, not only the first.
+        assertEquals(TypeUtils.parameterize(Map.class, String.class, String.class),
+                TypeUtils.unrollVariables(mapping, Outer.class.getDeclaredField("map").getGenericType()));
     }
 
     @SuppressWarnings("unlikely-arg-type")
