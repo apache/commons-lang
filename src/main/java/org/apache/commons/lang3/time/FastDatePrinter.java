@@ -37,8 +37,10 @@ import java.util.concurrent.ConcurrentMap;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
@@ -1015,6 +1017,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
     private static final int MAX_DIGITS = 10; // log10(Integer.MAX_VALUE) ~= 9.3
 
+    /** Whether SimpleDateFormat formats a month-only pattern with the standalone month names; since Java 9 (JDK-8114833). */
+    private static final boolean STANDALONE_MONTH_PATTERN = SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9);
+
     private static final ConcurrentMap<TimeZoneDisplayKey, String> timeZoneDisplayCache = new ConcurrentHashMap<>(7);
 
     /**
@@ -1462,6 +1467,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
         final int length = pattern.length();
         final int[] indexRef = new int[1];
+        final boolean monthOnly = STANDALONE_MONTH_PATTERN && isMonthOnlyPattern();
 
         for (int i = 0; i < length; i++) {
             indexRef[0] = i;
@@ -1493,9 +1499,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 break;
             case 'M': // month in year (text and number)
                 if (tokenLen >= 4) {
-                    rule = new TextField(Calendar.MONTH, months);
+                    rule = new TextField(Calendar.MONTH, monthOnly ? CalendarUtils.getInstance(locale).getStandaloneLongMonthNames() : months);
                 } else if (tokenLen == 3) {
-                    rule = new TextField(Calendar.MONTH, shortMonths);
+                    rule = new TextField(Calendar.MONTH, monthOnly ? CalendarUtils.getInstance(locale).getStandaloneShortMonthNames() : shortMonths);
                 } else if (tokenLen == 2) {
                     rule = TwoDigitMonthField.INSTANCE;
                 } else {
@@ -1589,6 +1595,38 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         }
 
         return rules;
+    }
+
+    /**
+     * Tests whether the month is the only field in the pattern.
+     * <p>
+     * {@link SimpleDateFormat} formats the text month of such a pattern with the standalone month names, which in some languages, like the Slavic and Baltic
+     * ones, are a different grammatical form from the names used next to a day ("{@code MMMM}" alone prints Russian February as nominative
+     * "{@code февраль}" where "{@code d MMMM}" prints genitive "{@code февраля}").
+     * </p>
+     *
+     * @return Whether the pattern contains exactly one field, the month.
+     */
+    private boolean isMonthOnlyPattern() {
+        final int[] indexRef = new int[1];
+        boolean monthField = false;
+        for (int i = 0; i < pattern.length(); i++) {
+            indexRef[0] = i;
+            final String token = parseToken(pattern, indexRef);
+            i = indexRef[0];
+            if (token.isEmpty()) {
+                break;
+            }
+            final char c = token.charAt(0);
+            if (c == '\'') {
+                continue;
+            }
+            if (c != 'M' || monthField) {
+                return false;
+            }
+            monthField = true;
+        }
+        return monthField;
     }
 
     /**
