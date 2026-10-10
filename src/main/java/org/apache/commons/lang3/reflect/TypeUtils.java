@@ -383,15 +383,6 @@ public class TypeUtils {
         return containsTypeVariables(type, newIdentitySet());
     }
 
-    /**
-     * Creates a set that compares by identity, so that cycle detection never calls {@code hashCode()} or {@code equals()} of a custom {@link Type}.
-     *
-     * @return A new identity-based set.
-     */
-    private static Set<Type> newIdentitySet() {
-        return Collections.newSetFromMap(new IdentityHashMap<>());
-    }
-
     private static boolean containsTypeVariables(final Type type, final Set<Type> visited) {
         if (type instanceof TypeVariable<?>) {
             return true;
@@ -587,7 +578,6 @@ public class TypeUtils {
         return result;
     }
 
-
     /**
      * Creates a generic array type instance.
      *
@@ -598,6 +588,7 @@ public class TypeUtils {
     public static GenericArrayType genericArrayType(final Type componentType) {
         return new GenericArrayTypeImpl(Objects.requireNonNull(componentType, "componentType"));
     }
+
 
     /**
      * Formats a {@link GenericArrayType} as a {@link String}.
@@ -950,6 +941,23 @@ public class TypeUtils {
             return null;
         }
         throw new IllegalStateException("found an unhandled type: " + type);
+    }
+
+    /**
+     * Tests whether following the owner types of the given type leads back to a type that was already seen. Only a custom {@link ParameterizedType} can do that.
+     *
+     * @param type The type whose owner chain to check.
+     * @return Whether the owner chain of {@code type} is cyclic.
+     */
+    private static boolean hasCyclicOwnerChain(final ParameterizedType type) {
+        final Set<Type> seen = newIdentitySet();
+        seen.add(type);
+        for (Type owner = type.getOwnerType(); owner instanceof ParameterizedType; owner = ((ParameterizedType) owner).getOwnerType()) {
+            if (!seen.add(owner)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -1331,6 +1339,26 @@ public class TypeUtils {
     }
 
     /**
+     * Tests whether two type arrays hold the very same types, compared by identity so that no {@code equals()} or {@code hashCode()} of a custom {@link Type}
+     * is called.
+     *
+     * @param types      The first array.
+     * @param otherTypes The second array.
+     * @return Whether both arrays have the same length and the same types at each index.
+     */
+    private static boolean isSameTypes(final Type[] types, final Type[] otherTypes) {
+        if (types.length != otherTypes.length) {
+            return false;
+        }
+        for (int i = 0; i < types.length; i++) {
+            if (types[i] != otherTypes[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Maps type variables.
      *
      * @param <T>               the generic type of the class in question.
@@ -1368,6 +1396,15 @@ public class TypeUtils {
                 typeVarAssigns.put((TypeVariable<?>) typeArg, typeVarAssigns.get(typeVar));
             }
         }
+    }
+
+    /**
+     * Creates a set that compares by identity, so that cycle detection never calls {@code hashCode()} or {@code equals()} of a custom {@link Type}.
+     *
+     * @return A new identity-based set.
+     */
+    private static Set<Type> newIdentitySet() {
+        return Collections.newSetFromMap(new IdentityHashMap<>());
     }
 
     /**
@@ -1747,23 +1784,6 @@ public class TypeUtils {
         return unrollVariables(typeArguments, type, new HashSet<>(), newIdentitySet());
     }
 
-    /**
-     * Tests whether following the owner types of the given type leads back to a type that was already seen. Only a custom {@link ParameterizedType} can do that.
-     *
-     * @param type The type whose owner chain to check.
-     * @return Whether the owner chain of {@code type} is cyclic.
-     */
-    private static boolean hasCyclicOwnerChain(final ParameterizedType type) {
-        final Set<Type> seen = newIdentitySet();
-        seen.add(type);
-        for (Type owner = type.getOwnerType(); owner instanceof ParameterizedType; owner = ((ParameterizedType) owner).getOwnerType()) {
-            if (!seen.add(owner)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private static Type unrollVariables(final Map<TypeVariable<?>, Type> typeArguments, final Type type, final Set<TypeVariable<?>> visited, final Set<Type> unrolling) {
         if (type instanceof TypeVariable<?>) {
             final TypeVariable<?> var = (TypeVariable<?>) type;
@@ -1822,26 +1842,6 @@ public class TypeUtils {
             }
         }
         return type;
-    }
-
-    /**
-     * Tests whether two type arrays hold the very same types, compared by identity so that no {@code equals()} or {@code hashCode()} of a custom {@link Type}
-     * is called.
-     *
-     * @param types      The first array.
-     * @param otherTypes The second array.
-     * @return Whether both arrays have the same length and the same types at each index.
-     */
-    private static boolean isSameTypes(final Type[] types, final Type[] otherTypes) {
-        if (types.length != otherTypes.length) {
-            return false;
-        }
-        for (int i = 0; i < types.length; i++) {
-            if (types[i] != otherTypes[i]) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

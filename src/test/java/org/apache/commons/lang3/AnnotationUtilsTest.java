@@ -58,31 +58,6 @@ class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface RunnableAnnotation {
-        Runnable RUNNABLE = () -> {
-            // Creates a void synthetic method for the regression test.
-        };
-
-        String value() default "member";
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface SupplierAnnotation {
-        Supplier<String> SUPPLIER = () -> "constant";
-
-        String value() default "member";
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface ThrowingSupplierAnnotation {
-        Supplier<String> SUPPLIER = () -> {
-            throw new AssertionError("Annotation member access must not invoke a lambda");
-        };
-
-        String value() default "member";
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
     public @interface NestAnnotation {
         boolean booleanValue();
         boolean[] booleanValues();
@@ -108,8 +83,24 @@ class AnnotationUtilsTest extends AbstractLangTest {
         Class<?>[] types();
     }
 
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface RunnableAnnotation {
+        Runnable RUNNABLE = () -> {
+            // Creates a void synthetic method for the regression test.
+        };
+
+        String value() default "member";
+    }
+
     public enum Stooge {
         MOE, LARRY, CURLY, JOE, SHEMP
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface SupplierAnnotation {
+        Supplier<String> SUPPLIER = () -> "constant";
+
+        String value() default "member";
     }
 
     @Target(ElementType.FIELD)
@@ -152,6 +143,15 @@ class AnnotationUtilsTest extends AbstractLangTest {
         Class<? extends Throwable> expected() default None.class;
 
         long timeout() default 0L;
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface ThrowingSupplierAnnotation {
+        Supplier<String> SUPPLIER = () -> {
+            throw new AssertionError("Annotation member access must not invoke a lambda");
+        };
+
+        String value() default "member";
     }
 
     @TestAnnotation(
@@ -533,6 +533,15 @@ class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testHashCodeWithoutInvokingSupplier() {
+        final ThrowingSupplierAnnotation annotation =
+                AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        final int expected = (127 * "value".hashCode()) ^ "member".hashCode();
+
+        assertEquals(expected, AnnotationUtils.hashCode(annotation));
+    }
+
+    @Test
     void testHashCodeWithRunnable() {
         final RunnableAnnotation annotation = AnnotatedClass.class.getAnnotation(RunnableAnnotation.class);
         assertEquals(annotation.hashCode(), AnnotationUtils.hashCode(annotation));
@@ -542,15 +551,6 @@ class AnnotationUtilsTest extends AbstractLangTest {
     void testHashCodeWithSupplier() {
         final SupplierAnnotation annotation = AnnotatedClass.class.getAnnotation(SupplierAnnotation.class);
         assertEquals(annotation.hashCode(), AnnotationUtils.hashCode(annotation));
-    }
-
-    @Test
-    void testHashCodeWithoutInvokingSupplier() {
-        final ThrowingSupplierAnnotation annotation =
-                AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
-        final int expected = (127 * "value".hashCode()) ^ "member".hashCode();
-
-        assertEquals(expected, AnnotationUtils.hashCode(annotation));
     }
 
     @Test
