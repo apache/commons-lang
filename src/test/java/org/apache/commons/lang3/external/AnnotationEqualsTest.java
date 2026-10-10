@@ -27,7 +27,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.lang3.AnnotationUtils;
+import org.apache.commons.lang3.exception.UncheckedException;
 import org.junit.jupiter.api.Test;
+import org.junitpioneer.jupiter.SetSystemProperty;
 
 /**
  * Regression test for <a href="https://issues.apache.org/jira/browse/LANG-1815">LANG-1815</a>.
@@ -49,6 +51,19 @@ import org.junit.jupiter.api.Test;
  * </p>
  */
 public class AnnotationEqualsTest {
+    /**
+     * Declares an annotation accessible without suppressing reflective access checks.
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface PublicTag {
+        /**
+         * Gets the tag value.
+         *
+         * @return the tag value
+         */
+        String value();
+    }
+
     @Retention(RetentionPolicy.RUNTIME)
     @interface Tag {
         String value();
@@ -66,15 +81,35 @@ public class AnnotationEqualsTest {
         }
     }
 
+    @PublicTag("value")
     @Tag("value")
     private final Object a = new Object();
+
+    @PublicTag("value")
     @Tag("value")
     private final Object b = new Object();
+
+    @Test
+    @SetSystemProperty(key = "AbstractReflection.forceAccessible", value = "false")
+    void equalsRejectsPackagePrivateAnnotationsWithoutForcedAccess() throws Exception {
+        final Tag tagA = getClass().getDeclaredField("a").getAnnotation(Tag.class);
+        final Tag tagB = getClass().getDeclaredField("b").getAnnotation(Tag.class);
+        final IllegalStateException ex = assertThrows(IllegalStateException.class, () -> AnnotationUtils.equals(tagA, tagB));
+        assertInstanceOf(IllegalAccessException.class, ex.getCause());
+    }
 
     @Test
     void equalsWorksOnPackagePrivateAnnotations() throws Exception {
         final Tag tagA = getClass().getDeclaredField("a").getAnnotation(Tag.class);
         final Tag tagB = getClass().getDeclaredField("b").getAnnotation(Tag.class);
+        assertTrue(AnnotationUtils.equals(tagA, tagB));
+    }
+
+    @Test
+    @SetSystemProperty(key = "AbstractReflection.forceAccessible", value = "false")
+    void equalsWorksOnPublicAnnotationsWithoutForcedAccess() throws Exception {
+        final PublicTag tagA = getClass().getDeclaredField("a").getAnnotation(PublicTag.class);
+        final PublicTag tagB = getClass().getDeclaredField("b").getAnnotation(PublicTag.class);
         assertTrue(AnnotationUtils.equals(tagA, tagB));
     }
 
@@ -90,9 +125,32 @@ public class AnnotationEqualsTest {
     }
 
     @Test
+    @SetSystemProperty(key = "AbstractReflection.forceAccessible", value = "false")
+    void hashCodeRejectsPackagePrivateAnnotationsWithoutForcedAccess() throws Exception {
+        final Tag tag = getClass().getDeclaredField("a").getAnnotation(Tag.class);
+        final UncheckedException ex = assertThrows(UncheckedException.class, () -> AnnotationUtils.hashCode(tag));
+        assertInstanceOf(IllegalAccessException.class, ex.getCause());
+    }
+
+    @Test
     void hashCodeWorksOnPackagePrivateAnnotations() throws Exception {
         final Tag tag = getClass().getDeclaredField("a").getAnnotation(Tag.class);
         assertEquals(tag.hashCode(), AnnotationUtils.hashCode(tag));
+    }
+
+    @Test
+    @SetSystemProperty(key = "AbstractReflection.forceAccessible", value = "false")
+    void hashCodeWorksOnPublicAnnotationsWithoutForcedAccess() throws Exception {
+        final PublicTag tag = getClass().getDeclaredField("a").getAnnotation(PublicTag.class);
+        assertEquals(tag.hashCode(), AnnotationUtils.hashCode(tag));
+    }
+
+    @Test
+    @SetSystemProperty(key = "AbstractReflection.forceAccessible", value = "false")
+    void toStringRejectsPackagePrivateAnnotationsWithoutForcedAccess() throws Exception {
+        final Tag tag = getClass().getDeclaredField("a").getAnnotation(Tag.class);
+        final UncheckedException ex = assertThrows(UncheckedException.class, () -> AnnotationUtils.toString(tag));
+        assertInstanceOf(IllegalAccessException.class, ex.getCause());
     }
 
     @Test
@@ -100,6 +158,13 @@ public class AnnotationEqualsTest {
         final Tag tag = getClass().getDeclaredField("a").getAnnotation(Tag.class);
         final String text = AnnotationUtils.toString(tag);
         assertTrue(text.contains("value=value"), text);
+    }
+
+    @Test
+    @SetSystemProperty(key = "AbstractReflection.forceAccessible", value = "false")
+    void toStringWorksOnPublicAnnotationsWithoutForcedAccess() throws Exception {
+        final PublicTag tag = getClass().getDeclaredField("a").getAnnotation(PublicTag.class);
+        assertEquals("@" + PublicTag.class.getName() + "(value=value)", AnnotationUtils.toString(tag));
     }
 
 }
