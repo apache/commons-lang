@@ -482,7 +482,7 @@ class AnnotationUtilsTest extends AbstractLangTest {
                 return method.invoke(real.nests()[0], args);
             };
             final NestAnnotation[] nests = { (NestAnnotation) Proxy.newProxyInstance(
-                    Thread.currentThread().getContextClassLoader(), new Class[] { NestAnnotation.class }, nestHandler) };
+                    NestAnnotation.class.getClassLoader(), new Class[] { NestAnnotation.class }, nestHandler) };
             final InvocationHandler testHandler = (proxy, method, args) -> {
                 if ("nests".equals(method.getName()) && method.getParameterTypes().length == 0) {
                     return nests;
@@ -490,7 +490,7 @@ class AnnotationUtilsTest extends AbstractLangTest {
                 return method.invoke(real, args);
             };
             final TestAnnotation generated = (TestAnnotation) Proxy.newProxyInstance(
-                    Thread.currentThread().getContextClassLoader(), new Class[] { TestAnnotation.class }, testHandler);
+                    TestAnnotation.class.getClassLoader(), new Class[] { TestAnnotation.class }, testHandler);
             assertTrue(AnnotationUtils.equals(real, generated));
             assertTrue(AnnotationUtils.equals(generated, real));
             assertEquals(AnnotationUtils.hashCode(real), AnnotationUtils.hashCode(generated));
