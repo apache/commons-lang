@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -33,6 +34,8 @@ import java.lang.reflect.Proxy;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,6 +43,20 @@ import org.junit.jupiter.api.Test;
 /**
  */
 class AnnotationUtilsTest extends AbstractLangTest {
+    @FunctionAnnotation
+    @RunnableAnnotation
+    @SupplierAnnotation
+    @ThrowingSupplierAnnotation
+    private static final class AnnotatedClass {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface FunctionAnnotation {
+        Function<String, String> FUNCTION = value -> value;
+
+        String value() default "member";
+    }
+
     @Retention(RetentionPolicy.RUNTIME)
     public @interface NestAnnotation {
         boolean booleanValue();
@@ -66,8 +83,24 @@ class AnnotationUtilsTest extends AbstractLangTest {
         Class<?>[] types();
     }
 
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface RunnableAnnotation {
+        Runnable RUNNABLE = () -> {
+            // Creates a void synthetic method for the regression test.
+        };
+
+        String value() default "member";
+    }
+
     public enum Stooge {
         MOE, LARRY, CURLY, JOE, SHEMP
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface SupplierAnnotation {
+        Supplier<String> SUPPLIER = () -> "constant";
+
+        String value() default "member";
     }
 
     @Target(ElementType.FIELD)
@@ -110,6 +143,15 @@ class AnnotationUtilsTest extends AbstractLangTest {
         Class<? extends Throwable> expected() default None.class;
 
         long timeout() default 0L;
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface ThrowingSupplierAnnotation {
+        Supplier<String> SUPPLIER = () -> {
+            throw new AssertionError("Annotation member access must not invoke a lambda");
+        };
+
+        String value() default "member";
     }
 
     @TestAnnotation(
@@ -397,7 +439,7 @@ class AnnotationUtilsTest extends AbstractLangTest {
     private Field field4;
 
     @BeforeEach
-    public void setup() throws Exception {
+    void setup() throws Exception {
         field1 = getClass().getDeclaredField("dummy1");
         field2 = getClass().getDeclaredField("dummy2");
         field3 = getClass().getDeclaredField("dummy3");
@@ -419,6 +461,20 @@ class AnnotationUtilsTest extends AbstractLangTest {
     void testEquivalence() {
         assertTrue(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field2.getAnnotation(TestAnnotation.class)));
         assertTrue(AnnotationUtils.equals(field2.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
+    }
+
+    @Test
+    void testEquivalenceWithoutInvokingSupplier() {
+        final ThrowingSupplierAnnotation first =
+                AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        final ThrowingSupplierAnnotation second =
+                (ThrowingSupplierAnnotation) Proxy.newProxyInstance(
+                        ThrowingSupplierAnnotation.class.getClassLoader(),
+                        new Class<?>[] { ThrowingSupplierAnnotation.class },
+                        (proxy, method, args) -> method.invoke(first, args));
+
+        assertNotSame(first, second);
+        assertTrue(AnnotationUtils.equals(first, second));
     }
 
     @Test
@@ -498,6 +554,33 @@ class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testHashCodeWithFunction() {
+        final FunctionAnnotation annotation = AnnotatedClass.class.getAnnotation(FunctionAnnotation.class);
+        assertEquals(annotation.hashCode(), AnnotationUtils.hashCode(annotation));
+    }
+
+    @Test
+    void testHashCodeWithoutInvokingSupplier() {
+        final ThrowingSupplierAnnotation annotation =
+                AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        final int expected = (127 * "value".hashCode()) ^ "member".hashCode();
+
+        assertEquals(expected, AnnotationUtils.hashCode(annotation));
+    }
+
+    @Test
+    void testHashCodeWithRunnable() {
+        final RunnableAnnotation annotation = AnnotatedClass.class.getAnnotation(RunnableAnnotation.class);
+        assertEquals(annotation.hashCode(), AnnotationUtils.hashCode(annotation));
+    }
+
+    @Test
+    void testHashCodeWithSupplier() {
+        final SupplierAnnotation annotation = AnnotatedClass.class.getAnnotation(SupplierAnnotation.class);
+        assertEquals(annotation.hashCode(), AnnotationUtils.hashCode(annotation));
+    }
+
+    @Test
     void testIsValidAnnotationMemberType() {
         for (final Class<?> type : new Class[] { byte.class, short.class, int.class, char.class,
                 long.class, float.class, double.class, boolean.class, String.class, Class.class,
@@ -544,6 +627,24 @@ class AnnotationUtilsTest extends AbstractLangTest {
             assertTrue(annotationString.contains("timeout=666000"));
             assertTrue(annotationString.contains(", "));
         });
+    }
+
+    @Test
+    void testToStringWithRunnable() {
+        final RunnableAnnotation annotation = AnnotatedClass.class.getAnnotation(RunnableAnnotation.class);
+        assertEquals("@" + RunnableAnnotation.class.getName() + "(value=member)", AnnotationUtils.toString(annotation));
+    }
+
+    @Test
+    void testToStringWithSupplier() {
+        final SupplierAnnotation annotation = AnnotatedClass.class.getAnnotation(SupplierAnnotation.class);
+        assertEquals("@" + SupplierAnnotation.class.getName() + "(value=member)", AnnotationUtils.toString(annotation));
+    }
+
+    @Test
+    void testToStringWithThrowingSupplier() {
+        final ThrowingSupplierAnnotation annotation = AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        assertEquals("@" + ThrowingSupplierAnnotation.class.getName() + "(value=member)", AnnotationUtils.toString(annotation));
     }
 
 }

@@ -371,42 +371,57 @@ public class TypeUtils {
 
     /**
      * Tests, recursively, whether any of the type parameters associated with {@code type} are bound to variables.
+     * <p>
+     * The owner type of a parameterized type, for example {@code Outer<T>} of {@code Outer<T>.Inner}, is checked as well.
+     * </p>
      *
      * @param type The type to check for type variables.
      * @return Whether any of the type parameters associated with {@code type} are bound to variables.
      * @since 3.2
      */
     public static boolean containsTypeVariables(final Type type) {
+        return containsTypeVariables(type, newIdentitySet());
+    }
+
+    private static boolean containsTypeVariables(final Type type, final Set<Type> visited) {
         if (type instanceof TypeVariable<?>) {
             return true;
         }
         if (type instanceof Class<?>) {
             return ((Class<?>) type).getTypeParameters().length > 0;
         }
+        if (!visited.add(type)) {
+            // A custom Type can contain itself, through its owner or its arguments. A type seen before, or still being examined, holds no variable that
+            // would not have ended the search already.
+            return false;
+        }
         if (type instanceof ParameterizedType) {
-            for (final Type arg : ((ParameterizedType) type).getActualTypeArguments()) {
-                if (containsTypeVariables(arg)) {
+            final ParameterizedType parameterizedType = (ParameterizedType) type;
+            for (final Type arg : parameterizedType.getActualTypeArguments()) {
+                if (containsTypeVariables(arg, visited)) {
                     return true;
                 }
             }
-            return false;
+            // A raw Class owner (for example Map.class for Map.Entry<String, Integer>) binds no variables.
+            final Type ownerType = parameterizedType.getOwnerType();
+            return ownerType != null && !(ownerType instanceof Class<?>) && containsTypeVariables(ownerType, visited);
         }
         if (type instanceof WildcardType) {
             final WildcardType wild = (WildcardType) type;
             for (final Type bound : getImplicitLowerBounds(wild)) {
-                if (containsTypeVariables(bound)) {
+                if (containsTypeVariables(bound, visited)) {
                     return true;
                 }
             }
             for (final Type bound : getImplicitUpperBounds(wild)) {
-                if (containsTypeVariables(bound)) {
+                if (containsTypeVariables(bound, visited)) {
                     return true;
                 }
             }
             return false;
         }
         if (type instanceof GenericArrayType) {
-            return containsTypeVariables(((GenericArrayType) type).getGenericComponentType());
+            return containsTypeVariables(((GenericArrayType) type).getGenericComponentType(), visited);
         }
         return false;
     }
@@ -563,7 +578,6 @@ public class TypeUtils {
         return result;
     }
 
-
     /**
      * Creates a generic array type instance.
      *
@@ -574,6 +588,7 @@ public class TypeUtils {
     public static GenericArrayType genericArrayType(final Type componentType) {
         return new GenericArrayTypeImpl(Objects.requireNonNull(componentType, "componentType"));
     }
+
 
     /**
      * Formats a {@link GenericArrayType} as a {@link String}.
@@ -926,6 +941,23 @@ public class TypeUtils {
             return null;
         }
         throw new IllegalStateException("found an unhandled type: " + type);
+    }
+
+    /**
+     * Tests whether following the owner types of the given type leads back to a type that was already seen. Only a custom {@link ParameterizedType} can do that.
+     *
+     * @param type The type whose owner chain to check.
+     * @return Whether the owner chain of {@code type} is cyclic.
+     */
+    private static boolean hasCyclicOwnerChain(final ParameterizedType type) {
+        final Set<Type> seen = newIdentitySet();
+        seen.add(type);
+        for (Type owner = type.getOwnerType(); owner instanceof ParameterizedType; owner = ((ParameterizedType) owner).getOwnerType()) {
+            if (!seen.add(owner)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -1307,6 +1339,26 @@ public class TypeUtils {
     }
 
     /**
+     * Tests whether two type arrays hold the very same types, compared by identity so that no {@code equals()} or {@code hashCode()} of a custom {@link Type}
+     * is called.
+     *
+     * @param types      The first array.
+     * @param otherTypes The second array.
+     * @return Whether both arrays have the same length and the same types at each index.
+     */
+    private static boolean isSameTypes(final Type[] types, final Type[] otherTypes) {
+        if (types.length != otherTypes.length) {
+            return false;
+        }
+        for (int i = 0; i < types.length; i++) {
+            if (types[i] != otherTypes[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Maps type variables.
      *
      * @param <T>               the generic type of the class in question.
@@ -1344,6 +1396,15 @@ public class TypeUtils {
                 typeVarAssigns.put((TypeVariable<?>) typeArg, typeVarAssigns.get(typeVar));
             }
         }
+    }
+
+    /**
+     * Creates a set that compares by identity, so that cycle detection never calls {@code hashCode()} or {@code equals()} of a custom {@link Type}.
+     *
+     * @return A new identity-based set.
+     */
+    private static Set<Type> newIdentitySet() {
+        return Collections.newSetFromMap(new IdentityHashMap<>());
     }
 
     /**
@@ -1667,17 +1728,19 @@ public class TypeUtils {
     }
 
     /**
-     * Unrolls variables in a type bounds array.
+     * Unrolls variables in a type bounds array, preserving cycle state.
      *
      * @param typeArguments assignments {@link Map}.
      * @param bounds        in which to expand variables.
+     * @param visited       set of visited type variables for cycle detection.
+     * @param unrolling     identity-based types currently being unrolled to prevent recursion cycles.
      * @return {@code bounds} with any variables reassigned.
      */
-    private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds) {
+    private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds, final Set<TypeVariable<?>> visited, final Set<Type> unrolling) {
         Type[] result = bounds;
         int i = 0;
         for (; i < result.length; i++) {
-            final Type unrolled = unrollVariables(typeArguments, result[i]);
+            final Type unrolled = unrollVariables(typeArguments, result[i], visited, unrolling);
             if (unrolled == null) {
                 result = ArrayUtils.remove(result, i--);
             } else {
@@ -1718,40 +1781,64 @@ public class TypeUtils {
         if (typeArguments == null) {
             typeArguments = Collections.emptyMap();
         }
-        return unrollVariables(typeArguments, type, new HashSet<>());
+        return unrollVariables(typeArguments, type, new HashSet<>(), newIdentitySet());
     }
 
-    private static Type unrollVariables(final Map<TypeVariable<?>, Type> typeArguments, final Type type, final Set<TypeVariable<?>> visited) {
-        if (containsTypeVariables(type)) {
-            if (type instanceof TypeVariable<?>) {
-                final TypeVariable<?> var = (TypeVariable<?>) type;
-                if (!visited.add(var)) {
-                    return var;
-                }
-                return unrollVariables(typeArguments, typeArguments.get(type), visited);
+    private static Type unrollVariables(final Map<TypeVariable<?>, Type> typeArguments, final Type type, final Set<TypeVariable<?>> visited, final Set<Type> unrolling) {
+        if (type instanceof TypeVariable<?>) {
+            final TypeVariable<?> var = (TypeVariable<?>) type;
+            if (!visited.add(var)) {
+                return var;
             }
-            if (type instanceof ParameterizedType) {
-                final ParameterizedType p = (ParameterizedType) type;
-                final Map<TypeVariable<?>, Type> parameterizedTypeArguments;
-                if (p.getOwnerType() == null) {
-                    parameterizedTypeArguments = typeArguments;
-                } else {
-                    parameterizedTypeArguments = new HashMap<>(typeArguments);
-                    parameterizedTypeArguments.putAll(getTypeArguments(p));
-                }
-                final Type[] args = p.getActualTypeArguments().clone();
+            try {
+                return unrollVariables(typeArguments, typeArguments.get(type), visited, unrolling);
+            } finally {
+                // Only guard against cycles: the same variable may legitimately occur more than once in a type.
+                visited.remove(var);
+            }
+        }
+        if (type instanceof ParameterizedType) {
+            final ParameterizedType p = (ParameterizedType) type;
+            if (hasCyclicOwnerChain(p) || !unrolling.add(p)) {
+                return p;
+            }
+            try {
+                final Type[] args = p.getActualTypeArguments();
+                final Type[] unrolledArgs = args.clone();
+                boolean changed = false;
                 for (int i = 0; i < args.length; i++) {
-                    final Type unrolled = unrollVariables(parameterizedTypeArguments, args[i], visited);
-                    if (unrolled != null) {
-                        args[i] = unrolled;
+                    final Type unrolled = unrollVariables(typeArguments, args[i], visited, unrolling);
+                    if (unrolled != null && unrolled != args[i]) {
+                        unrolledArgs[i] = unrolled;
+                        changed = true;
                     }
                 }
-                return parameterizeWithOwner(p.getOwnerType(), (Class<?>) p.getRawType(), args);
+                final Type owner = p.getOwnerType();
+                final Type unrolledOwner = owner != null && !(owner instanceof Class<?>) ? unrollVariables(typeArguments, owner, visited, unrolling) : owner;
+                if (!changed && unrolledOwner == owner) {
+                    return p;
+                }
+                return parameterizeWithOwner(unrolledOwner, (Class<?>) p.getRawType(), unrolledArgs);
+            } finally {
+                unrolling.remove(p);
             }
-            if (type instanceof WildcardType) {
-                final WildcardType wild = (WildcardType) type;
-                return wildcardType().withUpperBounds(unrollBounds(typeArguments, wild.getUpperBounds()))
-                        .withLowerBounds(unrollBounds(typeArguments, wild.getLowerBounds())).build();
+        }
+        if (type instanceof WildcardType) {
+            final WildcardType wild = (WildcardType) type;
+            if (!unrolling.add(wild)) {
+                return wild;
+            }
+            try {
+                final Type[] upperBounds = wild.getUpperBounds();
+                final Type[] lowerBounds = wild.getLowerBounds();
+                final Type[] unrolledUpperBounds = unrollBounds(typeArguments, upperBounds.clone(), visited, unrolling);
+                final Type[] unrolledLowerBounds = unrollBounds(typeArguments, lowerBounds.clone(), visited, unrolling);
+                if (isSameTypes(upperBounds, unrolledUpperBounds) && isSameTypes(lowerBounds, unrolledLowerBounds)) {
+                    return wild;
+                }
+                return wildcardType().withUpperBounds(unrolledUpperBounds).withLowerBounds(unrolledLowerBounds).build();
+            } finally {
+                unrolling.remove(wild);
             }
         }
         return type;
