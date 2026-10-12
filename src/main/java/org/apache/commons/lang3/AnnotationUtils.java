@@ -118,7 +118,9 @@ public class AnnotationUtils {
     }
 
     /**
-     * Helper method for generating a hash code for an array of annotations.
+     * Generates an array hash code using {@link #hashCode(Annotation)} for each non-null element.
+     *
+     * <p>Uses the element order, initial value, multiplier, and null-element handling of {@link Arrays#hashCode(Object[])}.</p>
      *
      * @param annotations The array
      * @return A hash code for the specified array
