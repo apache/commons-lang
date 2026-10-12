@@ -527,6 +527,33 @@ class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testHashCodeOfNestedAnnotationArray() {
+        assertTimeoutPreemptively(Duration.ofSeconds(666L), () -> {
+            final TestAnnotation real = field1.getAnnotation(TestAnnotation.class);
+            // A nested annotation whose own hashCode() does not follow Annotation#hashCode().
+            final InvocationHandler nestHandler = (proxy, method, args) -> {
+                if ("hashCode".equals(method.getName()) && method.getParameterTypes().length == 0) {
+                    return Integer.valueOf(System.identityHashCode(proxy));
+                }
+                return method.invoke(real.nests()[0], args);
+            };
+            final NestAnnotation[] nests = { (NestAnnotation) Proxy.newProxyInstance(
+                    NestAnnotation.class.getClassLoader(), new Class[] { NestAnnotation.class }, nestHandler) };
+            final InvocationHandler testHandler = (proxy, method, args) -> {
+                if ("nests".equals(method.getName()) && method.getParameterTypes().length == 0) {
+                    return nests;
+                }
+                return method.invoke(real, args);
+            };
+            final TestAnnotation generated = (TestAnnotation) Proxy.newProxyInstance(
+                    TestAnnotation.class.getClassLoader(), new Class[] { TestAnnotation.class }, testHandler);
+            assertTrue(AnnotationUtils.equals(real, generated));
+            assertTrue(AnnotationUtils.equals(generated, real));
+            assertEquals(AnnotationUtils.hashCode(real), AnnotationUtils.hashCode(generated));
+        });
+    }
+
+    @Test
     void testHashCodeWithFunction() {
         final FunctionAnnotation annotation = AnnotatedClass.class.getAnnotation(FunctionAnnotation.class);
         assertEquals(annotation.hashCode(), AnnotationUtils.hashCode(annotation));
