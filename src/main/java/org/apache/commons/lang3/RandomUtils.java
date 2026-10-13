@@ -346,7 +346,7 @@ public class RandomUtils {
             return startInclusive;
         }
         final double result = startInclusive + (endExclusive - startInclusive) * random().nextDouble();
-        // Rounding in the scaling above can reach endExclusive; clamp like java.util.Random#nextDouble(double, double).
+        // Rounding in the scaling above can reach endExclusive; clamp to the greatest value below endExclusive.
         return result < endExclusive ? result : Math.nextDown(endExclusive);
     }
 
