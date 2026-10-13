@@ -345,7 +345,9 @@ public class RandomUtils {
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
-        return startInclusive + (endExclusive - startInclusive) * random().nextDouble();
+        final double result = startInclusive + (endExclusive - startInclusive) * random().nextDouble();
+        // Rounding in the scaling above can reach endExclusive; clamp like java.util.Random#nextDouble(double, double).
+        return result < endExclusive ? result : Math.nextDown(endExclusive);
     }
 
     /**
@@ -374,7 +376,9 @@ public class RandomUtils {
         if (startInclusive == endExclusive) {
             return startInclusive;
         }
-        return startInclusive + (endExclusive - startInclusive) * random().nextFloat();
+        final float result = startInclusive + (endExclusive - startInclusive) * random().nextFloat();
+        // Rounding in the scaling above can reach endExclusive; clamp like java.util.Random#nextFloat(float, float).
+        return result < endExclusive ? result : Math.nextDown(endExclusive);
     }
 
     /**
