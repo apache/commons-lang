@@ -32,6 +32,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.Function;
@@ -48,6 +49,21 @@ class AnnotationUtilsTest extends AbstractLangTest {
     @SupplierAnnotation
     @ThrowingSupplierAnnotation
     private static final class AnnotatedClass {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface AnnotationArray {
+        FunctionAnnotation[] value();
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface AnnotationArrayContainer {
+        AnnotationArray[] value();
+    }
+
+    @AnnotationArray({ @FunctionAnnotation("first"), @FunctionAnnotation("second") })
+    @AnnotationArrayContainer(@AnnotationArray({ @FunctionAnnotation("first"), @FunctionAnnotation("second") }))
+    private static final class ArrayAnnotatedClass {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
@@ -527,6 +543,75 @@ class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testHashCodeOfAnnotationArrayEdgeCases() {
+        final AnnotationArray real = ArrayAnnotatedClass.class.getAnnotation(AnnotationArray.class);
+        final FunctionAnnotation first = real.value()[0];
+        final FunctionAnnotation second = real.value()[1];
+        final FunctionAnnotation[][] values = {
+            {}, { first }, { first, second }, { second, first }, { null }, { first, null, second }
+        };
+        for (final FunctionAnnotation[] value : values) {
+            final AnnotationArray generated = (AnnotationArray) Proxy.newProxyInstance(
+                    AnnotationArray.class.getClassLoader(), new Class<?>[] { AnnotationArray.class },
+                    (proxy, method, args) -> "value".equals(method.getName()) ? value : method.invoke(real, args));
+            final int expected = 127 * "value".hashCode() ^ Arrays.hashCode(value);
+            assertEquals(expected, AnnotationUtils.hashCode(generated));
+        }
+    }
+
+    @Test
+    void testHashCodeOfDeeplyNestedAnnotationArray() {
+        final AnnotationArrayContainer real = ArrayAnnotatedClass.class.getAnnotation(AnnotationArrayContainer.class);
+        final AnnotationArray inner = real.value()[0];
+        final FunctionAnnotation[] values = inner.value();
+        final FunctionAnnotation[] generatedValues = new FunctionAnnotation[values.length];
+        for (int i = 0; i < values.length; i++) {
+            final FunctionAnnotation value = values[i];
+            generatedValues[i] = (FunctionAnnotation) Proxy.newProxyInstance(
+                    FunctionAnnotation.class.getClassLoader(), new Class<?>[] { FunctionAnnotation.class },
+                    (proxy, method, args) -> "hashCode".equals(method.getName())
+                            ? Integer.valueOf(value.hashCode() + 1) : method.invoke(value, args));
+        }
+        final AnnotationArray generatedInner = (AnnotationArray) Proxy.newProxyInstance(
+                AnnotationArray.class.getClassLoader(), new Class<?>[] { AnnotationArray.class },
+                (proxy, method, args) -> "value".equals(method.getName()) ? generatedValues : method.invoke(inner, args));
+        final AnnotationArrayContainer generated = (AnnotationArrayContainer) Proxy.newProxyInstance(
+                AnnotationArrayContainer.class.getClassLoader(), new Class<?>[] { AnnotationArrayContainer.class },
+                (proxy, method, args) -> "value".equals(method.getName())
+                        ? new AnnotationArray[] { generatedInner } : method.invoke(real, args));
+        assertTrue(AnnotationUtils.equals(real, generated));
+        assertTrue(AnnotationUtils.equals(generated, real));
+        assertEquals(real.hashCode(), AnnotationUtils.hashCode(generated));
+    }
+
+    @Test
+    void testHashCodeOfNestedAnnotationArray() {
+        assertTimeoutPreemptively(Duration.ofSeconds(666L), () -> {
+            final TestAnnotation real = field1.getAnnotation(TestAnnotation.class);
+            // A nested annotation whose own hashCode() does not follow Annotation#hashCode().
+            final InvocationHandler nestHandler = (proxy, method, args) -> {
+                if ("hashCode".equals(method.getName()) && method.getParameterTypes().length == 0) {
+                    return Integer.valueOf(real.nests()[0].hashCode() + 1);
+                }
+                return method.invoke(real.nests()[0], args);
+            };
+            final NestAnnotation[] nests = { (NestAnnotation) Proxy.newProxyInstance(
+                    NestAnnotation.class.getClassLoader(), new Class[] { NestAnnotation.class }, nestHandler) };
+            final InvocationHandler testHandler = (proxy, method, args) -> {
+                if ("nests".equals(method.getName()) && method.getParameterTypes().length == 0) {
+                    return nests;
+                }
+                return method.invoke(real, args);
+            };
+            final TestAnnotation generated = (TestAnnotation) Proxy.newProxyInstance(
+                    TestAnnotation.class.getClassLoader(), new Class[] { TestAnnotation.class }, testHandler);
+            assertTrue(AnnotationUtils.equals(real, generated));
+            assertTrue(AnnotationUtils.equals(generated, real));
+            assertEquals(AnnotationUtils.hashCode(real), AnnotationUtils.hashCode(generated));
+        });
+    }
+
+    @Test
     void testHashCodeWithFunction() {
         final FunctionAnnotation annotation = AnnotatedClass.class.getAnnotation(FunctionAnnotation.class);
         assertEquals(annotation.hashCode(), AnnotationUtils.hashCode(annotation));
@@ -536,7 +621,7 @@ class AnnotationUtilsTest extends AbstractLangTest {
     void testHashCodeWithoutInvokingSupplier() {
         final ThrowingSupplierAnnotation annotation =
                 AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
-        final int expected = (127 * "value".hashCode()) ^ "member".hashCode();
+        final int expected = 127 * "value".hashCode() ^ "member".hashCode();
 
         assertEquals(expected, AnnotationUtils.hashCode(annotation));
     }

@@ -118,6 +118,22 @@ public class AnnotationUtils {
     }
 
     /**
+     * Generates an array hash code using {@link #hashCode(Annotation)} for each non-null element.
+     *
+     * <p>Uses the element order, initial value, multiplier, and null-element handling of {@link Arrays#hashCode(Object[])}.</p>
+     *
+     * @param annotations The array
+     * @return A hash code for the specified array
+     */
+    private static int annotationArrayMemberHash(final Annotation[] annotations) {
+        int result = 1;
+        for (final Annotation annotation : annotations) {
+            result = 31 * result + (annotation == null ? 0 : hashCode(annotation));
+        }
+        return result;
+    }
+
+    /**
      * Helper method for comparing two objects of an array type.
      *
      * @param componentType The component type of the array
@@ -164,6 +180,9 @@ public class AnnotationUtils {
      * @return A hash code for the specified array
      */
     private static int arrayMemberHash(final Class<?> componentType, final Object o) {
+        if (componentType.isAnnotation()) {
+            return annotationArrayMemberHash((Annotation[]) o);
+        }
         if (componentType.equals(Byte.TYPE)) {
             return Arrays.hashCode((byte[]) o);
         }
