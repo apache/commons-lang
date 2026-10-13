@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.builder.AbstractReflection;
@@ -117,6 +118,22 @@ public class AnnotationUtils {
     }
 
     /**
+     * Generates an array hash code using {@link #hashCode(Annotation)} for each non-null element.
+     *
+     * <p>Uses the element order, initial value, multiplier, and null-element handling of {@link Arrays#hashCode(Object[])}.</p>
+     *
+     * @param annotations The array
+     * @return A hash code for the specified array
+     */
+    private static int annotationArrayMemberHash(final Annotation[] annotations) {
+        int result = 1;
+        for (final Annotation annotation : annotations) {
+            result = 31 * result + (annotation == null ? 0 : hashCode(annotation));
+        }
+        return result;
+    }
+
+    /**
      * Helper method for comparing two objects of an array type.
      *
      * @param componentType The component type of the array
@@ -163,6 +180,9 @@ public class AnnotationUtils {
      * @return A hash code for the specified array
      */
     private static int arrayMemberHash(final Class<?> componentType, final Object o) {
+        if (componentType.isAnnotation()) {
+            return annotationArrayMemberHash((Annotation[]) o);
+        }
         if (componentType.equals(Byte.TYPE)) {
             return Arrays.hashCode((byte[]) o);
         }
@@ -217,11 +237,9 @@ public class AnnotationUtils {
         }
         try {
             for (final Method m : type1.getDeclaredMethods()) {
-                if (m.getParameterTypes().length == 0
-                        && isValidAnnotationMemberType(m.getReturnType())) {
-                    AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
-                    final Object v1 = m.invoke(a1);
-                    final Object v2 = m.invoke(a2);
+                if (isAnnotationMember(m)) {
+                    final Object v1 = invokeAnnotationMember(m, a1);
+                    final Object v2 = invokeAnnotationMember(m, a2);
                     if (!memberEquals(m.getReturnType(), v1, v2)) {
                         return false;
                     }
@@ -247,9 +265,11 @@ public class AnnotationUtils {
         int result = 0;
         final Class<? extends Annotation> type = a.annotationType();
         for (final Method m : type.getDeclaredMethods()) {
+            if (!isAnnotationMember(m)) {
+                continue;
+            }
             try {
-                AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
-                final Object value = m.invoke(a);
+                final Object value = invokeAnnotationMember(m, a);
                 if (value == null) {
                     throw new IllegalStateException(String.format("Annotation method %s returned null", m));
                 }
@@ -278,6 +298,39 @@ public class AnnotationUtils {
             return part1 ^ hashCode((Annotation) value);
         }
         return part1 ^ value.hashCode();
+    }
+
+    /**
+     * Invokes an annotation member, enabling reflective access only when needed.
+     *
+     * @param method the annotation member method
+     * @param annotation the annotation instance
+     * @return the annotation member value
+     * @throws ReflectiveOperationException if the method cannot be invoked
+     */
+    private static Object invokeAnnotationMember(final Method method, final Annotation annotation)
+            throws ReflectiveOperationException {
+        try {
+            return method.invoke(annotation);
+        } catch (final IllegalAccessException ex) {
+            if (!AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), method)) {
+                throw ex;
+            }
+            return method.invoke(annotation);
+        }
+    }
+
+    /**
+     * Tests whether the specified method declares an annotation member.
+     *
+     * @param method The method to check
+     * @return whether the method is public, abstract, non-synthetic, has no parameters,
+     *         and has a valid annotation member return type
+     */
+    private static boolean isAnnotationMember(final Method method) {
+        final int modifiers = method.getModifiers();
+        return Modifier.isPublic(modifiers) && Modifier.isAbstract(modifiers) && !method.isSynthetic()
+                && method.getParameterCount() == 0 && isValidAnnotationMemberType(method.getReturnType());
     }
 
     /**
@@ -341,12 +394,11 @@ public class AnnotationUtils {
     public static String toString(final Annotation a) {
         final ToStringBuilder builder = new ToStringBuilder(a, TO_STRING_STYLE);
         for (final Method m : a.annotationType().getDeclaredMethods()) {
-            if (m.getParameterTypes().length > 0) {
-                continue; // what?
+            if (!isAnnotationMember(m)) {
+                continue;
             }
             try {
-                AbstractReflection.setAccessible(AbstractReflection.getForceAccessible(), m);
-                builder.append(m.getName(), m.invoke(a));
+                builder.append(m.getName(), invokeAnnotationMember(m, a));
             } catch (final ReflectiveOperationException ex) {
                 throw new UncheckedException(ex);
             }

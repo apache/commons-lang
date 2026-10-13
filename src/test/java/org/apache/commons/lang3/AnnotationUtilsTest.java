@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,8 +32,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,6 +44,35 @@ import org.junit.jupiter.api.Test;
 /**
  */
 class AnnotationUtilsTest extends AbstractLangTest {
+    @FunctionAnnotation
+    @RunnableAnnotation
+    @SupplierAnnotation
+    @ThrowingSupplierAnnotation
+    private static final class AnnotatedClass {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface AnnotationArray {
+        FunctionAnnotation[] value();
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface AnnotationArrayContainer {
+        AnnotationArray[] value();
+    }
+
+    @AnnotationArray({ @FunctionAnnotation("first"), @FunctionAnnotation("second") })
+    @AnnotationArrayContainer(@AnnotationArray({ @FunctionAnnotation("first"), @FunctionAnnotation("second") }))
+    private static final class ArrayAnnotatedClass {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface FunctionAnnotation {
+        Function<String, String> FUNCTION = value -> value;
+
+        String value() default "member";
+    }
+
     @Retention(RetentionPolicy.RUNTIME)
     public @interface NestAnnotation {
         boolean booleanValue();
@@ -66,8 +99,24 @@ class AnnotationUtilsTest extends AbstractLangTest {
         Class<?>[] types();
     }
 
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface RunnableAnnotation {
+        Runnable RUNNABLE = () -> {
+            // Creates a void synthetic method for the regression test.
+        };
+
+        String value() default "member";
+    }
+
     public enum Stooge {
         MOE, LARRY, CURLY, JOE, SHEMP
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface SupplierAnnotation {
+        Supplier<String> SUPPLIER = () -> "constant";
+
+        String value() default "member";
     }
 
     @Target(ElementType.FIELD)
@@ -110,6 +159,15 @@ class AnnotationUtilsTest extends AbstractLangTest {
         Class<? extends Throwable> expected() default None.class;
 
         long timeout() default 0L;
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface ThrowingSupplierAnnotation {
+        Supplier<String> SUPPLIER = () -> {
+            throw new AssertionError("Annotation member access must not invoke a lambda");
+        };
+
+        String value() default "member";
     }
 
     @TestAnnotation(
@@ -397,7 +455,7 @@ class AnnotationUtilsTest extends AbstractLangTest {
     private Field field4;
 
     @BeforeEach
-    public void setup() throws Exception {
+    void setup() throws Exception {
         field1 = getClass().getDeclaredField("dummy1");
         field2 = getClass().getDeclaredField("dummy2");
         field3 = getClass().getDeclaredField("dummy3");
@@ -419,6 +477,20 @@ class AnnotationUtilsTest extends AbstractLangTest {
     void testEquivalence() {
         assertTrue(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field2.getAnnotation(TestAnnotation.class)));
         assertTrue(AnnotationUtils.equals(field2.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
+    }
+
+    @Test
+    void testEquivalenceWithoutInvokingSupplier() {
+        final ThrowingSupplierAnnotation first =
+                AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        final ThrowingSupplierAnnotation second =
+                (ThrowingSupplierAnnotation) Proxy.newProxyInstance(
+                        ThrowingSupplierAnnotation.class.getClassLoader(),
+                        new Class<?>[] { ThrowingSupplierAnnotation.class },
+                        (proxy, method, args) -> method.invoke(first, args));
+
+        assertNotSame(first, second);
+        assertTrue(AnnotationUtils.equals(first, second));
     }
 
     @Test
@@ -471,6 +543,102 @@ class AnnotationUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testHashCodeOfAnnotationArrayEdgeCases() {
+        final AnnotationArray real = ArrayAnnotatedClass.class.getAnnotation(AnnotationArray.class);
+        final FunctionAnnotation first = real.value()[0];
+        final FunctionAnnotation second = real.value()[1];
+        final FunctionAnnotation[][] values = {
+            {}, { first }, { first, second }, { second, first }, { null }, { first, null, second }
+        };
+        for (final FunctionAnnotation[] value : values) {
+            final AnnotationArray generated = (AnnotationArray) Proxy.newProxyInstance(
+                    AnnotationArray.class.getClassLoader(), new Class<?>[] { AnnotationArray.class },
+                    (proxy, method, args) -> "value".equals(method.getName()) ? value : method.invoke(real, args));
+            final int expected = 127 * "value".hashCode() ^ Arrays.hashCode(value);
+            assertEquals(expected, AnnotationUtils.hashCode(generated));
+        }
+    }
+
+    @Test
+    void testHashCodeOfDeeplyNestedAnnotationArray() {
+        final AnnotationArrayContainer real = ArrayAnnotatedClass.class.getAnnotation(AnnotationArrayContainer.class);
+        final AnnotationArray inner = real.value()[0];
+        final FunctionAnnotation[] values = inner.value();
+        final FunctionAnnotation[] generatedValues = new FunctionAnnotation[values.length];
+        for (int i = 0; i < values.length; i++) {
+            final FunctionAnnotation value = values[i];
+            generatedValues[i] = (FunctionAnnotation) Proxy.newProxyInstance(
+                    FunctionAnnotation.class.getClassLoader(), new Class<?>[] { FunctionAnnotation.class },
+                    (proxy, method, args) -> "hashCode".equals(method.getName())
+                            ? Integer.valueOf(value.hashCode() + 1) : method.invoke(value, args));
+        }
+        final AnnotationArray generatedInner = (AnnotationArray) Proxy.newProxyInstance(
+                AnnotationArray.class.getClassLoader(), new Class<?>[] { AnnotationArray.class },
+                (proxy, method, args) -> "value".equals(method.getName()) ? generatedValues : method.invoke(inner, args));
+        final AnnotationArrayContainer generated = (AnnotationArrayContainer) Proxy.newProxyInstance(
+                AnnotationArrayContainer.class.getClassLoader(), new Class<?>[] { AnnotationArrayContainer.class },
+                (proxy, method, args) -> "value".equals(method.getName())
+                        ? new AnnotationArray[] { generatedInner } : method.invoke(real, args));
+        assertTrue(AnnotationUtils.equals(real, generated));
+        assertTrue(AnnotationUtils.equals(generated, real));
+        assertEquals(real.hashCode(), AnnotationUtils.hashCode(generated));
+    }
+
+    @Test
+    void testHashCodeOfNestedAnnotationArray() {
+        assertTimeoutPreemptively(Duration.ofSeconds(666L), () -> {
+            final TestAnnotation real = field1.getAnnotation(TestAnnotation.class);
+            // A nested annotation whose own hashCode() does not follow Annotation#hashCode().
+            final InvocationHandler nestHandler = (proxy, method, args) -> {
+                if ("hashCode".equals(method.getName()) && method.getParameterTypes().length == 0) {
+                    return Integer.valueOf(real.nests()[0].hashCode() + 1);
+                }
+                return method.invoke(real.nests()[0], args);
+            };
+            final NestAnnotation[] nests = { (NestAnnotation) Proxy.newProxyInstance(
+                    NestAnnotation.class.getClassLoader(), new Class[] { NestAnnotation.class }, nestHandler) };
+            final InvocationHandler testHandler = (proxy, method, args) -> {
+                if ("nests".equals(method.getName()) && method.getParameterTypes().length == 0) {
+                    return nests;
+                }
+                return method.invoke(real, args);
+            };
+            final TestAnnotation generated = (TestAnnotation) Proxy.newProxyInstance(
+                    TestAnnotation.class.getClassLoader(), new Class[] { TestAnnotation.class }, testHandler);
+            assertTrue(AnnotationUtils.equals(real, generated));
+            assertTrue(AnnotationUtils.equals(generated, real));
+            assertEquals(AnnotationUtils.hashCode(real), AnnotationUtils.hashCode(generated));
+        });
+    }
+
+    @Test
+    void testHashCodeWithFunction() {
+        final FunctionAnnotation annotation = AnnotatedClass.class.getAnnotation(FunctionAnnotation.class);
+        assertEquals(annotation.hashCode(), AnnotationUtils.hashCode(annotation));
+    }
+
+    @Test
+    void testHashCodeWithoutInvokingSupplier() {
+        final ThrowingSupplierAnnotation annotation =
+                AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        final int expected = 127 * "value".hashCode() ^ "member".hashCode();
+
+        assertEquals(expected, AnnotationUtils.hashCode(annotation));
+    }
+
+    @Test
+    void testHashCodeWithRunnable() {
+        final RunnableAnnotation annotation = AnnotatedClass.class.getAnnotation(RunnableAnnotation.class);
+        assertEquals(annotation.hashCode(), AnnotationUtils.hashCode(annotation));
+    }
+
+    @Test
+    void testHashCodeWithSupplier() {
+        final SupplierAnnotation annotation = AnnotatedClass.class.getAnnotation(SupplierAnnotation.class);
+        assertEquals(annotation.hashCode(), AnnotationUtils.hashCode(annotation));
+    }
+
+    @Test
     void testIsValidAnnotationMemberType() {
         for (final Class<?> type : new Class[] { byte.class, short.class, int.class, char.class,
                 long.class, float.class, double.class, boolean.class, String.class, Class.class,
@@ -517,6 +685,24 @@ class AnnotationUtilsTest extends AbstractLangTest {
             assertTrue(annotationString.contains("timeout=666000"));
             assertTrue(annotationString.contains(", "));
         });
+    }
+
+    @Test
+    void testToStringWithRunnable() {
+        final RunnableAnnotation annotation = AnnotatedClass.class.getAnnotation(RunnableAnnotation.class);
+        assertEquals("@" + RunnableAnnotation.class.getName() + "(value=member)", AnnotationUtils.toString(annotation));
+    }
+
+    @Test
+    void testToStringWithSupplier() {
+        final SupplierAnnotation annotation = AnnotatedClass.class.getAnnotation(SupplierAnnotation.class);
+        assertEquals("@" + SupplierAnnotation.class.getName() + "(value=member)", AnnotationUtils.toString(annotation));
+    }
+
+    @Test
+    void testToStringWithThrowingSupplier() {
+        final ThrowingSupplierAnnotation annotation = AnnotatedClass.class.getAnnotation(ThrowingSupplierAnnotation.class);
+        assertEquals("@" + ThrowingSupplierAnnotation.class.getName() + "(value=member)", AnnotationUtils.toString(annotation));
     }
 
 }

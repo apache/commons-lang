@@ -28,6 +28,8 @@ notifications:
 github:
   description: "Apache Commons Lang"
   homepage: https://commons.apache.org/lang/
+  autolink_jira:
+    - LANG
 
   pull_requests:
     # allow auto-merge
