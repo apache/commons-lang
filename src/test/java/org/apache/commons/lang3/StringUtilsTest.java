@@ -340,6 +340,19 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("  abc  ", StringUtils.center("abc", 7, ""));
     }
 
+    private void assertNoLoneSurrogates(final String result) {
+        for (int i = 0; i < result.length(); i++) {
+            final char ch = result.charAt(i);
+            if (Character.isHighSurrogate(ch)) {
+                assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
+                        "lone high surrogate in: " + result);
+                i++; // skip the paired low surrogate
+            } else {
+                assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+            }
+        }
+    }
+
     @Test
     void testCenterSurrogatePair() {
         final String grin = "😀";
@@ -356,16 +369,7 @@ class StringUtilsTest extends AbstractLangTest {
             for (final String padStr : padStrings) {
                 for (int size = 0; size <= 15; size++) {
                     final String result = StringUtils.center(str, size, padStr);
-                    for (int i = 0; i < result.length(); i++) {
-                        final char ch = result.charAt(i);
-                        if (Character.isHighSurrogate(ch)) {
-                            assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
-                                    "lone high surrogate in: " + result);
-                            i++; // skip the paired low surrogate
-                        } else {
-                            assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
-                        }
-                    }
+                    assertNoLoneSurrogates(result);
                 }
             }
         }
@@ -1404,16 +1408,7 @@ class StringUtilsTest extends AbstractLangTest {
             for (final String padStr : padStrings) {
                 for (int size = 0; size <= 15; size++) {
                     final String result = StringUtils.leftPad(str, size, padStr);
-                    for (int i = 0; i < result.length(); i++) {
-                        final char ch = result.charAt(i);
-                        if (Character.isHighSurrogate(ch)) {
-                            assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
-                                    "lone high surrogate in: " + result);
-                            i++; // skip the paired low surrogate
-                        } else {
-                            assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
-                        }
-                    }
+                    assertNoLoneSurrogates(result);
                 }
             }
         }
@@ -2342,16 +2337,7 @@ class StringUtilsTest extends AbstractLangTest {
             for (final String padStr : padStrings) {
                 for (int size = 0; size <= 15; size++) {
                     final String result = StringUtils.rightPad(str, size, padStr);
-                    for (int i = 0; i < result.length(); i++) {
-                        final char ch = result.charAt(i);
-                        if (Character.isHighSurrogate(ch)) {
-                            assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
-                                    "lone high surrogate in: " + result);
-                            i++; // skip the paired low surrogate
-                        } else {
-                            assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
-                        }
-                    }
+                    assertNoLoneSurrogates(result);
                 }
             }
         }
