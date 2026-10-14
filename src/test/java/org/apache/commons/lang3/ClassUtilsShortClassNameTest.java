@@ -18,6 +18,7 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +42,17 @@ public class ClassUtilsShortClassNameTest extends AbstractLangTest {
     @Test
     void testDollarSignImmediatelyAfterPackage() {
         assertEquals("$trange", ClassUtils.getShortClassName($trange.class));
+    }
+
+    @Test
+    void testDollarSignWithinMemberOfLocalClass() {
+        class Local {
+            class Inner$Name {
+            }
+        }
+        final String shortName = ClassUtils.getShortClassName(Local.Inner$Name.class);
+        // Check the member identifier independently of enclosing context and compiler-generated ordinals.
+        assertTrue(shortName.endsWith(".Inner$Name"), () -> "Member identifier must retain its literal dollar sign: " + shortName);
     }
 
     @Test
