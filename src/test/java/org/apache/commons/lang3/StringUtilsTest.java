@@ -355,16 +355,17 @@ class StringUtilsTest extends AbstractLangTest {
 
     @Test
     void testCenterSurrogatePair() {
-        final String grin = "😀";
+        final String grin = "\uD83D\uDE00";
+        final String partyPopper = "\uD83C\uDF89";
         assertEquals("a", StringUtils.center("a", 2, grin));
-        assertEquals("a😀", StringUtils.center("a", 3, grin));
-        assertEquals("a😀", StringUtils.center("a", 4, grin));
-        assertEquals("😀a😀", StringUtils.center("a", 5, grin));
-        assertEquals("😀a😀", StringUtils.center("a", 6, grin));
-        assertEquals("😀a😀😀", StringUtils.center("a", 7, grin));
+        assertEquals("a" + grin, StringUtils.center("a", 3, grin));
+        assertEquals("a" + grin, StringUtils.center("a", 4, grin));
+        assertEquals(grin + "a" + grin, StringUtils.center("a", 5, grin));
+        assertEquals(grin + "a" + grin, StringUtils.center("a", 6, grin));
+        assertEquals(grin + "a" + grin + grin, StringUtils.center("a", 7, grin));
 
         final String[] testStrings = {"", "a", "hello", grin, "a" + grin + "b"};
-        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + "🎉"};
+        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + partyPopper};
         for (final String str : testStrings) {
             for (final String padStr : padStrings) {
                 for (int size = 0; size <= 15; size++) {
