@@ -1468,6 +1468,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         final int length = pattern.length();
         final int[] indexRef = new int[1];
         final boolean monthOnly = STANDALONE_MONTH_PATTERN && isMonthOnlyPattern();
+        final CalendarUtils calendarUtils = CalendarUtils.getInstance(locale);
 
         for (int i = 0; i < length; i++) {
             indexRef[0] = i;
@@ -1499,9 +1500,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 break;
             case 'M': // month in year (text and number)
                 if (tokenLen >= 4) {
-                    rule = new TextField(Calendar.MONTH, monthOnly ? CalendarUtils.getInstance(locale).getStandaloneLongMonthNames() : months);
+                    rule = new TextField(Calendar.MONTH, monthOnly ? calendarUtils.getStandaloneLongMonthNames() : months);
                 } else if (tokenLen == 3) {
-                    rule = new TextField(Calendar.MONTH, monthOnly ? CalendarUtils.getInstance(locale).getStandaloneShortMonthNames() : shortMonths);
+                    rule = new TextField(Calendar.MONTH, monthOnly ? calendarUtils.getStandaloneShortMonthNames() : shortMonths);
                 } else if (tokenLen == 2) {
                     rule = TwoDigitMonthField.INSTANCE;
                 } else {
@@ -1510,9 +1511,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
                 break;
             case 'L': // month in year (text and number)
                 if (tokenLen >= 4) {
-                    rule = new TextField(Calendar.MONTH, CalendarUtils.getInstance(locale).getStandaloneLongMonthNames());
+                    rule = new TextField(Calendar.MONTH, calendarUtils.getStandaloneLongMonthNames());
                 } else if (tokenLen == 3) {
-                    rule = new TextField(Calendar.MONTH, CalendarUtils.getInstance(locale).getStandaloneShortMonthNames());
+                    rule = new TextField(Calendar.MONTH, calendarUtils.getStandaloneShortMonthNames());
                 } else if (tokenLen == 2) {
                     rule = TwoDigitMonthField.INSTANCE;
                 } else {

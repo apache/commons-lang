@@ -238,7 +238,7 @@ class FastDatePrinterTest extends AbstractLangTest {
                     final FastDateFormat fdf = FastDateFormat.getInstance(pattern, TimeZones.GMT, locale);
                     assertEquals(sdf.format(date), fdf.format(date), () -> locale + " " + pattern);
                     // FastDateParser accepts all name styles, so the printer's output parses back.
-                    assertEquals(month, DateUtils.toCalendar(fdf.parse(fdf.format(date))).get(Calendar.MONTH), () -> locale + " " + pattern);
+                    assertEquals(month, DateUtils.toCalendar(fdf.parse(fdf.format(date)), TimeZones.GMT).get(Calendar.MONTH), () -> locale + " " + pattern);
                 }
             }
         }
