@@ -460,7 +460,7 @@ public class CharUtils {
     }
 
     /**
-     * Converts the character to the Integer it represents, returning the
+     * Converts the character to the {@code int} it represents, returning the
      * default value if the character is not an ASCII digit ({@code '0'} to {@code '9'}).
      *
      * <p>
@@ -504,7 +504,7 @@ public class CharUtils {
     }
 
     /**
-     * Converts the character to the Integer it represents, returning the
+     * Converts the character to the {@code int} it represents, returning the
      * default value if the character is not an ASCII digit ({@code '0'} to {@code '9'}).
      *
      * <p>
