@@ -258,20 +258,6 @@ class RandomUtilsTest extends AbstractLangTest {
         }
     }
 
-    /**
-     * Test a double range one ULP wide. A previous implementation could round the scaled value up to the
-     * exclusive upper limit about half of the time.
-     */
-    @ParameterizedTest
-    @MethodSource("randomProvider")
-    void testNextDoubleExclusiveUpperBound(final RandomUtils ru) {
-        final double startInclusive = 10d;
-        final double endExclusive = Math.nextUp(startInclusive);
-        for (int i = 0; i < 1000; i++) {
-            assertEquals(startInclusive, ru.randomDouble(startInclusive, endExclusive));
-        }
-    }
-
     @Test
     void testNextDoubleLowerGreaterUpper() {
         assertIllegalArgumentException(() -> RandomUtils.nextDouble(2, 1));
@@ -363,20 +349,6 @@ class RandomUtilsTest extends AbstractLangTest {
         final float endExclusive = Math.nextUp(startInclusive);
         for (int i = 0; i < 1000; i++) {
             assertEquals(startInclusive, RandomUtils.nextFloat(startInclusive, endExclusive));
-        }
-    }
-
-    /**
-     * Test a float range one ULP wide. A previous implementation could round the scaled value up to the
-     * exclusive upper limit about half of the time.
-     */
-    @ParameterizedTest
-    @MethodSource("randomProvider")
-    void testNextFloatExclusiveUpperBound(final RandomUtils ru) {
-        final float startInclusive = 10f;
-        final float endExclusive = Math.nextUp(startInclusive);
-        for (int i = 0; i < 1000; i++) {
-            assertEquals(startInclusive, ru.randomFloat(startInclusive, endExclusive));
         }
     }
 
@@ -600,6 +572,34 @@ class RandomUtilsTest extends AbstractLangTest {
         final long result = ru.randomLong();
         assertTrue(result >= 0L);
         assertTrue(result < Long.MAX_VALUE);
+    }
+
+    /**
+     * Test a double range one ULP wide. A previous implementation could round the scaled value up to the
+     * exclusive upper limit about half of the time.
+     */
+    @ParameterizedTest
+    @MethodSource("randomProvider")
+    void testRandomDoubleExclusiveUpperBound(final RandomUtils ru) {
+        final double startInclusive = 10d;
+        final double endExclusive = Math.nextUp(startInclusive);
+        for (int i = 0; i < 1000; i++) {
+            assertEquals(startInclusive, ru.randomDouble(startInclusive, endExclusive));
+        }
+    }
+
+    /**
+     * Test a float range one ULP wide. A previous implementation could round the scaled value up to the
+     * exclusive upper limit about half of the time.
+     */
+    @ParameterizedTest
+    @MethodSource("randomProvider")
+    void testRandomFloatExclusiveUpperBound(final RandomUtils ru) {
+        final float startInclusive = 10f;
+        final float endExclusive = Math.nextUp(startInclusive);
+        for (int i = 0; i < 1000; i++) {
+            assertEquals(startInclusive, ru.randomFloat(startInclusive, endExclusive));
+        }
     }
 
     /**
