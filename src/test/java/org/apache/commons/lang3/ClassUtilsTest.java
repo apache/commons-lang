@@ -1633,4 +1633,24 @@ class ClassUtilsTest extends AbstractLangTest {
     void testWrapperToPrimitiveNull() {
         assertNull(ClassUtils.wrapperToPrimitive(null), "Wrong result for null class");
     }
+
+    @Test
+    void test_getShortClassName_Class_nestedInAnonymousOrLocalClass() {
+        // The declaring class chain of a member class nested in an anonymous or local class cannot
+        // see past the anonymous/local enclosure, so the name-based form must be used for the whole
+        // chain, matching getShortClassName(Class.getName()).
+        final Class<?> memberOfAnonymous = new Object() {
+            class Inner {
+                // empty
+            }
+        }.getClass().getDeclaredClasses()[0];
+        class Local {
+            class Inner {
+                // empty
+            }
+        }
+        assertEquals(ClassUtils.getShortClassName(memberOfAnonymous.getName()), ClassUtils.getShortClassName(memberOfAnonymous));
+        assertEquals(ClassUtils.getShortClassName(Local.Inner.class.getName()), ClassUtils.getShortClassName(Local.Inner.class));
+        assertEquals(ClassUtils.getShortClassName(Local.Inner.class.getName()) + "[]", ClassUtils.getShortClassName(Local.Inner[].class));
+    }
 }
