@@ -196,7 +196,7 @@ class DateUtilsTest extends AbstractLangTest {
                                 TimeZones.GMT.toZoneId()
                         ),
                         java.sql.Timestamp.valueOf("2023-03-12 02:30:00"),
-                        null
+                        TimeZones.GMT
                 ),
                 // [8]
                 Arguments.of(
