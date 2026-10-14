@@ -1635,7 +1635,7 @@ class ClassUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void test_getShortClassName_Class_nestedInAnonymousOrLocalClass() {
+    void testGetShortClassNameClassNestedInAnonymousOrLocalClass() {
         // The declaring class chain of a member class nested in an anonymous or local class cannot
         // see past the anonymous/local enclosure, so the name-based form must be used for the whole
         // chain, matching getShortClassName(Class.getName()).
