@@ -225,7 +225,7 @@ class FastDatePrinterTest extends AbstractLangTest {
         assumeTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9));
         final Locale[] locales = { Locale.US, Locale.GERMANY, new Locale("ru"), new Locale("cs"), new Locale("pl"), new Locale("fi") };
         // Month-only patterns, with or without literals, use the standalone form; patterns with another field keep the format form.
-        final String[] patterns = { "MMM", "MMMM", "'m:'MMMM", "MMMM''", "d MMMM", "MMMM yyyy", "MMM MMM" };
+        final String[] patterns = { "MMM", "MMMM", "'m:'MMMM", "MMMM''", "MMMM,", "d MMMM", "MMMM yyyy", "MMM MMM" };
         for (final Locale locale : locales) {
             for (final String pattern : patterns) {
                 for (int month = Calendar.JANUARY; month <= Calendar.DECEMBER; month++) {
