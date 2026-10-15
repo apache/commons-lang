@@ -1441,6 +1441,39 @@ public class FastDatePrinter implements DatePrinter, Serializable {
     }
 
     /**
+     * Tests whether the pattern contains exactly one {@code M} field occurrence and no other fields.
+     * <p>
+     * Since Java 9, {@link SimpleDateFormat} formats the text month of such a pattern with standalone month names. In some languages, like the Slavic and
+     * Baltic ones, these have a different grammatical form from the names used next to a day ("{@code MMMM}" alone prints Russian February as nominative
+     * "{@code февраль}" where "{@code d MMMM}" prints genitive "{@code февраля}"). Quoted and unquoted literals are ignored, but repeated fields such as
+     * "{@code MMM MMM}" prevent standalone formatting.
+     * </p>
+     *
+     * @return Whether the pattern contains exactly one {@code M} field occurrence and no other fields.
+     */
+    private boolean isMonthOnlyPattern() {
+        final int[] indexRef = new int[1];
+        boolean monthField = false;
+        for (int i = 0; i < pattern.length(); i++) {
+            indexRef[0] = i;
+            final String token = parseToken(pattern, indexRef);
+            i = indexRef[0];
+            if (token.isEmpty()) {
+                break;
+            }
+            final char c = token.charAt(0);
+            if (c == '\'') {
+                continue;
+            }
+            if (c != 'M' || monthField) {
+                return false;
+            }
+            monthField = true;
+        }
+        return monthField;
+    }
+
+    /**
      * Creates a new Calendar instance.
      *
      * @return A new Calendar instance.
@@ -1468,7 +1501,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         final int length = pattern.length();
         final int[] indexRef = new int[1];
         final boolean monthOnly = STANDALONE_MONTH_PATTERN && isMonthOnlyPattern();
-        final CalendarUtils calendarUtils = CalendarUtils.getInstance(locale);
+        CalendarUtils calendarUtils = null;
 
         for (int i = 0; i < length; i++) {
             indexRef[0] = i;
@@ -1482,6 +1515,9 @@ public class FastDatePrinter implements DatePrinter, Serializable {
 
             Rule rule;
             final char c = token.charAt(0);
+            if (calendarUtils == null && tokenLen >= 3 && (c == 'L' || c == 'M' && monthOnly)) {
+                calendarUtils = CalendarUtils.getInstance(locale);
+            }
 
             switch (c) {
             case 'G': // era designator (text)
@@ -1596,38 +1632,6 @@ public class FastDatePrinter implements DatePrinter, Serializable {
         }
 
         return rules;
-    }
-
-    /**
-     * Tests whether the month is the only field in the pattern.
-     * <p>
-     * {@link SimpleDateFormat} formats the text month of such a pattern with the standalone month names, which in some languages, like the Slavic and Baltic
-     * ones, are a different grammatical form from the names used next to a day ("{@code MMMM}" alone prints Russian February as nominative
-     * "{@code февраль}" where "{@code d MMMM}" prints genitive "{@code февраля}").
-     * </p>
-     *
-     * @return Whether the pattern contains exactly one field, the month.
-     */
-    private boolean isMonthOnlyPattern() {
-        final int[] indexRef = new int[1];
-        boolean monthField = false;
-        for (int i = 0; i < pattern.length(); i++) {
-            indexRef[0] = i;
-            final String token = parseToken(pattern, indexRef);
-            i = indexRef[0];
-            if (token.isEmpty()) {
-                break;
-            }
-            final char c = token.charAt(0);
-            if (c == '\'') {
-                continue;
-            }
-            if (c != 'M' || monthField) {
-                return false;
-            }
-            monthField = true;
-        }
-        return monthField;
     }
 
     /**

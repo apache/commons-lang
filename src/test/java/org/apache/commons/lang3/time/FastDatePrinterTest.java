@@ -20,9 +20,11 @@ import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentExcep
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.io.Serializable;
+import java.text.DateFormatSymbols;
 import java.text.FieldPosition;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,6 +41,8 @@ import org.apache.commons.lang3.SystemUtils;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
+import org.junitpioneer.jupiter.cartesian.ArgumentSets;
+import org.junitpioneer.jupiter.cartesian.CartesianTest;
 
 /**
  * Tests {@link FastDatePrinter}.
@@ -78,6 +82,15 @@ class FastDatePrinterTest extends AbstractLangTest {
         cal.set(Calendar.SECOND, 56);
         cal.set(Calendar.MILLISECOND, 235);
         return cal;
+    }
+
+    static ArgumentSets testStandaloneMonthForMonthOnlyPatternFactory() {
+        // Month-only patterns, with or without literals, use the standalone form; patterns with another field keep the format form.
+        return ArgumentSets.argumentsForFirstParameter(Locale.US, Locale.GERMANY, new Locale("ru"), new Locale("cs"), new Locale("pl"), new Locale("fi"))
+                .argumentsForNextParameter("M", "MM", "MMM", "MMMM", "MMMMM", "'m:'MMMM", "MMMM''", "MMMM,", "MMMM-", "MMMM ", "d MMMM", "MMMM yyyy",
+                        "MMM MMM", "MMM LLL", "MMMM LLLL", "LLL", "LLLL")
+                .argumentsForNextParameter(Calendar.JANUARY, Calendar.FEBRUARY, Calendar.MARCH, Calendar.APRIL, Calendar.MAY, Calendar.JUNE, Calendar.JULY,
+                        Calendar.AUGUST, Calendar.SEPTEMBER, Calendar.OCTOBER, Calendar.NOVEMBER, Calendar.DECEMBER);
     }
 
     private DatePrinter getDateInstance(final int dateStyle, final Locale locale) {
@@ -210,36 +223,6 @@ class FastDatePrinterTest extends AbstractLangTest {
                 final SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);
                 sdf.setTimeZone(TimeZones.GMT);
                 assertEquals(sdf.format(date), getInstance(pattern, TimeZones.GMT, locale).format(date), () -> locale + " " + pattern);
-            }
-        }
-    }
-
-    /**
-     * Tests that a month-only pattern uses the standalone month names, like SimpleDateFormat. In some languages, like the Slavic and Baltic ones, they are a
-     * different grammatical form from the names used next to a day: "MMMM" alone prints Russian February as nominative "февраль" where "d MMMM" prints
-     * genitive "февраля".
-     */
-    @Test
-    void testStandaloneMonthForMonthOnlyPattern() throws ParseException {
-        // SimpleDateFormat forces the standalone form for a month-only pattern only since Java 9 (JDK-8114833); Java 8 has no such rule.
-        assumeTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9));
-        final Locale[] locales = { Locale.US, Locale.GERMANY, new Locale("ru"), new Locale("cs"), new Locale("pl"), new Locale("fi") };
-        // Month-only patterns, with or without literals, use the standalone form; patterns with another field keep the format form.
-        final String[] patterns = { "MMM", "MMMM", "'m:'MMMM", "MMMM''", "MMMM,", "d MMMM", "MMMM yyyy", "MMM MMM" };
-        for (final Locale locale : locales) {
-            for (final String pattern : patterns) {
-                for (int month = Calendar.JANUARY; month <= Calendar.DECEMBER; month++) {
-                    final Calendar cal = Calendar.getInstance(TimeZones.GMT, locale);
-                    cal.clear();
-                    cal.set(2024, month, 10);
-                    final Date date = cal.getTime();
-                    final SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);
-                    sdf.setTimeZone(TimeZones.GMT);
-                    final FastDateFormat fdf = FastDateFormat.getInstance(pattern, TimeZones.GMT, locale);
-                    assertEquals(sdf.format(date), fdf.format(date), () -> locale + " " + pattern);
-                    // FastDateParser accepts all name styles, so the printer's output parses back.
-                    assertEquals(month, DateUtils.toCalendar(fdf.parse(fdf.format(date)), TimeZones.GMT).get(Calendar.MONTH), () -> locale + " " + pattern);
-                }
             }
         }
     }
@@ -422,9 +405,43 @@ class FastDatePrinterTest extends AbstractLangTest {
     }
 
     @Test
+    void testMonthOnlyPatternOnJava8() {
+        assumeFalse(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9));
+        final Locale[] locales = { Locale.US, Locale.GERMANY, new Locale("ru"), new Locale("cs"), new Locale("pl"), new Locale("fi") };
+        for (final Locale locale : locales) {
+            final DateFormatSymbols symbols = new DateFormatSymbols(locale);
+            for (int month = Calendar.JANUARY; month <= Calendar.DECEMBER; month++) {
+                final Calendar cal = Calendar.getInstance(TimeZones.GMT, locale);
+                cal.clear();
+                cal.set(2024, month, 10);
+                final Date date = cal.getTime();
+                // Preserve the DateFormatSymbols names used before the Java 9 standalone-month rule.
+                assertEquals(symbols.getShortMonths()[month], getInstance("MMM", TimeZones.GMT, locale).format(date), () -> locale + " MMM");
+                assertEquals(symbols.getMonths()[month], getInstance("MMMM", TimeZones.GMT, locale).format(date), () -> locale + " MMMM");
+                assertEquals(symbols.getMonths()[month], getInstance("MMMMM", TimeZones.GMT, locale).format(date), () -> locale + " MMMMM");
+                assertEquals(symbols.getMonths()[month] + ",", getInstance("MMMM,", TimeZones.GMT, locale).format(date), () -> locale + " MMMM,");
+            }
+        }
+    }
+
+    @Test
     void testPatternMatches() {
         final DatePrinter printer = getInstance(YYYY_MM_DD);
         assertEquals(YYYY_MM_DD, printer.getPattern());
+    }
+
+    @Test
+    void testPatternsWithoutTextMonthFields() {
+        final Calendar cal = Calendar.getInstance(TimeZones.GMT, Locale.US);
+        cal.clear();
+        cal.set(2024, Calendar.FEBRUARY, 10, 13, 45);
+        final Date date = cal.getTime();
+        final String[] patterns = { "M", "MM", "L", "LL", "yyyy-MM-dd", "'MMMM'", "'abc'", "", "HH:mm", "yyyy-dd" };
+        for (final String pattern : patterns) {
+            final SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.US);
+            sdf.setTimeZone(TimeZones.GMT);
+            assertEquals(sdf.format(date), getInstance(pattern, TimeZones.GMT, Locale.US).format(date), () -> pattern);
+        }
     }
 
     /**
@@ -458,6 +475,33 @@ class FastDatePrinterTest extends AbstractLangTest {
         assertEquals("0999/12/31", format.format(cal));
         cal.set(1, Calendar.MARCH, 2);
         assertEquals("0001/03/02", format.format(cal));
+    }
+
+    /**
+     * Tests that a month-only pattern uses the standalone month names, like SimpleDateFormat. In some languages, like the Slavic and Baltic ones, they are a
+     * different grammatical form from the names used next to a day: "MMMM" alone prints Russian February as nominative "февраль" where "d MMMM" prints
+     * genitive "февраля".
+     *
+     * @param locale the locale to test.
+     * @param pattern the date format pattern to test.
+     * @param month the calendar month to test.
+     * @throws ParseException if the formatted date cannot be parsed.
+     */
+    @CartesianTest
+    @CartesianTest.MethodFactory("testStandaloneMonthForMonthOnlyPatternFactory")
+    void testStandaloneMonthForMonthOnlyPattern(final Locale locale, final String pattern, final int month) throws ParseException {
+        // SimpleDateFormat forces the standalone form for a month-only pattern only since Java 9 (JDK-8114833); Java 8 has no such rule.
+        assumeTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9));
+        final Calendar cal = Calendar.getInstance(TimeZones.GMT, locale);
+        cal.clear();
+        cal.set(2024, month, 10);
+        final Date date = cal.getTime();
+        final SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);
+        sdf.setTimeZone(TimeZones.GMT);
+        final FastDateFormat fdf = FastDateFormat.getInstance(pattern, TimeZones.GMT, locale);
+        assertEquals(sdf.format(date), fdf.format(date), () -> locale + " " + pattern);
+        // FastDateParser accepts all name styles, so the printer's output parses back.
+        assertEquals(month, DateUtils.toCalendar(fdf.parse(fdf.format(date)), TimeZones.GMT).get(Calendar.MONTH), () -> locale + " " + pattern);
     }
 
     @SuppressWarnings("deprecation")
