@@ -41,14 +41,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 import java.util.regex.PatternSyntaxException;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.function.Suppliers;
+import org.apache.commons.lang3.function.TriFunction;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.commons.lang3.text.WordUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
@@ -340,40 +343,15 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("  abc  ", StringUtils.center("abc", 7, ""));
     }
 
-    private void assertNoLoneSurrogates(final String result) {
-        for (int i = 0; i < result.length(); i++) {
-            final char ch = result.charAt(i);
-            if (Character.isHighSurrogate(ch)) {
-                assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
-                        "lone high surrogate in: " + result);
-                i++; // skip the paired low surrogate
-            } else {
-                assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
-            }
-        }
-    }
-
     @Test
     void testCenterSurrogatePair() {
         final String grin = "\uD83D\uDE00";
-        final String partyPopper = "\uD83C\uDF89";
         assertEquals("a", StringUtils.center("a", 2, grin));
         assertEquals("a" + grin, StringUtils.center("a", 3, grin));
         assertEquals("a" + grin, StringUtils.center("a", 4, grin));
         assertEquals(grin + "a" + grin, StringUtils.center("a", 5, grin));
         assertEquals(grin + "a" + grin, StringUtils.center("a", 6, grin));
         assertEquals(grin + "a" + grin + grin, StringUtils.center("a", 7, grin));
-
-        final String[] testStrings = {"", "a", "hello", grin, "a" + grin + "b"};
-        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + partyPopper};
-        for (final String str : testStrings) {
-            for (final String padStr : padStrings) {
-                for (int size = 0; size <= 15; size++) {
-                    final String result = StringUtils.center(str, size, padStr);
-                    assertNoLoneSurrogates(result);
-                }
-            }
-        }
     }
 
     @Test
@@ -1398,22 +1376,10 @@ class StringUtilsTest extends AbstractLangTest {
     @Test
     void testLeftPadSurrogatePair() {
         final String grin = "\uD83D\uDE00";
-        final String partyPopper = "\uD83C\uDF89";
         assertEquals("a", StringUtils.leftPad("a", 2, grin));
         assertEquals(grin + "a", StringUtils.leftPad("a", 3, grin));
         assertEquals(grin + "a", StringUtils.leftPad("a", 4, grin));
         assertEquals(grin + grin + "a", StringUtils.leftPad("a", 5, grin));
-
-        final String[] testStrings = {"", "a", "hello", grin, "a" + grin + "b"};
-        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + partyPopper};
-        for (final String str : testStrings) {
-            for (final String padStr : padStrings) {
-                for (int size = 0; size <= 15; size++) {
-                    final String result = StringUtils.leftPad(str, size, padStr);
-                    assertNoLoneSurrogates(result);
-                }
-            }
-        }
     }
 
     @Test
@@ -1538,6 +1504,41 @@ class StringUtilsTest extends AbstractLangTest {
                     } else {
                         assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
                     }
+                }
+            }
+        }
+    }
+
+    private static void assertNoLoneSurrogates(final String result) {
+        for (int i = 0; i < result.length(); i++) {
+            final char ch = result.charAt(i);
+            if (Character.isHighSurrogate(ch)) {
+                assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
+                        "lone high surrogate in: " + result);
+                i++; // skip the paired low surrogate
+            } else {
+                assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+            }
+        }
+    }
+
+    static Stream<TriFunction<String, Integer, String, String>> testPadSurrogatePair() {
+        return Stream.of(
+                StringUtils::center,
+                StringUtils::leftPad,
+                StringUtils::rightPad);
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void testPadSurrogatePair(final TriFunction<String, Integer, String, String> padFunction) {
+        final String grin = "\uD83D\uDE00";
+        final String[] testStrings = {"", "a", "hello", grin, "a" + grin + "b"};
+        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + "\uD83C\uDF89"};
+        for (final String str : testStrings) {
+            for (final String padStr : padStrings) {
+                for (int size = 0; size <= 15; size++) {
+                    assertNoLoneSurrogates(padFunction.apply(str, size, padStr));
                 }
             }
         }
@@ -2328,22 +2329,10 @@ class StringUtilsTest extends AbstractLangTest {
     @Test
     void testRightPadSurrogatePair() {
         final String grin = "\uD83D\uDE00";
-        final String partyPopper = "\uD83C\uDF89";
         assertEquals("a", StringUtils.rightPad("a", 2, grin));
         assertEquals("a" + grin, StringUtils.rightPad("a", 3, grin));
         assertEquals("a" + grin, StringUtils.rightPad("a", 4, grin));
         assertEquals("a" + grin + grin, StringUtils.rightPad("a", 5, grin));
-
-        final String[] testStrings = {"", "a", "hello", grin, "a" + grin + "b"};
-        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + partyPopper};
-        for (final String str : testStrings) {
-            for (final String padStr : padStrings) {
-                for (int size = 0; size <= 15; size++) {
-                    final String result = StringUtils.rightPad(str, size, padStr);
-                    assertNoLoneSurrogates(result);
-                }
-            }
-        }
     }
 
     @Test
