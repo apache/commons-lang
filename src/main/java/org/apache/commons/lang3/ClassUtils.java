@@ -1143,18 +1143,20 @@ public class ClassUtils {
         // can both throw NoClassDefFoundError when the enclosing class is
         // missing from the classpath, so the try/catch wraps the whole block.
         try {
-            // Preserve legacy behavior for anonymous/local classes (keeps compiler ordinals: $13, $10Named, etc.)
-            if (c.isAnonymousClass() || c.isLocalClass()) {
-                base = getShortClassName(c.getName());
-            } else {
-                final Deque<String> parts = new ArrayDeque<>();
-                Class<?> x = c;
-                while (x != null) {
-                    parts.push(x.getSimpleName());
-                    x = x.getDeclaringClass();
-                }
-                base = String.join(".", parts);
+            final Deque<String> parts = new ArrayDeque<>();
+            Class<?> x = c;
+            // An anonymous or local class anywhere in the chain stops the walk: it has no declaring
+            // class, so the chain cannot recover its enclosing context. Use the name-based form for
+            // that enclosure only, which keeps the context and the compiler ordinals ($13, $10Named, etc.),
+            // and keep the simple names of the member classes below it, which may contain '$'.
+            while (x != null && !x.isAnonymousClass() && !x.isLocalClass()) {
+                parts.push(x.getSimpleName());
+                x = x.getDeclaringClass();
             }
+            if (x != null) {
+                parts.push(getShortClassName(x.getName()));
+            }
+            base = String.join(".", parts);
         } catch (final NoClassDefFoundError ignored) {
             base = getShortClassName(c.getName());
         }

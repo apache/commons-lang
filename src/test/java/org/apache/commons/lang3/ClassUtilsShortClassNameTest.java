@@ -18,7 +18,9 @@
 package org.apache.commons.lang3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.lang.reflect.Array;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,8 +42,57 @@ public class ClassUtilsShortClassNameTest extends AbstractLangTest {
     }
 
     @Test
+    void testDeeplyNestedMemberOfAnonymousClass() {
+        final Supplier<Class<?>> anonymous = new Supplier<Class<?>>() {
+
+            class Inner$Name {
+                class Deep$Name {
+                }
+            }
+
+            @Override
+            public Class<?> get() {
+                return Inner$Name.Deep$Name.class;
+            }
+        };
+        final Class<?> deep = anonymous.get();
+        final String expected = ClassUtils.getShortClassName(anonymous.getClass()) + ".Inner$Name.Deep$Name";
+        assertEquals(expected, ClassUtils.getShortClassName(deep));
+        assertEquals(expected + "[][]", ClassUtils.getShortClassName(Array.newInstance(deep, 0, 0).getClass()));
+    }
+
+    @Test
+    void testDeeplyNestedMemberOfLocalClass() {
+        class Local {
+            class Inner$Name {
+                class Deep$Name {
+                }
+            }
+        }
+        final String expected = ClassUtils.getShortClassName(Local.class) + ".Inner$Name.Deep$Name";
+        assertEquals(expected, ClassUtils.getShortClassName(Local.Inner$Name.Deep$Name.class));
+        assertEquals(expected + "[][]", ClassUtils.getShortClassName(Local.Inner$Name.Deep$Name[][].class));
+    }
+
+    @Test
     void testDollarSignImmediatelyAfterPackage() {
         assertEquals("$trange", ClassUtils.getShortClassName($trange.class));
+    }
+
+    @Test
+    void testDollarSignWithinMemberOfAnonymousClass() {
+        final Supplier<Class<?>> anonymous = new Supplier<Class<?>>() {
+
+            class Inner$Name {
+            }
+
+            @Override
+            public Class<?> get() {
+                return Inner$Name.class;
+            }
+        };
+        final String shortName = ClassUtils.getShortClassName(anonymous.get());
+        assertEquals(ClassUtils.getShortClassName(anonymous.getClass()) + ".Inner$Name", shortName);
     }
 
     @Test
@@ -51,8 +102,7 @@ public class ClassUtilsShortClassNameTest extends AbstractLangTest {
             }
         }
         final String shortName = ClassUtils.getShortClassName(Local.Inner$Name.class);
-        // Check the member identifier independently of enclosing context and compiler-generated ordinals.
-        assertTrue(shortName.endsWith(".Inner$Name"), () -> "Member identifier must retain its literal dollar sign: " + shortName);
+        assertEquals(ClassUtils.getShortClassName(Local.class) + ".Inner$Name", shortName);
     }
 
     @Test
@@ -63,6 +113,35 @@ public class ClassUtilsShortClassNameTest extends AbstractLangTest {
     @Test
     void testInnerClassName() {
         assertEquals(getClass().getSimpleName() + ".Inner", ClassUtils.getShortClassName(Inner.class));
+    }
+
+    @Test
+    void testMemberOfAnonymousClass() {
+        final Supplier<Class<?>> anonymous = new Supplier<Class<?>>() {
+
+            class Inner {
+            }
+
+            @Override
+            public Class<?> get() {
+                return Inner.class;
+            }
+        };
+        final Class<?> inner = anonymous.get();
+        // The enclosing class and compiler-generated ordinal must be kept, as in the name-based form.
+        assertEquals(ClassUtils.getShortClassName(inner.getName()), ClassUtils.getShortClassName(inner));
+        assertEquals(ClassUtils.getShortClassName(inner.getName()) + "[]", ClassUtils.getShortClassName(Array.newInstance(inner, 0).getClass()));
+    }
+
+    @Test
+    void testMemberOfLocalClass() {
+        class Local {
+            class Inner {
+            }
+        }
+        // The enclosing class and compiler-generated ordinal must be kept, as in the name-based form.
+        assertEquals(ClassUtils.getShortClassName(Local.Inner.class.getName()), ClassUtils.getShortClassName(Local.Inner.class));
+        assertEquals(ClassUtils.getShortClassName(Local.Inner.class.getName()) + "[]", ClassUtils.getShortClassName(Local.Inner[].class));
     }
 
     @Test
