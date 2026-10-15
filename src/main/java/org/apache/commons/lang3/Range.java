@@ -645,10 +645,13 @@ public class Range<T> implements Serializable {
      */
     @Override
     public String toString() {
-        if (toString == null) {
-            toString = "[" + minimum + ".." + maximum + "]";
+        // Read the lazily initialized field only once: a second racy read may see null.
+        String result = toString;
+        if (result == null) {
+            result = "[" + minimum + ".." + maximum + "]";
+            toString = result;
         }
-        return toString;
+        return result;
     }
 
     /**

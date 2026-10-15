@@ -419,6 +419,8 @@ class RangeTest extends AbstractLangTest {
 
         final String str = intRange.toString();
         assertEquals("[10..20]", str);
+        // Subsequent calls reuse the string cached by the first call.
+        assertSame(str, intRange.toString());
         assertEquals("[-20..-10]", Range.between(-20, -10).toString());
     }
 

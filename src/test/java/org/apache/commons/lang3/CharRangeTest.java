@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -50,7 +51,10 @@ class CharRangeTest extends AbstractLangTest {
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
         assertFalse(rangea.isNegated());
-        assertEquals("a", rangea.toString());
+        final String str = rangea.toString();
+        assertEquals("a", str);
+        // Subsequent calls reuse the string cached by the first call.
+        assertSame(str, rangea.toString());
     }
 
     @Test
@@ -59,7 +63,10 @@ class CharRangeTest extends AbstractLangTest {
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
         assertFalse(rangea.isNegated());
-        assertEquals("a-e", rangea.toString());
+        final String str = rangea.toString();
+        assertEquals("a-e", str);
+        // Subsequent calls reuse the string cached by the first call.
+        assertSame(str, rangea.toString());
     }
 
     @Test
@@ -68,7 +75,10 @@ class CharRangeTest extends AbstractLangTest {
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
         assertFalse(rangea.isNegated());
-        assertEquals("a-e", rangea.toString());
+        final String str = rangea.toString();
+        assertEquals("a-e", str);
+        // Subsequent calls reuse the string cached by the first call.
+        assertSame(str, rangea.toString());
     }
 
     @Test
@@ -77,7 +87,10 @@ class CharRangeTest extends AbstractLangTest {
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
         assertFalse(rangea.isNegated());
-        assertEquals("a", rangea.toString());
+        final String str = rangea.toString();
+        assertEquals("a", str);
+        // Subsequent calls reuse the string cached by the first call.
+        assertSame(str, rangea.toString());
     }
 
     @Test
@@ -86,7 +99,10 @@ class CharRangeTest extends AbstractLangTest {
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
         assertTrue(rangea.isNegated());
-        assertEquals("^a", rangea.toString());
+        final String str = rangea.toString();
+        assertEquals("^a", str);
+        // Subsequent calls reuse the string cached by the first call.
+        assertSame(str, rangea.toString());
     }
 
     @Test
@@ -95,7 +111,10 @@ class CharRangeTest extends AbstractLangTest {
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
         assertTrue(rangea.isNegated());
-        assertEquals("^a-e", rangea.toString());
+        final String str = rangea.toString();
+        assertEquals("^a-e", str);
+        // Subsequent calls reuse the string cached by the first call.
+        assertSame(str, rangea.toString());
     }
 
     @Test
@@ -104,7 +123,10 @@ class CharRangeTest extends AbstractLangTest {
         assertEquals('a', rangea.getStart());
         assertEquals('e', rangea.getEnd());
         assertTrue(rangea.isNegated());
-        assertEquals("^a-e", rangea.toString());
+        final String str = rangea.toString();
+        assertEquals("^a-e", str);
+        // Subsequent calls reuse the string cached by the first call.
+        assertSame(str, rangea.toString());
     }
 
     @Test
@@ -113,7 +135,10 @@ class CharRangeTest extends AbstractLangTest {
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
         assertTrue(rangea.isNegated());
-        assertEquals("^a", rangea.toString());
+        final String str = rangea.toString();
+        assertEquals("^a", str);
+        // Subsequent calls reuse the string cached by the first call.
+        assertSame(str, rangea.toString());
     }
 
     @Test

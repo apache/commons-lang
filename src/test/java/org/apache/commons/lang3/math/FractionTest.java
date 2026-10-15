@@ -1240,35 +1240,55 @@ class FractionTest extends AbstractLangTest {
         Fraction f;
 
         f = Fraction.getFraction(3, 5);
-        final String str = f.toProperString();
+        String str = f.toProperString();
         assertEquals("3/5", str);
+        // Subsequent calls reuse the string cached by the first call.
         assertSame(str, f.toProperString());
 
         f = Fraction.getFraction(7, 5);
-        assertEquals("1 2/5", f.toProperString());
+        str = f.toProperString();
+        assertEquals("1 2/5", str);
+        assertSame(str, f.toProperString());
 
         f = Fraction.getFraction(14, 10);
-        assertEquals("1 4/10", f.toProperString());
+        str = f.toProperString();
+        assertEquals("1 4/10", str);
+        assertSame(str, f.toProperString());
 
         f = Fraction.getFraction(4, 2);
-        assertEquals("2", f.toProperString());
+        str = f.toProperString();
+        assertEquals("2", str);
+        assertSame(str, f.toProperString());
 
         f = Fraction.getFraction(0, 2);
-        assertEquals("0", f.toProperString());
+        str = f.toProperString();
+        assertEquals("0", str);
+        assertSame(str, f.toProperString());
 
         f = Fraction.getFraction(2, 2);
-        assertEquals("1", f.toProperString());
+        str = f.toProperString();
+        assertEquals("1", str);
+        assertSame(str, f.toProperString());
 
         f = Fraction.getFraction(-7, 5);
-        assertEquals("-1 2/5", f.toProperString());
+        str = f.toProperString();
+        assertEquals("-1 2/5", str);
+        assertSame(str, f.toProperString());
 
         f = Fraction.getFraction(Integer.MIN_VALUE, 0, 1);
-        assertEquals("-2147483648", f.toProperString());
+        str = f.toProperString();
+        assertEquals("-2147483648", str);
+        assertSame(str, f.toProperString());
 
         f = Fraction.getFraction(-1, 1, Integer.MAX_VALUE);
-        assertEquals("-1 1/2147483647", f.toProperString());
+        str = f.toProperString();
+        assertEquals("-1 1/2147483647", str);
+        assertSame(str, f.toProperString());
 
-        assertEquals("-1", Fraction.getFraction(-1).toProperString());
+        f = Fraction.getFraction(-1);
+        str = f.toProperString();
+        assertEquals("-1", str);
+        assertSame(str, f.toProperString());
     }
 
     @Test
