@@ -55,6 +55,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Recurse into nested annotation arrays in AnnotationUtils.hashCode (#1814).</action>
     <action                   type="fix" dev="ggregory" due-to="Tarun Kishore, Gary Gregory">[javadoc] Correct CharUtils default-value conversion descriptions (#1816).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Preserve enclosing context and member names in ClassUtils.getShortClassName(Class) (#1818).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep RandomUtils's randomDouble() and randomFloat() below the exclusive upper bound (#1817).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
