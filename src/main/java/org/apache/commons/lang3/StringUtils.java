@@ -651,7 +651,7 @@ public class StringUtils {
      * If the size is less than the String length, the String is returned. A {@code null} String returns {@code null}. A negative size is treated as zero.
      * If the requested padding length on either side would split a Unicode surrogate pair in {@code padStr}, the padding is shortened by one {@code char}
      * (via delegation to {@link #leftPad(String, int, String)} and {@link #rightPad(String, int, String)}) so the result never contains an unpaired
-     * surrogate. In that case, the returned String has a length of {@code size - 1}.
+     * surrogate. In that case, the returned String may be shorter than {@code size}, but by no more than one {@code char}.
      * </p>
      *
      * <pre>
