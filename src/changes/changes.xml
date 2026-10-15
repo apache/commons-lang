@@ -57,6 +57,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Preserve enclosing context and member names in ClassUtils.getShortClassName(Class) (#1818).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep RandomUtils's randomDouble() and randomFloat() below the exclusive upper bound (#1817).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Use standalone month names for month-only patterns in FastDatePrinter (#1815).</action>
+    <action                   type="fix" dev="ggregory" due-to="XenoAmess, Gary Gregory">Fix TypeUtils.isAssignable rejecting Class&lt;X&gt; to Class&lt;?&gt; assignments (#1820).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
