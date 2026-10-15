@@ -256,7 +256,7 @@ public abstract class ToStringStyle implements Serializable {
                 appendNullText(buffer, fieldName);
                 return;
             }
-            if (value instanceof String || value instanceof Character) {
+            if (value instanceof CharSequence || value instanceof Character) {
                 appendValueAsString(buffer, value.toString());
                 return;
             }
