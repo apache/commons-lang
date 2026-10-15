@@ -565,10 +565,15 @@ public abstract class ToStringStyle implements Serializable {
      * <pre>
      * {"name": "John Doe", "age": 33, "smoker": true}
      * </pre>
-     *
+     * <p>
+     * Values implementing {@link CharSequence}, including {@link String}, {@link StringBuilder}, and {@link StringBuffer}, are quoted and escaped as JSON
+     * strings, even when their text resembles a JSON object or array.
+     * </p>
+     * <p>
      * <strong>Note:</strong> Since field names are mandatory in JSON, this ToStringStyle will throw an {@link UnsupportedOperationException} if no field name
      * is passed in while appending. Furthermore This ToStringStyle will only generate valid JSON if referenced objects also produce JSON when calling
      * {@code toString()} on them.
+     * </p>
      *
      * @since 3.4
      * @see <a href="https://www.json.org/">json.org</a>
