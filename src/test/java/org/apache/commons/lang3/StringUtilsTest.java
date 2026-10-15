@@ -1397,14 +1397,15 @@ class StringUtilsTest extends AbstractLangTest {
 
     @Test
     void testLeftPadSurrogatePair() {
-        final String grin = "😀";
+        final String grin = "\uD83D\uDE00";
+        final String partyPopper = "\uD83C\uDF89";
         assertEquals("a", StringUtils.leftPad("a", 2, grin));
-        assertEquals("😀a", StringUtils.leftPad("a", 3, grin));
-        assertEquals("😀a", StringUtils.leftPad("a", 4, grin));
-        assertEquals("😀😀a", StringUtils.leftPad("a", 5, grin));
+        assertEquals(grin + "a", StringUtils.leftPad("a", 3, grin));
+        assertEquals(grin + "a", StringUtils.leftPad("a", 4, grin));
+        assertEquals(grin + grin + "a", StringUtils.leftPad("a", 5, grin));
 
         final String[] testStrings = {"", "a", "hello", grin, "a" + grin + "b"};
-        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + "🎉"};
+        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + partyPopper};
         for (final String str : testStrings) {
             for (final String padStr : padStrings) {
                 for (int size = 0; size <= 15; size++) {
@@ -2326,14 +2327,15 @@ class StringUtilsTest extends AbstractLangTest {
 
     @Test
     void testRightPadSurrogatePair() {
-        final String grin = "😀";
+        final String grin = "\uD83D\uDE00";
+        final String partyPopper = "\uD83C\uDF89";
         assertEquals("a", StringUtils.rightPad("a", 2, grin));
-        assertEquals("a😀", StringUtils.rightPad("a", 3, grin));
-        assertEquals("a😀", StringUtils.rightPad("a", 4, grin));
-        assertEquals("a😀😀", StringUtils.rightPad("a", 5, grin));
+        assertEquals("a" + grin, StringUtils.rightPad("a", 3, grin));
+        assertEquals("a" + grin, StringUtils.rightPad("a", 4, grin));
+        assertEquals("a" + grin + grin, StringUtils.rightPad("a", 5, grin));
 
         final String[] testStrings = {"", "a", "hello", grin, "a" + grin + "b"};
-        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + "🎉"};
+        final String[] padStrings = {grin, "a" + grin, grin + "b", "a" + grin + "b", grin + partyPopper};
         for (final String str : testStrings) {
             for (final String padStr : padStrings) {
                 for (int size = 0; size <= 15; size++) {
