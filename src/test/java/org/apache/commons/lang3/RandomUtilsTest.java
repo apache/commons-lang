@@ -39,6 +39,11 @@ class RandomUtilsTest extends AbstractLangTest {
      */
     private static final double DELTA = 1e-5;
 
+    /**
+     * Number of calls made by the exclusive upper bound tests.
+     */
+    private static final int EXCLUSIVE_BOUND_TRIALS = 1000;
+
     static Stream<RandomUtils> randomProvider() {
         return Stream.of(RandomUtils.secure(), RandomUtils.secureStrong(), RandomUtils.insecure());
     }
@@ -253,7 +258,7 @@ class RandomUtilsTest extends AbstractLangTest {
     void testNextDoubleExclusiveUpperBound() {
         final double startInclusive = 10d;
         final double endExclusive = Math.nextUp(startInclusive);
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < EXCLUSIVE_BOUND_TRIALS; i++) {
             assertEquals(startInclusive, RandomUtils.nextDouble(startInclusive, endExclusive));
         }
     }
@@ -347,7 +352,7 @@ class RandomUtilsTest extends AbstractLangTest {
     void testNextFloatExclusiveUpperBound() {
         final float startInclusive = 10f;
         final float endExclusive = Math.nextUp(startInclusive);
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < EXCLUSIVE_BOUND_TRIALS; i++) {
             assertEquals(startInclusive, RandomUtils.nextFloat(startInclusive, endExclusive));
         }
     }
@@ -583,7 +588,7 @@ class RandomUtilsTest extends AbstractLangTest {
     void testRandomDoubleExclusiveUpperBound(final RandomUtils ru) {
         final double startInclusive = 10d;
         final double endExclusive = Math.nextUp(startInclusive);
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < EXCLUSIVE_BOUND_TRIALS; i++) {
             assertEquals(startInclusive, ru.randomDouble(startInclusive, endExclusive));
         }
     }
@@ -597,7 +602,7 @@ class RandomUtilsTest extends AbstractLangTest {
     void testRandomFloatExclusiveUpperBound(final RandomUtils ru) {
         final float startInclusive = 10f;
         final float endExclusive = Math.nextUp(startInclusive);
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < EXCLUSIVE_BOUND_TRIALS; i++) {
             assertEquals(startInclusive, ru.randomFloat(startInclusive, endExclusive));
         }
     }
