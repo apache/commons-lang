@@ -1131,7 +1131,8 @@ public class TypeUtils {
             if (typeParams.length > 0) {
                 final Type toTypeArg = unrollVariableAssignments(typeParams[0], toTypeVarAssigns);
                 final Type fromTypeArg = unrollVariableAssignments(typeParams[0], fromTypeVarAssigns);
-                if (toTypeArg != null && (fromTypeArg == null || !toTypeArg.equals(fromTypeArg))) {
+                if (toTypeArg != null && !toTypeArg.equals(fromTypeArg) && !(toTypeArg instanceof WildcardType
+                        && isAssignableToClassWildcard(fromTypeArg, (WildcardType) toTypeArg, typeVarAssigns))) {
                     return false;
                 }
             }
@@ -1152,6 +1153,51 @@ public class TypeUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * Tests whether the type argument {@code fromTypeArg} of a {@code Class} parameterized type satisfies the wildcard type
+     * argument of a target {@code Class} parameterized type. Unlike the general wildcard check, a raw generic class does not
+     * satisfy a parameterized bound here, because {@code Class} is invariant and javac does not apply unchecked conversion to
+     * its type argument.
+     *
+     * @param fromTypeArg   the subject type argument.
+     * @param wildcardType  the target wildcard type argument.
+     * @param typeVarAssigns a map with type variables.
+     * @return {@code true} if {@code fromTypeArg} is contained by {@code wildcardType}.
+     */
+    private static boolean isAssignableToClassWildcard(final Type fromTypeArg, final WildcardType wildcardType,
+            final Map<TypeVariable<?>, Type> typeVarAssigns) {
+        if (fromTypeArg == null) {
+            return false;
+        }
+        for (final Type upperBound : wildcardType.getUpperBounds()) {
+            if (isRawGenericClass(fromTypeArg) && upperBound instanceof ParameterizedType) {
+                return false;
+            }
+            if (!isAssignable(fromTypeArg, upperBound, typeVarAssigns)) {
+                return false;
+            }
+        }
+        for (final Type lowerBound : wildcardType.getLowerBounds()) {
+            if (isRawGenericClass(fromTypeArg) && lowerBound instanceof ParameterizedType) {
+                return false;
+            }
+            if (!isAssignable(lowerBound, fromTypeArg, typeVarAssigns)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Tests whether {@code type} is a raw {@link Class} that declares type parameters.
+     *
+     * @param type the type to test.
+     * @return {@code true} if {@code type} is a raw generic class.
+     */
+    private static boolean isRawGenericClass(final Type type) {
+        return type instanceof Class && ((Class<?>) type).getTypeParameters().length > 0;
     }
 
     /**

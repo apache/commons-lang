@@ -1110,6 +1110,37 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testIsAssignable_ClassWithUnboundedWildcard() {
+        final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().build());
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, Integer.class), to),
+                "Class<Integer> should be assignable to Class<?>");
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, Class.class.getTypeParameters()[0]), to),
+                "Class<T> should be assignable to Class<?>");
+        assertTrue(TypeUtils.isAssignable(Class.class, to), "raw Class should be assignable to Class<?>");
+        assertFalse(TypeUtils.isAssignable(to, TypeUtils.parameterize(Class.class, Integer.class)),
+                "Class<?> should not be assignable to Class<Integer>");
+    }
+
+    @Test
+    void testIsAssignable_ClassWithBoundedWildcardObject() {
+        final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(Object.class).build());
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, String.class), to),
+                "Class<String> should be assignable to Class<? extends Object>");
+    }
+
+    @Test
+    void testIsAssignable_ClassWithParameterizedWildcardBound() {
+        final Type to = TypeUtils.parameterize(Class.class,
+                TypeUtils.wildcardType().withUpperBounds(TypeUtils.parameterize(Collection.class, TypeUtils.wildcardType().build())).build());
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.parameterize(List.class, String.class)), to),
+                "Class<List<String>> should be assignable to Class<? extends Collection<?>>");
+        assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.parameterize(List.class, String.class)),
+                TypeUtils.parameterize(Class.class, TypeUtils.wildcardType()
+                        .withUpperBounds(TypeUtils.parameterize(Collection.class, Integer.class)).build())),
+                "Class<List<String>> should not be assignable to Class<? extends Collection<Integer>>");
+    }
+
+    @Test
     public void testIsAssignable_HiddenMapLogic() {
         class Container<T> {
         }
