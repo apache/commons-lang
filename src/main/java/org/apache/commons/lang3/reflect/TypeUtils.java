@@ -1865,13 +1865,15 @@ public class TypeUtils {
 
     /**
      * Gets a type representing {@code type} with variable assignments "unrolled."
-     *
-     * <p>Substitutes variables in parameterized types, wildcard bounds, and generic array components. If an array component resolves to a class, the result
-     * is the corresponding array class.</p>
+     * <p>
+     * Substitutes variables in parameterized types, wildcard bounds, and generic array components. If substituting a generic array component produces a class,
+     * the result is the corresponding array class.
+     * </p>
      *
      * @param typeArguments as from {@link TypeUtils#getTypeArguments(Type, Class)}.
      * @param type          The type to unroll variable assignments for.
-     * @return Type.
+     * @return The type with variable assignments substituted, or {@code null} if the supplied type is {@code null} or a type variable with no resolvable
+     *         assignment.
      * @since 3.2
      */
     public static Type unrollVariables(Map<TypeVariable<?>, Type> typeArguments, final Type type) {

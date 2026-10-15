@@ -1149,6 +1149,34 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testGetTypeArgumentsInheritedGenericArray() {
+        final TypeVariable<?> variable = ClassWildcardTypes.class.getTypeParameters()[1];
+        final TypeVariable<?> listVariable = List.class.getTypeParameters()[0];
+        final Type source = TypeUtils.parameterize(ArrayValues.class, variable);
+        final Map<TypeVariable<?>, Type> arguments = TypeUtils.getTypeArguments(source, List.class);
+        final GenericArrayType array = (GenericArrayType) arguments.get(listVariable);
+        assertSame(variable, array.getGenericComponentType());
+        assertEquals(String[].class,
+                TypeUtils.getTypeArguments(TypeUtils.parameterize(ArrayValues.class, String.class), List.class).get(listVariable));
+    }
+
+    @Test
+    void testGetTypeArgumentsInheritedWildcardBounds() {
+        final TypeVariable<?> variable = ClassWildcardTypes.class.getTypeParameters()[1];
+        final TypeVariable<?> listVariable = List.class.getTypeParameters()[0];
+        final WildcardType upper = TypeUtils.wildcardType().withUpperBounds(variable).build();
+        final WildcardType lower = TypeUtils.wildcardType().withLowerBounds(variable).build();
+        final WildcardType inheritedUpper = (WildcardType) TypeUtils.getTypeArguments(TypeUtils.parameterize(ArrayList.class, upper), List.class)
+                .get(listVariable);
+        final WildcardType inheritedLower = (WildcardType) TypeUtils.getTypeArguments(TypeUtils.parameterize(ArrayList.class, lower), List.class)
+                .get(listVariable);
+        assertArrayEquals(new Type[] { variable }, inheritedUpper.getUpperBounds());
+        assertArrayEquals(new Type[0], inheritedUpper.getLowerBounds());
+        assertArrayEquals(new Type[] { Object.class }, inheritedLower.getUpperBounds());
+        assertArrayEquals(new Type[] { variable }, inheritedLower.getLowerBounds());
+    }
+
+    @Test
     void testInterfaceBoundPreserved() {
         assertEquals("T extends java.util.List<java.lang.String>",
                 TypeUtils.toString(InterfaceBound.class.getTypeParameters()[0]));
@@ -2017,6 +2045,27 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertEquals(TypeUtils.genericArrayType(list), TypeUtils.unrollVariables(Collections.singletonMap(variable, list), array));
         assertEquals(String[][].class,
                 TypeUtils.unrollVariables(Collections.singletonMap(variable, String.class), TypeUtils.genericArrayType(array)));
+    }
+
+    @Test
+    void testUnrollVariablesGenericArrayCyclicAssignment() {
+        final TypeVariable<?> variable = ArrayValues.class.getTypeParameters()[0];
+        final GenericArrayType array = TypeUtils.genericArrayType(variable);
+        final Map<TypeVariable<?>, Type> mapping = Collections.singletonMap(variable, array);
+        assertSame(array, TypeUtils.unrollVariables(mapping, variable));
+        assertSame(variable, array.getGenericComponentType());
+    }
+
+    @Test
+    void testUnrollVariablesGenericArraySelfReference() {
+        final GenericArrayType array = new GenericArrayType() {
+            @Override
+            public Type getGenericComponentType() {
+                return this;
+            }
+        };
+        assertSame(array, TypeUtils.unrollVariables(Collections.emptyMap(), array));
+        assertSame(array, array.getGenericComponentType());
     }
 
     @Test
