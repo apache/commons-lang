@@ -44,6 +44,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -355,7 +356,7 @@ class DateUtilsTest extends AbstractLangTest {
 
         // In Europe/Brussels: calendar day advances to 2012-03-26 00:00:00 CEST (23 hours elapsed)
         final Date outputSpring = DateUtils.addDays(inputSpring, 1);
-        assertEquals(23 * 3600 * 1000L, outputSpring.getTime() - inputSpring.getTime());
+        assertEquals(TimeUnit.HOURS.toMillis(23), outputSpring.getTime() - inputSpring.getTime());
 
         final Calendar calSpringResult = Calendar.getInstance(brusselsTz);
         calSpringResult.setTime(outputSpring);
@@ -372,7 +373,7 @@ class DateUtilsTest extends AbstractLangTest {
 
         // In Europe/Brussels: calendar day advances to 2012-10-29 00:00:00 CET (25 hours elapsed)
         final Date outputAutumn = DateUtils.addDays(inputAutumn, 1);
-        assertEquals(25 * 3600 * 1000L, outputAutumn.getTime() - inputAutumn.getTime());
+        assertEquals(TimeUnit.HOURS.toMillis(25), outputAutumn.getTime() - inputAutumn.getTime());
 
         final Calendar calAutumnResult = Calendar.getInstance(brusselsTz);
         calAutumnResult.setTime(outputAutumn);
