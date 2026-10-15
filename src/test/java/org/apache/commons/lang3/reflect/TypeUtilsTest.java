@@ -225,15 +225,19 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         // empty
     }
 
-    public static class ClassWithSuperClassWithGenericType extends ArrayList<Object> {
+    private static class ArrayValues<T> extends ArrayList<T[]> {
         private static final long serialVersionUID = 1L;
-
-        public static <U> Iterable<U> methodWithGenericReturnType() {
-            return null;
-        }
     }
 
     private static class ClassWildcardTypes<T extends List, U, V extends List<String>, W extends U> {
+        Class<ArrayValues<String>> arrayValues;
+        Class<ArrayValues<U>> variableArrayValues;
+        Class<? extends List<String[]>> extendsStringArrays;
+        Class<? extends List<U[]>> extendsVariableArrays;
+        Class<ArrayList<? extends U>> upperVariableValues;
+        Class<ArrayList<? super U>> lowerVariableValues;
+        Class<? extends List<? extends U>> extendsUpperVariableValues;
+        Class<? extends List<? super U>> extendsLowerVariableValues;
         Class<List<String>> strings;
         Class<List> rawList;
         Class<ArrayList<String>> stringArrayList;
@@ -274,6 +278,14 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         Class<W> dependentVariable;
         Class<? extends W> extendsDependentVariable;
         Class<? super W> superDependentVariable;
+    }
+
+    public static class ClassWithSuperClassWithGenericType extends ArrayList<Object> {
+        private static final long serialVersionUID = 1L;
+
+        public static <U> Iterable<U> methodWithGenericReturnType() {
+            return null;
+        }
     }
 
     /**
@@ -331,6 +343,14 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         }
     }
 
+    private static class GenericNumberOwner<T> {
+        class Member implements TestIF<Number> {
+        }
+
+        static class StaticMember implements TestIF<Number> {
+        }
+    }
+
     static class LexOrdering<T> extends MyOrdering<Iterable<T>> implements Serializable {
         private static final long serialVersionUID = 1L;
     }
@@ -363,6 +383,9 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     static class MyOrdering<T> implements MyComparator<T> {
     }
 
+    private static class NumberTestImpl implements TestIF<Number> {
+    }
+
     public class Other<T> implements This<String, T> {
         // empty
     }
@@ -392,17 +415,6 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         InnerU<T> innerUT;
 
         Map<T, T> map;
-    }
-
-    private static class GenericNumberOwner<T> {
-        class Member implements TestIF<Number> {
-        }
-
-        static class StaticMember implements TestIF<Number> {
-        }
-    }
-
-    private static class NumberTestImpl implements TestIF<Number> {
     }
 
     private static class ParameterizedRawTestImpl<T> extends TestImpl {
@@ -474,6 +486,13 @@ class TypeUtilsTest<B> extends AbstractLangTest {
 
     static Stream<Arguments> testIsAssignable_ClassWildcardBounds() {
         return Stream.of(
+                Arguments.of("arrayValues", "extendsStringArrays", true),
+                Arguments.of("variableArrayValues", "extendsVariableArrays", true),
+                Arguments.of("arrayValues", "extendsVariableArrays", false),
+                Arguments.of("upperVariableValues", "extendsUpperVariableValues", true),
+                Arguments.of("lowerVariableValues", "extendsLowerVariableValues", true),
+                Arguments.of("upperVariableValues", "extendsLowerVariableValues", false),
+                Arguments.of("lowerVariableValues", "extendsUpperVariableValues", false),
                 Arguments.of("extendsRawList", "extendsStrings", false),
                 Arguments.of("extendsRawList", "extendsUnknownList", false),
                 Arguments.of("rawBound", "extendsStrings", false),
@@ -1195,6 +1214,35 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertFalse(TypeUtils.isArrayType(String.class));
     }
 
+    @ParameterizedTest(name = "{0} -> {1}: {2}")
+    @MethodSource
+    void testIsAssignable_ClassWildcardBounds(final String fromField, final String toField, final boolean expected) throws NoSuchFieldException {
+        final Type from = ClassWildcardTypes.class.getDeclaredField(fromField).getGenericType();
+        final Type to = ClassWildcardTypes.class.getDeclaredField(toField).getGenericType();
+        assertEquals(expected, TypeUtils.isAssignable(from, to), () -> from + " -> " + to);
+    }
+
+    @Test
+    void testIsAssignable_ClassWithBoundedWildcardObject() {
+        final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(Object.class).build());
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, String.class), to),
+                "Class<String> should be assignable to Class<? extends Object>");
+    }
+
+    @Test
+    void testIsAssignable_ClassWithLowerBoundedWildcard() {
+        final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withLowerBounds(Integer.class).build());
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, Number.class), to),
+                "Class<Number> should be assignable to Class<? super Integer>");
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withLowerBounds(Number.class).build()), to),
+                "Class<? super Number> should be assignable to Class<? super Integer>");
+        assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, String.class), to),
+                "Class<String> should not be assignable to Class<? super Integer>");
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, List.class),
+                TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withLowerBounds(TypeUtils.parameterize(List.class, String.class)).build())),
+                "Class<List> should be assignable to Class<? super List<String>>");
+    }
+
     @Test
     void testIsAssignable_ClassWithParameterizedType1() {
         final ParameterizedType topre1 = TypeUtils.parameterize(TestIF.class, TypeUtils.wildcardType().build());
@@ -1220,6 +1268,18 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testIsAssignable_ClassWithParameterizedWildcardBound() {
+        final Type to = TypeUtils.parameterize(Class.class,
+                TypeUtils.wildcardType().withUpperBounds(TypeUtils.parameterize(Collection.class, TypeUtils.wildcardType().build())).build());
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.parameterize(List.class, String.class)), to),
+                "Class<List<String>> should be assignable to Class<? extends Collection<?>>");
+        assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.parameterize(List.class, String.class)),
+                TypeUtils.parameterize(Class.class, TypeUtils.wildcardType()
+                        .withUpperBounds(TypeUtils.parameterize(Collection.class, Integer.class)).build())),
+                "Class<List<String>> should not be assignable to Class<? extends Collection<Integer>>");
+    }
+
+    @Test
     void testIsAssignable_ClassWithUnboundedWildcard() {
         final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().build());
         assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, Integer.class), to),
@@ -1236,13 +1296,6 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
-    void testIsAssignable_ClassWithBoundedWildcardObject() {
-        final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(Object.class).build());
-        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, String.class), to),
-                "Class<String> should be assignable to Class<? extends Object>");
-    }
-
-    @Test
     void testIsAssignable_ClassWithUpperBoundedWildcard() {
         final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(Number.class).build());
         assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, Integer.class), to),
@@ -1251,49 +1304,6 @@ class TypeUtilsTest<B> extends AbstractLangTest {
                 "Class<? extends Integer> should be assignable to Class<? extends Number>");
         assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, String.class), to),
                 "Class<String> should not be assignable to Class<? extends Number>");
-    }
-
-    @Test
-    void testIsAssignable_ClassWithLowerBoundedWildcard() {
-        final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withLowerBounds(Integer.class).build());
-        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, Number.class), to),
-                "Class<Number> should be assignable to Class<? super Integer>");
-        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withLowerBounds(Number.class).build()), to),
-                "Class<? super Number> should be assignable to Class<? super Integer>");
-        assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, String.class), to),
-                "Class<String> should not be assignable to Class<? super Integer>");
-        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, List.class),
-                TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withLowerBounds(TypeUtils.parameterize(List.class, String.class)).build())),
-                "Class<List> should be assignable to Class<? super List<String>>");
-    }
-
-    @Test
-    void testIsAssignable_ClassWithParameterizedWildcardBound() {
-        final Type to = TypeUtils.parameterize(Class.class,
-                TypeUtils.wildcardType().withUpperBounds(TypeUtils.parameterize(Collection.class, TypeUtils.wildcardType().build())).build());
-        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.parameterize(List.class, String.class)), to),
-                "Class<List<String>> should be assignable to Class<? extends Collection<?>>");
-        assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.parameterize(List.class, String.class)),
-                TypeUtils.parameterize(Class.class, TypeUtils.wildcardType()
-                        .withUpperBounds(TypeUtils.parameterize(Collection.class, Integer.class)).build())),
-                "Class<List<String>> should not be assignable to Class<? extends Collection<Integer>>");
-    }
-
-    @ParameterizedTest(name = "{0} -> {1}: {2}")
-    @MethodSource
-    void testIsAssignable_ClassWildcardBounds(final String fromField, final String toField, final boolean expected) throws NoSuchFieldException {
-        final Type from = ClassWildcardTypes.class.getDeclaredField(fromField).getGenericType();
-        final Type to = ClassWildcardTypes.class.getDeclaredField(toField).getGenericType();
-        assertEquals(expected, TypeUtils.isAssignable(from, to), () -> from + " -> " + to);
-    }
-
-    @Test
-    void testIsAssignable_UnrelatedTypeVariables() {
-        final TypeVariable<?>[] variables = ClassWildcardTypes.class.getTypeParameters();
-        assertFalse(TypeUtils.isAssignable(variables[0], variables[1]));
-        assertFalse(TypeUtils.isAssignable(variables[1], variables[0]));
-        assertFalse(TypeUtils.isAssignable(variables[1], variables[3]));
-        assertTrue(TypeUtils.isAssignable(variables[3], variables[1]));
     }
 
     @Test
@@ -1313,6 +1323,15 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         final TypeVariable<?> typeVarT = Container.class.getTypeParameters()[0];
         final boolean result = TypeUtils.isAssignable(Integer.class, typeVarT);
         assertFalse(result);
+    }
+
+    @Test
+    void testIsAssignable_UnrelatedTypeVariables() {
+        final TypeVariable<?>[] variables = ClassWildcardTypes.class.getTypeParameters();
+        assertFalse(TypeUtils.isAssignable(variables[0], variables[1]));
+        assertFalse(TypeUtils.isAssignable(variables[1], variables[0]));
+        assertFalse(TypeUtils.isAssignable(variables[1], variables[3]));
+        assertTrue(TypeUtils.isAssignable(variables[3], variables[1]));
     }
 
     @Test
@@ -1985,6 +2004,19 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         b.setOwnerType(a);
         final Map<TypeVariable<?>, Type> mapping = Collections.<TypeVariable<?>, Type>singletonMap(t, String.class);
         assertSame(b, TypeUtils.unrollVariables(mapping, b));
+    }
+
+    @Test
+    void testUnrollVariablesGenericArray() {
+        final TypeVariable<?> variable = ArrayValues.class.getTypeParameters()[0];
+        final GenericArrayType array = TypeUtils.genericArrayType(variable);
+        assertSame(array, TypeUtils.unrollVariables(Collections.emptyMap(), array));
+        assertSame(array, TypeUtils.unrollVariables(Collections.singletonMap(variable, variable), array));
+        assertEquals(String[].class, TypeUtils.unrollVariables(Collections.singletonMap(variable, String.class), array));
+        final Type list = TypeUtils.parameterize(List.class, String.class);
+        assertEquals(TypeUtils.genericArrayType(list), TypeUtils.unrollVariables(Collections.singletonMap(variable, list), array));
+        assertEquals(String[][].class,
+                TypeUtils.unrollVariables(Collections.singletonMap(variable, String.class), TypeUtils.genericArrayType(array)));
     }
 
     @Test

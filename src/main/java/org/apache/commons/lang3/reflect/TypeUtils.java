@@ -863,7 +863,7 @@ public class TypeUtils {
             final ParameterizedType parameterizedParentType = (ParameterizedType) parentType;
             final Type[] parentTypeArgs = parameterizedParentType.getActualTypeArguments().clone();
             for (int i = 0; i < parentTypeArgs.length; i++) {
-                final Type unrolled = unrollVariables(typeVarAssigns, parentTypeArgs[i]);
+                final Type unrolled = unrollVariables(typeVarAssigns, parentTypeArgs[i], new HashSet<>(), newIdentitySet(), true);
                 if (unrolled != null) {
                     parentTypeArgs[i] = unrolled;
                 }
@@ -1093,7 +1093,7 @@ public class TypeUtils {
      * @param toParameterizedType The target parameterized type.
      * @param typeVarAssigns      A map with type variables.
      * @param allowUnchecked      Whether unchecked conversions are allowed.
-     * @return {@code true} if {@code type} is assignable to {@code toType}.
+     * @return {@code true} if {@code type} is assignable to {@code toParameterizedType}.
      */
     private static boolean isAssignable(final Type type, final ParameterizedType toParameterizedType, final Map<TypeVariable<?>, Type> typeVarAssigns,
             final boolean allowUnchecked) {
@@ -1141,13 +1141,8 @@ public class TypeUtils {
                         return false;
                     }
                     final Map<TypeVariable<?>, Type> fromAssignments = getTypeArguments(fromType);
-                    // Preserve externally declared variables when substituting the parent type.
-                    for (final Type argument : new HashMap<>(fromAssignments).values()) {
-                        if (argument instanceof TypeVariable<?>) {
-                            fromAssignments.putIfAbsent((TypeVariable<?>) argument, argument);
-                        }
-                    }
-                    final Type parent = unrollVariables(fromAssignments, getClosestParentType(fromClass, toClass));
+                    // Preserve unmapped variables, including those nested in wildcard bounds, when substituting the parent type.
+                    final Type parent = unrollVariables(fromAssignments, getClosestParentType(fromClass, toClass), new HashSet<>(), newIdentitySet(), true);
                     return isAssignable(parent, toParameterizedType, typeVarAssigns, false);
                 }
             }
@@ -1202,36 +1197,6 @@ public class TypeUtils {
             }
         }
         return true;
-    }
-
-    /**
-     * Tests whether the type argument {@code fromTypeArg} of a {@code Class} parameterized type satisfies the wildcard type
-     * argument of a target {@code Class} parameterized type. Unchecked conversion does not apply inside a type argument,
-     * including when checking the upper or lower bounds of a wildcard.
-     *
-     * @param fromTypeArg    the subject type argument.
-     * @param wildcardType   the target wildcard type argument.
-     * @param typeVarAssigns a map with type variables.
-     * @return {@code true} if {@code fromTypeArg} is contained by {@code wildcardType}.
-     */
-    private static boolean isAssignableToClassWildcard(final Type fromTypeArg, final WildcardType wildcardType,
-            final Map<TypeVariable<?>, Type> typeVarAssigns) {
-        return fromTypeArg != null && isAssignable(fromTypeArg, wildcardType, typeVarAssigns, false);
-    }
-
-    /**
-     * Tests whether {@code type} is a raw generic class or a non-static member of a raw generic class.
-     *
-     * @param type the type to test.
-     * @return {@code true} if {@code type} is a raw generic class.
-     */
-    private static boolean isRawGenericClass(final Type type) {
-        if (!(type instanceof Class<?>)) {
-            return false;
-        }
-        final Class<?> cls = (Class<?>) type;
-        return cls.getTypeParameters().length > 0
-                || !Modifier.isStatic(cls.getModifiers()) && isRawGenericClass(cls.getDeclaringClass());
     }
 
     /**
@@ -1404,6 +1369,21 @@ public class TypeUtils {
     }
 
     /**
+     * Tests whether the type argument {@code fromTypeArg} of a {@code Class} parameterized type satisfies the wildcard type
+     * argument of a target {@code Class} parameterized type. Unchecked conversion does not apply inside a type argument,
+     * including when checking the upper or lower bounds of a wildcard.
+     *
+     * @param fromTypeArg    the subject type argument.
+     * @param wildcardType   the target wildcard type argument.
+     * @param typeVarAssigns a map with type variables.
+     * @return {@code true} if {@code fromTypeArg} is contained by {@code wildcardType}.
+     */
+    private static boolean isAssignableToClassWildcard(final Type fromTypeArg, final WildcardType wildcardType,
+            final Map<TypeVariable<?>, Type> typeVarAssigns) {
+        return fromTypeArg != null && isAssignable(fromTypeArg, wildcardType, typeVarAssigns, false);
+    }
+
+    /**
      * Tests whether the class contains a cyclical reference in the qualified name of a class. If any of the type parameters of A class is extending X class
      * which is in scope of A class, then it forms cycle.
      *
@@ -1433,6 +1413,21 @@ public class TypeUtils {
             return false;
         }
         return value == null ? !(type instanceof Class<?>) || !((Class<?>) type).isPrimitive() : isAssignable(value.getClass(), type, null);
+    }
+
+    /**
+     * Tests whether {@code type} is a raw generic class or a non-static member of a raw generic class.
+     *
+     * @param type the type to test.
+     * @return {@code true} if {@code type} is a raw generic class.
+     */
+    private static boolean isRawGenericClass(final Type type) {
+        if (!(type instanceof Class<?>)) {
+            return false;
+        }
+        final Class<?> cls = (Class<?>) type;
+        return cls.getTypeParameters().length > 0
+                || !Modifier.isStatic(cls.getModifiers()) && isRawGenericClass(cls.getDeclaringClass());
     }
 
     /**
@@ -1827,17 +1822,19 @@ public class TypeUtils {
     /**
      * Unrolls variables in a type bounds array, preserving cycle state.
      *
-     * @param typeArguments assignments {@link Map}.
-     * @param bounds        in which to expand variables.
-     * @param visited       set of visited type variables for cycle detection.
-     * @param unrolling     identity-based types currently being unrolled to prevent recursion cycles.
+     * @param typeArguments    assignments {@link Map}.
+     * @param bounds           in which to expand variables.
+     * @param visited          set of visited type variables for cycle detection.
+     * @param unrolling        identity-based types currently being unrolled to prevent recursion cycles.
+     * @param preserveUnmapped whether to preserve variables without assignments.
      * @return {@code bounds} with any variables reassigned.
      */
-    private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds, final Set<TypeVariable<?>> visited, final Set<Type> unrolling) {
+    private static Type[] unrollBounds(final Map<TypeVariable<?>, Type> typeArguments, final Type[] bounds, final Set<TypeVariable<?>> visited, final Set<Type> unrolling,
+            final boolean preserveUnmapped) {
         Type[] result = bounds;
         int i = 0;
         for (; i < result.length; i++) {
-            final Type unrolled = unrollVariables(typeArguments, result[i], visited, unrolling);
+            final Type unrolled = unrollVariables(typeArguments, result[i], visited, unrolling, preserveUnmapped);
             if (unrolled == null) {
                 result = ArrayUtils.remove(result, i--);
             } else {
@@ -1869,6 +1866,9 @@ public class TypeUtils {
     /**
      * Gets a type representing {@code type} with variable assignments "unrolled."
      *
+     * <p>Substitutes variables in parameterized types, wildcard bounds, and generic array components. If an array component resolves to a class, the result
+     * is the corresponding array class.</p>
+     *
      * @param typeArguments as from {@link TypeUtils#getTypeArguments(Type, Class)}.
      * @param type          The type to unroll variable assignments for.
      * @return Type.
@@ -1878,20 +1878,37 @@ public class TypeUtils {
         if (typeArguments == null) {
             typeArguments = Collections.emptyMap();
         }
-        return unrollVariables(typeArguments, type, new HashSet<>(), newIdentitySet());
+        return unrollVariables(typeArguments, type, new HashSet<>(), newIdentitySet(), false);
     }
 
-    private static Type unrollVariables(final Map<TypeVariable<?>, Type> typeArguments, final Type type, final Set<TypeVariable<?>> visited, final Set<Type> unrolling) {
+    private static Type unrollVariables(final Map<TypeVariable<?>, Type> typeArguments, final Type type, final Set<TypeVariable<?>> visited, final Set<Type> unrolling,
+            final boolean preserveUnmapped) {
         if (type instanceof TypeVariable<?>) {
             final TypeVariable<?> var = (TypeVariable<?>) type;
             if (!visited.add(var)) {
                 return var;
             }
             try {
-                return unrollVariables(typeArguments, typeArguments.get(type), visited, unrolling);
+                final Type assignment = typeArguments.get(type);
+                return assignment == null && preserveUnmapped ? var : unrollVariables(typeArguments, assignment, visited, unrolling, preserveUnmapped);
             } finally {
                 // Only guard against cycles: the same variable may legitimately occur more than once in a type.
                 visited.remove(var);
+            }
+        }
+        if (type instanceof GenericArrayType) {
+            if (!unrolling.add(type)) {
+                return type;
+            }
+            try {
+                final Type component = ((GenericArrayType) type).getGenericComponentType();
+                final Type unrolled = unrollVariables(typeArguments, component, visited, unrolling, preserveUnmapped);
+                if (unrolled == null || unrolled == component) {
+                    return type;
+                }
+                return unrolled instanceof Class<?> ? Array.newInstance((Class<?>) unrolled, 0).getClass() : genericArrayType(unrolled);
+            } finally {
+                unrolling.remove(type);
             }
         }
         if (type instanceof ParameterizedType) {
@@ -1904,14 +1921,15 @@ public class TypeUtils {
                 final Type[] unrolledArgs = args.clone();
                 boolean changed = false;
                 for (int i = 0; i < args.length; i++) {
-                    final Type unrolled = unrollVariables(typeArguments, args[i], visited, unrolling);
+                    final Type unrolled = unrollVariables(typeArguments, args[i], visited, unrolling, preserveUnmapped);
                     if (unrolled != null && unrolled != args[i]) {
                         unrolledArgs[i] = unrolled;
                         changed = true;
                     }
                 }
                 final Type owner = p.getOwnerType();
-                final Type unrolledOwner = owner != null && !(owner instanceof Class<?>) ? unrollVariables(typeArguments, owner, visited, unrolling) : owner;
+                final Type unrolledOwner = owner != null && !(owner instanceof Class<?>)
+                        ? unrollVariables(typeArguments, owner, visited, unrolling, preserveUnmapped) : owner;
                 if (!changed && unrolledOwner == owner) {
                     return p;
                 }
@@ -1928,8 +1946,8 @@ public class TypeUtils {
             try {
                 final Type[] upperBounds = wild.getUpperBounds();
                 final Type[] lowerBounds = wild.getLowerBounds();
-                final Type[] unrolledUpperBounds = unrollBounds(typeArguments, upperBounds.clone(), visited, unrolling);
-                final Type[] unrolledLowerBounds = unrollBounds(typeArguments, lowerBounds.clone(), visited, unrolling);
+                final Type[] unrolledUpperBounds = unrollBounds(typeArguments, upperBounds.clone(), visited, unrolling, preserveUnmapped);
+                final Type[] unrolledLowerBounds = unrollBounds(typeArguments, lowerBounds.clone(), visited, unrolling, preserveUnmapped);
                 if (isSameTypes(upperBounds, unrolledUpperBounds) && isSameTypes(lowerBounds, unrolledLowerBounds)) {
                     return wild;
                 }
