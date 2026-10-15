@@ -20,6 +20,9 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Array;
+import java.util.function.Supplier;
+
 import org.junit.jupiter.api.Test;
 
 class $trange {
@@ -45,6 +48,22 @@ public class ClassUtilsShortClassNameTest extends AbstractLangTest {
     }
 
     @Test
+    void testDollarSignWithinMemberOfAnonymousClass() {
+        final Supplier<Class<?>> anonymous = new Supplier<Class<?>>() {
+
+            class Inner$Name {
+            }
+
+            @Override
+            public Class<?> get() {
+                return Inner$Name.class;
+            }
+        };
+        final String shortName = ClassUtils.getShortClassName(anonymous.get());
+        assertEquals(ClassUtils.getShortClassName(anonymous.getClass()) + ".Inner$Name", shortName);
+    }
+
+    @Test
     void testDollarSignWithinMemberOfLocalClass() {
         class Local {
             class Inner$Name {
@@ -63,6 +82,35 @@ public class ClassUtilsShortClassNameTest extends AbstractLangTest {
     @Test
     void testInnerClassName() {
         assertEquals(getClass().getSimpleName() + ".Inner", ClassUtils.getShortClassName(Inner.class));
+    }
+
+    @Test
+    void testMemberOfAnonymousClass() {
+        final Supplier<Class<?>> anonymous = new Supplier<Class<?>>() {
+
+            class Inner {
+            }
+
+            @Override
+            public Class<?> get() {
+                return Inner.class;
+            }
+        };
+        final Class<?> inner = anonymous.get();
+        // The enclosing class and compiler-generated ordinal must be kept, as in the name-based form.
+        assertEquals(ClassUtils.getShortClassName(inner.getName()), ClassUtils.getShortClassName(inner));
+        assertEquals(ClassUtils.getShortClassName(inner.getName()) + "[]", ClassUtils.getShortClassName(Array.newInstance(inner, 0).getClass()));
+    }
+
+    @Test
+    void testMemberOfLocalClass() {
+        class Local {
+            class Inner {
+            }
+        }
+        // The enclosing class and compiler-generated ordinal must be kept, as in the name-based form.
+        assertEquals(ClassUtils.getShortClassName(Local.Inner.class.getName()), ClassUtils.getShortClassName(Local.Inner.class));
+        assertEquals(ClassUtils.getShortClassName(Local.Inner.class.getName()) + "[]", ClassUtils.getShortClassName(Local.Inner[].class));
     }
 
     @Test
