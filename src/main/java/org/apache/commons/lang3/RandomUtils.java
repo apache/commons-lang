@@ -143,6 +143,10 @@ public class RandomUtils {
 
     /**
      * Generates a random double within the specified range.
+     * <p>
+     * If the bounds are equal, returns the common bound. If {@code startInclusive} is finite and {@code endExclusive} is positive infinity, returns
+     * {@link Double#MAX_VALUE}.
+     * </p>
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
@@ -170,6 +174,9 @@ public class RandomUtils {
 
     /**
      * Generates a random float within the specified range.
+     *
+     * <p>If the bounds are equal, returns the common bound. If {@code startInclusive} is finite and {@code endExclusive} is positive infinity,
+     * returns {@link Float#MAX_VALUE}.</p>
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
@@ -333,6 +340,9 @@ public class RandomUtils {
     /**
      * Generates a random double within the specified range.
      *
+     * <p>If the bounds are equal, returns the common bound. If {@code startInclusive} is finite and {@code endExclusive} is positive infinity,
+     * returns {@link Double#MAX_VALUE}.</p>
+     *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
      * @throws IllegalArgumentException Thrown if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative.
@@ -363,6 +373,9 @@ public class RandomUtils {
 
     /**
      * Generates a random float within the specified range.
+     *
+     * <p>If the bounds are equal, returns the common bound. If {@code startInclusive} is finite and {@code endExclusive} is positive infinity,
+     * returns {@link Float#MAX_VALUE}.</p>
      *
      * @param startInclusive The smallest value that can be returned, must be non-negative.
      * @param endExclusive   The upper bound (not included).
