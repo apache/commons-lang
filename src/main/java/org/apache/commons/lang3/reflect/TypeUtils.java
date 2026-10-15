@@ -19,6 +19,7 @@ package org.apache.commons.lang3.reflect;
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.GenericDeclaration;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
@@ -1030,9 +1031,11 @@ public class TypeUtils {
      * @param type               The subject type to be assigned to the target type.
      * @param toGenericArrayType The target generic array type.
      * @param typeVarAssigns     A map with type variables.
+     * @param allowUnchecked    Whether unchecked conversions are allowed.
      * @return {@code true} if {@code type} is assignable to {@code toGenericArrayType}.
      */
-    private static boolean isAssignable(final Type type, final GenericArrayType toGenericArrayType, final Map<TypeVariable<?>, Type> typeVarAssigns) {
+    private static boolean isAssignable(final Type type, final GenericArrayType toGenericArrayType, final Map<TypeVariable<?>, Type> typeVarAssigns,
+            final boolean allowUnchecked) {
         if (type == null) {
             return true;
         }
@@ -1049,16 +1052,16 @@ public class TypeUtils {
         if (type instanceof Class<?>) {
             final Class<?> cls = (Class<?>) type;
             // compare the component types
-            return cls.isArray() && isAssignable(cls.getComponentType(), toComponentType, typeVarAssigns);
+            return cls.isArray() && isAssignable(cls.getComponentType(), toComponentType, typeVarAssigns, allowUnchecked);
         }
         if (type instanceof GenericArrayType) {
             // compare the component types
-            return isAssignable(((GenericArrayType) type).getGenericComponentType(), toComponentType, typeVarAssigns);
+            return isAssignable(((GenericArrayType) type).getGenericComponentType(), toComponentType, typeVarAssigns, allowUnchecked);
         }
         if (type instanceof WildcardType) {
             // so long as one of the upper bounds is assignable, it's good
             for (final Type bound : getImplicitUpperBounds((WildcardType) type)) {
-                if (isAssignable(bound, toGenericArrayType)) {
+                if (isAssignable(bound, toGenericArrayType, typeVarAssigns, allowUnchecked)) {
                     return true;
                 }
             }
@@ -1068,7 +1071,7 @@ public class TypeUtils {
             // probably should remove the following logic and just return false.
             // type variables cannot specify arrays as bounds.
             for (final Type bound : getImplicitBounds((TypeVariable<?>) type)) {
-                if (isAssignable(bound, toGenericArrayType)) {
+                if (isAssignable(bound, toGenericArrayType, typeVarAssigns, allowUnchecked)) {
                     return true;
                 }
             }
@@ -1089,9 +1092,11 @@ public class TypeUtils {
      * @param type                The subject type to be assigned to the target type.
      * @param toParameterizedType The target parameterized type.
      * @param typeVarAssigns      A map with type variables.
+     * @param allowUnchecked      Whether unchecked conversions are allowed.
      * @return {@code true} if {@code type} is assignable to {@code toType}.
      */
-    private static boolean isAssignable(final Type type, final ParameterizedType toParameterizedType, final Map<TypeVariable<?>, Type> typeVarAssigns) {
+    private static boolean isAssignable(final Type type, final ParameterizedType toParameterizedType, final Map<TypeVariable<?>, Type> typeVarAssigns,
+            final boolean allowUnchecked) {
         if (type == null) {
             return true;
         }
@@ -1110,6 +1115,43 @@ public class TypeUtils {
         }
         // get the target type's raw type
         final Class<?> toClass = getRawType(toParameterizedType);
+        if (!allowUnchecked) {
+            // Type argument bounds require subtyping, so a raw supertype cannot supply missing type arguments.
+            if (type instanceof TypeVariable<?>) {
+                for (final Type bound : getImplicitBounds((TypeVariable<?>) type)) {
+                    if (isAssignable(bound, toParameterizedType, typeVarAssigns, false)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            if (type instanceof Class<?>) {
+                final Class<?> fromClass = (Class<?>) type;
+                if (isRawGenericClass(fromClass) || !isAssignable(fromClass, toClass)) {
+                    return false;
+                }
+                return toClass.equals(fromClass)
+                        || isAssignable(getClosestParentType(fromClass, toClass), toParameterizedType, typeVarAssigns, false);
+            }
+            if (type instanceof ParameterizedType) {
+                final ParameterizedType fromType = (ParameterizedType) type;
+                final Class<?> fromClass = getRawType(fromType);
+                if (!toClass.equals(fromClass)) {
+                    if (!isAssignable(fromClass, toClass)) {
+                        return false;
+                    }
+                    final Map<TypeVariable<?>, Type> fromAssignments = getTypeArguments(fromType);
+                    // Preserve externally declared variables when substituting the parent type.
+                    for (final Type argument : new HashMap<>(fromAssignments).values()) {
+                        if (argument instanceof TypeVariable<?>) {
+                            fromAssignments.putIfAbsent((TypeVariable<?>) argument, argument);
+                        }
+                    }
+                    final Type parent = unrollVariables(fromAssignments, getClosestParentType(fromClass, toClass));
+                    return isAssignable(parent, toParameterizedType, typeVarAssigns, false);
+                }
+            }
+        }
         // get the subject type's type arguments including owner type arguments
         // and supertype arguments up to and including the target class.
         final Map<TypeVariable<?>, Type> fromTypeVarAssigns = getTypeArguments(type, toClass, null);
@@ -1118,10 +1160,10 @@ public class TypeUtils {
             return false;
         }
         // compatible types, but there's no type arguments. this is equivalent
-        // to comparing Map< ?, ? > to Map, and raw types are always assignable
-        // to parameterized types.
+        // to comparing Map< ?, ? > to Map. Raw types are assignable to
+        // parameterized types only when unchecked conversion is allowed.
         if (fromTypeVarAssigns.isEmpty()) {
-            return true;
+            return allowUnchecked;
         }
         // get the target type's type arguments including owner type arguments
         final Map<TypeVariable<?>, Type> toTypeVarAssigns = getTypeArguments(toParameterizedType, toClass, typeVarAssigns);
@@ -1130,16 +1172,24 @@ public class TypeUtils {
             final TypeVariable<?>[] typeParams = toClass.getTypeParameters();
             if (typeParams.length > 0) {
                 final Type toTypeArg = unrollVariableAssignments(typeParams[0], toTypeVarAssigns);
-                final Type fromTypeArg = unrollVariableAssignments(typeParams[0], fromTypeVarAssigns);
-                if (toTypeArg != null && (fromTypeArg == null || !toTypeArg.equals(fromTypeArg))) {
+                final Type fromTypeArg = ObjectUtils.defaultIfNull(unrollVariableAssignments(typeParams[0], fromTypeVarAssigns),
+                        fromTypeVarAssigns.get(typeParams[0]));
+                if (toTypeArg != null && !toTypeArg.equals(fromTypeArg) && !(toTypeArg instanceof WildcardType
+                        && isAssignableToClassWildcard(fromTypeArg, (WildcardType) toTypeArg, typeVarAssigns))) {
                     return false;
                 }
             }
         }
         // now to check each type argument
-        for (final TypeVariable<?> var : toTypeVarAssigns.keySet()) {
-            final Type toTypeArg = unrollVariableAssignments(var, toTypeVarAssigns);
-            final Type fromTypeArg = unrollVariableAssignments(var, fromTypeVarAssigns);
+        for (final Map.Entry<TypeVariable<?>, Type> assignment : toTypeVarAssigns.entrySet()) {
+            final TypeVariable<?> var = assignment.getKey();
+            final Type toTypeArg = allowUnchecked ? unrollVariableAssignments(var, toTypeVarAssigns)
+                    : ObjectUtils.defaultIfNull(unrollVariableAssignments(var, toTypeVarAssigns), assignment.getValue());
+            final Type fromTypeArg = allowUnchecked ? unrollVariableAssignments(var, fromTypeVarAssigns)
+                    : ObjectUtils.defaultIfNull(unrollVariableAssignments(var, fromTypeVarAssigns), fromTypeVarAssigns.get(var));
+            if (!allowUnchecked && fromTypeArg == null && toTypeArg != null) {
+                return false;
+            }
             if (toTypeArg == null && fromTypeArg instanceof Class) {
                 continue;
             }
@@ -1147,11 +1197,41 @@ public class TypeUtils {
             // the bounds of the wildcard type, or be an exact match to the
             // parameters of the target type.
             if (fromTypeArg != null && toTypeArg != null && !toTypeArg.equals(fromTypeArg)
-                    && !(toTypeArg instanceof WildcardType && isAssignable(fromTypeArg, toTypeArg, typeVarAssigns))) {
+                    && !(toTypeArg instanceof WildcardType && isAssignable(fromTypeArg, toTypeArg, typeVarAssigns, allowUnchecked))) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * Tests whether the type argument {@code fromTypeArg} of a {@code Class} parameterized type satisfies the wildcard type
+     * argument of a target {@code Class} parameterized type. Unchecked conversion does not apply inside a type argument,
+     * including when checking the upper or lower bounds of a wildcard.
+     *
+     * @param fromTypeArg    the subject type argument.
+     * @param wildcardType   the target wildcard type argument.
+     * @param typeVarAssigns a map with type variables.
+     * @return {@code true} if {@code fromTypeArg} is contained by {@code wildcardType}.
+     */
+    private static boolean isAssignableToClassWildcard(final Type fromTypeArg, final WildcardType wildcardType,
+            final Map<TypeVariable<?>, Type> typeVarAssigns) {
+        return fromTypeArg != null && isAssignable(fromTypeArg, wildcardType, typeVarAssigns, false);
+    }
+
+    /**
+     * Tests whether {@code type} is a raw generic class or a non-static member of a raw generic class.
+     *
+     * @param type the type to test.
+     * @return {@code true} if {@code type} is a raw generic class.
+     */
+    private static boolean isRawGenericClass(final Type type) {
+        if (!(type instanceof Class<?>)) {
+            return false;
+        }
+        final Class<?> cls = (Class<?>) type;
+        return cls.getTypeParameters().length > 0
+                || !Modifier.isStatic(cls.getModifiers()) && isRawGenericClass(cls.getDeclaringClass());
     }
 
     /**
@@ -1175,17 +1255,31 @@ public class TypeUtils {
      * @return {@code true} if {@code type} is assignable to {@code toType}.
      */
     private static boolean isAssignable(final Type type, final Type toType, final Map<TypeVariable<?>, Type> typeVarAssigns) {
+        return isAssignable(type, toType, typeVarAssigns, true);
+    }
+
+    /**
+     * Tests assignability, optionally allowing unchecked conversions from raw types to parameterized types.
+     *
+     * @param type           The subject type.
+     * @param toType         The target type.
+     * @param typeVarAssigns Optional type variable assignments.
+     * @param allowUnchecked Whether unchecked conversions are allowed.
+     * @return whether the subject type is assignable to the target type.
+     */
+    private static boolean isAssignable(final Type type, final Type toType, final Map<TypeVariable<?>, Type> typeVarAssigns,
+            final boolean allowUnchecked) {
         if (toType == null || toType instanceof Class<?>) {
             return isAssignable(type, (Class<?>) toType);
         }
         if (toType instanceof ParameterizedType) {
-            return isAssignable(type, (ParameterizedType) toType, typeVarAssigns);
+            return isAssignable(type, (ParameterizedType) toType, typeVarAssigns, allowUnchecked);
         }
         if (toType instanceof GenericArrayType) {
-            return isAssignable(type, (GenericArrayType) toType, typeVarAssigns);
+            return isAssignable(type, (GenericArrayType) toType, typeVarAssigns, allowUnchecked);
         }
         if (toType instanceof WildcardType) {
-            return isAssignable(type, (WildcardType) toType, typeVarAssigns);
+            return isAssignable(type, (WildcardType) toType, typeVarAssigns, allowUnchecked);
         }
         if (toType instanceof TypeVariable<?>) {
             return isAssignable(type, (TypeVariable<?>) toType, typeVarAssigns);
@@ -1224,6 +1318,7 @@ public class TypeUtils {
                     return true;
                 }
             }
+            return false;
         }
         if (type instanceof Class<?> || type instanceof ParameterizedType || type instanceof GenericArrayType || type instanceof WildcardType) {
             return false;
@@ -1237,9 +1332,11 @@ public class TypeUtils {
      * @param type           The subject type to be assigned to the target type.
      * @param toWildcardType The target wildcard type.
      * @param typeVarAssigns A map with type variables.
+     * @param allowUnchecked Whether unchecked conversions are allowed.
      * @return {@code true} if {@code type} is assignable to {@code toWildcardType}.
      */
-    private static boolean isAssignable(final Type type, final WildcardType toWildcardType, final Map<TypeVariable<?>, Type> typeVarAssigns) {
+    private static boolean isAssignable(final Type type, final WildcardType toWildcardType, final Map<TypeVariable<?>, Type> typeVarAssigns,
+            final boolean allowUnchecked) {
         if (type == null) {
             return true;
         }
@@ -1266,7 +1363,7 @@ public class TypeUtils {
                 // each upper bound of the target type
                 boolean satisfied = false;
                 for (final Type bound : upperBounds) {
-                    if (isAssignable(bound, toBound, typeVarAssigns)) {
+                    if (isAssignable(bound, toBound, typeVarAssigns, allowUnchecked)) {
                         satisfied = true;
                         break;
                     }
@@ -1282,7 +1379,7 @@ public class TypeUtils {
                 // each lower bound of the target type has to be assignable to
                 // each lower bound of the subject type
                 for (final Type bound : lowerBounds) {
-                    if (!isAssignable(toBound, bound, typeVarAssigns)) {
+                    if (!isAssignable(toBound, bound, typeVarAssigns, allowUnchecked)) {
                         return false;
                     }
                 }
@@ -1292,14 +1389,14 @@ public class TypeUtils {
         for (final Type toBound : toUpperBounds) {
             // if there are assignments for unresolved type variables,
             // now's the time to substitute them.
-            if (!isAssignable(type, substituteTypeVariables(toBound, typeVarAssigns), typeVarAssigns)) {
+            if (!isAssignable(type, substituteTypeVariables(toBound, typeVarAssigns), typeVarAssigns, allowUnchecked)) {
                 return false;
             }
         }
         for (final Type toBound : toLowerBounds) {
             // if there are assignments for unresolved type variables,
             // now's the time to substitute them.
-            if (!isAssignable(substituteTypeVariables(toBound, typeVarAssigns), type, typeVarAssigns)) {
+            if (!isAssignable(substituteTypeVariables(toBound, typeVarAssigns), type, typeVarAssigns, allowUnchecked)) {
                 return false;
             }
         }
