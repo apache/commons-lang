@@ -266,6 +266,16 @@ class JsonToStringStyleTest extends AbstractBuilderTest {
     }
 
     @Test
+    void testCharSequenceIsEscaped() {
+        final String text = "{},\"admin\":true,\"x\":{}";
+        final String expected = "{\"name\":\"{},\\\"admin\\\":true,\\\"x\\\":{}\"}";
+        assertEquals(expected, new ToStringBuilder(base).append("name", text).toString());
+        assertEquals(expected, new ToStringBuilder(base).append("name", new StringBuilder(text)).toString());
+        assertEquals(expected, new ToStringBuilder(base).append("name", new StringBuffer(text)).toString());
+        assertEquals("{\"name\":[\"[1]\"]}", new ToStringBuilder(base).append("name", Arrays.asList(new StringBuilder("[1]"))).toString());
+    }
+
+    @Test
     void testCombineListAndEnum() {
         final Teacher teacher = new Teacher();
 
