@@ -20,9 +20,11 @@ import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentExcep
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.io.Serializable;
 import java.text.FieldPosition;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +33,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SerializationUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.jupiter.api.Test;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
@@ -206,6 +210,36 @@ class FastDatePrinterTest extends AbstractLangTest {
                 final SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);
                 sdf.setTimeZone(TimeZones.GMT);
                 assertEquals(sdf.format(date), getInstance(pattern, TimeZones.GMT, locale).format(date), () -> locale + " " + pattern);
+            }
+        }
+    }
+
+    /**
+     * Tests that a month-only pattern uses the standalone month names, like SimpleDateFormat. In some languages, like the Slavic and Baltic ones, they are a
+     * different grammatical form from the names used next to a day: "MMMM" alone prints Russian February as nominative "февраль" where "d MMMM" prints
+     * genitive "февраля".
+     */
+    @Test
+    void testStandaloneMonthForMonthOnlyPattern() throws ParseException {
+        // SimpleDateFormat forces the standalone form for a month-only pattern only since Java 9 (JDK-8114833); Java 8 has no such rule.
+        assumeTrue(SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9));
+        final Locale[] locales = { Locale.US, Locale.GERMANY, new Locale("ru"), new Locale("cs"), new Locale("pl"), new Locale("fi") };
+        // Month-only patterns, with or without literals, use the standalone form; patterns with another field keep the format form.
+        final String[] patterns = { "MMM", "MMMM", "'m:'MMMM", "MMMM''", "MMMM,", "d MMMM", "MMMM yyyy", "MMM MMM" };
+        for (final Locale locale : locales) {
+            for (final String pattern : patterns) {
+                for (int month = Calendar.JANUARY; month <= Calendar.DECEMBER; month++) {
+                    final Calendar cal = Calendar.getInstance(TimeZones.GMT, locale);
+                    cal.clear();
+                    cal.set(2024, month, 10);
+                    final Date date = cal.getTime();
+                    final SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);
+                    sdf.setTimeZone(TimeZones.GMT);
+                    final FastDateFormat fdf = FastDateFormat.getInstance(pattern, TimeZones.GMT, locale);
+                    assertEquals(sdf.format(date), fdf.format(date), () -> locale + " " + pattern);
+                    // FastDateParser accepts all name styles, so the printer's output parses back.
+                    assertEquals(month, DateUtils.toCalendar(fdf.parse(fdf.format(date)), TimeZones.GMT).get(Calendar.MONTH), () -> locale + " " + pattern);
+                }
             }
         }
     }
