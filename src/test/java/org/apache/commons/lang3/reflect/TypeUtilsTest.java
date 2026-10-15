@@ -64,6 +64,7 @@ import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
@@ -232,6 +233,49 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         }
     }
 
+    private static class ClassWildcardTypes<T extends List, U, V extends List<String>, W extends U> {
+        Class<List<String>> strings;
+        Class<List> rawList;
+        Class<ArrayList<String>> stringArrayList;
+        Class<? extends List> extendsRawList;
+        Class<? extends List<String>> extendsStrings;
+        Class<? extends List<?>> extendsUnknownList;
+        Class<? super List> superRawList;
+        Class<? super List<String>> superStrings;
+        Class<T> rawBound;
+        Class<? extends T> extendsRawBound;
+        Class<V> parameterizedBound;
+        Class<RawTestImpl> rawSubclass;
+        Class<ParameterizedRawTestImpl<String>> parameterizedRawSubclass;
+        Class<RawNumberTestImpl> rawAncestor;
+        Class<NumberTestImpl> fixedSubclass;
+        Class<GenericNumberOwner.Member> rawMember;
+        Class<GenericNumberOwner.StaticMember> staticMember;
+        Class<GenericNumberOwner<String>.Member> parameterizedMember;
+        Class<TestImpl<Number>> parameterizedSubclass;
+        Class<TestImpl<U>> variableSubclass;
+        Class<? extends TestIF<?>> extendsUnknownInterface;
+        Class<? extends TestIF<Number>> extendsNumberInterface;
+        Class<? extends TestIF<U>> extendsVariableInterface;
+        Class<List[]> rawArray;
+        Class<List<String>[]> parameterizedArray;
+        Class<? extends List[]> extendsRawArray;
+        Class<? extends List<String>[]> extendsParameterizedArray;
+        Class<? super List[]> superRawArray;
+        Class<? super List<String>[]> superParameterizedArray;
+        Class<List<? extends List>> nestedRaw;
+        Class<List<? extends List<String>>> nestedParameterized;
+        Class<? extends List<? extends List<String>>> extendsNestedParameterized;
+        Class<? super List<? extends List>> superNestedRaw;
+        Class<? super List<? extends List<String>>> superNestedParameterized;
+        Class<U> unboundedVariable;
+        Class<? extends U> extendsUnboundedVariable;
+        Class<? super U> superUnboundedVariable;
+        Class<W> dependentVariable;
+        Class<? extends W> extendsDependentVariable;
+        Class<? super W> superDependentVariable;
+    }
+
     /**
      * A custom {@link ParameterizedType} with a structural {@code hashCode()}, whose owner and type arguments can be set after construction so that tests can
      * create cycles.
@@ -350,6 +394,29 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         Map<T, T> map;
     }
 
+    private static class GenericNumberOwner<T> {
+        class Member implements TestIF<Number> {
+        }
+
+        static class StaticMember implements TestIF<Number> {
+        }
+    }
+
+    private static class NumberTestImpl implements TestIF<Number> {
+    }
+
+    private static class ParameterizedRawTestImpl<T> extends TestImpl {
+    }
+
+    private static class RawGenericNumberTestImpl<T> extends NumberTestImpl {
+    }
+
+    private static class RawNumberTestImpl extends RawGenericNumberTestImpl {
+    }
+
+    private static class RawTestImpl extends TestImpl {
+    }
+
     public class Tester implements This<String, B> {
         // empty
     }
@@ -403,6 +470,49 @@ class TypeUtilsTest<B> extends AbstractLangTest {
 
     public static <T extends Comparable<? extends T>> T stub3() {
         return null;
+    }
+
+    static Stream<Arguments> testIsAssignable_ClassWildcardBounds() {
+        return Stream.of(
+                Arguments.of("extendsRawList", "extendsStrings", false),
+                Arguments.of("extendsRawList", "extendsUnknownList", false),
+                Arguments.of("rawBound", "extendsStrings", false),
+                Arguments.of("rawBound", "extendsUnknownList", false),
+                Arguments.of("extendsRawBound", "extendsStrings", false),
+                Arguments.of("rawSubclass", "extendsUnknownInterface", false),
+                Arguments.of("parameterizedRawSubclass", "extendsUnknownInterface", false),
+                Arguments.of("rawAncestor", "extendsNumberInterface", false),
+                Arguments.of("rawMember", "extendsNumberInterface", false),
+                Arguments.of("nestedRaw", "extendsNestedParameterized", false),
+                Arguments.of("rawArray", "extendsParameterizedArray", false),
+                Arguments.of("extendsRawArray", "extendsParameterizedArray", false),
+                Arguments.of("strings", "superRawList", false),
+                Arguments.of("superStrings", "superRawList", false),
+                Arguments.of("parameterizedBound", "superRawList", false),
+                Arguments.of("nestedParameterized", "superNestedRaw", false),
+                Arguments.of("parameterizedArray", "superRawArray", false),
+                Arguments.of("unboundedVariable", "extendsRawBound", false),
+                Arguments.of("unboundedVariable", "extendsDependentVariable", false),
+                Arguments.of("dependentVariable", "superUnboundedVariable", false),
+                Arguments.of("rawBound", "extendsUnboundedVariable", false),
+                Arguments.of("rawBound", "superUnboundedVariable", false),
+                Arguments.of("strings", "extendsStrings", true),
+                Arguments.of("stringArrayList", "extendsStrings", true),
+                Arguments.of("parameterizedBound", "extendsStrings", true),
+                Arguments.of("fixedSubclass", "extendsNumberInterface", true),
+                Arguments.of("staticMember", "extendsNumberInterface", true),
+                Arguments.of("parameterizedMember", "extendsNumberInterface", true),
+                Arguments.of("parameterizedSubclass", "extendsNumberInterface", true),
+                Arguments.of("variableSubclass", "extendsVariableInterface", true),
+                Arguments.of("rawList", "superStrings", true),
+                Arguments.of("rawArray", "superParameterizedArray", true),
+                Arguments.of("nestedRaw", "superNestedParameterized", true),
+                Arguments.of("parameterizedArray", "extendsParameterizedArray", true),
+                Arguments.of("nestedParameterized", "extendsNestedParameterized", true),
+                Arguments.of("unboundedVariable", "extendsUnboundedVariable", true),
+                Arguments.of("unboundedVariable", "superUnboundedVariable", true),
+                Arguments.of("dependentVariable", "extendsUnboundedVariable", true),
+                Arguments.of("unboundedVariable", "superDependentVariable", true));
     }
 
     static Stream<Type> testTypeToString() {
@@ -1167,6 +1277,23 @@ class TypeUtilsTest<B> extends AbstractLangTest {
                 TypeUtils.parameterize(Class.class, TypeUtils.wildcardType()
                         .withUpperBounds(TypeUtils.parameterize(Collection.class, Integer.class)).build())),
                 "Class<List<String>> should not be assignable to Class<? extends Collection<Integer>>");
+    }
+
+    @ParameterizedTest(name = "{0} -> {1}: {2}")
+    @MethodSource
+    void testIsAssignable_ClassWildcardBounds(final String fromField, final String toField, final boolean expected) throws NoSuchFieldException {
+        final Type from = ClassWildcardTypes.class.getDeclaredField(fromField).getGenericType();
+        final Type to = ClassWildcardTypes.class.getDeclaredField(toField).getGenericType();
+        assertEquals(expected, TypeUtils.isAssignable(from, to), () -> from + " -> " + to);
+    }
+
+    @Test
+    void testIsAssignable_UnrelatedTypeVariables() {
+        final TypeVariable<?>[] variables = ClassWildcardTypes.class.getTypeParameters();
+        assertFalse(TypeUtils.isAssignable(variables[0], variables[1]));
+        assertFalse(TypeUtils.isAssignable(variables[1], variables[0]));
+        assertFalse(TypeUtils.isAssignable(variables[1], variables[3]));
+        assertTrue(TypeUtils.isAssignable(variables[3], variables[1]));
     }
 
     @Test
