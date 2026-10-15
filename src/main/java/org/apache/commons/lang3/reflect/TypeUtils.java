@@ -1130,7 +1130,8 @@ public class TypeUtils {
             final TypeVariable<?>[] typeParams = toClass.getTypeParameters();
             if (typeParams.length > 0) {
                 final Type toTypeArg = unrollVariableAssignments(typeParams[0], toTypeVarAssigns);
-                final Type fromTypeArg = unrollVariableAssignments(typeParams[0], fromTypeVarAssigns);
+                final Type fromTypeArg = ObjectUtils.defaultIfNull(unrollVariableAssignments(typeParams[0], fromTypeVarAssigns),
+                        fromTypeVarAssigns.get(typeParams[0]));
                 if (toTypeArg != null && !toTypeArg.equals(fromTypeArg) && !(toTypeArg instanceof WildcardType
                         && isAssignableToClassWildcard(fromTypeArg, (WildcardType) toTypeArg, typeVarAssigns))) {
                     return false;
@@ -1158,11 +1159,10 @@ public class TypeUtils {
     /**
      * Tests whether the type argument {@code fromTypeArg} of a {@code Class} parameterized type satisfies the wildcard type
      * argument of a target {@code Class} parameterized type. Unlike the general wildcard check, a raw generic class does not
-     * satisfy a parameterized bound here, because {@code Class} is invariant and javac does not apply unchecked conversion to
-     * its type argument.
+     * satisfy a parameterized upper bound here, because unchecked conversion does not apply inside a type argument.
      *
-     * @param fromTypeArg   the subject type argument.
-     * @param wildcardType  the target wildcard type argument.
+     * @param fromTypeArg    the subject type argument.
+     * @param wildcardType   the target wildcard type argument.
      * @param typeVarAssigns a map with type variables.
      * @return {@code true} if {@code fromTypeArg} is contained by {@code wildcardType}.
      */
@@ -1175,19 +1175,8 @@ public class TypeUtils {
             if (isRawGenericClass(fromTypeArg) && upperBound instanceof ParameterizedType) {
                 return false;
             }
-            if (!isAssignable(fromTypeArg, upperBound, typeVarAssigns)) {
-                return false;
-            }
         }
-        for (final Type lowerBound : wildcardType.getLowerBounds()) {
-            if (isRawGenericClass(fromTypeArg) && lowerBound instanceof ParameterizedType) {
-                return false;
-            }
-            if (!isAssignable(lowerBound, fromTypeArg, typeVarAssigns)) {
-                return false;
-            }
-        }
-        return true;
+        return isAssignable(fromTypeArg, wildcardType, typeVarAssigns);
     }
 
     /**

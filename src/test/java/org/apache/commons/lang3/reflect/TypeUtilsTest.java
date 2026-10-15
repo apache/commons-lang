@@ -1116,6 +1116,10 @@ class TypeUtilsTest<B> extends AbstractLangTest {
                 "Class<Integer> should be assignable to Class<?>");
         assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, Class.class.getTypeParameters()[0]), to),
                 "Class<T> should be assignable to Class<?>");
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, List.class.getTypeParameters()[0]), to),
+                "Class<E> should be assignable to Class<?> when E is declared by another class");
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(Number.class).build()), to),
+                "Class<? extends Number> should be assignable to Class<?>");
         assertTrue(TypeUtils.isAssignable(Class.class, to), "raw Class should be assignable to Class<?>");
         assertFalse(TypeUtils.isAssignable(to, TypeUtils.parameterize(Class.class, Integer.class)),
                 "Class<?> should not be assignable to Class<Integer>");
@@ -1126,6 +1130,31 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(Object.class).build());
         assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, String.class), to),
                 "Class<String> should be assignable to Class<? extends Object>");
+    }
+
+    @Test
+    void testIsAssignable_ClassWithUpperBoundedWildcard() {
+        final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(Number.class).build());
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, Integer.class), to),
+                "Class<Integer> should be assignable to Class<? extends Number>");
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withUpperBounds(Integer.class).build()), to),
+                "Class<? extends Integer> should be assignable to Class<? extends Number>");
+        assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, String.class), to),
+                "Class<String> should not be assignable to Class<? extends Number>");
+    }
+
+    @Test
+    void testIsAssignable_ClassWithLowerBoundedWildcard() {
+        final Type to = TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withLowerBounds(Integer.class).build());
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, Number.class), to),
+                "Class<Number> should be assignable to Class<? super Integer>");
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withLowerBounds(Number.class).build()), to),
+                "Class<? super Number> should be assignable to Class<? super Integer>");
+        assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, String.class), to),
+                "Class<String> should not be assignable to Class<? super Integer>");
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(Class.class, List.class),
+                TypeUtils.parameterize(Class.class, TypeUtils.wildcardType().withLowerBounds(TypeUtils.parameterize(List.class, String.class)).build())),
+                "Class<List> should be assignable to Class<? super List<String>>");
     }
 
     @Test
