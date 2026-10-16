@@ -51,8 +51,13 @@ import org.apache.commons.lang3.LocaleUtils;
  * <p>
  * Several methods are provided for adding to {@link Date} objects, of the form
  * {@code addXXX(Date date, int amount)}. It is important to note these methods
- * use a {@link Calendar} internally (with default time zone and locale) and may
- * be affected by changes to daylight saving time (DST).
+ * use the default time zone and locale. Adding days, weeks, months, or years performs
+ * calendar-based arithmetic which may be affected by changes to daylight saving time (DST).
+ * For instance, adding one day across a DST change will result in a calendar day that may
+ * represent 23 or 25 hours rather than exactly 86,400,000 milliseconds. Callers needing
+ * fixed elapsed-time arithmetic should consider using {@link java.time.Instant} or
+ * direct millisecond calculations. Adding hours, minutes, seconds, or milliseconds adds the
+ * corresponding elapsed time, so the local clock time may change across a DST transition.
  * </p>
  *
  * @since 2.0
@@ -214,6 +219,10 @@ public class DateUtils {
      * Adds to a date returning a new object.
      * The original {@link Date} is unchanged.
      *
+     * <p>
+     * This method uses the default time zone and locale. Calendar-based addition may be affected by daylight saving time (DST) transitions.
+     * </p>
+     *
      * @param date  The date, not null.
      * @param calendarField  The calendar field to add to.
      * @param amount  The amount to add, may be negative.
@@ -232,6 +241,12 @@ public class DateUtils {
      * Adds a number of days to a date returning a new object.
      * The original {@link Date} is unchanged.
      *
+     * <p>
+     * This method adds calendar days using the default time zone and locale.
+     * Daylight saving time (DST) transitions may change the elapsed time. For example, adding one day may add 23 or 25 hours
+     * rather than a fixed 24-hour (86,400,000 millisecond) duration.
+     * </p>
+     *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
      * @return The new {@link Date} with the amount added.
@@ -244,6 +259,11 @@ public class DateUtils {
     /**
      * Adds a number of hours to a date returning a new object.
      * The original {@link Date} is unchanged.
+     *
+     * <p>
+     * This method adds elapsed hours using the default time zone and locale.
+     * Daylight saving time (DST) transitions do not change the elapsed time added, but may affect the resulting local clock time.
+     * </p>
      *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
@@ -258,6 +278,11 @@ public class DateUtils {
      * Adds a number of milliseconds to a date returning a new object.
      * The original {@link Date} is unchanged.
      *
+     * <p>
+     * This method adds elapsed milliseconds using the default time zone and locale.
+     * Daylight saving time (DST) transitions do not change the elapsed time added, but may affect the resulting local clock time.
+     * </p>
+     *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
      * @return The new {@link Date} with the amount added.
@@ -270,6 +295,11 @@ public class DateUtils {
     /**
      * Adds a number of minutes to a date returning a new object.
      * The original {@link Date} is unchanged.
+     *
+     * <p>
+     * This method adds elapsed minutes using the default time zone and locale.
+     * Daylight saving time (DST) transitions do not change the elapsed time added, but may affect the resulting local clock time.
+     * </p>
      *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
@@ -284,6 +314,11 @@ public class DateUtils {
      * Adds a number of months to a date returning a new object.
      * The original {@link Date} is unchanged.
      *
+     * <p>
+     * This method adds calendar months using the default time zone and locale.
+     * Daylight saving time (DST) transitions may change the elapsed time.
+     * </p>
+     *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
      * @return The new {@link Date} with the amount added.
@@ -296,6 +331,11 @@ public class DateUtils {
     /**
      * Adds a number of seconds to a date returning a new object.
      * The original {@link Date} is unchanged.
+     *
+     * <p>
+     * This method adds elapsed seconds using the default time zone and locale.
+     * Daylight saving time (DST) transitions do not change the elapsed time added, but may affect the resulting local clock time.
+     * </p>
      *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
@@ -310,6 +350,11 @@ public class DateUtils {
      * Adds a number of weeks to a date returning a new object.
      * The original {@link Date} is unchanged.
      *
+     * <p>
+     * This method adds calendar weeks using the default time zone and locale.
+     * Daylight saving time (DST) transitions may change the elapsed time.
+     * </p>
+     *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.
      * @return The new {@link Date} with the amount added.
@@ -322,6 +367,11 @@ public class DateUtils {
     /**
      * Adds a number of years to a date returning a new object.
      * The original {@link Date} is unchanged.
+     *
+     * <p>
+     * This method adds calendar years using the default time zone and locale.
+     * Daylight saving time (DST) transitions may change the elapsed time.
+     * </p>
      *
      * @param date  The date, not null.
      * @param amount  The amount to add, may be negative.

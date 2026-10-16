@@ -44,6 +44,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -57,13 +58,17 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
+import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
 import org.junitpioneer.jupiter.WritesDefaultLocale;
+import org.junitpioneer.jupiter.WritesDefaultTimeZone;
 
 /**
  * Tests {@link DateUtils}.
  */
 @ReadsDefaultLocale
 @WritesDefaultLocale
+@ReadsDefaultTimeZone
+@WritesDefaultTimeZone
 class DateUtilsTest extends AbstractLangTest {
 
     private static final Date MAX_DATE = new Date(Long.MAX_VALUE);
@@ -189,7 +194,7 @@ class DateUtilsTest extends AbstractLangTest {
                 Arguments.of(
                         LocalDateTime.ofInstant(
                                 java.sql.Timestamp.valueOf("2023-03-12 02:30:00").toInstant(),
-                                TimeZone.getDefault().toZoneId()
+                                TimeZones.GMT.toZoneId()
                         ),
                         java.sql.Timestamp.valueOf("2023-03-12 02:30:00"),
                         null
@@ -263,6 +268,7 @@ class DateUtilsTest extends AbstractLangTest {
     }
     @BeforeEach
     public void setUp() throws Exception {
+        final TimeZone defaultZone = TimeZone.getDefault();
         dateParser = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
         dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS", Locale.ENGLISH);
         dateAmPm1 = dateTimeParser.parse("February 3, 2002 01:10:00.000");
@@ -282,8 +288,8 @@ class DateUtilsTest extends AbstractLangTest {
             date7 = dateTimeParser.parse("March 30, 2003 02:40:00.000");
             date8 = dateTimeParser.parse("October 26, 2003 05:30:45.000");
         } finally {
-            dateTimeParser.setTimeZone(TIME_ZONE_DEFAULT);
-            TimeZone.setDefault(TIME_ZONE_DEFAULT);
+            dateTimeParser.setTimeZone(defaultZone);
+            TimeZone.setDefault(defaultZone);
         }
         date9 = dateTimeParser.parse("March 30, 2003 01:10:00.000");
         calAmPm1 = Calendar.getInstance();
@@ -313,7 +319,7 @@ class DateUtilsTest extends AbstractLangTest {
             cal8 = Calendar.getInstance();
             cal8.setTime(date8);
         } finally {
-            TimeZone.setDefault(TIME_ZONE_DEFAULT);
+            TimeZone.setDefault(defaultZone);
         }
     }
 
@@ -335,6 +341,50 @@ class DateUtilsTest extends AbstractLangTest {
         assertDate(result, 2000, 6, 4, 4, 3, 2, 1);
 
         assertNullPointerException(() -> DateUtils.addDays(null, 0));
+    }
+
+    @DefaultTimeZone("Europe/Brussels")
+    @Test
+    void testAddDaysDaylightSavingTime() {
+        final TimeZone brusselsTz = TimeZones.getTimeZone("Europe/Brussels");
+
+        // 2012-03-25 00:00:00 CET: Brussels spring DST transition (23-hour day)
+        final Calendar calSpring = Calendar.getInstance(brusselsTz);
+        calSpring.clear();
+        calSpring.set(2012, Calendar.MARCH, 25, 0, 0, 0);
+        final Date inputSpring = calSpring.getTime();
+
+        // In Europe/Brussels: calendar day advances to 2012-03-26 00:00:00 CEST (23 hours elapsed)
+        final Date outputSpring = DateUtils.addDays(inputSpring, 1);
+        assertEquals(TimeUnit.HOURS.toMillis(23), outputSpring.getTime() - inputSpring.getTime());
+
+        final Calendar calSpringResult = Calendar.getInstance(brusselsTz);
+        calSpringResult.setTime(outputSpring);
+        assertEquals(2012, calSpringResult.get(Calendar.YEAR));
+        assertEquals(Calendar.MARCH, calSpringResult.get(Calendar.MONTH));
+        assertEquals(26, calSpringResult.get(Calendar.DAY_OF_MONTH));
+        assertEquals(0, calSpringResult.get(Calendar.HOUR_OF_DAY));
+        assertEquals(inputSpring, DateUtils.addDays(outputSpring, -1));
+        assertEquals(TimeUnit.HOURS.toMillis(24), DateUtils.addHours(inputSpring, 24).getTime() - inputSpring.getTime());
+
+        // 2012-10-28 00:00:00 CEST: Brussels autumn DST transition (25-hour day)
+        final Calendar calAutumn = Calendar.getInstance(brusselsTz);
+        calAutumn.clear();
+        calAutumn.set(2012, Calendar.OCTOBER, 28, 0, 0, 0);
+        final Date inputAutumn = calAutumn.getTime();
+
+        // In Europe/Brussels: calendar day advances to 2012-10-29 00:00:00 CET (25 hours elapsed)
+        final Date outputAutumn = DateUtils.addDays(inputAutumn, 1);
+        assertEquals(TimeUnit.HOURS.toMillis(25), outputAutumn.getTime() - inputAutumn.getTime());
+
+        final Calendar calAutumnResult = Calendar.getInstance(brusselsTz);
+        calAutumnResult.setTime(outputAutumn);
+        assertEquals(2012, calAutumnResult.get(Calendar.YEAR));
+        assertEquals(Calendar.OCTOBER, calAutumnResult.get(Calendar.MONTH));
+        assertEquals(29, calAutumnResult.get(Calendar.DAY_OF_MONTH));
+        assertEquals(0, calAutumnResult.get(Calendar.HOUR_OF_DAY));
+        assertEquals(inputAutumn, DateUtils.addDays(outputAutumn, -1));
+        assertEquals(TimeUnit.HOURS.toMillis(24), DateUtils.addHours(inputAutumn, 24).getTime() - inputAutumn.getTime());
     }
 
     @Test
