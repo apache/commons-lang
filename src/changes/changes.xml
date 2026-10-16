@@ -61,6 +61,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1837" type="fix" dev="ggregory" due-to="Aosen Xiong, Gary Gregory">Prevent null returns from lazily initialized string caches.</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Escape CharSequence values in ToStringStyle.JSON_STYLE (#1821).</action>
     <action issue="LANG-796"  type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Clarify DateUtils calendar arithmetic and daylight saving time behavior.</action>
+    <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Treat an unmatched quote as closed in ExtendedMessageFormat (#1819).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>

@@ -55,8 +55,10 @@ import org.apache.commons.lang3.Validate;
  * found is used for this format element.
  * </p>
  *
- * <p>Quoting follows {@link MessageFormat}: doubled single quotes represent a literal single quote, and an unmatched single quote is treated as closed
- * at the end of the pattern. Format elements within quoted text are treated as literal text.</p>
+ * <p>
+ * Quoting follows {@link MessageFormat}: doubled single quotes represent a literal single quote, and an unmatched single quote is treated as closed
+ * at the end of the pattern. Format elements within quoted text are treated as literal text.
+ * </p>
  *
  * <p>
  * <strong>NOTICE:</strong> The various subformat mutator methods are considered unnecessary; they exist on the parent
