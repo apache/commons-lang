@@ -60,9 +60,9 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="XenoAmess, Gary Gregory">Fix TypeUtils.isAssignable rejecting Class&lt;X&gt; to Class&lt;?&gt; assignments (#1820).</action>
     <action issue="LANG-1837" type="fix" dev="ggregory" due-to="Aosen Xiong, Gary Gregory">Prevent null returns from lazily initialized string caches.</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Escape CharSequence values in ToStringStyle.JSON_STYLE (#1821).</action>
-    <action issue="LANG-796"  type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Clarify DateUtils calendar arithmetic and daylight saving time behavior.</action>
+    <action issue="LANG-796"  type="fix" dev="ggregory" due-to="Nicola Barbiero, Adrian Crum, Thomas Neidhart, Joerg Schaible, Duncan Jones, Josh Chaitin-Pollak, gaurav kumar pandey, Gary Gregory">Clarify DateUtils calendar arithmetic and daylight saving time behavior.</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Treat an unmatched quote as closed in ExtendedMessageFormat (#1819).</action>
-    <action issue="LANG-796"  type="fix" dev="ggregory" due-to="Nicola Barbiero, Adrian Crum, Thomas Neidhart, Joerg Schaible, Duncan Jones, Josh Chaitin-Pollak, gaurav kumar pandey, Gary Gregory">Prevent StringUtils padding from splitting surrogate pairs (#1813).</action>
+    <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Prevent StringUtils padding from splitting surrogate pairs (#1813).</action>
     <action issue="LANG-441"  type="fix" dev="ggregory" due-to="Sebb, Valentin Rocher, Adarsh Kumar Omrey, Gary Gregory">DateUtils Javadoc does not fully define round() behavior.</action>
     <!-- ADD -->
     <!-- UPDATE -->
