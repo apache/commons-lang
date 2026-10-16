@@ -141,6 +141,26 @@ class StringUtilsTest extends AbstractLangTest {
     private static final boolean[] ARRAY_FALSE_TRUE = {false, true};
     private static final boolean[] ARRAY_FALSE_TRUE_FALSE = {false, true, false};
 
+    private static void assertNoLoneSurrogates(final String result) {
+        for (int i = 0; i < result.length(); i++) {
+            final char ch = result.charAt(i);
+            if (Character.isHighSurrogate(ch)) {
+                assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
+                        "lone high surrogate in: " + result);
+                i++; // skip the paired low surrogate
+            } else {
+                assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
+            }
+        }
+    }
+
+    static Stream<TriFunction<String, Integer, String, String>> testPadSurrogatePair() {
+        return Stream.of(
+                StringUtils::center,
+                StringUtils::leftPad,
+                StringUtils::rightPad);
+    }
+
     private void innerTestSplit(final char separator, final String sepStr, final char noMatch) {
         final String msg = "Failed on separator hex(" + Integer.toHexString(separator) +
                 "), noMatch hex(" + Integer.toHexString(noMatch) + "), sepStr(" + sepStr + ")";
@@ -224,19 +244,6 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals(2, res.length, msg);
         assertEquals("a", res[0], msg);
         assertEquals(str.substring(2), res[1], msg);
-    }
-
-    private static void assertNoLoneSurrogates(final String result) {
-        for (int i = 0; i < result.length(); i++) {
-            final char ch = result.charAt(i);
-            if (Character.isHighSurrogate(ch)) {
-                assertTrue(i + 1 < result.length() && Character.isLowSurrogate(result.charAt(i + 1)),
-                        "lone high surrogate in: " + result);
-                i++; // skip the paired low surrogate
-            } else {
-                assertFalse(Character.isLowSurrogate(ch), "lone low surrogate in: " + result);
-            }
-        }
     }
 
     /**
@@ -1444,7 +1451,7 @@ class StringUtilsTest extends AbstractLangTest {
 
     @Test
     void testNormalizeSpace() {
-        // Java says a non-breaking whitespace is not a whitespace.
+        // Character.isWhitespace excludes non-breaking space; normalizeSpace converts it explicitly.
         assertFalse(Character.isWhitespace('\u00A0'));
         //
         assertNull(StringUtils.normalizeSpace(null));
@@ -1467,6 +1474,26 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("a   b c", StringUtils.normalizeSpace("a\t\f\r  " + HARD_SPACE + HARD_SPACE + "b\u000B   c\n"));
         assertEquals("b", StringUtils.normalizeSpace("\u0000b"));
         assertEquals("b", StringUtils.normalizeSpace("b\u0000"));
+    }
+
+    @Test
+    void testNormalizeSpaceNonBreakingSpace() {
+        assertEquals("", StringUtils.normalizeSpace("\u00A0"));
+        assertEquals("", StringUtils.normalizeSpace("\u00A0\u00A0"));
+        assertEquals("a", StringUtils.normalizeSpace("\u00A0a"));
+        assertEquals("a", StringUtils.normalizeSpace("a\u00A0"));
+        assertEquals("a", StringUtils.normalizeSpace(" \u00A0a\u00A0 "));
+        assertEquals("a b", StringUtils.normalizeSpace("a\u00A0b"));
+        assertEquals("a  b", StringUtils.normalizeSpace("a\u00A0\u00A0b"));
+        assertEquals("a  b", StringUtils.normalizeSpace("a\u00A0 b"));
+        assertEquals("a  b", StringUtils.normalizeSpace("a \u00A0b"));
+        assertEquals("\u2007a\u2007", StringUtils.normalizeSpace("\u2007a\u2007"));
+        assertEquals("\u202Fa\u202F", StringUtils.normalizeSpace("\u202Fa\u202F"));
+    }
+
+    @Test
+    void testNormalizeSpaceUnicodeWhitespace() {
+        assertEquals("a b", StringUtils.normalizeSpace("\u2003a\u2003\u2003b\u2003"));
     }
 
     @Test
@@ -1539,13 +1566,6 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("axa", StringUtils.center("x", 4, pad));
         assertEquals("axa" + grin + "b", StringUtils.center("x", 6, pad));
         assertEquals("a" + grin + "xa" + grin, StringUtils.center("x", 7, pad));
-    }
-
-    static Stream<TriFunction<String, Integer, String, String>> testPadSurrogatePair() {
-        return Stream.of(
-                StringUtils::center,
-                StringUtils::leftPad,
-                StringUtils::rightPad);
     }
 
     @ParameterizedTest
