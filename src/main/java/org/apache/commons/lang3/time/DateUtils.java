@@ -1503,6 +1503,12 @@ public class DateUtils {
      * </p>
      *
      * <p>
+     * Rounding ignores fields below the immediately smaller field: minutes round up at 30 seconds, hours at 30 minutes,
+     * months at day 16 (day 15 in a 28-day month), and years at July. For {@code SEMI_MONTH}, days 1–8 round to the 1st,
+     * days 9–23 to the 16th, and days 24 onward to the 1st of the next month.
+     * </p>
+     *
+     * <p>
      * For a date in a time zone that handles the change to daylight
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a
@@ -1520,6 +1526,7 @@ public class DateUtils {
      * @return The different rounded date, not null.
      * @throws NullPointerException Thrown if the date is {@code null}.
      * @throws ArithmeticException Thrown if the year is over 280 million.
+     * @throws IllegalArgumentException Thrown if the field is not supported.
      */
     public static Calendar round(final Calendar calendar, final int field) {
         Objects.requireNonNull(calendar, "calendar");
@@ -1535,6 +1542,10 @@ public class DateUtils {
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.
+     * </p>
+     *
+     * <p>
+     * See {@link #round(Calendar, int)} for rounding thresholds.
      * </p>
      *
      * <p>
@@ -1555,6 +1566,7 @@ public class DateUtils {
      * @return The different rounded date, not null.
      * @throws NullPointerException Thrown if the date is null.
      * @throws ArithmeticException Thrown if the year is over 280 million.
+     * @throws IllegalArgumentException Thrown if the field is not supported.
      */
     public static Date round(final Date date, final int field) {
         return modify(toCalendar(date), field, ModifyType.ROUND).getTime();
@@ -1569,6 +1581,10 @@ public class DateUtils {
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.
+     * </p>
+     *
+     * <p>
+     * See {@link #round(Calendar, int)} for rounding thresholds.
      * </p>
      *
      * <p>
@@ -1590,6 +1606,7 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is {@code null}.
      * @throws ClassCastException Thrown if the object type is not a {@link Date} or {@link Calendar}.
      * @throws ArithmeticException Thrown if the year is over 280 million.
+     * @throws IllegalArgumentException Thrown if the field is not supported.
      */
     public static Date round(final Object date, final int field) {
         Objects.requireNonNull(date, "date");

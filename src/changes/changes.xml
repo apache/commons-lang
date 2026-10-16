@@ -63,6 +63,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-796"  type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Clarify DateUtils calendar arithmetic and daylight saving time behavior.</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Treat an unmatched quote as closed in ExtendedMessageFormat (#1819).</action>
     <action issue="LANG-796"  type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Prevent StringUtils padding from splitting surrogate pairs (#1813).</action>
+    <action issue="LANG-441"  type="fix" dev="ggregory" due-to="Sebb, Valentin Rocher, Adarsh Kumar Omrey, Gary Gregory">DateUtils Javadoc does not fully define round() behavior.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
