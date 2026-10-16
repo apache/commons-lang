@@ -55,6 +55,9 @@ import org.apache.commons.lang3.Validate;
  * found is used for this format element.
  * </p>
  *
+ * <p>Quoting follows {@link MessageFormat}: doubled single quotes represent a literal single quote, and an unmatched single quote is treated as closed
+ * at the end of the pattern. Format elements within quoted text are treated as literal text.</p>
+ *
  * <p>
  * <strong>NOTICE:</strong> The various subformat mutator methods are considered unnecessary; they exist on the parent
  * class to allow the type of customization which it is the job of this class to provide in
@@ -145,12 +148,14 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Consume a quoted string, adding it to {@code appendTo} if
-     * specified.
+     * Consumes a quoted string, adding it to {@code appendTo} if specified.
+     * <p>
+     * An unmatched quote is treated as if it were closed at the end of the pattern, as by {@link MessageFormat}. This does not close an unfinished format
+     * element.
+     * </p>
      *
-     * @param pattern pattern to parse, as a char array created once by the caller (avoids copying
-     *        the entire pattern for every token parsed)
-     * @param pos current parse position
+     * @param pattern  pattern to parse, as a char array created once by the caller (avoids copying the entire pattern for every token parsed)
+     * @param pos      current parse position
      * @param appendTo optional StringBuilder to append
      * @return {@code appendTo}
      */
@@ -174,8 +179,9 @@ public class ExtendedMessageFormat extends MessageFormat {
             }
             next(pos);
         }
-        throw new IllegalArgumentException(
-                "Unterminated quoted string at position " + start);
+        // MessageFormat treats an unmatched quote as closed at the end of the pattern
+        return appendTo == null ? null : appendTo.append(pattern, start,
+                pos.getIndex() - start);
     }
 
     /**

@@ -39,6 +39,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.cartesian.ArgumentSets;
 import org.junitpioneer.jupiter.cartesian.CartesianTest;
 
@@ -544,6 +545,52 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
         assertThrowsExactly(IllegalArgumentException.class, () -> new ExtendedMessageFormat("{", new HashMap<>()));
         assertThrowsExactly(IllegalArgumentException.class, () -> new ExtendedMessageFormat("{0,", new HashMap<>()));
         assertThrowsExactly(IllegalArgumentException.class, () -> new ExtendedMessageFormat("{0}extra{", new HashMap<>()));
+    }
+
+    /**
+     * Test that an unmatched quote is treated as closed at the end of the pattern,
+     * as by java.text.MessageFormat.
+     */
+    @Test
+    void testUnmatchedQuote() {
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat("it's a {0,lower} test!", registry);
+        assertEquals("its a {0,lower} test!", emf.format(new Object[] {"DUMMY"}));
+        assertEquals(emf.format(new Object[] {"DUMMY"}),
+                new ExtendedMessageFormat(emf.toPattern(), registry).format(new Object[] {"DUMMY"}));
+
+        final ExtendedMessageFormat emf2 = new ExtendedMessageFormat("Don{0,upper}t panic: '", registry);
+        assertEquals("DonDUMMYt panic: ", emf2.format(new Object[] {"Dummy"}));
+        assertEquals("Don{0,upper}t panic: ", emf2.toPattern());
+        assertEquals(emf2.format(new Object[] {"Dummy"}),
+                new ExtendedMessageFormat(emf2.toPattern(), registry).format(new Object[] {"Dummy"}));
+    }
+
+    /**
+     * Checks that an unmatched quote does not make an unfinished format element valid.
+     *
+     * @param pattern pattern containing an unfinished format element
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"{0,number,0'foo}", "{0,date,yyyy'foo}", "{0,choice,0#'foo}", "{0,upper,'foo}"})
+    void testUnmatchedQuoteInFormatDescription(final String pattern) {
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ExtendedMessageFormat(pattern, registry));
+    }
+
+    /**
+     * Checks unmatched quotes against MessageFormat with an empty registry, including pattern round-tripping.
+     *
+     * @param pattern pattern containing an unmatched quote
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"Don't panic {0}", "'", "'''", "prefix '", "'{0}", "{0} suffix '{1}"})
+    void testUnmatchedQuoteWithEmptyRegistry(final String pattern) {
+        final Object[] args = {"Dummy", "Other"};
+        final MessageFormat expected = new MessageFormat(pattern, Locale.ROOT);
+        final ExtendedMessageFormat actual = new ExtendedMessageFormat(pattern, Locale.ROOT, Collections.emptyMap());
+        assertEquals(expected.format(args), actual.format(args));
+        assertEquals(expected.toPattern(), actual.toPattern());
+        final ExtendedMessageFormat reconstructed = new ExtendedMessageFormat(actual.toPattern(), Locale.ROOT, Collections.emptyMap());
+        assertEquals(actual.format(args), reconstructed.format(args));
     }
 
 }
