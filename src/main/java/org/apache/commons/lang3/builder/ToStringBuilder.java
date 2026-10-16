@@ -19,7 +19,6 @@ package org.apache.commons.lang3.builder;
 import java.util.Objects;
 
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
 
 /**
  * Assists in implementing {@link Object#toString()} methods.

@@ -29,7 +29,6 @@ import org.apache.commons.lang3.ArraySorter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.AbstractReflection.AbstractBuilder;
 
 /**
  * Assists in implementing {@link Object#hashCode()} methods.
