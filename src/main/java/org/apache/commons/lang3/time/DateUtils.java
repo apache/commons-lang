@@ -1453,6 +1453,30 @@ public class DateUtils {
      * </p>
      *
      * <p>
+     * When rounding to {@code MONTH}, only the day of the month is considered
+     * and the time of day is ignored. The day is compared with the middle of
+     * that particular month, so the length of the month matters. For example,
+     * in a 30 day month such as April, the 15th rounds down to the 1st of the
+     * same month and the 16th rounds up to the 1st of the next month. In
+     * February of a leap year (29 days) the 15th rounds down and the 16th
+     * rounds up, while in February of a non leap year (28 days) the 14th
+     * rounds down and the 15th rounds up.
+     * </p>
+     *
+     * <p>
+     * When rounding to {@code YEAR}, only the month is considered: January to
+     * June round down to January 1st of the same year, and July to December
+     * round up to January 1st of the next year.
+     * </p>
+     *
+     * <p>
+     * {@code SEMI_MONTH} divides a month into two halves and rounds to the
+     * 1st or the 16th of a month. The 1st to the 8th round down to the 1st,
+     * the 9th to the 23rd round to the 16th, and the 24th to the end of the
+     * month round up to the 1st of the next month.
+     * </p>
+     *
+     * <p>
      * For a date in a time zone that handles the change to daylight
      * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a
@@ -1470,6 +1494,7 @@ public class DateUtils {
      * @return The different rounded date, not null.
      * @throws NullPointerException Thrown if the date is {@code null}.
      * @throws ArithmeticException Thrown if the year is over 280 million.
+     * @throws IllegalArgumentException Thrown if the field is not supported.
      */
     public static Calendar round(final Calendar calendar, final int field) {
         Objects.requireNonNull(calendar, "calendar");
@@ -1485,6 +1510,30 @@ public class DateUtils {
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.
+     * </p>
+     *
+     * <p>
+     * When rounding to {@code MONTH}, only the day of the month is considered
+     * and the time of day is ignored. The day is compared with the middle of
+     * that particular month, so the length of the month matters. For example,
+     * in a 30 day month such as April, the 15th rounds down to the 1st of the
+     * same month and the 16th rounds up to the 1st of the next month. In
+     * February of a leap year (29 days) the 15th rounds down and the 16th
+     * rounds up, while in February of a non leap year (28 days) the 14th
+     * rounds down and the 15th rounds up.
+     * </p>
+     *
+     * <p>
+     * When rounding to {@code YEAR}, only the month is considered: January to
+     * June round down to January 1st of the same year, and July to December
+     * round up to January 1st of the next year.
+     * </p>
+     *
+     * <p>
+     * {@code SEMI_MONTH} divides a month into two halves and rounds to the
+     * 1st or the 16th of a month. The 1st to the 8th round down to the 1st,
+     * the 9th to the 23rd round to the 16th, and the 24th to the end of the
+     * month round up to the 1st of the next month.
      * </p>
      *
      * <p>
@@ -1505,6 +1554,7 @@ public class DateUtils {
      * @return The different rounded date, not null.
      * @throws NullPointerException Thrown if the date is null.
      * @throws ArithmeticException Thrown if the year is over 280 million.
+     * @throws IllegalArgumentException Thrown if the field is not supported.
      */
     public static Date round(final Date date, final int field) {
         return modify(toCalendar(date), field, ModifyType.ROUND).getTime();
@@ -1519,6 +1569,30 @@ public class DateUtils {
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.
+     * </p>
+     *
+     * <p>
+     * When rounding to {@code MONTH}, only the day of the month is considered
+     * and the time of day is ignored. The day is compared with the middle of
+     * that particular month, so the length of the month matters. For example,
+     * in a 30 day month such as April, the 15th rounds down to the 1st of the
+     * same month and the 16th rounds up to the 1st of the next month. In
+     * February of a leap year (29 days) the 15th rounds down and the 16th
+     * rounds up, while in February of a non leap year (28 days) the 14th
+     * rounds down and the 15th rounds up.
+     * </p>
+     *
+     * <p>
+     * When rounding to {@code YEAR}, only the month is considered: January to
+     * June round down to January 1st of the same year, and July to December
+     * round up to January 1st of the next year.
+     * </p>
+     *
+     * <p>
+     * {@code SEMI_MONTH} divides a month into two halves and rounds to the
+     * 1st or the 16th of a month. The 1st to the 8th round down to the 1st,
+     * the 9th to the 23rd round to the 16th, and the 24th to the end of the
+     * month round up to the 1st of the next month.
      * </p>
      *
      * <p>
@@ -1540,6 +1614,7 @@ public class DateUtils {
      * @throws NullPointerException Thrown if the date is {@code null}.
      * @throws ClassCastException Thrown if the object type is not a {@link Date} or {@link Calendar}.
      * @throws ArithmeticException Thrown if the year is over 280 million.
+     * @throws IllegalArgumentException Thrown if the field is not supported.
      */
     public static Date round(final Object date, final int field) {
         Objects.requireNonNull(date, "date");
