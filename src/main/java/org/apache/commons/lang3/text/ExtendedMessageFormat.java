@@ -146,7 +146,8 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Consume a quoted string, adding it to {@code appendTo} if
-     * specified.
+     * specified. An unmatched quote is treated as if it were closed at the
+     * end of the pattern, as by {@link MessageFormat}.
      *
      * @param pattern pattern to parse, as a char array created once by the caller (avoids copying
      *        the entire pattern for every token parsed)
@@ -174,8 +175,9 @@ public class ExtendedMessageFormat extends MessageFormat {
             }
             next(pos);
         }
-        throw new IllegalArgumentException(
-                "Unterminated quoted string at position " + start);
+        // MessageFormat treats an unmatched quote as closed at the end of the pattern
+        return appendTo == null ? null : appendTo.append(pattern, start,
+                pos.getIndex() - start);
     }
 
     /**

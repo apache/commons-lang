@@ -414,6 +414,20 @@ class ExtendedMessageFormatTest extends AbstractLangTest {
     }
 
     /**
+     * Test that an unmatched quote is treated as closed at the end of the pattern,
+     * as by java.text.MessageFormat.
+     */
+    @Test
+    void testUnmatchedQuote() {
+        final ExtendedMessageFormat emf = new ExtendedMessageFormat("it's a {0,lower} test!", registry);
+        assertEquals("its a {0,lower} test!", emf.format(new Object[] {"DUMMY"}));
+
+        final ExtendedMessageFormat emf2 = new ExtendedMessageFormat("Don{0,upper}t panic: '", registry);
+        assertEquals("DonDUMMYt panic: ", emf2.format(new Object[] {"Dummy"}));
+        assertEquals("Don{0,upper}t panic: ", emf2.toPattern());
+    }
+
+    /**
      * Test extended and built-in formats with available locales.
      */
     @Test
