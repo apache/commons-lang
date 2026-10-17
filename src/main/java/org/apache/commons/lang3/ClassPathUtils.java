@@ -61,6 +61,8 @@ public class ClassPathUtils {
      * Note that this method does not check whether the resource actually exists. It only constructs the name. Null inputs are not allowed.
      * </p>
      *
+     * <p>If the context class is in an unnamed package, returns {@code resourceName} unchanged.</p>
+     *
      * <pre>
      * ClassPathUtils.toFullyQualifiedName(StringUtils.class, "StringUtils.properties") = "org.apache.commons.lang3.StringUtils.properties"
      * </pre>
@@ -68,7 +70,8 @@ public class ClassPathUtils {
      * @param context      The context for constructing the name.
      * @param resourceName The resource name to construct the fully qualified name for.
      * @return The fully qualified name of the resource with name {@code resourceName}.
-     * @throws NullPointerException Thrown if either {@code context} or {@code resourceName} is null.
+     * @throws NullPointerException Thrown if either {@code context} or {@code resourceName} is null, if {@code context} represents an array, a primitive
+     *                              type or {@code void}, or if it represents a named class whose package is unavailable.
      */
     public static String toFullyQualifiedName(final Class<?> context, final String resourceName) {
         Objects.requireNonNull(context, "context");
@@ -84,6 +87,8 @@ public class ClassPathUtils {
      * <p>
      * Note that this method does not check whether the resource actually exists. It only constructs the name. Null inputs are not allowed.
      * </p>
+     *
+     * <p>If the context is an unnamed package, returns {@code resourceName} unchanged.</p>
      *
      * <pre>
      * ClassPathUtils.toFullyQualifiedName(StringUtils.class.getPackage(), "StringUtils.properties") = "org.apache.commons.lang3.StringUtils.properties"
@@ -108,6 +113,8 @@ public class ClassPathUtils {
      * Note that this method does not check whether the resource actually exists. It only constructs the path. Null inputs are not allowed.
      * </p>
      *
+     * <p>If the context class is in an unnamed package, returns {@code resourceName} unchanged.</p>
+     *
      * <pre>
      * ClassPathUtils.toFullyQualifiedPath(StringUtils.class, "StringUtils.properties") = "org/apache/commons/lang3/StringUtils.properties"
      * </pre>
@@ -115,7 +122,8 @@ public class ClassPathUtils {
      * @param context      The context for constructing the path.
      * @param resourceName The resource name to construct the fully qualified path for.
      * @return The fully qualified path of the resource with name {@code resourceName}.
-     * @throws NullPointerException Thrown if either {@code context} or {@code resourceName} is null.
+     * @throws NullPointerException Thrown if either {@code context} or {@code resourceName} is null, if {@code context} represents an array, a primitive
+     *                              type or {@code void}, or if it represents a named class whose package is unavailable.
      */
     public static String toFullyQualifiedPath(final Class<?> context, final String resourceName) {
         Objects.requireNonNull(context, "context");
@@ -131,6 +139,8 @@ public class ClassPathUtils {
      * <p>
      * Note that this method does not check whether the resource actually exists. It only constructs the path. Null inputs are not allowed.
      * </p>
+     *
+     * <p>If the context is an unnamed package, returns {@code resourceName} unchanged.</p>
      *
      * <pre>
      * ClassPathUtils.toFullyQualifiedPath(StringUtils.class.getPackage(), "StringUtils.properties") = "org/apache/commons/lang3/StringUtils.properties"

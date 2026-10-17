@@ -64,14 +64,18 @@ class ClassPathUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testToFullyQualifiedNameClassNull() {
-        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, null));
+    void testToFullyQualifiedNameArrayAndPrimitiveClass() throws ClassNotFoundException {
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(String[].class, "Test.properties"));
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(int.class, "Test.properties"));
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(void.class, "Test.properties"));
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(int[].class, "Test.properties"));
+        final Class<?> unnamedPackageArray = Class.forName("[LClassPathUtilsDefaultPackage;");
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(unnamedPackageArray, "Test.properties"));
     }
 
     @Test
-    void testToFullyQualifiedNameArrayAndPrimitiveClass() {
-        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(String[].class, "Test.properties"));
-        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(int.class, "Test.properties"));
+    void testToFullyQualifiedNameClassNull() {
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, null));
     }
 
     @Test
@@ -120,6 +124,37 @@ class ClassPathUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testToFullyQualifiedNameUnnamedPackageClassEmptyResource() throws ClassNotFoundException {
+        assertEquals("", ClassPathUtils.toFullyQualifiedName(Class.forName("ClassPathUtilsDefaultPackage"), ""));
+    }
+
+    @Test
+    void testToFullyQualifiedNameUnnamedPackageClassNullResource() throws ClassNotFoundException {
+        final Class<?> context = Class.forName("ClassPathUtilsDefaultPackage");
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(context, null));
+    }
+
+    @Test
+    void testToFullyQualifiedNameUnnamedPackageEmptyResource() {
+        assertEquals("", ClassPathUtils.toFullyQualifiedName(unnamedPackage(), ""));
+    }
+
+    @Test
+    void testToFullyQualifiedNameUnnamedPackageNullResource() {
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(unnamedPackage(), null));
+    }
+
+    @Test
+    void testToFullyQualifiedPathArrayAndPrimitiveClass() throws ClassNotFoundException {
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(String[].class, "Test.properties"));
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(int.class, "Test.properties"));
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(void.class, "Test.properties"));
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(int[].class, "Test.properties"));
+        final Class<?> unnamedPackageArray = Class.forName("[LClassPathUtilsDefaultPackage;");
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(unnamedPackageArray, "Test.properties"));
+    }
+
+    @Test
     void testToFullyQualifiedPathClass() {
         final String expected = "org/apache/commons/lang3/Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, "Test.properties");
@@ -130,12 +165,6 @@ class ClassPathUtilsTest extends AbstractLangTest {
     @Test
     void testToFullyQualifiedPathClassNull() {
         assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, null));
-    }
-
-    @Test
-    void testToFullyQualifiedPathArrayAndPrimitiveClass() {
-        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(String[].class, "Test.properties"));
-        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(int.class, "Test.properties"));
     }
 
     @Test
@@ -173,5 +202,26 @@ class ClassPathUtilsTest extends AbstractLangTest {
     void testToFullyQualifiedPathUnnamedPackageClass() throws ClassNotFoundException {
         assertEquals("Test.properties", ClassPathUtils.toFullyQualifiedPath(
                 Class.forName("ClassPathUtilsDefaultPackage"), "Test.properties"));
+    }
+
+    @Test
+    void testToFullyQualifiedPathUnnamedPackageClassEmptyResource() throws ClassNotFoundException {
+        assertEquals("", ClassPathUtils.toFullyQualifiedPath(Class.forName("ClassPathUtilsDefaultPackage"), ""));
+    }
+
+    @Test
+    void testToFullyQualifiedPathUnnamedPackageClassNullResource() throws ClassNotFoundException {
+        final Class<?> context = Class.forName("ClassPathUtilsDefaultPackage");
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(context, null));
+    }
+
+    @Test
+    void testToFullyQualifiedPathUnnamedPackageEmptyResource() {
+        assertEquals("", ClassPathUtils.toFullyQualifiedPath(unnamedPackage(), ""));
+    }
+
+    @Test
+    void testToFullyQualifiedPathUnnamedPackageNullResource() {
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(unnamedPackage(), null));
     }
 }
