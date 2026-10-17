@@ -64,6 +64,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Treat an unmatched quote as closed in ExtendedMessageFormat (#1819).</action>
     <action                   type="fix" dev="ggregory" due-to="gaurav kumar pandey, Gary Gregory">Prevent StringUtils padding from splitting surrogate pairs (#1813).</action>
     <action issue="LANG-441"  type="fix" dev="ggregory" due-to="Sebb, Valentin Rocher, Adarsh Kumar Omrey, Gary Gregory">DateUtils Javadoc does not fully define round() behavior.</action>
+    <action issue="LANG-1838" type="fix" dev="ggregory" due-to="Aryan R. Ganjoo, Gary Gregory">Fix resource paths for unnamed packages (#1824).</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 105 to 106.</action>
