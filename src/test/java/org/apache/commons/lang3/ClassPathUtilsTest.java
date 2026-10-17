@@ -31,6 +31,14 @@ import org.junit.jupiter.api.Test;
  */
 class ClassPathUtilsTest extends AbstractLangTest {
 
+    private static Package unnamedPackage() {
+        return new ClassLoader() {
+            Package defineUnnamedPackage() {
+                return definePackage("", null, null, null, null, null, null, null);
+            }
+        }.defineUnnamedPackage();
+    }
+
     @Test
     void testConstructor() {
         assertNotNull(new ClassPathUtils());
@@ -58,6 +66,12 @@ class ClassPathUtilsTest extends AbstractLangTest {
     @Test
     void testToFullyQualifiedNameClassNull() {
         assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(ClassPathUtils.class, null));
+    }
+
+    @Test
+    void testToFullyQualifiedNameArrayAndPrimitiveClass() {
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(String[].class, "Test.properties"));
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedName(int.class, "Test.properties"));
     }
 
     @Test
@@ -95,6 +109,17 @@ class ClassPathUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testToFullyQualifiedNameUnnamedPackage() {
+        assertEquals("Test.properties", ClassPathUtils.toFullyQualifiedName(unnamedPackage(), "Test.properties"));
+    }
+
+    @Test
+    void testToFullyQualifiedNameUnnamedPackageClass() throws ClassNotFoundException {
+        assertEquals("Test.properties", ClassPathUtils.toFullyQualifiedName(
+                Class.forName("ClassPathUtilsDefaultPackage"), "Test.properties"));
+    }
+
+    @Test
     void testToFullyQualifiedPathClass() {
         final String expected = "org/apache/commons/lang3/Test.properties";
         final String actual = ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, "Test.properties");
@@ -105,6 +130,12 @@ class ClassPathUtilsTest extends AbstractLangTest {
     @Test
     void testToFullyQualifiedPathClassNull() {
         assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(ClassPathUtils.class, null));
+    }
+
+    @Test
+    void testToFullyQualifiedPathArrayAndPrimitiveClass() {
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(String[].class, "Test.properties"));
+        assertNullPointerException(() -> ClassPathUtils.toFullyQualifiedPath(int.class, "Test.properties"));
     }
 
     @Test
@@ -131,5 +162,16 @@ class ClassPathUtilsTest extends AbstractLangTest {
     void testToFullyQualifiedPathPackageNullString() {
         assertNullPointerException(
                 () -> ClassPathUtils.toFullyQualifiedPath((Package) null, "Test.properties"));
+    }
+
+    @Test
+    void testToFullyQualifiedPathUnnamedPackage() {
+        assertEquals("Test.properties", ClassPathUtils.toFullyQualifiedPath(unnamedPackage(), "Test.properties"));
+    }
+
+    @Test
+    void testToFullyQualifiedPathUnnamedPackageClass() throws ClassNotFoundException {
+        assertEquals("Test.properties", ClassPathUtils.toFullyQualifiedPath(
+                Class.forName("ClassPathUtilsDefaultPackage"), "Test.properties"));
     }
 }
