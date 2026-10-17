@@ -237,4 +237,10 @@
   <Match>
     <Bug pattern="SING_SINGLETON_IMPLEMENTS_SERIALIZABLE" />
   </Match>
+  <!-- StrategyParser is confined to a single init() invocation and never escapes. -->
+  <Match>
+    <Class name="org.apache.commons.lang3.time.FastDateParser$StrategyParser" />
+    <Field name="currentIdx" />
+    <Bug pattern="AT_NONATOMIC_OPERATIONS_ON_SHARED_VARIABLE,AT_STALE_THREAD_WRITE_OF_PRIMITIVE" />
+  </Match>
 </FindBugsFilter>

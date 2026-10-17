@@ -448,7 +448,11 @@ public class FastDateParser implements DateParser, Serializable {
     }
 
     /**
-     * Parse format into Strategies
+     * Parses the format into strategies.
+     *
+     * <p>
+     * Instances are confined to a single {@link #init(Calendar)} invocation and never escape that invocation.
+     * </p>
      */
     private final class StrategyParser {
         private final Calendar definingCalendar;
