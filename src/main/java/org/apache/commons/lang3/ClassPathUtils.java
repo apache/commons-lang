@@ -73,7 +73,9 @@ public class ClassPathUtils {
     public static String toFullyQualifiedName(final Class<?> context, final String resourceName) {
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(resourceName, "resourceName");
-        return toFullyQualifiedName(context.getPackage(), resourceName);
+        final Package contextPackage = context.getPackage();
+        return contextPackage == null && !context.isArray() && !context.isPrimitive() && context.getName().indexOf('.') < 0
+                ? resourceName : toFullyQualifiedName(Objects.requireNonNull(contextPackage, "context"), resourceName);
     }
 
     /**
@@ -95,7 +97,8 @@ public class ClassPathUtils {
     public static String toFullyQualifiedName(final Package context, final String resourceName) {
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(resourceName, "resourceName");
-        return context.getName() + "." + resourceName;
+        final String packageName = context.getName();
+        return packageName.isEmpty() ? resourceName : packageName + "." + resourceName;
     }
 
     /**
@@ -117,7 +120,9 @@ public class ClassPathUtils {
     public static String toFullyQualifiedPath(final Class<?> context, final String resourceName) {
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(resourceName, "resourceName");
-        return toFullyQualifiedPath(context.getPackage(), resourceName);
+        final Package contextPackage = context.getPackage();
+        return contextPackage == null && !context.isArray() && !context.isPrimitive() && context.getName().indexOf('.') < 0
+                ? resourceName : toFullyQualifiedPath(Objects.requireNonNull(contextPackage, "context"), resourceName);
     }
 
     /**
@@ -139,7 +144,8 @@ public class ClassPathUtils {
     public static String toFullyQualifiedPath(final Package context, final String resourceName) {
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(resourceName, "resourceName");
-        return packageToPath(context.getName()) + "/" + resourceName;
+        final String packageName = context.getName();
+        return packageName.isEmpty() ? resourceName : packageToPath(packageName) + "/" + resourceName;
     }
 
     /**
