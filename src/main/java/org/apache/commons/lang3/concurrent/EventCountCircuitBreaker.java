@@ -189,7 +189,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
     private static final class CheckIntervalData {
 
         /** The counter for events. */
-        private final int eventCount;
+        private final long eventCount;
 
         /** The start time of the current check interval. */
         private final long checkIntervalStart;
@@ -200,7 +200,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          * @param count The current count value
          * @param intervalStart The start time of the check interval
          */
-        CheckIntervalData(final int count, final long intervalStart) {
+        CheckIntervalData(final long count, final long intervalStart) {
             eventCount = count;
             checkIntervalStart = intervalStart;
         }
@@ -219,7 +219,7 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
          *
          * @return The number of received events
          */
-        public int getEventCount() {
+        public long getEventCount() {
             return eventCount;
         }
 
