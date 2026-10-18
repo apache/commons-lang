@@ -286,6 +286,34 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
     }
 
     /**
+     * Tests that an open circuit breaker does not close itself when the event count of the
+     * check interval exceeds the range of an int.
+     */
+    @Test
+    void testNotClosingWhenEventCountOverflows() {
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD,
+                10, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        breaker.at(0).open();
+        assertFalse(breaker.at(1000).incrementAndCheckState(CLOSING_THRESHOLD), "Not open");
+        assertFalse(breaker.at(2000).incrementAndCheckState(Integer.MAX_VALUE), "Not open");
+        assertFalse(breaker.at(NANO_FACTOR + 3000).incrementAndCheckState(), "Closed in new interval");
+        assertTrue(breaker.isOpen(), "Not open at end");
+    }
+
+    /**
+     * Tests that the circuit breaker opens when the event count of the check interval
+     * exceeds the range of an int.
+     */
+    @Test
+    void testOpeningWhenEventCountOverflows() {
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
+            TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        assertTrue(breaker.at(1000).incrementAndCheckState(OPENING_THRESHOLD / 2), "Not closed");
+        assertFalse(breaker.at(2000).incrementAndCheckState(Integer.MAX_VALUE), "Not open");
+        assertTrue(breaker.isOpen(), "Not open at end");
+    }
+
+    /**
      * Tests that the circuit breaker stays closed if there are a number of received
      * events, but not in a single check interval.
      */
