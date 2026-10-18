@@ -25,14 +25,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Test class for {@code EventCountCircuitBreaker}.
@@ -116,6 +121,22 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
         @Override
         long nanoTime() {
             return currentTime;
+        }
+
+        /**
+         * Sets the event count near the long boundary without executing billions of increments.
+         *
+         * @param count The event count
+         * @throws ReflectiveOperationException if the interval data cannot be initialized
+         */
+        @SuppressWarnings("unchecked")
+        private void setEventCount(final long count) throws ReflectiveOperationException {
+            final Field field = EventCountCircuitBreaker.class.getDeclaredField("checkIntervalData");
+            field.setAccessible(true);
+            final AtomicReference<Object> intervalData = (AtomicReference<Object>) field.get(this);
+            final Constructor<?> constructor = intervalData.get().getClass().getDeclaredConstructor(long.class, long.class);
+            constructor.setAccessible(true);
+            intervalData.set(constructor.newInstance(count, currentTime));
         }
     }
 
@@ -301,16 +322,24 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
     }
 
     /**
-     * Tests that the circuit breaker opens when the event count of the check interval
-     * exceeds the range of an int.
+     * Tests that saturation prevents closing after heavy load and still allows recovery after a quiet interval.
+     *
+     * @param count The event count before incrementing
+     * @throws ReflectiveOperationException if the interval data cannot be initialized
      */
-    @Test
-    void testOpeningWhenEventCountOverflows() {
-        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
-            TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
-        assertTrue(breaker.at(1000).incrementAndCheckState(OPENING_THRESHOLD / 2), "Not closed");
-        assertFalse(breaker.at(2000).incrementAndCheckState(Integer.MAX_VALUE), "Not open");
-        assertTrue(breaker.isOpen(), "Not open at end");
+    @ParameterizedTest
+    @ValueSource(longs = {Long.MAX_VALUE - Integer.MAX_VALUE, Long.MAX_VALUE - Integer.MAX_VALUE + 1, Long.MAX_VALUE - 1, Long.MAX_VALUE})
+    void testNotClosingWhenEventCountSaturates(final long count) throws ReflectiveOperationException {
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD,
+                10, TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        breaker.at(0).open();
+        breaker.setEventCount(count);
+        assertFalse(breaker.at(1000).incrementAndCheckState(Integer.MAX_VALUE), "Not open");
+        assertFalse(breaker.at(2000).checkState(), "Closed after a zero increment");
+        assertFalse(breaker.at(3000).incrementAndCheckState(), "Not open after another event");
+        assertFalse(breaker.at(4000).incrementAndCheckState(Integer.MAX_VALUE), "Not open after another batch");
+        assertFalse(breaker.at(NANO_FACTOR + 1).checkState(), "Closed after a saturated interval");
+        assertTrue(breaker.at(2 * NANO_FACTOR + 2).checkState(), "Not closed after a quiet interval");
     }
 
     /**
@@ -359,6 +388,19 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
     }
 
     /**
+     * Tests that the circuit breaker opens when the event count of the check interval
+     * exceeds the range of an int.
+     */
+    @Test
+    void testOpeningWhenEventCountOverflows() {
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(OPENING_THRESHOLD, 1,
+            TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        assertTrue(breaker.at(1000).incrementAndCheckState(OPENING_THRESHOLD / 2), "Not closed");
+        assertFalse(breaker.at(2000).incrementAndCheckState(Integer.MAX_VALUE), "Not open");
+        assertTrue(breaker.isOpen(), "Not open at end");
+    }
+
+    /**
      * Tests that the circuit breaker opens if all conditions are met.
      */
     @Test
@@ -389,6 +431,18 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
         final boolean open = !breaker.at(startTime).incrementAndCheckState(OPENING_THRESHOLD + 1);
         assertTrue(open, "Not open");
         assertFalse(breaker.isClosed(), "Closed");
+    }
+
+    /**
+     * Tests that the maximum int opening threshold is exceeded without wrapping the event count.
+     */
+    @Test
+    void testOpeningWithMaximumThreshold() {
+        final EventCountCircuitBreakerTestImpl breaker = new EventCountCircuitBreakerTestImpl(Integer.MAX_VALUE, 1,
+                TimeUnit.SECONDS, CLOSING_THRESHOLD, 1, TimeUnit.SECONDS);
+        assertTrue(breaker.at(1000).incrementAndCheckState(Integer.MAX_VALUE), "Opened at the threshold");
+        assertFalse(breaker.at(2000).incrementAndCheckState(), "Not open above the threshold");
+        assertTrue(breaker.isOpen(), "Not open at end");
     }
 
     /**

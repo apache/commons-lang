@@ -224,15 +224,21 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
         }
 
         /**
-         * Returns a new instance of {@link CheckIntervalData} with the event counter
-         * incremented by the given delta. If the delta is 0, this object is returned.
+         * Returns a new instance of {@link CheckIntervalData} with the event counter incremented by the given delta. If the delta is 0, this object is
+         * returned.
+         * <p>
+         * If the increment would overflow, the event counter saturates at {@link Long#MAX_VALUE}.
+         * </p>
          *
          * @param delta The delta
          * @return The updated instance
          */
         public CheckIntervalData increment(final int delta) {
-            return delta == 0 ? this : new CheckIntervalData(getEventCount() + delta,
-                    getCheckIntervalStart());
+            if (delta == 0) {
+                return this;
+            }
+            final long nextCount = getEventCount() + delta;
+            return new CheckIntervalData(nextCount < getEventCount() ? Long.MAX_VALUE : nextCount, getCheckIntervalStart());
         }
     }
 
@@ -480,8 +486,10 @@ public class EventCountCircuitBreaker extends AbstractCircuitBreaker<Integer> {
      * {@inheritDoc}
      *
      * <p>
-     * The event count is a protective counter and only moves toward the opening threshold:
-     * negative increments are rejected.
+     * The event count is a protective counter: negative increments are rejected, and an increment that would overflow
+     * {@link Long#MAX_VALUE} saturates the counter at {@link Long#MAX_VALUE} instead of wrapping negative. Saturation prevents
+     * an overloaded interval from causing an automatic close. The counter resets when a new check interval starts or the
+     * circuit breaker changes state.
      * </p>
      *
      * @throws IllegalArgumentException Thrown if the increment is negative.
