@@ -1168,6 +1168,9 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("int, int...", MethodUtils.invokeMethod(testBean, "intIntVarArg", 1, 2));
         assertEquals("int, int...", MethodUtils.invokeMethod(testBean, "intIntVarArg", 1, 2, 3));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "intLongVarArg", 1, "s1", 5));
+        // too few arguments for the fixed parameters
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "intStringVarArg"));
+        assertNull(MethodUtils.getMatchingAccessibleMethod(TestBean.class, "intStringVarArg"));
     }
 
     @Test
@@ -1346,6 +1349,9 @@ class MethodUtilsTest extends AbstractLangTest {
         assertEquals("static int, int...", MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1, 2));
         assertEquals("static int, int...", MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1, 2, 3));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1, "s1", 5));
+        // too few arguments for the fixed parameters
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg"));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(String.class, "format"));
     }
 
     @Test
