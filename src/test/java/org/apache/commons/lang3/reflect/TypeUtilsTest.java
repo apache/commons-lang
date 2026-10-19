@@ -18,7 +18,6 @@ package org.apache.commons.lang3.reflect;
 
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -1274,12 +1273,11 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         jdkSet.add(jdk);
         final Set<Type> builtSet = new HashSet<>();
         builtSet.add(built);
-        assertAll(
-                () -> assertEquals(jdk.hashCode(), built.hashCode()),
-                () -> assertEquals("value", jdkMap.get(built)),
-                () -> assertEquals("value", builtMap.get(jdk)),
-                () -> assertTrue(jdkSet.contains(built)),
-                () -> assertTrue(builtSet.contains(jdk)));
+        assertEquals(jdk.hashCode(), built.hashCode());
+        assertEquals("value", jdkMap.get(built));
+        assertEquals("value", builtMap.get(jdk));
+        assertTrue(jdkSet.contains(built));
+        assertTrue(builtSet.contains(jdk));
     }
 
     @Test
