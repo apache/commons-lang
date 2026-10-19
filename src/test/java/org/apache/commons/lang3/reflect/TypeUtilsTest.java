@@ -364,6 +364,8 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         T[][] nestedArray;
         List<String>[][] nestedListArray;
         ParameterizedOwner<String>.NonGenericInner nonGenericMember;
+        List<? extends T[]> upperBoundedArrayArgument;
+        List<? extends Number> upperBoundedList;
         List<T> variableList;
         List<? super T[]> wildcardArrayArgument;
         List<?> wildcardList;
@@ -520,6 +522,8 @@ class TypeUtilsTest<B> extends AbstractLangTest {
                 Arguments.of("nestedListArray", TypeUtils.genericArrayType(TypeUtils.genericArrayType(strings))),
                 Arguments.of("nonGenericMember", TypeUtils.parameterizeWithOwner(TypeUtils.parameterize(ParameterizedOwner.class, String.class),
                         ParameterizedOwner.NonGenericInner.class)),
+                Arguments.of("upperBoundedArrayArgument", TypeUtils.parameterize(List.class, TypeUtils.wildcardType().withUpperBounds(array).build())),
+                Arguments.of("upperBoundedList", TypeUtils.parameterize(List.class, TypeUtils.wildcardType().withUpperBounds(Number.class).build())),
                 Arguments.of("variableList", TypeUtils.parameterize(List.class, variable)),
                 Arguments.of("wildcardArrayArgument", TypeUtils.parameterize(List.class, TypeUtils.wildcardType().withLowerBounds(array).build())),
                 Arguments.of("wildcardList", TypeUtils.parameterize(List.class, TypeUtils.WILDCARD_ALL)));
@@ -1047,7 +1051,7 @@ class TypeUtilsTest<B> extends AbstractLangTest {
                 .genericArrayType(TypeUtils.parameterize(Comparable.class, TypeUtils.wildcardType().withUpperBounds(Integer.class).build()));
         assertTrue(TypeUtils.equals(expected, actual));
         assertEquals("java.lang.Comparable<? extends java.lang.Integer>[]", actual.toString());
-        assertNotEquals(0, actual.hashCode());
+        assertEquals(expected.hashCode(), actual.hashCode());
         assertEquals(actual, actual);
         assertFalse(actual.equals(null));
         assertFalse(actual.equals(TypeUtils.wildcardType().build()));
