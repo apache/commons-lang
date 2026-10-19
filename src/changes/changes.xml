@@ -67,6 +67,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1838" type="fix" dev="ggregory" due-to="Aryan R. Ganjoo, Gary Gregory">Fix resource paths for unnamed packages (#1824).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep EventCountCircuitBreaker event count from wrapping on int overflow (#1825).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Reject varargs candidates with too few arguments in MemberUtils (#1828).</action>
+    <action issue="LANG-1323" type="fix" dev="ggregory" due-to="Aryan R. Ganjoo, Gary Gregory">Align built type hashes with JDK reflection (#1826).</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 105 to 106.</action>
