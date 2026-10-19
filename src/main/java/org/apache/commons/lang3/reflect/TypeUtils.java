@@ -86,9 +86,8 @@ public class TypeUtils {
          */
         @Override
         public int hashCode() {
-            int result = 67 << 4;
-            result |= componentType.hashCode();
-            return result;
+            // Match the JDK's hash code for an equal generic array type.
+            return componentType.hashCode();
         }
 
         /**
@@ -158,13 +157,8 @@ public class TypeUtils {
          */
         @Override
         public int hashCode() {
-            int result = 71 << 4;
-            result |= raw.hashCode();
-            result <<= 4;
-            result |= Objects.hashCode(useOwner);
-            result <<= 8;
-            result |= Arrays.hashCode(typeArguments);
-            return result;
+            // Match the JDK's hash code for an equal parameterized type.
+            return Arrays.hashCode(typeArguments) ^ Objects.hashCode(useOwner) ^ raw.hashCode();
         }
 
         /**

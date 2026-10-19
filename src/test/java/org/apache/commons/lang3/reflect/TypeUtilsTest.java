@@ -18,6 +18,7 @@ package org.apache.commons.lang3.reflect;
 
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -45,6 +46,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -351,6 +353,23 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         }
     }
 
+    private static class HashCodeTypes<T> {
+        T[] array;
+        List<T[]> arrayArgument;
+        Map.Entry<String, Integer> entry;
+        List<String> list;
+        List<String>[] listArray;
+        Map<String, Integer> map;
+        Outer<String>.InnerU<Integer> member;
+        Map<String, List<Integer>> nested;
+        T[][] nestedArray;
+        List<String>[][] nestedListArray;
+        ParameterizedOwner<String>.NonGenericInner nonGenericMember;
+        List<T> variableList;
+        List<? super T[]> wildcardArrayArgument;
+        List<?> wildcardList;
+    }
+
     static class LexOrdering<T> extends MyOrdering<Iterable<T>> implements Serializable {
         private static final long serialVersionUID = 1L;
     }
@@ -482,6 +501,29 @@ class TypeUtilsTest<B> extends AbstractLangTest {
 
     public static <T extends Comparable<? extends T>> T stub3() {
         return null;
+    }
+
+    static Stream<Arguments> testHashCodeMatchesJdk() {
+        final Type variable = HashCodeTypes.class.getTypeParameters()[0];
+        final Type array = TypeUtils.genericArrayType(variable);
+        final Type strings = TypeUtils.parameterize(List.class, String.class);
+        return Stream.of(
+                Arguments.of("array", array),
+                Arguments.of("arrayArgument", TypeUtils.parameterize(List.class, array)),
+                Arguments.of("entry", TypeUtils.parameterizeWithOwner(Map.class, Map.Entry.class, String.class, Integer.class)),
+                Arguments.of("list", strings),
+                Arguments.of("listArray", TypeUtils.genericArrayType(strings)),
+                Arguments.of("map", TypeUtils.parameterize(Map.class, String.class, Integer.class)),
+                Arguments.of("member", TypeUtils.parameterizeWithOwner(TypeUtils.parameterize(Outer.class, String.class),
+                        Outer.InnerU.class, Integer.class)),
+                Arguments.of("nested", TypeUtils.parameterize(Map.class, String.class, TypeUtils.parameterize(List.class, Integer.class))),
+                Arguments.of("nestedArray", TypeUtils.genericArrayType(array)),
+                Arguments.of("nestedListArray", TypeUtils.genericArrayType(TypeUtils.genericArrayType(strings))),
+                Arguments.of("nonGenericMember", TypeUtils.parameterizeWithOwner(TypeUtils.parameterize(ParameterizedOwner.class, String.class),
+                        ParameterizedOwner.NonGenericInner.class)),
+                Arguments.of("variableList", TypeUtils.parameterize(List.class, variable)),
+                Arguments.of("wildcardArrayArgument", TypeUtils.parameterize(List.class, TypeUtils.wildcardType().withLowerBounds(array).build())),
+                Arguments.of("wildcardList", TypeUtils.parameterize(List.class, TypeUtils.WILDCARD_ALL)));
     }
 
     static Stream<Arguments> testIsAssignable_ClassWildcardBounds() {
@@ -1215,6 +1257,29 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.isArrayType(stringListTypeArray));
         assertTrue(TypeUtils.isArrayType(subStringListTypeArray));
         assertTrue(TypeUtils.isArrayType(superStringListTypeArray));
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void testHashCodeMatchesJdk(final String fieldName, final Type built) throws NoSuchFieldException {
+        final Type jdk = HashCodeTypes.class.getDeclaredField(fieldName).getGenericType();
+        assertEquals(jdk, built);
+        assertEquals(built, jdk);
+
+        final Map<Type, String> jdkMap = new HashMap<>();
+        jdkMap.put(jdk, "value");
+        final Map<Type, String> builtMap = new HashMap<>();
+        builtMap.put(built, "value");
+        final Set<Type> jdkSet = new HashSet<>();
+        jdkSet.add(jdk);
+        final Set<Type> builtSet = new HashSet<>();
+        builtSet.add(built);
+        assertAll(
+                () -> assertEquals(jdk.hashCode(), built.hashCode()),
+                () -> assertEquals("value", jdkMap.get(built)),
+                () -> assertEquals("value", builtMap.get(jdk)),
+                () -> assertTrue(jdkSet.contains(built)),
+                () -> assertTrue(builtSet.contains(jdk)));
     }
 
     @Test
