@@ -7078,4 +7078,19 @@ class ArrayUtilsTest extends AbstractLangTest {
         assertEquals("{<null>}", ArrayUtils.toString(new String[]{null}, "<empty>"));
         assertEquals("{pink,blue}", ArrayUtils.toString(new String[]{"pink", "blue"}, "<empty>"));
     }
+
+@Test
+    void testSwapIntRangeInvalidIndices() {
+        final int[] array = { 1, 2, 3, 4 };
+        // Offset -1 é ajustado para 0, trocando os elementos dos índices 0 e 1
+        ArrayUtils.swap(array, -1, 1, 1);
+        assertArrayEquals(new int[] { 2, 1, 3, 4 }, array);
+
+        // Quando offset é maior ou igual ao tamanho do array, nada muda
+        final int[] array2 = { 1, 2, 3, 4 };
+        ArrayUtils.swap(array2, 10, 1, 1);
+        assertArrayEquals(new int[] { 1, 2, 3, 4 }, array2);
+    }
+
+
 }
