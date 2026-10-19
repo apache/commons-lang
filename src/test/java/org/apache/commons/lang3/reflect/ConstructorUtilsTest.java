@@ -145,8 +145,10 @@ public class ConstructorUtilsTest extends AbstractLangTest {
 
     public static class VarArgsBean {
 
+        private final String[] rest;
+
         public VarArgsBean(final String first, final String... rest) {
-            // empty
+            this.rest = rest;
         }
     }
 
@@ -251,6 +253,12 @@ public class ConstructorUtilsTest extends AbstractLangTest {
         assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(PrivateClass.class, "test"));
         assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(PrivateClass.class, Integer.valueOf(1)));
         assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(PrivateClass.PublicInnerClass.class));
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsEmptyTail() throws Exception {
+        final VarArgsBean bean = ConstructorUtils.invokeConstructor(VarArgsBean.class, "first");
+        assertArrayEquals(new String[0], bean.rest);
     }
 
     @Test

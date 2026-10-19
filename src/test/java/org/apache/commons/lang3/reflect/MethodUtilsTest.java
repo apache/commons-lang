@@ -444,6 +444,10 @@ class MethodUtilsTest extends AbstractLangTest {
             return "int, long...";
         }
 
+        public int intStringStringVarArg(final int first, final String second, final String... rest) {
+            return rest.length;
+        }
+
         public String intStringVarArg(final int intArg, final String... args) {
             return "int, String...";
         }
@@ -1171,6 +1175,14 @@ class MethodUtilsTest extends AbstractLangTest {
         // too few arguments for the fixed parameters
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "intStringVarArg"));
         assertNull(MethodUtils.getMatchingAccessibleMethod(TestBean.class, "intStringVarArg"));
+    }
+
+    @Test
+    void testInvokeMethod2PlusVarArgs() throws Exception {
+        assertNull(MethodUtils.getMatchingAccessibleMethod(TestBean.class, "intStringStringVarArg", Integer.class));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "intStringStringVarArg", 1));
+        assertEquals(0, MethodUtils.invokeMethod(testBean, "intStringStringVarArg", 1, "second"));
+        assertEquals(1, MethodUtils.invokeMethod(testBean, "intStringStringVarArg", 1, "second", "rest"));
     }
 
     @Test
