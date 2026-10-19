@@ -252,7 +252,7 @@ final class MemberUtils {
         if (ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true)) {
             return true;
         }
-        if (method.isVarArgs()) {
+        if (method.isVarArgs() && parameterTypes.length >= methodParameterTypes.length - 1) {
             int i;
             for (i = 0; i < methodParameterTypes.length - 1 && i < parameterTypes.length; i++) {
                 if (!ClassUtils.isAssignable(parameterTypes[i], methodParameterTypes[i], true)) {

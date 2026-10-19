@@ -143,6 +143,13 @@ public class ConstructorUtilsTest extends AbstractLangTest {
         }
     }
 
+    public static class VarArgsBean {
+
+        public VarArgsBean(final String first, final String... rest) {
+            // empty
+        }
+    }
+
     private final Map<Class<?>, Class<?>[]> classCache;
 
     public ConstructorUtilsTest() {
@@ -244,6 +251,12 @@ public class ConstructorUtilsTest extends AbstractLangTest {
         assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(PrivateClass.class, "test"));
         assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(PrivateClass.class, Integer.valueOf(1)));
         assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(PrivateClass.PublicInnerClass.class));
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsTooFewArguments() {
+        assertNull(ConstructorUtils.getMatchingAccessibleConstructor(VarArgsBean.class));
+        assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(VarArgsBean.class));
     }
 
     @Test
