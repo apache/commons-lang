@@ -192,6 +192,19 @@ class ClassUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void test_getAbbreviatedName_Class_Array() {
+        assertEquals("[Lj.l.String;", ClassUtils.getAbbreviatedName(String[].class, 1));
+        assertEquals("[[Lj.l.String;", ClassUtils.getAbbreviatedName(String[][].class, 1));
+        assertEquals("[Lj.lang.String;", ClassUtils.getAbbreviatedName(String[].class, "[Lj.lang.String;".length()));
+        assertEquals("[Lj.l.String;", ClassUtils.getAbbreviatedName(String[].class, "[Lj.lang.String;".length() - 1));
+        assertEquals("[Ljava.lang.String;", ClassUtils.getAbbreviatedName(String[].class, 30));
+        assertEquals("[Lo.a.c.l.ClassUtils;", ClassUtils.getAbbreviatedName(ClassUtils[].class, 21));
+        assertEquals("[I", ClassUtils.getAbbreviatedName(int[].class, 1));
+        assertEquals("[[I", ClassUtils.getAbbreviatedName(int[][].class, 1));
+        assertEquals("[Lj.l.String;", ClassUtils.getAbbreviatedName("[Ljava.lang.String;", 1));
+    }
+
+    @Test
     /** When the desired length is negative then exception is thrown */
     void test_getAbbreviatedName_Class_NegativeLen() {
         assertIllegalArgumentException(() -> ClassUtils.getAbbreviatedName(String.class, -10));

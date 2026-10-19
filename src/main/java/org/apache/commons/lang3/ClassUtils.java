@@ -338,6 +338,15 @@ public class ClassUtils {
         if (className.length() <= lengthHint) {
             return className;
         }
+        // Keep the array encoding (for example "[[L" ... ";") intact and only abbreviate the element class name
+        int dims = 0;
+        while (dims < className.length() && className.charAt(dims) == '[') {
+            dims++;
+        }
+        if (dims > 0 && className.length() > dims + 2 && className.charAt(dims) == 'L' && className.charAt(className.length() - 1) == ';') {
+            final String elementName = className.substring(dims + 1, className.length() - 1);
+            return className.substring(0, dims + 1) + getAbbreviatedName(elementName, Math.max(1, lengthHint - dims - 2)) + ';';
+        }
         final char[] abbreviated = className.toCharArray();
         int target = 0;
         int source = 0;
