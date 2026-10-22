@@ -441,6 +441,17 @@ class StrSubstitutorTest extends AbstractLangTest {
     }
 
     /**
+     * Tests that an escape character at the end of a substituted value does not escape the next variable.
+     */
+    @Test
+    void testReplaceValueEndingWithEscape() {
+        values.put("price", "5$");
+        doTestReplace("The price is 5$lazy dog.", "The price is ${price}${target}.", true);
+        values.put("animal", "$");
+        doTestReplace("The $lazy dog jumps over the $${target}.", "The ${animal}${target} jumps over the ${animal}$${target}.", true);
+    }
+
+    /**
      * Tests when no incomplete prefix.
      */
     @Test
