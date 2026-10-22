@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ReflectionToStringBuilder} allowing overriding annotations, for example in third party code.
  */
-class ReflectionToStringBuilderOverrideExclude {
+class ReflectionToStringBuilderOverrideExcludeTest {
 
     static class SensitiveBean {
 
