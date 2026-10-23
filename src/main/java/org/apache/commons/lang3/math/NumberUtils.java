@@ -359,6 +359,10 @@ public class NumberUtils {
         if (StringUtils.isBlank(str)) {
             throw new NumberFormatException("A blank string is not a valid number");
         }
+        // Float.valueOf(String) and Double.valueOf(String) trim leading characters up to U+0020, the integral parsers do not.
+        if (str.charAt(0) <= ' ') {
+            throw new NumberFormatException(str + " is not a valid number.");
+        }
         // Need to deal with all possible hex prefixes here
         final String[] hexPrefixes = { "0x", "0X", "#" };
         final int length = str.length();
