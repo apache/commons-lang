@@ -117,6 +117,17 @@ class ImmutablePairTest extends AbstractLangTest {
     @Test
     void testHashCode() {
         assertEquals(ImmutablePair.of(null, "foo").hashCode(), ImmutablePair.of(null, "foo").hashCode());
+
+        // ADD THESE TO PROVE THE LANG-1760 FIX:
+        final Pair<String, String> p1 = ImmutablePair.of("A", "B");
+        final Pair<String, String> p2 = ImmutablePair.of("B", "A");
+        final Pair<String, String> p3 = ImmutablePair.of("A", "A");
+
+        // 1. Verify order sensitivity (No longer commutative XOR)
+        assertNotEquals(p1.hashCode(), p2.hashCode(), "Permutations must have different hashes");
+
+        // 2. Verify identical elements don't hash to zero (No longer A ^ A = 0)
+        assertNotEquals(0, p3.hashCode(), "Identical elements must not hash to zero");
     }
 
     @Test
