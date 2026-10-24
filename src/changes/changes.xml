@@ -70,6 +70,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1323" type="fix" dev="ggregory" due-to="Aryan R. Ganjoo, Gary Gregory">Align built type hashes with JDK reflection (#1826).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep array encoding intact in ClassUtils.getAbbreviatedName (#1829).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Reject leading whitespace in NumberUtils.createNumber (#1833).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep StrSubstitutor from treating a value's trailing $ as an escape (#1834).</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 105 to 106.</action>
