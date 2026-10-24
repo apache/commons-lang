@@ -214,7 +214,7 @@ public class LocaleUtils {
      * @return true if the given String is a <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> compliant country code.
      */
     private static boolean isISO3166CountryCode(final String str) {
-        return StringUtils.isAllUpperCase(str) && isAlpha2Len(str);
+        return isAlpha2Len(str) && str.chars().allMatch(ch -> CharUtils.isAsciiAlphaUpper((char) ch));
     }
 
     /**
@@ -224,7 +224,7 @@ public class LocaleUtils {
      * @return true, if the given String is a <a href="https://www.iso.org/iso-639-language-code">ISO 639</a> compliant language code.
      */
     private static boolean isISO639LanguageCode(final String str) {
-        return StringUtils.isAllLowerCase(str) && (isAlpha2Len(str) || isAlpha3Len(str));
+        return (isAlpha2Len(str) || isAlpha3Len(str)) && str.chars().allMatch(ch -> CharUtils.isAsciiAlphaLower((char) ch));
     }
 
     /**
@@ -250,7 +250,7 @@ public class LocaleUtils {
      * @return true if the given String is a UN M.49 numeric area code.
      */
     private static boolean isNumericAreaCode(final String str) {
-        return StringUtils.isNumeric(str) && isAlpha3Len(str);
+        return isAlpha3Len(str) && str.chars().allMatch(ch -> CharUtils.isAsciiNumeric((char) ch));
     }
 
     /**
@@ -446,7 +446,7 @@ public class LocaleUtils {
             }
             final char ch1 = str.charAt(1);
             final char ch2 = str.charAt(2);
-            if (!Character.isUpperCase(ch1) || !Character.isUpperCase(ch2)) {
+            if (!CharUtils.isAsciiAlphaUpper(ch1) || !CharUtils.isAsciiAlphaUpper(ch2)) {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
             if (len == 3) {
