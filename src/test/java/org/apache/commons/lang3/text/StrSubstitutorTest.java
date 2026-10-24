@@ -441,17 +441,6 @@ class StrSubstitutorTest extends AbstractLangTest {
     }
 
     /**
-     * Tests that an escape character at the end of a substituted value does not escape the next variable.
-     */
-    @Test
-    void testReplaceValueEndingWithEscape() {
-        values.put("price", "5$");
-        doTestReplace("The price is 5$lazy dog.", "The price is ${price}${target}.", true);
-        values.put("animal", "$");
-        doTestReplace("The $lazy dog jumps over the $${target}.", "The ${animal}${target} jumps over the ${animal}$${target}.", true);
-    }
-
-    /**
      * Tests when no incomplete prefix.
      */
     @Test
@@ -634,6 +623,69 @@ class StrSubstitutorTest extends AbstractLangTest {
     void testReplaceUnknownKey() {
         doTestReplace("The ${person} jumps over the lazy dog.", "The ${person} jumps over the ${target}.", true);
         doTestReplace("The ${person} jumps over the lazy dog. 1234567890.", "The ${person} jumps over the ${target}. ${undefined.number:-1234567890}.", true);
+    }
+
+    /**
+     * Tests that an escape character at the end of a substituted value does not escape the next variable.
+     */
+    @Test
+    void testReplaceValueEndingWithEscape() {
+        values.put("price", "5$");
+        doTestReplace("The price is 5$lazy dog.", "The price is ${price}${target}.", true);
+        values.put("animal", "$");
+        doTestReplace("The $lazy dog jumps over the $${target}.", "The ${animal}${target} jumps over the ${animal}$${target}.", true);
+    }
+
+    @Test
+    void testReplaceValueEndingWithEscapeCustomDelimiters() {
+        values.put("price", "5!");
+        final StrSubstitutor sub = new StrSubstitutor(values, "<", ">", '!');
+        assertEquals("5!lazy dog", sub.replace("<price><target>"));
+        assertEquals("5!<target>", sub.replace("<price>!<target>"));
+    }
+
+    @Test
+    void testReplaceValueEndingWithEscapeDefaultValue() {
+        doTestReplace("The price is 5$lazy dog.", "The price is ${price:-5$}${target}.", true);
+    }
+
+    @Test
+    void testReplaceValueEndingWithEscapeEmptyValue() {
+        values.put("price", "5$");
+        values.put("empty", "");
+        doTestReplace("The price is 5$lazy dog.", "The price is ${price}${empty}${target}.", true);
+    }
+
+    @Test
+    void testReplaceValueEndingWithEscapeInVariableName() {
+        values.put("prefix", "animal$");
+        values.put("suffix", "name");
+        values.put("animal$name", "fox");
+        final StrSubstitutor sub = new StrSubstitutor(values);
+        sub.setEnableSubstitutionInVariables(true);
+        assertEquals("fox", sub.replace("${${prefix}${suffix}}"));
+    }
+
+    @Test
+    void testReplaceValueEndingWithEscapePreserved() {
+        values.put("price", "5$");
+        values.put("escaped", "$${target}");
+        final StrSubstitutor sub = new StrSubstitutor(values);
+        sub.setPreserveEscapes(true);
+        assertEquals("5$lazy dog", sub.replace("${price}${target}"));
+        assertEquals("5$$${target}", sub.replace("${price}$${target}"));
+        assertEquals("$${target}lazy dog", sub.replace("${escaped}${target}"));
+    }
+
+    @Test
+    void testReplaceValueEndingWithEscapeRecursive() {
+        values.put("price", "5$");
+        values.put("recursive", "${price}");
+        values.put("inside", "${price}${target}");
+        values.put("escaped", "$${target}");
+        doTestReplace("The price is 5$lazy dog.", "The price is ${recursive}${target}.", true);
+        doTestReplace("The price is 5$lazy dog.", "The price is ${inside}.", true);
+        doTestReplace("The ${target}lazy dog.", "The ${escaped}${target}.", true);
     }
 
     /**

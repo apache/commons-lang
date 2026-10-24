@@ -124,6 +124,12 @@ import org.apache.commons.lang3.StringUtils;
  *   The variable $${${name}} must be used.
  * </pre>
  * <p>
+ * An escape character at the end of a substituted value does not escape a following variable reference in the containing text.
+ * For example, if {@code price} is {@code 5$} and {@code item} is {@code X}, then {@code ${price}${item}} becomes {@code 5$X}.
+ * This also applies to default values and recursive substitutions. Escape characters before variable references within a value
+ * are processed when that value is recursively substituted.
+ * </p>
+ * <p>
  * In some complex scenarios you might even want to perform substitution in the
  * names of variables, for instance:
  * </p>
