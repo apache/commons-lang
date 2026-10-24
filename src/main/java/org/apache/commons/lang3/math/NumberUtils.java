@@ -356,8 +356,8 @@ public class NumberUtils {
         if (str == null) {
             return null;
         }
-        if (StringUtils.isBlank(str)) {
-            throw new NumberFormatException("A blank string is not a valid number");
+        if (str.isEmpty()) {
+            throw new NumberFormatException("An empty string is not a valid number");
         }
         // Float.valueOf(String) and Double.valueOf(String) trim leading characters up to U+0020, the integral parsers do not.
         if (str.charAt(0) <= ' ') {

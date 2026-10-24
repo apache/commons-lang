@@ -690,6 +690,14 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(new BigDecimal("0.100000001490116121"), NumberUtils.createNumber("0.100000001490116121"));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = { "", " ", "\t", "\r\n", "\u2003", "\u2003 \u2003", "\u00a0" })
+    void testCreateNumberBlank(final String str) {
+        assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber(str));
+        compareIsCreatableWithCreateNumber(str, false);
+        compareIsNumberWithCreateNumber(str, false);
+    }
+
     @Test
     // Check that the code fails to create a valid number when preceded by -- rather than -
     void testCreateNumberFailure_1() {
@@ -751,6 +759,17 @@ class NumberUtilsTest extends AbstractLangTest {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("-+1L"));
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("+L"));
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber("-L"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "1.5", ".5", "1e5", "1.5f", "1.5F", "1.5d", "1.5D", "+1.5", "-1.5" })
+    void testCreateNumberLeadingControlCharacters(final String str) {
+        for (char ch = 0; ch <= ' '; ch++) {
+            final String input = ch + str;
+            assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber(input), () -> "Leading character: " + (int) input.charAt(0));
+            compareIsCreatableWithCreateNumber(input, false);
+            compareIsNumberWithCreateNumber(input, false);
+        }
     }
 
     // Tests to show when magnitude causes switch to next Number type
