@@ -917,6 +917,15 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsCreatableWithCreateNumber("11 11", false);
         compareIsCreatableWithCreateNumber(" 1111", false);
         compareIsCreatableWithCreateNumber("1111 ", false);
+        compareIsCreatableWithCreateNumber(" 1.5", false);
+        compareIsCreatableWithCreateNumber("\t1.5", false);
+        compareIsCreatableWithCreateNumber(" .5", false);
+        compareIsCreatableWithCreateNumber(" 1e5", false);
+        compareIsCreatableWithCreateNumber(" 1.5f", false);
+        compareIsCreatableWithCreateNumber(" 1.5d", false);
+        compareIsCreatableWithCreateNumber(" 1.5E3D", false);
+        compareIsCreatableWithCreateNumber("1.5 ", false);
+        compareIsCreatableWithCreateNumber("1.5f ", false);
         compareIsCreatableWithCreateNumber("2.", true); // LANG-521
         compareIsCreatableWithCreateNumber("1.1L", false); // LANG-664
         compareIsCreatableWithCreateNumber("+0xF", true); // LANG-1645
@@ -1017,6 +1026,8 @@ class NumberUtilsTest extends AbstractLangTest {
         compareIsNumberWithCreateNumber("11 11", false);
         compareIsNumberWithCreateNumber(" 1111", false);
         compareIsNumberWithCreateNumber("1111 ", false);
+        compareIsNumberWithCreateNumber(" 1.5", false);
+        compareIsNumberWithCreateNumber(" 1.5d", false);
         compareIsNumberWithCreateNumber("2.", true); // LANG-521
         compareIsNumberWithCreateNumber("1.1L", false); // LANG-664
         compareIsNumberWithCreateNumber("+0xF", true); // LANG-1645
