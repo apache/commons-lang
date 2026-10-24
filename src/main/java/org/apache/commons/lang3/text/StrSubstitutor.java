@@ -1178,12 +1178,14 @@ public class StrSubstitutor {
         char[] chars = buf.buffer;
         int bufEnd = offset + length;
         int pos = offset;
+        // an escape character must come from the text being scanned, not from the end of a substituted value
+        int escapeStart = offset;
         while (pos < bufEnd) {
             final int startMatchLen = pfxMatcher.isMatch(chars, pos, offset, bufEnd);
             if (startMatchLen == 0) {
                 pos++;
             } else // found variable start marker
-            if (pos > offset && chars[pos - 1] == escape) {
+            if (pos > escapeStart && chars[pos - 1] == escape) {
                 // escaped
                 if (preserveEscapes) {
                     pos++;
@@ -1264,6 +1266,7 @@ public class StrSubstitutor {
                                 int change = substitute(buf, startPos, varLen, priorVariables);
                                 change = change + varLen - (endPos - startPos);
                                 pos += change;
+                                escapeStart = pos;
                                 bufEnd += change;
                                 lengthChange += change;
                                 chars = buf.buffer; // in case buffer was altered
