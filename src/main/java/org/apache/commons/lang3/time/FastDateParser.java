@@ -692,9 +692,27 @@ public class FastDateParser implements DateParser, Serializable {
          * {@link java.text.SimpleDateFormat}.
          */
         void applyWeekDate() {
-            if (weekYearSet) {
-                target.setWeekDate(weekYearValue, weekOfYearSet ? weekOfYearValue : 1, dayOfWeekSet ? dayOfWeekValue : target.getFirstDayOfWeek());
+            if (!weekYearSet) {
+                return;
             }
+            int weekOfYear = weekOfYearSet ? weekOfYearValue : 1;
+            int dayOfWeek = dayOfWeekSet ? dayOfWeekValue : target.getFirstDayOfWeek();
+            if (!isValidDayOfWeek(dayOfWeek) && target.isLenient()) {
+                // Calendar.setWeekDate rejects a day of week outside SUNDAY..SATURDAY even on a lenient calendar, so fold the overflow of an
+                // out-of-range 'u' value into the week number first, exactly as java.text.CalendarBuilder does for SimpleDateFormat.
+                if (dayOfWeek >= 8) {
+                    dayOfWeek--;
+                    weekOfYear += dayOfWeek / 7;
+                    dayOfWeek = dayOfWeek % 7 + 1;
+                } else {
+                    while (dayOfWeek <= 0) {
+                        dayOfWeek += 7;
+                        weekOfYear--;
+                    }
+                }
+                dayOfWeek = toCalendarDayOfWeek(dayOfWeek);
+            }
+            target.setWeekDate(weekYearValue, weekOfYear, dayOfWeek);
         }
 
         @Override
@@ -785,7 +803,7 @@ public class FastDateParser implements DateParser, Serializable {
     private static final Strategy DAY_OF_WEEK_STRATEGY = new NumberStrategy(Calendar.DAY_OF_WEEK) {
         @Override
         int modify(final FastDateParser parser, final int iValue) {
-            return iValue == 7 ? Calendar.SUNDAY : iValue + 1;
+            return toCalendarDayOfWeek(iValue);
         }
     };
 
@@ -862,6 +880,16 @@ public class FastDateParser implements DateParser, Serializable {
         }
     }
 
+    /**
+     * Tests whether a value is a valid {@link Calendar#DAY_OF_WEEK} value, in the range {@link Calendar#SUNDAY} to {@link Calendar#SATURDAY}.
+     *
+     * @param dayOfWeek the value to test.
+     * @return true if the value is in range.
+     */
+    private static boolean isValidDayOfWeek(final int dayOfWeek) {
+        return dayOfWeek >= Calendar.SUNDAY && dayOfWeek <= Calendar.SATURDAY;
+    }
+
     private static StringBuilder simpleQuote(final StringBuilder sb, final String value) {
         for (int i = 0; i < value.length(); ++i) {
             final char c = value.charAt(i);
@@ -889,6 +917,24 @@ public class FastDateParser implements DateParser, Serializable {
             sb.append('?');
         }
         return sb;
+    }
+
+    /**
+     * Converts an ISO 8601 day number of week ('u', Monday = 1 to Sunday = 7) to a {@link Calendar#DAY_OF_WEEK} value.
+     *
+     * <p>
+     * An out-of-range value is returned unchanged so a lenient calendar can adjust it, as {@code java.text.CalendarBuilder} does for
+     * {@link java.text.SimpleDateFormat}.
+     * </p>
+     *
+     * @param isoDayOfWeek the parsed ISO day number of week.
+     * @return the {@link Calendar#DAY_OF_WEEK} value, or the input when it is out of range.
+     */
+    private static int toCalendarDayOfWeek(final int isoDayOfWeek) {
+        if (!isValidDayOfWeek(isoDayOfWeek)) {
+            return isoDayOfWeek;
+        }
+        return isoDayOfWeek == 7 ? Calendar.SUNDAY : isoDayOfWeek + 1;
     }
 
     /** Input pattern. */
