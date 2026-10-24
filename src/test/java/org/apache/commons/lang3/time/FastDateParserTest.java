@@ -930,6 +930,34 @@ class FastDateParserTest extends AbstractLangTest {
         }
     }
 
+    @Test
+    void testWeekYearParsingOutOfRangeDayOfWeek() throws ParseException {
+        // An out-of-range 'u' value must be adjusted leniently like SimpleDateFormat (java.text.CalendarBuilder folds the overflow into the
+        // week number), not passed to Calendar.setWeekDate, which throws IllegalArgumentException for a day of week outside 1..7.
+        final String[][] cases = {
+            { "YYYY-'W'ww-u", "2025-W01-8" },
+            { "YYYY-'W'ww-u", "2025-W01-0" },
+            { "YYYY-'W'ww-u", "2025-W01-15" },
+            { "YYYY u", "2014 8" },
+            { "YYYY-'W'ww-u", "2025-W01-7" }, // in range, unchanged
+            { "yyyy-'W'ww-u", "2025-W01-8" }, // plain calendar year is adjusted the same way
+            { "yyyy-MM-dd u", "2014-01-06 9" },
+            { "u", "8" },
+            { "u", "0" }
+        };
+        for (final Locale locale : new Locale[] { Locale.US, Locale.GERMANY }) {
+            for (final String[] testCase : cases) {
+                final SimpleDateFormat sdf = new SimpleDateFormat(testCase[0], locale);
+                final DateParser fdp = getInstance(testCase[0], locale);
+                final String message = "Pattern " + testCase[0] + " input " + testCase[1] + " locale " + locale;
+                assertEquals(sdf.parse(testCase[1]), fdp.parse(testCase[1]), message);
+                final ParsePosition pos = new ParsePosition(0);
+                assertEquals(sdf.parse(testCase[1]), fdp.parse(testCase[1], pos), message);
+                assertEquals(testCase[1].length(), pos.getIndex(), message);
+            }
+        }
+    }
+
     private void validateSdfFormatFdpParseEquality(final String formatStr, final Locale locale, final TimeZone timeZone,
         final FastDateParser fastDateParser, final Date inDate, final int year, final Date csDate) throws ParseException {
         final SimpleDateFormat sdf = new SimpleDateFormat(formatStr, locale);
