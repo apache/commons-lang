@@ -923,12 +923,13 @@ public class ExceptionUtils {
         int wrapperFrameIndex = wrapperFrames.size() - 1;
         while (causeFrameIndex >= 0 && wrapperFrameIndex >= 0) {
             // Remove the frame from the cause trace if it is the same
-            // as in the wrapper trace
+            // as in the wrapper trace; common frames end at the first difference
             final String causeFrame = causeFrames.get(causeFrameIndex);
             final String wrapperFrame = wrapperFrames.get(wrapperFrameIndex);
-            if (causeFrame.equals(wrapperFrame)) {
-                causeFrames.remove(causeFrameIndex);
+            if (!causeFrame.equals(wrapperFrame)) {
+                break;
             }
+            causeFrames.remove(causeFrameIndex);
             causeFrameIndex--;
             wrapperFrameIndex--;
         }

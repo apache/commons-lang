@@ -914,6 +914,29 @@ class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testRemoveCommonFramesStopsAtFirstDifference() {
+        final List<String> causeFrames = new ArrayList<>(Arrays.asList("\tat a.Factory.create(Factory.java:1)", "\tat a.B.one(B.java:2)",
+                "\tat a.B.main(B.java:9)"));
+        final List<String> wrapperFrames = Arrays.asList("\tat a.Factory.create(Factory.java:1)", "\tat a.B.two(B.java:5)",
+                "\tat a.B.main(B.java:9)");
+        ExceptionUtils.removeCommonFrames(causeFrames, wrapperFrames);
+        assertEquals(Arrays.asList("\tat a.Factory.create(Factory.java:1)", "\tat a.B.one(B.java:2)"), causeFrames);
+    }
+
+    @Test
+    void testRootCauseStackTraceKeepsSharedFactoryFrame() {
+        final RuntimeException cause = newRuntimeException("cause", null);
+        final RuntimeException wrapper = newRuntimeException("wrapper", cause);
+        final List<String> frames = ExceptionUtils.getRootCauseStackTraceList(wrapper);
+        assertEquals(cause.toString(), frames.get(0));
+        assertTrue(frames.get(1).contains("newRuntimeException"), frames.get(1));
+    }
+
+    private static RuntimeException newRuntimeException(final String message, final Throwable cause) {
+        return new RuntimeException(message, cause);
+    }
+
+    @Test
     void testRethrow() {
         final Exception expected = new InterruptedException();
         // API return typed to compile to Object
