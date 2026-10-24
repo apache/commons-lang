@@ -167,6 +167,29 @@ class FastDateParserTest extends AbstractLangTest {
         );
     }
 
+    static Stream<Arguments> weekYearParsingOutOfRangeDayOfWeekParameters() {
+        final String[][] cases = {
+            { "YYYY-'W'ww-u", "2025-W01-8" },
+            { "YYYY-'W'ww-u", "2025-W01-0" },
+            { "YYYY-'W'ww-u", "2025-W01-15" },
+            { "YYYY-'W'ww-u", "2025-W01-" + Integer.MAX_VALUE },
+            { "YYYY u", "2014 8" },
+            { "YYYY-'W'ww-u", "2025-W01-7" }, // in range, unchanged
+            { "yyyy-'W'ww-u", "2025-W01-8" }, // plain calendar year is adjusted the same way
+            { "yyyy-MM-dd u", "2014-01-06 9" },
+            { "u", "8" },
+            { "u", "0" },
+            { "u", Integer.toString(Integer.MAX_VALUE) }
+        };
+        return Stream.of(Locale.US, Locale.GERMANY)
+            .flatMap(locale -> Stream.of(cases).map(testCase -> Arguments.of(testCase[0], testCase[1], locale)));
+    }
+
+    static Stream<Arguments> weekYearParsingStrictDayOfWeekParameters() {
+        return Stream.of(Locale.US, Locale.GERMANY)
+            .flatMap(locale -> Stream.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 123, Integer.MAX_VALUE).map(dayOfWeek -> Arguments.of(dayOfWeek, locale)));
+    }
+
     private static Calendar initializeCalendar(final TimeZone timeZone) {
         final Calendar cal = Calendar.getInstance(timeZone);
         cal.set(Calendar.YEAR, 2001);
@@ -927,6 +950,50 @@ class FastDateParserTest extends AbstractLangTest {
                 assertEquals(sdf.parse(testCase[1]), fdp.parse(testCase[1]),
                         "Pattern " + testCase[0] + " input " + testCase[1] + " locale " + locale);
             }
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("weekYearParsingOutOfRangeDayOfWeekParameters")
+    void testWeekYearParsingOutOfRangeDayOfWeek(final String pattern, final String input, final Locale locale) throws ParseException {
+        // An out-of-range 'u' value must be adjusted leniently like SimpleDateFormat (java.text.CalendarBuilder folds the overflow into the
+        // week number), not passed to Calendar.setWeekDate, which throws IllegalArgumentException for a day of week outside 1..7.
+        final SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);
+        final DateParser parser = getInstance(pattern, locale);
+        final Date expected = sdf.parse(input);
+        assertEquals(expected, parser.parse(input));
+        final ParsePosition pos = new ParsePosition(0);
+        assertEquals(expected, parser.parse(input, pos));
+        assertEquals(input.length(), pos.getIndex());
+        final Calendar calendar = Calendar.getInstance(parser.getTimeZone(), locale);
+        calendar.clear();
+        calendar.setLenient(true);
+        final ParsePosition calendarPos = new ParsePosition(0);
+        assertTrue(parser.parse(input, calendarPos, calendar));
+        assertEquals(expected, calendar.getTime());
+        assertEquals(input.length(), calendarPos.getIndex());
+    }
+
+    @ParameterizedTest
+    @MethodSource("weekYearParsingStrictDayOfWeekParameters")
+    void testWeekYearParsingStrictDayOfWeek(final int dayOfWeek, final Locale locale) throws ParseException {
+        final String pattern = "YYYY-'W'ww-u";
+        final DateParser parser = getInstance(pattern, locale);
+        final SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);
+        sdf.setLenient(false);
+        final String input = "2025-W01-" + dayOfWeek;
+        final Calendar calendar = Calendar.getInstance(parser.getTimeZone(), locale);
+        calendar.clear();
+        calendar.setLenient(false);
+        final ParsePosition pos = new ParsePosition(0);
+        if (dayOfWeek >= 1 && dayOfWeek <= 7) {
+            assertTrue(parser.parse(input, pos, calendar));
+            assertEquals(sdf.parse(input), calendar.getTime());
+            assertEquals(input.length(), pos.getIndex());
+        } else {
+            // Zero must remain invalid instead of being converted to Calendar.SUNDAY.
+            assertThrows(ParseException.class, () -> sdf.parse(input));
+            assertThrows(IllegalArgumentException.class, () -> parser.parse(input, pos, calendar));
         }
     }
 
