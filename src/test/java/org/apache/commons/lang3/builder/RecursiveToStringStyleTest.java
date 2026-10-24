@@ -205,8 +205,10 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", emptyList, false).toString());
         assertEquals(baseStr + "[a=java.util.ArrayList@" + Integer.toHexString(System.identityHashCode(emptyList)) + "{}]",
                 new ToStringBuilder(base).append("a", emptyList, true).toString());
-        assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", new HashMap<>(), false).toString());
-        assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", new HashMap<>(), true).toString());
+        final HashMap<Object, Object> emptyMap = new HashMap<>();
+        assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", emptyMap, false).toString());
+        assertEquals(baseStr + "[a=java.util.HashMap@" + Integer.toHexString(System.identityHashCode(emptyMap)) + "{}]",
+                new ToStringBuilder(base).append("a", emptyMap, true).toString());
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
         assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
     }
@@ -279,5 +281,19 @@ class RecursiveToStringStyleTest extends AbstractLangTest {
         final String s = new ToStringBuilder(base).append("g", child, true).toString();
         assertTrue(s.contains("leaf"), "The graph content must still be rendered");
         assertTrue(s.length() < 100_000, "Output must be linear in graph size, was " + s.length());
+    }
+
+    @Test
+    void testNestedMap() {
+        final HashMap<String, Object> innerMap = new HashMap<>();
+        innerMap.put("k2", "v2");
+        final HashMap<String, Object> outerMap = new HashMap<>();
+        outerMap.put("k1", innerMap);
+
+        final String outerMapStr = outerMap.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(outerMap));
+        final String innerMapStr = innerMap.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(innerMap));
+
+        final String expected = baseStr + "[map=" + outerMapStr + "{k1=" + innerMapStr + "{k2=v2}}]";
+        assertEquals(expected, new ToStringBuilder(base).append("map", outerMap, true).toString());
     }
 }

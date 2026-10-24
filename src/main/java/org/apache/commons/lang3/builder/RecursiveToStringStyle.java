@@ -17,6 +17,7 @@
 package org.apache.commons.lang3.builder;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
@@ -167,6 +168,13 @@ public class RecursiveToStringStyle extends ToStringStyle {
                !AtomicBoolean.class.equals(clazz) &&
                !MutableBoolean.class.equals(clazz);
         // @formatter:on
+    }
+
+    @Override
+    protected void appendDetail(final StringBuffer buffer, final String fieldName, final Map<?, ?> map) {
+        appendClassName(buffer, map);
+        appendIdentityHashCode(buffer, map);
+        super.appendDetail(buffer, fieldName, map);
     }
 
     @Override
