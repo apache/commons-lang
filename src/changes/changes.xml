@@ -78,7 +78,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Restrict LocaleUtils.toLocale to ASCII language, country, and numeric area codes; previously accepted non-ASCII codes now cause IllegalArgumentException (#1838).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate ExceptionUtils.removeCommonFrames(), which is now used only by tests. Root-cause stack trace generation compares StackTraceElement objects directly.</action>
     <!-- ADD -->
-    <action issue="LANG-1790" type="add" dev="ggregory">Add optional FIFO ordering for TimedSemaphore blocking acquisitions.</action>
+    <action issue="LANG-1790" type="add" dev="ggregory" due-to="Mert Kirpici, Ivan Šarić, Gary Gregory">Add optional FIFO ordering for TimedSemaphore blocking acquisitions.</action>
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 105 to 106.</action>
   </release>
