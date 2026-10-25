@@ -73,6 +73,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep StrSubstitutor from treating a value's trailing $ as an escape (#1834).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Fix FastDateParser normalization of out-of-range ISO day-of-week values (#1839).</action>
     <action                   type="fix" dev="ggregory" due-to="Aminark, Gary Gregory">[javadoc] Correct StringUtils example methods and overloads (#1836).</action>
+    <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Stop ExceptionUtils.removeCommonFrames at the first differing frame (#1831).</action>
     <!-- ADD -->
     <!-- UPDATE -->
     <action type="update" dev="ggregory" due-to="Gary Gregory">Bump org.apache.commons:commons-parent from 105 to 106.</action>

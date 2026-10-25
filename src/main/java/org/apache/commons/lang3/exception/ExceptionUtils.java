@@ -909,10 +909,21 @@ public class ExceptionUtils {
     }
 
     /**
-     * Removes common frames from the cause trace given the two stack traces.
+     * Removes the longest shared suffix from the cause stack trace.
      *
-     * @param causeFrames  stack trace of a cause throwable.
-     * @param wrapperFrames  stack trace of a wrapper throwable.
+     * <p>
+     * Compares frame strings from the ends of the two lists, stopping at the first difference or when either list is exhausted. Frames at lower indexes
+     * than the first differing frame are retained, even if they match. The cause list is modified in place. The wrapper list is only read; changes to the
+     * cause list may also be visible through the wrapper list if the lists share backing storage.
+     * </p>
+     *
+     * <p>
+     * This follows the shared-suffix rule used by {@link Throwable#printStackTrace()}, but compares formatted frame strings rather than
+     * {@link StackTraceElement} objects.
+     * </p>
+     *
+     * @param causeFrames  stack trace of a cause throwable, from which the shared suffix is removed.
+     * @param wrapperFrames  stack trace of a wrapper throwable, used for comparison.
      * @throws NullPointerException Thrown if either argument is null.
      * @since 2.0
      */

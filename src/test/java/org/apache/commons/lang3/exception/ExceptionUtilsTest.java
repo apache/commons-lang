@@ -152,6 +152,10 @@ class ExceptionUtilsTest extends AbstractLangTest {
         private static final long serialVersionUID = 1L;
     }
 
+    private static RuntimeException newRuntimeException(final String message, final Throwable cause) {
+        return new RuntimeException(message, cause);
+    }
+
     private static int redeclareCheckedException() {
         return throwsCheckedException();
     }
@@ -919,21 +923,21 @@ class ExceptionUtilsTest extends AbstractLangTest {
                 "\tat a.B.main(B.java:9)"));
         final List<String> wrapperFrames = Arrays.asList("\tat a.Factory.create(Factory.java:1)", "\tat a.B.two(B.java:5)",
                 "\tat a.B.main(B.java:9)");
+        final List<String> expectedWrapperFrames = new ArrayList<>(wrapperFrames);
         ExceptionUtils.removeCommonFrames(causeFrames, wrapperFrames);
         assertEquals(Arrays.asList("\tat a.Factory.create(Factory.java:1)", "\tat a.B.one(B.java:2)"), causeFrames);
+        assertEquals(expectedWrapperFrames, wrapperFrames);
     }
 
     @Test
-    void testRootCauseStackTraceKeepsSharedFactoryFrame() {
-        final RuntimeException cause = newRuntimeException("cause", null);
-        final RuntimeException wrapper = newRuntimeException("wrapper", cause);
-        final List<String> frames = ExceptionUtils.getRootCauseStackTraceList(wrapper);
-        assertEquals(cause.toString(), frames.get(0));
-        assertTrue(frames.get(1).contains("newRuntimeException"), frames.get(1));
-    }
-
-    private static RuntimeException newRuntimeException(final String message, final Throwable cause) {
-        return new RuntimeException(message, cause);
+    void testRemoveCommonFramesStopsAtImmediateDifference() {
+        final List<String> causeFrames = new ArrayList<>(Arrays.asList("\tat a.Factory.create(Factory.java:1)", "\tat a.B.one(B.java:2)"));
+        final List<String> wrapperFrames = new ArrayList<>(Arrays.asList("\tat a.Factory.create(Factory.java:1)", "\tat a.B.two(B.java:5)"));
+        final List<String> expectedCauseFrames = new ArrayList<>(causeFrames);
+        final List<String> expectedWrapperFrames = new ArrayList<>(wrapperFrames);
+        ExceptionUtils.removeCommonFrames(causeFrames, wrapperFrames);
+        assertEquals(expectedCauseFrames, causeFrames);
+        assertEquals(expectedWrapperFrames, wrapperFrames);
     }
 
     @Test
@@ -957,6 +961,15 @@ class ExceptionUtilsTest extends AbstractLangTest {
         //
         assertSame(expected, assertThrows(expected.getClass(), () -> ExceptionUtils.rethrow(expected)));
         assertNotSame(expected, assertThrows(expected.getClass(), () -> ExceptionUtils.rethrow(new InterruptedException())));
+    }
+
+    @Test
+    void testRootCauseStackTraceKeepsSharedFactoryFrame() {
+        final RuntimeException cause = newRuntimeException("cause", null);
+        final RuntimeException wrapper = newRuntimeException("wrapper", cause);
+        final List<String> frames = ExceptionUtils.getRootCauseStackTraceList(wrapper);
+        assertEquals(cause.toString(), frames.get(0));
+        assertTrue(frames.get(1).contains("newRuntimeException"), frames.get(1));
     }
 
     @Test
