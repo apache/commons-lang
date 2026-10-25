@@ -27,7 +27,6 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.StringTokenizer;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -357,11 +356,8 @@ public class ExceptionUtils {
      * </p>
      *
      * <p>
-     * <strong>Note:</strong> the frames are recovered by re-parsing the text produced by {@link Throwable#printStackTrace()}, they are not read from
-     * {@link Throwable#getStackTrace()}. A line inside an exception <em>message</em> that mimics a stack frame (leading whitespace, then {@code "at "},
-     * then a class/method reference with {@code '('}) is indistinguishable from a real frame: untrusted message content can therefore inject fabricated
-     * frames into this output and cause the real frames that follow to be dropped. Do not treat this output as forensic evidence when exception messages
-     * may contain untrusted input; read {@link Throwable#getStackTrace()} for structured frames that cannot be forged by message content.
+     * Frames are read from {@link Throwable#getStackTrace()} and compared as {@link StackTraceElement} objects before formatting. Exception messages
+     * remain part of the exception headers, but are not parsed as stack frames. Custom {@code printStackTrace} output is not used.
      * </p>
      *
      * @param throwable  The throwable to examine, may be null.
@@ -381,11 +377,8 @@ public class ExceptionUtils {
      * </p>
      *
      * <p>
-     * <strong>Note:</strong> the frames are recovered by re-parsing the text produced by {@link Throwable#printStackTrace()}, they are not read from
-     * {@link Throwable#getStackTrace()}. A line inside an exception <em>message</em> that mimics a stack frame (leading whitespace, then {@code "at "},
-     * then a class/method reference with {@code '('}) is indistinguishable from a real frame: untrusted message content can therefore inject fabricated
-     * frames into this output and cause the real frames that follow to be dropped. Do not treat this output as forensic evidence when exception messages
-     * may contain untrusted input; read {@link Throwable#getStackTrace()} for structured frames that cannot be forged by message content.
+     * Frames are read from {@link Throwable#getStackTrace()} and compared as {@link StackTraceElement} objects before formatting. Exception messages
+     * remain part of the exception headers, but are not parsed as stack frames. Custom {@code printStackTrace} output is not used.
      * </p>
      *
      * @param throwable The throwable to examine, may be null.
@@ -399,51 +392,25 @@ public class ExceptionUtils {
         final Throwable[] throwables = getThrowables(throwable);
         final int count = throwables.length;
         final List<String> frames = new ArrayList<>();
-        List<String> nextTrace = getStackFrameList(throwables[count - 1]);
+        StackTraceElement[] nextTrace = throwables[count - 1].getStackTrace();
         for (int i = count; --i >= 0;) {
-            final List<String> trace = nextTrace;
+            final StackTraceElement[] trace = nextTrace;
+            int frameCount = trace.length;
             if (i != 0) {
-                nextTrace = getStackFrameList(throwables[i - 1]);
-                removeCommonFrames(trace, nextTrace);
+                nextTrace = throwables[i - 1].getStackTrace();
+                int wrapperFrameIndex = nextTrace.length - 1;
+                while (frameCount > 0 && wrapperFrameIndex >= 0 && trace[frameCount - 1].equals(nextTrace[wrapperFrameIndex])) {
+                    frameCount--;
+                    wrapperFrameIndex--;
+                }
             }
             final String string = throwables[i].toString();
             frames.add(i == count - 1 ? string : WRAPPED_MARKER + string);
-            frames.addAll(trace);
-        }
-        return frames;
-    }
-
-    /**
-     * Gets a {@link List} of stack frames, the message
-     * is not included. Only the trace of the specified exception is
-     * returned, any caused by trace is stripped.
-     *
-     * <p>
-     * This works by re-parsing the text produced by {@link Throwable#printStackTrace()}: a line is treated as a frame if, after leading
-     * whitespace, it starts with {@code "at "} followed by a class/method reference and {@code '('} (see {@link #isStackFrame(String)}). It
-     * will mis-parse if the exception message contains a line of exactly that shape: such a line is counted as a frame and the real frames
-     * that follow the remaining message lines are dropped.
-     * </p>
-     *
-     * @param throwable is any throwable.
-     * @return List of stack frames.
-     */
-    static List<String> getStackFrameList(final Throwable throwable) {
-        final String stackTrace = getStackTrace(throwable);
-        final String linebreak = System.lineSeparator();
-        final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        final List<String> list = new ArrayList<>();
-        boolean traceStarted = false;
-        while (frames.hasMoreTokens()) {
-            final String token = frames.nextToken();
-            if (isStackFrame(token)) {
-                traceStarted = true;
-                list.add(token);
-            } else if (traceStarted) {
-                break;
+            for (int j = 0; j < frameCount; j++) {
+                frames.add("\tat " + trace[j]);
             }
         }
-        return list;
+        return frames;
     }
 
     /**
@@ -733,49 +700,6 @@ public class ExceptionUtils {
     }
 
     /**
-     * Tests whether a line from {@link #getStackTrace(Throwable)} output looks like a stack frame, mirroring the syntax emitted by
-     * {@link Throwable#printStackTrace()}: leading whitespace, then {@code "at "}, then a class/method reference containing no whitespace,
-     * then {@code '('}, for example {@code "\tat com.example.Foo.bar(Foo.java:42)"}. The reference is matched as any non-empty run of
-     * non-whitespace characters, because {@link StackTraceElement#toString()} never emits whitespace before the opening parenthesis: this
-     * accepts classic frames as well as class loader or module prefixes ({@code "app//"}, {@code "java.base/"}), module versions
-     * ({@code "com.foo.mod@1.0.3/"}), lambda and hidden-class names ({@code "$$Lambda$17/0x..."}), {@code <init>}/{@code <clinit>} and
-     * JVM-language name mangling, without maintaining a character whitelist that could reject a legitimate frame (and thereby suppress
-     * it and every frame below it).
-     *
-     * <p>
-     * This is deliberately stricter than matching any line whose first non-whitespace characters are {@code "at"}, so that ordinary
-     * message text such as {@code " attack detected"} or {@code "at your request"} is not mistaken for a frame; a message line crafted to
-     * match the full frame syntax is still indistinguishable from a real frame.
-     * </p>
-     *
-     * @param token one line of printed stack trace text.
-     * @return whether the line has the syntax of a printed stack frame.
-     */
-    private static boolean isStackFrame(final String token) {
-        int i = 0;
-        final int len = token.length();
-        while (i < len && Character.isWhitespace(token.charAt(i))) {
-            i++;
-        }
-        // Frames printed by Throwable are indented: require leading whitespace, then "at ".
-        if (i == 0 || !token.startsWith("at ", i)) {
-            return false;
-        }
-        i += 3;
-        final int paren = token.indexOf('(', i);
-        if (paren <= i) {
-            return false;
-        }
-        // StackTraceElement.toString() never emits whitespace between "at " and '(': any whitespace there means message text.
-        for (int j = i; j < paren; j++) {
-            if (Character.isWhitespace(token.charAt(j))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Tests whether a throwable represents an unchecked exception.
      *
      * @param throwable
@@ -805,11 +729,8 @@ public class ExceptionUtils {
      * </p>
      *
      * <p>
-     * <strong>Note:</strong> the frames are recovered by re-parsing the text produced by {@link Throwable#printStackTrace()}, they are not read from
-     * {@link Throwable#getStackTrace()}. A line inside an exception <em>message</em> that mimics a stack frame (leading whitespace, then {@code "at "},
-     * then a class/method reference with {@code '('}) is indistinguishable from a real frame: untrusted message content can therefore inject fabricated
-     * frames into this output and cause the real frames that follow to be dropped. Do not treat this output as forensic evidence when exception messages
-     * may contain untrusted input; read {@link Throwable#getStackTrace()} for structured frames that cannot be forged by message content.
+     * Frames are read from {@link Throwable#getStackTrace()} and compared as {@link StackTraceElement} objects before formatting. Exception messages
+     * remain part of the exception headers, but are not parsed as stack frames. Custom {@code printStackTrace} output is not used.
      * </p>
      *
      * @param throwable  The throwable to output.
@@ -840,11 +761,8 @@ public class ExceptionUtils {
      * </p>
      *
      * <p>
-     * <strong>Note:</strong> the frames are recovered by re-parsing the text produced by {@link Throwable#printStackTrace()}, they are not read from
-     * {@link Throwable#getStackTrace()}. A line inside an exception <em>message</em> that mimics a stack frame (leading whitespace, then {@code "at "},
-     * then a class/method reference with {@code '('}) is indistinguishable from a real frame: untrusted message content can therefore inject fabricated
-     * frames into this output and cause the real frames that follow to be dropped. Do not treat this output as forensic evidence when exception messages
-     * may contain untrusted input; read {@link Throwable#getStackTrace()} for structured frames that cannot be forged by message content.
+     * Frames are read from {@link Throwable#getStackTrace()} and compared as {@link StackTraceElement} objects before formatting. Exception messages
+     * remain part of the exception headers, but are not parsed as stack frames. Custom {@code printStackTrace} output is not used.
      * </p>
      *
      * @param throwable  The throwable to output, may be null.
@@ -883,11 +801,8 @@ public class ExceptionUtils {
      * </p>
      *
      * <p>
-     * <strong>Note:</strong> the frames are recovered by re-parsing the text produced by {@link Throwable#printStackTrace()}, they are not read from
-     * {@link Throwable#getStackTrace()}. A line inside an exception <em>message</em> that mimics a stack frame (leading whitespace, then {@code "at "},
-     * then a class/method reference with {@code '('}) is indistinguishable from a real frame: untrusted message content can therefore inject fabricated
-     * frames into this output and cause the real frames that follow to be dropped. Do not treat this output as forensic evidence when exception messages
-     * may contain untrusted input; read {@link Throwable#getStackTrace()} for structured frames that cannot be forged by message content.
+     * Frames are read from {@link Throwable#getStackTrace()} and compared as {@link StackTraceElement} objects before formatting. Exception messages
+     * remain part of the exception headers, but are not parsed as stack frames. Custom {@code printStackTrace} output is not used.
      * </p>
      *
      * @param throwable  The throwable to output, may be null.
