@@ -406,11 +406,8 @@ public class ExceptionUtils {
                 nextTrace = getStackFrameList(throwables[i - 1]);
                 removeCommonFrames(trace, nextTrace);
             }
-            if (i == count - 1) {
-                frames.add(throwables[i].toString());
-            } else {
-                frames.add(WRAPPED_MARKER + throwables[i].toString());
-            }
+            final String string = throwables[i].toString();
+            frames.add(i == count - 1 ? string : WRAPPED_MARKER + string);
             frames.addAll(trace);
         }
         return frames;
