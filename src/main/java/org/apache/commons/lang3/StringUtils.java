@@ -1197,15 +1197,15 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.containsAny(null, *)            = false
-     * StringUtils.containsAny("", *)              = false
-     * StringUtils.containsAny(*, null)            = false
-     * StringUtils.containsAny(*, [])              = false
-     * StringUtils.containsAny("abcd", "ab", null) = true
-     * StringUtils.containsAny("abcd", "ab", "cd") = true
-     * StringUtils.containsAny("abc", "d", "abc")  = true
-     * StringUtils.containsAny("abc", "D", "ABC")  = true
-     * StringUtils.containsAny("ABC", "d", "abc")  = true
+     * StringUtils.containsAnyIgnoreCase(null, *)            = false
+     * StringUtils.containsAnyIgnoreCase("", *)              = false
+     * StringUtils.containsAnyIgnoreCase(*, null)            = false
+     * StringUtils.containsAnyIgnoreCase(*, [])              = false
+     * StringUtils.containsAnyIgnoreCase("abcd", "ab", null) = true
+     * StringUtils.containsAnyIgnoreCase("abcd", "ab", "cd") = true
+     * StringUtils.containsAnyIgnoreCase("abc", "d", "abc")  = true
+     * StringUtils.containsAnyIgnoreCase("abc", "D", "ABC")  = true
+     * StringUtils.containsAnyIgnoreCase("ABC", "d", "abc")  = true
      * </pre>
      *
      * @param cs The CharSequence to check, may be null.
@@ -1504,12 +1504,12 @@ public class StringUtils {
      * </p>
      *
      * <pre>
-     * StringUtils.countMatches(null, *)     = 0
-     * StringUtils.countMatches("", *)       = 0
-     * StringUtils.countMatches("abba", 0)   = 0
-     * StringUtils.countMatches("abba", 'a') = 2
-     * StringUtils.countMatches("abba", 'b') = 2
-     * StringUtils.countMatches("abba", 'x') = 0
+     * StringUtils.countMatches(null, *)      = 0
+     * StringUtils.countMatches("", *)        = 0
+     * StringUtils.countMatches("abba", '\0') = 0
+     * StringUtils.countMatches("abba", 'a')  = 2
+     * StringUtils.countMatches("abba", 'b')  = 2
+     * StringUtils.countMatches("abba", 'x')  = 0
      * </pre>
      *
      * @param str The CharSequence to check, may be null.
@@ -2792,10 +2792,15 @@ public class StringUtils {
      * StringUtils.indexOfAny("zzabyycdxx", "cd", "ab")   = 2
      * StringUtils.indexOfAny("zzabyycdxx", "mn", "op")   = -1
      * StringUtils.indexOfAny("zzabyycdxx", "zab", "aby") = 1
-     * StringUtils.indexOfAny("zzabyycdxx", "")           = 0
-     * StringUtils.indexOfAny("", "")                     = 0
-     * StringUtils.indexOfAny("", "a")                    = -1
+     * StringUtils.indexOfAny("zzabyycdxx", new CharSequence[] { "" }) = 0
+     * StringUtils.indexOfAny("", new CharSequence[] { "" })           = 0
+     * StringUtils.indexOfAny("", new CharSequence[] { "a" })          = -1
      * </pre>
+     *
+     * <p>
+     * Use an explicit array when searching for a single substring. Passing a single {@link String} as the second argument instead selects
+     * {@link #indexOfAny(CharSequence, String)}, which searches for individual characters.
+     * </p>
      *
      * @param str        The CharSequence to check, may be null.
      * @param searchStrs The CharSequences to search for, may be null.
@@ -6071,17 +6076,15 @@ public class StringUtils {
      * Removes a char only if it is at the beginning of a source string, otherwise returns the source string.
      *
      * <p>
-     * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string. A {@code null} search char will return
-     * the source string.
+     * A {@code null} source string will return {@code null}. An empty ("") source string will return the empty string.
      * </p>
      *
      * <pre>
      * StringUtils.removeStart(null, *)      = null
      * StringUtils.removeStart("", *)        = ""
-     * StringUtils.removeStart(*, null)      = *
      * StringUtils.removeStart("/path", '/') = "path"
      * StringUtils.removeStart("path", '/')  = "path"
-     * StringUtils.removeStart("path", 0)    = "path"
+     * StringUtils.removeStart("path", '\0') = "path"
      * </pre>
      *
      * @param str    The source String to search, may be null.
@@ -6949,7 +6952,7 @@ public class StringUtils {
      * StringUtils.reverseDelimited(null, *)      = null
      * StringUtils.reverseDelimited("", *)        = ""
      * StringUtils.reverseDelimited("a.b.c", 'x') = "a.b.c"
-     * StringUtils.reverseDelimited("a.b.c", ".") = "c.b.a"
+     * StringUtils.reverseDelimited("a.b.c", '.') = "c.b.a"
      * </pre>
      *
      * @param str           The String to reverse, may be null.
