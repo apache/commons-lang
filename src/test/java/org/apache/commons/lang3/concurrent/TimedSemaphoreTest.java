@@ -19,13 +19,18 @@ package org.apache.commons.lang3.concurrent;
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -40,6 +45,46 @@ import org.junit.jupiter.api.Test;
  * Tests {@link TimedSemaphore}.
  */
 class TimedSemaphoreTest extends AbstractLangTest {
+
+    private static class FairAcquirer extends Thread {
+        private final TimedSemaphore semaphore;
+        private final BlockingQueue<Integer> order;
+        private final int id;
+        private volatile Exception failure;
+
+        FairAcquirer(final TimedSemaphore semaphore, final BlockingQueue<Integer> order, final int id) {
+            this.semaphore = semaphore;
+            this.order = order;
+            this.id = id;
+            setDaemon(true);
+        }
+
+        @Override
+        public void run() {
+            try {
+                semaphore.acquire();
+                order.add(id);
+            } catch (final InterruptedException | IllegalStateException ex) {
+                failure = ex;
+            }
+        }
+    }
+
+    private static final class EqualFairAcquirer extends FairAcquirer {
+        EqualFairAcquirer(final TimedSemaphore semaphore, final BlockingQueue<Integer> order, final int id) {
+            super(semaphore, order, id);
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            return other instanceof EqualFairAcquirer;
+        }
+
+        @Override
+        public int hashCode() {
+            return 1;
+        }
+    }
 
     /**
      * A test thread class that will be used by tests for triggering the
@@ -196,6 +241,54 @@ class TimedSemaphoreTest extends AbstractLangTest {
     /** Constant for the default limit. */
     private static final int LIMIT = 10;
 
+    private static void assertAcquireOrder(final TimedSemaphore semaphore, final boolean fair) throws Exception {
+        final BlockingQueue<Integer> order = new LinkedBlockingQueue<>();
+        final FairAcquirer first = new FairAcquirer(semaphore, order, 1);
+        final FutureTask<Void> newcomerTask = new FutureTask<>(() -> {
+            synchronized (semaphore) {
+                semaphore.endOfPeriod();
+                // Retain the monitor so the older caller cannot run before this acquisition attempt.
+                semaphore.acquire();
+                order.add(2);
+            }
+            return null;
+        });
+        final Thread newcomer = new Thread(newcomerTask);
+        newcomer.setDaemon(true);
+        try {
+            semaphore.acquire();
+            first.start();
+            awaitWaiting(first);
+            newcomer.start();
+            assertEquals(Integer.valueOf(fair ? 1 : 2), order.poll(5, TimeUnit.SECONDS));
+            assertEquals(1, semaphore.getAcquireCount());
+            semaphore.endOfPeriod();
+            newcomerTask.get(5, TimeUnit.SECONDS);
+            assertEquals(Integer.valueOf(fair ? 2 : 1), order.poll(5, TimeUnit.SECONDS));
+            assertNull(first.failure);
+        } finally {
+            newcomer.interrupt();
+            try {
+                stopAcquirers(semaphore, first);
+            } finally {
+                newcomer.join(5000);
+                assertFalse(newcomer.isAlive());
+            }
+        }
+    }
+
+    private static void awaitWaiting(final Thread thread) throws InterruptedException {
+        final long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5);
+        while (thread.getState() != Thread.State.WAITING && thread.isAlive() && System.nanoTime() < deadline) {
+            Thread.sleep(1);
+        }
+        assertEquals(Thread.State.WAITING, thread.getState(), "Caller must be queued before the test proceeds");
+    }
+
+    private static TimedSemaphore newFairSemaphore(final int limit) {
+        return TimedSemaphore.builder().setPeriod(1).setTimeUnit(TimeUnit.DAYS).setLimit(limit).setFair(true).get();
+    }
+
     /**
      * Prepares an executor service mock to expect the start of the timer.
      *
@@ -206,6 +299,15 @@ class TimedSemaphoreTest extends AbstractLangTest {
             final ScheduledFuture<?> future) {
         service.scheduleAtFixedRate((Runnable) EasyMock.anyObject(), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(UNIT));
         EasyMock.expectLastCall().andReturn(future);
+    }
+
+    private static void stopAcquirers(final TimedSemaphore semaphore, final FairAcquirer... threads) throws InterruptedException {
+        semaphore.shutdown();
+        for (final FairAcquirer thread : threads) {
+            thread.interrupt();
+            thread.join(5000);
+            assertFalse(thread.isAlive(), "Acquirer did not terminate");
+        }
     }
 
     /**
@@ -315,6 +417,264 @@ class TimedSemaphoreTest extends AbstractLangTest {
         EasyMock.verify(service, future);
     }
 
+    @Test
+    void testBuilderReusePreservesFairness() throws Exception {
+        final TimedSemaphore.Builder builder = TimedSemaphore.builder().setPeriod(1).setTimeUnit(TimeUnit.DAYS).setLimit(1).setFair(true);
+        final TimedSemaphore fairSemaphore = builder.get();
+        final TimedSemaphore nonFairSemaphore = builder.setFair(false).get();
+        try {
+            // Check each instance while the builder has the opposite setting.
+            assertAcquireOrder(fairSemaphore, true);
+            builder.setFair(true);
+            assertAcquireOrder(nonFairSemaphore, false);
+        } finally {
+            fairSemaphore.shutdown();
+            nonFairSemaphore.shutdown();
+        }
+    }
+
+    @Test
+    void testFairAcquireDisabledLimitDoesNotQueueNewCallers() throws InterruptedException {
+        final TimedSemaphore semaphore = newFairSemaphore(1);
+        final BlockingQueue<Integer> order = new LinkedBlockingQueue<>();
+        final FairAcquirer waiting = new FairAcquirer(semaphore, order, 1);
+        final FairAcquirer newcomer = new FairAcquirer(semaphore, order, 2);
+        try {
+            semaphore.acquire();
+            waiting.start();
+            awaitWaiting(waiting);
+            semaphore.setLimit(0);
+            newcomer.start();
+            newcomer.join(5000);
+            assertFalse(newcomer.isAlive(), "Unlimited acquisitions must not wait for the next period");
+            assertNull(newcomer.failure);
+            assertTrue(order.contains(2));
+        } finally {
+            stopAcquirers(semaphore, waiting, newcomer);
+        }
+    }
+
+    @Test
+    void testFairAcquireDisablingLimitReleasesWaitersAtRollover() throws InterruptedException {
+        final TimedSemaphore semaphore = newFairSemaphore(1);
+        final BlockingQueue<Integer> order = new LinkedBlockingQueue<>();
+        final FairAcquirer first = new FairAcquirer(semaphore, order, 1);
+        final FairAcquirer second = new FairAcquirer(semaphore, order, 2);
+        try {
+            semaphore.acquire();
+            first.start();
+            awaitWaiting(first);
+            second.start();
+            awaitWaiting(second);
+            semaphore.setLimit(0);
+            semaphore.endOfPeriod();
+            assertNotNull(order.poll(5, TimeUnit.SECONDS));
+            assertNotNull(order.poll(5, TimeUnit.SECONDS));
+            assertNull(first.failure);
+            assertNull(second.failure);
+            assertEquals(2, semaphore.getAcquireCount());
+        } finally {
+            stopAcquirers(semaphore, first, second);
+        }
+    }
+
+    @Test
+    void testFairAcquireInterruptedHeadReleasesNextWaiter() throws InterruptedException {
+        final TimedSemaphore semaphore = newFairSemaphore(1);
+        final BlockingQueue<Integer> order = new LinkedBlockingQueue<>();
+        final FairAcquirer first = new FairAcquirer(semaphore, order, 1);
+        final FairAcquirer second = new FairAcquirer(semaphore, order, 2);
+        try {
+            semaphore.acquire();
+            first.start();
+            awaitWaiting(first);
+            second.start();
+            awaitWaiting(second);
+            synchronized (semaphore) {
+                semaphore.setLimit(2);
+                first.interrupt();
+            }
+            first.join(5000);
+            assertFalse(first.isAlive());
+            assertInstanceOf(InterruptedException.class, first.failure);
+            assertEquals(Integer.valueOf(2), order.poll(5, TimeUnit.SECONDS));
+            assertNull(second.failure);
+            assertEquals(2, semaphore.getAcquireCount());
+        } finally {
+            stopAcquirers(semaphore, first, second);
+        }
+    }
+
+    @Test
+    void testFairAcquireInterruptedMiddlePreservesQueue() throws InterruptedException {
+        final TimedSemaphore semaphore = newFairSemaphore(1);
+        final BlockingQueue<Integer> order = new LinkedBlockingQueue<>();
+        // Distinct callers must remain distinct even if their Thread subclasses compare equal.
+        final FairAcquirer first = new EqualFairAcquirer(semaphore, order, 1);
+        final FairAcquirer second = new EqualFairAcquirer(semaphore, order, 2);
+        final FairAcquirer third = new EqualFairAcquirer(semaphore, order, 3);
+        try {
+            semaphore.acquire();
+            first.start();
+            awaitWaiting(first);
+            second.start();
+            awaitWaiting(second);
+            third.start();
+            awaitWaiting(third);
+            second.interrupt();
+            second.join(5000);
+            assertFalse(second.isAlive());
+            assertInstanceOf(InterruptedException.class, second.failure);
+            semaphore.endOfPeriod();
+            assertEquals(Integer.valueOf(1), order.poll(5, TimeUnit.SECONDS));
+            semaphore.endOfPeriod();
+            assertEquals(Integer.valueOf(3), order.poll(5, TimeUnit.SECONDS));
+            assertNull(first.failure);
+            assertNull(third.failure);
+            assertEquals(1, semaphore.getAcquireCount());
+        } finally {
+            stopAcquirers(semaphore, first, second, third);
+        }
+    }
+
+    @Test
+    void testFairAcquireNewcomerCannotBypassQueuedCaller() throws Exception {
+        assertAcquireOrder(newFairSemaphore(1), true);
+    }
+
+    @Test
+    void testFairAcquireOrderAcrossPeriods() throws InterruptedException {
+        final TimedSemaphore semaphore = newFairSemaphore(1);
+        final BlockingQueue<Integer> order = new LinkedBlockingQueue<>();
+        final FairAcquirer first = new FairAcquirer(semaphore, order, 1);
+        final FairAcquirer second = new FairAcquirer(semaphore, order, 2);
+        final FairAcquirer third = new FairAcquirer(semaphore, order, 3);
+        try {
+            semaphore.acquire();
+            first.start();
+            awaitWaiting(first);
+            second.start();
+            awaitWaiting(second);
+            third.start();
+            awaitWaiting(third);
+            for (int expected = 1; expected <= 3; expected++) {
+                semaphore.endOfPeriod();
+                assertEquals(Integer.valueOf(expected), order.poll(5, TimeUnit.SECONDS));
+                assertEquals(1, semaphore.getAcquireCount());
+                assertEquals(0, semaphore.getAvailablePermits());
+            }
+            assertNull(first.failure);
+            assertNull(second.failure);
+            assertNull(third.failure);
+        } finally {
+            stopAcquirers(semaphore, first, second, third);
+        }
+    }
+
+    @Test
+    void testFairAcquireReleasesMultipleWaiters() throws InterruptedException {
+        final TimedSemaphore semaphore = newFairSemaphore(1);
+        final BlockingQueue<Integer> order = new LinkedBlockingQueue<>();
+        final FairAcquirer first = new FairAcquirer(semaphore, order, 1);
+        final FairAcquirer second = new FairAcquirer(semaphore, order, 2);
+        try {
+            semaphore.acquire();
+            first.start();
+            awaitWaiting(first);
+            second.start();
+            awaitWaiting(second);
+            semaphore.setLimit(2);
+            semaphore.endOfPeriod();
+            assertNotNull(order.poll(5, TimeUnit.SECONDS));
+            assertNotNull(order.poll(5, TimeUnit.SECONDS));
+            assertEquals(2, semaphore.getAcquireCount());
+            assertNull(first.failure);
+            assertNull(second.failure);
+        } finally {
+            stopAcquirers(semaphore, first, second);
+        }
+    }
+
+    @Test
+    void testFairAcquireShutdownReleasesWaiters() throws InterruptedException {
+        final TimedSemaphore semaphore = newFairSemaphore(1);
+        final BlockingQueue<Integer> order = new LinkedBlockingQueue<>();
+        final FairAcquirer first = new FairAcquirer(semaphore, order, 1);
+        final FairAcquirer second = new FairAcquirer(semaphore, order, 2);
+        try {
+            semaphore.acquire();
+            first.start();
+            awaitWaiting(first);
+            second.start();
+            awaitWaiting(second);
+            semaphore.shutdown();
+            first.join(5000);
+            second.join(5000);
+            assertFalse(first.isAlive());
+            assertFalse(second.isAlive());
+            assertInstanceOf(IllegalStateException.class, first.failure);
+            assertInstanceOf(IllegalStateException.class, second.failure);
+            assertTrue(order.isEmpty());
+        } finally {
+            stopAcquirers(semaphore, first, second);
+        }
+    }
+
+    @Test
+    void testFairLimitChangesPreserveAccounting() throws InterruptedException {
+        final TimedSemaphore semaphore = newFairSemaphore(3);
+        try {
+            semaphore.acquire();
+            assertTrue(semaphore.tryAcquire());
+            semaphore.setLimit(1);
+            assertFalse(semaphore.tryAcquire());
+            semaphore.setLimit(3);
+            assertEquals(1, semaphore.getAvailablePermits());
+            assertTrue(semaphore.tryAcquire());
+            semaphore.setLimit(3);
+            assertFalse(semaphore.tryAcquire());
+            semaphore.endOfPeriod();
+            assertEquals(3, semaphore.getLastAcquiresPerPeriod());
+            assertEquals(3, semaphore.getAvailablePermits());
+            assertEquals(0, semaphore.getAcquireCount());
+            semaphore.setLimit(-1);
+            for (int i = 0; i < 10; i++) {
+                semaphore.acquire();
+            }
+            assertEquals(10, semaphore.getAcquireCount());
+        } finally {
+            semaphore.shutdown();
+        }
+    }
+
+    @Test
+    void testFairTryAcquireCanBypassWaitersWithoutClearingInterrupt() throws InterruptedException {
+        final TimedSemaphore semaphore = newFairSemaphore(1);
+        final BlockingQueue<Integer> order = new LinkedBlockingQueue<>();
+        final FairAcquirer waiter = new FairAcquirer(semaphore, order, 1);
+        try {
+            semaphore.acquire();
+            waiter.start();
+            awaitWaiting(waiter);
+            synchronized (semaphore) {
+                semaphore.endOfPeriod();
+                Thread.currentThread().interrupt();
+                try {
+                    assertTrue(semaphore.tryAcquire());
+                    assertTrue(Thread.currentThread().isInterrupted());
+                    assertFalse(semaphore.tryAcquire());
+                } finally {
+                    Thread.interrupted();
+                }
+            }
+            semaphore.endOfPeriod();
+            assertEquals(Integer.valueOf(1), order.poll(5, TimeUnit.SECONDS));
+            assertNull(waiter.failure);
+        } finally {
+            stopAcquirers(semaphore, waiter);
+        }
+    }
+
     /**
      * Tests whether the available non-blocking calls can be queried.
      *
@@ -397,6 +757,12 @@ class TimedSemaphoreTest extends AbstractLangTest {
     @Test
     void testInitInvalidPeriod() {
         assertIllegalArgumentException(() -> new TimedSemaphore(0L, UNIT, LIMIT));
+    }
+
+    @Test
+    void testNonFairAcquireNewcomerCanBypassQueuedCaller() throws Exception {
+        final TimedSemaphore semaphore = TimedSemaphore.builder().setPeriod(1).setTimeUnit(TimeUnit.DAYS).setLimit(1).setFair(false).get();
+        assertAcquireOrder(semaphore, false);
     }
 
     /**
@@ -588,4 +954,5 @@ class TimedSemaphoreTest extends AbstractLangTest {
         semaphore.shutdown();
         assertThrows(IllegalStateException.class, semaphore::tryAcquire);
     }
+
 }

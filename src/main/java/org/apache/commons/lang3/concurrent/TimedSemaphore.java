@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3.concurrent;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -123,6 +125,7 @@ public class TimedSemaphore {
         private long period;
         private TimeUnit timeUnit;
         private int limit;
+        private boolean fair;
 
         /**
          * Constructs a new Builder.
@@ -134,6 +137,24 @@ public class TimedSemaphore {
         @Override
         public TimedSemaphore get() {
             return new TimedSemaphore(this);
+        }
+
+        /**
+         * Sets whether blocking acquisitions use FIFO ordering.
+         *
+         * <p>
+         * Fairness is disabled by default. When enabled, calls to {@link TimedSemaphore#acquire()} are ordered by entry into the internal waiting queue,
+         * not by thread start time or method return order. New calls made with the limit disabled and calls to {@link TimedSemaphore#tryAcquire()} may
+         * bypass waiting callers.
+         * </p>
+         *
+         * @param fair Whether to enable FIFO ordering.
+         * @return {@code this} instance.
+         * @since 3.22.0
+         */
+        public Builder setFair(final boolean fair) {
+            this.fair = fair;
+            return this;
         }
 
         /**
@@ -235,8 +256,15 @@ public class TimedSemaphore {
     /** A flag whether shutdown() was called. */
     private boolean shutdown; // @GuardedBy("this")
 
+    /** Whether blocking acquisitions use FIFO ordering. */
+    private final boolean fair;
+
+    /** Tokens for fair acquisitions, guarded by this object's monitor. */
+    private final Deque<Object> waiters = new ArrayDeque<>();
+
     private TimedSemaphore(final Builder builder) {
         Validate.inclusiveBetween(1, Long.MAX_VALUE, builder.period, "Time period must be greater than 0.");
+        fair = builder.fair;
         period = builder.period;
         unit = builder.timeUnit;
         if (builder.service != null) {
@@ -287,21 +315,45 @@ public class TimedSemaphore {
      * already been invoked, calling this method will cause an exception. The very first call of this method starts the timer task which monitors the time
      * period set for this {@link TimedSemaphore}. From now on the semaphore is active.
      *
+     * <p>
+     * When fairness is enabled, waiting callers acquire permits in the order they enter the internal queue. This does not guarantee thread start or
+     * method return order. New calls made with the limit disabled do not wait for queued callers. Calls to {@link #tryAcquire()} may also bypass
+     * queued callers.
+     * </p>
+     *
      * @throws InterruptedException  Thrown if the thread gets interrupted.
      * @throws IllegalStateException Thrown if this semaphore is already shut down.
      */
     public synchronized void acquire() throws InterruptedException {
         prepareAcquire();
-        boolean canPass;
-        do {
-            canPass = acquirePermit();
-            if (!canPass) {
-                wait();
-                if (shutdown) {
-                    throw new IllegalStateException("TimedSemaphore is shut down.");
+        if (fair && getLimit() > NO_LIMIT) {
+            // A private token avoids invoking an overridden Thread.equals() during cancellation.
+            final Object waiter = new Object();
+            waiters.addLast(waiter);
+            try {
+                while (waiters.peekFirst() != waiter || !acquirePermit()) {
+                    wait();
+                    if (shutdown) {
+                        throw new IllegalStateException("TimedSemaphore is shut down.");
+                    }
                 }
+            } finally {
+                waiters.removeFirstOccurrence(waiter);
+                // Let the next caller use any permits remaining in this period, including after interruption.
+                notifyAll();
             }
-        } while (!canPass);
+        } else {
+            boolean canPass;
+            do {
+                canPass = acquirePermit();
+                if (!canPass) {
+                    wait();
+                    if (shutdown) {
+                        throw new IllegalStateException("TimedSemaphore is shut down.");
+                    }
+                }
+            } while (!canPass);
+        }
     }
 
     /**
@@ -474,6 +526,11 @@ public class TimedSemaphore {
     /**
      * Tries to acquire a permit from this semaphore. If the limit of this semaphore has not yet been reached, a permit is acquired, and this method returns
      * <strong>true</strong>. Otherwise, this method returns immediately with the result <strong>false</strong>.
+     *
+     * <p>
+     * This method does not honor the fairness setting: it may acquire a permit ahead of waiting callers. It does not test or clear the calling thread's
+     * interrupted status.
+     * </p>
      *
      * @return <strong>true</strong> if a permit could be acquired; <strong>false</strong> otherwise.
      * @throws IllegalStateException Thrown if this semaphore is already shut down.
