@@ -261,7 +261,7 @@ class LocaleUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"x", "abcd", "EN", "e1", "en-US", " "})
+    @ValueSource(strings = {"x", "abcd", "EN", "e1", "en-US", " ", "ｅｎ", "éé", "ééé", "eé"})
     void testCountriesByLanguageDoesNotCacheInvalidLanguageCode(final String languageCode) {
         final ConcurrentMap<String, List<Locale>> map = LocaleUtils.getLcToLocalesMap();
         assertFalse(map.containsKey(languageCode));
@@ -371,7 +371,7 @@ class LocaleUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"x", "abcd", "English", "e1", "en-US", " "})
+    @ValueSource(strings = {"x", "abcd", "English", "e1", "en-US", " ", "ＧＢ", "ÉÉ", "GÉ", "ÉB", "١٢٣", "1٢3"})
     void testLanguagesByCountryDoesNotCacheInvalidLanguageCode(final String languageCode) {
         final ConcurrentMap<String, List<Locale>> map = LocaleUtils.getCcToLocalesMap();
         assertFalse(map.containsKey(languageCode));
@@ -546,11 +546,11 @@ class LocaleUtilsTest extends AbstractLangTest {
     @ParameterizedTest
     @ValueSource(strings = {
             // FULLWIDTH LATIN SMALL LETTER E and N
-            "ｅｎ", "éé", "éé_GB",
+            "ｅｎ", "éé", "ééé", "eé", "éé_GB", "éé-GB", "éé_GB_POSIX",
             // FULLWIDTH LATIN CAPITAL LETTER G and B
-            "en_ＧＢ", "en_ÉÉ", "en_ÉÉ_POSIX", "_ÉÉ", "_ÉÉ_POSIX",
+            "en_ＧＢ", "en_ÉÉ", "en-ÉÉ", "en_ÉÉ_POSIX", "_ÉÉ", "_ÉÉ_POSIX", "-ÉÉ", "_GÉ", "_ÉB",
             // ARABIC-INDIC DIGIT ONE, TWO and THREE
-            "en_١٢٣" })
+            "en_١٢٣", "en-١٢٣", "en_1٢3", "en_١٢٣_POSIX" })
     void testToLocaleNonAsciiCodes(final String localeString) {
         assertIllegalArgumentException(() -> LocaleUtils.toLocale(localeString), "Should fail code not ASCII: " + localeString);
     }

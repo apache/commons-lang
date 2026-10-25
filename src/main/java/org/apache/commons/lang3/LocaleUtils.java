@@ -416,8 +416,9 @@ public class LocaleUtils {
      * </p>
      *
      * <p>
-     * This method validates the input strictly. The language code must be lowercase. The country code must be uppercase. The separator must be an underscore or
-     * a dash. The length must be correct.
+     * This method validates the input strictly. A nonempty language code must consist of two or three lowercase ASCII letters. A nonempty country code must
+     * consist of two uppercase ASCII letters or, when a language code is present, three ASCII digits representing a numeric area code. The separator must be
+     * an underscore or a dash. The length must be correct.
      * </p>
      *
      * @param str The locale String to convert, null returns null.
