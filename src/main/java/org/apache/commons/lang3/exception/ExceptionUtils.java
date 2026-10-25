@@ -582,28 +582,26 @@ public class ExceptionUtils {
      * @param subclass  if {@code true}, compares with {@link Class#isAssignableFrom(Class)}, otherwise compares using references.
      * @return index of the {@code type} within throwables nested within the specified {@code throwable}.
      */
-    private static int indexOf(final Throwable throwable, final Class<? extends Throwable> type, int fromIndex, final boolean subclass) {
+    private static int indexOf(final Throwable throwable, final Class<? extends Throwable> type, final int fromIndex, final boolean subclass) {
         if (throwable == null || type == null) {
             return NOT_FOUND;
         }
-        if (fromIndex < 0) {
-            fromIndex = 0;
-        }
-        final Throwable[] throwables = getThrowables(throwable);
-        if (fromIndex >= throwables.length) {
-            return NOT_FOUND;
-        }
-        if (subclass) {
-            for (int i = fromIndex; i < throwables.length; i++) {
-                if (type.isAssignableFrom(throwables[i].getClass())) {
-                    return i;
-                }
-            }
-        } else {
-            for (int i = fromIndex; i < throwables.length; i++) {
-                if (type.equals(throwables[i].getClass())) {
-                    return i;
-                }
+        return indexOf(getThrowables(throwable), type, fromIndex, subclass);
+    }
+
+    /**
+     * Finds the first matching throwable in an array.
+     *
+     * @param throwables The throwable chain to search.
+     * @param type The type to search for.
+     * @param fromIndex The starting index, negative treated as zero.
+     * @param subclass Whether subclasses match.
+     * @return The index of the first match, or {@code -1} if none is found.
+     */
+    private static int indexOf(final Throwable[] throwables, final Class<? extends Throwable> type, final int fromIndex, final boolean subclass) {
+        for (int i = Math.max(0, fromIndex); i < throwables.length; i++) {
+            if (subclass ? type.isInstance(throwables[i]) : type.equals(throwables[i].getClass())) {
+                return i;
             }
         }
         return NOT_FOUND;
@@ -696,7 +694,7 @@ public class ExceptionUtils {
      * @since 3.13.0
      */
     public static boolean isChecked(final Throwable throwable) {
-        return throwable != null && !(throwable instanceof Error) && !(throwable instanceof RuntimeException);
+        return throwable != null && !isUnchecked(throwable);
     }
 
     /**
@@ -962,31 +960,13 @@ public class ExceptionUtils {
      * using references.
      * @return throwable of the {@code type} within throwables nested within the specified {@code throwable}.
      */
-    private static <T extends Throwable> T throwableOf(final Throwable throwable, final Class<T> type, int fromIndex, final boolean subclass) {
+    private static <T extends Throwable> T throwableOf(final Throwable throwable, final Class<T> type, final int fromIndex, final boolean subclass) {
         if (throwable == null || type == null) {
             return null;
         }
-        if (fromIndex < 0) {
-            fromIndex = 0;
-        }
         final Throwable[] throwables = getThrowables(throwable);
-        if (fromIndex >= throwables.length) {
-            return null;
-        }
-        if (subclass) {
-            for (int i = fromIndex; i < throwables.length; i++) {
-                if (type.isAssignableFrom(throwables[i].getClass())) {
-                    return type.cast(throwables[i]);
-                }
-            }
-        } else {
-            for (int i = fromIndex; i < throwables.length; i++) {
-                if (type.equals(throwables[i].getClass())) {
-                    return type.cast(throwables[i]);
-                }
-            }
-        }
-        return null;
+        final int index = indexOf(throwables, type, fromIndex, subclass);
+        return index == NOT_FOUND ? null : type.cast(throwables[index]);
     }
 
     /**
