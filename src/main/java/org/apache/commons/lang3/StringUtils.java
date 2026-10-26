@@ -239,7 +239,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str      The String to check, may be null.
-     * @param maxWidth maximum length of result String, must be at least 4.
+     * @param maxWidth maximum number of Unicode code points in the result String, must be at least 4.
      * @return abbreviated String, {@code null} if null String input.
      * @throws IllegalArgumentException Thrown if the width is too small.
      * @since 2.0
@@ -276,8 +276,8 @@ public class StringUtils {
      * </pre>
      *
      * @param str      The String to check, may be null.
-     * @param offset   left edge of source String.
-     * @param maxWidth maximum length of result String, must be at least 4.
+     * @param offset   left edge of source String, measured in Unicode code points.
+     * @param maxWidth maximum number of Unicode code points in the result String, must be at least 4.
      * @return abbreviated String, {@code null} if null String input.
      * @throws IllegalArgumentException Thrown if the width is too small.
      * @since 2.0
@@ -294,10 +294,10 @@ public class StringUtils {
      * Specifically:
      * </p>
      * <ul>
-     * <li>If the number of characters in {@code str} is less than or equal to {@code maxWidth}, return {@code str}.</li>
+     * <li>If the number of Unicode code points in {@code str} is less than or equal to {@code maxWidth}, return {@code str}.</li>
      * <li>Else abbreviate it to {@code (substring(str, 0, max - abbrevMarker.length) + abbrevMarker)}.</li>
      * <li>If {@code maxWidth} is less than {@code abbrevMarker.length + 1}, throw an {@link IllegalArgumentException}.</li>
-     * <li>In no case will it return a String of length greater than {@code maxWidth}.</li>
+     * <li>In no case will it return a String with more Unicode code points than {@code maxWidth}.</li>
      * </ul>
      *
      * <pre>
@@ -315,7 +315,7 @@ public class StringUtils {
      *
      * @param str          The String to check, may be null.
      * @param abbrevMarker The String used as replacement marker.
-     * @param maxWidth     maximum length of result String, must be at least {@code abbrevMarker.length + 1}.
+     * @param maxWidth     maximum number of Unicode code points in the result String, must be at least the marker's code point count plus one.
      * @return abbreviated String, {@code null} if null String input.
      * @throws IllegalArgumentException Thrown if the width is too small.
      * @since 3.6
@@ -355,8 +355,8 @@ public class StringUtils {
      *
      * @param str          The String to check, may be null.
      * @param abbrevMarker The String used as replacement marker, for example "...", or Unicode HORIZONTAL ELLIPSIS, U+2026 '…'.
-     * @param offset       left edge of source String.
-     * @param maxWidth     maximum length of result String, must be at least 4.
+     * @param offset       left edge of source String, measured in Unicode code points.
+     * @param maxWidth     maximum number of Unicode code points in the result String, must be at least 4.
      * @return abbreviated String, {@code null} if null String input.
      * @throws IllegalArgumentException Thrown if the width is too small.
      * @since 3.6
@@ -368,38 +368,29 @@ public class StringUtils {
         if (abbrevMarker == null) {
             abbrevMarker = EMPTY;
         }
-        final int abbrevMarkerLength = abbrevMarker.length();
+        final int abbrevMarkerLength = abbrevMarker.codePointCount(0, abbrevMarker.length());
         final int minAbbrevWidth = abbrevMarkerLength + 1;
         final int minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
 
         if (maxWidth < minAbbrevWidth) {
             throw new IllegalArgumentException(String.format("Minimum abbreviation width is %d", minAbbrevWidth));
         }
-        final int strLen = str.length();
+        final int strLen = str.codePointCount(0, str.length());
         if (strLen <= maxWidth) {
             return str;
         }
         if (strLen - offset <= maxWidth - abbrevMarkerLength) {
-            int tailStart = strLen - (maxWidth - abbrevMarkerLength);
-            if (splitsSurrogatePair(str, tailStart)) {
-                tailStart++;
-            }
+            final int tailStart = str.offsetByCodePoints(0, strLen - (maxWidth - abbrevMarkerLength));
             return abbrevMarker + str.substring(tailStart);
         }
         if (offset <= abbrevMarkerLength + 1) {
-            int headEnd = maxWidth - abbrevMarkerLength;
-            if (splitsSurrogatePair(str, headEnd)) {
-                headEnd--;
-            }
+            final int headEnd = str.offsetByCodePoints(0, maxWidth - abbrevMarkerLength);
             return str.substring(0, headEnd) + abbrevMarker;
         }
         if (maxWidth < minAbbrevWidthOffset) {
             throw new IllegalArgumentException(String.format("Minimum abbreviation width with offset is %d", minAbbrevWidthOffset));
         }
-        int from = offset;
-        if (splitsSurrogatePair(str, from)) {
-            from++;
-        }
+        final int from = str.offsetByCodePoints(0, offset);
         return abbrevMarker + abbreviate(str.substring(from), abbrevMarker, maxWidth - abbrevMarkerLength);
     }
 
