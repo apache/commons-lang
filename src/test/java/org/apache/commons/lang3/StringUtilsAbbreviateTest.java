@@ -246,9 +246,9 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
     void testAbbreviateSurrogatePair() {
         // U+1F600 GRINNING FACE is a single supplementary code point stored as a surrogate pair
         final String grin = "😀";
-        // the head cut backs off the pair so the marker is never preceded by a lone high surrogate
-        assertEquals("...", StringUtils.abbreviate(grin + "abcdef", 4));
-        assertEquals(grin + "...", StringUtils.abbreviate(grin + "abcdef", 5));
+        // Width is measured in code points, so a supplementary character can be retained with the marker.
+        assertEquals(grin + "...", StringUtils.abbreviate(grin + "abcdef", 4));
+        assertEquals(grin + "a...", StringUtils.abbreviate(grin + "abcdef", 5));
         // a trailing supplementary code point is kept whole rather than sliced into a lone low surrogate
         assertEquals("..." + grin, StringUtils.abbreviate("abcdef" + grin, 6, 5));
         // an input that is only the pair is kept whole or dropped, never split into a lone surrogate
@@ -262,7 +262,7 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
         // results stay within maxWidth and never contain an unpaired surrogate
         for (int width = 4; width <= 8; width++) {
             final String result = StringUtils.abbreviate("a" + grin + "b" + grin + "cd", width);
-            assertTrue(result.length() <= width, () -> "result longer than maxWidth: " + result);
+            assertTrue(result.codePointCount(0, result.length()) <= width, () -> "result longer than maxWidth: " + result);
             for (int i = 0; i < result.length(); i++) {
                 final char ch = result.charAt(i);
                 if (Character.isHighSurrogate(ch)) {
