@@ -395,11 +395,13 @@ public class RandomStringUtils {
         final CachedRandomBits arb = new CachedRandomBits(cacheSize, random);
         // Bound rejection retries so a range that rejects every sample
         // (for example, entirely UNASSIGNED/PRIVATE_USE/SURROGATE) raises an
-        // IllegalArgumentException instead of looping indefinitely. Cap is
-        // (end - start) * 10 with a small floor so tiny gaps still get a
-        // reasonable budget. The counter resets on every accepted code point.
-        final int maxRejections = Math.max(64, gap * 10);
-        int rejections = 0;
+        // IllegalArgumentException instead of looping indefinitely. Each draw
+        // takes gapBits bits, so a range holding a single acceptable value
+        // accepts a draw with probability 1 / 2^gapBits; scaling the cap by
+        // that sample space keeps a valid request from exhausting it (chance
+        // below e^-64 per character). The counter resets on every accepted code point.
+        final long maxRejections = 64L << gapBits;
+        long rejections = 0;
         while (count-- != 0) {
             // Generate a random value between start (included) and end (excluded)
             final int randomValue = arb.nextBits(gapBits) + start;
