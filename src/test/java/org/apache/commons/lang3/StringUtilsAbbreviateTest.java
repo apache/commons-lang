@@ -293,27 +293,19 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
             "👩🏻‍👨🏻‍...",
             "👩🏻‍👨🏻‍👦..."
         };
-        final String[] expectedResultsFamilyWithGrapheme = {
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻...", // 4
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼...",
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽...",
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾...",
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿...",
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻...",
-            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼..." // 10
-        };
+
         // @formatter:on
         for (int i = 4; i <= 10; i++) {
             final String abbreviateResult = StringUtils.abbreviate("🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊", i);
             assertNotNull(abbreviateResult);
-            // assertEquals(expectedResultsFox[i - 4], abbreviateResult);
+            assertEquals(expectedResultsFox[i - 4], abbreviateResult);
         }
         for (int i = 4; i <= 10; i++) {
             final String abbreviateResult = StringUtils.abbreviate(
                     "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿",
                     i);
             assertNotNull(abbreviateResult);
-            // assertEquals(expectedResultsFamilyWithCodepoints[i - 4], abbreviateResult);
+            assertEquals(expectedResultsFamilyWithCodepoints[i - 4], abbreviateResult);
         }
     }
 }
