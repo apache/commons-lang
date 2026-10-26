@@ -24,7 +24,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Tests {@link StringUtils#abbreviate(String, int)} and friends.
@@ -269,43 +275,74 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
         }
     }
 
+    private static final String FOXES = "🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊";
+    private static final String FAMILY_VARIANTS =
+            "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿";
+    private static final String FAMILY_INPUT = FAMILY_VARIANTS + FAMILY_VARIANTS;
+
+    // @formatter:off
+    private static final String[] EXPECTED_FOXES = {
+        "🦊...", // 4
+        "🦊🦊...",
+        "🦊🦊🦊...",
+        "🦊🦊🦊🦊...",
+        "🦊🦊🦊🦊🦊...",
+        "🦊🦊🦊🦊🦊🦊...",
+        "🦊🦊🦊🦊🦊🦊🦊...", // 10
+    };
+    private static final String[] EXPECTED_FAMILY_WITH_CODEPOINTS = {
+        "👩...",
+        "👩🏻...",
+        "👩🏻‍...", // zero width joiner
+        "👩🏻‍👨...",
+        "👩🏻‍👨🏻...",
+        "👩🏻‍👨🏻‍...",
+        "👩🏻‍👨🏻‍👦..."
+    };
+    private static final String[] EXPECTED_FAMILY_WITH_GRAPHEME = {
+        "👩🏻‍👨🏻‍👦🏻‍👦🏻...", // 4
+        "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼...",
+        "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽...",
+        "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾...",
+        "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿...",
+        "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻...",
+        "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼..." // 10
+    };
+    // @formatter:on
+
+    static Stream<Arguments> foxAbbreviationCases() {
+        return IntStream.rangeClosed(4, 10)
+                .mapToObj(width -> Arguments.of(FOXES, width, EXPECTED_FOXES[width - 4]));
+    }
+
+    static Stream<Arguments> familyCodePointAbbreviationCases() {
+        return IntStream.rangeClosed(4, 10)
+                .mapToObj(width -> Arguments.of(FAMILY_INPUT, width, EXPECTED_FAMILY_WITH_CODEPOINTS[width - 4]));
+    }
+
+    static Stream<Arguments> familyGraphemePrefixCases() {
+        return Stream.of(EXPECTED_FAMILY_WITH_GRAPHEME)
+                .map(expected -> Arguments.of(FAMILY_INPUT, expected.codePointCount(0, expected.length()), expected));
+    }
+
     /**
      * Tests <a href="LANG-1770">https://issues.apache.org/jira/projects/LANG/issues/LANG-1770</a>.
      */
-    @Test
-    void testEmoji() {
-        // @formatter:off
-        final String[] expectedResultsFox = {
-            "🦊...", // 4
-            "🦊🦊...",
-            "🦊🦊🦊...",
-            "🦊🦊🦊🦊...",
-            "🦊🦊🦊🦊🦊...",
-            "🦊🦊🦊🦊🦊🦊...",
-            "🦊🦊🦊🦊🦊🦊🦊...", // 10
-        };
-        final String[] expectedResultsFamilyWithCodepoints = {
-            "👩...",
-            "👩🏻...",
-            "👩🏻‍...", // zero width joiner
-            "👩🏻‍👨...",
-            "👩🏻‍👨🏻...",
-            "👩🏻‍👨🏻‍...",
-            "👩🏻‍👨🏻‍👦..."
-        };
+    @ParameterizedTest
+    @MethodSource("foxAbbreviationCases")
+    void testAbbreviateSupplementaryCodePoints(final String input, final int width, final String expected) {
+        assertEquals(expected, StringUtils.abbreviate(input, width));
+    }
 
-        // @formatter:on
-        for (int i = 4; i <= 10; i++) {
-            final String abbreviateResult = StringUtils.abbreviate("🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊🦊", i);
-            assertNotNull(abbreviateResult);
-            assertEquals(expectedResultsFox[i - 4], abbreviateResult);
-        }
-        for (int i = 4; i <= 10; i++) {
-            final String abbreviateResult = StringUtils.abbreviate(
-                    "👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿👩🏻‍👨🏻‍👦🏻‍👦🏻👩🏼‍👨🏼‍👦🏼‍👦🏼👩🏽‍👨🏽‍👦🏽‍👦🏽👩🏾‍👨🏾‍👦🏾‍👦🏾👩🏿‍👨🏿‍👦🏿‍👦🏿",
-                    i);
-            assertNotNull(abbreviateResult);
-            assertEquals(expectedResultsFamilyWithCodepoints[i - 4], abbreviateResult);
-        }
+    @ParameterizedTest
+    @MethodSource("familyCodePointAbbreviationCases")
+    void testAbbreviateFamilyCodePoints(final String input, final int width, final String expected) {
+        assertEquals(expected, StringUtils.abbreviate(input, width));
+    }
+
+    @ParameterizedTest
+    @MethodSource("familyGraphemePrefixCases")
+    void testAbbreviateFamilyGraphemePrefixes(final String input, final int width, final String expected) {
+        assertEquals(expected, StringUtils.abbreviate(input, width));
     }
 }
