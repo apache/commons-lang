@@ -295,8 +295,8 @@ public class StringUtils {
      * </p>
      * <ul>
      * <li>If the number of Unicode code points in {@code str} is less than or equal to {@code maxWidth}, return {@code str}.</li>
-     * <li>Else abbreviate it to {@code (substring(str, 0, max - abbrevMarker.length) + abbrevMarker)}.</li>
-     * <li>If {@code maxWidth} is less than {@code abbrevMarker.length + 1}, throw an {@link IllegalArgumentException}.</li>
+     * <li>Else abbreviate it to the first {@code maxWidth - abbrevMarker.codePointCount(0, abbrevMarker.length())} code points and append the marker.</li>
+     * <li>If {@code maxWidth} is less than the marker's code point count plus one, throw an {@link IllegalArgumentException}.</li>
      * <li>In no case will it return a String with more Unicode code points than {@code maxWidth}.</li>
      * </ul>
      *
