@@ -1808,6 +1808,35 @@ class DateUtilsTest extends AbstractLangTest {
     }
 
     /**
+     * Tests that ceiling and round keep the offset of a time inside a DST overlap when a field below the target is at or above its halfway
+     * point, which modify() removes with Calendar.set() rather than the LANG-59 arithmetic used for the round-down case.
+     */
+    @DefaultTimeZone("Europe/London")
+    @Test
+    void testCeilingAndRoundDstOverlap() {
+        // 2024-10-27 01:00-02:00 BST repeats as 01:00-02:00 GMT; ZonedDateTime.of() picks the earlier offset, BST.
+        final ZonedDateTime bst = ZonedDateTime.of(2024, 10, 27, 1, 8, 58, 245_000_000, ZoneId.of("Europe/London"));
+        assertEquals(ZoneOffset.ofHours(1), bst.getOffset());
+        final ZonedDateTime gmt = bst.withLaterOffsetAtOverlap();
+        assertEquals(ZoneOffset.UTC, gmt.getOffset());
+        for (final ZonedDateTime zdt : new ZonedDateTime[] { bst, gmt }) {
+            final Date date = Date.from(zdt.toInstant());
+            final ZonedDateTime minute = zdt.truncatedTo(ChronoUnit.MINUTES);
+            final ZonedDateTime hour = zdt.truncatedTo(ChronoUnit.HOURS);
+            assertEquals(Date.from(zdt.truncatedTo(ChronoUnit.SECONDS).plusSeconds(1).toInstant()), DateUtils.ceiling(date, Calendar.SECOND), "Ceiling Calendar.SECOND " + zdt);
+            assertEquals(Date.from(minute.plusMinutes(1).toInstant()), DateUtils.ceiling(date, Calendar.MINUTE), "Ceiling Calendar.MINUTE " + zdt);
+            assertEquals(Date.from(minute.plusMinutes(1).toInstant()), DateUtils.round(date, Calendar.MINUTE), "Round Calendar.MINUTE " + zdt);
+            assertEquals(Date.from(hour.plusHours(1).toInstant()), DateUtils.ceiling(date, Calendar.HOUR_OF_DAY), "Ceiling Calendar.HOUR_OF_DAY " + zdt);
+            assertEquals(Date.from(hour.plusHours(1).toInstant()), DateUtils.ceiling(date, Calendar.HOUR), "Ceiling Calendar.HOUR " + zdt);
+            assertEquals(Date.from(hour.toInstant()), DateUtils.round(date, Calendar.HOUR_OF_DAY), "Round Calendar.HOUR_OF_DAY " + zdt);
+            // 38 minutes past rounds up to the next hour
+            final Date late = Date.from(zdt.withMinute(38).toInstant());
+            assertEquals(Date.from(hour.plusHours(1).toInstant()), DateUtils.round(late, Calendar.HOUR_OF_DAY), "Round up Calendar.HOUR_OF_DAY " + zdt);
+            assertEquals(Date.from(hour.plusHours(1).toInstant()), DateUtils.round(late, Calendar.HOUR), "Round up Calendar.HOUR " + zdt);
+        }
+    }
+
+    /**
      * Tests the calendar iterator for week ranges
      */
     @Test
