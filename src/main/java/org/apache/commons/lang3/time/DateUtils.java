@@ -1347,7 +1347,22 @@ public class DateUtils {
             }
             // We need to remove this field
             if (offset != 0) {
-                val.set(aField[0], val.get(aField[0]) - offset);
+                switch (aField[0]) {
+                // Remove the sub-hour fields arithmetically, like the LANG-59 block above: Calendar.set() resolves
+                // an ambiguous wall time in a DST overlap to standard time, shifting the result by an hour.
+                case Calendar.MILLISECOND:
+                    val.setTimeInMillis(val.getTimeInMillis() - offset);
+                    break;
+                case Calendar.SECOND:
+                    val.setTimeInMillis(val.getTimeInMillis() - offset * MILLIS_PER_SECOND);
+                    break;
+                case Calendar.MINUTE:
+                    val.setTimeInMillis(val.getTimeInMillis() - offset * MILLIS_PER_MINUTE);
+                    break;
+                default:
+                    val.set(aField[0], val.get(aField[0]) - offset);
+                    break;
+                }
             }
         }
         throw new IllegalArgumentException("The field " + field + " is not supported");
