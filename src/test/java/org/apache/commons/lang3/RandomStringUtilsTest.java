@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.function.IntFunction;
 import java.util.stream.Stream;
@@ -490,6 +491,20 @@ class RandomStringUtilsTest extends AbstractLangTest {
     void testOnlyRejectedCodePoints() {
         assertTimeout(Duration.ofSeconds(2),
                 () -> assertThrows(IllegalArgumentException.class, () -> RandomStringUtils.random(1, 0xE000, 0xF900, false, false, null, new Random(42))));
+    }
+
+    /**
+     * A range with a single acceptable value is valid and must not trip the rejection cap. Here 63 of the 64 chars are rejected by the letters filter and
+     * each draw takes 7 bits, so a draw is accepted with probability 1/128.
+     */
+    @Test
+    void testSparseAcceptableValuesDoNotTripRejectionCap() {
+        final char[] chars = new char[64];
+        Arrays.fill(chars, '-');
+        chars[63] = 'x';
+        for (int seed = 0; seed < 20; seed++) {
+            assertEquals(StringUtils.repeat('x', 100), RandomStringUtils.random(100, 0, 64, true, false, chars, new Random(seed)));
+        }
     }
 
     /**
