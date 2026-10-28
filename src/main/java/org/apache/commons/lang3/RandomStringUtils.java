@@ -393,13 +393,12 @@ public class RandomStringUtils {
         final long desiredCacheSize = ((long) count * gapBits + CACHE_PADDING_BITS) / BITS_TO_BYTES_DIVISOR + BASE_CACHE_SIZE_PADDING;
         final int cacheSize = (int) Math.min(desiredCacheSize, Integer.MAX_VALUE / BITS_TO_BYTES_DIVISOR + BASE_CACHE_SIZE_PADDING);
         final CachedRandomBits arb = new CachedRandomBits(cacheSize, random);
-        // Bound rejection retries so a range that rejects every sample
-        // (for example, entirely UNASSIGNED/PRIVATE_USE/SURROGATE) raises an
-        // IllegalArgumentException instead of looping indefinitely. Each draw
-        // takes gapBits bits, so a range holding a single acceptable value
-        // accepts a draw with probability 1 / 2^gapBits; scaling the cap by
-        // that sample space keeps a valid request from exhausting it (chance
-        // below e^-64 per character). The counter resets on every accepted code point.
+        // Bound consecutive rejected draws so impossible requests eventually fail.
+        // Assuming independent uniform draws and at least one value acceptable for
+        // the remaining output length, the acceptance probability is at least
+        // 1 / 2^gapBits. A budget of 64 times that sample space makes the probability
+        // of exhausting the budget less than exp(-64) per accepted code point.
+        // Reset the counter after each accepted code point.
         final long maxRejections = 64L << gapBits;
         long rejections = 0;
         while (count-- != 0) {
