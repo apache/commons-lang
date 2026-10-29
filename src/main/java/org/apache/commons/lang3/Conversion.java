@@ -250,7 +250,7 @@ public class Conversion {
      * Converts binary (represented as boolean array) to a hexadecimal digit using the MSB0 bit ordering.
      *
      * <p>
-     * (1, 0, 0, 0) is converted as follow: '8' (1, 0, 0, 1, 1, 0, 1, 0) with srcPos = 3 is converted to 'D'
+     * (1, 0, 0, 0) is converted as follow: '8' (1, 0, 0, 1, 1, 0, 1, 0) with srcPos = 3 is converted to 'd'
      * </p>
      *
      * @param src    The binary to convert.
@@ -973,7 +973,7 @@ public class Conversion {
      * 1 returns '1'
      * </p>
      * <p>
-     * 10 returns 'A' and so on...
+     * 10 returns 'a' and so on...
      * </p>
      *
      * @param nibble The 4 bits to convert.
