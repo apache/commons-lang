@@ -514,16 +514,19 @@ public class Conversion {
     }
 
     /**
-     * Converts a byte into an array of char using the default (little-endian, LSB0) byte and bit ordering.
+     * Converts a byte into a hexadecimal string using the default (little-endian, LSB0) byte and bit ordering.
+     *
+     * <p>The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
+     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.</p>
      *
      * @param src     The byte to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
      * @param dstInit The initial value for the result String.
-     * @param dstPos  The position in {@code dst} where to copy the result.
-     * @param nHexs   The number of chars to copy to {@code dst}, must be smaller or equal to the width of the input (from srcPos to MSB).
-     * @return {@code dst}.
-     * @throws IllegalArgumentException        Thrown if {@code (nHexs - 1) * 4 + srcPos >= 8}.
-     * @throws StringIndexOutOfBoundsException Thrown if {@code dst.init.length() < dstPos}.
+     * @param dstPos  The position in the result string where to start writing hexadecimal digits.
+     * @param nHexs   The number of hexadecimal digits to write, must be smaller or equal to the width of the input (from srcPos to MSB).
+     * @return A {@link String} with the converted hex digits based on {@code dstInit}, or {@code dstInit} if {@code nHexs} is zero.
+     * @throws IllegalArgumentException       Thrown if {@code nHexs != 0} and {@code (nHexs - 1) * 4 + srcPos >= 8}.
+     * @throws StringIndexOutOfBoundsException Thrown if {@code nHexs > 0} and {@code (dstPos < 0 || dstInit.length() < dstPos)}.
      */
     public static String byteToHex(final byte src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
         if (0 == nHexs) {
@@ -930,16 +933,19 @@ public class Conversion {
     }
 
     /**
-     * Converts an int into an array of char using the default (little-endian, LSB0) byte and bit ordering.
+     * Converts a int into a hexadecimal string using the default (little-endian, LSB0) byte and bit ordering.
+     *
+     * <p>The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
+     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.</p>
      *
      * @param src     The int to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
      * @param dstInit The initial value for the result String.
-     * @param dstPos  The position in {@code dst} where to copy the result.
-     * @param nHexs   The number of chars to copy to {@code dst}, must be smaller or equal to the width of the input (from srcPos to MSB).
-     * @return {@code dst}.
-     * @throws IllegalArgumentException        Thrown if {@code (nHexs - 1) * 4 + srcPos >= 32}.
-     * @throws StringIndexOutOfBoundsException Thrown if {@code dst.init.length() < dstPos}.
+     * @param dstPos  The position in the result string where to start writing hexadecimal digits.
+     * @param nHexs   The number of hexadecimal digits to write, must be smaller or equal to the width of the input (from srcPos to MSB).
+     * @return A {@link String} with the converted hex digits based on {@code dstInit}, or {@code dstInit} if {@code nHexs} is zero.
+     * @throws IllegalArgumentException       Thrown if {@code nHexs != 0} and {@code (nHexs - 1) * 4 + srcPos >= 32}.
+     * @throws StringIndexOutOfBoundsException Thrown if {@code nHexs > 0} and {@code (dstPos < 0 || dstInit.length() < dstPos)}.
      */
     public static String intToHex(final int src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
         if (0 == nHexs) {
@@ -1126,16 +1132,19 @@ public class Conversion {
     }
 
     /**
-     * Converts a long into an array of char using the default (little-endian, LSB0) byte and bit ordering.
+     * Converts a long into a hexadecimal string using the default (little-endian, LSB0) byte and bit ordering.
+     *
+     * <p>The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
+     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.</p>
      *
      * @param src     The long to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
      * @param dstInit The initial value for the result String.
-     * @param dstPos  The position in {@code dst} where to copy the result.
-     * @param nHexs   The number of chars to copy to {@code dst}, must be smaller or equal to the width of the input (from srcPos to MSB).
-     * @return {@code dst}.
-     * @throws IllegalArgumentException        Thrown if {@code (nHexs - 1) * 4 + srcPos >= 64}.
-     * @throws StringIndexOutOfBoundsException Thrown if {@code dst.init.length() < dstPos}.
+     * @param dstPos  The position in the result string where to start writing hexadecimal digits.
+     * @param nHexs   The number of hexadecimal digits to write, must be smaller or equal to the width of the input (from srcPos to MSB).
+     * @return A {@link String} with the converted hex digits based on {@code dstInit}, or {@code dstInit} if {@code nHexs} is zero.
+     * @throws IllegalArgumentException       Thrown if {@code nHexs != 0} and {@code (nHexs - 1) * 4 + srcPos >= 64}.
+     * @throws StringIndexOutOfBoundsException Thrown if {@code nHexs > 0} and {@code (dstPos < 0 || dstInit.length() < dstPos)}.
      */
     public static String longToHex(final long src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
         if (0 == nHexs) {
@@ -1329,16 +1338,19 @@ public class Conversion {
     }
 
     /**
-     * Converts a short into an array of char using the default (little-endian, LSB0) byte and bit ordering.
+     * Converts a short into a hexadecimal string using the default (little-endian, LSB0) byte and bit ordering.
+     *
+     * <p>The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
+     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.</p>
      *
      * @param src     The short to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
      * @param dstInit The initial value for the result String.
-     * @param dstPos  The position in {@code dst} where to copy the result.
-     * @param nHexs   The number of chars to copy to {@code dst}, must be smaller or equal to the width of the input (from srcPos to MSB).
-     * @return {@code dst}.
-     * @throws IllegalArgumentException        Thrown if {@code (nHexs - 1) * 4 + srcPos >= 16}.
-     * @throws StringIndexOutOfBoundsException Thrown if {@code dst.init.length() < dstPos}.
+     * @param dstPos  The position in the result string where to start writing hexadecimal digits.
+     * @param nHexs   The number of hexadecimal digits to write, must be smaller or equal to the width of the input (from srcPos to MSB).
+     * @return A {@link String} with the converted hex digits based on {@code dstInit}, or {@code dstInit} if {@code nHexs} is zero.
+     * @throws IllegalArgumentException       Thrown if {@code nHexs != 0} and {@code (nHexs - 1) * 4 + srcPos >= 16}.
+     * @throws StringIndexOutOfBoundsException Thrown if {@code nHexs > 0} and {@code (dstPos < 0 || dstInit.length() < dstPos)}.
      */
     public static String shortToHex(final short src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
         if (0 == nHexs) {

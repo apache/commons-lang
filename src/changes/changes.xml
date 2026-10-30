@@ -80,6 +80,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep DateUtils.ceiling and round inside a DST overlap hour (#1842).</action>
     <action                   type="fix" dev="ggregory" due-to="alhuda, Gary Gregory">Keep RandomStringUtils.random rejection cap from failing valid ranges (#1843).</action>
     <action                   type="fix" dev="ggregory" due-to="Pendela Phanindra Rao, Gary Gregory">[javadoc] Correct hexadecimal output examples in Conversion (#1844).</action>
+    <action                   type="fix" dev="ggregory" due-to="Mohd Irshad, Gary Gregory">Fix Conversion hex method Javadoc (#1845).</action>
     <!-- ADD -->
     <action issue="LANG-1790" type="add" dev="ggregory" due-to="Mert Kirpici, Ivan Šarić, Gary Gregory">Add optional FIFO ordering for TimedSemaphore blocking acquisitions.</action>
     <!-- UPDATE -->
