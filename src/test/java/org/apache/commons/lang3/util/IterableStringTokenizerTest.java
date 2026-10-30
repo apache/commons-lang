@@ -65,6 +65,8 @@ class IterableStringTokenizerTest extends AbstractLangTest {
         assertEquals(Arrays.asList("a,b,c"), new IterableStringTokenizer("a,b,c").toList());
     }
 
+    @ParameterizedTest
+    @MethodSource("delimiters")
     void testConstructorArguments2AllDelimsToList(final String singleDelim) {
         final String data = String.join(singleDelim, DATA);
         assertEquals(Arrays.asList(DATA), new IterableStringTokenizer(data, DELIMITERS_STRING).toList());
