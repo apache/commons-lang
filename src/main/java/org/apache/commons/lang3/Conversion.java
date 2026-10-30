@@ -519,11 +519,11 @@ public class Conversion {
      * @param src     The byte to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
      * @param dstInit The initial value for the result String.
-     * @param dstPos  The position in {@code dst} where to copy the result.
-     * @param nHexs   The number of chars to copy to {@code dst}, must be smaller or equal to the width of the input (from srcPos to MSB).
-     * @return {@code dst}.
+     * @param dstPos  The position in {@code dstInit} where to copy the result.
+     * @param nHexs   The number of chars to copy to {@code dstInit}, must be smaller or equal to the width of the input (from srcPos to MSB).
+     * @return A {@link String} with the converted hex digits based on {@code dstInit}.
      * @throws IllegalArgumentException        Thrown if {@code (nHexs - 1) * 4 + srcPos >= 8}.
-     * @throws StringIndexOutOfBoundsException Thrown if {@code dst.init.length() < dstPos}.
+     * @throws StringIndexOutOfBoundsException Thrown if {@code dstInit.length() < dstPos}.
      */
     public static String byteToHex(final byte src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
         if (0 == nHexs) {
@@ -935,11 +935,11 @@ public class Conversion {
      * @param src     The int to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
      * @param dstInit The initial value for the result String.
-     * @param dstPos  The position in {@code dst} where to copy the result.
-     * @param nHexs   The number of chars to copy to {@code dst}, must be smaller or equal to the width of the input (from srcPos to MSB).
-     * @return {@code dst}.
+     * @param dstPos  The position in {@code dstInit} where to copy the result.
+     * @param nHexs   The number of chars to copy to {@code dstInit}, must be smaller or equal to the width of the input (from srcPos to MSB).
+     * @return A {@link String} with the converted hex digits based on {@code dstInit}.
      * @throws IllegalArgumentException        Thrown if {@code (nHexs - 1) * 4 + srcPos >= 32}.
-     * @throws StringIndexOutOfBoundsException Thrown if {@code dst.init.length() < dstPos}.
+     * @throws StringIndexOutOfBoundsException Thrown if {@code dstInit.length() < dstPos}.
      */
     public static String intToHex(final int src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
         if (0 == nHexs) {
@@ -1131,11 +1131,11 @@ public class Conversion {
      * @param src     The long to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
      * @param dstInit The initial value for the result String.
-     * @param dstPos  The position in {@code dst} where to copy the result.
-     * @param nHexs   The number of chars to copy to {@code dst}, must be smaller or equal to the width of the input (from srcPos to MSB).
-     * @return {@code dst}.
+     * @param dstPos  The position in {@code dstInit} where to copy the result.
+     * @param nHexs   The number of chars to copy to {@code dstInit}, must be smaller or equal to the width of the input (from srcPos to MSB).
+     * @return A {@link String} with the converted hex digits based on {@code dstInit}.
      * @throws IllegalArgumentException        Thrown if {@code (nHexs - 1) * 4 + srcPos >= 64}.
-     * @throws StringIndexOutOfBoundsException Thrown if {@code dst.init.length() < dstPos}.
+     * @throws StringIndexOutOfBoundsException Thrown if {@code dstInit.length() < dstPos}.
      */
     public static String longToHex(final long src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
         if (0 == nHexs) {
@@ -1334,11 +1334,11 @@ public class Conversion {
      * @param src     The short to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
      * @param dstInit The initial value for the result String.
-     * @param dstPos  The position in {@code dst} where to copy the result.
-     * @param nHexs   The number of chars to copy to {@code dst}, must be smaller or equal to the width of the input (from srcPos to MSB).
-     * @return {@code dst}.
+     * @param dstPos  The position in {@code dstInit} where to copy the result.
+     * @param nHexs   The number of chars to copy to {@code dstInit}, must be smaller or equal to the width of the input (from srcPos to MSB).
+     * @return A {@link String} with the converted hex digits based on {@code dstInit}.
      * @throws IllegalArgumentException        Thrown if {@code (nHexs - 1) * 4 + srcPos >= 16}.
-     * @throws StringIndexOutOfBoundsException Thrown if {@code dst.init.length() < dstPos}.
+     * @throws StringIndexOutOfBoundsException Thrown if {@code dstInit.length() < dstPos}.
      */
     public static String shortToHex(final short src, final int srcPos, final String dstInit, final int dstPos, final int nHexs) {
         if (0 == nHexs) {
