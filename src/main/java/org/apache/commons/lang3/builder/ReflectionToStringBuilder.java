@@ -826,15 +826,23 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             return getStyle().getNullText();
         }
 
-        validate();
+        // Nested calls only happen after the nested value was marked visited, so an empty set means this is the top-level call.
+        final boolean topLevel = !ToStringStyle.hasVisited();
+        try {
+            validate();
 
-        Class<?> clazz = getObject().getClass();
-        appendFieldsIn(clazz);
-        while (clazz.getSuperclass() != null && clazz != getUpToClass()) {
-            clazz = clazz.getSuperclass();
+            Class<?> clazz = getObject().getClass();
             appendFieldsIn(clazz);
+            while (clazz.getSuperclass() != null && clazz != getUpToClass()) {
+                clazz = clazz.getSuperclass();
+                appendFieldsIn(clazz);
+            }
+            return super.toString();
+        } finally {
+            if (topLevel) {
+                ToStringStyle.clearVisited();
+            }
         }
-        return super.toString();
     }
 
     /**
