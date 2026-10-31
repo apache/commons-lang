@@ -210,7 +210,7 @@ public class ObjectUtils {
      */
     public static <T> void applyIfNonNull(final Consumer<T> consumer, final T object) {
         if (object != null) {
-            consumer.accept(object);
+            Consumers.accept(consumer, object);
         }
     }
 
