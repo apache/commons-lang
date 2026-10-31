@@ -467,6 +467,28 @@ class ObjectUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testApplyIfNonNull() {
+        final MutableObject<String> result = new MutableObject<>();
+
+        ObjectUtils.applyIfNonNull(result::setValue, null);
+        assertNull(result.getValue());
+
+        ObjectUtils.applyIfNonNull(result::setValue, "value");
+        assertEquals("value", result.getValue());
+    }
+
+    @Test
+    void testApplyFirstNonNull() {
+        final MutableObject<String> result = new MutableObject<>();
+
+        ObjectUtils.applyFirstNonNull(result::setValue, null, null);
+        assertNull(result.getValue());
+
+        ObjectUtils.applyFirstNonNull(result::setValue, null, "first", "second");
+        assertEquals("first", result.getValue());
+    }
+
+    @Test
     void testGetClass() {
         final String[] newArray = ArrayUtils.EMPTY_STRING_ARRAY;
         // No type-cast required.

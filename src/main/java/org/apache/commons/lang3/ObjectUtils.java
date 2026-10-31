@@ -197,6 +197,41 @@ public class ObjectUtils {
     }
 
     /**
+     * Applies the given consumer to the object if it is not {@code null}.
+     *
+     * <p>
+     * The caller is responsible for thread safety and exception handling of the consumer.
+     * </p>
+     *
+     * @param <T> the type of the object.
+     * @param consumer the consumer to apply.
+     * @param object the object to test, may be {@code null}.
+     * @since 3.22.0
+     */
+    public static <T> void applyIfNonNull(final Consumer<T> consumer, final T object) {
+        if (object != null) {
+            consumer.accept(object);
+        }
+    }
+
+    /**
+     * Applies the given consumer to the first non-null object.
+     *
+     * <p>
+     * The caller is responsible for thread safety and exception handling of the consumer.
+     * </p>
+     *
+     * @param <T> the type of the objects.
+     * @param consumer the consumer to apply.
+     * @param objects the objects to test, may be {@code null} or empty.
+     * @since 3.22.0
+     */
+    @SafeVarargs
+    public static <T> void applyFirstNonNull(final Consumer<T> consumer, final T... objects) {
+        applyIfNonNull(consumer, firstNonNull(objects));
+    }
+
+    /**
      * Tests if any value in the given array is {@code null}.
      *
      * <p>
