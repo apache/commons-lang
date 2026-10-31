@@ -638,6 +638,22 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
+     * Tests whether any object has been marked as visited in the current thread.
+     *
+     * @return {@code true} if the visited set is not empty.
+     */
+    static boolean hasVisited() {
+        return !VISITED.get().isEmpty();
+    }
+
+    /**
+     * Clears the visited set for the current thread.
+     */
+    static void clearVisited() {
+        VISITED.remove();
+    }
+
+    /**
      * Marks the given object as rendered in detail for the current top-level
      * {@code reflectionToString} call. The mark is cleared when the top-level call completes
      * (when the visit stack in {@link #REGISTRY} empties).
