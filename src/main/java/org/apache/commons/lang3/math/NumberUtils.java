@@ -1697,4 +1697,51 @@ public class NumberUtils {
     public NumberUtils() {
         // empty
     }
+
+    /**
+     * Checks whether the {@code String} is a valid hexadecimal number.
+     *
+     * <p>Valid hexadecimal numbers may include an optional {@code "0x"} or {@code "0X"} prefix,
+     * and an optional leading {@code "-"} or {@code "+"}.</p>
+     *
+     * <p>{@code null} or empty string will return {@code false}.</p>
+     *
+     * @param str the {@code String} to check
+     * @return {@code true} if the string is a valid hexadecimal number
+     * @since 3.22.0
+     */
+    public static boolean isHexadecimal(final String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+
+        int start = 0;
+        final int len = str.length();
+
+        if (str.charAt(0) == '-' || str.charAt(0) == '+') {
+            start++;
+        }
+
+        if (start + 1 < len && str.charAt(start) == '0' &&
+           (str.charAt(start + 1) == 'x' || str.charAt(start + 1) == 'X')) {
+            start += 2;
+        }
+
+        if (start == len) {
+            return false;
+        }
+
+        for (int i = start; i < len; i++) {
+            final char ch = str.charAt(i);
+            final boolean isHexDigit = (ch >= '0' && ch <= '9') ||
+                                       (ch >= 'a' && ch <= 'f') ||
+                                       (ch >= 'A' && ch <= 'F');
+            if (!isHexDigit) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }
