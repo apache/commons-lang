@@ -72,6 +72,12 @@ import org.apache.commons.lang3.stream.Streams;
  *      - appends a suffix to the end of the String if not present</li>
  *  <li><strong>PrependIfMissing</strong>
  *      - prepends a prefix to the start of the String if not present</li>
+ *  <li><strong>Wrap</strong>
+ *      - wraps a String with a character or another String</li>
+ *  <li><strong>WrapIfMissing</strong>
+ *      - wraps a String only where the wrapping character or String is missing</li>
+ *  <li><strong>Unwrap</strong>
+ *      - removes matching wrapping characters or Strings from both ends of a String</li>
  *  <li><strong>LeftPad/RightPad/Center/Repeat</strong>
  *      - pads a String</li>
  *  <li><strong>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</strong>
