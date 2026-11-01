@@ -170,6 +170,16 @@ public class RecursiveToStringStyle extends ToStringStyle {
     }
 
     @Override
+    public void append(final StringBuffer buffer, final String fieldName, final Object[] array, final Boolean fullDetail) {
+        final boolean owner = startStyleTraversal(buffer);
+        try {
+            super.append(buffer, fieldName, array, fullDetail);
+        } finally {
+            endStyleTraversal(owner);
+        }
+    }
+
+    @Override
     protected void appendDetail(final StringBuffer buffer, final String fieldName, final Collection<?> coll) {
         appendClassName(buffer, coll);
         appendIdentityHashCode(buffer, coll);
@@ -189,30 +199,32 @@ public class RecursiveToStringStyle extends ToStringStyle {
      * {@inheritDoc}
      *
      * <p>
-     * In addition to the cycle check performed by the superclass, this implementation keeps a
-     * per-thread set of objects already rendered in detail during the current top-level call.
-     * Values that this style would traverse structurally (see {@link #accept(Class)}) are rendered
-     * in detail at most once; later identity-equal occurrences are appended in the abbreviated
-     * {@code Object.toString()} format. This bounds the traversal to one visit per object, so
-     * shared (acyclic) references cannot cause exponential re-traversal. If an output-length limit
-     * was configured and the buffer has reached it, a {@code "...<truncated>"} marker is appended
-     * instead of the value.
+     * In addition to the cycle check performed by the superclass, this implementation shares a visited-object set across nested builders in the active
+     * traversal. The outer builder retains the set between appends and releases it on completion. Values that this style would traverse structurally
+     * (see {@link #accept(Class)}) are rendered in detail at most once; later identity-equal occurrences are appended in the abbreviated
+     * {@code Object.toString()} format. This bounds the traversal to one visit per object, so shared (acyclic) references cannot cause exponential
+     * re-traversal. If an output-length limit was configured and the buffer has reached it, a {@code "...<truncated>"} marker is appended instead of the value.
      * </p>
      */
     @Override
     protected void appendInternal(final StringBuffer buffer, final String fieldName, final Object value, final boolean detail) {
-        if (detail && value != null && accept(value.getClass())
-                && !(value instanceof Number || value instanceof Boolean || value instanceof Character)) {
-            if (isVisited(value)) {
-                appendCyclicObject(buffer, fieldName, value);
-                return;
+        final boolean owner = startStyleTraversal(buffer);
+        try {
+            if (detail && value != null && accept(value.getClass())
+                    && !(value instanceof Number || value instanceof Boolean || value instanceof Character)) {
+                if (isVisited(value)) {
+                    appendCyclicObject(buffer, fieldName, value);
+                    return;
+                }
+                if (maxOutputLength > 0 && buffer.length() >= maxOutputLength) {
+                    buffer.append(TRUNCATED_TEXT);
+                    return;
+                }
+                markVisited(value);
             }
-            if (maxOutputLength > 0 && buffer.length() >= maxOutputLength) {
-                buffer.append(TRUNCATED_TEXT);
-                return;
-            }
-            markVisited(value);
+            super.appendInternal(buffer, fieldName, value, detail);
+        } finally {
+            endStyleTraversal(owner);
         }
-        super.appendInternal(buffer, fieldName, value, detail);
     }
 }
