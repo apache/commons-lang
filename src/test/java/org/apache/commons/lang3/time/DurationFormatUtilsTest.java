@@ -17,15 +17,7 @@
 
 package org.apache.commons.lang3.time;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
-import java.time.Duration;
-import java.util.Calendar;
-import java.util.TimeZone;
-
-import org.apache.commons.lang3.AbstractLangTest;
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
-import org.apache.commons.lang3.time.DurationFormatUtils.Token;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -33,6 +25,15 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+import java.time.Duration;
+import java.util.Calendar;
+import java.util.TimeZone;
+
+import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.time.DurationFormatUtils.Token;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
