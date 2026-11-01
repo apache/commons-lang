@@ -112,7 +112,7 @@ public class DurationFormatUtils {
 
         private final CharSequence value;
         private int count;
-        private int optionalIndex = -1;
+        private final int optionalIndex;
 
         /**
          * Wraps a token around a value. A value would be something like a 'Y'.
@@ -124,9 +124,7 @@ public class DurationFormatUtils {
         Token(final CharSequence value, final boolean optional, final int optionalIndex) {
             this.value = Objects.requireNonNull(value, "value");
             this.count = 1;
-            if (optional) {
-                this.optionalIndex = optionalIndex;
-            }
+            this.optionalIndex = optional ? optionalIndex : -1;
         }
 
         /**
