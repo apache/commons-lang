@@ -106,7 +106,7 @@ public class DurationFormatUtils {
          * @param value to look find.
          * @return boolean {@code true} if contained.
          */
-        static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
+        static boolean containsTokenWithValue(final Token[] tokens, final CharSequence value) {
             return Stream.of(tokens).anyMatch(token -> token.getValue() == value);
         }
 
@@ -165,7 +165,7 @@ public class DurationFormatUtils {
          *
          * @return Object value, non-null.
          */
-        Object getValue() {
+        CharSequence getValue() {
             return value;
         }
 
@@ -250,7 +250,7 @@ public class DurationFormatUtils {
         int optionalIndex = -1;
         boolean inOptional = false;
         for (final Token token : tokens) {
-            final Object value = token.getValue();
+            final CharSequence value = token.getValue();
             final boolean isLiteral = value instanceof StringBuilder;
             final int count = token.getCount();
             if (optionalIndex != token.optionalIndex) {
