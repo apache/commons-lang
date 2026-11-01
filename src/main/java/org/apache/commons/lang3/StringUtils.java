@@ -8122,6 +8122,11 @@ public class StringUtils {
      * If the stripChars String is {@code null}, whitespace is stripped as defined by {@link Character#isWhitespace(char)}.
      * </p>
      *
+     * <p>
+     * The characters in {@code stripChars} are treated individually, not as a suffix. To remove a suffix as a whole,
+     * use {@link Strings#removeEnd(String, CharSequence)} on {@link Strings#CS} instead.
+     * </p>
+     *
      * <pre>
      * StringUtils.stripEnd(null, *)          = null
      * StringUtils.stripEnd("", *)            = ""
@@ -8132,6 +8137,8 @@ public class StringUtils {
      * StringUtils.stripEnd(" abc ", null)    = " abc"
      * StringUtils.stripEnd("  abcyx", "xyz") = "  abc"
      * StringUtils.stripEnd("120.00", ".0")   = "12"
+     * StringUtils.stripEnd("85123116", "16") = "85123"
+     * Strings.CS.removeEnd("85123116", "16") = "851231"
      * </pre>
      *
      * @param str        The String to remove characters from, may be null.
