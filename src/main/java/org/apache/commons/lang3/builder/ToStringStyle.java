@@ -18,12 +18,18 @@
 package org.apache.commons.lang3.builder;
 
 import java.io.Serializable;
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -493,6 +499,97 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
+     * Visited objects belonging to one output buffer.
+     *
+     * <p>
+     * Weak identity keys prevent visited objects that refer back to the output buffer from keeping a weakly registered buffer alive.
+     * </p>
+     */
+    static final class Traversal {
+
+        private ReferenceQueue<Object> collected;
+
+        private Set<VisitedReference> visited;
+
+        private void add(final Object value) {
+            if (visited == null) {
+                collected = new ReferenceQueue<>();
+                visited = new HashSet<>();
+            } else {
+                removeCollected();
+            }
+            visited.add(new VisitedReference(value, collected));
+        }
+
+        private void addAll(final Traversal other) {
+            if (other.visited != null) {
+                other.removeCollected();
+                for (final VisitedReference reference : other.visited) {
+                    final Object value = reference.get();
+                    if (value != null) {
+                        add(value);
+                    }
+                }
+            }
+        }
+
+        private void clear() {
+            visited = null;
+            collected = null;
+        }
+
+        private boolean contains(final Object value) {
+            if (visited == null) {
+                return false;
+            }
+            removeCollected();
+            return visited.contains(new VisitedReference(value, null));
+        }
+
+        Set<VisitedReference> getVisited() {
+            return visited;
+        }
+
+
+        private void removeCollected() {
+            Reference<?> reference;
+            while ((reference = collected.poll()) != null) {
+                visited.remove(reference);
+            }
+        }
+    }
+
+    /**
+     * A weak identity key that does not invoke a visited object's {@code equals()} or {@code hashCode()}.
+     */
+    private static final class VisitedReference extends WeakReference<Object> {
+
+        private final int hashCode;
+
+        private VisitedReference(final Object value, final ReferenceQueue<Object> queue) {
+            super(value, queue);
+            hashCode = System.identityHashCode(value);
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            if (this == other) {
+                return true;
+            }
+            if (!(other instanceof VisitedReference)) {
+                return false;
+            }
+            final Object value = get();
+            return value != null && value == ((VisitedReference) other).get();
+        }
+
+        @Override
+        public int hashCode() {
+            return hashCode;
+        }
+    }
+
+    /**
      * Serialization version ID.
      */
     private static final long serialVersionUID = -2587890625525655916L;
@@ -595,16 +692,96 @@ public abstract class ToStringStyle implements Serializable {
      */
 
     /**
-     * A per-thread set of objects already rendered in detail during the current top-level
-     * {@code reflectionToString} call. Unlike {@link #REGISTRY}, which is a depth-first visit
-     * <em>stack</em> (entries are removed when a visit completes) and therefore only detects
-     * cycles, this set is only cleared when the top-level call completes. Styles that recurse
-     * into arbitrary object graphs (see {@link RecursiveToStringStyle}) consult it so that shared
-     * (acyclic) references are detailed at most once per top-level call, keeping traversal cost
-     * linear in the size of the object graph instead of exponential on reference diamonds.
-     * Identity-based for the same reason as {@link #REGISTRY}. Empty unless such a style is in use.
+     * Traversals opened by direct style calls and retained until {@link #appendEnd(StringBuffer, Object)}.
      */
-    private static final ThreadLocal<IdentityHashMap<Object, Object>> VISITED = ThreadLocal.withInitial(IdentityHashMap::new);
+    private static final ThreadLocal<Map<StringBuffer, Traversal>> DIRECT_TRAVERSALS = new ThreadLocal<>();
+
+    /**
+     * The traversal shared by synchronous nested builders and style callbacks in this thread.
+     */
+    private static final ThreadLocal<Traversal> TRAVERSAL_ACTIVE = new ThreadLocal<>();
+
+    /**
+     * Weak associations between output buffers and their traversal state.
+     *
+     * <p>
+     * Builders retain their own traversal state between appends. Weak keys and values allow abandoned builders and their visited objects to be collected
+     * without waiting for unrelated entries in {@link #REGISTRY} to disappear. Direct style calls on a builder's buffer find the same state here.
+     * </p>
+     */
+    private static final ThreadLocal<Map<StringBuffer, WeakReference<Traversal>>> TRAVERSALS = new ThreadLocal<>();
+
+    /**
+     * Releases completed output state unless it is shared with an active enclosing traversal.
+     *
+     * @param buffer the completed output buffer.
+     * @param traversal its traversal state.
+     */
+    private static void clearTraversal(final StringBuffer buffer, final Traversal traversal) {
+        if (traversal != TRAVERSAL_ACTIVE.get()) {
+            traversal.clear();
+            final Map<StringBuffer, Traversal> direct = DIRECT_TRAVERSALS.get();
+            if (direct != null) {
+                direct.remove(buffer);
+                if (direct.isEmpty()) {
+                    DIRECT_TRAVERSALS.remove();
+                }
+            }
+        }
+    }
+
+    /**
+     * Ends a direct recursive-style traversal.
+     *
+     * @param owner whether the caller started the traversal.
+     */
+    static void endStyleTraversal(final boolean owner) {
+        if (owner) {
+            TRAVERSAL_ACTIVE.remove();
+        }
+    }
+
+    /**
+     * Ends a builder traversal, retaining marks only for successful appends.
+     *
+     * @param buffer the builder's output buffer.
+     * @param traversal the builder's traversal state.
+     * @param owner whether the builder started the active traversal.
+     * @param clear whether the builder completed or an append failed.
+     */
+    static void endTraversal(final StringBuffer buffer, final Traversal traversal, final boolean owner, final boolean clear) {
+        if (owner) {
+            TRAVERSAL_ACTIVE.remove();
+        }
+        if (clear) {
+            clearTraversal(buffer, traversal);
+        }
+    }
+
+    /**
+     * Finds existing traversal state without creating it.
+     *
+     * @param buffer the output buffer.
+     * @return its traversal state, or {@code null}.
+     */
+    private static Traversal findTraversal(final StringBuffer buffer) {
+        final Map<StringBuffer, WeakReference<Traversal>> traversals = TRAVERSALS.get();
+        final WeakReference<Traversal> reference = traversals == null ? null : traversals.get(buffer);
+        return reference == null ? null : reference.get();
+    }
+
+    /**
+     * Gets the active traversal for the current thread.
+     *
+     * @return the active traversal, or {@code null} if no traversal is active.
+     */
+    static Traversal getActiveTraversal() {
+        return TRAVERSAL_ACTIVE.get();
+    }
+
+    static ThreadLocal<Map<StringBuffer, Traversal>> getDirectTraversals() {
+        return DIRECT_TRAVERSALS;
+    }
 
     /**
      * Gets the registry of objects being traversed by the {@code reflectionToString} methods in the current thread.
@@ -613,6 +790,29 @@ public abstract class ToStringStyle implements Serializable {
      */
     public static Map<Object, Object> getRegistry() {
         return REGISTRY.get();
+    }
+
+    /**
+     * Gets traversal state for an output buffer, sharing an enclosing traversal when necessary.
+     *
+     * @param buffer the output buffer.
+     * @return its traversal state.
+     */
+    static Traversal getTraversal(final StringBuffer buffer) {
+        Traversal traversal = findTraversal(buffer);
+        if (traversal == null) {
+            traversal = TRAVERSAL_ACTIVE.get();
+            if (traversal == null) {
+                traversal = new Traversal();
+            }
+            Map<StringBuffer, WeakReference<Traversal>> traversals = TRAVERSALS.get();
+            if (traversals == null) {
+                traversals = new WeakHashMap<>();
+                TRAVERSALS.set(traversals);
+            }
+            traversals.put(buffer, new WeakReference<>(traversal));
+        }
+        return traversal;
     }
 
     /**
@@ -626,27 +826,32 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * Tests whether the given object has already been rendered in detail during the current
-     * top-level {@code reflectionToString} call. Used by graph-recursing styles to avoid
-     * exponential re-traversal of shared (acyclic) references.
+     * Tests whether the given object has already been rendered in detail during the active traversal.
+     *
+     * <p>
+     * Recursive styles use this to avoid exponential re-traversal of shared (acyclic) references.
+     * </p>
      *
      * @param value The object to look up in the visited set.
-     * @return {@code true} if the object was already visited in this top-level call.
+     * @return {@code true} if the object was already visited in this traversal.
      */
     static boolean isVisited(final Object value) {
-        return VISITED.get().containsKey(value);
+        final Traversal traversal = TRAVERSAL_ACTIVE.get();
+        return traversal != null && traversal.contains(value);
     }
 
     /**
-     * Marks the given object as rendered in detail for the current top-level
-     * {@code reflectionToString} call. The mark is cleared when the top-level call completes
-     * (when the visit stack in {@link #REGISTRY} empties).
+     * Marks the given object as rendered in detail for the active traversal.
+     *
+     * <p>
+     * Builders retain these marks between appends and release them on completion, independently of {@link #REGISTRY}.
+     * </p>
      *
      * @param value The object to mark as visited.
      */
     static void markVisited(final Object value) {
         if (value != null) {
-            VISITED.get().put(value, null);
+            TRAVERSAL_ACTIVE.get().add(value);
         }
     }
 
@@ -659,6 +864,34 @@ public abstract class ToStringStyle implements Serializable {
         if (value != null) {
             getRegistry().put(value, null);
         }
+    }
+
+    /**
+     * Starts a direct recursive-style traversal unless a builder or style is already rendering.
+     *
+     * @param buffer the output buffer.
+     * @return whether the caller owns the traversal and must end it.
+     */
+    static boolean startStyleTraversal(final StringBuffer buffer) {
+        return startTraversal(getTraversal(buffer));
+    }
+
+    /**
+     * Starts a traversal, sharing the active traversal when called by a nested builder.
+     *
+     * @param traversal the output buffer's traversal state.
+     * @return whether the caller owns the traversal and must end it.
+     */
+    static boolean startTraversal(final Traversal traversal) {
+        final Traversal active = TRAVERSAL_ACTIVE.get();
+        if (active != null) {
+            if (active != traversal) {
+                active.addAll(traversal);
+            }
+            return false;
+        }
+        TRAVERSAL_ACTIVE.set(traversal);
+        return true;
     }
 
     /**
@@ -676,8 +909,6 @@ public abstract class ToStringStyle implements Serializable {
             m.remove(value);
             if (m.isEmpty()) {
                 REGISTRY.remove();
-                // The top-level reflectionToString call is complete: clear the visited set as well.
-                VISITED.remove();
             }
         }
     }
@@ -1470,6 +1701,10 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the end of data indicator.
      *
+     * <p>
+     * Completing an output buffer releases its traversal state unless it is still shared by an active enclosing traversal.
+     * </p>
+     *
      * @param buffer The {@link StringBuffer} to populate.
      * @param object The {@link Object} to build a {@code toString} for.
      */
@@ -1481,6 +1716,10 @@ public abstract class ToStringStyle implements Serializable {
             appendContentEnd(buffer);
         } finally {
             unregister(object);
+            final Traversal traversal = findTraversal(buffer);
+            if (traversal != null) {
+                clearTraversal(buffer, traversal);
+            }
         }
     }
 
@@ -1651,10 +1890,23 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Appends to the {@code toString} the start of data indicator.
      *
+     * <p>
+     * Direct calls open traversal state for this buffer. Complete the output with {@link #appendEnd(StringBuffer, Object)} or the owning builder's
+     * {@link ToStringBuilder#toString()} to release its traversal state.
+     * </p>
+     *
      * @param buffer The {@link StringBuffer} to populate.
      * @param object The {@link Object} to build a {@code toString} for.
      */
     public void appendStart(final StringBuffer buffer, final Object object) {
+        if (TRAVERSAL_ACTIVE.get() == null) {
+            Map<StringBuffer, Traversal> direct = DIRECT_TRAVERSALS.get();
+            if (direct == null) {
+                direct = new WeakHashMap<>();
+                DIRECT_TRAVERSALS.set(direct);
+            }
+            direct.put(buffer, getTraversal(buffer));
+        }
         if (object != null) {
             appendClassName(buffer, object);
             appendIdentityHashCode(buffer, object);
@@ -2348,6 +2600,7 @@ public abstract class ToStringStyle implements Serializable {
     protected void setUseIdentityHashCode(final boolean useIdentityHashCode) {
         this.useIdentityHashCode = useIdentityHashCode;
     }
+
 
     /**
      * Sets whether to output short or long class names.

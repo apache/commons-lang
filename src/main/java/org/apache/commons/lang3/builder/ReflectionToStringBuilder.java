@@ -728,7 +728,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return {@code this} instance.
      */
     public ReflectionToStringBuilder reflectionAppendArray(final Object array) {
-        getStyle().reflectionAppendArrayDetail(getStringBuffer(), null, array);
+        appenTraversal(() -> getStyle().reflectionAppendArrayDetail(getStringBuffer(), null, array));
         return this;
     }
 
@@ -822,19 +822,22 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      */
     @Override
     public String toString() {
-        if (getObject() == null) {
-            return getStyle().getNullText();
-        }
-
-        validate();
-
-        Class<?> clazz = getObject().getClass();
-        appendFieldsIn(clazz);
-        while (clazz.getSuperclass() != null && clazz != getUpToClass()) {
-            clazz = clazz.getSuperclass();
+        final boolean owner = startTraversal();
+        try {
+            if (getObject() == null) {
+                return getStyle().getNullText();
+            }
+            validate();
+            Class<?> clazz = getObject().getClass();
             appendFieldsIn(clazz);
+            while (clazz.getSuperclass() != null && clazz != getUpToClass()) {
+                clazz = clazz.getSuperclass();
+                appendFieldsIn(clazz);
+            }
+            return super.toString();
+        } finally {
+            endTraversal(owner);
         }
-        return super.toString();
     }
 
     /**

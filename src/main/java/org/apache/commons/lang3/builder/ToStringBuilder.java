@@ -307,12 +307,18 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      */
     private final ToStringStyle style;
 
+    /**
+     * Visited-object tracking for this builder's output buffer.
+     */
+    private final ToStringStyle.Traversal traversal;
+
     private ToStringBuilder(final Builder builder) {
         super(builder);
         this.style = builder.style != null ? builder.style : getDefaultStyle();
         this.buffer = builder.buffer != null ? builder.buffer : new StringBuffer(512);
         this.object = builder.object;
-        style.appendStart(buffer, object);
+        this.traversal = ToStringStyle.getTraversal(buffer);
+        appenTraversal(() -> style.appendStart(buffer, object));
     }
 
     /**
@@ -369,8 +375,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final boolean value) {
-        style.append(buffer, null, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, value));
     }
 
     /**
@@ -381,8 +386,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final boolean[] array) {
-        style.append(buffer, null, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, array, null));
     }
 
     /**
@@ -393,8 +397,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final byte value) {
-        style.append(buffer, null, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, value));
     }
 
     /**
@@ -405,8 +408,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final byte[] array) {
-        style.append(buffer, null, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, array, null));
     }
 
     /**
@@ -417,8 +419,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final char value) {
-        style.append(buffer, null, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, value));
     }
 
     /**
@@ -429,8 +430,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final char[] array) {
-        style.append(buffer, null, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, array, null));
     }
 
     /**
@@ -441,8 +441,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final double value) {
-        style.append(buffer, null, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, value));
     }
 
     /**
@@ -453,8 +452,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final double[] array) {
-        style.append(buffer, null, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, array, null));
     }
 
     /**
@@ -465,8 +463,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final float value) {
-        style.append(buffer, null, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, value));
     }
 
     /**
@@ -477,8 +474,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final float[] array) {
-        style.append(buffer, null, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, array, null));
     }
 
     /**
@@ -489,8 +485,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final int value) {
-        style.append(buffer, null, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, value));
     }
 
     /**
@@ -501,8 +496,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final int[] array) {
-        style.append(buffer, null, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, array, null));
     }
 
     /**
@@ -513,8 +507,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final long value) {
-        style.append(buffer, null, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, value));
     }
 
     /**
@@ -525,8 +518,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final long[] array) {
-        style.append(buffer, null, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, array, null));
     }
 
     /**
@@ -537,8 +529,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final Object obj) {
-        style.append(buffer, null, obj, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, obj, null));
     }
 
     /**
@@ -549,8 +540,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final Object[] array) {
-        style.append(buffer, null, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, array, null));
     }
 
     /**
@@ -561,8 +551,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final short value) {
-        style.append(buffer, null, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, value));
     }
 
     /**
@@ -573,8 +562,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final short[] array) {
-        style.append(buffer, null, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, null, array, null));
     }
 
     /**
@@ -586,8 +574,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final boolean value) {
-        style.append(buffer, fieldName, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, value));
     }
 
     /**
@@ -599,8 +586,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final boolean[] array) {
-        style.append(buffer, fieldName, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, null));
     }
 
     /**
@@ -621,8 +607,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final boolean[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail)));
     }
 
     /**
@@ -634,8 +619,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final byte value) {
-        style.append(buffer, fieldName, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, value));
     }
 
     /**
@@ -646,8 +630,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final byte[] array) {
-        style.append(buffer, fieldName, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, null));
     }
 
     /**
@@ -668,8 +651,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final byte[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail)));
     }
 
     /**
@@ -681,8 +663,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final char value) {
-        style.append(buffer, fieldName, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, value));
     }
 
     /**
@@ -694,8 +675,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final char[] array) {
-        style.append(buffer, fieldName, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, null));
     }
 
     /**
@@ -716,8 +696,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final char[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail)));
     }
 
     /**
@@ -729,8 +708,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final double value) {
-        style.append(buffer, fieldName, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, value));
     }
 
     /**
@@ -742,8 +720,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final double[] array) {
-        style.append(buffer, fieldName, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, null));
     }
 
     /**
@@ -764,8 +741,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final double[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail)));
     }
 
     /**
@@ -777,8 +753,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final float value) {
-        style.append(buffer, fieldName, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, value));
     }
 
     /**
@@ -790,8 +765,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final float[] array) {
-        style.append(buffer, fieldName, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, null));
     }
 
     /**
@@ -812,8 +786,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final float[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail)));
     }
 
     /**
@@ -825,8 +798,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final int value) {
-        style.append(buffer, fieldName, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, value));
     }
 
     /**
@@ -838,8 +810,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final int[] array) {
-        style.append(buffer, fieldName, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, null));
     }
 
     /**
@@ -860,8 +831,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final int[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail)));
     }
 
     /**
@@ -873,8 +843,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final long value) {
-        style.append(buffer, fieldName, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, value));
     }
 
     /**
@@ -886,8 +855,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final long[] array) {
-        style.append(buffer, fieldName, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, null));
     }
 
     /**
@@ -908,8 +876,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final long[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail)));
     }
 
     /**
@@ -921,8 +888,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final Object obj) {
-        style.append(buffer, fieldName, obj, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, obj, null));
     }
 
     /**
@@ -936,8 +902,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final Object obj, final boolean fullDetail) {
-        style.append(buffer, fieldName, obj, Boolean.valueOf(fullDetail));
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, obj, Boolean.valueOf(fullDetail)));
     }
 
     /**
@@ -949,8 +914,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final Object[] array) {
-        style.append(buffer, fieldName, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, null));
     }
 
     /**
@@ -971,8 +935,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final Object[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail)));
     }
 
     /**
@@ -984,8 +947,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final short value) {
-        style.append(buffer, fieldName, value);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, value));
     }
 
     /**
@@ -997,8 +959,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final short[] array) {
-        style.append(buffer, fieldName, array, null);
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, null));
     }
 
     /**
@@ -1019,8 +980,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      * @return {@code this} instance.
      */
     public ToStringBuilder append(final String fieldName, final short[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
+        return appenTraversal(() -> style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail)));
     }
 
     /**
@@ -1056,7 +1016,7 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      */
     public ToStringBuilder appendSuper(final String superToString) {
         if (superToString != null) {
-            style.appendSuper(buffer, superToString);
+            appenTraversal(() -> style.appendSuper(buffer, superToString));
         }
         return this;
     }
@@ -1096,9 +1056,27 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      */
     public ToStringBuilder appendToString(final String toString) {
         if (toString != null) {
-            style.appendToString(buffer, toString);
+            appenTraversal(() -> style.appendToString(buffer, toString));
         }
         return this;
+    }
+
+    /**
+     * Appends content while sharing visited objects with nested builders.
+     *
+     * @param appender the action that appends content.
+     * @return {@code this} builder.
+     */
+    ToStringBuilder appenTraversal(final Runnable appender) {
+        final boolean owner = startTraversal();
+        boolean completed = false;
+        try {
+            appender.run();
+            completed = true;
+            return this;
+        } finally {
+            ToStringStyle.endTraversal(buffer, traversal, owner, !completed);
+        }
     }
 
     /**
@@ -1112,6 +1090,15 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     @Override
     public String build() {
         return toString();
+    }
+
+    /**
+     * Completes this builder's traversal and releases its visited objects.
+     *
+     * @param owner whether this builder started the active traversal.
+     */
+    void endTraversal(final boolean owner) {
+        ToStringStyle.endTraversal(buffer, traversal, owner, true);
     }
 
     /**
@@ -1144,6 +1131,25 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
     }
 
     /**
+     * Gets the traversal state associated with this builder's output buffer.
+     *
+     * @return the traversal state, never {@code null}.
+     */
+    ToStringStyle.Traversal getTraversal() {
+        return traversal;
+    }
+
+    /**
+     * Starts or joins the active traversal using this builder's earlier appends.
+     *
+     * @return whether this builder owns the active traversal.
+     */
+    boolean startTraversal() {
+        return ToStringStyle.startTraversal(traversal);
+    }
+
+
+    /**
      * Returns the built {@code toString}.
      *
      * <p>
@@ -1159,11 +1165,16 @@ public class ToStringBuilder extends AbstractReflection implements Builder<Strin
      */
     @Override
     public String toString() {
-        if (getObject() == null) {
-            getStringBuffer().append(getStyle().getNullText());
-        } else {
-            style.appendEnd(getStringBuffer(), getObject());
+        final boolean owner = startTraversal();
+        try {
+            if (getObject() == null) {
+                getStringBuffer().append(getStyle().getNullText());
+            } else {
+                style.appendEnd(getStringBuffer(), getObject());
+            }
+            return getStringBuffer().toString();
+        } finally {
+            endTraversal(owner);
         }
-        return getStringBuffer().toString();
     }
 }
