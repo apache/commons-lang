@@ -17,15 +17,6 @@
 
 package org.apache.commons.lang3.time;
 
-import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.time.Duration;
@@ -33,7 +24,15 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import org.apache.commons.lang3.time.DurationFormatUtils.Token;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -736,6 +735,15 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         final long endMillis = calendar.getTimeInMillis();
 
         assertEquals("1 9", DurationFormatUtils.formatPeriod(startMillis, endMillis, "M d"));
+    }
+
+    @Test
+    void testLANG980() { // Token values must be compared with equals(), not ==
+        // A String equal to "y" that is not the same instance as DurationFormatUtils.y
+        final String y = String.valueOf(new char[] { 'y' });
+        final Token[] tokens = { new Token(y, false, -1) };
+        assertTrue(Token.containsTokenWithValue(tokens, DurationFormatUtils.y));
+        assertEquals(new Token(DurationFormatUtils.y, false, -1), new Token(y, false, -1));
     }
 
     @Test

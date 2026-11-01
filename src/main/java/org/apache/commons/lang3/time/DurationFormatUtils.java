@@ -107,7 +107,7 @@ public class DurationFormatUtils {
          * @return boolean {@code true} if contained.
          */
         static boolean containsTokenWithValue(final Token[] tokens, final Object value) {
-            return Stream.of(tokens).anyMatch(token -> token.getValue() == value);
+            return Stream.of(tokens).anyMatch(token -> token.getValue().equals(value));
         }
 
         private final CharSequence value;
@@ -148,7 +148,7 @@ public class DurationFormatUtils {
                 if (this.value instanceof Number) {
                     return this.value.equals(tok2.value);
                 }
-                return this.value == tok2.value;
+                return this.value.equals(tok2.value);
             }
             return false;
         }
