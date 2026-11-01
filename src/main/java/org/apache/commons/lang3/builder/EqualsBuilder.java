@@ -65,13 +65,18 @@ import org.apache.commons.lang3.tuple.Pair;
  *   }
  *   MyClass rhs = (MyClass) obj;
  *   return new EqualsBuilder()
- *                 .appendSuper(super.equals(obj))
  *                 .append(field1, rhs.field1)
  *                 .append(field2, rhs.field2)
  *                 .append(field3, rhs.field3)
  *                 .isEquals();
  *  }
  * </pre>
+ *
+ * <p>
+ * If the superclass overrides {@link Object#equals(Object)}, its result can be included using {@link #appendSuper(boolean)}.
+ * Do not call {@code appendSuper(super.equals(obj))} if the superclass uses {@link Object#equals(Object)},
+ * because it only returns {@code true} when the two references point to the same object.
+ * </p>
  *
  * <p>
  * Alternatively, there is a method that uses reflection to determine
@@ -897,6 +902,12 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
 
     /**
      * Adds the result of {@code super.equals()} to this builder.
+     *
+     * <p>
+     * Use this method only if the superclass overrides {@link Object#equals(Object)}.
+     * If the superclass uses {@code Object.equals(Object)}, passing {@code super.equals(obj)} makes this builder
+     * return {@code false} for distinct instances, even if all compared fields are equal.
+     * </p>
      *
      * @param superEquals  The result of calling {@code super.equals()}
      * @return {@code this} instance.
