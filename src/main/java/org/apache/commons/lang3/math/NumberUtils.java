@@ -1733,9 +1733,9 @@ public class NumberUtils {
 
         for (int i = start; i < len; i++) {
             final char ch = str.charAt(i);
-            final boolean isHexDigit = (ch >= '0' && ch <= '9') ||
-                                       (ch >= 'a' && ch <= 'f') ||
-                                       (ch >= 'A' && ch <= 'F');
+            final boolean isHexDigit = ch >= '0' && ch <= '9' ||
+                                      ch >= 'a' && ch <= 'f' ||
+                                      ch >= 'A' && ch <= 'F';
             if (!isHexDigit) {
                 return false;
             }
