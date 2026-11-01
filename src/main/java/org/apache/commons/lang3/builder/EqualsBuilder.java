@@ -65,7 +65,6 @@ import org.apache.commons.lang3.tuple.Pair;
  *   }
  *   MyClass rhs = (MyClass) obj;
  *   return new EqualsBuilder()
- *                 .appendSuper(super.equals(obj))
  *                 .append(field1, rhs.field1)
  *                 .append(field2, rhs.field2)
  *                 .append(field3, rhs.field3)
@@ -73,6 +72,11 @@ import org.apache.commons.lang3.tuple.Pair;
  *  }
  * </pre>
  *
+ * <p>
+ * To include the superclass's equality check, add {@code appendSuper(super.equals(obj))} to the builder chain.
+ * Omit this call if {@code super.equals(obj)} invokes {@link Object#equals(Object)}: its identity comparison makes distinct instances compare unequal,
+ * even when all their fields are equal. See {@link #appendSuper(boolean)} for details.
+ * </p>
  * <p>
  * Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method,
@@ -896,9 +900,20 @@ public class EqualsBuilder extends AbstractReflection implements Builder<Boolean
     }
 
     /**
-     * Adds the result of {@code super.equals()} to this builder.
+     * Includes the result of the superclass's equality check.
+     * <p>
+     * Passing {@code false} makes {@link #isEquals()} return {@code false}. Passing {@code true} leaves the current result unchanged.
+     * </p>
+     * <p>
+     * Pass {@code super.equals(obj)} to include the superclass's equality check. The {@code equals(Object)} implementation may be declared by the superclass or
+     * inherited from an ancestor.
+     * </p>
+     * <p>
+     * When implementing field-based equality, omit this call if {@code super.equals(obj)} invokes {@link Object#equals(Object)}. That implementation compares
+     * object identity and returns {@code false} for distinct instances, even when all their fields are equal.
+     * </p>
      *
-     * @param superEquals  The result of calling {@code super.equals()}
+     * @param superEquals the result of calling {@code super.equals(obj)}
      * @return {@code this} instance.
      * @since 2.0
      */
