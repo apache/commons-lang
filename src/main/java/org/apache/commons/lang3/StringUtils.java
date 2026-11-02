@@ -8138,7 +8138,6 @@ public class StringUtils {
      * StringUtils.stripEnd("  abcyx", "xyz") = "  abc"
      * StringUtils.stripEnd("120.00", ".0")   = "12"
      * StringUtils.stripEnd("85123116", "16") = "85123"
-     * Strings.CS.removeEnd("85123116", "16") = "851231"
      * </pre>
      *
      * @param str        The String to remove characters from, may be null.
