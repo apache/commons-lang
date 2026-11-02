@@ -636,9 +636,9 @@ class FastDateParserTest extends AbstractLangTest {
         final Object cachedStrategy = FieldUtils.readField(zonePattern, "strategy", true);
         // The report supplies no concrete regex/TreeMap mismatch. Simulate a matched name missing
         // from the lookup using a private strategy instance, leaving the shared cache untouched.
-        final Constructor<?> constructor = cachedStrategy.getClass().getDeclaredConstructor(Locale.class);
+        final Constructor<?> constructor = cachedStrategy.getClass().getDeclaredConstructor(Locale.class, Boolean.TYPE);
         constructor.setAccessible(true);
-        final Object strategy = constructor.newInstance(Locale.US);
+        final Object strategy = constructor.newInstance(Locale.US, Boolean.FALSE);
         final Map<?, ?> names = (Map<?, ?>) FieldUtils.readField(strategy, "tzNames", true);
         assertNotNull(names.remove("PST"));
         FieldUtils.writeField(zonePattern, "strategy", strategy, true);

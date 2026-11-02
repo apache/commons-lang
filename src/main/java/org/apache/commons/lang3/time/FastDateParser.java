@@ -527,7 +527,33 @@ public class FastDateParser implements DateParser, Serializable {
             }
         }
 
+        // The RFC 822 numeric offset form "+hhmm"; SimpleDateFormat rejects "+hh:mm" here, and so must 'z'.
         private static final String RFC_822_TIME_ZONE = "[+-](?:2[0-3]|[01]\\d)[0-5]\\d";
+
+        /**
+         * Same as {@link #RFC_822_TIME_ZONE} but also accepts the ISO 8601 extended form {@code "+hh:mm"}.
+         */
+        private static final String ISO_8601_EXTENDED_TIME_ZONE = "[+-](?:2[0-3]|[01]\\d):?[0-5]\\d";
+
+        /**
+         * Cache of {@link TimeZoneStrategy} instances that accept the ISO 8601 extended form, keyed by locale. Kept separate from the field caches because 'z'
+         * (and 'Z' with a single letter) must keep exact SimpleDateFormat parity and reject the extended form.
+         */
+        private static final ConcurrentMap<Locale, Strategy> ISO_EXTENDED_ZONE_CACHE = new ConcurrentHashMap<>(3);
+
+        static void clearIsoExtendedCache() {
+            ISO_EXTENDED_ZONE_CACHE.clear();
+        }
+
+        /**
+         * Gets a {@link TimeZoneStrategy} that also parses the ISO 8601 extended offset form {@code "+hh:mm"}.
+         *
+         * @param locale The Locale.
+         * @return A shared strategy instance for the given Locale.
+         */
+        static Strategy getIsoExtendedStrategy(final Locale locale) {
+            return ISO_EXTENDED_ZONE_CACHE.computeIfAbsent(LocaleUtils.toLocale(locale), k -> new TimeZoneStrategy(k, true));
+        }
 
         private static final String GMT_OPTION = TimeZones.GMT_ID + "[+-]\\d{1,2}:\\d{2}";
 
@@ -563,12 +589,14 @@ public class FastDateParser implements DateParser, Serializable {
         /**
          * Constructs a Strategy that parses a TimeZone.
          *
-         * @param locale The Locale.
+         * @param locale           The Locale.
+         * @param iso8601Extended Whether to also accept the ISO 8601 extended offset form {@code "+hh:mm"} that FastDatePrinter emits for three or more 'Z'
+         *                        pattern letters.
          */
-        TimeZoneStrategy(final Locale locale) {
+        TimeZoneStrategy(final Locale locale, final boolean iso8601Extended) {
             this.locale = LocaleUtils.toLocale(locale);
             final StringBuilder sb = new StringBuilder();
-            sb.append("((?iu)" + RFC_822_TIME_ZONE + "|" + GMT_OPTION);
+            sb.append("((?iu)" + (iso8601Extended ? ISO_8601_EXTENDED_TIME_ZONE : RFC_822_TIME_ZONE) + "|" + GMT_OPTION);
             final Set<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
             // Order is undefined.
             // TODO Use of getZoneStrings() is discouraged per its Javadoc.
@@ -863,6 +891,7 @@ public class FastDateParser implements DateParser, Serializable {
      */
     static void clear() {
         Stream.of(CACHES).filter(Objects::nonNull).forEach(ConcurrentMap::clear);
+        TimeZoneStrategy.clearIsoExtendedCache();
     }
 
     /**
@@ -1064,7 +1093,8 @@ public class FastDateParser implements DateParser, Serializable {
      */
     private Strategy getLocaleSpecificStrategy(final int field, final Calendar definingCalendar) {
         return getCache(field).computeIfAbsent(locale,
-                k -> field == Calendar.ZONE_OFFSET ? new TimeZoneStrategy(locale) : new CaseInsensitiveTextStrategy(field, definingCalendar, locale));
+                k -> field == Calendar.ZONE_OFFSET ? new TimeZoneStrategy(locale, false)
+                        : new CaseInsensitiveTextStrategy(field, definingCalendar, locale));
     }
 
     /*
@@ -1143,6 +1173,11 @@ public class FastDateParser implements DateParser, Serializable {
         case 'Z':
             if (width == 2) {
                 return ISO8601TimeZoneStrategy.ISO_8601_3_STRATEGY;
+            }
+            if (width >= 3) {
+                // FastDatePrinter formats three or more 'Z' as the ISO 8601 extended offset "+hh:mm", so parsing
+                // 'Z' must accept that form as well. 'z' keeps exact SimpleDateFormat parity and rejects it.
+                return TimeZoneStrategy.getIsoExtendedStrategy(locale);
             }
             // falls-through
         case 'z':
