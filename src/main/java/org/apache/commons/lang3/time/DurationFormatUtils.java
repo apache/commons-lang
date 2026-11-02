@@ -100,29 +100,45 @@ public class DurationFormatUtils {
         private static final Token[] EMPTY_ARRAY = {};
 
         /**
-         * Helper method to determine if a set of tokens contain a value
+         * Determines whether a set of tokens contains a duration unit.
          *
          * @param tokens set to search.
-         * @param value to look find.
+         * @param value duration unit to find.
          * @return boolean {@code true} if contained.
          */
-        static boolean containsTokenWithValue(final Token[] tokens, final CharSequence value) {
+        static boolean containsTokenWithValue(final Token[] tokens, final Unit value) {
             return Stream.of(tokens).anyMatch(token -> token.getValue() == value);
         }
 
-        private final CharSequence value;
+        private final Unit value;
+        private final StringBuilder literal;
         private int count;
         private final int optionalIndex;
 
         /**
-         * Wraps a token around a value. A value would be something like a 'Y'.
+         * Wraps a token around literal text.
          *
-         * @param value value to wrap, non-null.
+         * @param literal literal text to wrap, non-null.
          * @param optional whether the token is optional.
          * @param optionalIndex The index of the optional token within the pattern.
          */
-        Token(final CharSequence value, final boolean optional, final int optionalIndex) {
+        Token(final StringBuilder literal, final boolean optional, final int optionalIndex) {
+            this.value = null;
+            this.literal = Objects.requireNonNull(literal, "literal");
+            this.count = 1;
+            this.optionalIndex = optional ? optionalIndex : -1;
+        }
+
+        /**
+         * Wraps a token around a duration unit.
+         *
+         * @param value duration unit to wrap, non-null.
+         * @param optional whether the token is optional.
+         * @param optionalIndex The index of the optional token within the pattern.
+         */
+        Token(final Unit value, final boolean optional, final int optionalIndex) {
             this.value = Objects.requireNonNull(value, "value");
+            this.literal = null;
             this.count = 1;
             this.optionalIndex = optional ? optionalIndex : -1;
         }
@@ -137,16 +153,8 @@ public class DurationFormatUtils {
         public boolean equals(final Object obj2) {
             if (obj2 instanceof Token) {
                 final Token tok2 = (Token) obj2;
-                if (this.value.getClass() != tok2.value.getClass() || this.count != tok2.count) {
-                    return false;
-                }
-                if (this.value instanceof StringBuilder) {
-                    return this.value.toString().equals(tok2.value.toString());
-                }
-                if (this.value instanceof Number) {
-                    return this.value.equals(tok2.value);
-                }
-                return this.value == tok2.value;
+                return value == tok2.value && count == tok2.count
+                        && Objects.equals(literal == null ? null : literal.toString(), tok2.literal == null ? null : tok2.literal.toString());
             }
             return false;
         }
@@ -161,22 +169,22 @@ public class DurationFormatUtils {
         }
 
         /**
-         * Gets the particular value this token represents.
+         * Gets the duration unit this token represents.
          *
-         * @return Object value, non-null.
+         * @return the duration unit, or null for a literal token.
          */
-        CharSequence getValue() {
+        Unit getValue() {
             return value;
         }
 
         /**
-         * Returns a hash code for the token equal to the hash code for the token's value. Thus 'TT' and 'TTTT' will have the same hash code.
+         * Computes a hash code from the duration unit or literal text, excluding the repetition count.
          *
          * @return The hash code for the token.
          */
         @Override
         public int hashCode() {
-            return this.value.hashCode();
+            return value != null ? value.hashCode() : literal.toString().hashCode();
         }
 
         /**
@@ -193,7 +201,25 @@ public class DurationFormatUtils {
          */
         @Override
         public String toString() {
-            return StringUtils.repeat(this.value.toString(), this.count);
+            return StringUtils.repeat(value != null ? value.toString() : literal.toString(), count);
+        }
+    }
+
+    /**
+     * Duration units recognized in format patterns.
+     */
+    enum Unit {
+        YEAR("y"), MONTH("M"), DAY("d"), HOUR("H"), MINUTE("m"), SECOND("s"), MILLISECOND("S");
+
+        private final String symbol;
+
+        Unit(final String symbol) {
+            this.symbol = symbol;
+        }
+
+        @Override
+        public String toString() {
+            return symbol;
         }
     }
 
@@ -210,20 +236,6 @@ public class DurationFormatUtils {
      * @see java.text.SimpleDateFormat
      */
     public static final String ISO_EXTENDED_FORMAT_PATTERN = "'P'yyyy'Y'M'M'd'DT'H'H'm'M's.SSS'S'";
-
-    static final String y = "y";
-
-    static final String M = "M";
-
-    static final String d = "d";
-
-    static final String H = "H";
-
-    static final String m = "m";
-
-    static final String s = "s";
-
-    static final String S = "S";
 
     /**
      * The internal method to do the formatting.
@@ -250,8 +262,8 @@ public class DurationFormatUtils {
         int optionalIndex = -1;
         boolean inOptional = false;
         for (final Token token : tokens) {
-            final CharSequence value = token.getValue();
-            final boolean isLiteral = value instanceof StringBuilder;
+            final Unit unit = token.getValue();
+            final boolean isLiteral = token.literal != null;
             final int count = token.getCount();
             if (optionalIndex != token.optionalIndex) {
               optionalIndex = token.optionalIndex;
@@ -268,56 +280,46 @@ public class DurationFormatUtils {
             }
             if (isLiteral) {
                 if (!inOptional || !lastOutputZero) {
-                    buffer.append(value.toString());
+                    buffer.append(token.literal);
                 }
-            } else if (value.equals(y)) {
-                lastOutputSeconds = false;
-                lastOutputZero = years == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(years, padWithZeros, count));
+            } else {
+                final long value;
+                switch (unit) {
+                case YEAR:
+                    value = years;
+                    break;
+                case MONTH:
+                    value = months;
+                    break;
+                case DAY:
+                    value = days;
+                    break;
+                case HOUR:
+                    value = hours;
+                    break;
+                case MINUTE:
+                    value = minutes;
+                    break;
+                case SECOND:
+                    value = seconds;
+                    break;
+                case MILLISECOND:
+                    value = milliseconds;
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected duration unit: " + unit);
                 }
-            } else if (value.equals(M)) {
-                lastOutputSeconds = false;
-                lastOutputZero = months == 0;
+                lastOutputZero = value == 0;
                 if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(months, padWithZeros, count));
-                }
-            } else if (value.equals(d)) {
-                lastOutputSeconds = false;
-                lastOutputZero = days == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(days, padWithZeros, count));
-                }
-            } else if (value.equals(H)) {
-                lastOutputSeconds = false;
-                lastOutputZero = hours == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(hours, padWithZeros, count));
-                }
-            } else if (value.equals(m)) {
-                lastOutputSeconds = false;
-                lastOutputZero = minutes == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(minutes, padWithZeros, count));
-                }
-            } else if (value.equals(s)) {
-                lastOutputSeconds = true;
-                lastOutputZero = seconds == 0;
-                if (!inOptional || !lastOutputZero) {
-                    buffer.append(paddedValue(seconds, padWithZeros, count));
-                }
-            } else if (value.equals(S)) {
-                lastOutputZero = milliseconds == 0;
-                if (!inOptional || !lastOutputZero) {
-                    if (lastOutputSeconds) {
+                    if (unit == Unit.MILLISECOND && lastOutputSeconds) {
                         // ensure at least 3 digits are displayed even if padding is not selected
                         final int width = padWithZeros ? Math.max(3, count) : 3;
-                        buffer.append(paddedValue(milliseconds, true, width));
+                        buffer.append(paddedValue(value, true, width));
                     } else {
-                        buffer.append(paddedValue(milliseconds, padWithZeros, count));
+                        buffer.append(paddedValue(value, padWithZeros, count));
                     }
                 }
-                lastOutputSeconds = false;
+                lastOutputSeconds = unit == Unit.SECOND;
             }
             // as soon as we hit first nonliteral in optional, check for literal prefix
             if (inOptional && !isLiteral && !firstOptionalNonLiteral) {
@@ -365,19 +367,19 @@ public class DurationFormatUtils {
         long minutes = 0;
         long seconds = 0;
         long milliseconds = durationMillis;
-        if (Token.containsTokenWithValue(tokens, d)) {
+        if (Token.containsTokenWithValue(tokens, Unit.DAY)) {
             days = milliseconds / DateUtils.MILLIS_PER_DAY;
             milliseconds -= days * DateUtils.MILLIS_PER_DAY;
         }
-        if (Token.containsTokenWithValue(tokens, H)) {
+        if (Token.containsTokenWithValue(tokens, Unit.HOUR)) {
             hours = milliseconds / DateUtils.MILLIS_PER_HOUR;
             milliseconds -= hours * DateUtils.MILLIS_PER_HOUR;
         }
-        if (Token.containsTokenWithValue(tokens, m)) {
+        if (Token.containsTokenWithValue(tokens, Unit.MINUTE)) {
             minutes = milliseconds / DateUtils.MILLIS_PER_MINUTE;
             milliseconds -= minutes * DateUtils.MILLIS_PER_MINUTE;
         }
-        if (Token.containsTokenWithValue(tokens, s)) {
+        if (Token.containsTokenWithValue(tokens, Unit.SECOND)) {
             seconds = milliseconds / DateUtils.MILLIS_PER_SECOND;
             milliseconds -= seconds * DateUtils.MILLIS_PER_SECOND;
         }
@@ -539,7 +541,7 @@ public class DurationFormatUtils {
         long seconds = end.get(Calendar.SECOND) - start.get(Calendar.SECOND);
         long minutes = end.get(Calendar.MINUTE) - start.get(Calendar.MINUTE);
         long hours = end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY);
-        final boolean calendarUnits = Token.containsTokenWithValue(tokens, y) || Token.containsTokenWithValue(tokens, M);
+        final boolean calendarUnits = Token.containsTokenWithValue(tokens, Unit.YEAR) || Token.containsTokenWithValue(tokens, Unit.MONTH);
         // Without years or months, count local dates directly instead of visiting every intervening month.
         long days = calendarUnits ? end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH) : localEpochDay(end) - localEpochDay(start);
         long months = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
@@ -571,13 +573,13 @@ public class DurationFormatUtils {
                 months += 12;
                 years -= 1;
             }
-            if (!Token.containsTokenWithValue(tokens, y) && years != 0) {
+            if (!Token.containsTokenWithValue(tokens, Unit.YEAR) && years != 0) {
                 while (years != 0) {
                     months += 12 * years;
                     years = 0;
                 }
             }
-            if (!Token.containsTokenWithValue(tokens, M)) {
+            if (!Token.containsTokenWithValue(tokens, Unit.MONTH)) {
                 while (months > 0) {
                     days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
                     months -= 1;
@@ -591,19 +593,19 @@ public class DurationFormatUtils {
         // The rest of this code adds in values that
         // aren't requested. This allows the user to ask for the
         // number of months and get the real count and not just 0->11.
-        if (!Token.containsTokenWithValue(tokens, d)) {
+        if (!Token.containsTokenWithValue(tokens, Unit.DAY)) {
             hours += HOURS_PER_DAY * days;
             days = 0;
         }
-        if (!Token.containsTokenWithValue(tokens, H)) {
+        if (!Token.containsTokenWithValue(tokens, Unit.HOUR)) {
             minutes += MINUTES_PER_HOUR * hours;
             hours = 0;
         }
-        if (!Token.containsTokenWithValue(tokens, m)) {
+        if (!Token.containsTokenWithValue(tokens, Unit.MINUTE)) {
             seconds += SECONDS_PER_MINUTES * minutes;
             minutes = 0;
         }
-        if (!Token.containsTokenWithValue(tokens, s)) {
+        if (!Token.containsTokenWithValue(tokens, Unit.SECOND)) {
             milliseconds += DateUtils.MILLIS_PER_SECOND * seconds;
             seconds = 0;
         }
@@ -646,7 +648,7 @@ public class DurationFormatUtils {
                 buffer.append(ch); // buffer can't be null if inLiteral is true
                 continue;
             }
-            String value = null;
+            Unit value = null;
             switch (ch) {
             case '[':
                 if (inOptional) {
@@ -688,25 +690,25 @@ public class DurationFormatUtils {
                 previous = null;
                 break;
             case 'y':
-                value = y;
+                value = Unit.YEAR;
                 break;
             case 'M':
-                value = M;
+                value = Unit.MONTH;
                 break;
             case 'd':
-                value = d;
+                value = Unit.DAY;
                 break;
             case 'H':
-                value = H;
+                value = Unit.HOUR;
                 break;
             case 'm':
-                value = m;
+                value = Unit.MINUTE;
                 break;
             case 's':
-                value = s;
+                value = Unit.SECOND;
                 break;
             case 'S':
-                value = S;
+                value = Unit.MILLISECOND;
                 break;
             default:
                 if (buffer == null) {
@@ -717,7 +719,7 @@ public class DurationFormatUtils {
                 previous = null;
             }
             if (value != null) {
-                if (previous != null && previous.getValue().equals(value)) {
+                if (previous != null && previous.getValue() == value) {
                     previous.increment();
                 } else {
                     final Token token = new Token(value, inOptional, optionalIndex);
