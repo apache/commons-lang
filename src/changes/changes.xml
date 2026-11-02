@@ -87,6 +87,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action issue="LANG-1423" type="fix" dev="ggregory" due-to="Gary Gregory, Reassoonn">Javadoc: Include wrapping operations in StringUtils overview (#1850).</action>
     <action issue="LANG-980"  type="fix" dev="ggregory" due-to="Gary Gregory, Sebb">Use enum constants for duration format units in DurationFormatUtils.</action>
     <action issue="LANG-1198" type="fix" dev="ggregory" due-to="Gary Gregory, Reassoonn">Javadoc: Clarify stripEnd character-set semantics (#1851).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, simpleqt">Keep FastDateFormat able to parse the '+hh:mm' offsets its own 'Z' patterns format (#1857).</action>
     <!-- ADD -->
     <action issue="LANG-1790" type="add" dev="ggregory" due-to="Mert Kirpici, Ivan Šarić, Gary Gregory">Add optional FIFO ordering for TimedSemaphore blocking acquisitions.</action>
     <!-- UPDATE -->

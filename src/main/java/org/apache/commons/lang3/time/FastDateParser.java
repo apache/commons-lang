@@ -71,7 +71,13 @@ import org.apache.commons.lang3.StringUtils;
  * </p>
  *
  * <p>
- * Only parsing is supported by this class, but all patterns are compatible with SimpleDateFormat.
+ * Only parsing is supported by this class. Patterns are compatible with {@link SimpleDateFormat}, except for time zone extensions described below.
+ * </p>
+ *
+ * <p>
+ * The pattern {@code 'ZZ'} accepts {@code Z} for a zero offset or an ISO 8601 extended numeric offset such as {@code +08:00}. Three or more {@code 'Z'}
+ * letters accept colon-separated numeric offsets in addition to the RFC822 offsets, GMT offsets, and localized time zone names accepted by a single
+ * {@code 'Z'}. The patterns {@code 'z'} and a single {@code 'Z'} do not accept bare colon-separated numeric offsets.
  * </p>
  *
  * <p>

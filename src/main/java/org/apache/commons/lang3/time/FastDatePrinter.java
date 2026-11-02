@@ -79,10 +79,9 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  * </p>
  *
  * <p>
- * In addition, the pattern {@code 'ZZ'} has been made to represent
- * ISO 8601 extended format time zones (for example, {@code +08:00} or {@code -11:00}).
- * This introduces a minor incompatibility with Java 1.4, but at a gain of
- * useful functionality.
+ * The pattern {@code 'ZZ'} represents ISO 8601 extended format time zones (for example, {@code +08:00} or {@code -11:00}), printing {@code Z} for
+ * a zero offset. Three or more {@code 'Z'} letters also print colon-separated offsets, but print {@code +00:00} for a zero offset. These patterns differ
+ * from {@link SimpleDateFormat}.
  * </p>
  *
  * <p>
