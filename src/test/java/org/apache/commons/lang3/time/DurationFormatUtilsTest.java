@@ -34,6 +34,7 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.time.DurationFormatUtils.Token;
+import org.apache.commons.lang3.time.DurationFormatUtils.Unit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -49,6 +50,21 @@ import org.junitpioneer.jupiter.DefaultTimeZone;
 class DurationFormatUtilsTest extends AbstractLangTest {
 
     private static final int FOUR_YEARS = 365 * 3 + 366;
+
+    private static Arguments[] testFractionalSecondsPadding() {
+        return new Arguments[] {
+                Arguments.of("s.S", false, "1.007"),
+                Arguments.of("s.S", true, "1.007"),
+                Arguments.of("s.SSSS", false, "1.007"),
+                Arguments.of("s.SSSS", true, "1.0007"),
+                Arguments.of("s' seconds 'S", false, "1 seconds 007"),
+                Arguments.of("s.S.S", false, "1.007.7"),
+                Arguments.of("s:m:S", false, "1:0:7"),
+                Arguments.of("s[m':'H]S", false, "17"),
+                Arguments.of("[s'.']SSS", false, "1.007"),
+                Arguments.of("S", false, "1007")
+        };
+    }
 
     private static Arguments[] testLANG1827() {
         final long twoHours = Duration.ofHours(2).toMillis();
@@ -113,7 +129,7 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         }
     }
 
-    private DurationFormatUtils.Token createTokenWithCount(final CharSequence value, final int count) {
+    private DurationFormatUtils.Token createTokenWithCount(final Unit value, final int count) {
         final DurationFormatUtils.Token token = new DurationFormatUtils.Token(value, false, -1);
         // To help debugging, toString() on a Token should never blow up.
         assertNotNull(token.toString());
@@ -709,6 +725,13 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         }
     }
 
+    @ParameterizedTest
+    @MethodSource
+    void testFractionalSecondsPadding(final String format, final boolean padWithZeros, final String expected) {
+        assertEquals(expected, DurationFormatUtils.formatDuration(1007, format, padWithZeros));
+        assertEquals(expected, DurationFormatUtils.formatPeriod(0, 1007, format, padWithZeros, TimeZones.getTimeZone("GMT")));
+    }
+
     // https://issues.apache.org/jira/browse/LANG-281
     @Test
     void testJiraLang281() {
@@ -769,50 +792,47 @@ class DurationFormatUtilsTest extends AbstractLangTest {
     void testLexx() {
         // tests each constant
         assertArrayEquals(new DurationFormatUtils.Token[] {
-            createTokenWithCount(DurationFormatUtils.y, 1),
-            createTokenWithCount(DurationFormatUtils.M, 1),
-            createTokenWithCount(DurationFormatUtils.d, 1),
-            createTokenWithCount(DurationFormatUtils.H, 1),
-            createTokenWithCount(DurationFormatUtils.m, 1),
-            createTokenWithCount(DurationFormatUtils.s, 1),
-            createTokenWithCount(DurationFormatUtils.S, 1) }, DurationFormatUtils.lexx("yMdHmsS"));
+            createTokenWithCount(Unit.YEAR, 1),
+            createTokenWithCount(Unit.MONTH, 1),
+            createTokenWithCount(Unit.DAY, 1),
+            createTokenWithCount(Unit.HOUR, 1),
+            createTokenWithCount(Unit.MINUTE, 1),
+            createTokenWithCount(Unit.SECOND, 1),
+            createTokenWithCount(Unit.MILLISECOND, 1) }, DurationFormatUtils.lexx("yMdHmsS"));
         // tests the ISO 8601-like
         assertArrayEquals(new DurationFormatUtils.Token[] {
-            createTokenWithCount(DurationFormatUtils.H, 2),
-            createTokenWithCount(new StringBuilder(":"), 1),
-            createTokenWithCount(DurationFormatUtils.m, 2),
-            createTokenWithCount(new StringBuilder(":"), 1),
-            createTokenWithCount(DurationFormatUtils.s, 2),
-            createTokenWithCount(new StringBuilder("."), 1),
-            createTokenWithCount(DurationFormatUtils.S, 3) }, DurationFormatUtils.lexx("HH:mm:ss.SSS"));
+            createTokenWithCount(Unit.HOUR, 2),
+            new Token(new StringBuilder(":"), false, -1),
+            createTokenWithCount(Unit.MINUTE, 2),
+            new Token(new StringBuilder(":"), false, -1),
+            createTokenWithCount(Unit.SECOND, 2),
+            new Token(new StringBuilder("."), false, -1),
+            createTokenWithCount(Unit.MILLISECOND, 3) }, DurationFormatUtils.lexx("HH:mm:ss.SSS"));
         // test the iso extended format
         assertArrayEquals(new DurationFormatUtils.Token[] {
-            createTokenWithCount(new StringBuilder("P"), 1),
-            createTokenWithCount(DurationFormatUtils.y, 4),
-            createTokenWithCount(new StringBuilder("Y"), 1),
-            createTokenWithCount(DurationFormatUtils.M, 1),
-            createTokenWithCount(new StringBuilder("M"), 1),
-            createTokenWithCount(DurationFormatUtils.d, 1),
-            createTokenWithCount(new StringBuilder("DT"), 1),
-            createTokenWithCount(DurationFormatUtils.H, 1),
-            createTokenWithCount(new StringBuilder("H"), 1),
-            createTokenWithCount(DurationFormatUtils.m, 1),
-            createTokenWithCount(new StringBuilder("M"), 1),
-            createTokenWithCount(DurationFormatUtils.s, 1),
-            createTokenWithCount(new StringBuilder("."), 1),
-            createTokenWithCount(DurationFormatUtils.S, 3),
-            createTokenWithCount(new StringBuilder("S"), 1) }, DurationFormatUtils.lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN));
+            new Token(new StringBuilder("P"), false, -1),
+            createTokenWithCount(Unit.YEAR, 4),
+            new Token(new StringBuilder("Y"), false, -1),
+            createTokenWithCount(Unit.MONTH, 1),
+            new Token(new StringBuilder("M"), false, -1),
+            createTokenWithCount(Unit.DAY, 1),
+            new Token(new StringBuilder("DT"), false, -1),
+            createTokenWithCount(Unit.HOUR, 1),
+            new Token(new StringBuilder("H"), false, -1),
+            createTokenWithCount(Unit.MINUTE, 1),
+            new Token(new StringBuilder("M"), false, -1),
+            createTokenWithCount(Unit.SECOND, 1),
+            new Token(new StringBuilder("."), false, -1),
+            createTokenWithCount(Unit.MILLISECOND, 3),
+            new Token(new StringBuilder("S"), false, -1) }, DurationFormatUtils.lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN));
         // test failures in equals
-        final DurationFormatUtils.Token token = createTokenWithCount(DurationFormatUtils.y, 4);
+        final DurationFormatUtils.Token token = createTokenWithCount(Unit.YEAR, 4);
         assertEquals(token, token);
         assertEquals(token.hashCode(), token.hashCode());
         assertNotEquals(token, new Object(), "Token equal to non-Token class.");
-        final Token token2 = createTokenWithCount("", 1);
+        final Token token2 = new Token(new StringBuilder("y"), false, -1);
         assertNotEquals(token, token2, "Token equal to Token with wrong value class.");
-        assertNotEquals(token.hashCode(), token2.hashCode());
-        assertNotEquals(token, createTokenWithCount(DurationFormatUtils.y, 1), "Token equal to Token with different count.");
-        final DurationFormatUtils.Token numToken = createTokenWithCount("1", 4);
-        assertEquals(numToken, numToken, "Token with Number value not equal to itself.");
+        assertNotEquals(token, createTokenWithCount(Unit.YEAR, 1), "Token equal to Token with different count.");
     }
 
     @Test
@@ -890,6 +910,19 @@ class DurationFormatUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testQuotedUnits() {
+        final Token[] literals = DurationFormatUtils.lexx("'yMdHmsS'");
+        assertEquals(1, literals.length);
+        for (final Unit unit : Unit.values()) {
+            assertFalse(Token.containsTokenWithValue(literals, unit));
+            assertTrue(Token.containsTokenWithValue(DurationFormatUtils.lexx(unit.toString()), unit));
+        }
+        assertEquals("yMdHmsS", DurationFormatUtils.formatDuration(1007, "'yMdHmsS'"));
+        assertEquals("y1 M2 d3 H4 m5 s6 S007", DurationFormatUtils.format(
+                DurationFormatUtils.lexx("'y'y 'M'M 'd'd 'H'H 'm'm 's's 'S'S"), 1, 2, 3, 4, 5, 6, 7, true));
+    }
+
+    @Test
     void testRepeatedTokenSeparatedByLiteral() {
         final long fiveHours = Duration.ofHours(5).toMillis();
         // the same field letter on either side of a literal are two separate fields, not one padded field
@@ -902,6 +935,33 @@ class DurationFormatUtilsTest extends AbstractLangTest {
         assertEquals("2-2", DurationFormatUtils.formatDuration(Duration.ofDays(2).toMillis(), "d-d", false));
         // adjacent repeats still collapse into a single padded field
         assertEquals("05", DurationFormatUtils.formatDuration(fiveHours, "HH", true));
+    }
+
+    @Test
+    void testTokenEquality() {
+        final Token year = new Token(Unit.YEAR, false, -1);
+        final Token literal = new Token(new StringBuilder("y"), false, -1);
+        final Token equalLiteral = new Token(new StringBuilder("y"), false, -1);
+        assertEquals(year, new Token(Unit.YEAR, false, -1));
+        assertEquals(year.hashCode(), new Token(Unit.YEAR, false, -1).hashCode());
+        assertNotEquals(year, new Token(Unit.MONTH, false, -1));
+        assertNotEquals(year, literal);
+        assertNotEquals(literal, year);
+        assertEquals(literal, equalLiteral);
+        assertEquals(literal.hashCode(), equalLiteral.hashCode());
+        assertNotEquals(literal, new Token(new StringBuilder("M"), false, -1));
+        equalLiteral.increment();
+        assertNotEquals(literal, equalLiteral);
+    }
+
+    @Test
+    void testTokenToString() {
+        final Token[] tokens = DurationFormatUtils.lexx("yy MM dd HH mm ss SSS 'literal'");
+        final String[] expected = { "yy", " ", "MM", " ", "dd", " ", "HH", " ", "mm", " ", "ss", " ", "SSS", " ", "literal" };
+        assertEquals(expected.length, tokens.length);
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], tokens[i].toString());
+        }
     }
 
     @Test
