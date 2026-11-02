@@ -53,6 +53,19 @@ class UnicodeEscaperTest extends AbstractLangTest {
     }
 
     @Test
+    void testToUtf16EscapeBmp() {
+        final UnicodeEscaper ue = new UnicodeEscaper();
+        // A BMP code point below U+1000 needs zero padding to keep the four digit \\uXXXX form.
+        assertEquals("\\u0000", ue.toUtf16Escape(0), "Code point 0 must escape to four hex digits");
+        assertEquals("\\u000A", ue.toUtf16Escape('\n'), "Code point 0xA must escape to four hex digits");
+        assertEquals("\\u0041", ue.toUtf16Escape('A'), "Code point 0x41 must escape to four hex digits");
+        assertEquals("\\u0FFF", ue.toUtf16Escape(0xFFF), "Code point 0xFFF must escape to four hex digits");
+        assertEquals("\\uFFFF", ue.toUtf16Escape(0xFFFF), "Code point 0xFFFF must escape to four hex digits");
+        assertEquals(ue.translate("A"), ue.toUtf16Escape('A'), "toUtf16Escape must match the translate output");
+        assertEquals("A", new UnicodeUnescaper().translate(ue.toUtf16Escape('A')), "Escaped BMP code point must round-trip");
+    }
+
+    @Test
     void testSupplementary() {
         final UnicodeEscaper ue = UnicodeEscaper.above(0x7f);
         // U+10437 (DESERET SMALL LETTER YEE) encodes to surrogate pair U+D801 U+DC37.
