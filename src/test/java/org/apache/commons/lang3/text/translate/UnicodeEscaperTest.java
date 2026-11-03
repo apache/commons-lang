@@ -53,6 +53,16 @@ class UnicodeEscaperTest extends AbstractLangTest {
     }
 
     @Test
+    void testSupplementary() {
+        final UnicodeEscaper ue = UnicodeEscaper.above(0x7f);
+        // U+10437 (DESERET SMALL LETTER YEE) encodes to surrogate pair U+D801 U+DC37.
+        final String input = new String(Character.toChars(0x10437));
+        final String result = ue.translate(input);
+        assertEquals("\\uD801\\uDC37", result, "Supplementary code point must escape to a surrogate pair");
+        assertEquals(input, new UnicodeUnescaper().translate(result), "Escaped supplementary code point must round-trip");
+    }
+
+    @Test
     void testToUtf16EscapeBmp() {
         final UnicodeEscaper ue = new UnicodeEscaper();
         // A BMP code point below U+1000 needs zero padding to keep the four digit \\uXXXX form.
@@ -63,15 +73,5 @@ class UnicodeEscaperTest extends AbstractLangTest {
         assertEquals("\\uFFFF", ue.toUtf16Escape(0xFFFF), "Code point 0xFFFF must escape to four hex digits");
         assertEquals(ue.translate("A"), ue.toUtf16Escape('A'), "toUtf16Escape must match the translate output");
         assertEquals("A", new UnicodeUnescaper().translate(ue.toUtf16Escape('A')), "Escaped BMP code point must round-trip");
-    }
-
-    @Test
-    void testSupplementary() {
-        final UnicodeEscaper ue = UnicodeEscaper.above(0x7f);
-        // U+10437 (DESERET SMALL LETTER YEE) encodes to surrogate pair U+D801 U+DC37.
-        final String input = new String(Character.toChars(0x10437));
-        final String result = ue.translate(input);
-        assertEquals("\\uD801\\uDC37", result, "Supplementary code point must escape to a surrogate pair");
-        assertEquals(input, new UnicodeUnescaper().translate(result), "Escaped supplementary code point must round-trip");
     }
 }

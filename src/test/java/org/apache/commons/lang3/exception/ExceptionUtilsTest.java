@@ -413,6 +413,32 @@ class ExceptionUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testGetRootCauseStackTraceList_Throwable() {
+        assertEquals(0, ExceptionUtils.getRootCauseStackTraceList(null).size());
+
+        final Throwable cause = createExceptionWithCause();
+        List<String> stackTrace = ExceptionUtils.getRootCauseStackTraceList(cause);
+        boolean match = false;
+        for (final String element : stackTrace) {
+            if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
+                match = true;
+                break;
+            }
+        }
+        assertTrue(match);
+
+        stackTrace = ExceptionUtils.getRootCauseStackTraceList(withoutCause);
+        match = false;
+        for (final String element : stackTrace) {
+            if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
+                match = true;
+                break;
+            }
+        }
+        assertFalse(match);
+    }
+
+    @Test
     void testGetRootCauseStackTraceListComparesElements() {
         final StackTraceElement causeFrame = new StackTraceElement("Type", "call", "Type.java", -1);
         final StackTraceElement wrapperFrame = new StackTraceElement("Type", "call", "Type.java", -3);
@@ -473,32 +499,6 @@ class ExceptionUtilsTest extends AbstractLangTest {
                 ExceptionUtils.getRootCauseStackTraceList(wrapper));
         assertEquals(3, cause.getStackTrace().length);
         assertEquals(3, wrapper.getStackTrace().length);
-    }
-
-    @Test
-    void testGetRootCauseStackTraceList_Throwable() {
-        assertEquals(0, ExceptionUtils.getRootCauseStackTraceList(null).size());
-
-        final Throwable cause = createExceptionWithCause();
-        List<String> stackTrace = ExceptionUtils.getRootCauseStackTraceList(cause);
-        boolean match = false;
-        for (final String element : stackTrace) {
-            if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
-                match = true;
-                break;
-            }
-        }
-        assertTrue(match);
-
-        stackTrace = ExceptionUtils.getRootCauseStackTraceList(withoutCause);
-        match = false;
-        for (final String element : stackTrace) {
-            if (element.startsWith(ExceptionUtils.WRAPPED_MARKER)) {
-                match = true;
-                break;
-            }
-        }
-        assertFalse(match);
     }
 
     /**

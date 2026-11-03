@@ -1221,6 +1221,28 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertArrayEquals(new Type[] { variable }, inheritedLower.getLowerBounds());
     }
 
+    @ParameterizedTest
+    @MethodSource
+    void testHashCodeMatchesJdk(final String fieldName, final Type built) throws NoSuchFieldException {
+        final Type jdk = HashCodeTypes.class.getDeclaredField(fieldName).getGenericType();
+        assertEquals(jdk, built);
+        assertEquals(built, jdk);
+
+        final Map<Type, String> jdkMap = new HashMap<>();
+        jdkMap.put(jdk, "value");
+        final Map<Type, String> builtMap = new HashMap<>();
+        builtMap.put(built, "value");
+        final Set<Type> jdkSet = new HashSet<>();
+        jdkSet.add(jdk);
+        final Set<Type> builtSet = new HashSet<>();
+        builtSet.add(built);
+        assertEquals(jdk.hashCode(), built.hashCode());
+        assertEquals("value", jdkMap.get(built));
+        assertEquals("value", builtMap.get(jdk));
+        assertTrue(jdkSet.contains(built));
+        assertTrue(builtSet.contains(jdk));
+    }
+
     @Test
     void testInterfaceBoundPreserved() {
         assertEquals("T extends java.util.List<java.lang.String>",
@@ -1260,28 +1282,6 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertTrue(TypeUtils.isArrayType(stringListTypeArray));
         assertTrue(TypeUtils.isArrayType(subStringListTypeArray));
         assertTrue(TypeUtils.isArrayType(superStringListTypeArray));
-    }
-
-    @ParameterizedTest
-    @MethodSource
-    void testHashCodeMatchesJdk(final String fieldName, final Type built) throws NoSuchFieldException {
-        final Type jdk = HashCodeTypes.class.getDeclaredField(fieldName).getGenericType();
-        assertEquals(jdk, built);
-        assertEquals(built, jdk);
-
-        final Map<Type, String> jdkMap = new HashMap<>();
-        jdkMap.put(jdk, "value");
-        final Map<Type, String> builtMap = new HashMap<>();
-        builtMap.put(built, "value");
-        final Set<Type> jdkSet = new HashSet<>();
-        jdkSet.add(jdk);
-        final Set<Type> builtSet = new HashSet<>();
-        builtSet.add(built);
-        assertEquals(jdk.hashCode(), built.hashCode());
-        assertEquals("value", jdkMap.get(built));
-        assertEquals("value", builtMap.get(jdk));
-        assertTrue(jdkSet.contains(built));
-        assertTrue(builtSet.contains(jdk));
     }
 
     @Test

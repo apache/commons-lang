@@ -167,6 +167,28 @@ class FastDateParserTest extends AbstractLangTest {
         );
     }
 
+    private static Calendar initializeCalendar(final TimeZone timeZone) {
+        final Calendar cal = Calendar.getInstance(timeZone);
+        cal.set(Calendar.YEAR, 2001);
+        cal.set(Calendar.MONTH, 1); // not daylight savings
+        cal.set(Calendar.DAY_OF_MONTH, 4);
+        cal.set(Calendar.HOUR_OF_DAY, 12);
+        cal.set(Calendar.MINUTE, 8);
+        cal.set(Calendar.SECOND, 56);
+        cal.set(Calendar.MILLISECOND, 235);
+        return cal;
+    }
+
+    static ArgumentSets testParsesFactory() {
+        // @formatter:off
+        return ArgumentSets
+            .argumentsForFirstParameter(LONG_FORMAT, SHORT_FORMAT)
+            .argumentsForNextParameter(LocaleUtils.availableLocaleList())
+            .argumentsForNextParameter(NEW_YORK, REYKJAVIK, TimeZones.GMT)
+            .argumentsForNextParameter(2003, 1940, 1868, 1867, 1, -1, -1940);
+        // @formatter:on
+    }
+
     static Stream<Arguments> weekYearParsingOutOfRangeDayOfWeekParameters() {
         final String[][] cases = {
             { "YYYY-'W'ww-u", "2025-W01-8" },
@@ -188,28 +210,6 @@ class FastDateParserTest extends AbstractLangTest {
     static Stream<Arguments> weekYearParsingStrictDayOfWeekParameters() {
         return Stream.of(Locale.US, Locale.GERMANY)
             .flatMap(locale -> Stream.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 123, Integer.MAX_VALUE).map(dayOfWeek -> Arguments.of(dayOfWeek, locale)));
-    }
-
-    private static Calendar initializeCalendar(final TimeZone timeZone) {
-        final Calendar cal = Calendar.getInstance(timeZone);
-        cal.set(Calendar.YEAR, 2001);
-        cal.set(Calendar.MONTH, 1); // not daylight savings
-        cal.set(Calendar.DAY_OF_MONTH, 4);
-        cal.set(Calendar.HOUR_OF_DAY, 12);
-        cal.set(Calendar.MINUTE, 8);
-        cal.set(Calendar.SECOND, 56);
-        cal.set(Calendar.MILLISECOND, 235);
-        return cal;
-    }
-
-    static ArgumentSets testParsesFactory() {
-        // @formatter:off
-        return ArgumentSets
-            .argumentsForFirstParameter(LONG_FORMAT, SHORT_FORMAT)
-            .argumentsForNextParameter(LocaleUtils.availableLocaleList())
-            .argumentsForNextParameter(NEW_YORK, REYKJAVIK, TimeZones.GMT)
-            .argumentsForNextParameter(2003, 1940, 1868, 1867, 1, -1, -1940);
-        // @formatter:on
     }
 
     private final TriFunction<String, TimeZone, Locale, DateParser> dateParserProvider = (format, timeZone, locale) -> new FastDateParser(format, timeZone,

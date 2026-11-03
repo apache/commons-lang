@@ -547,6 +547,13 @@ public class FastDateParser implements DateParser, Serializable {
          */
         private static final ConcurrentMap<Locale, Strategy> ISO_EXTENDED_ZONE_CACHE = new ConcurrentHashMap<>(3);
 
+        private static final String GMT_OPTION = TimeZones.GMT_ID + "[+-]\\d{1,2}:\\d{2}";
+
+        /**
+         * Index of zone id from {@link DateFormatSymbols#getZoneStrings()}.
+         */
+        private static final int ID = 0;
+
         static void clearIsoExtendedCache() {
             ISO_EXTENDED_ZONE_CACHE.clear();
         }
@@ -560,13 +567,6 @@ public class FastDateParser implements DateParser, Serializable {
         static Strategy getIsoExtendedStrategy(final Locale locale) {
             return ISO_EXTENDED_ZONE_CACHE.computeIfAbsent(LocaleUtils.toLocale(locale), k -> new TimeZoneStrategy(k, true));
         }
-
-        private static final String GMT_OPTION = TimeZones.GMT_ID + "[+-]\\d{1,2}:\\d{2}";
-
-        /**
-         * Index of zone id from {@link DateFormatSymbols#getZoneStrings()}.
-         */
-        private static final int ID = 0;
 
         /**
          * Tests whether to skip the given time zone, true if TimeZone.getTimeZone().

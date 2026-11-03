@@ -46,6 +46,22 @@ import org.junit.jupiter.api.Test;
  */
 class TimedSemaphoreTest extends AbstractLangTest {
 
+    private static final class EqualFairAcquirer extends FairAcquirer {
+        EqualFairAcquirer(final TimedSemaphore semaphore, final BlockingQueue<Integer> order, final int id) {
+            super(semaphore, order, id);
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            return other instanceof EqualFairAcquirer;
+        }
+
+        @Override
+        public int hashCode() {
+            return 1;
+        }
+    }
+
     private static class FairAcquirer extends Thread {
         private final TimedSemaphore semaphore;
         private final BlockingQueue<Integer> order;
@@ -67,22 +83,6 @@ class TimedSemaphoreTest extends AbstractLangTest {
             } catch (final InterruptedException | IllegalStateException ex) {
                 failure = ex;
             }
-        }
-    }
-
-    private static final class EqualFairAcquirer extends FairAcquirer {
-        EqualFairAcquirer(final TimedSemaphore semaphore, final BlockingQueue<Integer> order, final int id) {
-            super(semaphore, order, id);
-        }
-
-        @Override
-        public boolean equals(final Object other) {
-            return other instanceof EqualFairAcquirer;
-        }
-
-        @Override
-        public int hashCode() {
-            return 1;
         }
     }
 
@@ -289,6 +289,15 @@ class TimedSemaphoreTest extends AbstractLangTest {
         return TimedSemaphore.builder().setPeriod(1).setTimeUnit(TimeUnit.DAYS).setLimit(limit).setFair(true).get();
     }
 
+    private static void stopAcquirers(final TimedSemaphore semaphore, final FairAcquirer... threads) throws InterruptedException {
+        semaphore.shutdown();
+        for (final FairAcquirer thread : threads) {
+            thread.interrupt();
+            thread.join(5000);
+            assertFalse(thread.isAlive(), "Acquirer did not terminate");
+        }
+    }
+
     /**
      * Prepares an executor service mock to expect the start of the timer.
      *
@@ -299,15 +308,6 @@ class TimedSemaphoreTest extends AbstractLangTest {
             final ScheduledFuture<?> future) {
         service.scheduleAtFixedRate((Runnable) EasyMock.anyObject(), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(PERIOD_MILLIS), EasyMock.eq(UNIT));
         EasyMock.expectLastCall().andReturn(future);
-    }
-
-    private static void stopAcquirers(final TimedSemaphore semaphore, final FairAcquirer... threads) throws InterruptedException {
-        semaphore.shutdown();
-        for (final FairAcquirer thread : threads) {
-            thread.interrupt();
-            thread.join(5000);
-            assertFalse(thread.isAlive(), "Acquirer did not terminate");
-        }
     }
 
     /**

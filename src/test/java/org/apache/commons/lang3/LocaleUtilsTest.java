@@ -541,21 +541,6 @@ class LocaleUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Tests that language, country and area codes are restricted to ASCII, as {@link Locale} defines them.
-     */
-    @ParameterizedTest
-    @ValueSource(strings = {
-            // FULLWIDTH LATIN SMALL LETTER E and N
-            "ｅｎ", "éé", "ééé", "eé", "éé_GB", "éé-GB", "éé_GB_POSIX",
-            // FULLWIDTH LATIN CAPITAL LETTER G and B
-            "en_ＧＢ", "en_ÉÉ", "en-ÉÉ", "en_ÉÉ_POSIX", "_ÉÉ", "_ÉÉ_POSIX", "-ÉÉ", "_GÉ", "_ÉB",
-            // ARABIC-INDIC DIGIT ONE, TWO and THREE
-            "en_١٢٣", "en-١٢٣", "en_1٢3", "en_١٢٣_POSIX" })
-    void testToLocaleNonAsciiCodes(final String localeString) {
-        assertIllegalArgumentException(() -> LocaleUtils.toLocale(localeString), "Should fail code not ASCII: " + localeString);
-    }
-
-    /**
      * Test toLocale() method.
      */
     @Test
@@ -617,6 +602,21 @@ class LocaleUtilsTest extends AbstractLangTest {
     @MethodSource("java.util.Locale#getISOCountries")
     void testToLocaleGetIso3LanguageKown(final String country) {
         assertEquals(LocaleUtils.ofCountry(country).getDisplayCountry(), LocaleUtils.toLocale(country).getDisplayCountry());
+    }
+
+    /**
+     * Tests that language, country and area codes are restricted to ASCII, as {@link Locale} defines them.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {
+            // FULLWIDTH LATIN SMALL LETTER E and N
+            "ｅｎ", "éé", "ééé", "eé", "éé_GB", "éé-GB", "éé_GB_POSIX",
+            // FULLWIDTH LATIN CAPITAL LETTER G and B
+            "en_ＧＢ", "en_ÉÉ", "en-ÉÉ", "en_ÉÉ_POSIX", "_ÉÉ", "_ÉÉ_POSIX", "-ÉÉ", "_GÉ", "_ÉB",
+            // ARABIC-INDIC DIGIT ONE, TWO and THREE
+            "en_١٢٣", "en-١٢٣", "en_1٢3", "en_١٢٣_POSIX" })
+    void testToLocaleNonAsciiCodes(final String localeString) {
+        assertIllegalArgumentException(() -> LocaleUtils.toLocale(localeString), "Should fail code not ASCII: " + localeString);
     }
 
     /**
