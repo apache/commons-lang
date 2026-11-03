@@ -91,17 +91,4 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
         super(below, above, between);
     }
 
-    /**
-     * Converts the given code point to a hexadecimal string of the form {@code "\\uXXXX\\uXXXX"}
-     *
-     * @param codePoint
-     *            a Unicode code point.
-     * @return The hexadecimal string for the given code point.
-     */
-    @Override
-    protected String toUtf16Escape(final int codePoint) {
-        final char[] surrogatePair = Character.toChars(codePoint);
-        return "\\u" + hex(surrogatePair[0]) + "\\u" + hex(surrogatePair[1]);
-    }
-
 }

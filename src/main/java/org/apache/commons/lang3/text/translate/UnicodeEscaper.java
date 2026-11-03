@@ -19,6 +19,8 @@ package org.apache.commons.lang3.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Translates code points to their Unicode escaped value.
  *
@@ -112,7 +114,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      */
     protected String toUtf16Escape(final int codePoint) {
         if (Character.isBmpCodePoint(codePoint)) {
-            return "\\u" + hex(codePoint);
+            return "\\u" + StringUtils.leftPad(hex(codePoint), 4, '0');
         }
         final char[] surrogatePair = Character.toChars(codePoint);
         return "\\u" + hex(surrogatePair[0]) + "\\u" + hex(surrogatePair[1]);
