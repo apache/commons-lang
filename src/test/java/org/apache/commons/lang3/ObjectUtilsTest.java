@@ -50,6 +50,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.exception.CloneFailedException;
@@ -464,6 +465,34 @@ class ObjectUtilsTest extends AbstractLangTest {
 
         assertNull(ObjectUtils.firstNonNull((Object) null));
         assertNull(ObjectUtils.firstNonNull((Object[]) null));
+    }
+
+    @Test
+    void testApplyIfNonNull() {
+        final MutableObject<String> result = new MutableObject<>();
+        final AtomicInteger calls = new AtomicInteger();
+
+        ObjectUtils.applyIfNonNull(value -> calls.incrementAndGet(), null);
+        assertEquals(0, calls.get());
+        assertNull(result.getValue());
+
+        ObjectUtils.applyIfNonNull(result::setValue, "value");
+        assertEquals("value", result.getValue());
+
+        ObjectUtils.applyIfNonNull(null, "value");
+    }
+
+    @Test
+    void testApplyFirstNonNull() {
+        final MutableObject<String> result = new MutableObject<>();
+        final AtomicInteger calls = new AtomicInteger();
+
+        ObjectUtils.applyFirstNonNull(value -> calls.incrementAndGet(), null, null);
+        assertEquals(0, calls.get());
+        assertNull(result.getValue());
+
+        ObjectUtils.applyFirstNonNull(result::setValue, null, "first", "second");
+        assertEquals("first", result.getValue());
     }
 
     @Test
