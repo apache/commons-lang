@@ -1,3 +1,106 @@
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Apache Commons Lang 3.22.0 Release Notes
+----------------------------------------
+
+The Apache Commons Lang team is pleased to announce the release of Apache Commons Lang 3.22.0.
+
+Apache Commons Lang is a package of Java utility classes for the Java lang packages,
+classes that could be considered standard to justify their existence in java.lang.
+
+The code is tested using the latest revision of the JDK for supported LTS releases: 8, 11, 17, 21, and 25.
+See https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
+
+Please ensure your build environment is up-to-date and kindly report any build issues.
+
+Starting with Commons Lang 3.9, we target Java 8 and use those features.
+
+For advice on upgrading from 2.x to 3.x, see https://commons.apache.org/lang/article3_0.html
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+Changes in this version include:
+
+New features:
+* LANG-1790: Add optional FIFO ordering for TimedSemaphore blocking acquisitions. Thanks to Mert Kirpici, Ivan ?ari?, Gary Gregory.
+
+Fixed Bugs:
+*            Include 0x7E (~) in RandomStringUtils nextGraph and nextPrint (#1808). Thanks to alhuda, Gary Gregory.
+*            Default unbounded WildcardType upper bound to Object in TypeUtils (#1807). Thanks to alhuda, Gary Gregory.
+*            Take FastDatePrinter era names from the locale's calendar (#1800). Thanks to alhuda, Gary Gregory.
+* LANG-1655: Preserve Korean text in stripAccents (#1799). Thanks to Efe, Gary Gregory.
+* LANG-1835: Ignore synthetic methods in AnnotationUtils (#1810). Thanks to William Degrange, zemiles, Gary Gregory.
+* LANG-1836: Make TypeUtils.containsTypeVariables and unrollVariables honour the owner type of a ParameterizedType (#1812). Thanks to William Degrange, Sharang Gupta, Gary Gregory.
+*            Recurse into nested annotation arrays in AnnotationUtils.hashCode (#1814). Thanks to alhuda, Gary Gregory.
+*            [javadoc] Correct CharUtils default-value conversion descriptions (#1816). Thanks to Tarun Kishore, Gary Gregory.
+*            Preserve enclosing context and member names in ClassUtils.getShortClassName(Class) (#1818). Thanks to alhuda, Gary Gregory.
+*            Keep RandomUtils's randomDouble() and randomFloat() below the exclusive upper bound (#1817). Thanks to alhuda, Gary Gregory.
+*            Use standalone month names for month-only patterns in FastDatePrinter (#1815). Thanks to alhuda, Gary Gregory.
+*            Fix TypeUtils.isAssignable rejecting Class<X> to Class<?> assignments (#1820). Thanks to XenoAmess, Gary Gregory.
+* LANG-1837: Prevent null returns from lazily initialized string caches. Thanks to Aosen Xiong, Gary Gregory.
+*            Escape CharSequence values in ToStringStyle.JSON_STYLE (#1821). Thanks to alhuda, Gary Gregory.
+* LANG-796:  Clarify DateUtils calendar arithmetic and daylight saving time behavior. Thanks to Nicola Barbiero, Adrian Crum, Thomas Neidhart, Joerg Schaible, Duncan Jones, Josh Chaitin-Pollak, gaurav kumar pandey, Gary Gregory.
+*            Treat an unmatched quote as closed in ExtendedMessageFormat (#1819). Thanks to alhuda, Gary Gregory.
+*            Prevent StringUtils padding from splitting surrogate pairs (#1813). Thanks to gaurav kumar pandey, Gary Gregory.
+* LANG-441:  DateUtils Javadoc does not fully define round() behavior. Thanks to Sebb, Valentin Rocher, Adarsh Kumar Omrey, Gary Gregory.
+* LANG-1838: Fix resource paths for unnamed packages (#1824). Thanks to Aryan R. Ganjoo, Gary Gregory.
+*            Keep EventCountCircuitBreaker event count from wrapping on int overflow (#1825). Thanks to alhuda, Gary Gregory.
+*            Reject varargs candidates with too few arguments in MemberUtils (#1828). Thanks to alhuda, Gary Gregory.
+* LANG-1323: Align built type hashes with JDK reflection (#1826). Thanks to Aryan R. Ganjoo, Gary Gregory.
+*            Keep array encoding intact in ClassUtils.getAbbreviatedName (#1829). Thanks to alhuda, Gary Gregory.
+*            Reject leading whitespace in NumberUtils.createNumber (#1833). Thanks to alhuda, Gary Gregory.
+*            Keep StrSubstitutor from treating a value's trailing $ as an escape (#1834). Thanks to alhuda, Gary Gregory.
+*            Fix FastDateParser normalization of out-of-range ISO day-of-week values (#1839). Thanks to alhuda, Gary Gregory.
+*            [javadoc] Correct StringUtils example methods and overloads (#1836). Thanks to Aminark, Gary Gregory.
+*            Stop ExceptionUtils.removeCommonFrames at the first differing frame (#1831). Thanks to alhuda, Gary Gregory.
+*            Use StackTraceElement objects to build compact root cause stack traces, avoiding text parsing and preventing exception message text from being mistaken for stack frames. Thanks to Gary Gregory.
+*            Restrict LocaleUtils.toLocale to ASCII language, country, and numeric area codes; previously accepted non-ASCII codes now cause IllegalArgumentException (#1838). Thanks to alhuda, Gary Gregory.
+*            Deprecate ExceptionUtils.removeCommonFrames(), which is now used only by tests. Root-cause stack trace generation compares StackTraceElement objects directly. Thanks to Gary Gregory.
+*            Keep DateUtils.ceiling and round inside a DST overlap hour (#1842). Thanks to alhuda, Gary Gregory.
+*            Keep RandomStringUtils.random rejection cap from failing valid ranges (#1843). Thanks to alhuda, Gary Gregory.
+*            [javadoc] Correct hexadecimal output examples in Conversion (#1844). Thanks to Pendela Phanindra Rao, Gary Gregory.
+*            Fix Conversion hex method Javadoc (#1845). Thanks to Mohd Irshad, Gary Gregory.
+*            Make FastDatePrinter time-zone tests deterministic (#1854). Thanks to Gary Gregory.
+* LANG-1839: Fix recursive toString traversal cleanup (#1855). Thanks to Gary Gregory, Raju Gupta.
+* LANG-1341: Javadoc: Clarify superclass equality in EqualsBuilder. Thanks to Gary Gregory, Reassoonn.
+* LANG-1423: Javadoc: Include wrapping operations in StringUtils overview (#1850). Thanks to Gary Gregory, Reassoonn.
+* LANG-980:  Use enum constants for duration format units in DurationFormatUtils. Thanks to Gary Gregory, Sebb.
+* LANG-1198: Javadoc: Clarify stripEnd character-set semantics (#1851). Thanks to Gary Gregory, Reassoonn.
+*            Keep FastDateFormat able to parse the '+hh:mm' offsets its own 'Z' patterns format (#1857). Thanks to Gary Gregory, simpleqt.
+*            Pad BMP code points to four hex digits in UnicodeEscaper.toUtf16Escape (#1858). Thanks to alhuda, Gary Gregory.
+
+Changes:
+*            Bump org.apache.commons:commons-parent from 105 to 107. Thanks to Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-lang/changes.html
+
+For complete information on Apache Commons Lang, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons Lang website:
+
+https://commons.apache.org/proper/commons-lang/
+
+Download page: https://commons.apache.org/proper/commons-lang/download_lang.cgi
+
+Have fun!
+Apache Commons Team
+
+-----------------------------------------------------------------------------
+
 Licensed to the Apache Software Foundation (ASF) under one or more
 contributor license agreements.  See the NOTICE file distributed with
 this work for additional information regarding copyright ownership.

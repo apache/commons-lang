@@ -61,7 +61,7 @@ Making Changes
 
 + Create a _topic branch_ for your isolated work.
   * Usually, you should base your branch on the `master` branch.
-  * A good topic branch name can be the JIRA bug ID plus a keyword, e.g., `LANG-123-InputStream`.
+  * A good topic branch name can be the JIRA bug ID plus a keyword, for example, `LANG-123-InputStream`.
   * If you have submitted multiple JIRA issues, try to maintain separate branches and pull requests.
 + Make commits of logical units.
   * Make sure your commit messages are meaningful and in the proper format. Your commit message should contain the key of the JIRA issue.

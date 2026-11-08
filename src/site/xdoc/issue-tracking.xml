@@ -58,13 +58,13 @@ limitations under the License.
 
       <p>
       To use JIRA, you may need to <a href="https://issues.apache.org/jira/secure/Signup!default.jspa">create an account</a>
-      (if you have previously created/updated Commons issues using Bugzilla, an account will have been automatically
+      (if you have previously created or updated Commons issues using Bugzilla, an account will have been automatically
       created and you can use the <a href="https://issues.apache.org/jira/secure/ForgotPassword!default.jspa">Forgot Password</a>
       page to get a new password).
       </p>
 
       <p>
-      If you would like to report a bug, or raise an enhancement request with
+      If you would like to report a bug or request an enhancement for
       Apache Commons Lang, please do the following:
       </p>
       <ol>
