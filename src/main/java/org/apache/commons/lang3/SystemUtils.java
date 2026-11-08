@@ -41,10 +41,6 @@ public class SystemUtils {
      */
     private static final String OS_NAME_WINDOWS_PREFIX = "Windows";
 
-    // System property constants
-    // -----------------------------------------------------------------------
-    // These MUST be declared first. Other constants depend on this.
-
     /**
      * A constant for the System Property {@code file.encoding}.
      *
