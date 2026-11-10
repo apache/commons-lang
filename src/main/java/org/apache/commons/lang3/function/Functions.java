@@ -19,6 +19,7 @@ package org.apache.commons.lang3.function;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -145,6 +146,54 @@ public final class Functions {
      */
     public static <T, R> Function<T, R> function(final Function<T, R> function) {
         return function;
+    }
+
+    /**
+     * Creates a {@link Function} that always returns the given value.
+     *
+     * @param value The value to be returned by the function.
+     * @param <T>   Input type.
+     * @param <R>   Return type.
+     * @return the function that always returns the given value.
+     * @see #biConstant(Object)
+     * @see #triConstant(Object)
+     * @since 3.22.0
+     */
+    public static <T, R> Function<T, R> constant(final R value) {
+        return t -> value;
+    }
+
+    /**
+     * Creates a {@link BiFunction} that always returns the given value.
+     *
+     * @param value The value to be returned by the function.
+     * @param <T>   First input type.
+     * @param <U>   Second input type.
+     * @param <R>   Return type.
+     * @return the function that always returns the given value.
+     * @see #constant(Object)
+     * @see #triConstant(Object)
+     * @since 3.22.0
+     */
+    public static <T, U, R> BiFunction<T, U, R> biConstant(final R value) {
+        return (t, u) -> value;
+    }
+
+    /**
+     * Creates a {@link TriFunction} that always returns the given value.
+     *
+     * @param value The value to be returned by the function.
+     * @param <T>   First input type.
+     * @param <U>   Second input type.
+     * @param <V>   Third input type.
+     * @param <R>   Return type.
+     * @return the function that always returns the given value.
+     * @see #constant(Object)
+     * @see #biConstant(Object)
+     * @since 3.22.0
+     */
+    public static <T, U, V, R> TriFunction<T, U, V, R> triConstant(final R value) {
+        return (t, u, v) -> value;
     }
 
     private Functions() {
