@@ -19,6 +19,7 @@ package org.apache.commons.lang3.function;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -63,6 +64,7 @@ public final class Functions {
      * @return The result of the function (which may be {@code null}) or {@code null} if the input value is {@code null}.
      * @see #applyNonNull(Object, Function, Function)
      * @see #applyNonNull(Object, Function, Function, Function)
+     * @see Consumers#acceptNonNull(Object, Consumer)
      * @since 3.19.0
      */
     public static <T, R> R applyNonNull(final T value, final Function<? super T, ? extends R> mapper) {
