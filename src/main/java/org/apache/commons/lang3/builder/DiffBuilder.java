@@ -383,8 +383,12 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
      *
      *   ...
      *
-     *   public DiffResult diff(Person obj) {
-     *     return new DiffBuilder(this, obj, ToStringStyle.SHORT_PREFIX_STYLE)
+     *   public DiffResult<Person> diff(Person obj) {
+     *     return DiffBuilder.<Person>builder()
+     *         .setLeft(this)
+     *         .setRight(obj)
+     *         .setStyle(ToStringStyle.SHORT_PREFIX_STYLE)
+     *         .build()
      *       .append("name", this.name, obj.name)
      *       .append("address", this.address.diff(obj.address))
      *       .build();
