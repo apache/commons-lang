@@ -47,6 +47,7 @@ The <action> type attribute can be add,update,fix,remove.
   <release version="3.22.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="maria-zortea">Javadoc: Use DiffBuilder.builder() in nested diff example.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc fixes: DiffBuilder, ReflectionDiffBuilder, TimedSemaphore.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>

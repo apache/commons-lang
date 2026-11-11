@@ -76,7 +76,11 @@ import org.apache.commons.lang3.Validate;
  * </p>
  *
  * <pre>
- * TimedSemaphore sem = new TimedSemaphore(1, TimeUnit.SECOND, 10);
+ * TimedSemaphore sem = TimedSemaphore.builder()
+ *     .setPeriod(1)
+ *     .setTimeUnit(TimeUnit.SECONDS)
+ *     .setLimit(10)
+ *     .get();
  * StatisticsThread thread = new StatisticsThread(sem);
  * thread.start();
  * </pre>

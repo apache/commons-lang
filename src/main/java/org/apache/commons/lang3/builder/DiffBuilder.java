@@ -57,7 +57,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * }</pre>
  *
  * <p>
- * The {@link ToStringStyle} passed to the constructor is embedded in the returned {@link DiffResult} and influences the style of the
+ * The configured {@link ToStringStyle} is embedded in the returned {@link DiffResult} and influences the style of the
  * {@code DiffResult.toString()} method. This style choice can be overridden by calling {@link DiffResult#toString(ToStringStyle)}.
  * </p>
  * <p>

@@ -450,7 +450,13 @@
  * properties with default values:
  * </p>
  *
- * {@code TimedSemaphore semaphore = new TimedSemaphore(1, TimeUnit.SECONDS, 100);}
+ * <pre>{@code
+ * TimedSemaphore semaphore = TimedSemaphore.builder()
+ *     .setPeriod(1)
+ *     .setTimeUnit(TimeUnit.SECONDS)
+ *     .setLimit(100)
+ *     .get();
+ * }</pre>
  *
  * <p>
  * Here we specify that the semaphore should allow 100 permits in one second. This is effectively the limit of database
