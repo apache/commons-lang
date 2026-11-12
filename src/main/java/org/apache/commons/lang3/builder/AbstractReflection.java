@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.SystemProperties;
+import org.apache.commons.lang3.function.Suppliers;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -110,7 +111,7 @@ public abstract class AbstractReflection {
      * @since 3.21.0
      */
     public static boolean getForceAccessible() {
-        return SystemProperties.getBoolean(AbstractReflection.class, "forceAccessible", () -> true);
+        return SystemProperties.getBoolean(AbstractReflection.class, "forceAccessible", Suppliers.supplyBoolean(true));
     }
 
     static boolean isRegistered(final Object lhs, final Object rhs, final Set<Pair<IDKey, IDKey>> registry) {

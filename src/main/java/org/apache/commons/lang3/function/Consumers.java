@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -39,16 +40,34 @@ public class Consumers {
      * @param <T>      the type of the argument the consumer accepts.
      * @since 3.15.0
      */
-    public static <T> void accept(final Consumer<T> consumer, final T object) {
+    public static <T> void accept(final Consumer<? super T> consumer, final T object) {
         if (consumer != null) {
             consumer.accept(object);
         }
     }
 
     /**
+     * Applies the given {@link Consumer} action to the object if the object is not {@code null}. Otherwise, does nothing.
+     *
+     * @param <T>      the type of the argument the consumer accepts.
+     * @param object   The object to be consumed.
+     * @param consumer The consumer to consume.
+     * @return The original object that was possibly consumed by the consumer
+     * @see Functions#applyNonNull(Object, Function)
+     * @since 3.22.0
+     */
+    public static <T> T acceptNonNull(final T object, final Consumer<? super T> consumer) {
+        if (object != null) {
+            Objects.requireNonNull(consumer, "consumer").accept(object);
+        }
+
+        return object;
+    }
+
+    /**
      * Gets the NOP Consumer singleton.
      *
-     * @param <T> type type to consume.
+     * @param <T> type to consume.
      * @return The NOP Consumer singleton.
      */
     @SuppressWarnings("unchecked")

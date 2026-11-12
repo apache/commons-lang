@@ -3916,7 +3916,7 @@ public final class SystemProperties {
      * @return The system property value or {@code null} if a security problem occurs.
      */
     static String getProperty(final String property, final String defaultIfAbsent) {
-        return getProperty(property, () -> defaultIfAbsent);
+        return getProperty(property, Suppliers.supply(defaultIfAbsent));
     }
 
     /**

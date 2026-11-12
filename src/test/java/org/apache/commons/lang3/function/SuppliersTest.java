@@ -18,7 +18,10 @@
 package org.apache.commons.lang3.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.function.Supplier;
 
@@ -39,5 +42,67 @@ class SuppliersTest extends AbstractLangTest {
         assertNull(Suppliers.get(() -> null));
         assertNull(Suppliers.get(Suppliers.nul()));
         assertEquals("foo", Suppliers.get(() -> "foo"));
+        assertEquals("foo", Suppliers.get(Suppliers.supply("foo")));
+    }
+
+    /**
+     * Tests {@link Suppliers#supply(Object)}.
+     */
+    @Test
+    void testSupply() {
+        assertNull(Suppliers.supply(null).get());
+        assertEquals("foo", Suppliers.supply("foo").get());
+    }
+
+    /**
+     * Tests {@link Suppliers#supplyBoolean(boolean)}.
+     */
+    @Test
+    void testSupplyBoolean() {
+        assertTrue(Suppliers.supplyBoolean(true).getAsBoolean());
+        assertFalse(Suppliers.supplyBoolean(false).getAsBoolean());
+        assertSame(Suppliers.supplyBoolean(true), Suppliers.supplyBoolean(true));
+        assertSame(Suppliers.supplyBoolean(false), Suppliers.supplyBoolean(false));
+    }
+
+    /**
+     * Tests {@link Suppliers#supplyByte(byte)}.
+     */
+    @Test
+    void testSupplyByte() {
+        assertEquals((byte) 0, Suppliers.supplyByte((byte) 0).getAsByte());
+        assertEquals(Byte.MAX_VALUE, Suppliers.supplyByte(Byte.MAX_VALUE).getAsByte());
+        assertEquals(Byte.MIN_VALUE, Suppliers.supplyByte(Byte.MIN_VALUE).getAsByte());
+    }
+
+    /**
+     * Tests {@link Suppliers#supplyDouble(double)}.
+     */
+    @Test
+    void testSupplyDouble() {
+        assertEquals(0d, Suppliers.supplyDouble(0d).getAsDouble());
+        assertEquals(Double.MAX_VALUE, Suppliers.supplyDouble(Double.MAX_VALUE).getAsDouble());
+        assertEquals(Double.MIN_VALUE, Suppliers.supplyDouble(Double.MIN_VALUE).getAsDouble());
+        assertEquals(Double.NaN, Suppliers.supplyDouble(Double.NaN).getAsDouble());
+    }
+
+    /**
+     * Tests {@link Suppliers#supplyInt(int)}.
+     */
+    @Test
+    void testSupplyInt() {
+        assertEquals(0, Suppliers.supplyInt(0).getAsInt());
+        assertEquals(Integer.MAX_VALUE, Suppliers.supplyInt(Integer.MAX_VALUE).getAsInt());
+        assertEquals(Integer.MIN_VALUE, Suppliers.supplyInt(Integer.MIN_VALUE).getAsInt());
+    }
+
+    /**
+     * Tests {@link Suppliers#supplyLong(long)}.
+     */
+    @Test
+    void testSupplyLong() {
+        assertEquals(0L, Suppliers.supplyLong(0L).getAsLong());
+        assertEquals(Long.MAX_VALUE, Suppliers.supplyLong(Long.MAX_VALUE).getAsLong());
+        assertEquals(Long.MIN_VALUE, Suppliers.supplyLong(Long.MIN_VALUE).getAsLong());
     }
 }

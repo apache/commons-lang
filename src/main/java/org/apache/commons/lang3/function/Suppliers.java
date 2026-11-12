@@ -17,6 +17,10 @@
 
 package org.apache.commons.lang3.function;
 
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
+import java.util.function.IntSupplier;
+import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
 /**
@@ -34,6 +38,16 @@ public class Suppliers {
      */
     @SuppressWarnings("rawtypes")
     private static Supplier NUL = () -> null;
+
+    /**
+     * The singleton supplier that always returns {@code true}.
+     */
+    private static final BooleanSupplier TRUE_SUPPLIER = () -> true;
+
+    /**
+     * The singleton supplier that always returns {@code false}.
+     */
+    private static final BooleanSupplier FALSE_SUPPLIER = () -> false;
 
     /**
      * Gets the result of {@link Supplier#get()}, or null if the supplier is null.
@@ -59,6 +73,107 @@ public class Suppliers {
     @SuppressWarnings("unchecked")
     public static <T> Supplier<T> nul() {
         return NUL;
+    }
+
+    /**
+     * Creates a {@link Supplier} that always returns the given value.
+     *
+     * @param value The value to be returned by the supplier.
+     * @param <T>   Supplied type.
+     * @return the supplier that always returns the given value.
+     * @see #supplyBoolean(boolean)
+     * @see #supplyByte(byte)
+     * @see #supplyDouble(double)
+     * @see #supplyInt(int)
+     * @see #supplyLong(long)
+     * @since 3.22.0
+     */
+    public static <T> Supplier<T> supply(final T value) {
+        return () -> value;
+    }
+
+    /**
+     * Gets a {@link BooleanSupplier} that always returns the given value.
+     *
+     * <p>
+     * The returned supplier is a singleton.
+     * </p>
+     *
+     * @param value The value to be returned by the supplier.
+     * @return the supplier that always returns the given value.
+     * @see #supply(Object)
+     * @see #supplyByte(byte)
+     * @see #supplyDouble(double)
+     * @see #supplyInt(int)
+     * @see #supplyLong(long)
+     * @since 3.22.0
+     */
+    public static BooleanSupplier supplyBoolean(final boolean value) {
+        return value ? TRUE_SUPPLIER : FALSE_SUPPLIER;
+    }
+
+    /**
+     * Creates a {@link ByteSupplier} that always returns the given value.
+     *
+     * @param value The value to be returned by the supplier.
+     * @return the supplier that always returns the given value.
+     * @see #supply(Object)
+     * @see #supplyBoolean(boolean)
+     * @see #supplyDouble(double)
+     * @see #supplyInt(int)
+     * @see #supplyLong(long)
+     * @since 3.22.0
+     */
+    public static ByteSupplier supplyByte(final byte value) {
+        return () -> value;
+    }
+
+    /**
+     * Creates a {@link DoubleSupplier} that always returns the given value.
+     *
+     * @param value The value to be returned by the supplier.
+     * @return the supplier that always returns the given value.
+     * @see #supply(Object)
+     * @see #supplyBoolean(boolean)
+     * @see #supplyByte(byte)
+     * @see #supplyInt(int)
+     * @see #supplyLong(long)
+     * @since 3.22.0
+     */
+    public static DoubleSupplier supplyDouble(final double value) {
+        return () -> value;
+    }
+
+    /**
+     * Creates an {@link IntSupplier} that always returns the given value.
+     *
+     * @param value The value to be returned by the supplier.
+     * @return the supplier that always returns the given value.
+     * @see #supply(Object)
+     * @see #supplyBoolean(boolean)
+     * @see #supplyByte(byte)
+     * @see #supplyDouble(double)
+     * @see #supplyLong(long)
+     * @since 3.22.0
+     */
+    public static IntSupplier supplyInt(final int value) {
+        return () -> value;
+    }
+
+    /**
+     * Creates a {@link LongSupplier} that always returns the given value.
+     *
+     * @param value The value to be returned by the supplier.
+     * @return the supplier that always returns the given value.
+     * @see #supply(Object)
+     * @see #supplyBoolean(boolean)
+     * @see #supplyByte(byte)
+     * @see #supplyDouble(double)
+     * @see #supplyInt(int)
+     * @since 3.22.0
+     */
+    public static LongSupplier supplyLong(final long value) {
+        return () -> value;
     }
 
     /**
