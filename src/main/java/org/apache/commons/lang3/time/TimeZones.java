@@ -25,6 +25,7 @@ import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.function.Suppliers;
 
 /**
  * Helps work with {@link java.util.TimeZone}s.
@@ -78,7 +79,7 @@ public class TimeZones {
     }
 
     private static boolean mapShortIDs() {
-        return SystemProperties.getBoolean(TimeZones.class, "mapShortIDs", () -> true);
+        return SystemProperties.getBoolean(TimeZones.class, "mapShortIDs", Suppliers.supplyBoolean(true));
     }
 
     /**
