@@ -27,8 +27,8 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -58,10 +58,15 @@ import java.util.Objects;
 public class SerializationUtils {
 
     /**
-     * Custom specialization of the standard JDK {@link ObjectInputStream} that uses a custom {@link ClassLoader} to resolve classes and proxy interfaces.
-     * If the specified {@link ClassLoader} cannot resolve them, the context classloader of the current thread will be used. This way, the standard deserialization
+     * Custom specialization of the standard JDK {@link ObjectInputStream} that uses a custom {@link ClassLoader} to resolve classes.
+     * If the specified {@link ClassLoader} cannot resolve a class, the context classloader of the current thread will be used.
+     * This way, the standard deserialization
      * also works in web application containers and application servers, regardless of which {@link ClassLoader} loaded the class that encapsulates
      * serialization/deserialization.
+     *
+     * <p>
+     * Proxy classes are recorded during serialization and reused directly to preserve their defining class loaders without looking up their interfaces.
+     * </p>
      *
      * <p>
      * For more in-depth information about the problem for which this class here is a workaround, see the JIRA issue LANG-626.
@@ -71,17 +76,21 @@ public class SerializationUtils {
 
         private final ClassLoader classLoader;
 
+        private final List<Class<?>> proxyClasses;
+
         /**
          * Constructs a new instance.
          *
-         * @param in          The {@link InputStream}.
-         * @param classLoader classloader to use
+         * @param in           The {@link InputStream}.
+         * @param classLoader  The class loader to use.
+         * @param proxyClasses The proxy classes recorded while serializing the original object.
          * @throws IOException Thrown if an I/O error occurs while reading stream header.
          * @see java.io.ObjectInputStream
          */
-        ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
+        ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader, final List<Class<?>> proxyClasses) throws IOException {
             super(in);
             this.classLoader = classLoader;
+            this.proxyClasses = proxyClasses;
         }
 
         /**
@@ -111,36 +120,8 @@ public class SerializationUtils {
         }
 
         @Override
-        protected Class<?> resolveProxyClass(final String[] interfaces) throws IOException, ClassNotFoundException {
-            try {
-                return resolveProxyClass(interfaces, classLoader);
-            } catch (final ClassNotFoundException ex) {
-                return resolveProxyClass(interfaces, Thread.currentThread().getContextClassLoader());
-            }
-        }
-
-        private static Class<?> resolveProxyClass(final String[] interfaces, final ClassLoader loader) throws ClassNotFoundException {
-            final Class<?>[] interfaceClasses = new Class<?>[interfaces.length];
-            ClassLoader proxyLoader = loader;
-            boolean hasNonPublicInterface = false;
-            for (int i = 0; i < interfaces.length; i++) {
-                final Class<?> interfaceClass = Class.forName(interfaces[i], false, loader);
-                interfaceClasses[i] = interfaceClass;
-                if (!Modifier.isPublic(interfaceClass.getModifiers())) {
-                    final ClassLoader interfaceLoader = interfaceClass.getClassLoader();
-                    if (hasNonPublicInterface && proxyLoader != interfaceLoader) {
-                        throw new IllegalAccessError("Non-public proxy interfaces must have the same class loader");
-                    }
-                    proxyLoader = interfaceLoader;
-                    hasNonPublicInterface = true;
-                }
-            }
-            try {
-                // Use the supported proxy factory rather than the deprecated Proxy.getProxyClass().
-                return Proxy.newProxyInstance(proxyLoader, interfaceClasses, (proxy, method, args) -> null).getClass();
-            } catch (final IllegalArgumentException ex) {
-                throw new ClassNotFoundException("Unable to resolve proxy class", ex);
-            }
+        protected Class<?> resolveProxyClass(final String[] interfaces) throws IOException {
+            return proxyClasses.get(readInt());
         }
     }
 
@@ -162,9 +143,23 @@ public class SerializationUtils {
         if (object == null) {
             return null;
         }
-        final ByteArrayInputStream bais = new ByteArrayInputStream(serialize(object));
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
+        final List<Class<?>> proxyClasses = new ArrayList<>();
+        try (ObjectOutputStream out = new ObjectOutputStream(baos) {
+            @Override
+            protected void annotateProxyClass(final Class<?> proxyClass) throws IOException {
+                // Pair the descriptor with its original class, even when another loader defines the same interface names.
+                writeInt(proxyClasses.size());
+                proxyClasses.add(proxyClass);
+            }
+        }) {
+            out.writeObject(object);
+        } catch (final IOException ex) {
+            throw new SerializationException(ex);
+        }
+        final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         final Class<T> cls = ObjectUtils.getClass(object);
-        try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais, cls.getClassLoader())) {
+        try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais, cls.getClassLoader(), proxyClasses)) {
             // When we serialize and deserialize an object, it is reasonable to assume the deserialized object is of the
             // same type as the original serialized object
             return (T) in.readObject();
