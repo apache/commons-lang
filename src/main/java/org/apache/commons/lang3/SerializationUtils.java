@@ -27,6 +27,8 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Proxy;
 import java.util.Objects;
 
 /**
@@ -56,8 +58,8 @@ import java.util.Objects;
 public class SerializationUtils {
 
     /**
-     * Custom specialization of the standard JDK {@link ObjectInputStream} that uses a custom {@link ClassLoader} to resolve a class. If the specified
-     * {@link ClassLoader} is not able to resolve the class, the context classloader of the current thread will be used. This way, the standard deserialization
+     * Custom specialization of the standard JDK {@link ObjectInputStream} that uses a custom {@link ClassLoader} to resolve classes and proxy interfaces.
+     * If the specified {@link ClassLoader} cannot resolve them, the context classloader of the current thread will be used. This way, the standard deserialization
      * also works in web application containers and application servers, regardless of which {@link ClassLoader} loaded the class that encapsulates
      * serialization/deserialization.
      *
@@ -105,6 +107,39 @@ public class SerializationUtils {
                     }
                     throw cnfe;
                 }
+            }
+        }
+
+        @Override
+        protected Class<?> resolveProxyClass(final String[] interfaces) throws IOException, ClassNotFoundException {
+            try {
+                return resolveProxyClass(interfaces, classLoader);
+            } catch (final ClassNotFoundException ex) {
+                return resolveProxyClass(interfaces, Thread.currentThread().getContextClassLoader());
+            }
+        }
+
+        private static Class<?> resolveProxyClass(final String[] interfaces, final ClassLoader loader) throws ClassNotFoundException {
+            final Class<?>[] interfaceClasses = new Class<?>[interfaces.length];
+            ClassLoader proxyLoader = loader;
+            boolean hasNonPublicInterface = false;
+            for (int i = 0; i < interfaces.length; i++) {
+                final Class<?> interfaceClass = Class.forName(interfaces[i], false, loader);
+                interfaceClasses[i] = interfaceClass;
+                if (!Modifier.isPublic(interfaceClass.getModifiers())) {
+                    final ClassLoader interfaceLoader = interfaceClass.getClassLoader();
+                    if (hasNonPublicInterface && proxyLoader != interfaceLoader) {
+                        throw new IllegalAccessError("Non-public proxy interfaces must have the same class loader");
+                    }
+                    proxyLoader = interfaceLoader;
+                    hasNonPublicInterface = true;
+                }
+            }
+            try {
+                // Use the supported proxy factory rather than the deprecated Proxy.getProxyClass().
+                return Proxy.newProxyInstance(proxyLoader, interfaceClasses, (proxy, method, args) -> null).getClass();
+            } catch (final IllegalArgumentException ex) {
+                throw new ClassNotFoundException("Unable to resolve proxy class", ex);
             }
         }
     }

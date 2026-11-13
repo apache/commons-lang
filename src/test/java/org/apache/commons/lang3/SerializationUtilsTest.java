@@ -38,12 +38,20 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Proxy;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 final class ClassNotFoundSerialization implements Serializable {
 
@@ -58,10 +66,24 @@ interface SerializableSupplier<T> extends Supplier<T>, Serializable {
     // empty
 }
 
+interface SerializableRunnable extends Runnable, Serializable {
+    // empty
+}
+
 /**
  * Tests {@link SerializationUtils}.
  */
 public class SerializationUtilsTest extends AbstractLangTest {
+
+    private static final class SerializableInvocationHandler implements InvocationHandler, Serializable {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Object invoke(final Object proxy, final Method method, final Object[] args) {
+            return "test";
+        }
+    }
 
     static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerialization.readObject fake exception";
 
@@ -121,6 +143,60 @@ public class SerializationUtilsTest extends AbstractLangTest {
     void testCloneNull() {
         final Object test = SerializationUtils.clone(null);
         assertNull(test);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "org.apache.commons.lang3.reflect.testbed.Bar", "org.apache.commons.lang3.SerializableSupplier" })
+    void testCloneProxyWithCustomClassLoader(final String interfaceName) throws Exception {
+        try (URLClassLoader loader = new URLClassLoader(new URL[] { getClass().getProtectionDomain().getCodeSource().getLocation() }, null)) {
+            final Class<?> proxyInterface = Class.forName(interfaceName, false, loader);
+            final Serializable proxy = (Serializable) Proxy.newProxyInstance(loader, new Class<?>[] { proxyInterface }, new SerializableInvocationHandler());
+            final Serializable clone = SerializationUtils.clone(proxy);
+            assertNotSame(proxy, clone);
+            assertSame(proxy.getClass(), clone.getClass());
+            assertTrue(proxyInterface.isInstance(clone));
+            assertNotSame(Proxy.getInvocationHandler(proxy), Proxy.getInvocationHandler(clone));
+            assertEquals("test", clone.toString());
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "org.apache.commons.lang3.reflect.testbed.Bar", "org.apache.commons.lang3.SerializableSupplier" })
+    void testCloneProxyWithContextClassLoader(final String interfaceName) throws Exception {
+        final Thread thread = Thread.currentThread();
+        final ClassLoader originalLoader = thread.getContextClassLoader();
+        try (URLClassLoader loader = new URLClassLoader(new URL[] { getClass().getProtectionDomain().getCodeSource().getLocation() }, null)) {
+            final Class<?> proxyInterface = Class.forName(interfaceName, false, loader);
+            final Serializable proxy = (Serializable) Proxy.newProxyInstance(loader, new Class<?>[] { proxyInterface }, new SerializableInvocationHandler());
+            final ArrayList<Serializable> holder = new ArrayList<>();
+            holder.add(proxy);
+            thread.setContextClassLoader(loader);
+            final Serializable clone = SerializationUtils.clone(holder).get(0);
+            assertNotSame(proxy, clone);
+            assertSame(proxy.getClass(), clone.getClass());
+            assertEquals("test", clone.toString());
+        } finally {
+            thread.setContextClassLoader(originalLoader);
+        }
+    }
+
+    @Test
+    void testCloneProxyWithDefaultClassLoader() {
+        final Serializable proxy = (Serializable) Proxy.newProxyInstance(getClass().getClassLoader(), new Class<?>[] { SerializableSupplier.class },
+                new SerializableInvocationHandler());
+        final SerializableSupplier<?> clone = (SerializableSupplier<?>) SerializationUtils.clone(proxy);
+        assertNotSame(proxy, clone);
+        assertEquals("test", clone.get());
+    }
+
+    @Test
+    void testCloneProxyWithPublicInterfaces() {
+        final Serializable proxy = (Serializable) Proxy.newProxyInstance(getClass().getClassLoader(),
+                new Class<?>[] { Supplier.class, Serializable.class }, new SerializableInvocationHandler());
+        final Supplier<?> clone = (Supplier<?>) SerializationUtils.clone(proxy);
+        assertNotSame(proxy, clone);
+        assertSame(proxy.getClass(), clone.getClass());
+        assertEquals("test", clone.get());
     }
 
     @Test
@@ -306,6 +382,76 @@ public class SerializationUtilsTest extends AbstractLangTest {
     void testRoundtrip() {
         final HashMap<Object, Object> newMap = SerializationUtils.roundtrip(iMap);
         assertEquals(iMap, newMap);
+    }
+
+    @Test
+    void testResolveProxyClassConflictingNonPublicClassLoaders() throws Exception {
+        final URL[] urls = { getClass().getProtectionDomain().getCodeSource().getLocation() };
+        try (URLClassLoader first = new URLClassLoader(urls, null);
+                URLClassLoader second = new URLClassLoader(urls, null)) {
+            final Class<?> supplier = Class.forName(SerializableSupplier.class.getName(), false, first);
+            final Class<?> runnable = Class.forName(SerializableRunnable.class.getName(), false, second);
+            final ClassLoader loader = new ClassLoader(getClass().getClassLoader()) {
+                @Override
+                protected Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
+                    if (name.equals(supplier.getName())) {
+                        return supplier;
+                    }
+                    if (name.equals(runnable.getName())) {
+                        return runnable;
+                    }
+                    return super.loadClass(name, resolve);
+                }
+            };
+            try (SerializationUtils.ClassLoaderAwareObjectInputStream in = new SerializationUtils.ClassLoaderAwareObjectInputStream(
+                    new ByteArrayInputStream(SerializationUtils.serialize(null)), loader)) {
+                assertThrows(IllegalAccessError.class, () -> in.resolveProxyClass(new String[] { supplier.getName(), runnable.getName() }));
+            }
+        }
+    }
+
+    @Test
+    void testResolveProxyClassInvalidInterface() throws Exception {
+        try (SerializationUtils.ClassLoaderAwareObjectInputStream in = new SerializationUtils.ClassLoaderAwareObjectInputStream(
+                new ByteArrayInputStream(SerializationUtils.serialize(null)), getClass().getClassLoader())) {
+            final ClassNotFoundException ex = assertThrows(ClassNotFoundException.class, () -> in.resolveProxyClass(new String[] { String.class.getName() }));
+            assertInstanceOf(IllegalArgumentException.class, ex.getCause());
+        }
+    }
+
+    @Test
+    void testResolveProxyClassMissingInterface() throws Exception {
+        try (SerializationUtils.ClassLoaderAwareObjectInputStream in = new SerializationUtils.ClassLoaderAwareObjectInputStream(
+                new ByteArrayInputStream(SerializationUtils.serialize(null)), getClass().getClassLoader())) {
+            assertThrows(ClassNotFoundException.class, () -> in.resolveProxyClass(new String[] { "missing.ProxyInterface" }));
+        }
+    }
+
+    @Test
+    void testResolveProxyClassNonPublicInterfaceFromParent() throws Exception {
+        final ClassLoader loader = new ClassLoader(getClass().getClassLoader()) { };
+        try (SerializationUtils.ClassLoaderAwareObjectInputStream in = new SerializationUtils.ClassLoaderAwareObjectInputStream(
+                new ByteArrayInputStream(SerializationUtils.serialize(null)), loader)) {
+            final Class<?> proxyClass = in.resolveProxyClass(new String[] { SerializableSupplier.class.getName() });
+            assertSame(SerializableSupplier.class.getClassLoader(), proxyClass.getClassLoader());
+            assertTrue(SerializableSupplier.class.isAssignableFrom(proxyClass));
+        }
+    }
+
+    @Test
+    void testResolveProxyClassWithNullClassLoaders() throws Exception {
+        final Thread thread = Thread.currentThread();
+        final ClassLoader originalLoader = thread.getContextClassLoader();
+        try (SerializationUtils.ClassLoaderAwareObjectInputStream in = new SerializationUtils.ClassLoaderAwareObjectInputStream(
+                new ByteArrayInputStream(SerializationUtils.serialize(null)), null)) {
+            thread.setContextClassLoader(null);
+            final Class<?> proxyClass = in.resolveProxyClass(new String[] { Runnable.class.getName(), Serializable.class.getName() });
+            assertNull(proxyClass.getClassLoader());
+            assertTrue(Runnable.class.isAssignableFrom(proxyClass));
+            assertTrue(Serializable.class.isAssignableFrom(proxyClass));
+        } finally {
+            thread.setContextClassLoader(originalLoader);
+        }
     }
 
     @Test
