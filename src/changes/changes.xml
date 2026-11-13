@@ -48,7 +48,6 @@ The <action> type attribute can be add,update,fix,remove.
     <!-- FIX -->
     <action                   type="fix" dev="ggregory" due-to="maria-zortea">Javadoc: Use DiffBuilder.builder() in nested diff example.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc fixes: DiffBuilder, ReflectionDiffBuilder, TimedSemaphore.</action>
-    <action issue="LANG-1425" type="fix" due-to="AmarGhugare">Clarify DateUtils millisecond parsing patterns and strict versus lenient behavior.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
