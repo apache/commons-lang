@@ -544,6 +544,9 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("java.util", ClassUtils.getPackageName(Map.Entry.class.getName()));
         assertEquals("", ClassUtils.getPackageName((String) null));
         assertEquals("", ClassUtils.getPackageName(""));
+        // Array encoding with no element type must not throw.
+        assertEquals("", ClassUtils.getPackageName("["));
+        assertEquals("", ClassUtils.getPackageName("[[["));
     }
 
     @Test
@@ -717,6 +720,9 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("Map.Entry", ClassUtils.getShortClassName(Map.Entry.class.getName()));
         assertEquals("", ClassUtils.getShortClassName((String) null));
         assertEquals("", ClassUtils.getShortClassName(""));
+        // Array encoding with no element type must not throw.
+        assertEquals("[]", ClassUtils.getShortClassName("["));
+        assertEquals("[][][]", ClassUtils.getShortClassName("[[["));
     }
 
     @Test
