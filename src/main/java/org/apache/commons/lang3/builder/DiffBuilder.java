@@ -531,9 +531,11 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         if (equals || lhs == rhs) {
             return this;
         }
-        // rhs cannot be null, as lhs != rhs
+        // At least one value is non-null, as lhs != rhs.
         final Object test = lhs != null ? lhs : rhs;
-        if (ObjectUtils.isArray(test)) {
+        // Primitive arrays must have the same type; all reference arrays can use the Object[] overload.
+        if (ObjectUtils.isArray(test) && (lhs == null || rhs == null || lhs.getClass() == rhs.getClass()
+                || lhs instanceof Object[] && rhs instanceof Object[])) {
             if (test instanceof boolean[]) {
                 return append(fieldName, (boolean[]) lhs, (boolean[]) rhs);
             }
@@ -560,7 +562,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
             }
             return append(fieldName, (Object[]) lhs, (Object[]) rhs);
         }
-        // Not array type
+        // Compare non-arrays and arrays with incompatible types as objects.
         return Objects.equals(lhs, rhs) ? this : add(fieldName, () -> lhs, () -> rhs, Object.class);
     }
 
