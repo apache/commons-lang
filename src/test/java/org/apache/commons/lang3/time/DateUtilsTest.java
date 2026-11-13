@@ -54,6 +54,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.DefaultLocale;
@@ -1172,6 +1173,34 @@ class DateUtilsTest extends AbstractLangTest {
         dateStr = "19721203";
         date = DateUtils.parseDate(dateStr, parsers);
         assertEquals(cal.getTime(), date);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"0, 0", "1, 1", "0000286, 286", "999, 999"})
+    void testParseDateIntegerMilliseconds(final String milliseconds, final int expectedMilliseconds) throws ParseException {
+        final String input = "2018-11-13T08:03:41." + milliseconds + "-06:00";
+        final Date expected = Date.from(Instant.parse("2018-11-13T14:03:41Z").plusMillis(expectedMilliseconds));
+        for (final String field : new String[] {"S", "SSS", "SSSSSSS"}) {
+            final String pattern = "yyyy-MM-dd'T'HH:mm:ss." + field + "XXX";
+            assertEquals(expected, DateUtils.parseDate(input, pattern));
+            assertEquals(expected, DateUtils.parseDate(input, Locale.ENGLISH, pattern));
+            assertEquals(expected, DateUtils.parseDateStrictly(input, pattern));
+            assertEquals(expected, DateUtils.parseDateStrictly(input, Locale.ENGLISH, pattern));
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"S", "SSS", "SSSSSSS"})
+    void testParseDateOutOfRangeMilliseconds(final String field) throws ParseException {
+        final String pattern = "yyyy-MM-dd'T'HH:mm:ss." + field + "XXX";
+        for (final int milliseconds : new int[] {1000, 2860000}) {
+            final String input = "2018-11-13T08:03:41." + milliseconds + "-06:00";
+            final Date expected = Date.from(Instant.parse("2018-11-13T14:03:41Z").plusMillis(milliseconds));
+            assertEquals(expected, DateUtils.parseDate(input, pattern));
+            assertEquals(expected, DateUtils.parseDate(input, Locale.ENGLISH, pattern));
+            assertThrows(ParseException.class, () -> DateUtils.parseDateStrictly(input, pattern));
+            assertThrows(ParseException.class, () -> DateUtils.parseDateStrictly(input, Locale.ENGLISH, pattern));
+        }
     }
 
     @Test

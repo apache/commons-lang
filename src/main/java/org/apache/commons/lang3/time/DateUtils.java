@@ -59,6 +59,16 @@ import org.apache.commons.lang3.LocaleUtils;
  * direct millisecond calculations. Adding hours, minutes, seconds, or milliseconds adds the
  * corresponding elapsed time, so the local clock time may change across a DST transition.
  * </p>
+ * <p>
+ * Date parsing uses {@link java.text.SimpleDateFormat} patterns. The {@code S} pattern letter represents the millisecond field,
+ * which is parsed as a whole number. For example, the pattern {@code ss.SSS} parses {@code 05.1} as five seconds and one millisecond.
+ * Repeating {@code S} does not provide sub-millisecond precision. For fractional-second parsing, use
+ * {@link java.time.format.DateTimeFormatter}.
+ * </p>
+ * <p>
+ * {@link #parseDate(String, String...)} parses leniently and can normalize out-of-range field values.
+ * {@link #parseDateStrictly(String, String...)} validates field values, including the millisecond range of 0 through 999.
+ * </p>
  *
  * @since 2.0
  */
