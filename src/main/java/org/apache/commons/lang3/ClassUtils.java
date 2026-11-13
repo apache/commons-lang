@@ -938,10 +938,13 @@ public class ClassUtils {
         }
         int i = 0;
         // Strip array encoding
-        while (className.charAt(i) == '[') {
+        while (i < className.length() && className.charAt(i) == '[') {
             i++;
         }
         className = className.substring(i);
+        if (className.isEmpty()) {
+            return StringUtils.EMPTY;
+        }
         // Strip Object type encoding
         if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
             className = className.substring(1);
@@ -1225,9 +1228,14 @@ public class ClassUtils {
         final StringBuilder arrayPrefix = new StringBuilder();
         // Handle array encoding
         if (className.startsWith("[")) {
-            while (className.charAt(0) == '[') {
-                className = className.substring(1);
+            int dims = 0;
+            while (dims < className.length() && className.charAt(dims) == '[') {
+                dims++;
                 arrayPrefix.append("[]");
+            }
+            className = className.substring(dims);
+            if (className.isEmpty()) {
+                return arrayPrefix.toString();
             }
             // Strip Object type encoding
             if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
