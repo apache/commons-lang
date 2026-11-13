@@ -396,6 +396,52 @@ class FractionTest extends AbstractLangTest {
         assertEquals(463410000, f.getDenominator());
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "-2147483648, 1, -2147483648, 1, 1, 1",
+        "-2147483648, 1, -2147483648, 2147483647, 2147483647, 1",
+        "-2147483648, 2147483647, -2147483648, 2147483647, 1, 1",
+        "-2147483648, 2, -2147483648, 4, 2, 1",
+        "-2147483648, 3, -2147483648, 5, 5, 3",
+        "-2147483648, 6, -2147483648, 10, 5, 3",
+        "-1, 1, -2147483648, 2, 1, 1073741824",
+        "1, 1, -2147483648, 2, -1, 1073741824",
+        "2, 1, -2147483648, 1, -1, 1073741824",
+        "-2147483648, 2, -1, 1, 1073741824, 1",
+        "-2147483648, 1, 1, 1, -2147483648, 1"
+    })
+    void testDivideIntegerMinValue(final int numerator, final int denominator, final int divisorNumerator, final int divisorDenominator,
+            final int expectedNumerator, final int expectedDenominator) {
+        final Fraction quotient = Fraction.getFraction(numerator, denominator).divideBy(Fraction.getFraction(divisorNumerator, divisorDenominator));
+        assertEquals(expectedNumerator, quotient.getNumerator());
+        assertEquals(expectedDenominator, quotient.getDenominator());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "1, 1, -2147483648, 1",
+        "-1, 1, -2147483648, 1",
+        "-2147483648, 1, -1, 1",
+        "-2147483648, 1, 1, 2",
+        "1, 2147483647, 2147483647, 1",
+        "2147483647, 1, 1, 2147483647",
+        "2, 3, -2147483648, 1"
+    })
+    void testDivideOverflow(final int numerator, final int denominator, final int divisorNumerator, final int divisorDenominator) {
+        final Fraction dividend = Fraction.getFraction(numerator, denominator);
+        final Fraction divisor = Fraction.getFraction(divisorNumerator, divisorDenominator);
+        assertThrows(ArithmeticException.class, () -> dividend.divideBy(divisor));
+    }
+
+    @Test
+    void testDivideZeroByIntegerMinValue() {
+        final Fraction divisor = Fraction.getFraction(Integer.MIN_VALUE, 1);
+        assertSame(Fraction.ZERO, Fraction.ZERO.divideBy(divisor));
+        assertSame(Fraction.ZERO, Fraction.getFraction(0, 5).divideBy(divisor));
+        assertNullPointerException(() -> Fraction.ZERO.divideBy(null));
+        assertThrows(ArithmeticException.class, () -> Fraction.ZERO.divideBy(Fraction.ZERO));
+    }
+
     @Test
     void testEquals() {
         Fraction f1;
