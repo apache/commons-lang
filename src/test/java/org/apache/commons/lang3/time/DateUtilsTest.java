@@ -54,6 +54,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.DefaultLocale;
@@ -960,6 +961,61 @@ class DateUtilsTest extends AbstractLangTest {
     @Test
     void testIsSameDay_DateNullNull() {
         assertNullPointerException(() -> DateUtils.isSameDay((Date) null, null));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "2024-01-02T04:30:00Z, 2024-01-02T05:30:00Z, America/Los_Angeles, true",
+        "2024-01-02T04:30:00Z, 2024-01-02T05:30:00Z, America/New_York, false",
+        "2024-01-02T04:30:00Z, 2024-01-02T05:30:00Z, UTC, true",
+        "2024-01-01T23:30:00Z, 2024-01-02T00:30:00Z, America/New_York, true",
+        "2024-01-01T23:30:00Z, 2024-01-02T00:30:00Z, UTC, false",
+        "2024-03-10T05:30:00Z, 2024-03-11T03:30:00Z, America/New_York, true",
+        "2024-03-10T04:30:00Z, 2024-03-10T05:30:00Z, America/New_York, false",
+        "2024-11-03T04:30:00Z, 2024-11-04T04:30:00Z, America/New_York, true",
+        "2024-11-03T05:30:00Z, 2024-11-03T06:30:00Z, America/New_York, true",
+        "2024-11-03T04:00:00Z, 2024-11-04T05:00:00Z, America/New_York, false",
+        "2023-12-31T09:30:00Z, 2023-12-31T10:30:00Z, Pacific/Kiritimati, false",
+        "2023-01-01T12:00:00Z, 2024-01-01T12:00:00Z, UTC, false",
+        "2024-02-29T23:30:00Z, 2024-03-01T00:30:00Z, America/New_York, true"
+    })
+    void testIsSameDay_DateTimeZone(final String first, final String second, final String zoneId, final boolean expected) {
+        final Date date1 = Date.from(Instant.parse(first));
+        final Date date2 = Date.from(Instant.parse(second));
+        assertEquals(expected, DateUtils.isSameDay(date1, date2, TimeZones.getTimeZone(zoneId)));
+    }
+
+    @Test
+    void testIsSameDay_DateTimeZoneDoesNotModifyInputs() {
+        final Date date1 = Date.from(Instant.parse("2024-01-02T04:30:00Z"));
+        final Date date2 = Date.from(Instant.parse("2024-01-02T05:30:00Z"));
+        final Date original1 = (Date) date1.clone();
+        final Date original2 = (Date) date2.clone();
+        final TimeZone zone = TimeZones.getTimeZone("America/New_York");
+        final TimeZone originalZone = (TimeZone) zone.clone();
+        assertFalse(DateUtils.isSameDay(date1, date2, zone));
+        assertEquals(original1, date1);
+        assertEquals(original2, date2);
+        assertEquals(originalZone, zone);
+    }
+
+    @Test
+    @DefaultTimeZone("UTC")
+    void testIsSameDay_DateTimeZoneOverridesDefault() {
+        final Date date1 = Date.from(Instant.parse("2024-01-02T04:30:00Z"));
+        final Date date2 = Date.from(Instant.parse("2024-01-02T05:30:00Z"));
+        assertTrue(DateUtils.isSameDay(date1, date2));
+        assertTrue(DateUtils.isSameDay(date1, date2, TimeZone.getDefault()));
+        assertFalse(DateUtils.isSameDay(date1, date2, TimeZones.getTimeZone("America/New_York")));
+    }
+
+    @Test
+    void testIsSameDay_DateTimeZoneNullArguments() {
+        final Date date = new Date(0);
+        final TimeZone zone = TimeZones.GMT;
+        assertNullPointerException(() -> DateUtils.isSameDay(null, date, zone));
+        assertNullPointerException(() -> DateUtils.isSameDay(date, null, zone));
+        assertNullPointerException(() -> DateUtils.isSameDay(date, date, null));
     }
 
     @Test

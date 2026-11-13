@@ -981,9 +981,30 @@ public class DateUtils {
      * @return true if they represent the same day.
      * @throws NullPointerException Thrown if either date is {@code null}.
      * @since 2.1
+     * @see #isSameDay(Date, Date, TimeZone)
      */
     public static boolean isSameDay(final Date date1, final Date date2) {
         return isSameDay(toCalendar(date1), toCalendar(date2));
+    }
+
+    /**
+     * Tests whether two date objects are on the same day in the specified time zone.
+     *
+     * <p>
+     * Both dates are interpreted in the given time zone. The comparison uses the era, year and day of year,
+     * ignoring the time of day.
+     * </p>
+     *
+     * @param date1 The first date, not altered, not null.
+     * @param date2 The second date, not altered, not null.
+     * @param timeZone The time zone used for both dates, not altered, not null.
+     * @return {@code true} if the dates represent the same day in the given time zone.
+     * @throws NullPointerException Thrown if either date or {@code timeZone} is {@code null}.
+     * @since 3.22.1
+     * @see #isSameDay(Date, Date)
+     */
+    public static boolean isSameDay(final Date date1, final Date date2, final TimeZone timeZone) {
+        return isSameDay(toCalendar(date1, timeZone), toCalendar(date2, timeZone));
     }
 
     /**
