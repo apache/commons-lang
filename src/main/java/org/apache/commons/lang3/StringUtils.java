@@ -5058,6 +5058,82 @@ public class StringUtils {
     }
 
     /**
+     * Finds the last index of a Unicode code point outside the given set.
+     *
+     * <p>
+     * Returns {@code -1} if either argument is {@code null} or empty, or every code point in {@code cs} belongs to {@code searchChars}.
+     * </p>
+     * <p>
+     * Matching uses Unicode code points. The returned index counts UTF-16 {@code char} values and points to the start of the matching code point.
+     * Unpaired surrogates are treated as individual values.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.lastIndexOfAnyBut(null, *)                  = -1
+     * StringUtils.lastIndexOfAnyBut("", *)                    = -1
+     * StringUtils.lastIndexOfAnyBut(*, null)                  = -1
+     * StringUtils.lastIndexOfAnyBut(*, [])                    = -1
+     * StringUtils.lastIndexOfAnyBut("abcdd", 'b', 'd')         = 2
+     * StringUtils.lastIndexOfAnyBut("zzabyycdxx", 'x', 'y')    = 7
+     * StringUtils.lastIndexOfAnyBut("aba", 'a', 'b')           = -1
+     * </pre>
+     *
+     * @param cs          The CharSequence to check, may be null.
+     * @param searchChars The code points to skip, represented as UTF-16 chars, may be null.
+     * @return The last index of a code point outside the set, or -1 if no match or either argument is null or empty.
+     * @since 3.22.1
+     * @see #indexOfAnyBut(CharSequence, char...)
+     */
+    public static int lastIndexOfAnyBut(final CharSequence cs, final char... searchChars) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
+            return INDEX_NOT_FOUND;
+        }
+        return lastIndexOfAnyBut(cs, CharBuffer.wrap(searchChars));
+    }
+
+    /**
+     * Finds the last index of a Unicode code point outside the given set.
+     *
+     * <p>
+     * Returns {@code -1} if either argument is {@code null} or empty, or every code point in {@code seq} belongs to {@code searchChars}.
+     * </p>
+     * <p>
+     * Matching uses Unicode code points. The returned index counts UTF-16 {@code char} values and points to the start of the matching code point.
+     * Unpaired surrogates are treated as individual values.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.lastIndexOfAnyBut(null, *)               = -1
+     * StringUtils.lastIndexOfAnyBut("", *)                 = -1
+     * StringUtils.lastIndexOfAnyBut(*, null)               = -1
+     * StringUtils.lastIndexOfAnyBut(*, "")                 = -1
+     * StringUtils.lastIndexOfAnyBut("abcdd", "bd")         = 2
+     * StringUtils.lastIndexOfAnyBut("zzabyycdxx", "xy")    = 7
+     * StringUtils.lastIndexOfAnyBut("aba", "ab")           = -1
+     * </pre>
+     *
+     * @param seq         The CharSequence to check, may be null.
+     * @param searchChars The CharSequence containing code points to skip, may be null.
+     * @return The last index of a code point outside the set, or -1 if no match or either argument is null or empty.
+     * @since 3.22.1
+     * @see #indexOfAnyBut(CharSequence, CharSequence)
+     */
+    public static int lastIndexOfAnyBut(final CharSequence seq, final CharSequence searchChars) {
+        if (isEmpty(seq) || isEmpty(searchChars)) {
+            return INDEX_NOT_FOUND;
+        }
+        final Set<Integer> searchCodePoints = searchChars.codePoints().boxed().collect(Collectors.toSet());
+        for (int index = seq.length(); index > 0;) {
+            final int codePoint = Character.codePointBefore(seq, index);
+            index -= Character.charCount(codePoint);
+            if (!searchCodePoints.contains(codePoint)) {
+                return index;
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
      * Case insensitive find of the last index within a CharSequence.
      *
      * <p>
