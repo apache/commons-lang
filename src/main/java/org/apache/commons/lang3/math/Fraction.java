@@ -632,7 +632,24 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (fraction.numerator == 0) {
             throw new ArithmeticException("The fraction to divide by must not be zero");
         }
-        return multiplyBy(fraction.invert());
+        if (numerator == 0) {
+            return ZERO;
+        }
+        // Products of int values fit in a long. Reduce before narrowing to avoid overflow in an intermediate reciprocal.
+        long resultNumerator = (long) numerator * fraction.denominator;
+        long resultDenominator = (long) denominator * fraction.numerator;
+        if (resultDenominator < 0) {
+            resultNumerator = -resultNumerator;
+            resultDenominator = -resultDenominator;
+        }
+        long gcd = Math.abs(resultNumerator);
+        long remainder = resultDenominator;
+        while (remainder != 0) {
+            final long next = gcd % remainder;
+            gcd = remainder;
+            remainder = next;
+        }
+        return new Fraction(Math.toIntExact(resultNumerator / gcd), Math.toIntExact(resultDenominator / gcd));
     }
 
     /**
