@@ -366,13 +366,14 @@ public class MethodUtils {
      *
      * @param cls            find method in this class.
      * @param methodName     find method with this name.
-     * @param requestTypes find method with most compatible parameters.
+     * @param requestTypes  The parameter types to match, {@code null} treated as empty.
      * @return The accessible method or null.
      * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
      * @see SecurityManager#checkPermission
      */
     public static Method getMatchingAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... requestTypes) {
-        final Method candidate = getMethodObject(cls, methodName, requestTypes);
+        final Class<?>[] actualTypes = ArrayUtils.nullToEmpty(requestTypes);
+        final Method candidate = getMethodObject(cls, methodName, actualTypes);
         if (candidate != null) {
             // The exact match may be declared on a non-public class, so prefer the public
             // declaration the way the search below does; a static method hides, so it is kept.
@@ -382,14 +383,14 @@ public class MethodUtils {
         // search through all methods
         final Method[] methods = cls.getMethods();
         final List<Method> matchingMethods = Stream.of(methods)
-                .filter(method -> method.getName().equals(methodName) && MemberUtils.isMatchingMethod(method, requestTypes)).collect(Collectors.toList());
+                .filter(method -> method.getName().equals(methodName) && MemberUtils.isMatchingMethod(method, actualTypes)).collect(Collectors.toList());
         // Sort methods by signature to force deterministic result
         matchingMethods.sort(METHOD_BY_SIGNATURE);
         Method bestMatch = null;
         for (final Method method : matchingMethods) {
             // get accessible version of method
             final Method accessibleMethod = getAccessibleMethod(method);
-            if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(accessibleMethod, bestMatch, requestTypes) < 0)) {
+            if (accessibleMethod != null && (bestMatch == null || MemberUtils.compareMethodFit(accessibleMethod, bestMatch, actualTypes) < 0)) {
                 bestMatch = accessibleMethod;
             }
         }
@@ -398,8 +399,8 @@ public class MethodUtils {
             if (bestMatch.isVarArgs()) {
                 final Class<?>[] bestMatchParameterTypes = bestMatch.getParameterTypes();
                 final Class<?> varArgType = bestMatchParameterTypes[bestMatchParameterTypes.length - 1].getComponentType();
-                for (int paramIdx = bestMatchParameterTypes.length - 1; paramIdx < requestTypes.length; paramIdx++) {
-                    final Class<?> parameterType = requestTypes[paramIdx];
+                for (int paramIdx = bestMatchParameterTypes.length - 1; paramIdx < actualTypes.length; paramIdx++) {
+                    final Class<?> parameterType = actualTypes[paramIdx];
                     if (!ClassUtils.isAssignable(parameterType, varArgType, true)) {
                         return null;
                     }
@@ -414,7 +415,7 @@ public class MethodUtils {
      *
      * @param cls            The class that will be subjected to the method search.
      * @param methodName     The method that we wish to call.
-     * @param parameterTypes Argument class types.
+     * @param parameterTypes Argument class types, {@code null} treated as empty.
      * @throws IllegalStateException Thrown if there is no unique result.
      * @throws NullPointerException  Thrown if the class is {@code null}.
      * @return The method.
@@ -423,6 +424,7 @@ public class MethodUtils {
     public static Method getMatchingMethod(final Class<?> cls, final String methodName, final Class<?>... parameterTypes) {
         Objects.requireNonNull(cls, "cls");
         Validate.notEmpty(methodName, "methodName");
+        final Class<?>[] actualTypes = ArrayUtils.nullToEmpty(parameterTypes);
         final List<Method> methods = Stream.of(cls.getDeclaredMethods())
                 .filter(method -> method.getName().equals(methodName))
                 .collect(Collectors.toList());
@@ -434,15 +436,15 @@ public class MethodUtils {
                 .filter(method -> method.getName().equals(methodName))
                 .forEach(methods::add);
         for (final Method method : methods) {
-            if (Arrays.deepEquals(method.getParameterTypes(), parameterTypes)) {
+            if (Arrays.deepEquals(method.getParameterTypes(), actualTypes)) {
                 return method;
             }
         }
         final TreeMap<Integer, List<Method>> candidates = new TreeMap<>();
         methods.stream()
-            .filter(method -> ClassUtils.isAssignable(parameterTypes, method.getParameterTypes(), true))
+            .filter(method -> ClassUtils.isAssignable(actualTypes, method.getParameterTypes(), true))
             .forEach(method -> {
-                 final int distance = distance(parameterTypes, method.getParameterTypes());
+                 final int distance = distance(actualTypes, method.getParameterTypes());
                  final List<Method> candidatesAtDistance = candidates.computeIfAbsent(distance, k -> new ArrayList<>());
                  candidatesAtDistance.add(method);
         });
@@ -455,7 +457,7 @@ public class MethodUtils {
             return bestCandidates.get(0);
         }
         throw new IllegalStateException(String.format("Found multiple candidates for method %s on class %s : %s",
-                methodName + Stream.of(parameterTypes).map(String::valueOf).collect(Collectors.joining(",", "(", ")")), cls.getName(),
+                methodName + Stream.of(actualTypes).map(String::valueOf).collect(Collectors.joining(",", "(", ")")), cls.getName(),
                 bestCandidates.stream().map(Method::toString).collect(Collectors.joining(",", "[", "]"))));
     }
 
