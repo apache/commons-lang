@@ -22,6 +22,7 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
@@ -196,7 +197,8 @@ final class MemberUtils {
      * @param executable The executable to calculate transformation costs for.
      * @return The total transformation cost.
      */
-    private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Executable executable) {
+    private static float getTotalTransformationCost(Class<?>[] srcArgs, final Executable executable) {
+        srcArgs = ArrayUtils.nullToEmpty(srcArgs);
         final Class<?>[] destArgs = executable.getParameterTypes();
         final boolean isVarArgs = executable.isVarArgs();
         // "source" and "destination" are the actual and declared args respectively.
@@ -247,7 +249,8 @@ final class MemberUtils {
         return isMatchingExecutable(Executable.of(method), parameterTypes);
     }
 
-    private static boolean isMatchingExecutable(final Executable method, final Class<?>[] parameterTypes) {
+    private static boolean isMatchingExecutable(final Executable method, Class<?>[] parameterTypes) {
+        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
         final Class<?>[] methodParameterTypes = method.getParameterTypes();
         if (ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true)) {
             return true;

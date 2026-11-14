@@ -264,7 +264,13 @@ public class ConstructorUtilsTest extends AbstractLangTest {
     @Test
     void testInvokeConstructorVarArgsTooFewArguments() {
         assertNull(ConstructorUtils.getMatchingAccessibleConstructor(VarArgsBean.class));
+        assertNull(ConstructorUtils.getMatchingAccessibleConstructor(VarArgsBean.class, (Class<?>[]) null));
         assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(VarArgsBean.class));
+    }
+
+    @Test
+    void testGetMatchingAccessibleConstructorNullParameterTypesWithVarArgs() {
+        assertNotNull(ConstructorUtils.getMatchingAccessibleConstructor(ProcessBuilder.class, (Class<?>[]) null));
     }
 
     @Test
