@@ -60,6 +60,18 @@ import org.apache.commons.lang3.LocaleUtils;
  * corresponding elapsed time, so the local clock time may change across a DST transition.
  * </p>
  *
+ * <p>
+ * Date parsing uses {@link java.text.SimpleDateFormat} patterns. The {@code S} pattern letter represents the millisecond field,
+ * which is parsed as a whole number. For example, the pattern {@code ss.SSS} parses {@code 05.1} as five seconds and one millisecond.
+ * Repeating {@code S} does not provide sub-millisecond precision. For fractional-second parsing, use
+ * {@link java.time.format.DateTimeFormatter}.
+ * </p>
+ *
+ * <ul>
+ * <li>{@link #parseDate(String, String...)} parses leniently and can normalize out-of-range field values.</li>
+ * <li>{@link #parseDateStrictly(String, String...)} validates field values, including the millisecond range of 0 through 999.</li>
+ * </ul>
+ *
  * @since 2.0
  */
 public class DateUtils {
