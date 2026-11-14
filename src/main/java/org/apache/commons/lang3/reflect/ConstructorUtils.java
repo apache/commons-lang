@@ -105,7 +105,7 @@ public class ConstructorUtils {
      *
      * @param <T>            the constructor type.
      * @param cls            The class to find a constructor for, not {@code null}.
-     * @param parameterTypes find method with compatible parameters.
+     * @param parameterTypes The parameter types to match, {@code null} treated as empty.
      * @return The constructor, null if no matching accessible constructor found.
      * @throws NullPointerException Thrown if {@code cls} is {@code null}
      * @throws SecurityException    Thrown if a security manager is present and the caller's class loader is not the same as or an ancestor of the class loader for the

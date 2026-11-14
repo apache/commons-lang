@@ -45,6 +45,15 @@ public class ConstructorUtilsTest extends AbstractLangTest {
     private static class BaseClass {
     }
 
+    public static class OverloadedVarArgsBean {
+
+        public OverloadedVarArgsBean(final Object... args) {
+        }
+
+        public OverloadedVarArgsBean(final String... args) {
+        }
+    }
+
     static class PrivateClass {
         @SuppressWarnings("unused")
         public static class PublicInnerClass {
@@ -196,6 +205,19 @@ public class ConstructorUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testGetMatchingAccessibleConstructorNullParameterTypesWithOverloadedVarArgs() throws Exception {
+        assertEquals(OverloadedVarArgsBean.class.getConstructor(Object[].class),
+                ConstructorUtils.getMatchingAccessibleConstructor(OverloadedVarArgsBean.class, (Class<?>[]) null));
+        assertEquals(ConstructorUtils.getMatchingAccessibleConstructor(OverloadedVarArgsBean.class),
+                ConstructorUtils.getMatchingAccessibleConstructor(OverloadedVarArgsBean.class, (Class<?>[]) null));
+    }
+
+    @Test
+    void testGetMatchingAccessibleConstructorNullParameterTypesWithVarArgs() {
+        assertNotNull(ConstructorUtils.getMatchingAccessibleConstructor(ProcessBuilder.class, (Class<?>[]) null));
+    }
+
+    @Test
     void testGetMatchingAccessibleConstructorOnNonPublicClass() {
         assertNull(ConstructorUtils.getMatchingAccessibleConstructor(PrivateClass.class));
         assertNull(ConstructorUtils.getMatchingAccessibleConstructor(PrivateClass.class, String.class));
@@ -264,6 +286,7 @@ public class ConstructorUtilsTest extends AbstractLangTest {
     @Test
     void testInvokeConstructorVarArgsTooFewArguments() {
         assertNull(ConstructorUtils.getMatchingAccessibleConstructor(VarArgsBean.class));
+        assertNull(ConstructorUtils.getMatchingAccessibleConstructor(VarArgsBean.class, (Class<?>[]) null));
         assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(VarArgsBean.class));
     }
 

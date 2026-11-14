@@ -181,6 +181,21 @@ class MethodUtilsTest extends AbstractLangTest {
         }
     }
 
+    public static class NullParameterTypesBean {
+
+        public void overloaded(final Object... args) {
+        }
+
+        public void overloaded(final String... args) {
+        }
+
+        public void single(final String... args) {
+        }
+
+        private void zero() {
+        }
+    }
+
     interface PackagePrivateEmptyInterface {
         // empty
     }
@@ -833,6 +848,16 @@ class MethodUtilsTest extends AbstractLangTest {
         expectMatchingAccessibleMethodParameterTypes(Files.class, "exists", singletonArray(Path.class), new Class[] { Path.class, LinkOption[].class });
     }
 
+    @Test
+    void testGetMatchingAccessibleMethodNullParameterTypesWithVarArgs() throws Exception {
+        assertEquals(NullParameterTypesBean.class.getMethod("single", String[].class),
+                MethodUtils.getMatchingAccessibleMethod(NullParameterTypesBean.class, "single", (Class<?>[]) null));
+        assertEquals(MethodUtils.getMatchingAccessibleMethod(NullParameterTypesBean.class, "single"),
+                MethodUtils.getMatchingAccessibleMethod(NullParameterTypesBean.class, "single", (Class<?>[]) null));
+        assertEquals(NullParameterTypesBean.class.getMethod("overloaded", Object[].class),
+                MethodUtils.getMatchingAccessibleMethod(NullParameterTypesBean.class, "overloaded", (Class<?>[]) null));
+    }
+
     @ParameterizedTest
     @ValueSource(classes = {TestMutable.class, TestMutableSubclass.class})
     void testGetMatchingAccessibleMethodOnNonPublicClass(final Class<?> clazz) {
@@ -891,6 +916,19 @@ class MethodUtilsTest extends AbstractLangTest {
         testMethod6 = MethodUtils.getMatchingMethod(ConcreteGetMatchingMethod22.class, "testMethod6");
         assertNotNull(testMethod6);
         assertEquals(ConcreteGetMatchingMethod22.class, testMethod6.getDeclaringClass());
+    }
+
+    @Test
+    void testGetMatchingMethodNullParameterTypes() throws NoSuchMethodException {
+        assertEquals(String.class.getMethod("length"), MethodUtils.getMatchingMethod(String.class, "length", (Class<?>[]) null));
+        assertEquals(NullParameterTypesBean.class.getDeclaredMethod("zero"),
+                MethodUtils.getMatchingMethod(NullParameterTypesBean.class, "zero", (Class<?>[]) null));
+        assertEquals(Object.class.getMethod("toString"),
+                MethodUtils.getMatchingMethod(NullParameterTypesBean.class, "toString", (Class<?>[]) null));
+        assertEquals(MethodUtils.getMatchingMethod(String.class, "length"),
+                MethodUtils.getMatchingMethod(String.class, "length", (Class<?>[]) null));
+        assertNull(MethodUtils.getMatchingMethod(String.class, "substring", (Class<?>[]) null));
+        assertNull(MethodUtils.getMatchingMethod(String.class, "missingMethod", (Class<?>[]) null));
     }
 
     @Test
@@ -1175,6 +1213,8 @@ class MethodUtilsTest extends AbstractLangTest {
         // too few arguments for the fixed parameters
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "intStringVarArg"));
         assertNull(MethodUtils.getMatchingAccessibleMethod(TestBean.class, "intStringVarArg"));
+        assertNull(MethodUtils.getMatchingAccessibleMethod(TestBean.class, "intStringVarArg", (Class<?>[]) null));
+        assertNull(MethodUtils.getMatchingAccessibleMethod(String.class, "format", (Class<?>[]) null));
     }
 
     @Test
@@ -1363,7 +1403,9 @@ class MethodUtilsTest extends AbstractLangTest {
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(testBean, "staticIntIntVarArg", 1, "s1", 5));
         // too few arguments for the fixed parameters
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(TestBean.class, "staticIntStringVarArg"));
+        assertNull(MethodUtils.getMatchingAccessibleMethod(TestBean.class, "staticIntStringVarArg", (Class<?>[]) null));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(String.class, "format"));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(String.class, "format", (Object[]) null));
     }
 
     @Test
