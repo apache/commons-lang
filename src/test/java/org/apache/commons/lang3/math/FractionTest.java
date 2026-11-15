@@ -19,7 +19,9 @@
 package org.apache.commons.lang3.math;
 
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -582,20 +584,24 @@ class FractionTest extends AbstractLangTest {
         Fraction f2;
         for (int i = 1; i <= 100; i++) { // denominator
             for (int j = 1; j <= i; j++) { // numerator
-                f = Fraction.getFraction((double) j / (double) i);
+                final double value = (double) j / (double) i;
+                final String message = "getFraction(" + j + "/" + i + " = " + value + ")";
+                f = assertDoesNotThrow(() -> Fraction.getFraction(value), message);
 
                 f2 = Fraction.getReducedFraction(j, i);
-                assertEquals(f2.getNumerator(), f.getNumerator());
-                assertEquals(f2.getDenominator(), f.getDenominator());
+                assertEquals(f2.getNumerator(), f.getNumerator(), message);
+                assertEquals(f2.getDenominator(), f.getDenominator(), message);
             }
         }
         // save time by skipping some tests! (
         for (int i = 1001; i <= 10000; i += SKIP) { // denominator
             for (int j = 1; j <= i; j++) { // numerator
-                f = Fraction.getFraction((double) j / (double) i);
+                final double value = (double) j / (double) i;
+                final String message = "getFraction(" + j + "/" + i + " = " + value + ")";
+                f = assertDoesNotThrow(() -> Fraction.getFraction(value), message);
                 f2 = Fraction.getReducedFraction(j, i);
-                assertEquals(f2.getNumerator(), f.getNumerator());
-                assertEquals(f2.getDenominator(), f.getDenominator());
+                assertEquals(f2.getNumerator(), f.getNumerator(), message);
+                assertEquals(f2.getDenominator(), f.getDenominator(), message);
             }
         }
     }
@@ -733,21 +739,21 @@ class FractionTest extends AbstractLangTest {
     /**
      * Tests that string contents that are well-formed but unrepresentable throw the documented NumberFormatException
      * (with the ArithmeticException preserved as the cause) instead of an undeclared ArithmeticException.
+     *
+     * @param value A well-formed string whose value cannot be represented.
      */
-    @Test
-    void testFactory_String_unrepresentableThrowsNumberFormatException() {
-        // double delegation path: out of int range and non-convergent values
-        NumberFormatException e = assertThrows(NumberFormatException.class, () -> Fraction.getFraction("9999999999.5"));
-        assertTrue(e.getCause() instanceof ArithmeticException);
-        assertThrows(NumberFormatException.class, () -> Fraction.getFraction("2147483648.5"));
-        // Y/Z path: zero denominator and negation overflow
-        e = assertThrows(NumberFormatException.class, () -> Fraction.getFraction("1/0"));
-        assertTrue(e.getCause() instanceof ArithmeticException);
-        assertThrows(NumberFormatException.class, () -> Fraction.getFraction("1/-2147483648"));
-        // X Y/Z path: zero denominator and combined-numerator overflow
-        e = assertThrows(NumberFormatException.class, () -> Fraction.getFraction("1 2/0"));
-        assertTrue(e.getCause() instanceof ArithmeticException);
-        assertThrows(NumberFormatException.class, () -> Fraction.getFraction("2147483647 1/2"));
+    @ParameterizedTest(name = "[{index}] getFraction({0}) preserves the arithmetic cause")
+    @ValueSource(strings = {
+        // Decimal values outside the supported range.
+        "9999999999.5", "2147483648.5",
+        // Y/Z: zero denominator and negation overflow.
+        "1/0", "1/-2147483648",
+        // X Y/Z: zero denominator and combined-numerator overflow.
+        "1 2/0", "2147483647 1/2"
+    })
+    void testFactory_String_unrepresentableThrowsNumberFormatException(final String value) {
+        final NumberFormatException exception = assertThrows(NumberFormatException.class, () -> Fraction.getFraction(value));
+        assertInstanceOf(ArithmeticException.class, exception.getCause());
     }
 
     @Test
