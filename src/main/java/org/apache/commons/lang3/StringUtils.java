@@ -3968,12 +3968,12 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
+        final long count = (long) endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
         }
         final byte maxElementChars = 5; // "false"
-        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        final StringBuilder stringBuilder = capacity((int) count, maxElementChars);
         stringBuilder.append(array[startIndex]);
         for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder.append(delimiter).append(array[i]);
@@ -4046,12 +4046,12 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
+        final long count = (long) endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
         }
         final byte maxElementChars = 4; // "-128"
-        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        final StringBuilder stringBuilder = capacity((int) count, maxElementChars);
         stringBuilder.append(array[startIndex]);
         for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder.append(delimiter).append(array[i]);
@@ -4124,12 +4124,12 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
+        final long count = (long) endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
         }
         final byte maxElementChars = 1;
-        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        final StringBuilder stringBuilder = capacity((int) count, maxElementChars);
         stringBuilder.append(array[startIndex]);
         for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder.append(delimiter).append(array[i]);
@@ -4202,12 +4202,12 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
+        final long count = (long) endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
         }
         final byte maxElementChars = 22; // "1.7976931348623157E308"
-        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        final StringBuilder stringBuilder = capacity((int) count, maxElementChars);
         stringBuilder.append(array[startIndex]);
         for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder.append(delimiter).append(array[i]);
@@ -4280,12 +4280,12 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
+        final long count = (long) endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
         }
         final byte maxElementChars = 12; // "3.4028235E38"
-        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        final StringBuilder stringBuilder = capacity((int) count, maxElementChars);
         stringBuilder.append(array[startIndex]);
         for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder.append(delimiter).append(array[i]);
@@ -4358,12 +4358,12 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
+        final long count = (long) endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
         }
         final byte maxElementChars = 11; // "-2147483648"
-        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        final StringBuilder stringBuilder = capacity((int) count, maxElementChars);
         stringBuilder.append(array[startIndex]);
         for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder.append(delimiter).append(array[i]);
@@ -4491,7 +4491,7 @@ public class StringUtils {
         if (list == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
+        final long noOfItems = (long) endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
@@ -4526,7 +4526,7 @@ public class StringUtils {
         if (list == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
+        final long noOfItems = (long) endIndex - startIndex;
         if (noOfItems <= 0) {
             return EMPTY;
         }
@@ -4599,12 +4599,12 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
+        final long count = (long) endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
         }
         final byte maxElementChars = 20; // "-9223372036854775808"
-        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        final StringBuilder stringBuilder = capacity((int) count, maxElementChars);
         stringBuilder.append(array[startIndex]);
         for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder.append(delimiter).append(array[i]);
@@ -4723,7 +4723,7 @@ public class StringUtils {
      * @throws IllegalArgumentException if the array is non-null and {@code startIndex < 0}.
      */
     public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
-        return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
+        return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0L, (long) endIndex - startIndex))
                 .collect(LangCollectors.joining(ObjectUtils.toString(delimiter), EMPTY, EMPTY, ObjectUtils::toString)) : null;
     }
 
@@ -4792,12 +4792,12 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
+        final long count = (long) endIndex - startIndex;
         if (count <= 0) {
             return EMPTY;
         }
         final byte maxElementChars = 6; // "-32768"
-        final StringBuilder stringBuilder = capacity(count, maxElementChars);
+        final StringBuilder stringBuilder = capacity((int) count, maxElementChars);
         stringBuilder.append(array[startIndex]);
         for (int i = startIndex + 1; i < endIndex; i++) {
             stringBuilder.append(delimiter).append(array[i]);
