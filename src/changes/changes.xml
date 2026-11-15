@@ -94,6 +94,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity overflow in StringUtils.wrapIfMissing(String, String) when only one wrapper is missing and the result is representable.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent premature length overflow in StringUtils.repeat(String, String, int) when the final result is representable but the intermediate result with a trailing separator is not.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent loop-counter and edit-cost overflow in StringUtils.getLevenshteinDistance for CharSequence inputs of Integer.MAX_VALUE length, with and without a threshold.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent score overflow in StringUtils.getFuzzyDistance(CharSequence, CharSequence, Locale), throwing ArithmeticException when the score exceeds Integer.MAX_VALUE.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>

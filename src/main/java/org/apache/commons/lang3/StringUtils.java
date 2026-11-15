@@ -2155,6 +2155,7 @@ public class StringUtils {
      * @param locale This string matching logic is case-insensitive. A locale is necessary to normalize both Strings to lower case.
      * @return result score.
      * @throws IllegalArgumentException Thrown if either String input {@code null} or Locale input {@code null}.
+     * @throws ArithmeticException Thrown if the score exceeds {@link Integer#MAX_VALUE}.
      * @since 3.4
      * @deprecated As of 3.6, use Apache Commons Text
      *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/FuzzyScore.html">
@@ -2175,7 +2176,7 @@ public class StringUtils {
         final String termLowerCase = term.toString().toLowerCase(locale);
         final String queryLowerCase = query.toString().toLowerCase(locale);
         // the resulting score
-        int score = 0;
+        long score = 0;
         // the position in the term which will be scanned next for potential
         // query character matches
         int termIndex = 0;
@@ -2201,7 +2202,7 @@ public class StringUtils {
                 }
             }
         }
-        return score;
+        return Math.toIntExact(score);
     }
 
     /**
