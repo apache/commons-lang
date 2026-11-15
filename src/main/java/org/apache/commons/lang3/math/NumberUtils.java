@@ -389,13 +389,16 @@ public class NumberUtils {
             if (isLongCh) {
                 hexDigits--;
             }
-            if (hexDigits > 16 || hexDigits == 16 && firstSigDigit > '7') { // too many for Long
+            // Signed types can represent one more negative magnitude than positive.
+            final boolean isNegativeMinimum = str.charAt(0) == '-' && firstSigDigit == '8' && (hexDigits == 8 || hexDigits == 16)
+                && isAllZeros(str.substring(pfxLen + 1, isLongCh ? length - 1 : length));
+            if (hexDigits > 16 || hexDigits == 16 && firstSigDigit > '7' && !isNegativeMinimum) { // too many for Long
                 return createBigInteger(isLongCh ? str.substring(0, length - 1) : str);
             }
             if (isLongCh) {
                 return createLong(str.substring(0, str.length() - 1));
             }
-            if (hexDigits > 8 || hexDigits == 8 && firstSigDigit > '7') { // too many for an int
+            if (hexDigits > 8 || hexDigits == 8 && firstSigDigit > '7' && !isNegativeMinimum) { // too many for an int
                 return createLong(str);
             }
             return createInteger(str);
