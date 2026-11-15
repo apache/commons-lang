@@ -2334,7 +2334,7 @@ public class StringUtils {
      * </p>
      *
      * <p>
-     * The implementation uses a single-dimensional array of length s.length() + 1. See
+     * The implementation uses a single-dimensional array whose length is one greater than that of the shorter input. See
      * <a href="https://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html">
      * https://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html</a> for details.
      * </p>
@@ -2401,16 +2401,16 @@ public class StringUtils {
             p[i] = i;
         }
 
-        for (j = 1; j <= m; j++) {
+        for (j = 0; j < m; j++) {
             upperleft = p[0];
-            jOfT = t.charAt(j - 1);
-            p[0] = j;
+            jOfT = t.charAt(j);
+            p[0] = j + 1;
 
             for (i = 1; i <= n; i++) {
                 upper = p[i];
                 cost = s.charAt(i - 1) == jOfT ? 0 : 1;
-                // minimum of cell to the left+1, to the top+1, diagonally left and up +cost
-                p[i] = Math.min(Math.min(p[i - 1] + 1, p[i] + 1), upperleft + cost);
+                // Take the minimum before adding one: the left cell can be Integer.MAX_VALUE on the final row.
+                p[i] = Math.min(Math.min(p[i - 1], p[i]) + 1, upperleft + cost);
                 upperleft = upper;
             }
         }
@@ -2546,13 +2546,14 @@ public class StringUtils {
         Arrays.fill(d, Integer.MAX_VALUE);
 
         // iterates through t
-        for (int j = 1; j <= m; j++) {
-            final char jOfT = t.charAt(j - 1); // jth character of t
-            d[0] = j;
+        for (int j = 0; j < m; j++) {
+            final char jOfT = t.charAt(j); // jth character of t
+            final int row = j + 1;
+            d[0] = row;
 
             // compute stripe indices, constrain to array size
-            final int min = Math.max(1, j - threshold);
-            final int max = j > Integer.MAX_VALUE - threshold ? n : Math.min(n, j + threshold);
+            final int min = Math.max(1, row - threshold);
+            final int max = row > Integer.MAX_VALUE - threshold ? n : Math.min(n, row + threshold);
 
             // the stripe may lead off of the table if s and t are of different sizes
             if (min > max) {
