@@ -4720,7 +4720,7 @@ public class StringUtils {
      */
     public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
         return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
-                .collect(LangCollectors.joining(delimiter, EMPTY, EMPTY, ObjectUtils::toString)) : null;
+                .collect(LangCollectors.joining(ObjectUtils.toString(delimiter), EMPTY, EMPTY, ObjectUtils::toString)) : null;
     }
 
     /**
