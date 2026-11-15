@@ -61,6 +61,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Expand Fraction.pow tests for negative bases, extreme exponents, and zero raised to zero.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Parameterize Fraction factory and unary-operation tests while preserving expected representations, invalid inputs, and reduction identity checks.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Improve Fraction double-conversion test diagnostics and verify preserved ArithmeticException causes for all six unrepresentable-string regression cases.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix premature overflow in Fraction.getFraction(double) and decimal-string parsing for representable Integer.MIN_VALUE numerators, with boundary tests for every denominator from 1 through 10,000.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>

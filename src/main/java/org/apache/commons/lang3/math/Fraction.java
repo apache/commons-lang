@@ -118,6 +118,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
 
     /**
      * Gets a {@link Fraction} instance from a {@code double} value.
+     *
      * <p>
      * This method uses the <a href="https://web.archive.org/web/20210516065058/http%3A//archives.math.utk.edu/articles/atuyl/confrac/"> continued fraction
      * algorithm</a>, computing a maximum of 25 convergents and bounding the denominator by 10,000.
@@ -126,6 +127,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param value The double value to convert
      * @return A new fraction instance that is close to the value
      * @throws ArithmeticException Thrown if {@code |value| &gt; Integer.MAX_VALUE} or {@code value = NaN}.
+     * @throws ArithmeticException Thrown if the calculated numerator cannot be represented as an {@code int}.
      * @throws ArithmeticException Thrown if the calculated denominator is {@code zero}.
      * @throws ArithmeticException Thrown if the algorithm does not converge.
      */
@@ -174,10 +176,9 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         if (i == 25) {
             throw new ArithmeticException("Unable to convert double to fraction");
         }
-        // wholeNumber can be up to Integer.MAX_VALUE while denom0 > 1 for any non-integer value,
-        // so the int product overflows for values near the limit; check it instead of wrapping silently.
-        final int numerator = Math.addExact(numer0, mulAndCheck(wholeNumber, denom0));
-        return getReducedFraction(numerator * sign, denom0);
+        // Use long arithmetic and apply the sign before narrowing so that Integer.MIN_VALUE remains representable.
+        final long numerator = (numer0 + (long) wholeNumber * denom0) * sign;
+        return getReducedFraction(Math.toIntExact(numerator), denom0);
     }
 
     /**

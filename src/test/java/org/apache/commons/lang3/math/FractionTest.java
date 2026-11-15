@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -96,6 +97,16 @@ class FractionTest extends AbstractLangTest {
             assertEquals(expectedNumerator.intValueExact(), result.getNumerator());
             assertEquals(expectedDenominator.intValueExact(), result.getDenominator());
         }
+    }
+
+    private static Stream<Arguments> factoryDoubleBoundaryValues() {
+        final long[] numerators = {
+            (long) Integer.MIN_VALUE - 2, (long) Integer.MIN_VALUE - 1, Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 2,
+            Integer.MAX_VALUE - 2, Integer.MAX_VALUE - 1, Integer.MAX_VALUE, (long) Integer.MAX_VALUE + 1, (long) Integer.MAX_VALUE + 2
+        };
+        // Exercise every supported denominator, including all reduced minimum-value numerators and both neighboring range limits.
+        return LongStream.of(numerators).boxed()
+                .flatMap(numerator -> IntStream.rangeClosed(1, 10000).mapToObj(denominator -> Arguments.of(numerator, denominator)));
     }
 
     private static Stream<Arguments> factoryDoubleValues() {
@@ -620,11 +631,45 @@ class FractionTest extends AbstractLangTest {
         assertEquals(expectedDenominator, result.getDenominator());
     }
 
+    @ParameterizedTest(name = "[{index}] getFraction({0}/{1}) via double and string")
+    @MethodSource("factoryDoubleBoundaryValues")
+    void testFactory_doubleAndStringBoundaryValues(final long numerator, final int denominator) {
+        final double value = (double) numerator / denominator;
+        final String text = Double.toString(value);
+        final BigInteger bigNumerator = BigInteger.valueOf(numerator);
+        final BigInteger bigDenominator = BigInteger.valueOf(denominator);
+        final BigInteger gcd = bigNumerator.gcd(bigDenominator);
+        final BigInteger expectedNumerator = bigNumerator.divide(gcd);
+        final BigInteger expectedDenominator = bigDenominator.divide(gcd);
+        final BigInteger minValue = BigInteger.valueOf(Integer.MIN_VALUE);
+        final BigInteger maxValue = BigInteger.valueOf(Integer.MAX_VALUE);
+        // The double factory also imposes a documented magnitude limit on the input itself.
+        if (Math.abs(value) > Integer.MAX_VALUE || expectedNumerator.compareTo(minValue) < 0 || expectedNumerator.compareTo(maxValue) > 0) {
+            assertThrows(ArithmeticException.class, () -> Fraction.getFraction(value));
+            final NumberFormatException exception = assertThrows(NumberFormatException.class, () -> Fraction.getFraction(text));
+            assertInstanceOf(ArithmeticException.class, exception.getCause());
+        } else {
+            final Fraction result = Fraction.getFraction(value);
+            assertEquals(expectedNumerator.intValueExact(), result.getNumerator());
+            assertEquals(expectedDenominator.intValueExact(), result.getDenominator());
+            assertEquals(value, result.doubleValue());
+            assertEquals(result, Fraction.getFraction(text));
+        }
+    }
+
     @ParameterizedTest(name = "[{index}] getFraction({0}) throws")
     @ValueSource(doubles = {Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, (double) Integer.MAX_VALUE + 1, 2147483646.5d, 1073741824.5d})
     void testFactory_doubleInvalid(final double value) {
         // The fractional boundary values must throw instead of overflowing the numerator to a negative value.
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(value));
+    }
+
+    @ParameterizedTest(name = "[{index}] getFraction(-2147483648/{0})")
+    @ValueSource(ints = {3, 5, 7, 9, 11, 9999})
+    void testFactory_doubleIntegerMinValue(final int denominator) {
+        final Fraction result = Fraction.getFraction((double) Integer.MIN_VALUE / denominator);
+        assertEquals(Integer.MIN_VALUE, result.getNumerator());
+        assertEquals(denominator, result.getDenominator());
     }
 
     @Test
