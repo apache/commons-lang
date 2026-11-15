@@ -1731,6 +1731,17 @@ class TypeUtilsTest<B> extends AbstractLangTest {
     }
 
     @Test
+    void testIsAssignableWildcardWithEquivalentUpperBounds() {
+        final Type first = TypeUtils.parameterize(List.class, String.class);
+        final Type second = TypeUtils.parameterize(List.class, String.class);
+        final WildcardType wildcard = TypeUtils.wildcardType().withUpperBounds(first, second).build();
+        assertFalse(TypeUtils.isAssignable(String.class, wildcard));
+        assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(ArrayList.class, Integer.class), wildcard));
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(ArrayList.class, String.class), wildcard));
+        assertArrayEquals(new Type[] { first }, TypeUtils.getImplicitUpperBounds(wildcard));
+    }
+
+    @Test
     void testIsAssignableWildcardWithMultipleUpperBounds() {
         // ? extends Serializable & Cloneable
         final WildcardType subject = TypeUtils.wildcardType()
@@ -1778,17 +1789,6 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         // Reverse direction: single bound cannot satisfy multiple bounds
         assertFalse(TypeUtils.isAssignable(targetSerializable, subject));
         assertFalse(TypeUtils.isAssignable(targetCloneable, subject));
-    }
-
-    @Test
-    void testIsAssignableWildcardWithEquivalentUpperBounds() {
-        final Type first = TypeUtils.parameterize(List.class, String.class);
-        final Type second = TypeUtils.parameterize(List.class, String.class);
-        final WildcardType wildcard = TypeUtils.wildcardType().withUpperBounds(first, second).build();
-        assertFalse(TypeUtils.isAssignable(String.class, wildcard));
-        assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(ArrayList.class, Integer.class), wildcard));
-        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(ArrayList.class, String.class), wildcard));
-        assertArrayEquals(new Type[] { first }, TypeUtils.getImplicitUpperBounds(wildcard));
     }
 
     @SuppressWarnings("boxing") // boxing is deliberate here
