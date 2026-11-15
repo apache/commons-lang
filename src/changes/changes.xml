@@ -52,6 +52,15 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">[LANG-1425] Clarify DateUtils millisecond parsing (#1871).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Fix premature overflow in Fraction.divideBy (#1865).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, alhuda">Accept a null delimiter in StringUtils.join(Object[], String, int, int) (#1873).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix premature overflow in Fraction.pow for negative powers of unreduced fractions with an Integer.MIN_VALUE numerator, with exhaustive coverage of representable powers below -1 and tests for overflow boundaries.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Clarify reduction and overflow behavior in Fraction.divideBy, Fraction.invert, and Fraction.pow.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add parameterized Fraction.divideBy boundary tests against BigInteger and verify overflow when inverting an unreduced minimum-value numerator.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix a duplicated Fraction.add overflow test to exercise both positive and negative Integer.MAX_VALUE operands.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add parameterized BigInteger boundary tests for Fraction.add, Fraction.subtract, and Fraction.multiplyBy.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Add boundary and antisymmetry tests for Fraction.compareTo using exact arithmetic, including equal values with different representations.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Expand Fraction.pow tests for negative bases, extreme exponents, and zero raised to zero.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Parameterize Fraction factory and unary-operation tests while preserving expected representations, invalid inputs, and reduction identity checks.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Improve Fraction double-conversion test diagnostics and verify preserved ArithmeticException causes for all six unrepresentable-string regression cases.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
