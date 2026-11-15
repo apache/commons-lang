@@ -619,13 +619,14 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
-     * Divide the value of this fraction by another.
+     * Divides the value of this fraction by another, returning the result in reduced form.
      *
      * @param fraction  The fraction to divide by, must not be {@code null}
      * @return A {@link Fraction} instance with the resulting values
      * @throws NullPointerException Thrown if the fraction is {@code null}.
      * @throws ArithmeticException Thrown if the fraction to divide by is zero.
-     * @throws ArithmeticException Thrown if the resulting numerator or denominator exceeds {@code Integer.MAX_VALUE}.
+     * @throws ArithmeticException Thrown if the reduced numerator is outside the range {@link Integer#MIN_VALUE} to {@link Integer#MAX_VALUE},
+     *         or the reduced denominator exceeds {@link Integer#MAX_VALUE}.
      */
     public Fraction divideBy(final Fraction fraction) {
         Objects.requireNonNull(fraction, "fraction");
@@ -777,6 +778,8 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @return A new fraction instance with the numerator and denominator inverted.
      * @throws ArithmeticException Thrown if the fraction represents zero.
+     * @throws ArithmeticException Thrown if the numerator is {@link Integer#MIN_VALUE}, because the inverted denominator cannot be represented
+     *         as a positive {@code int}.
      */
     public Fraction invert() {
         if (numerator == 0) {
@@ -897,7 +900,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     /**
-     * Reduce the fraction to the smallest values for the numerator and denominator, returning the result.
+     * Reduces the fraction to the smallest values for the numerator and denominator, returning the result.
      * <p>
      * For example, if this fraction represents 2/4, then the result will be 1/2.
      * </p>

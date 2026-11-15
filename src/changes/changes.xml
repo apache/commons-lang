@@ -50,6 +50,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc fixes: DiffBuilder, ReflectionDiffBuilder, TimedSemaphore.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, gaurav kumar pandey">Fix null parameter-type array handling in MethodUtils and ConstructorUtils lookups, including varargs matching and overload comparison.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">[LANG-1425] Clarify DateUtils millisecond parsing (#1871).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Fix premature overflow in Fraction.divideBy (#1865).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>

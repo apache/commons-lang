@@ -25,10 +25,17 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
 import org.apache.commons.lang3.AbstractLangTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Tests {@link Fraction}.
@@ -36,6 +43,23 @@ import org.junit.jupiter.params.provider.CsvSource;
 class FractionTest extends AbstractLangTest {
 
     private static final int SKIP = 500; // 53
+
+    private static Stream<Arguments> divideBoundaryValues() {
+        final int[] numerators = {
+            Integer.MIN_VALUE, Integer.MIN_VALUE + 1, -1073741824, -46341, -2, -1, 0, 1, 2, 46341, 1073741824,
+            Integer.MAX_VALUE - 1, Integer.MAX_VALUE
+        };
+        final int[] denominators = {1, 2, 3, 4, 46341, 1073741824, Integer.MAX_VALUE - 1, Integer.MAX_VALUE};
+        final List<Fraction> fractions = new ArrayList<>();
+        for (final int numerator : numerators) {
+            for (final int denominator : denominators) {
+                // Preserve unreduced operands so cancellation within each operand is exercised as well.
+                fractions.add(Fraction.getFraction(numerator, denominator));
+            }
+        }
+        return fractions.stream()
+                .flatMap(dividend -> fractions.stream().map(divisor -> Arguments.of(dividend, divisor)));
+    }
 
     @Test
     void testAbs() {
@@ -394,6 +418,36 @@ class FractionTest extends AbstractLangTest {
         f = Fraction.getFraction(-1, 46341).divideBy(Fraction.getFraction(1000000, 100));
         assertEquals(-1, f.getNumerator());
         assertEquals(463410000, f.getDenominator());
+    }
+
+    @ParameterizedTest(name = "[{index}] {0} / {1}")
+    @MethodSource("divideBoundaryValues")
+    void testDivideBoundaryValues(final Fraction dividend, final Fraction divisor) {
+        if (divisor.getNumerator() == 0) {
+            assertThrows(ArithmeticException.class, () -> dividend.divideBy(divisor));
+            return;
+        }
+
+        // Use arbitrary-precision arithmetic as an independent oracle for the reduced quotient and its range.
+        final BigInteger numerator = BigInteger.valueOf(dividend.getNumerator()).multiply(BigInteger.valueOf(divisor.getDenominator()));
+        final BigInteger denominator = BigInteger.valueOf(dividend.getDenominator()).multiply(BigInteger.valueOf(divisor.getNumerator()));
+        final BigInteger signedGcd = numerator.gcd(denominator).multiply(BigInteger.valueOf(denominator.signum()));
+        final BigInteger expectedNumerator = numerator.divide(signedGcd);
+        final BigInteger expectedDenominator = denominator.divide(signedGcd);
+        final BigInteger minValue = BigInteger.valueOf(Integer.MIN_VALUE);
+        final BigInteger maxValue = BigInteger.valueOf(Integer.MAX_VALUE);
+
+        if (expectedNumerator.compareTo(minValue) < 0 || expectedNumerator.compareTo(maxValue) > 0
+                || expectedDenominator.compareTo(maxValue) > 0) {
+            assertThrows(ArithmeticException.class, () -> dividend.divideBy(divisor));
+        } else {
+            final Fraction quotient = dividend.divideBy(divisor);
+            assertEquals(expectedNumerator.intValueExact(), quotient.getNumerator());
+            assertEquals(expectedDenominator.intValueExact(), quotient.getDenominator());
+            if (expectedNumerator.signum() == 0) {
+                assertSame(Fraction.ZERO, quotient);
+            }
+        }
     }
 
     @ParameterizedTest
@@ -839,6 +893,8 @@ class FractionTest extends AbstractLangTest {
 
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(0, 3).invert());
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Integer.MIN_VALUE, 1).invert());
+        // Inversion does not reduce, even when the reduced reciprocal would be representable.
+        assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Integer.MIN_VALUE, 2).invert());
 
         f = Fraction.getFraction(Integer.MAX_VALUE, 1);
         f = f.invert();
