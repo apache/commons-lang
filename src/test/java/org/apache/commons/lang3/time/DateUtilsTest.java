@@ -1193,6 +1193,16 @@ class DateUtilsTest extends AbstractLangTest {
         assertNullPointerException(() -> DateUtils.parseDate(null, parsers));
     }
 
+    @Test
+    @DefaultTimeZone("GMT+05:30")
+    void testParseDateGmt() throws ParseException {
+        final String source = "Mon, 01 May 2023 08:52:19 GMT";
+        final String pattern = "EEE, dd MMM yyyy HH:mm:ss zzz";
+        final Date expected = Date.from(Instant.parse("2023-05-01T08:52:19Z"));
+        assertEquals(expected, DateUtils.parseDate(source, Locale.US, pattern));
+        assertEquals(expected, DateUtils.parseDateStrictly(source, Locale.US, pattern));
+    }
+
     @DefaultLocale(language = "en")
     @ParameterizedTest
     @CsvSource({"0, 0", "1, 1", "0000286, 286", "999, 999"})

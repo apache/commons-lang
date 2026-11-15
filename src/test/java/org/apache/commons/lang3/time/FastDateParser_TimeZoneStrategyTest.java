@@ -96,6 +96,28 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
+    @ValueSource(booleans = { false, true })
+    void testGmtPrefixDoesNotTruncateDisplayName(final boolean iso8601Extended) {
+        final String zoneName = "GMT Example Time";
+        final TimeZone timeZone = TimeZone.getTimeZone("GMT+05:30");
+        final DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
+        symbols.setZoneStrings(new String[][] { { timeZone.getID(), zoneName, zoneName, zoneName, zoneName } });
+        final FastDateParser.TimeZoneStrategy strategy;
+        try (MockedStatic<DateFormatSymbols> symbolFactory = mockStatic(DateFormatSymbols.class)) {
+            symbolFactory.when(() -> DateFormatSymbols.getInstance(Locale.US)).thenReturn(symbols);
+            strategy = new FastDateParser.TimeZoneStrategy(Locale.US, iso8601Extended);
+        }
+        final Calendar calendar = Calendar.getInstance(TimeZones.GMT, Locale.US);
+        calendar.clear();
+        final ParsePosition position = new ParsePosition(0);
+        assertTrue(strategy.parse(null, calendar, zoneName, position, 0));
+        assertEquals(zoneName.length(), position.getIndex());
+        assertEquals(-1, position.getErrorIndex());
+        assertEquals(timeZone.getRawOffset(), calendar.get(Calendar.ZONE_OFFSET));
+        assertEquals(0, calendar.get(Calendar.DST_OFFSET));
+    }
+
+    @ParameterizedTest
     @CsvSource({ "false, GMT", "false, gmt", "false, GmT", "true, GMT", "true, gmt", "true, GmT" })
     void testGmtWithoutDisplayNameAlias(final boolean iso8601Extended, final String zoneName) {
         final DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);

@@ -569,9 +569,10 @@ public class FastDateParser implements DateParser, Serializable {
         }
 
         /**
-         * Tests whether to skip the given time zone, true if TimeZone.getTimeZone().
+         * Tests whether to skip the GMT time zone when collecting display names.
+         *
          * <p>
-         * On Java 25 and up, skips short IDs if {@code ignoreTimeZoneShortIDs} is true.
+         * Bare GMT and GMT offsets are explicitly included in the parsing pattern and handled by {@link FastTimeZone#getGmtTimeZone(String)}.
          * </p>
          * <p>
          * This method is package private only for testing.
