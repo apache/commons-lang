@@ -68,6 +68,27 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Handle incompatible array types in DiffBuilder (#1867).</action>
     <action                   type="fix" dev="ggregory" due-to="Hai Zhang, Gary Gregory, Amar Ghugare" issue="LANG-1730">Parse GMT independently of platform aliases (#1874).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Fix abbreviation overflow for extreme negative offsets (#1875).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent buffer estimate overflow and excessive initial capacities in StringUtils.replaceEach(String, String[], String[]), including unused replacement rules.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent buffer estimate overflow and excessive initial capacities in StringUtils.replaceEachRepeatedly(String, String[], String[]), including unused replacement rules; clarify the iteration-limit Javadoc.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(boolean[], char) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(boolean[], char, int, int) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(byte[], char) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(byte[], char, int, int) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(char[], char) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(char[], char, int, int) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(double[], char) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(double[], char, int, int) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(float[], char) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(float[], char, int, int) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(int[], char) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(int[], char, int, int) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(long[], char) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(long[], char, int, int) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(short[], char) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity estimate overflow and excessive initial capacities in StringUtils.join(short[], char, int, int) when the actual result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent length-check overflow in StringUtils.unwrap(String, String) for very large wrapping tokens.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Correct the null-marker example, null-marker handling, and minimum width in StringUtils.abbreviate(String, String, int).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Correct the null-marker example, null-marker handling, and minimum widths in StringUtils.abbreviate(String, String, int, int).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>

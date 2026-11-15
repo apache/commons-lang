@@ -308,7 +308,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.abbreviate(null, "...", *)      = null
-     * StringUtils.abbreviate("abcdefg", null, *)  = "abcdefg"
+     * StringUtils.abbreviate("abcdefg", null, 4)  = "abcd"
      * StringUtils.abbreviate("", "...", 4)        = ""
      * StringUtils.abbreviate("abcdefg", ".", 5)   = "abcd."
      * StringUtils.abbreviate("abcdefg", ".", 7)   = "abcdefg"
@@ -320,8 +320,8 @@ public class StringUtils {
      * </pre>
      *
      * @param str          The String to check, may be null.
-     * @param abbrevMarker The String used as replacement marker.
-     * @param maxWidth     maximum length of result String, must be at least {@code abbrevMarker.length + 1}.
+     * @param abbrevMarker The String used as replacement marker, null is treated as an empty marker.
+     * @param maxWidth     maximum length of result String, must be at least the marker length plus one (one for a null or empty marker).
      * @return abbreviated String, {@code null} if null String input.
      * @throws IllegalArgumentException Thrown if the width is too small.
      * @since 3.6
@@ -343,7 +343,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.abbreviate(null, null, *, *)                 = null
-     * StringUtils.abbreviate("abcdefghijklmno", null, *, *)    = "abcdefghijklmno"
+     * StringUtils.abbreviate("abcdefghijklmno", null, 0, 10)   = "abcdefghij"
      * StringUtils.abbreviate("", "...", 0, 4)                  = ""
      * StringUtils.abbreviate("abcdefghijklmno", "---", -1, 10) = "abcdefg---"
      * StringUtils.abbreviate("abcdefghijklmno", ",", 0, 10)    = "abcdefghi,"
@@ -360,9 +360,11 @@ public class StringUtils {
      * </pre>
      *
      * @param str          The String to check, may be null.
-     * @param abbrevMarker The String used as replacement marker, for example "...", or Unicode HORIZONTAL ELLIPSIS, U+2026 '…'.
+     * @param abbrevMarker The String used as replacement marker, for example "...", or Unicode HORIZONTAL ELLIPSIS, U+2026 '…';
+     *                     null is treated as an empty marker.
      * @param offset       left edge of source String.
-     * @param maxWidth     maximum length of result String, must be at least 4.
+     * @param maxWidth     maximum length of result String, must be at least the marker length plus one (one for a null or empty marker).
+     *                     When markers are needed at both ends, must be at least twice the marker length plus one.
      * @return abbreviated String, {@code null} if null String input.
      * @throws IllegalArgumentException Thrown if the width is too small.
      * @since 3.6
@@ -538,15 +540,18 @@ public class StringUtils {
     }
 
     /**
-     * Computes the capacity required for a StringBuilder to hold {@code items} of {@code maxElementChars} characters plus the separators between them. The
-     * separator is assumed to be 1 character.
+     * Creates a StringBuilder using an estimated capacity for {@code count} items of at most {@code maxElementChars} characters plus one-character separators.
+     *
+     * <p>
+     * If the estimate exceeds the safe array length, uses the default initial capacity and lets the builder grow to fit the actual values.
+     * </p>
      *
      * @param count           The number of items.
      * @param maxElementChars The maximum number of characters per item.
      * @return A StringBuilder with the appropriate capacity.
      */
     private static StringBuilder capacity(final int count, final byte maxElementChars) {
-        return new StringBuilder(count * maxElementChars + count - 1);
+        return newStringBuilder((long) count * maxElementChars + count - 1);
     }
 
     /**
@@ -5494,6 +5499,20 @@ public class StringUtils {
     }
 
     /**
+     * Creates a StringBuilder with an estimated initial capacity.
+     *
+     * <p>
+     * An excessive estimate does not imply that the actual result is too large. Use the default capacity in that case and let the builder grow as needed.
+     * </p>
+     *
+     * @param estimatedCapacity The non-negative estimated capacity.
+     * @return A StringBuilder with the estimated or default capacity.
+     */
+    private static StringBuilder newStringBuilder(final long estimatedCapacity) {
+        return estimatedCapacity > ArrayUtils.SAFE_MAX_ARRAY_LENGTH ? new StringBuilder() : new StringBuilder((int) estimatedCapacity);
+    }
+
+    /**
      * Normalizes whitespace in a String.
      *
      * <p>Removes leading and trailing whitespace and replaces each remaining sequence of characters recognized by {@link Character#isWhitespace(char)}
@@ -6601,6 +6620,8 @@ public class StringUtils {
 
         // get a good guess on the size of the result buffer so it doesn't have to double if it goes over a bit
         int increase = 0;
+        // Cap estimated growth at 20%; the initial capacity is only a hint.
+        final int increaseLimit = text.length() / 5;
 
         // count the replacement text elements that are larger than their corresponding text being replaced
         for (int i = 0; i < searchList.length; i++) {
@@ -6609,13 +6630,10 @@ public class StringUtils {
             }
             final int greater = replacementList[i].length() - searchList[i].length();
             if (greater > 0) {
-                increase += 3 * greater; // assume 3 matches
+                increase = (int) Math.min(increaseLimit, increase + 3L * greater); // assume 3 matches
             }
         }
-        // have upper-bound at 20% increase, then let Java take over
-        increase = Math.min(increase, text.length() / 5);
-
-        final StringBuilder buf = new StringBuilder(text.length() + increase);
+        final StringBuilder buf = newStringBuilder((long) text.length() + increase);
 
         while (textIndex != -1) {
 
@@ -6680,7 +6698,8 @@ public class StringUtils {
      * @param searchList      The Strings to search for, no-op if null.
      * @param replacementList The Strings to replace them with, no-op if null.
      * @return The text with any replacements processed, {@code null} if null String input.
-     * @throws IllegalStateException    Thrown if the search is repeating and there is an endless loop due to outputs of one being inputs to another.
+     * @throws IllegalStateException    Thrown if replacement does not finish within the iteration limit, including endless loops and terminating
+     *                                  replacements that require too many passes.
      * @throws IllegalArgumentException Thrown if the lengths of the arrays are not the same (null is ok, and/or size 0).
      * @since 2.4
      */
@@ -9224,7 +9243,7 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final String wrapToken) {
-        if (isEmpty(str) || isEmpty(wrapToken) || str.length() < 2 * wrapToken.length()) {
+        if (isEmpty(str) || isEmpty(wrapToken) || wrapToken.length() > str.length() / 2) {
             return str;
         }
         if (Strings.CS.startsWith(str, wrapToken) && Strings.CS.endsWith(str, wrapToken)) {

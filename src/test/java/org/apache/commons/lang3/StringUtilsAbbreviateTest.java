@@ -174,20 +174,6 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
         assertEquals("....fg", StringUtils.abbreviate("abcdefg", "....", 5, 6));
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = { Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 15, Integer.MIN_VALUE + 16, -1, 0 })
-    void testAbbreviateNonPositiveOffset(final int offset) {
-        assertAbbreviateWithOffset("abcdefg...", offset, 10);
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = { Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 15, Integer.MIN_VALUE + 16, -1, 0 })
-    void testAbbreviateNonPositiveOffsetWithMarker(final int offset) {
-        assertAbbreviateWithAbbrevMarkerAndOffset("abcdefgh++", "++", offset, 10);
-        assertAbbreviateWithAbbrevMarkerAndOffset("abcdefghij", "", offset, 10);
-        assertAbbreviateWithAbbrevMarkerAndOffset("abcdefghij", null, offset, 10);
-    }
-
     // Fixed LANG-1463
     @Test
     void testAbbreviateMarkerWithEmptyString() {
@@ -250,6 +236,20 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
                 }
             }
         }
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 15, Integer.MIN_VALUE + 16, -1, 0 })
+    void testAbbreviateNonPositiveOffset(final int offset) {
+        assertAbbreviateWithOffset("abcdefg...", offset, 10);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 15, Integer.MIN_VALUE + 16, -1, 0 })
+    void testAbbreviateNonPositiveOffsetWithMarker(final int offset) {
+        assertAbbreviateWithAbbrevMarkerAndOffset("abcdefgh++", "++", offset, 10);
+        assertAbbreviateWithAbbrevMarkerAndOffset("abcdefghij", "", offset, 10);
+        assertAbbreviateWithAbbrevMarkerAndOffset("abcdefghij", null, offset, 10);
     }
 
     @Test
