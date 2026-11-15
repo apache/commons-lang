@@ -691,29 +691,6 @@ class NumberUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "-0x80000000", "-0X80000000", "-#80000000", "-0x000080000000", "-0X0000000080000000" })
-    void testCreateNumberNegativeHexIntegerMinimum(final String str) {
-        assertEquals(Integer.valueOf(Integer.MIN_VALUE), NumberUtils.createNumber(str));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {
-        "-0x8000000000000000", "-0X8000000000000000", "-#8000000000000000", "-0x00008000000000000000",
-        "-0x8000000000000000L", "-0X8000000000000000l", "-#8000000000000000L", "-0x00008000000000000000l"
-    })
-    void testCreateNumberNegativeHexLongMinimum(final String str) {
-        assertEquals(Long.valueOf(Long.MIN_VALUE), NumberUtils.createNumber(str));
-    }
-
-    @Test
-    void testCreateNumberNegativeHexRangeBoundaries() {
-        assertEquals(Integer.valueOf(Integer.MIN_VALUE + 1), NumberUtils.createNumber("-0x7FFFFFFF"));
-        assertEquals(Long.valueOf((long) Integer.MIN_VALUE - 1), NumberUtils.createNumber("-0x80000001"));
-        assertEquals(Long.valueOf(Integer.MIN_VALUE), NumberUtils.createNumber("-0x80000000L"));
-        assertEquals(new BigInteger("-8000000000000001", 16), NumberUtils.createNumber("-0x8000000000000001"));
-    }
-
-    @ParameterizedTest
     @ValueSource(strings = { "", " ", "\t", "\r\n", "\u2003", "\u2003 \u2003", "\u00a0" })
     void testCreateNumberBlank(final String str) {
         assertThrows(NumberFormatException.class, () -> NumberUtils.createNumber(str));
@@ -834,6 +811,29 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(Long.valueOf(0777777777777777777777L), NumberUtils.createNumber("0777777777777777777777"));
         // 64 bits
         assertEquals(new BigInteger("1777777777777777777777", 8), NumberUtils.createNumber("01777777777777777777777"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "-0x80000000", "-0X80000000", "-#80000000", "-0x000080000000", "-0X0000000080000000" })
+    void testCreateNumberNegativeHexIntegerMinimum(final String str) {
+        assertEquals(Integer.valueOf(Integer.MIN_VALUE), NumberUtils.createNumber(str));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "-0x8000000000000000", "-0X8000000000000000", "-#8000000000000000", "-0x00008000000000000000",
+        "-0x8000000000000000L", "-0X8000000000000000l", "-#8000000000000000L", "-0x00008000000000000000l"
+    })
+    void testCreateNumberNegativeHexLongMinimum(final String str) {
+        assertEquals(Long.valueOf(Long.MIN_VALUE), NumberUtils.createNumber(str));
+    }
+
+    @Test
+    void testCreateNumberNegativeHexRangeBoundaries() {
+        assertEquals(Integer.valueOf(Integer.MIN_VALUE + 1), NumberUtils.createNumber("-0x7FFFFFFF"));
+        assertEquals(Long.valueOf((long) Integer.MIN_VALUE - 1), NumberUtils.createNumber("-0x80000001"));
+        assertEquals(Long.valueOf(Integer.MIN_VALUE), NumberUtils.createNumber("-0x80000000L"));
+        assertEquals(new BigInteger("-8000000000000001", 16), NumberUtils.createNumber("-0x8000000000000001"));
     }
 
     /**
