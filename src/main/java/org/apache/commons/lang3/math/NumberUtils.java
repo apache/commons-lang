@@ -323,17 +323,21 @@ public class NumberUtils {
      * Creates a {@link Number} from a {@link String}.
      *
      * <p>
-     * If the string starts with {@code 0x} or {@code -0x} (lower or upper case) or {@code #} or {@code -#}, it will be interpreted as a hexadecimal Integer -
-     * or Long, if the number of digits after the prefix is more than 8 - or BigInteger if there are more than 16 digits.
-     * </p>
-     * <p>
-     * Then, the value is examined for a type qualifier on the end, i.e. one of {@code 'f', 'F', 'd', 'D', 'l', 'L'}. If it is found, it starts trying to create
-     * successively larger types from the type specified until one is found that can represent the value.
+     * Strings with a {@code 0x}, {@code 0X}, or {@code #} prefix, optionally preceded by a {@code +} or {@code -} sign, are interpreted as hexadecimal
+     * integers. The result is the smallest of {@link Integer}, {@link Long}, or {@link BigInteger} that can represent the signed value. Leading zeros do not
+     * affect type selection. A trailing {@code 'l'} or {@code 'L'} requests a {@link Long}, or a {@link BigInteger} if the value is out of range for a Long.
+     * For example, {@code "-0x80000000"} returns {@link Integer#MIN_VALUE} as an Integer, and {@code "-0x8000000000000000"} returns {@link Long#MIN_VALUE}
+     * as a Long. The hexadecimal digits {@code 'f'}, {@code 'F'}, {@code 'd'}, and {@code 'D'} are not treated as type qualifiers.
      * </p>
      *
      * <p>
-     * If a type specifier is not found, it will check for a decimal point and then try successively larger types from {@link Integer} to {@link BigInteger} and
-     * from {@link Float} to {@link BigDecimal}.
+     * For non-hexadecimal input, the value is examined for a type qualifier on the end, i.e. one of {@code 'f', 'F', 'd', 'D', 'l', 'L'}. If it is found,
+     * it starts trying to create successively larger types from the type specified until one is found that can represent the value.
+     * </p>
+     *
+     * <p>
+     * For non-hexadecimal input without a type specifier, it will check for a decimal point and then try successively larger types from {@link Integer} to
+     * {@link BigInteger} and from {@link Float} to {@link BigDecimal}.
      * </p>
      *
      * <p>

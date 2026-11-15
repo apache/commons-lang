@@ -833,7 +833,9 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(Integer.valueOf(Integer.MIN_VALUE + 1), NumberUtils.createNumber("-0x7FFFFFFF"));
         assertEquals(Long.valueOf((long) Integer.MIN_VALUE - 1), NumberUtils.createNumber("-0x80000001"));
         assertEquals(Long.valueOf(Integer.MIN_VALUE), NumberUtils.createNumber("-0x80000000L"));
+        assertEquals(Long.valueOf(Long.MIN_VALUE + 1), NumberUtils.createNumber("-0x7FFFFFFFFFFFFFFF"));
         assertEquals(new BigInteger("-8000000000000001", 16), NumberUtils.createNumber("-0x8000000000000001"));
+        assertEquals(new BigInteger("-8000000000000001", 16), NumberUtils.createNumber("-0x8000000000000001L"));
     }
 
     /**
