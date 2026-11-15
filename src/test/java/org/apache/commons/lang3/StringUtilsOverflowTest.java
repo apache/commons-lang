@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
@@ -28,6 +29,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /**
@@ -35,6 +37,7 @@ import org.junit.jupiter.params.provider.ValueSource;
  *
  * <p>
  * Enable the large-input tests with {@code -Dtest.stringutils.large.heap=true -DheapSize=-Xmx8g}.
+ * Use {@code -DheapSize=-Xmx12g} on Java 8.
  * </p>
  */
 class StringUtilsOverflowTest extends AbstractLangTest {
@@ -129,5 +132,29 @@ class StringUtilsOverflowTest extends AbstractLangTest {
     void testUnwrapLengthOverflow() {
         final String token = StringUtils.repeat('x', 1 << 30);
         assertSame(token, StringUtils.unwrap(token, token));
+    }
+
+    /**
+     * Exercises both missing sides around the overflow boundary of the former estimate, {@code 3 * wrapperLength + 1}.
+     */
+    @ParameterizedTest
+    @CsvSource({
+        "715827881, false",
+        "715827881, true",
+        "715827882, false",
+        "715827882, true",
+        "715827883, false",
+        "715827883, true"
+    })
+    @EnabledIfSystemProperty(named = "test.stringutils.large.heap", matches = "true")
+    void testWrapIfMissingCapacityBoundaries(final int wrapperLength, final boolean missingStart) {
+        final String wrapper = new String(new byte[wrapperLength], StandardCharsets.ISO_8859_1);
+        final String input = missingStart ? "x" + wrapper : wrapper + "x";
+        final String result = StringUtils.wrapIfMissing(input, wrapper);
+        // Check the complete result without allocating another multi-gigabyte expected string.
+        assertEquals(2L * wrapperLength + 1, result.length());
+        assertTrue(result.startsWith(wrapper));
+        assertEquals('x', result.charAt(wrapperLength));
+        assertTrue(result.endsWith(wrapper));
     }
 }

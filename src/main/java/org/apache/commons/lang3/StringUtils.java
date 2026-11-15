@@ -9453,7 +9453,8 @@ public class StringUtils {
         if (!wrapStart && !wrapEnd) {
             return str;
         }
-        final StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
+        final long capacity = (long) str.length() + (wrapStart ? wrapWith.length() : 0) + (wrapEnd ? wrapWith.length() : 0);
+        final StringBuilder builder = newStringBuilder(capacity);
         if (wrapStart) {
             builder.append(wrapWith);
         }

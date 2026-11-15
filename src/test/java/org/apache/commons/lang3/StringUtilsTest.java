@@ -1202,35 +1202,6 @@ class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testJoinListRangeExtremeStartIndexOverflow() {
-        final List<String> list = Arrays.asList("a", "b", "c");
-        assertThrows(IndexOutOfBoundsException.class, () -> StringUtils.join(list, ';', Integer.MIN_VALUE, 0));
-        assertThrows(IndexOutOfBoundsException.class, () -> StringUtils.join(list, ";", Integer.MIN_VALUE, 0));
-    }
-
-    @Test
-    void testJoinRangeExtremeEndIndexOverflow() {
-        // endIndex - startIndex overflows an int for extreme end indexes; the range must still be empty.
-        final String[] array = { "a", "b", "c" };
-        assertEquals("", StringUtils.join(array, "--", 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(array, '-', 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(array, "--", 2, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(new boolean[] { true, false, true }, ';', 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(new byte[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(new char[] { 'a', 'b', 'c' }, ';', 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(new double[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(new float[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(new int[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(new long[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(new short[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(Arrays.asList(ARRAY_LIST), ';', 1, Integer.MIN_VALUE));
-        assertEquals("", StringUtils.join(Arrays.asList(ARRAY_LIST), ";", 1, Integer.MIN_VALUE));
-        // A non-overflowing reversed range is empty as documented, and valid ranges are unchanged.
-        assertEquals("", StringUtils.join(array, "--", 2, 1));
-        assertEquals("b--c", StringUtils.join(array, "--", 1, 3));
-    }
-
-    @Test
     void testJoin_IterableChar() {
         assertNull(StringUtils.join((Iterable<?>) null, ','));
         assertEquals(TEXT_LIST_CHAR, StringUtils.join(Arrays.asList(ARRAY_LIST), SEPARATOR_CHAR));
@@ -1348,6 +1319,35 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("abc", StringUtils.join("a", "b", "c"));
         assertEquals("a", StringUtils.join(null, "", "a"));
         assertNull(StringUtils.join((Object[]) null));
+    }
+
+    @Test
+    void testJoinListRangeExtremeStartIndexOverflow() {
+        final List<String> list = Arrays.asList("a", "b", "c");
+        assertThrows(IndexOutOfBoundsException.class, () -> StringUtils.join(list, ';', Integer.MIN_VALUE, 0));
+        assertThrows(IndexOutOfBoundsException.class, () -> StringUtils.join(list, ";", Integer.MIN_VALUE, 0));
+    }
+
+    @Test
+    void testJoinRangeExtremeEndIndexOverflow() {
+        // endIndex - startIndex overflows an int for extreme end indexes; the range must still be empty.
+        final String[] array = { "a", "b", "c" };
+        assertEquals("", StringUtils.join(array, "--", 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(array, '-', 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(array, "--", 2, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(new boolean[] { true, false, true }, ';', 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(new byte[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(new char[] { 'a', 'b', 'c' }, ';', 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(new double[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(new float[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(new int[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(new long[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(new short[] { 1, 2, 3 }, ';', 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(Arrays.asList(ARRAY_LIST), ';', 1, Integer.MIN_VALUE));
+        assertEquals("", StringUtils.join(Arrays.asList(ARRAY_LIST), ";", 1, Integer.MIN_VALUE));
+        // A non-overflowing reversed range is empty as documented, and valid ranges are unchanged.
+        assertEquals("", StringUtils.join(array, "--", 2, 1));
+        assertEquals("b--c", StringUtils.join(array, "--", 1, 3));
     }
 
     @ParameterizedTest
