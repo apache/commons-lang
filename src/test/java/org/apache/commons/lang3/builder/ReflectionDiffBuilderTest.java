@@ -46,6 +46,14 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
         }
     }
 
+    private static final class ObjectField {
+        private final Object value;
+
+        ObjectField(final Object value) {
+            this.value = value;
+        }
+    }
+
     private static final class CycleDiffableNode implements Diffable<CycleDiffableNode> {
         @SuppressWarnings("unused")
         private CycleDiffableNode self;
@@ -323,6 +331,25 @@ class ReflectionDiffBuilderTest extends AbstractLangTest {
     }
 
     private static final ToStringStyle SHORT_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
+
+    @Test
+    void testIncompatibleArrayFields() {
+        final Object[][] pairs = { { new int[] { 1 }, new long[] { 1 } }, { new int[] { 1 }, "value" },
+                { new Object[] { "value" }, "value" }, { "value", new int[] { 1 } } };
+        for (final Object[] pair : pairs) {
+            final ObjectField left = new ObjectField(pair[0]);
+            final ObjectField right = new ObjectField(pair[1]);
+            final DiffResult<ObjectField> result = ReflectionDiffBuilder.<ObjectField>builder()
+                    .setDiffBuilder(DiffBuilder.<ObjectField>builder().setLeft(left).setRight(right)
+                            .setStyle(ToStringStyle.SHORT_PREFIX_STYLE).build())
+                    .setForceAccessible(true).build().build();
+            assertEquals(1, result.getNumberOfDiffs());
+            final Diff<?> diff = result.getDiffs().get(0);
+            assertEquals("value", diff.getFieldName());
+            assertSame(pair[0], diff.getLeft());
+            assertSame(pair[1], diff.getRight());
+        }
+    }
 
     @Test
     void testArrayDifference() {
