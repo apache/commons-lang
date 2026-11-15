@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -577,6 +578,21 @@ class TypeUtilsTest<B> extends AbstractLangTest {
                 Arguments.of("unboundedVariable", "superUnboundedVariable", true),
                 Arguments.of("dependentVariable", "extendsUnboundedVariable", true),
                 Arguments.of("unboundedVariable", "superDependentVariable", true));
+    }
+
+    static Stream<Arguments> testNormalizeUpperBoundsEquivalentTypes() throws NoSuchFieldException {
+        final Type list = TypeUtils.parameterize(List.class, String.class);
+        final Type otherList = TypeUtils.parameterize(List.class, String.class);
+        final Type jdkList = HashCodeTypes.class.getDeclaredField("list").getGenericType();
+        final Type array = TypeUtils.genericArrayType(list);
+        final Type jdkArray = HashCodeTypes.class.getDeclaredField("listArray").getGenericType();
+        return Stream.of(
+                Arguments.of(list, otherList),
+                Arguments.of(jdkList, list),
+                Arguments.of(list, jdkList),
+                Arguments.of(array, TypeUtils.genericArrayType(otherList)),
+                Arguments.of(jdkArray, array),
+                Arguments.of(array, jdkArray));
     }
 
     static Stream<Type> testTypeToString() {
@@ -1764,6 +1780,17 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         assertFalse(TypeUtils.isAssignable(targetCloneable, subject));
     }
 
+    @Test
+    void testIsAssignableWildcardWithEquivalentUpperBounds() {
+        final Type first = TypeUtils.parameterize(List.class, String.class);
+        final Type second = TypeUtils.parameterize(List.class, String.class);
+        final WildcardType wildcard = TypeUtils.wildcardType().withUpperBounds(first, second).build();
+        assertFalse(TypeUtils.isAssignable(String.class, wildcard));
+        assertFalse(TypeUtils.isAssignable(TypeUtils.parameterize(ArrayList.class, Integer.class), wildcard));
+        assertTrue(TypeUtils.isAssignable(TypeUtils.parameterize(ArrayList.class, String.class), wildcard));
+        assertArrayEquals(new Type[] { first }, TypeUtils.getImplicitUpperBounds(wildcard));
+    }
+
     @SuppressWarnings("boxing") // boxing is deliberate here
     @Test
     void testIsInstance() throws NoSuchFieldException {
@@ -1813,6 +1840,23 @@ class TypeUtilsTest<B> extends AbstractLangTest {
         final Type[] typeArray = { String.class, String.class };
         final Type[] expectedArray = { String.class };
         assertArrayEquals(expectedArray, TypeUtils.normalizeUpperBounds(typeArray));
+    }
+
+    @Test
+    void testNormalizeUpperBoundsEquivalentSupertypes() {
+        final Type first = TypeUtils.parameterize(Collection.class, String.class);
+        final Type second = TypeUtils.parameterize(Collection.class, String.class);
+        final Type subtype = TypeUtils.parameterize(List.class, String.class);
+        assertArrayEquals(new Type[] { subtype }, TypeUtils.normalizeUpperBounds(new Type[] { first, second, subtype }));
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void testNormalizeUpperBoundsEquivalentTypes(final Type first, final Type second) {
+        assertNotSame(first, second);
+        assertEquals(first, second);
+        assertArrayEquals(new Type[] { first }, TypeUtils.normalizeUpperBounds(new Type[] { first, second }));
+        assertArrayEquals(new Type[] { first }, TypeUtils.normalizeUpperBounds(new Type[] { Object.class, first, second }));
     }
 
     @Test
