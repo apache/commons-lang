@@ -177,7 +177,7 @@ class FractionTest extends AbstractLangTest {
         // denominator should not be a multiple of 2 or 3 to trigger overflow
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Integer.MIN_VALUE, 5).add(Fraction.getFraction(-1, 5)));
 
-        final Fraction maxValue = Fraction.getFraction(-Integer.MAX_VALUE, 1);
+        final Fraction maxValue = Fraction.getFraction(Integer.MAX_VALUE, 1);
         assertThrows(ArithmeticException.class, () -> maxValue.add(maxValue));
 
         final Fraction negativeMaxValue = Fraction.getFraction(-Integer.MAX_VALUE, 1);
