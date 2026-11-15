@@ -44,13 +44,20 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
+
 import org.apache.commons.lang3.reflect.testbed.Bar;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -271,6 +278,36 @@ public class SerializationUtilsTest extends AbstractLangTest {
             assertNotSame(proxy, clonedProxy);
             assertEquals("test", clonedProxy.toString());
             assertEquals(0, interfaceLookups[0]);
+        } finally {
+            thread.setContextClassLoader(originalLoader);
+        }
+    }
+
+    @Test
+    void testCloneProxyWithPluginOnlyInterface(@TempDir final Path tempDir) throws Exception {
+        final String interfaceName = "plugin.CloneInterface";
+        final Path source = tempDir.resolve("CloneInterface.java");
+        Files.write(source, "package plugin; public interface CloneInterface { String value(); }".getBytes(StandardCharsets.UTF_8));
+        final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        assertNotNull(compiler, "A JDK compiler is required to create the plugin-only interface");
+        final ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
+        assertEquals(0, compiler.run(null, diagnostics, diagnostics, "-d", tempDir.toString(), source.toString()),
+                diagnostics.toString(StandardCharsets.UTF_8.name()));
+        final ClassLoader applicationLoader = getClass().getClassLoader();
+        final Thread thread = Thread.currentThread();
+        final ClassLoader originalLoader = thread.getContextClassLoader();
+        try (URLClassLoader loader = new URLClassLoader(new URL[] { tempDir.toUri().toURL() }, null)) {
+            thread.setContextClassLoader(applicationLoader);
+            // Neither the application loader nor the context loader can resolve this interface by name.
+            assertThrows(ClassNotFoundException.class, () -> Class.forName(interfaceName, false, applicationLoader));
+            final Class<?> proxyInterface = Class.forName(interfaceName, false, loader);
+            final Serializable proxy = (Serializable) Proxy.newProxyInstance(loader, new Class<?>[] { proxyInterface }, new SerializableInvocationHandler());
+            final Serializable clone = SerializationUtils.clone(proxy);
+            assertNotSame(proxy, clone);
+            assertSame(proxy.getClass(), clone.getClass());
+            assertTrue(proxyInterface.isInstance(clone));
+            assertNotSame(Proxy.getInvocationHandler(proxy), Proxy.getInvocationHandler(clone));
+            assertEquals("test", proxyInterface.getMethod("value").invoke(clone));
         } finally {
             thread.setContextClassLoader(originalLoader);
         }
