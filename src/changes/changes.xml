@@ -90,7 +90,6 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Correct the null-marker example, null-marker handling, and minimum width in StringUtils.abbreviate(String, String, int).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Correct the null-marker example, null-marker handling, and minimum widths in StringUtils.abbreviate(String, String, int, int).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Correct NumberUtils.createNumber(String) result types for negative hexadecimal minima: Integer.MIN_VALUE now returns Integer instead of Long, and Long.MIN_VALUE returns Long instead of BigInteger; numeric values are unchanged (#1877).</action>
-    <action                   type="fix" dev="ggregory" due-to="simpleqt">Compute the range length of the StringUtils.join overloads that take a start and an end index in long arithmetic, so an extreme end index no longer returns a non-empty suffix or throws NegativeArraySizeException.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
