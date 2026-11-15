@@ -65,6 +65,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Complete Fraction coverage for integer-string parsing, negation overflow, GCD boundaries, and double-conversion limits; remove redundant iteration guards.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Correct Fraction overflow and parsing Javadoc, exception messages, and serialization test documentation.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Preserve equivalent generic upper bounds in TypeUtils (#1866).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Handle incompatible array types in DiffBuilder (#1867).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
