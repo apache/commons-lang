@@ -121,7 +121,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * <p>
      * This method uses the <a href="https://web.archive.org/web/20210516065058/http%3A//archives.math.utk.edu/articles/atuyl/confrac/"> continued fraction
-     * algorithm</a>, computing a maximum of 25 convergents and bounding the denominator by 10,000.
+     * algorithm</a>, bounding the denominator by 10,000 and stopping when the approximation no longer improves.
      * </p>
      *
      * @param value The double value to convert
@@ -129,7 +129,6 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws ArithmeticException Thrown if {@code |value| &gt; Integer.MAX_VALUE} or {@code value = NaN}.
      * @throws ArithmeticException Thrown if the calculated numerator cannot be represented as an {@code int}.
      * @throws ArithmeticException Thrown if the calculated denominator is {@code zero}.
-     * @throws ArithmeticException Thrown if the algorithm does not converge.
      */
     public static Fraction getFraction(double value) {
         final int sign = value < 0 ? -1 : 1;
@@ -154,7 +153,8 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         double delta1;
         double delta2 = Double.MAX_VALUE;
         double fraction;
-        int i = 1;
+        // Positive convergent denominators grow at least as fast as Fibonacci numbers,
+        // so the denominator bound also bounds the number of iterations.
         do {
             delta1 = delta2;
             a2 = (int) (x1 / y1);
@@ -171,11 +171,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             denom0 = denom1;
             numer1 = numer2;
             denom1 = denom2;
-            i++;
-        } while (delta1 > delta2 && denom2 <= 10000 && denom2 > 0 && i < 25);
-        if (i == 25) {
-            throw new ArithmeticException("Unable to convert double to fraction");
-        }
+        } while (denom2 > 0 && denom2 <= 10000 && delta1 > delta2);
         // Use long arithmetic and apply the sign before narrowing so that Integer.MIN_VALUE remains representable.
         final long numerator = (numer0 + (long) wholeNumber * denom0) * sign;
         return getReducedFraction(Math.toIntExact(numerator), denom0);
@@ -355,9 +351,10 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * division and modulo operations.  See Knuth 4.5.2 algorithm B.
      * This algorithm is due to Josef Stein (1961).
      *
-     * @param u  A non-zero number
-     * @param v  A non-zero number
-     * @return The greatest common divisor, never zero
+     * @param u A number
+     * @param v A number
+     * @return The non-negative greatest common divisor, or zero if both arguments are zero.
+     * @throws ArithmeticException Thrown if the greatest common divisor cannot be represented as an {@code int}.
      */
     private static int greatestCommonDivisor(int u, int v) {
         // From Commons Math:
@@ -383,7 +380,8 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         } // make v negative
         // B1. [Find power of 2]
         int k = 0;
-        while ((u & 1) == 0 && (v & 1) == 0 && k < 31) { // while u and v are both even...
+        // Non-zero ints become odd after at most 31 halvings, so no separate iteration bound is needed.
+        while ((u & 1) == 0 && (v & 1) == 0) { // while u and v are both even...
             u /= 2;
             v /= 2;
             k++; // cast out twos.
