@@ -35,7 +35,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests that a serialized {@link Fraction} can't store a bad cached hashCode.
+ * Tests validation of the denominator and cached hash code when deserializing a {@link Fraction}.
  */
 public class FractionReadObjectTest {
 
@@ -62,11 +62,10 @@ public class FractionReadObjectTest {
     }
 
     /**
-     * Forged stream: numerator=0, denominator=0, hashCode=hash(0,0). The public factory refuses denominator 0 (negative control); readObject does not, so the
-     * forged Fraction(0,0) deserializes and divides by zero on {@code intValue()}.
+     * Verifies that deserialization rejects a zero denominator even when the cached hash code matches the forged fields.
      */
     @Test
-    void testForgedZeroDenominatorDividesByZero() throws Exception {
+    void testForgedZeroDenominatorIsRejected() throws Exception {
         // Negative control: no public factory can build a zero-denominator Fraction.
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(0, 0));
         final Fraction seed = Fraction.getFraction(1, 2);

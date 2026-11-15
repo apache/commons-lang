@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -50,7 +51,7 @@ import org.junit.jupiter.params.provider.ValueSource;
  */
 class FractionTest extends AbstractLangTest {
 
-    private static final int SKIP = 500; // 53
+    private static final int SKIP = 500;
 
     private static List<Fraction> arithmeticBoundaryValues() {
         final int[] numerators = {
@@ -74,7 +75,7 @@ class FractionTest extends AbstractLangTest {
             assertThrows(ArithmeticException.class, () -> fraction.pow(power), message);
             return;
         }
-        // The providers bound these exponents to keep the exact expected values small.
+        // The callers bound these exponents to keep the exact expected values small.
         final BigInteger numerator = BigInteger.valueOf(fraction.getNumerator()).pow(Math.abs(power));
         final BigInteger denominator = BigInteger.valueOf(fraction.getDenominator()).pow(Math.abs(power));
         if (power < 0) {
@@ -274,7 +275,7 @@ class FractionTest extends AbstractLangTest {
         final Fraction overflower = f;
         assertThrows(ArithmeticException.class, () -> overflower.add(Fraction.ONE)); // should overflow
 
-        // denominator should not be a multiple of 2 or 3 to trigger overflow
+        // The reduced numerator would be one below Integer.MIN_VALUE.
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Integer.MIN_VALUE, 5).add(Fraction.getFraction(-1, 5)));
 
         final Fraction maxValue = Fraction.getFraction(Integer.MAX_VALUE, 1);
@@ -310,6 +311,16 @@ class FractionTest extends AbstractLangTest {
             final BigInteger denominator = BigInteger.valueOf(left.getDenominator()).multiply(BigInteger.valueOf(right.getDenominator()));
             assertReducedResult(numerator, denominator, () -> left.add(right), left + " + " + right);
         }
+    }
+
+    @ParameterizedTest(name = "[{index}] add/subtract numerator overflow for {0}/3")
+    @ValueSource(ints = {-Integer.MAX_VALUE, Integer.MAX_VALUE})
+    void testAddSubtractOverflowMessages(final int numerator) {
+        final Fraction fraction = Fraction.getFraction(numerator, 3);
+        final ArithmeticException addException = assertThrows(ArithmeticException.class, () -> fraction.add(fraction));
+        assertEquals("overflow: reduced numerator cannot be represented as an int", addException.getMessage());
+        final ArithmeticException subtractException = assertThrows(ArithmeticException.class, () -> fraction.subtract(fraction.negate()));
+        assertEquals("overflow: reduced numerator cannot be represented as an int", subtractException.getMessage());
     }
 
     @Test
@@ -707,10 +718,17 @@ class FractionTest extends AbstractLangTest {
     }
 
     @ParameterizedTest(name = "[{index}] getFraction({0}) throws")
-    @ValueSource(doubles = {Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, (double) Integer.MAX_VALUE + 1, 2147483646.5d, 1073741824.5d})
+    @ValueSource(doubles = {2147483646.5d, 1073741824.5d})
     void testFactory_doubleInvalid(final double value) {
         // The fractional boundary values must throw instead of overflowing the numerator to a negative value.
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(value));
+    }
+
+    @ParameterizedTest(name = "[{index}] getFraction({0}) rejects NaN or excessive magnitude")
+    @ValueSource(doubles = {Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, (double) Integer.MAX_VALUE + 1, (double) Integer.MIN_VALUE})
+    void testFactory_doubleInvalidMagnitude(final double value) {
+        final ArithmeticException exception = assertThrows(ArithmeticException.class, () -> Fraction.getFraction(value));
+        assertEquals("The value must not be NaN and its absolute value must not exceed Integer.MAX_VALUE", exception.getMessage());
     }
 
     @Test
@@ -728,7 +746,7 @@ class FractionTest extends AbstractLangTest {
                 assertEquals(f2.getDenominator(), f.getDenominator(), message);
             }
         }
-        // save time by skipping some tests! (
+        // Sample larger denominators to keep the round-trip test fast.
         for (int i = 1001; i <= 10000; i += SKIP) { // denominator
             for (int j = 1; j <= i; j++) { // numerator
                 final double value = (double) j / (double) i;
@@ -795,6 +813,13 @@ class FractionTest extends AbstractLangTest {
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(whole, numerator, denominator));
     }
 
+    @ParameterizedTest(name = "[{index}] getFraction({0}, 1, 2) numerator overflow")
+    @ValueSource(ints = {Integer.MIN_VALUE, Integer.MAX_VALUE})
+    void testFactory_int_int_intOverflowMessages(final int whole) {
+        final ArithmeticException exception = assertThrows(ArithmeticException.class, () -> Fraction.getFraction(whole, 1, 2));
+        assertEquals("The resulting numerator cannot be represented as an int", exception.getMessage());
+    }
+
     @ParameterizedTest(name = "[{index}] getFraction({0}, {1}) throws")
     @CsvSource({
         "1, 0",
@@ -813,6 +838,13 @@ class FractionTest extends AbstractLangTest {
     @Test
     void testFactory_String() {
         assertNullPointerException(() -> Fraction.getFraction(null));
+    }
+
+    @ParameterizedTest(name = "[{index}] getFraction({0}) rejects an out-of-range integer component")
+    @ValueSource(strings = {"2147483648/1", "1/2147483648", "2147483648 1/2", "1 2147483648/2", "1 1/2147483648"})
+    void testFactory_String_componentOverflow(final String value) {
+        final NumberFormatException exception = assertThrows(NumberFormatException.class, () -> Fraction.getFraction(value));
+        assertNull(exception.getCause());
     }
 
     @ParameterizedTest(name = "[{index}] getFraction({0})")
@@ -874,7 +906,8 @@ class FractionTest extends AbstractLangTest {
     @ParameterizedTest(name = "[{index}] getFraction({0}) throws")
     @ValueSource(strings = {"2147483648", "-2147483649", "", "+", "-", "1e3"})
     void testFactory_String_integerInvalid(final String value) {
-        assertThrows(NumberFormatException.class, () -> Fraction.getFraction(value));
+        final NumberFormatException exception = assertThrows(NumberFormatException.class, () -> Fraction.getFraction(value));
+        assertNull(exception.getCause());
     }
 
     @ParameterizedTest(name = "[{index}] getFraction({0})")
@@ -899,8 +932,8 @@ class FractionTest extends AbstractLangTest {
     }
 
     /**
-     * Tests that string contents that are well-formed but unrepresentable throw the documented NumberFormatException
-     * (with the ArithmeticException preserved as the cause) instead of an undeclared ArithmeticException.
+     * Tests that arithmetic failures during fraction construction are wrapped in a NumberFormatException
+     * with the ArithmeticException preserved as the cause.
      *
      * @param value A well-formed string whose value cannot be represented.
      */
@@ -916,6 +949,7 @@ class FractionTest extends AbstractLangTest {
     void testFactory_String_unrepresentableThrowsNumberFormatException(final String value) {
         final NumberFormatException exception = assertThrows(NumberFormatException.class, () -> Fraction.getFraction(value));
         assertInstanceOf(ArithmeticException.class, exception.getCause());
+        assertEquals("The fraction could not be parsed from '" + value + "': " + exception.getCause().getMessage(), exception.getMessage());
     }
 
     @Test
@@ -1514,7 +1548,7 @@ class FractionTest extends AbstractLangTest {
         // Should overflow
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(1, Integer.MAX_VALUE).subtract(Fraction.getFraction(1, Integer.MAX_VALUE - 1)));
 
-        // denominator should not be a multiple of 2 or 3 to trigger overflow
+        // The reduced numerator would be one below Integer.MIN_VALUE.
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Integer.MIN_VALUE, 5).subtract(Fraction.getFraction(1, 5)));
 
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Integer.MIN_VALUE, 1).subtract(Fraction.ONE));

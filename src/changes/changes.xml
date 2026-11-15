@@ -63,6 +63,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Improve Fraction double-conversion test diagnostics and verify preserved ArithmeticException causes for all six unrepresentable-string regression cases.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Fix premature overflow in Fraction.getFraction(double) and decimal-string parsing for representable Integer.MIN_VALUE numerators, with boundary tests for every denominator from 1 through 10,000.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Complete Fraction coverage for integer-string parsing, negation overflow, GCD boundaries, and double-conversion limits; remove redundant iteration guards.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Correct Fraction overflow and parsing Javadoc, exception messages, and serialization test documentation.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
