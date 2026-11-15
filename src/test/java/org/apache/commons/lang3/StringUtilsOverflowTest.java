@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Method;
@@ -77,6 +78,42 @@ class StringUtilsOverflowTest extends AbstractLangTest {
         final StringBuilder builder = (StringBuilder) method.invoke(null, estimate);
         assertEquals(new StringBuilder().capacity(), builder.capacity());
         assertEquals("result", builder.append("result").toString());
+    }
+
+    /**
+     * Exercises counts immediately below and above overflow of the former intermediate length, with and without non-empty repeated text.
+     */
+    @ParameterizedTest
+    @CsvSource({
+        "'', 21474835, 2147483400",
+        "'', 21474836, 2147483500",
+        "'', 21474837, 2147483600",
+        "x, 21262213, 2147483413",
+        "x, 21262214, 2147483514",
+        "x, 21262215, 2147483615"
+    })
+    @EnabledIfSystemProperty(named = "test.stringutils.large.heap", matches = "true")
+    void testRepeatWithSeparatorLengthBoundaries(final String text, final int count, final int expectedLength) {
+        final String separator = new String(new byte[100], StandardCharsets.ISO_8859_1);
+        final String result = StringUtils.repeat(text, separator, count);
+        final int textCount = text.isEmpty() ? 0 : count;
+        assertEquals(expectedLength, result.length());
+        assertEquals(textCount, StringUtils.countMatches(result, 'x'));
+        assertEquals(expectedLength - textCount, StringUtils.countMatches(result, '\0'));
+        assertTrue(result.startsWith(text + separator + text));
+        assertTrue(result.endsWith(text + separator + text));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "a, b, 1073741825",
+        "'', ab, 1073741825",
+        "ab, '', 1073741824",
+        "abc, d, 536870913",
+        "ab, cd, 2147483647"
+    })
+    void testRepeatWithSeparatorRejectsUnrepresentableLength(final String text, final String separator, final int count) {
+        assertThrows(IllegalArgumentException.class, () -> StringUtils.repeat(text, separator, count));
     }
 
     @Test

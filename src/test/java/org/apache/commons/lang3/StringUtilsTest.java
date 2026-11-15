@@ -52,6 +52,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
@@ -1964,6 +1965,39 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("xx", StringUtils.repeat("", "x", 3));
         assertEquals("?, ?, ?", StringUtils.repeat("?", ", ", 3));
         assertThrows(IllegalArgumentException.class, () -> StringUtils.repeat("?", ", ", 1_073_741_824));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "'', ab, 4, ababab",
+        "'', abc, 3, abcabc",
+        "ab, ab, 2, ababab",
+        "a-, -, 3, a--a--a-",
+        "\uD83D\uDE00, \uD83D\uDE80, 3, \uD83D\uDE00\uD83D\uDE80\uD83D\uDE00\uD83D\uDE80\uD83D\uDE00"
+    })
+    void testRepeatWithSeparatorContent(final String text, final String separator, final int count, final String expected) {
+        assertEquals(expected, StringUtils.repeat(text, separator, count));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { Integer.MIN_VALUE, -1, 0 })
+    void testRepeatWithSeparatorNonPositiveCount(final int count) {
+        assertEquals("", StringUtils.repeat("ab", "<>", count));
+        assertEquals("", StringUtils.repeat("", "<>", count));
+        assertNull(StringUtils.repeat(null, "<>", count));
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void testRepeatWithSeparatorNullOrEmpty(final String separator) {
+        assertEquals("ababab", StringUtils.repeat("ab", separator, 3));
+        assertEquals("", StringUtils.repeat("", separator, Integer.MAX_VALUE));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "", "ab" })
+    void testRepeatWithSeparatorSingleCopy(final String text) {
+        assertEquals(text, StringUtils.repeat(text, "unused", 1));
     }
 
     /**

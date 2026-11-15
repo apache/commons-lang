@@ -6264,7 +6264,7 @@ public class StringUtils {
     }
 
     /**
-     * Repeats a String {@code repeat} times to form a new String, with a String separator injected each time.
+     * Repeats a String {@code count} times, with a separator between successive copies.
      *
      * <pre>
      * StringUtils.repeat(null, null, 2) = null
@@ -6278,16 +6278,33 @@ public class StringUtils {
      * @param repeat    The String to repeat, may be null.
      * @param separator The String to inject, may be null.
      * @param count     number of times to repeat str, negative treated as zero.
-     * @return A new String consisting of the original String repeated, {@code null} if null String input.
+     * @return A String consisting of the original String repeated with separators, {@code null} if null String input.
+     * @throws IllegalArgumentException if the requested result length exceeds {@link Integer#MAX_VALUE}.
      * @since 2.5
      */
     public static String repeat(final String repeat, final String separator, final int count) {
-        if (repeat == null || separator == null) {
+        if (repeat == null || isEmpty(separator)) {
             return repeat(repeat, count);
         }
-        // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
-        final String result = repeat(repeat + separator, count);
-        return Strings.CS.removeEnd(result, separator);
+        if (count <= 0) {
+            return EMPTY;
+        }
+        if (count == 1) {
+            return repeat;
+        }
+        if (repeat.isEmpty()) {
+            return repeat(separator, count - 1);
+        }
+        final long outputLength = (long) repeat.length() * count + (long) separator.length() * (count - 1);
+        if (outputLength > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("The requested result is too large for a String.");
+        }
+        final StringBuilder builder = new StringBuilder((int) outputLength);
+        builder.append(repeat);
+        for (int i = 1; i < count; i++) {
+            builder.append(separator).append(repeat);
+        }
+        return builder.toString();
     }
 
     /**

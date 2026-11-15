@@ -92,6 +92,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Correct NumberUtils.createNumber(String) result types for negative hexadecimal minima: Integer.MIN_VALUE now returns Integer instead of Long, and Long.MIN_VALUE returns Long instead of BigInteger; numeric values are unchanged (#1877).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, simpleqt">Fix integer overflow in StringUtils.join range handling.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent capacity overflow in StringUtils.wrapIfMissing(String, String) when only one wrapper is missing and the result is representable.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent premature length overflow in StringUtils.repeat(String, String, int) when the final result is representable but the intermediate result with a trailing separator is not.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
