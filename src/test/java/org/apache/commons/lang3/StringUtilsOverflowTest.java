@@ -17,7 +17,6 @@
 
 package org.apache.commons.lang3;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -122,9 +121,8 @@ class StringUtilsOverflowTest extends AbstractLangTest {
         // Multiplication by three overflows even before estimates from different rules are added.
         final String[] search = { "a", "z" };
         final String[] replacement = { "b", StringUtils.repeat('x', Integer.MAX_VALUE / 3 + 2) };
-        assertAll(
-                () -> assertEquals("b", StringUtils.replaceEach("a", search, replacement)),
-                () -> assertEquals("b", StringUtils.replaceEachRepeatedly("a", search, replacement)));
+        assertEquals("b", StringUtils.replaceEach("a", search, replacement));
+        assertEquals("b", StringUtils.replaceEachRepeatedly("a", search, replacement));
     }
 
     @Test
@@ -134,9 +132,8 @@ class StringUtilsOverflowTest extends AbstractLangTest {
         final String text = new String(new byte[1_800_000_000], StandardCharsets.ISO_8859_1);
         final String[] search = { text, "a" };
         final String[] replacement = { "", text };
-        assertAll(
-                () -> assertEquals("", StringUtils.replaceEach(text, search, replacement)),
-                () -> assertEquals("", StringUtils.replaceEachRepeatedly(text, search, replacement)));
+        assertEquals("", StringUtils.replaceEach(text, search, replacement));
+        assertEquals("", StringUtils.replaceEachRepeatedly(text, search, replacement));
     }
 
     @ParameterizedTest
@@ -148,9 +145,8 @@ class StringUtilsOverflowTest extends AbstractLangTest {
         Arrays.fill(replacement, StringUtils.repeat('x', 1_000_001));
         search[0] = "a";
         replacement[0] = "b";
-        assertAll(
-                () -> assertEquals("b", StringUtils.replaceEach("a", search, replacement)),
-                () -> assertEquals("b", StringUtils.replaceEachRepeatedly("a", search, replacement)));
+        assertEquals("b", StringUtils.replaceEach("a", search, replacement));
+        assertEquals("b", StringUtils.replaceEachRepeatedly("a", search, replacement));
     }
 
     @Test
