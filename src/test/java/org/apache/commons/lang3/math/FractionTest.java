@@ -347,6 +347,18 @@ class FractionTest extends AbstractLangTest {
 
     }
 
+    @ParameterizedTest(name = "[{index}] compare {0} to {1}")
+    @MethodSource("arithmeticBoundaryValues")
+    void testCompareToBoundaryValues(final Fraction left, final Fraction right) {
+        // Compare exact cross-products to check ordering without fixed-width overflow.
+        final BigInteger leftProduct = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getDenominator()));
+        final BigInteger rightProduct = BigInteger.valueOf(right.getNumerator()).multiply(BigInteger.valueOf(left.getDenominator()));
+        final int expected = leftProduct.compareTo(rightProduct);
+        final int actual = Integer.signum(left.compareTo(right));
+        assertEquals(expected, actual);
+        assertEquals(-actual, Integer.signum(right.compareTo(left)));
+    }
+
     @Test
     void testConstants() {
         assertEquals(0, Fraction.ZERO.getNumerator());
