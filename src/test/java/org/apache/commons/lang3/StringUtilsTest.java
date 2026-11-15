@@ -1180,6 +1180,8 @@ class StringUtilsTest extends AbstractLangTest {
         assertEquals("", StringUtils.join(MIXED_ARRAY_LIST, null, 0, MIXED_ARRAY_LIST.length - 1));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(ARRAY_LIST, null, 0, ARRAY_LIST.length));
         assertEquals("abc", StringUtils.join(new String[] { "a", "b", "c" }, null, 0, 3));
+        assertEquals("bc", StringUtils.join(new String[] { "a", "b", "c" }, null, 1, 3));
+        assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, null, 0, 0));
         assertEquals("", StringUtils.join(new String[] { "a", "b", "c" }, null, 2, 2));
     }
 

@@ -4713,10 +4713,9 @@ public class StringUtils {
      * @param delimiter  The separator character to use, null treated as "".
      * @param startIndex The first index to start joining from.
      * @param endIndex   The index to stop joining from (exclusive).
-     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex - startIndex <= 0}. The number of joined entries is
-     *         given by {@code endIndex - startIndex}.
-     * @throws ArrayIndexOutOfBoundsException Thrown if<br> {@code startIndex < 0} or <br> {@code startIndex >= array.length()} or <br> {@code endIndex < 0} or
-     *         <br> {@code endIndex > array.length()}.
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex - startIndex <= 0}.
+     *         Otherwise, at most {@code endIndex - startIndex} entries are joined, limited by the number of entries remaining in the array.
+     * @throws IllegalArgumentException if the array is non-null and {@code startIndex < 0}.
      */
     public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
         return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
