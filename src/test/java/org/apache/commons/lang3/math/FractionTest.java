@@ -50,7 +50,7 @@ class FractionTest extends AbstractLangTest {
 
     private static final int SKIP = 500; // 53
 
-    private static Stream<Arguments> arithmeticBoundaryValues() {
+    private static List<Fraction> arithmeticBoundaryValues() {
         final int[] numerators = {
             Integer.MIN_VALUE, Integer.MIN_VALUE + 1, -1073741824, -46341, -2, -1, 0, 1, 2, 46341, 1073741824,
             Integer.MAX_VALUE - 1, Integer.MAX_VALUE
@@ -63,26 +63,27 @@ class FractionTest extends AbstractLangTest {
                 fractions.add(Fraction.getFraction(numerator, denominator));
             }
         }
-        return fractions.stream()
-                .flatMap(left -> fractions.stream().map(right -> Arguments.of(left, right)));
+        return fractions;
     }
 
     private static void assertPowResult(final Fraction fraction, final int power) {
+        final String message = "(" + fraction + ")^" + power;
         if (fraction.getNumerator() == 0 && power < 0) {
-            assertThrows(ArithmeticException.class, () -> fraction.pow(power));
+            assertThrows(ArithmeticException.class, () -> fraction.pow(power), message);
             return;
         }
         // The providers bound these exponents to keep the exact expected values small.
         final BigInteger numerator = BigInteger.valueOf(fraction.getNumerator()).pow(Math.abs(power));
         final BigInteger denominator = BigInteger.valueOf(fraction.getDenominator()).pow(Math.abs(power));
         if (power < 0) {
-            assertReducedResult(denominator.multiply(BigInteger.valueOf(numerator.signum())), numerator.abs(), () -> fraction.pow(power));
+            assertReducedResult(denominator.multiply(BigInteger.valueOf(numerator.signum())), numerator.abs(), () -> fraction.pow(power), message);
         } else {
-            assertReducedResult(numerator, denominator, () -> fraction.pow(power));
+            assertReducedResult(numerator, denominator, () -> fraction.pow(power), message);
         }
     }
 
-    private static void assertReducedResult(final BigInteger numerator, final BigInteger denominator, final Supplier<Fraction> operation) {
+    private static void assertReducedResult(final BigInteger numerator, final BigInteger denominator, final Supplier<Fraction> operation,
+            final String message) {
         // Use arbitrary-precision arithmetic as an independent oracle for the reduced result and its range.
         final BigInteger gcd = numerator.gcd(denominator);
         final BigInteger expectedNumerator = numerator.divide(gcd);
@@ -91,22 +92,20 @@ class FractionTest extends AbstractLangTest {
         final BigInteger maxValue = BigInteger.valueOf(Integer.MAX_VALUE);
         if (expectedNumerator.compareTo(minValue) < 0 || expectedNumerator.compareTo(maxValue) > 0
                 || expectedDenominator.compareTo(maxValue) > 0) {
-            assertThrows(ArithmeticException.class, operation::get);
+            assertThrows(ArithmeticException.class, operation::get, message);
         } else {
-            final Fraction result = operation.get();
-            assertEquals(expectedNumerator.intValueExact(), result.getNumerator());
-            assertEquals(expectedDenominator.intValueExact(), result.getDenominator());
+            final Fraction result = assertDoesNotThrow(operation::get, message);
+            assertEquals(expectedNumerator.intValueExact(), result.getNumerator(), message);
+            assertEquals(expectedDenominator.intValueExact(), result.getDenominator(), message);
         }
     }
 
-    private static Stream<Arguments> factoryDoubleBoundaryValues() {
+    private static LongStream factoryDoubleBoundaryValues() {
         final long[] numerators = {
             (long) Integer.MIN_VALUE - 2, (long) Integer.MIN_VALUE - 1, Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 2,
             Integer.MAX_VALUE - 2, Integer.MAX_VALUE - 1, Integer.MAX_VALUE, (long) Integer.MAX_VALUE + 1, (long) Integer.MAX_VALUE + 2
         };
-        // Exercise every supported denominator, including all reduced minimum-value numerators and both neighboring range limits.
-        return LongStream.of(numerators).boxed()
-                .flatMap(numerator -> IntStream.rangeClosed(1, 10000).mapToObj(denominator -> Arguments.of(numerator, denominator)));
+        return LongStream.of(numerators);
     }
 
     private static Stream<Arguments> factoryDoubleValues() {
@@ -139,18 +138,6 @@ class FractionTest extends AbstractLangTest {
     private static Stream<Arguments> powExtremeValues() {
         return powBaseValues().flatMap(fraction -> IntStream.of(Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MAX_VALUE - 1, Integer.MAX_VALUE)
                 .mapToObj(power -> Arguments.of(fraction, power)));
-    }
-
-    private static Stream<Arguments> powIntegerMinValueValues() {
-        // After cancellation, the reciprocal denominator is 2^(31 - trailingZeros(denominator)).
-        // Raising it to a power of at least two fits a positive int only if the original denominator is a multiple of 2^16.
-        // The reciprocal numerator has smaller magnitude, so fitting the denominator is sufficient.
-        // Enumerate every such denominator and every representable power, plus the first overflowing power.
-        return IntStream.range(1, 1 << 15).boxed().flatMap(factor -> {
-            final int denominator = factor << 16;
-            final int maxPower = 30 / (31 - Integer.numberOfTrailingZeros(denominator));
-            return IntStream.rangeClosed(2, maxPower + 1).mapToObj(power -> Arguments.of(denominator, -power));
-        });
     }
 
     @ParameterizedTest(name = "[{index}] abs({0}/{1})")
@@ -284,13 +271,15 @@ class FractionTest extends AbstractLangTest {
         assertEquals(2114962910, f.getDenominator());
     }
 
-    @ParameterizedTest(name = "[{index}] {0} + {1}")
+    @ParameterizedTest(name = "[{index}] {0} + boundary fractions")
     @MethodSource("arithmeticBoundaryValues")
-    void testAddBoundaryValues(final Fraction left, final Fraction right) {
-        final BigInteger numerator = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getDenominator()))
-                .add(BigInteger.valueOf(right.getNumerator()).multiply(BigInteger.valueOf(left.getDenominator())));
-        final BigInteger denominator = BigInteger.valueOf(left.getDenominator()).multiply(BigInteger.valueOf(right.getDenominator()));
-        assertReducedResult(numerator, denominator, () -> left.add(right));
+    void testAddBoundaryValues(final Fraction left) {
+        for (final Fraction right : arithmeticBoundaryValues()) {
+            final BigInteger numerator = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getDenominator()))
+                    .add(BigInteger.valueOf(right.getNumerator()).multiply(BigInteger.valueOf(left.getDenominator())));
+            final BigInteger denominator = BigInteger.valueOf(left.getDenominator()).multiply(BigInteger.valueOf(right.getDenominator()));
+            assertReducedResult(numerator, denominator, () -> left.add(right), left + " + " + right);
+        }
     }
 
     @Test
@@ -412,16 +401,19 @@ class FractionTest extends AbstractLangTest {
 
     }
 
-    @ParameterizedTest(name = "[{index}] compare {0} to {1}")
+    @ParameterizedTest(name = "[{index}] compare {0} to boundary fractions")
     @MethodSource("arithmeticBoundaryValues")
-    void testCompareToBoundaryValues(final Fraction left, final Fraction right) {
-        // Compare exact cross-products to check ordering without fixed-width overflow.
-        final BigInteger leftProduct = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getDenominator()));
-        final BigInteger rightProduct = BigInteger.valueOf(right.getNumerator()).multiply(BigInteger.valueOf(left.getDenominator()));
-        final int expected = leftProduct.compareTo(rightProduct);
-        final int actual = Integer.signum(left.compareTo(right));
-        assertEquals(expected, actual);
-        assertEquals(-actual, Integer.signum(right.compareTo(left)));
+    void testCompareToBoundaryValues(final Fraction left) {
+        for (final Fraction right : arithmeticBoundaryValues()) {
+            final String message = "compare " + left + " to " + right;
+            // Compare exact cross-products to check ordering without fixed-width overflow.
+            final BigInteger leftProduct = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getDenominator()));
+            final BigInteger rightProduct = BigInteger.valueOf(right.getNumerator()).multiply(BigInteger.valueOf(left.getDenominator()));
+            final int expected = leftProduct.compareTo(rightProduct);
+            final int actual = Integer.signum(assertDoesNotThrow(() -> left.compareTo(right), message));
+            assertEquals(expected, actual, message);
+            assertEquals(-actual, Integer.signum(assertDoesNotThrow(() -> right.compareTo(left), message)), message);
+        }
     }
 
     @Test
@@ -524,32 +516,35 @@ class FractionTest extends AbstractLangTest {
         assertEquals(463410000, f.getDenominator());
     }
 
-    @ParameterizedTest(name = "[{index}] {0} / {1}")
+    @ParameterizedTest(name = "[{index}] {0} / boundary fractions")
     @MethodSource("arithmeticBoundaryValues")
-    void testDivideBoundaryValues(final Fraction dividend, final Fraction divisor) {
-        if (divisor.getNumerator() == 0) {
-            assertThrows(ArithmeticException.class, () -> dividend.divideBy(divisor));
-            return;
-        }
+    void testDivideBoundaryValues(final Fraction dividend) {
+        for (final Fraction divisor : arithmeticBoundaryValues()) {
+            final String message = "(" + dividend + ") / (" + divisor + ")";
+            if (divisor.getNumerator() == 0) {
+                assertThrows(ArithmeticException.class, () -> dividend.divideBy(divisor), message);
+                continue;
+            }
 
-        // Use arbitrary-precision arithmetic as an independent oracle for the reduced quotient and its range.
-        final BigInteger numerator = BigInteger.valueOf(dividend.getNumerator()).multiply(BigInteger.valueOf(divisor.getDenominator()));
-        final BigInteger denominator = BigInteger.valueOf(dividend.getDenominator()).multiply(BigInteger.valueOf(divisor.getNumerator()));
-        final BigInteger signedGcd = numerator.gcd(denominator).multiply(BigInteger.valueOf(denominator.signum()));
-        final BigInteger expectedNumerator = numerator.divide(signedGcd);
-        final BigInteger expectedDenominator = denominator.divide(signedGcd);
-        final BigInteger minValue = BigInteger.valueOf(Integer.MIN_VALUE);
-        final BigInteger maxValue = BigInteger.valueOf(Integer.MAX_VALUE);
+            // Use arbitrary-precision arithmetic as an independent oracle for the reduced quotient and its range.
+            final BigInteger numerator = BigInteger.valueOf(dividend.getNumerator()).multiply(BigInteger.valueOf(divisor.getDenominator()));
+            final BigInteger denominator = BigInteger.valueOf(dividend.getDenominator()).multiply(BigInteger.valueOf(divisor.getNumerator()));
+            final BigInteger signedGcd = numerator.gcd(denominator).multiply(BigInteger.valueOf(denominator.signum()));
+            final BigInteger expectedNumerator = numerator.divide(signedGcd);
+            final BigInteger expectedDenominator = denominator.divide(signedGcd);
+            final BigInteger minValue = BigInteger.valueOf(Integer.MIN_VALUE);
+            final BigInteger maxValue = BigInteger.valueOf(Integer.MAX_VALUE);
 
-        if (expectedNumerator.compareTo(minValue) < 0 || expectedNumerator.compareTo(maxValue) > 0
-                || expectedDenominator.compareTo(maxValue) > 0) {
-            assertThrows(ArithmeticException.class, () -> dividend.divideBy(divisor));
-        } else {
-            final Fraction quotient = dividend.divideBy(divisor);
-            assertEquals(expectedNumerator.intValueExact(), quotient.getNumerator());
-            assertEquals(expectedDenominator.intValueExact(), quotient.getDenominator());
-            if (expectedNumerator.signum() == 0) {
-                assertSame(Fraction.ZERO, quotient);
+            if (expectedNumerator.compareTo(minValue) < 0 || expectedNumerator.compareTo(maxValue) > 0
+                    || expectedDenominator.compareTo(maxValue) > 0) {
+                assertThrows(ArithmeticException.class, () -> dividend.divideBy(divisor), message);
+            } else {
+                final Fraction quotient = assertDoesNotThrow(() -> dividend.divideBy(divisor), message);
+                assertEquals(expectedNumerator.intValueExact(), quotient.getNumerator(), message);
+                assertEquals(expectedDenominator.intValueExact(), quotient.getDenominator(), message);
+                if (expectedNumerator.signum() == 0) {
+                    assertSame(Fraction.ZERO, quotient, message);
+                }
             }
         }
     }
@@ -631,29 +626,33 @@ class FractionTest extends AbstractLangTest {
         assertEquals(expectedDenominator, result.getDenominator());
     }
 
-    @ParameterizedTest(name = "[{index}] getFraction({0}/{1}) via double and string")
+    @ParameterizedTest(name = "[{index}] getFraction({0}/denominator) via double and string")
     @MethodSource("factoryDoubleBoundaryValues")
-    void testFactory_doubleAndStringBoundaryValues(final long numerator, final int denominator) {
-        final double value = (double) numerator / denominator;
-        final String text = Double.toString(value);
-        final BigInteger bigNumerator = BigInteger.valueOf(numerator);
-        final BigInteger bigDenominator = BigInteger.valueOf(denominator);
-        final BigInteger gcd = bigNumerator.gcd(bigDenominator);
-        final BigInteger expectedNumerator = bigNumerator.divide(gcd);
-        final BigInteger expectedDenominator = bigDenominator.divide(gcd);
-        final BigInteger minValue = BigInteger.valueOf(Integer.MIN_VALUE);
-        final BigInteger maxValue = BigInteger.valueOf(Integer.MAX_VALUE);
-        // The double factory also imposes a documented magnitude limit on the input itself.
-        if (Math.abs(value) > Integer.MAX_VALUE || expectedNumerator.compareTo(minValue) < 0 || expectedNumerator.compareTo(maxValue) > 0) {
-            assertThrows(ArithmeticException.class, () -> Fraction.getFraction(value));
-            final NumberFormatException exception = assertThrows(NumberFormatException.class, () -> Fraction.getFraction(text));
-            assertInstanceOf(ArithmeticException.class, exception.getCause());
-        } else {
-            final Fraction result = Fraction.getFraction(value);
-            assertEquals(expectedNumerator.intValueExact(), result.getNumerator());
-            assertEquals(expectedDenominator.intValueExact(), result.getDenominator());
-            assertEquals(value, result.doubleValue());
-            assertEquals(result, Fraction.getFraction(text));
+    void testFactory_doubleAndStringBoundaryValues(final long numerator) {
+        // Exercise every supported denominator, including all reduced minimum-value numerators and both neighboring range limits.
+        for (int denominator = 1; denominator <= 10000; denominator++) {
+            final double value = (double) numerator / denominator;
+            final String text = Double.toString(value);
+            final String message = numerator + "/" + denominator + " (" + text + ")";
+            final BigInteger bigNumerator = BigInteger.valueOf(numerator);
+            final BigInteger bigDenominator = BigInteger.valueOf(denominator);
+            final BigInteger gcd = bigNumerator.gcd(bigDenominator);
+            final BigInteger expectedNumerator = bigNumerator.divide(gcd);
+            final BigInteger expectedDenominator = bigDenominator.divide(gcd);
+            final BigInteger minValue = BigInteger.valueOf(Integer.MIN_VALUE);
+            final BigInteger maxValue = BigInteger.valueOf(Integer.MAX_VALUE);
+            // The double factory also imposes a documented magnitude limit on the input itself.
+            if (Math.abs(value) > Integer.MAX_VALUE || expectedNumerator.compareTo(minValue) < 0 || expectedNumerator.compareTo(maxValue) > 0) {
+                assertThrows(ArithmeticException.class, () -> Fraction.getFraction(value), message);
+                final NumberFormatException exception = assertThrows(NumberFormatException.class, () -> Fraction.getFraction(text), message);
+                assertInstanceOf(ArithmeticException.class, exception.getCause(), message);
+            } else {
+                final Fraction result = assertDoesNotThrow(() -> Fraction.getFraction(value), message);
+                assertEquals(expectedNumerator.intValueExact(), result.getNumerator(), message);
+                assertEquals(expectedDenominator.intValueExact(), result.getDenominator(), message);
+                assertEquals(value, result.doubleValue(), message);
+                assertEquals(result, assertDoesNotThrow(() -> Fraction.getFraction(text), message), message);
+            }
         }
     }
 
@@ -1000,16 +999,19 @@ class FractionTest extends AbstractLangTest {
         assertEquals(100000000, f.getDenominator());
     }
 
-    @ParameterizedTest(name = "[{index}] {0} * {1}")
+    @ParameterizedTest(name = "[{index}] {0} * boundary fractions")
     @MethodSource("arithmeticBoundaryValues")
-    void testMultiplyBoundaryValues(final Fraction left, final Fraction right) {
-        if (left.getNumerator() == 0 || right.getNumerator() == 0) {
-            assertSame(Fraction.ZERO, left.multiplyBy(right));
-            return;
+    void testMultiplyBoundaryValues(final Fraction left) {
+        for (final Fraction right : arithmeticBoundaryValues()) {
+            final String message = left + " * " + right;
+            if (left.getNumerator() == 0 || right.getNumerator() == 0) {
+                assertSame(Fraction.ZERO, assertDoesNotThrow(() -> left.multiplyBy(right), message), message);
+                continue;
+            }
+            final BigInteger numerator = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getNumerator()));
+            final BigInteger denominator = BigInteger.valueOf(left.getDenominator()).multiply(BigInteger.valueOf(right.getDenominator()));
+            assertReducedResult(numerator, denominator, () -> left.multiplyBy(right), message);
         }
-        final BigInteger numerator = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getNumerator()));
-        final BigInteger denominator = BigInteger.valueOf(left.getDenominator()).multiply(BigInteger.valueOf(right.getDenominator()));
-        assertReducedResult(numerator, denominator, () -> left.multiplyBy(right));
     }
 
     @ParameterizedTest(name = "[{index}] negate({0}/{1})")
@@ -1150,10 +1152,21 @@ class FractionTest extends AbstractLangTest {
         }
     }
 
-    @ParameterizedTest(name = "[{index}] (-2147483648/{0})^{1}")
-    @MethodSource("powIntegerMinValueValues")
-    void testPowIntegerMinValue(final int denominator, final int power) {
-        assertPowResult(Fraction.getFraction(Integer.MIN_VALUE, denominator), power);
+    @ParameterizedTest(name = "[{index}] reduced reciprocal denominator 2^{0}")
+    @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15})
+    void testPowIntegerMinValue(final int reciprocalDenominatorExponent) {
+        // After cancellation, the reciprocal denominator is 2^(31 - trailingZeros(denominator)).
+        // Raising it to a power of at least two fits a positive int only if this exponent is at most 15.
+        // The reciprocal numerator has smaller magnitude, so fitting the denominator is sufficient.
+        // Group by this exponent, enumerating every denominator and representable power, plus the first overflowing power.
+        final int maxPower = 30 / reciprocalDenominatorExponent;
+        for (int oddFactor = 1; oddFactor < 1 << reciprocalDenominatorExponent; oddFactor += 2) {
+            final int denominator = oddFactor << (31 - reciprocalDenominatorExponent);
+            final Fraction fraction = Fraction.getFraction(Integer.MIN_VALUE, denominator);
+            for (int power = 2; power <= maxPower + 1; power++) {
+                assertPowResult(fraction, -power);
+            }
+        }
     }
 
     @ParameterizedTest(name = "[{index}] (-2147483648/{0})^{1}")
@@ -1409,13 +1422,15 @@ class FractionTest extends AbstractLangTest {
         assertEquals(2, f.getDenominator());
     }
 
-    @ParameterizedTest(name = "[{index}] {0} - {1}")
+    @ParameterizedTest(name = "[{index}] {0} - boundary fractions")
     @MethodSource("arithmeticBoundaryValues")
-    void testSubtractBoundaryValues(final Fraction left, final Fraction right) {
-        final BigInteger numerator = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getDenominator()))
-                .subtract(BigInteger.valueOf(right.getNumerator()).multiply(BigInteger.valueOf(left.getDenominator())));
-        final BigInteger denominator = BigInteger.valueOf(left.getDenominator()).multiply(BigInteger.valueOf(right.getDenominator()));
-        assertReducedResult(numerator, denominator, () -> left.subtract(right));
+    void testSubtractBoundaryValues(final Fraction left) {
+        for (final Fraction right : arithmeticBoundaryValues()) {
+            final BigInteger numerator = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getDenominator()))
+                    .subtract(BigInteger.valueOf(right.getNumerator()).multiply(BigInteger.valueOf(left.getDenominator())));
+            final BigInteger denominator = BigInteger.valueOf(left.getDenominator()).multiply(BigInteger.valueOf(right.getDenominator()));
+            assertReducedResult(numerator, denominator, () -> left.subtract(right), left + " - " + right);
+        }
     }
 
     @Test
