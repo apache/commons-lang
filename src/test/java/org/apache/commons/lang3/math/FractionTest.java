@@ -31,6 +31,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -65,6 +66,21 @@ class FractionTest extends AbstractLangTest {
                 .flatMap(left -> fractions.stream().map(right -> Arguments.of(left, right)));
     }
 
+    private static void assertPowResult(final Fraction fraction, final int power) {
+        if (fraction.getNumerator() == 0 && power < 0) {
+            assertThrows(ArithmeticException.class, () -> fraction.pow(power));
+            return;
+        }
+        // The providers bound these exponents to keep the exact expected values small.
+        final BigInteger numerator = BigInteger.valueOf(fraction.getNumerator()).pow(Math.abs(power));
+        final BigInteger denominator = BigInteger.valueOf(fraction.getDenominator()).pow(Math.abs(power));
+        if (power < 0) {
+            assertReducedResult(denominator.multiply(BigInteger.valueOf(numerator.signum())), numerator.abs(), () -> fraction.pow(power));
+        } else {
+            assertReducedResult(numerator, denominator, () -> fraction.pow(power));
+        }
+    }
+
     private static void assertReducedResult(final BigInteger numerator, final BigInteger denominator, final Supplier<Fraction> operation) {
         // Use arbitrary-precision arithmetic as an independent oracle for the reduced result and its range.
         final BigInteger gcd = numerator.gcd(denominator);
@@ -91,6 +107,39 @@ class FractionTest extends AbstractLangTest {
             Arguments.of(1.25d, 5, 4),
             Arguments.of(0.66666d, 2, 3),
             Arguments.of(1.0d / 10001d, 0, 1));
+    }
+
+    private static Stream<Fraction> powBaseValues() {
+        final int[] numerators = {
+            Integer.MIN_VALUE, Integer.MIN_VALUE + 1, -1073741824, -46341, -2, -1, 0, 1, 2, 46341, 1073741824,
+            Integer.MAX_VALUE - 1, Integer.MAX_VALUE
+        };
+        final int[] denominators = {1, 2, 3, 4, 46341, 536870912, 1073741824, 1610612736, Integer.MAX_VALUE - 1, Integer.MAX_VALUE};
+        return IntStream.of(numerators).boxed()
+                .flatMap(numerator -> IntStream.of(denominators).mapToObj(denominator -> Fraction.getFraction(numerator, denominator)));
+    }
+
+    private static Stream<Arguments> powBoundaryValues() {
+        return powBaseValues().flatMap(fraction -> IntStream.rangeClosed(-32, 32)
+                .filter(power -> power < -1 || power > 1)
+                .mapToObj(power -> Arguments.of(fraction, power)));
+    }
+
+    private static Stream<Arguments> powExtremeValues() {
+        return powBaseValues().flatMap(fraction -> IntStream.of(Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MAX_VALUE - 1, Integer.MAX_VALUE)
+                .mapToObj(power -> Arguments.of(fraction, power)));
+    }
+
+    private static Stream<Arguments> powIntegerMinValueValues() {
+        // After cancellation, the reciprocal denominator is 2^(31 - trailingZeros(denominator)).
+        // Raising it to a power of at least two fits a positive int only if the original denominator is a multiple of 2^16.
+        // The reciprocal numerator has smaller magnitude, so fitting the denominator is sufficient.
+        // Enumerate every such denominator and every representable power, plus the first overflowing power.
+        return IntStream.range(1, 1 << 15).boxed().flatMap(factor -> {
+            final int denominator = factor << 16;
+            final int maxPower = 30 / (31 - Integer.numberOfTrailingZeros(denominator));
+            return IntStream.rangeClosed(2, maxPower + 1).mapToObj(power -> Arguments.of(denominator, -power));
+        });
     }
 
     @ParameterizedTest(name = "[{index}] abs({0}/{1})")
@@ -1031,6 +1080,56 @@ class FractionTest extends AbstractLangTest {
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(65536, 1).pow(2));
     }
 
+    @ParameterizedTest(name = "[{index}] ({0})^{1}")
+    @MethodSource("powBoundaryValues")
+    void testPowBoundaryValues(final Fraction fraction, final int power) {
+        assertPowResult(fraction, power);
+    }
+
+    @ParameterizedTest(name = "[{index}] ({0})^{1}")
+    @MethodSource("powExtremeValues")
+    void testPowExtremeValues(final Fraction fraction, final int power) {
+        if (fraction.getNumerator() == 0) {
+            if (power < 0) {
+                assertThrows(ArithmeticException.class, () -> fraction.pow(power));
+            } else {
+                assertSame(Fraction.ZERO, fraction.pow(power));
+            }
+        } else if (Math.abs((long) fraction.getNumerator()) == fraction.getDenominator()) {
+            final Fraction result = fraction.pow(power);
+            assertEquals(fraction.getNumerator() < 0 && (power & 1) != 0 ? -1 : 1, result.getNumerator());
+            assertEquals(1, result.getDenominator());
+        } else {
+            // In lowest terms, a numerator or denominator of magnitude at least two cannot fit at these exponents.
+            assertThrows(ArithmeticException.class, () -> fraction.pow(power));
+        }
+    }
+
+    @ParameterizedTest(name = "[{index}] (-2147483648/{0})^{1}")
+    @MethodSource("powIntegerMinValueValues")
+    void testPowIntegerMinValue(final int denominator, final int power) {
+        assertPowResult(Fraction.getFraction(Integer.MIN_VALUE, denominator), power);
+    }
+
+    @ParameterizedTest(name = "[{index}] (-2147483648/{0})^{1}")
+    @CsvSource({
+        "2, -1, -1, 1073741824",
+        "1073741824, -1, -1, 2",
+        "1610612736, -1, -3, 4",
+        "1073741824, -2, 1, 4",
+        "1073741824, -3, -1, 8",
+        "1073741824, -30, 1, 1073741824",
+        "1610612736, -2, 9, 16",
+        "1610612736, -3, -27, 64",
+        "65536, -2, 1, 1073741824",
+        "536870912, -15, -1, 1073741824"
+    })
+    void testPowIntegerMinValueRegression(final int denominator, final int power, final int expectedNumerator, final int expectedDenominator) {
+        final Fraction result = Fraction.getFraction(Integer.MIN_VALUE, denominator).pow(power);
+        assertEquals(expectedNumerator, result.getNumerator());
+        assertEquals(expectedDenominator, result.getDenominator());
+    }
+
     @ParameterizedTest(name = "[{index}] ({0}/{1})^{2}")
     @CsvSource({
         "-2, 3, 2, 4, 9",
@@ -1057,6 +1156,19 @@ class FractionTest extends AbstractLangTest {
         final Fraction result = Fraction.getFraction(-1, 1).pow(power);
         assertEquals(expectedNumerator, result.getNumerator());
         assertEquals(1, result.getDenominator());
+    }
+
+    @ParameterizedTest(name = "[{index}] special powers of {0}")
+    @MethodSource("powBaseValues")
+    void testPowSpecialPowers(final Fraction fraction) {
+        assertSame(Fraction.ONE, fraction.pow(0));
+        assertSame(fraction, fraction.pow(1));
+        if (fraction.getNumerator() == Integer.MIN_VALUE || fraction.getNumerator() == 0) {
+            assertPowResult(fraction, -1);
+        } else {
+            // Preserve the existing unreduced reciprocal whenever inversion already fits.
+            assertEquals(fraction.invert(), fraction.pow(-1));
+        }
     }
 
     @Test

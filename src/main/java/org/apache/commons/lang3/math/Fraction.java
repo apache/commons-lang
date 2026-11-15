@@ -853,14 +853,17 @@ public final class Fraction extends Number implements Comparable<Fraction> {
 
     /**
      * Gets a fraction that is raised to the passed in power.
+     *
      * <p>
-     * The returned fraction is in reduced form.
+     * For powers other than {@code 1} and {@code -1}, the returned fraction is in reduced form. A power of {@code 1} returns this instance unchanged.
+     * A power of {@code -1} returns the unreduced reciprocal unless reduction is necessary to avoid overflow.
      * </p>
      *
      * @param power The power to raise the fraction to
      * @return {@code this} if the power is one, {@link #ONE} if the power is zero (even if the fraction equals ZERO) or a new fraction instance raised to the
      *         appropriate power
-     * @throws ArithmeticException Thrown if the resulting numerator or denominator exceeds {@code Integer.MAX_VALUE}.
+     * @throws ArithmeticException Thrown if this fraction is zero and the power is negative.
+     * @throws ArithmeticException Thrown if the resulting numerator or positive denominator cannot be represented as an {@code int}.
      */
     public Fraction pow(final int power) {
         if (power == 1) {
@@ -870,10 +873,12 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             return ONE;
         }
         if (power < 0) {
+            // Reduce a minimum-value numerator before inversion, while preserving other unreduced reciprocals.
+            final Fraction inverse = (numerator == Integer.MIN_VALUE ? reduce() : this).invert();
             if (power == Integer.MIN_VALUE) { // MIN_VALUE can't be negated.
-                return invert().pow(2).pow(-(power / 2));
+                return inverse.pow(2).pow(-(power / 2));
             }
-            return invert().pow(-power);
+            return inverse.pow(-power);
         }
         final Fraction f = multiplyBy(this);
         if (power % 2 == 0) { // if even...
