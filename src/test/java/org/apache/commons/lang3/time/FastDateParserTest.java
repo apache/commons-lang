@@ -746,6 +746,23 @@ class FastDateParserTest extends AbstractLangTest {
 
     @ParameterizedTest
     @MethodSource(DATE_PARSER_PARAMETERS)
+    void testParseGmt(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) throws ParseException {
+        final Date expected = Date.from(Instant.parse("2023-05-01T08:52:19Z"));
+        for (final String zonePattern : new String[] { "z", "zzz", "Z", "ZZZ" }) {
+            final DateParser parser = getInstance(dpProvider, "EEE, dd MMM yyyy HH:mm:ss " + zonePattern, NEW_YORK, Locale.US);
+            for (final String zoneName : new String[] { "GMT", "gmt", "GmT" }) {
+                final String source = "Mon, 01 May 2023 08:52:19 " + zoneName;
+                final ParsePosition position = new ParsePosition(0);
+                assertEquals(expected, parser.parse(source), source);
+                assertEquals(expected, parser.parse(source, position), source);
+                assertEquals(source.length(), position.getIndex(), source);
+                assertEquals(-1, position.getErrorIndex(), source);
+            }
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource(DATE_PARSER_PARAMETERS)
     void testParseValidTimeZoneOffsetBoundaries(final TriFunction<String, TimeZone, Locale, DateParser> dpProvider) {
         final String prefix = "2024-01-01T00:00:00";
         final String[][] cases = {
