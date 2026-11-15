@@ -1141,6 +1141,40 @@ class FractionTest extends AbstractLangTest {
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(65536, 1).pow(2));
     }
 
+    @ParameterizedTest(name = "[{index}] ({0}/{1})^{2}")
+    @CsvSource({
+        "-2, 3, 2, 4, 9",
+        "-2, 3, 3, -8, 27",
+        "-2, 3, -2, 9, 4",
+        "-2, 3, -3, -27, 8",
+        "-4, 6, 2, 4, 9",
+        "-4, 6, 3, -8, 27",
+        "-4, 6, -2, 9, 4",
+        "-4, 6, -3, -27, 8"
+    })
+    void testPowNegativeBase(final int numerator, final int denominator, final int power, final int expectedNumerator, final int expectedDenominator) {
+        final Fraction result = Fraction.getFraction(numerator, denominator).pow(power);
+        assertEquals(expectedNumerator, result.getNumerator());
+        assertEquals(expectedDenominator, result.getDenominator());
+    }
+
+    @ParameterizedTest(name = "[{index}] (-1)^{0}")
+    @CsvSource({
+        "-2147483648, 1",
+        "2147483647, -1"
+    })
+    void testPowNegativeOne(final int power, final int expectedNumerator) {
+        final Fraction result = Fraction.getFraction(-1, 1).pow(power);
+        assertEquals(expectedNumerator, result.getNumerator());
+        assertEquals(1, result.getDenominator());
+    }
+
+    @Test
+    void testPowZeroToZero() {
+        assertSame(Fraction.ONE, Fraction.ZERO.pow(0));
+        assertSame(Fraction.ONE, Fraction.getFraction(0, 5).pow(0));
+    }
+
     @Test
     void testReduce() {
         Fraction f;
