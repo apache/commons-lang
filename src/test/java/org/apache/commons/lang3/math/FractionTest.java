@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
@@ -44,7 +45,7 @@ class FractionTest extends AbstractLangTest {
 
     private static final int SKIP = 500; // 53
 
-    private static Stream<Arguments> divideBoundaryValues() {
+    private static Stream<Arguments> arithmeticBoundaryValues() {
         final int[] numerators = {
             Integer.MIN_VALUE, Integer.MIN_VALUE + 1, -1073741824, -46341, -2, -1, 0, 1, 2, 46341, 1073741824,
             Integer.MAX_VALUE - 1, Integer.MAX_VALUE
@@ -58,7 +59,24 @@ class FractionTest extends AbstractLangTest {
             }
         }
         return fractions.stream()
-                .flatMap(dividend -> fractions.stream().map(divisor -> Arguments.of(dividend, divisor)));
+                .flatMap(left -> fractions.stream().map(right -> Arguments.of(left, right)));
+    }
+
+    private static void assertReducedResult(final BigInteger numerator, final BigInteger denominator, final Supplier<Fraction> operation) {
+        // Use arbitrary-precision arithmetic as an independent oracle for the reduced result and its range.
+        final BigInteger gcd = numerator.gcd(denominator);
+        final BigInteger expectedNumerator = numerator.divide(gcd);
+        final BigInteger expectedDenominator = denominator.divide(gcd);
+        final BigInteger minValue = BigInteger.valueOf(Integer.MIN_VALUE);
+        final BigInteger maxValue = BigInteger.valueOf(Integer.MAX_VALUE);
+        if (expectedNumerator.compareTo(minValue) < 0 || expectedNumerator.compareTo(maxValue) > 0
+                || expectedDenominator.compareTo(maxValue) > 0) {
+            assertThrows(ArithmeticException.class, operation::get);
+        } else {
+            final Fraction result = operation.get();
+            assertEquals(expectedNumerator.intValueExact(), result.getNumerator());
+            assertEquals(expectedDenominator.intValueExact(), result.getDenominator());
+        }
     }
 
     @Test
@@ -199,6 +217,15 @@ class FractionTest extends AbstractLangTest {
         f = f1.add(f2);
         assertEquals(2082442173, f.getNumerator());
         assertEquals(2114962910, f.getDenominator());
+    }
+
+    @ParameterizedTest(name = "[{index}] {0} + {1}")
+    @MethodSource("arithmeticBoundaryValues")
+    void testAddBoundaryValues(final Fraction left, final Fraction right) {
+        final BigInteger numerator = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getDenominator()))
+                .add(BigInteger.valueOf(right.getNumerator()).multiply(BigInteger.valueOf(left.getDenominator())));
+        final BigInteger denominator = BigInteger.valueOf(left.getDenominator()).multiply(BigInteger.valueOf(right.getDenominator()));
+        assertReducedResult(numerator, denominator, () -> left.add(right));
     }
 
     @Test
@@ -421,7 +448,7 @@ class FractionTest extends AbstractLangTest {
     }
 
     @ParameterizedTest(name = "[{index}] {0} / {1}")
-    @MethodSource("divideBoundaryValues")
+    @MethodSource("arithmeticBoundaryValues")
     void testDivideBoundaryValues(final Fraction dividend, final Fraction divisor) {
         if (divisor.getNumerator() == 0) {
             assertThrows(ArithmeticException.class, () -> dividend.divideBy(divisor));
@@ -971,6 +998,18 @@ class FractionTest extends AbstractLangTest {
         assertEquals(100000000, f.getDenominator());
     }
 
+    @ParameterizedTest(name = "[{index}] {0} * {1}")
+    @MethodSource("arithmeticBoundaryValues")
+    void testMultiplyBoundaryValues(final Fraction left, final Fraction right) {
+        if (left.getNumerator() == 0 || right.getNumerator() == 0) {
+            assertSame(Fraction.ZERO, left.multiplyBy(right));
+            return;
+        }
+        final BigInteger numerator = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getNumerator()));
+        final BigInteger denominator = BigInteger.valueOf(left.getDenominator()).multiply(BigInteger.valueOf(right.getDenominator()));
+        assertReducedResult(numerator, denominator, () -> left.multiplyBy(right));
+    }
+
     @Test
     void testNegate() {
         Fraction f;
@@ -1335,6 +1374,15 @@ class FractionTest extends AbstractLangTest {
         f = f1.subtract(f2);
         assertEquals(-Integer.MAX_VALUE, f.getNumerator());
         assertEquals(2, f.getDenominator());
+    }
+
+    @ParameterizedTest(name = "[{index}] {0} - {1}")
+    @MethodSource("arithmeticBoundaryValues")
+    void testSubtractBoundaryValues(final Fraction left, final Fraction right) {
+        final BigInteger numerator = BigInteger.valueOf(left.getNumerator()).multiply(BigInteger.valueOf(right.getDenominator()))
+                .subtract(BigInteger.valueOf(right.getNumerator()).multiply(BigInteger.valueOf(left.getDenominator())));
+        final BigInteger denominator = BigInteger.valueOf(left.getDenominator()).multiply(BigInteger.valueOf(right.getDenominator()));
+        assertReducedResult(numerator, denominator, () -> left.subtract(right));
     }
 
     @Test
