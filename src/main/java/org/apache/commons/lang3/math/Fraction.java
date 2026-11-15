@@ -870,10 +870,12 @@ public final class Fraction extends Number implements Comparable<Fraction> {
             return ONE;
         }
         if (power < 0) {
+            // Cancel common factors before forming an otherwise unrepresentable reciprocal denominator.
+            final Fraction inverse = numerator == Integer.MIN_VALUE ? reduce().invert() : invert();
             if (power == Integer.MIN_VALUE) { // MIN_VALUE can't be negated.
-                return invert().pow(2).pow(-(power / 2));
+                return inverse.pow(2).pow(-(power / 2));
             }
-            return invert().pow(-power);
+            return inverse.pow(-power);
         }
         final Fraction f = multiplyBy(this);
         if (power % 2 == 0) { // if even...

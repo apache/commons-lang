@@ -1090,6 +1090,27 @@ class FractionTest extends AbstractLangTest {
         assertThrows(ArithmeticException.class, () -> Fraction.getFraction(65536, 1).pow(2));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "2, -1, -1, 1073741824",
+        "4, -1, -1, 536870912",
+        "1073741824, -1, -1, 2",
+        "1073741824, -2, 1, 4",
+        "1073741824, -3, -1, 8",
+        "1073741824, -30, 1, 1073741824",
+        "536870912, -15, -1, 1073741824",
+        "268435456, -10, 1, 1073741824"
+    })
+    void testPowNegativeMinimumNumerator(final int denominator, final int power, final int expectedNumerator, final int expectedDenominator) {
+        assertEquals(Fraction.getFraction(expectedNumerator, expectedDenominator), Fraction.getFraction(Integer.MIN_VALUE, denominator).pow(power));
+    }
+
+    @ParameterizedTest
+    @CsvSource({ "1, -1", "3, -1", "1073741824, -31", "1073741824, -2147483648" })
+    void testPowNegativeMinimumNumeratorOverflow(final int denominator, final int power) {
+        assertThrows(ArithmeticException.class, () -> Fraction.getFraction(Integer.MIN_VALUE, denominator).pow(power));
+    }
+
     @Test
     void testReduce() {
         Fraction f;
