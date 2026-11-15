@@ -519,7 +519,19 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     }
 
     /**
-     * Tests if two {@link Objects}s are equal.
+     * Tests if two {@link Object}s are equal.
+     *
+     * <p>
+     * Arrays of the same primitive type are compared using the corresponding array overload. Two reference arrays are compared using
+     * {@link #append(String, Object[], Object[])}, even when their component types differ. An array paired with {@code null} also uses the corresponding
+     * array overload. Reference-array comparisons are shallow: nested arrays are compared by identity. Differences produced by primitive-array overloads
+     * contain boxed arrays.
+     * </p>
+     *
+     * <p>
+     * Other combinations, including incompatible array types and array/non-array pairs, are compared using {@link Objects#equals(Object, Object)}.
+     * Differences for these combinations retain the original values.
+     * </p>
      *
      * @param fieldName The field name.
      * @param lhs       The left-hand side {@link Object}.
