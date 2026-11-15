@@ -148,15 +148,16 @@ public abstract class Strings {
             if (startPos < 0) {
                 startPos = 0;
             }
-            final int endLimit = str.length() - searchStr.length() + 1;
-            if (startPos >= endLimit) {
+            final int searchStrLength = searchStr.length();
+            final int lastStart = str.length() - searchStrLength;
+            if (startPos > lastStart) {
                 return INDEX_NOT_FOUND;
             }
-            if (searchStr.length() == 0) {
+            if (searchStrLength == 0) {
                 return startPos;
             }
-            for (int i = startPos; i < endLimit; i++) {
-                if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStr.length())) {
+            for (int i = startPos; i <= lastStart; i++) {
+                if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStrLength)) {
                     return i;
                 }
             }
@@ -309,27 +310,30 @@ public abstract class Strings {
     }
 
     /**
-     * Computes a safe initial capacity for the {@link StringBuilder} used by {@link #replace(String, String, String, int)}.
+     * Computes a bounded initial capacity for the {@link StringBuilder} used by {@link #replace(String, String, String, int)}.
+     *
      * <p>
-     * Uses {@code long} arithmetic so that the estimated growth cannot overflow {@code int} when {@code replacementLength} is much greater than
-     * {@code searchLength}, and clamps the result to {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH} so that {@code new StringBuilder(int)} is never invoked with a
-     * value that exceeds the VM's array-size limit.
-     * </p>
-     * <p>
-     * The estimated number of matches is {@code 16} when {@code max} is negative (unbounded), otherwise {@code Math.min(max, 64)}. These multipliers preserve
-     * the historical behavior of the inlined estimate.
+     * Estimates at most 16 replacements when {@code max} is negative, or 64 otherwise, and never more than can fit in the input. Estimated growth is capped
+     * at 20% of the input length, as in {@link StringUtils#replaceEach(String, String[], String[])}, so a large replacement does not force a large speculative
+     * allocation. The builder can grow as needed.
      * </p>
      *
-     * @param textLen        The length of the input text, in characters.
-     * @param searchLen      The length of the search string, in characters.
-     * @param replacementLen The length of the replacement string, in characters.
-     * @param max               The maximum number of replacements, or {@code -1} for no maximum.
-     * @return A non-negative initial capacity, never greater than {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
+     * <p>
+     * Uses {@code long} arithmetic to avoid overflow. If the estimate exceeds {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}, starts with zero capacity instead.
+     * </p>
+     *
+     * @param textLen The non-negative length of the input text, in characters.
+     * @param searchLen The positive length of the search string, in characters.
+     * @param replacementLen The non-negative length of the replacement string, in characters.
+     * @param max The maximum number of replacements, or a negative value for no maximum.
+     * @return A non-negative initial capacity, or zero if the estimate exceeds the array-size limit.
      */
     static int initialCapacity(final int textLen, final int searchLen, final int replacementLen, final int max) {
+        final int estimatedMatches = Math.min(textLen / searchLen, max < 0 ? 16 : Math.min(max, 64));
         final long perReplacementGrowth = Math.max((long) replacementLen - searchLen, 0L);
-        final long totalGrowth = perReplacementGrowth * (max < 0 ? 16 : Math.min(max, 64));
-        return (int) Math.min(textLen + totalGrowth, ArrayUtils.SAFE_MAX_ARRAY_LENGTH);
+        final long growth = Math.min(textLen / 5, perReplacementGrowth * estimatedMatches);
+        final long capacity = textLen + growth;
+        return capacity > ArrayUtils.SAFE_MAX_ARRAY_LENGTH ? 0 : (int) capacity;
     }
 
     /**
@@ -434,7 +438,7 @@ public abstract class Strings {
     }
 
     /**
-     * Compare two Strings lexicographically, like {@link String#compareTo(String)}.
+     * Compares two Strings lexicographically, using this instance's case-sensitivity and null-ordering settings.
      * <p>
      * The return values are:
      * </p>
@@ -445,15 +449,13 @@ public abstract class Strings {
      * </ul>
      *
      * <p>
-     * This is a {@code null} safe version of :
+     * Non-null strings are compared using {@link String#compareTo(String)} for case-sensitive instances and {@link String#compareToIgnoreCase(String)} for
+     * case-insensitive instances.
      * </p>
      *
-     * <pre>
-     * str1.compareTo(str2)
-     * </pre>
-     *
      * <p>
-     * {@code null} value is considered less than non-{@code null} value. Two {@code null} references are considered equal.
+     * The {@link #CS} and {@link #CI} instances consider {@code null} less than non-{@code null}. Instances created with {@link #builder()} use the ordering
+     * configured by {@link Builder#setNullIsLess(boolean)}; the builder defaults to sorting nulls last. Two {@code null} references compare as equal.
      * </p>
      *
      * <p>
@@ -487,10 +489,10 @@ public abstract class Strings {
      * Strings.CI.compare("ab", "ABC")  < 0
      * }</pre>
      *
-     * @see String#compareTo(String)
      * @param str1 The String to compare from
      * @param str2 The String to compare to
      * @return &lt; 0, 0, &gt; 0, if {@code str1} is respectively less, equal or greater than {@code str2}
+     * @see String#compareTo(String)
      */
     public abstract int compare(String str1, String str2);
 
@@ -610,7 +612,7 @@ public abstract class Strings {
      *
      * @param str    The CharSequence to check, may be null.
      * @param suffix The suffix to find, may be null.
-     * @return {@code true} if the CharSequence starts with the prefix or both {@code null}.
+     * @return {@code true} if the CharSequence ends with the suffix or both are {@code null}.
      * @see String#endsWith(String)
      */
     public boolean endsWith(final CharSequence str, final CharSequence suffix) {
@@ -644,9 +646,9 @@ public abstract class Strings {
      *
      * @param sequence      The CharSequence to check, may be null
      * @param searchStrings The CharSequence suffixes to find, may be empty or contain {@code null}
+     * @return {@code true} if the non-empty input ends with any provided suffix; {@code false} if the input is null or empty, the search array is null or
+     *         empty, or no suffix matches.
      * @see Strings#endsWith(CharSequence, CharSequence)
-     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} ends in any
-     *         of the provided {@code searchStrings}.
      */
     public boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
         if (StringUtils.isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
@@ -830,8 +832,9 @@ public abstract class Strings {
      * Finds the first index within a CharSequence, handling {@code null}. This method uses {@link String#indexOf(String, int)} if possible.
      *
      * <p>
-     * A {@code null} CharSequence will return {@code -1}. A negative start position is treated as zero. An empty ("") search CharSequence always matches. A
-     * start position greater than the string length only matches an empty search CharSequence.
+     * A {@code null} input returns {@code -1}. A negative start position is treated as zero. For an empty search, case-sensitive instances return the start
+     * position, clamped to the input length. Case-insensitive instances return the start position when it is at or before the end, or {@code -1} when it is
+     * past the end. For a non-empty search, a start position past the end returns {@code -1}.
      * </p>
      *
      * <p>
@@ -873,14 +876,14 @@ public abstract class Strings {
      * @param seq       The CharSequence to check, may be null
      * @param searchSeq The CharSequence to find, may be null
      * @param startPos  The start position, negative treated as zero
-     * @return The first index of the search CharSequence (always &ge; startPos), -1 if no match or {@code null} string input
+     * @return The first matching index, or {@code -1} if no match or either input is {@code null}.
      */
     public abstract int indexOf(CharSequence seq, CharSequence searchSeq, int startPos);
 
     /**
-     * Tests whether to ignore case.
+     * Tests whether comparisons are case-sensitive.
      *
-     * @return whether to ignore case.
+     * @return {@code true} for case-sensitive comparisons, {@code false} when case is ignored.
      */
     public boolean isCaseSensitive() {
         return !ignoreCase;
@@ -983,8 +986,8 @@ public abstract class Strings {
      *
      * @param seq       The CharSequence to check, may be null
      * @param searchSeq The CharSequence to find, may be null
-     * @param startPos  The start position, negative treated as zero
-     * @return The last index of the search CharSequence (always &le; startPos), -1 if no match or {@code null} string input
+     * @param startPos The start position; a negative value returns {@code -1}.
+     * @return The last matching index, at or before {@code startPos}, or {@code -1} if no match or either input is {@code null}.
      */
     public abstract int lastIndexOf(CharSequence seq, CharSequence searchSeq, int startPos);
 
@@ -1459,9 +1462,9 @@ public abstract class Strings {
      *
      * @param sequence      The CharSequence to check, may be null
      * @param searchStrings The CharSequence prefixes, may be empty or contain {@code null}
+     * @return {@code true} if the non-empty input starts with any provided prefix; {@code false} if the input is null or empty, the search array is null or
+     *         empty, or no prefix matches.
      * @see Strings#startsWith(CharSequence, CharSequence)
-     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or the input {@code sequence} begins with
-     *         any of the provided {@code searchStrings}.
      */
     public boolean startsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
         if (StringUtils.isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
