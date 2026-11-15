@@ -385,7 +385,7 @@ public class StringUtils {
         if (strLen <= maxWidth) {
             return str;
         }
-        if (strLen - offset <= maxWidth - abbrevMarkerLength) {
+        if ((long) strLen - offset <= maxWidth - abbrevMarkerLength) {
             int tailStart = strLen - (maxWidth - abbrevMarkerLength);
             if (splitsSurrogatePair(str, tailStart)) {
                 tailStart++;

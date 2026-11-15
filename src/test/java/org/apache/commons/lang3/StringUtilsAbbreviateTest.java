@@ -25,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Tests {@link StringUtils#abbreviate(String, int)} and friends.
@@ -170,6 +172,20 @@ class StringUtilsAbbreviateTest extends AbstractLangTest {
         // abbreviating a shorter string allows maxWidth < abbrevMarker.length * 2 + 1
         assertEquals("..de", StringUtils.abbreviate("abcde", "..", 4, 4));
         assertEquals("....fg", StringUtils.abbreviate("abcdefg", "....", 5, 6));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 15, Integer.MIN_VALUE + 16, -1, 0 })
+    void testAbbreviateNonPositiveOffset(final int offset) {
+        assertAbbreviateWithOffset("abcdefg...", offset, 10);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 15, Integer.MIN_VALUE + 16, -1, 0 })
+    void testAbbreviateNonPositiveOffsetWithMarker(final int offset) {
+        assertAbbreviateWithAbbrevMarkerAndOffset("abcdefgh++", "++", offset, 10);
+        assertAbbreviateWithAbbrevMarkerAndOffset("abcdefghij", "", offset, 10);
+        assertAbbreviateWithAbbrevMarkerAndOffset("abcdefghij", null, offset, 10);
     }
 
     // Fixed LANG-1463
