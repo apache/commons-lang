@@ -32,6 +32,8 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.SetSystemProperty;
 import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
 
@@ -39,6 +41,16 @@ import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
  * Tests {@link DurationUtils}.
  */
 class DurationUtilsTest extends AbstractLangTest {
+
+    @ParameterizedTest
+    @ValueSource(longs = { -1_000_000_001, -1_000_001, -1_000_000, -999_999, -1, 0, 1, 999_999, 1_000_000, 1_000_001, 1_000_000_001 })
+    void testAcceptPreservesDuration(final long nanos) {
+        final Duration duration = Duration.ofNanos(nanos);
+        DurationUtils.accept((millis, remainder) -> {
+            assertEquals(duration, Duration.ofMillis(millis).plusNanos(remainder));
+            assertTrue(remainder >= 0 && remainder < 1_000_000);
+        }, duration);
+    }
 
     @Test
     @SetSystemProperties({

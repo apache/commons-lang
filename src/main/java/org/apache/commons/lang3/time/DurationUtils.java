@@ -46,7 +46,11 @@ public class DurationUtils {
     static final LongRange LONG_TO_INT_RANGE = LongRange.of(NumberUtils.LONG_INT_MIN_VALUE, NumberUtils.LONG_INT_MAX_VALUE);
 
     /**
-     * Accepts the function with the duration as a long milliseconds and int nanoseconds.
+     * Calls the consumer with the duration split into milliseconds and nanoseconds.
+     * <p>
+     * The nanosecond component is non-negative, and the millisecond component is rounded down so that the two components represent the original duration,
+     * including negative durations.
+     * </p>
      *
      * @param <T> The function exception.
      * @param consumer Accepting function.
@@ -58,7 +62,9 @@ public class DurationUtils {
     public static <T extends Throwable> void accept(final FailableBiConsumer<Long, Integer, T> consumer, final Duration duration)
             throws T {
         if (consumer != null && duration != null) {
-            consumer.accept(duration.toMillis(), getNanosOfMilli(duration));
+            final int nanos = getNanosOfMilli(duration);
+            final long millis = duration.isNegative() ? duration.minusNanos(nanos).toMillis() : duration.toMillis();
+            consumer.accept(millis, nanos);
         }
     }
 
