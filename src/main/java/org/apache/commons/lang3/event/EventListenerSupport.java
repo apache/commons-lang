@@ -32,6 +32,7 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -109,8 +110,11 @@ public class EventListenerSupport<L> implements Serializable {
          * <p>
          * Calls listeners in the order added to the underlying {@link List}.
          * </p>
+         * <p>
+         * Methods declared by {@link Object} use the proxy's identity and are not propagated to listeners.
+         * </p>
          *
-         * @param unusedProxy The proxy object representing a listener on which the invocation was called; not used
+         * @param proxy The proxy object representing a listener on which the invocation was called.
          * @param method The listener method that will be called on all of the listeners.
          * @param args event arguments to propagate to the listeners.
          * @return The result of the method call
@@ -119,8 +123,18 @@ public class EventListenerSupport<L> implements Serializable {
          * @throws IllegalAccessException Thrown if an error occurs.
          */
         @Override
-        public Object invoke(final Object unusedProxy, final Method method, final Object[] args)
+        public Object invoke(final Object proxy, final Method method, final Object[] args)
                 throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            if (method.getDeclaringClass() == Object.class) {
+                switch (method.getName()) {
+                case "hashCode":
+                    return Integer.valueOf(System.identityHashCode(proxy));
+                case "equals":
+                    return Boolean.valueOf(proxy == args[0]);
+                default: // toString
+                    return ObjectUtils.identityToString(proxy);
+                }
+            }
             for (final L listener : listeners) {
                 try {
                     method.invoke(listener, args);
