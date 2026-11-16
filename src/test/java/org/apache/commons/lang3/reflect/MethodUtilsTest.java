@@ -228,6 +228,46 @@ class MethodUtilsTest extends AbstractLangTest {
         }
     }
 
+    public static class StaticOverloadBean extends StaticOverloadParent {
+        public static String choose(final Number value) {
+            return "static";
+        }
+
+        public static String varargs(final Number... values) {
+            return "static varargs";
+        }
+
+        public static String widen(final long value) {
+            return "static long";
+        }
+
+        public String choose(final Integer value) {
+            return "instance";
+        }
+
+        public String inherited(final Integer value) {
+            return "instance";
+        }
+
+        public String instanceOnly(final Number value) {
+            return "instance";
+        }
+
+        public String varargs(final Integer... values) {
+            return "instance varargs";
+        }
+
+        public String widen(final int value) {
+            return "instance int";
+        }
+    }
+
+    public static class StaticOverloadParent {
+        public static String inherited(final Number value) {
+            return "inherited static";
+        }
+    }
+
     public static class StaticParent {
         public static String who() {
             return "parent";
@@ -1121,6 +1161,13 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testInvokeExactStaticMethodRejectsInstanceMethod() {
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeExactStaticMethod(StaticOverloadBean.class, "choose", Integer.valueOf(1)));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeExactStaticMethod(StaticOverloadBean.class, "instanceOnly",
+                new Object[] { Integer.valueOf(1) }, new Class<?>[] { Number.class }));
+    }
+
+    @Test
     void testInvokeJavaVarArgsOverloadingResolution() throws Exception {
         // Primitive wrappers
         assertEquals("Byte...", MethodUtils.invokeStaticMethod(TestBean.class, "varOverload", (byte) 1, (byte) 2));
@@ -1406,6 +1453,27 @@ class MethodUtilsTest extends AbstractLangTest {
         assertNull(MethodUtils.getMatchingAccessibleMethod(TestBean.class, "staticIntStringVarArg", (Class<?>[]) null));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(String.class, "format"));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(String.class, "format", (Object[]) null));
+    }
+
+    @Test
+    void testInvokeStaticMethodIgnoresInstanceOverloads() throws Exception {
+        assertEquals("static", MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "choose", Integer.valueOf(1)));
+        assertEquals("static", MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "choose",
+                new Object[] { Integer.valueOf(1) }, new Class<?>[] { Integer.class }));
+        assertEquals("static long", MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "widen", Short.valueOf((short) 1)));
+        assertEquals("static varargs", MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "varargs", Integer.valueOf(1), Integer.valueOf(2)));
+        assertEquals("inherited static", MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "inherited", Integer.valueOf(1)));
+        final StaticOverloadBean bean = new StaticOverloadBean();
+        assertEquals("instance", MethodUtils.invokeMethod(bean, "choose", Integer.valueOf(1)));
+        assertEquals("instance int", MethodUtils.invokeMethod(bean, "widen", Short.valueOf((short) 1)));
+        assertEquals("instance varargs", MethodUtils.invokeMethod(bean, "varargs", Integer.valueOf(1), Integer.valueOf(2)));
+    }
+
+    @Test
+    void testInvokeStaticMethodRejectsInstanceMethod() {
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "instanceOnly", Integer.valueOf(1)));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "instanceOnly",
+                new Object[] { Integer.valueOf(1) }, new Class<?>[] { Number.class }));
     }
 
     @Test

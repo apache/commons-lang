@@ -372,9 +372,14 @@ public class MethodUtils {
      * @see SecurityManager#checkPermission
      */
     public static Method getMatchingAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... requestTypes) {
+        return getMatchingAccessibleMethod(cls, methodName, false, requestTypes);
+    }
+
+    private static Method getMatchingAccessibleMethod(final Class<?> cls, final String methodName, final boolean staticOnly,
+            final Class<?>... requestTypes) {
         final Class<?>[] actualTypes = ArrayUtils.nullToEmpty(requestTypes);
         final Method candidate = getMethodObject(cls, methodName, actualTypes);
-        if (candidate != null) {
+        if (candidate != null && (!staticOnly || MemberUtils.isStatic(candidate))) {
             // The exact match may be declared on a non-public class, so prefer the public
             // declaration the way the search below does; a static method hides, so it is kept.
             final Method accessibleCandidate = MemberUtils.isStatic(candidate) ? null : getAccessibleMethod(cls, candidate);
@@ -383,7 +388,8 @@ public class MethodUtils {
         // search through all methods
         final Method[] methods = cls.getMethods();
         final List<Method> matchingMethods = Stream.of(methods)
-                .filter(method -> method.getName().equals(methodName) && MemberUtils.isMatchingMethod(method, actualTypes)).collect(Collectors.toList());
+                .filter(method -> method.getName().equals(methodName) && (!staticOnly || MemberUtils.isStatic(method))
+                        && MemberUtils.isMatchingMethod(method, actualTypes)).collect(Collectors.toList());
         // Sort methods by signature to force deterministic result
         matchingMethods.sort(METHOD_BY_SIGNATURE);
         Method bestMatch = null;
@@ -753,8 +759,8 @@ public class MethodUtils {
     public static Object invokeExactStaticMethod(final Class<?> cls, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         final Class<?>[] paramTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Method method = getAccessibleMethod(cls, methodName, ArrayUtils.nullToEmpty(paramTypes));
-        requireNonNull(method, cls, methodName, paramTypes);
+        final Method candidate = getAccessibleMethod(cls, methodName, ArrayUtils.nullToEmpty(paramTypes));
+        final Method method = requireNonNull(candidate != null && MemberUtils.isStatic(candidate) ? candidate : null, cls, methodName, paramTypes);
         return method.invoke(null, ArrayUtils.nullToEmpty(args));
     }
 
@@ -1053,7 +1059,7 @@ public class MethodUtils {
     public static Object invokeStaticMethod(final Class<?> cls, final String methodName, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         final Class<?>[] paramTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Method method = getMatchingAccessibleMethod(cls, methodName, paramTypes);
+        final Method method = getMatchingAccessibleMethod(cls, methodName, true, paramTypes);
         requireNonNull(method, cls, methodName, paramTypes);
         return method.invoke(null, toVarArgs(method, ArrayUtils.nullToEmpty(args)));
     }
