@@ -512,6 +512,51 @@ public class SerializationUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testRoundtripNull() {
+        assertNull(SerializationUtils.roundtrip(null));
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { false, true })
+    void testRoundtripBootstrapContainerWithoutApplicationContextLoader(final boolean isolatedContextLoader) {
+        final ArrayList<ProxyHolder> values = new ArrayList<>();
+        values.add(new ProxyHolder("value"));
+        contextClassLoader.setContextClassLoader(isolatedContextLoader ? new ClassLoader(null) { } : null);
+        final ArrayList<ProxyHolder> copy = SerializationUtils.roundtrip(values);
+        assertNotSame(values, copy);
+        assertNotSame(values.get(0), copy.get(0));
+        assertSame(ProxyHolder.class, copy.get(0).getClass());
+        assertEquals("value", copy.get(0).value);
+    }
+
+    @Test
+    void testRoundtripPreservesClassLoader() throws Exception {
+        final URL[] urls = { getClass().getProtectionDomain().getCodeSource().getLocation() };
+        try (URLClassLoader loader = new URLClassLoader(urls, null)) {
+            final Class<?> holderClass = Class.forName(ProxyHolder.class.getName(), true, loader);
+            final Serializable holder = (Serializable) holderClass.getConstructor(Serializable.class).newInstance("value");
+            final Serializable copy = SerializationUtils.roundtrip(holder);
+            assertNotSame(holder, copy);
+            assertSame(holderClass, copy.getClass());
+            assertEquals("value", holderClass.getField("value").get(copy));
+        }
+    }
+
+    @Test
+    void testRoundtripProxyPreservesClassLoader() throws Exception {
+        final URL[] urls = { getClass().getProtectionDomain().getCodeSource().getLocation() };
+        try (URLClassLoader loader = new URLClassLoader(urls, null)) {
+            final Class<?> proxyInterface = Class.forName(Bar.class.getName(), true, loader);
+            final Serializable proxy = (Serializable) Proxy.newProxyInstance(loader, new Class<?>[] { proxyInterface }, new SerializableInvocationHandler());
+            final Serializable copy = SerializationUtils.roundtrip(proxy);
+            assertNotSame(proxy, copy);
+            assertSame(proxy.getClass(), copy.getClass());
+            assertNotSame(Proxy.getInvocationHandler(proxy), Proxy.getInvocationHandler(copy));
+            assertEquals("test", copy.toString());
+        }
+    }
+
+    @Test
     void testSerializeBytes() throws Exception {
         final byte[] testBytes = SerializationUtils.serialize(iMap);
 

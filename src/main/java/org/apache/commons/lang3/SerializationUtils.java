@@ -60,6 +60,7 @@ public class SerializationUtils {
     /**
      * Custom specialization of the standard JDK {@link ObjectInputStream} that uses a custom {@link ClassLoader} to resolve classes.
      * If the specified {@link ClassLoader} cannot resolve a class, the context classloader of the current thread will be used.
+     * If neither loader can resolve the class, the standard {@link ObjectInputStream} lookup is used.
      * This way, the standard deserialization
      * also works in web application containers and application servers, regardless of which {@link ClassLoader} loaded the class that encapsulates
      * serialization/deserialization.
@@ -109,12 +110,12 @@ public class SerializationUtils {
             } catch (final ClassNotFoundException ex) {
                 try {
                     return Class.forName(name, false, Thread.currentThread().getContextClassLoader());
-                } catch (final ClassNotFoundException cnfe) {
+                } catch (final ClassNotFoundException ignored) {
                     final Class<?> cls = ClassUtils.getPrimitiveClass(name);
                     if (cls != null) {
                         return cls;
                     }
-                    throw cnfe;
+                    return super.resolveClass(desc);
                 }
             }
         }
@@ -259,6 +260,9 @@ public class SerializationUtils {
 
     /**
      * Performs a serialization roundtrip. Serializes and deserializes the given object, great for testing objects that implement {@link Serializable}.
+     * <p>
+     * Uses the class-loader-aware deserialization of {@link #clone(Serializable)} when resolving classes and proxy interfaces.
+     * </p>
      *
      * @param <T> The type of the object involved.
      * @param obj The object to roundtrip.
@@ -266,9 +270,8 @@ public class SerializationUtils {
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      * @since 3.3
      */
-    @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
     public static <T extends Serializable> T roundtrip(final T obj) {
-        return (T) deserialize(serialize(obj));
+        return clone(obj);
     }
 
     /**
