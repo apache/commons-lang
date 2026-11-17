@@ -717,6 +717,9 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("Map.Entry", ClassUtils.getShortClassName(Map.Entry.class.getName()));
         assertEquals("", ClassUtils.getShortClassName((String) null));
         assertEquals("", ClassUtils.getShortClassName(""));
+        // Deeply nested valid array name: the array prefix must be handled in a single pass.
+        final String nested = StringUtils.repeat('[', 1000) + "Ljava.lang.String;";
+        assertEquals("String" + StringUtils.repeat("[]", 1000), ClassUtils.getShortClassName(nested));
     }
 
     @Test

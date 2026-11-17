@@ -1225,8 +1225,13 @@ public class ClassUtils {
         final StringBuilder arrayPrefix = new StringBuilder();
         // Handle array encoding
         if (className.startsWith("[")) {
-            while (className.charAt(0) == '[') {
-                className = className.substring(1);
+            // Count the prefix once instead of copying the string per '['
+            int dims = 0;
+            while (className.charAt(dims) == '[') {
+                dims++;
+            }
+            className = className.substring(dims);
+            for (int i = 0; i < dims; i++) {
                 arrayPrefix.append("[]");
             }
             // Strip Object type encoding
