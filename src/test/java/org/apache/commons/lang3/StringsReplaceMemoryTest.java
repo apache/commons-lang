@@ -42,6 +42,7 @@ class StringsReplaceMemoryTest extends AbstractLangTest {
     public static final class MemoryProbe {
 
         private static void check(final Strings strings, final String replacement, final String search, final int max) {
+            System.out.println("Checking full-input replacement with " + replacement.length() + " replacement characters");
             final String result = strings.replace("ab", search, replacement, max);
             if (!result.equals(replacement)) {
                 throw new AssertionError("The full-input replacement must equal the replacement string");
@@ -49,6 +50,7 @@ class StringsReplaceMemoryTest extends AbstractLangTest {
         }
 
         private static void checkMultipleMatches(final Strings strings, final String replacement, final String search, final int max) {
+            System.out.println("Checking multiple matches with " + replacement.length() + " replacement characters");
             final String result = strings.replace("ab!ab", search, replacement, max);
             if (result.length() != 2 * replacement.length() + 1 || !result.startsWith(replacement) || !result.endsWith(replacement)
                     || result.charAt(replacement.length()) != '!') {
@@ -57,6 +59,7 @@ class StringsReplaceMemoryTest extends AbstractLangTest {
         }
 
         private static void checkSparseMatch(final Strings strings, final String replacement, final String search, final int max) {
+            System.out.println("Checking a sparse match with " + replacement.length() + " replacement characters");
             // Many matches could fit by length, but only one actually occurs.
             final String suffix = StringUtils.repeat('z', 126);
             final String result = strings.replace("ab" + suffix, search, replacement, max);
@@ -76,12 +79,13 @@ class StringsReplaceMemoryTest extends AbstractLangTest {
             final Strings strings = ignoreCase ? Strings.CI : Strings.CS;
             final String search = ignoreCase ? "AB" : "ab";
             for (final char ch : new char[] { 'x', '\u0101' }) {
-                // The former 16-match estimate needs over 64 MB even with compact strings; actual results fit on Java 8 as well.
-                // Leave headroom for the two-match UTF-16 result with Serial GC.
+                System.out.println("ignoreCase=" + ignoreCase + ", max=" + max + ", character=U+" + Integer.toHexString(ch));
+                // The former 16-match estimate exceeds the 64 MiB heap even with compact strings.
                 final String replacement = StringUtils.repeat(ch, 4_250_000);
                 check(strings, replacement, search, max);
                 checkSparseMatch(strings, replacement, search, max);
-                checkMultipleMatches(strings, replacement, search, max);
+                // Leave room for UTF-16 builder growth and the final result copy when replacing two matches.
+                checkMultipleMatches(strings, StringUtils.repeat(ch, 1_000_000), search, max);
             }
             System.out.println("Completed replacement memory checks");
         }
