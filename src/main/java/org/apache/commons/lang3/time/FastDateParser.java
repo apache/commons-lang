@@ -569,9 +569,10 @@ public class FastDateParser implements DateParser, Serializable {
         }
 
         /**
-         * Tests whether to skip the given time zone, true if TimeZone.getTimeZone().
+         * Tests whether to skip the GMT time zone when collecting display names.
+         *
          * <p>
-         * On Java 25 and up, skips short IDs if {@code ignoreTimeZoneShortIDs} is true.
+         * Bare GMT and GMT offsets are explicitly included in the parsing pattern and handled by {@link FastTimeZone#getGmtTimeZone(String)}.
          * </p>
          * <p>
          * This method is package private only for testing.
@@ -604,6 +605,8 @@ public class FastDateParser implements DateParser, Serializable {
             final StringBuilder sb = new StringBuilder();
             sb.append("((?iu)" + (iso8601Extended ? ISO_8601_EXTENDED_TIME_ZONE : RFC_822_TIME_ZONE) + "|" + GMT_OPTION);
             final Set<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
+            // GMT is not guaranteed to appear among the platform's time zone display names.
+            sorted.add(TimeZones.GMT_ID);
             // Order is undefined.
             // TODO Use of getZoneStrings() is discouraged per its Javadoc.
             final String[][] zones = DateFormatSymbols.getInstance(locale).getZoneStrings();

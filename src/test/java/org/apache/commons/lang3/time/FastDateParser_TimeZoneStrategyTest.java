@@ -19,14 +19,21 @@ package org.apache.commons.lang3.time;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.when;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -47,12 +54,14 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 import org.junitpioneer.jupiter.DefaultTimeZone;
 import org.junitpioneer.jupiter.ReadsDefaultLocale;
 import org.junitpioneer.jupiter.ReadsDefaultTimeZone;
+import org.mockito.MockedStatic;
 
 /**
  * Tests {@link FastDateParser}.
@@ -84,6 +93,52 @@ class FastDateParser_TimeZoneStrategyTest extends AbstractLangTest {
 
     private String[][] getZoneStringsSorted(final Locale locale) {
         return ArraySorter.sort(DateFormatSymbols.getInstance(locale).getZoneStrings(), Comparator.comparing(array -> array[0]));
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { false, true })
+    void testGmtPrefixDoesNotTruncateDisplayName(final boolean iso8601Extended) {
+        final String zoneName = "GMT Example Time";
+        final TimeZone timeZone = TimeZone.getTimeZone("GMT+05:30");
+        final DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
+        symbols.setZoneStrings(new String[][] { { timeZone.getID(), zoneName, zoneName, zoneName, zoneName } });
+        final FastDateParser.TimeZoneStrategy strategy;
+        try (MockedStatic<DateFormatSymbols> symbolFactory = mockStatic(DateFormatSymbols.class)) {
+            symbolFactory.when(() -> DateFormatSymbols.getInstance(Locale.US)).thenReturn(symbols);
+            strategy = new FastDateParser.TimeZoneStrategy(Locale.US, iso8601Extended);
+        }
+        final Calendar calendar = Calendar.getInstance(TimeZones.GMT, Locale.US);
+        calendar.clear();
+        final ParsePosition position = new ParsePosition(0);
+        assertTrue(strategy.parse(null, calendar, zoneName, position, 0));
+        assertEquals(zoneName.length(), position.getIndex());
+        assertEquals(-1, position.getErrorIndex());
+        assertEquals(timeZone.getRawOffset(), calendar.get(Calendar.ZONE_OFFSET));
+        assertEquals(0, calendar.get(Calendar.DST_OFFSET));
+    }
+
+    @ParameterizedTest
+    @CsvSource({ "false, GMT", "false, gmt", "false, GmT", "true, GMT", "true, gmt", "true, GmT" })
+    void testGmtWithoutDisplayNameAlias(final boolean iso8601Extended, final String zoneName) {
+        final DateFormatSymbols symbols = new DateFormatSymbols(Locale.US);
+        symbols.setZoneStrings(new String[][] { { "GMT", "Greenwich Mean Time", "GMT", "Greenwich Mean Time", "GMT" } });
+        // Do not let another time zone's display name supply a GMT alias.
+        final TimeZone aliasZone = mock(TimeZone.class);
+        when(aliasZone.getDisplayName(Locale.US)).thenReturn("Example Standard Time");
+        final FastDateParser.TimeZoneStrategy strategy;
+        try (MockedStatic<DateFormatSymbols> symbolFactory = mockStatic(DateFormatSymbols.class);
+                MockedStatic<TimeZones> timeZones = mockStatic(TimeZones.class)) {
+            symbolFactory.when(() -> DateFormatSymbols.getInstance(Locale.US)).thenReturn(symbols);
+            timeZones.when(() -> TimeZones.getTimeZone(anyString())).thenReturn(aliasZone);
+            strategy = new FastDateParser.TimeZoneStrategy(Locale.US, iso8601Extended);
+        }
+        final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT+05:30"), Locale.US);
+        final String source = "##" + zoneName;
+        final ParsePosition position = new ParsePosition(2);
+        assertTrue(strategy.parse(null, calendar, source, position, 0));
+        assertEquals(0, calendar.getTimeZone().getRawOffset());
+        assertEquals(source.length(), position.getIndex());
+        assertEquals(-1, position.getErrorIndex());
     }
 
     /**

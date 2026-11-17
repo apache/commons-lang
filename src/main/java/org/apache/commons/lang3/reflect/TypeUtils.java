@@ -1527,7 +1527,7 @@ public class TypeUtils {
         for (final Type type1 : bounds) {
             boolean subtypeFound = false;
             for (final Type type2 : bounds) {
-                if (type1 != type2 && isAssignable(type2, type1, null)) {
+                if (!equals(type1, type2) && isAssignable(type2, type1, null)) {
                     subtypeFound = true;
                     break;
                 }

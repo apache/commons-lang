@@ -224,7 +224,7 @@ public class CharSequenceUtils {
             }
         }
 
-        if (start + len2 > len1) {
+        if (start > len1 - len2) {
             start = len1 - len2;
         }
 

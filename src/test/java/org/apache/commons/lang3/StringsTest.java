@@ -26,6 +26,7 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junitpioneer.jupiter.DefaultLocale;
 
@@ -119,49 +120,6 @@ class StringsTest extends AbstractLangTest {
         assertTrue(Strings.CS.isCaseSensitive());
     }
 
-    @Test
-    void testComputeInitialCapacityDoesNotReturnSafeMaxDueToOverflow() {
-        final int textLength = 100;
-        final int searchLength = 0;
-        final int replacementLength = Integer.MAX_VALUE;
-        final int max = 1;
-        // Expected mathematical result:
-        // 100 + (2147483647 - 0) * 1 = 2147483747
-        // which exceeds SAFE_MAX_ARRAY_LENGTH (2147483639)
-        final int expected = Integer.MAX_VALUE - 8;
-        assertEquals(expected, Strings.initialCapacity(textLength, searchLength, replacementLength, max));
-    }
-
-    @Test
-    void testComputeInitialCapacityLargeInputsDoNotIncorrectlyClampToSafeMax() {
-        final int result = Strings.initialCapacity(Integer.MAX_VALUE - 1000, Integer.MAX_VALUE - 500, Integer.MAX_VALUE, 1);
-        // Growth = 500
-        // Expected = Integer.MAX_VALUE - 500
-        assertEquals(Integer.MAX_VALUE - 500, result);
-    }
-
-    @Test
-    void testComputeInitialCapacityNeverOverflowsForMaxValueInputs() {
-        final int capacity = Strings.initialCapacity(Integer.MAX_VALUE, 0, Integer.MAX_VALUE, 64);
-        assertEquals(ArrayUtils.SAFE_MAX_ARRAY_LENGTH, capacity);
-    }
-
-    @Test
-    void testComputeInitialCapacityReplacementGrowthDoesNotOverflowInt() {
-        final int capacity = Strings.initialCapacity(0, 0, 50_000_000, 64);
-        assertEquals(ArrayUtils.SAFE_MAX_ARRAY_LENGTH, capacity);
-    }
-
-    @Test
-    void testComputeInitialCapacityReturnsSmallerValueWhenResultIsBelowSafeMax() {
-        final int textLength = 100;
-        final int searchLength = 0;
-        final int replacementLength = 1000;
-        final int max = 1;
-        final int expected = 1100;
-        assertEquals(expected, Strings.initialCapacity(textLength, searchLength, replacementLength, max));
-    }
-
     @ParameterizedTest
     @MethodSource("stringsFactory")
     void testEqualsCharSequence(final Strings strings) {
@@ -178,5 +136,41 @@ class StringsTest extends AbstractLangTest {
         assertTrue(strings.equals(nullStr, nullStr));
         assertFalse(strings.equals(nullStr, ""));
         assertFalse(strings.equals("", nullStr));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        // Shrinking, unchanged and growing replacements; zero, finite and unbounded replacement counts.
+        "100, 10, 9,  -1, 100",
+        "100, 10, 10, -1, 100",
+        "100, 10, 11,  0, 100",
+        "100, 10, 11,  1, 101",
+        "100, 10, 11,  2, 102",
+        "100, 10, 11, -1, 110",
+        "100, 100, 101, 64, 101",
+        // The historical match estimates and their boundaries.
+        "1000, 1, 2, -2147483648, 1016",
+        "1000, 1, 2, -1, 1016",
+        "1000, 1, 2, 63, 1063",
+        "1000, 1, 2, 64, 1064",
+        "1000, 1, 2, 65, 1064",
+        "1000, 1, 2, 2147483647, 1064",
+        // Just below, at and above the 20% growth cap, including its integer-rounding boundary.
+        "100, 1, 2, 19, 119",
+        "100, 1, 2, 20, 120",
+        "100, 1, 2, 21, 120",
+        "4, 1, 2147483647, 64, 4",
+        "5, 1, 2147483647, 64, 6",
+        "6, 1, 2147483647, 64, 7",
+        // Growth multiplication and total capacity must not overflow or force a maximum-size allocation.
+        "100, 1, 2147483647, 64, 120",
+        "1789569699, 1, 2147483647, 64, 2147483638",
+        "1789569700, 1, 2147483647, 64, 0",
+        "2147483639, 1, 1, 1, 2147483639",
+        "2147483640, 1, 1, 1, 0",
+        "2147483647, 1, 2147483647, 64, 0"
+    })
+    void testInitialCapacity(final int textLength, final int searchLength, final int replacementLength, final int max, final int expected) {
+        assertEquals(expected, Strings.initialCapacity(textLength, searchLength, replacementLength, max));
     }
 }

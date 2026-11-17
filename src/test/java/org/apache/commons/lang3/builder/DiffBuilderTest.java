@@ -135,6 +135,42 @@ class DiffBuilderTest extends AbstractBuilderTest {
     }
 
     @Test
+    void testArraysEqual() {
+        // @formatter:off
+        final DiffResult<String> list = DiffBuilder.<String>builder().setLeft("String1").setRight("String2").setStyle(SHORT_STYLE).build()
+                .append("foo", new boolean[] { false }, new boolean[] { false })
+                .append("foo", new byte[] { 0x01 }, new byte[] { 0x01 })
+                .append("foo", new char[] { 'a' }, new char[] { 'a' })
+                .append("foo", new double[] { 1.0 }, new double[] { 1.0 })
+                .append("foo", new float[] { 1.0F }, new float[] { 1.0F })
+                .append("foo", new int[] { 1 }, new int[] { 1 })
+                .append("foo", new long[] { 1L }, new long[] { 1L })
+                .append("foo", new short[] { 1 }, new short[] { 1 })
+                .append("foo", new Object[] { 1, "two" }, new Object[] { 1, "two" })
+                .build();
+        // @formatter:on
+        assertEquals(0, list.getNumberOfDiffs());
+    }
+
+    @Test
+    void testArraysEqualDeprecated() {
+        // @formatter:off
+        final DiffResult<String> list = new DiffBuilder<>("String1", "String2", SHORT_STYLE)
+                .append("foo", new boolean[] { false }, new boolean[] { false })
+                .append("foo", new byte[] { 0x01 }, new byte[] { 0x01 })
+                .append("foo", new char[] { 'a' }, new char[] { 'a' })
+                .append("foo", new double[] { 1.0 }, new double[] { 1.0 })
+                .append("foo", new float[] { 1.0F }, new float[] { 1.0F })
+                .append("foo", new int[] { 1 }, new int[] { 1 })
+                .append("foo", new long[] { 1L }, new long[] { 1L })
+                .append("foo", new short[] { 1 }, new short[] { 1 })
+                .append("foo", new Object[] { 1, "two" }, new Object[] { 1, "two" })
+                .build();
+        // @formatter:on
+        assertEquals(0, list.getNumberOfDiffs());
+    }
+
+    @Test
     void testBoolean() {
         final TypeTestClass class1 = new TypeTestClass();
         final TypeTestClass class2 = new TypeTestClass();
@@ -186,42 +222,6 @@ class DiffBuilderTest extends AbstractBuilderTest {
             assertArrayEquals(ArrayUtils.toObject(class1.byteArrayField), (Object[]) diff.getLeft());
             assertArrayEquals(ArrayUtils.toObject(class2.byteArrayField), (Object[]) diff.getRight());
         }
-    }
-
-    @Test
-    void testByteArrayEqualAsObject1() {
-        // @formatter:off
-        final DiffResult<String> list = DiffBuilder.<String>builder().setLeft("String1").setRight("String2").setStyle(SHORT_STYLE).build()
-                .append("foo", new boolean[] { false }, new boolean[] { false })
-                .append("foo", new byte[] { 0x01 }, new byte[] { 0x01 })
-                .append("foo", new char[] { 'a' }, new char[] { 'a' })
-                .append("foo", new double[] { 1.0 }, new double[] { 1.0 })
-                .append("foo", new float[] { 1.0F }, new float[] { 1.0F })
-                .append("foo", new int[] { 1 }, new int[] { 1 })
-                .append("foo", new long[] { 1L }, new long[] { 1L })
-                .append("foo", new short[] { 1 }, new short[] { 1 })
-                .append("foo", new Object[] { 1, "two" }, new Object[] { 1, "two" })
-                .build();
-        // @formatter:on
-        assertEquals(0, list.getNumberOfDiffs());
-    }
-
-    @Test
-    void testByteArrayEqualAsObjectDeprecated() {
-        // @formatter:off
-        final DiffResult<String> list = new DiffBuilder<>("String1", "String2", SHORT_STYLE)
-                .append("foo", new boolean[] { false }, new boolean[] { false })
-                .append("foo", new byte[] { 0x01 }, new byte[] { 0x01 })
-                .append("foo", new char[] { 'a' }, new char[] { 'a' })
-                .append("foo", new double[] { 1.0 }, new double[] { 1.0 })
-                .append("foo", new float[] { 1.0F }, new float[] { 1.0F })
-                .append("foo", new int[] { 1 }, new int[] { 1 })
-                .append("foo", new long[] { 1L }, new long[] { 1L })
-                .append("foo", new short[] { 1 }, new short[] { 1 })
-                .append("foo", new Object[] { 1, "two" }, new Object[] { 1, "two" })
-                .build();
-        // @formatter:on
-        assertEquals(0, list.getNumberOfDiffs());
     }
 
     @Test

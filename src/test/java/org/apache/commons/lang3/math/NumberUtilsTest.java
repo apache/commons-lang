@@ -813,6 +813,31 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(new BigInteger("1777777777777777777777", 8), NumberUtils.createNumber("01777777777777777777777"));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = { "-0x80000000", "-0X80000000", "-#80000000", "-0x000080000000", "-0X0000000080000000" })
+    void testCreateNumberNegativeHexIntegerMinimum(final String str) {
+        assertEquals(Integer.valueOf(Integer.MIN_VALUE), NumberUtils.createNumber(str));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "-0x8000000000000000", "-0X8000000000000000", "-#8000000000000000", "-0x00008000000000000000",
+        "-0x8000000000000000L", "-0X8000000000000000l", "-#8000000000000000L", "-0x00008000000000000000l"
+    })
+    void testCreateNumberNegativeHexLongMinimum(final String str) {
+        assertEquals(Long.valueOf(Long.MIN_VALUE), NumberUtils.createNumber(str));
+    }
+
+    @Test
+    void testCreateNumberNegativeHexRangeBoundaries() {
+        assertEquals(Integer.valueOf(Integer.MIN_VALUE + 1), NumberUtils.createNumber("-0x7FFFFFFF"));
+        assertEquals(Long.valueOf((long) Integer.MIN_VALUE - 1), NumberUtils.createNumber("-0x80000001"));
+        assertEquals(Long.valueOf(Integer.MIN_VALUE), NumberUtils.createNumber("-0x80000000L"));
+        assertEquals(Long.valueOf(Long.MIN_VALUE + 1), NumberUtils.createNumber("-0x7FFFFFFFFFFFFFFF"));
+        assertEquals(new BigInteger("-8000000000000001", 16), NumberUtils.createNumber("-0x8000000000000001"));
+        assertEquals(new BigInteger("-8000000000000001", 16), NumberUtils.createNumber("-0x8000000000000001L"));
+    }
+
     /**
      * LANG-1646: Support the requested Number type (Long, Float, Double) of valid zero input.
      */

@@ -308,7 +308,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.abbreviate(null, "...", *)      = null
-     * StringUtils.abbreviate("abcdefg", null, *)  = "abcdefg"
+     * StringUtils.abbreviate("abcdefg", null, 4)  = "abcd"
      * StringUtils.abbreviate("", "...", 4)        = ""
      * StringUtils.abbreviate("abcdefg", ".", 5)   = "abcd."
      * StringUtils.abbreviate("abcdefg", ".", 7)   = "abcdefg"
@@ -320,8 +320,8 @@ public class StringUtils {
      * </pre>
      *
      * @param str          The String to check, may be null.
-     * @param abbrevMarker The String used as replacement marker.
-     * @param maxWidth     maximum length of result String, must be at least {@code abbrevMarker.length + 1}.
+     * @param abbrevMarker The String used as replacement marker, null is treated as an empty marker.
+     * @param maxWidth     maximum length of result String, must be at least the marker length plus one (one for a null or empty marker).
      * @return abbreviated String, {@code null} if null String input.
      * @throws IllegalArgumentException Thrown if the width is too small.
      * @since 3.6
@@ -343,7 +343,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.abbreviate(null, null, *, *)                 = null
-     * StringUtils.abbreviate("abcdefghijklmno", null, *, *)    = "abcdefghijklmno"
+     * StringUtils.abbreviate("abcdefghijklmno", null, 0, 10)   = "abcdefghij"
      * StringUtils.abbreviate("", "...", 0, 4)                  = ""
      * StringUtils.abbreviate("abcdefghijklmno", "---", -1, 10) = "abcdefg---"
      * StringUtils.abbreviate("abcdefghijklmno", ",", 0, 10)    = "abcdefghi,"
@@ -360,9 +360,11 @@ public class StringUtils {
      * </pre>
      *
      * @param str          The String to check, may be null.
-     * @param abbrevMarker The String used as replacement marker, for example "...", or Unicode HORIZONTAL ELLIPSIS, U+2026 '…'.
+     * @param abbrevMarker The String used as replacement marker, for example "...", or Unicode HORIZONTAL ELLIPSIS, U+2026 '…';
+     *                     null is treated as an empty marker.
      * @param offset       left edge of source String.
-     * @param maxWidth     maximum length of result String, must be at least 4.
+     * @param maxWidth     maximum length of result String, must be at least the marker length plus one (one for a null or empty marker).
+     *                     When markers are needed at both ends, must be at least twice the marker length plus one.
      * @return abbreviated String, {@code null} if null String input.
      * @throws IllegalArgumentException Thrown if the width is too small.
      * @since 3.6
@@ -385,7 +387,7 @@ public class StringUtils {
         if (strLen <= maxWidth) {
             return str;
         }
-        if (strLen - offset <= maxWidth - abbrevMarkerLength) {
+        if ((long) strLen - offset <= maxWidth - abbrevMarkerLength) {
             int tailStart = strLen - (maxWidth - abbrevMarkerLength);
             if (splitsSurrogatePair(str, tailStart)) {
                 tailStart++;
@@ -538,15 +540,18 @@ public class StringUtils {
     }
 
     /**
-     * Computes the capacity required for a StringBuilder to hold {@code items} of {@code maxElementChars} characters plus the separators between them. The
-     * separator is assumed to be 1 character.
+     * Creates a StringBuilder using an estimated capacity for {@code count} items of at most {@code maxElementChars} characters plus one-character separators.
+     *
+     * <p>
+     * If the estimate exceeds the safe array length, uses the default initial capacity and lets the builder grow to fit the actual values.
+     * </p>
      *
      * @param count           The number of items.
      * @param maxElementChars The maximum number of characters per item.
      * @return A StringBuilder with the appropriate capacity.
      */
     private static StringBuilder capacity(final int count, final byte maxElementChars) {
-        return new StringBuilder(count * maxElementChars + count - 1);
+        return newStringBuilder((long) count * maxElementChars + count - 1);
     }
 
     /**
@@ -2150,6 +2155,7 @@ public class StringUtils {
      * @param locale This string matching logic is case-insensitive. A locale is necessary to normalize both Strings to lower case.
      * @return result score.
      * @throws IllegalArgumentException Thrown if either String input {@code null} or Locale input {@code null}.
+     * @throws ArithmeticException Thrown if the score exceeds {@link Integer#MAX_VALUE}.
      * @since 3.4
      * @deprecated As of 3.6, use Apache Commons Text
      *             <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/similarity/FuzzyScore.html">
@@ -2170,7 +2176,7 @@ public class StringUtils {
         final String termLowerCase = term.toString().toLowerCase(locale);
         final String queryLowerCase = query.toString().toLowerCase(locale);
         // the resulting score
-        int score = 0;
+        long score = 0;
         // the position in the term which will be scanned next for potential
         // query character matches
         int termIndex = 0;
@@ -2196,7 +2202,7 @@ public class StringUtils {
                 }
             }
         }
-        return score;
+        return Math.toIntExact(score);
     }
 
     /**
@@ -2329,7 +2335,7 @@ public class StringUtils {
      * </p>
      *
      * <p>
-     * The implementation uses a single-dimensional array of length s.length() + 1. See
+     * The implementation uses a single-dimensional array whose length is one greater than that of the shorter input. See
      * <a href="https://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html">
      * https://blog.softwx.net/2014/12/optimizing-levenshtein-algorithm-in-c.html</a> for details.
      * </p>
@@ -2396,16 +2402,16 @@ public class StringUtils {
             p[i] = i;
         }
 
-        for (j = 1; j <= m; j++) {
+        for (j = 0; j < m; j++) {
             upperleft = p[0];
-            jOfT = t.charAt(j - 1);
-            p[0] = j;
+            jOfT = t.charAt(j);
+            p[0] = j + 1;
 
             for (i = 1; i <= n; i++) {
                 upper = p[i];
                 cost = s.charAt(i - 1) == jOfT ? 0 : 1;
-                // minimum of cell to the left+1, to the top+1, diagonally left and up +cost
-                p[i] = Math.min(Math.min(p[i - 1] + 1, p[i] + 1), upperleft + cost);
+                // Take the minimum before adding one: the left cell can be Integer.MAX_VALUE on the final row.
+                p[i] = Math.min(Math.min(p[i - 1], p[i]) + 1, upperleft + cost);
                 upperleft = upper;
             }
         }
@@ -2541,13 +2547,14 @@ public class StringUtils {
         Arrays.fill(d, Integer.MAX_VALUE);
 
         // iterates through t
-        for (int j = 1; j <= m; j++) {
-            final char jOfT = t.charAt(j - 1); // jth character of t
-            d[0] = j;
+        for (int j = 0; j < m; j++) {
+            final char jOfT = t.charAt(j); // jth character of t
+            final int row = j + 1;
+            d[0] = row;
 
             // compute stripe indices, constrain to array size
-            final int min = Math.max(1, j - threshold);
-            final int max = j > Integer.MAX_VALUE - threshold ? n : Math.min(n, j + threshold);
+            final int min = Math.max(1, row - threshold);
+            final int max = row > Integer.MAX_VALUE - threshold ? n : Math.min(n, row + threshold);
 
             // the stripe may lead off of the table if s and t are of different sizes
             if (min > max) {
@@ -3949,12 +3956,11 @@ public class StringUtils {
      * @param delimiter
      *            the separator character to use.
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array.
+     *            the first index to start joining from.
      * @param endIndex
-     *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array.
-     * @return The joined String, {@code null} if null array input.
+     *            the index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
+     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -3963,10 +3969,10 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
-        if (count <= 0) {
+        if (endIndex <= startIndex) {
             return EMPTY;
         }
+        final int count = endIndex - startIndex;
         final byte maxElementChars = 5; // "false"
         final StringBuilder stringBuilder = capacity(count, maxElementChars);
         stringBuilder.append(array[startIndex]);
@@ -4027,12 +4033,11 @@ public class StringUtils {
      * @param delimiter
      *            the separator character to use.
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array.
+     *            the first index to start joining from.
      * @param endIndex
-     *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array.
-     * @return The joined String, {@code null} if null array input.
+     *            the index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
+     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4041,10 +4046,10 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
-        if (count <= 0) {
+        if (endIndex <= startIndex) {
             return EMPTY;
         }
+        final int count = endIndex - startIndex;
         final byte maxElementChars = 4; // "-128"
         final StringBuilder stringBuilder = capacity(count, maxElementChars);
         stringBuilder.append(array[startIndex]);
@@ -4105,12 +4110,11 @@ public class StringUtils {
      * @param delimiter
      *            the separator character to use.
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array.
+     *            the first index to start joining from.
      * @param endIndex
-     *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array.
-     * @return The joined String, {@code null} if null array input.
+     *            the index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
+     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4119,10 +4123,10 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
-        if (count <= 0) {
+        if (endIndex <= startIndex) {
             return EMPTY;
         }
+        final int count = endIndex - startIndex;
         final byte maxElementChars = 1;
         final StringBuilder stringBuilder = capacity(count, maxElementChars);
         stringBuilder.append(array[startIndex]);
@@ -4183,12 +4187,11 @@ public class StringUtils {
      * @param delimiter
      *            the separator character to use.
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array.
+     *            the first index to start joining from.
      * @param endIndex
-     *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array.
-     * @return The joined String, {@code null} if null array input.
+     *            the index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
+     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4197,10 +4200,10 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
-        if (count <= 0) {
+        if (endIndex <= startIndex) {
             return EMPTY;
         }
+        final int count = endIndex - startIndex;
         final byte maxElementChars = 22; // "1.7976931348623157E308"
         final StringBuilder stringBuilder = capacity(count, maxElementChars);
         stringBuilder.append(array[startIndex]);
@@ -4261,12 +4264,11 @@ public class StringUtils {
      * @param delimiter
      *            the separator character to use.
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array.
+     *            the first index to start joining from.
      * @param endIndex
-     *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array.
-     * @return The joined String, {@code null} if null array input.
+     *            the index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
+     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4275,10 +4277,10 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
-        if (count <= 0) {
+        if (endIndex <= startIndex) {
             return EMPTY;
         }
+        final int count = endIndex - startIndex;
         final byte maxElementChars = 12; // "3.4028235E38"
         final StringBuilder stringBuilder = capacity(count, maxElementChars);
         stringBuilder.append(array[startIndex]);
@@ -4339,12 +4341,11 @@ public class StringUtils {
      * @param delimiter
      *            the separator character to use.
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array.
+     *            the first index to start joining from.
      * @param endIndex
-     *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array.
-     * @return The joined String, {@code null} if null array input.
+     *            the index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
+     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final int[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4353,10 +4354,10 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
-        if (count <= 0) {
+        if (endIndex <= startIndex) {
             return EMPTY;
         }
+        final int count = endIndex - startIndex;
         final byte maxElementChars = 11; // "-2147483648"
         final StringBuilder stringBuilder = capacity(count, maxElementChars);
         stringBuilder.append(array[startIndex]);
@@ -4477,17 +4478,18 @@ public class StringUtils {
      *
      * @param list       The {@link List} of values to join together, may be null.
      * @param separator  The separator character to use.
-     * @param startIndex The first index to start joining from. It is an error to pass in a start index past the end of the list.
-     * @param endIndex   The index to stop joining from (exclusive). It is an error to pass in an end index past the end of the list.
-     * @return The joined String, {@code null} if null list input.
+     * @param startIndex The first index to start joining from.
+     * @param endIndex   The index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null list input; or the empty string if {@code endIndex <= startIndex}.
+     * @throws IndexOutOfBoundsException if the list is non-null, {@code endIndex > startIndex}, and
+     *         either {@code startIndex < 0} or {@code endIndex > list.size()}.
      * @since 3.8
      */
     public static String join(final List<?> list, final char separator, final int startIndex, final int endIndex) {
         if (list == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex <= startIndex) {
             return EMPTY;
         }
         final List<?> subList = list.subList(startIndex, endIndex);
@@ -4512,17 +4514,18 @@ public class StringUtils {
      *
      * @param list       The {@link List} of values to join together, may be null.
      * @param separator  The separator character to use.
-     * @param startIndex The first index to start joining from. It is an error to pass in a start index past the end of the list.
-     * @param endIndex   The index to stop joining from (exclusive). It is an error to pass in an end index past the end of the list.
-     * @return The joined String, {@code null} if null list input.
+     * @param startIndex The first index to start joining from.
+     * @param endIndex   The index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null list input; or the empty string if {@code endIndex <= startIndex}.
+     * @throws IndexOutOfBoundsException if the list is non-null, {@code endIndex > startIndex}, and
+     *         either {@code startIndex < 0} or {@code endIndex > list.size()}.
      * @since 3.8
      */
     public static String join(final List<?> list, final String separator, final int startIndex, final int endIndex) {
         if (list == null) {
             return null;
         }
-        final int noOfItems = endIndex - startIndex;
-        if (noOfItems <= 0) {
+        if (endIndex <= startIndex) {
             return EMPTY;
         }
         final List<?> subList = list.subList(startIndex, endIndex);
@@ -4580,12 +4583,11 @@ public class StringUtils {
      * @param delimiter
      *            the separator character to use.
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array.
+     *            the first index to start joining from.
      * @param endIndex
-     *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array.
-     * @return The joined String, {@code null} if null array input.
+     *            the index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
+     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final long[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4594,10 +4596,10 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
-        if (count <= 0) {
+        if (endIndex <= startIndex) {
             return EMPTY;
         }
+        final int count = endIndex - startIndex;
         final byte maxElementChars = 20; // "-9223372036854775808"
         final StringBuilder stringBuilder = capacity(count, maxElementChars);
         stringBuilder.append(array[startIndex]);
@@ -4653,9 +4655,11 @@ public class StringUtils {
      *
      * @param array      The array of values to join together, may be null.
      * @param delimiter  The separator character to use.
-     * @param startIndex The first index to start joining from. It is an error to pass in a start index past the end of the array.
-     * @param endIndex   The index to stop joining from (exclusive). It is an error to pass in an end index past the end of the array.
-     * @return The joined String, {@code null} if null array input.
+     * @param startIndex The first index to start joining from.
+     * @param endIndex   The index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
+     *         Otherwise, at most {@code endIndex - startIndex} entries are joined, limited by the number of entries remaining in the array.
+     * @throws IllegalArgumentException if the array is non-null and {@code startIndex < 0}.
      * @since 2.0
      */
     public static String join(final Object[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4713,12 +4717,12 @@ public class StringUtils {
      * @param delimiter  The separator character to use, null treated as "".
      * @param startIndex The first index to start joining from.
      * @param endIndex   The index to stop joining from (exclusive).
-     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex - startIndex <= 0}.
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
      *         Otherwise, at most {@code endIndex - startIndex} entries are joined, limited by the number of entries remaining in the array.
      * @throws IllegalArgumentException if the array is non-null and {@code startIndex < 0}.
      */
     public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
-        return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
+        return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0L, (long) endIndex - startIndex))
                 .collect(LangCollectors.joining(ObjectUtils.toString(delimiter), EMPTY, EMPTY, ObjectUtils::toString)) : null;
     }
 
@@ -4773,12 +4777,11 @@ public class StringUtils {
      * @param delimiter
      *            the separator character to use.
      * @param startIndex
-     *            the first index to start joining from. It is an error to pass in a start index past the end of the
-     *            array.
+     *            the first index to start joining from.
      * @param endIndex
-     *            the index to stop joining from (exclusive). It is an error to pass in an end index past the end of
-     *            the array.
-     * @return The joined String, {@code null} if null array input.
+     *            the index to stop joining from (exclusive).
+     * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
+     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4787,10 +4790,10 @@ public class StringUtils {
             return null;
         }
         checkFromToIndex(startIndex, endIndex, array.length);
-        final int count = endIndex - startIndex;
-        if (count <= 0) {
+        if (endIndex <= startIndex) {
             return EMPTY;
         }
+        final int count = endIndex - startIndex;
         final byte maxElementChars = 6; // "-32768"
         final StringBuilder stringBuilder = capacity(count, maxElementChars);
         stringBuilder.append(array[startIndex]);
@@ -5491,6 +5494,20 @@ public class StringUtils {
             end--;
         }
         return str.substring(start, Math.max(start, end));
+    }
+
+    /**
+     * Creates a StringBuilder with an estimated initial capacity.
+     *
+     * <p>
+     * An excessive estimate does not imply that the actual result is too large. Use the default capacity in that case and let the builder grow as needed.
+     * </p>
+     *
+     * @param estimatedCapacity The non-negative estimated capacity.
+     * @return A StringBuilder with the estimated or default capacity.
+     */
+    private static StringBuilder newStringBuilder(final long estimatedCapacity) {
+        return estimatedCapacity > ArrayUtils.SAFE_MAX_ARRAY_LENGTH ? new StringBuilder() : new StringBuilder((int) estimatedCapacity);
     }
 
     /**
@@ -6249,7 +6266,7 @@ public class StringUtils {
     }
 
     /**
-     * Repeats a String {@code repeat} times to form a new String, with a String separator injected each time.
+     * Repeats a String {@code count} times, with a separator between successive copies.
      *
      * <pre>
      * StringUtils.repeat(null, null, 2) = null
@@ -6263,16 +6280,33 @@ public class StringUtils {
      * @param repeat    The String to repeat, may be null.
      * @param separator The String to inject, may be null.
      * @param count     number of times to repeat str, negative treated as zero.
-     * @return A new String consisting of the original String repeated, {@code null} if null String input.
+     * @return A String consisting of the original String repeated with separators, {@code null} if null String input.
+     * @throws IllegalArgumentException if the requested result length exceeds {@link Integer#MAX_VALUE}.
      * @since 2.5
      */
     public static String repeat(final String repeat, final String separator, final int count) {
-        if (repeat == null || separator == null) {
+        if (repeat == null || isEmpty(separator)) {
             return repeat(repeat, count);
         }
-        // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
-        final String result = repeat(repeat + separator, count);
-        return Strings.CS.removeEnd(result, separator);
+        if (count <= 0) {
+            return EMPTY;
+        }
+        if (count == 1) {
+            return repeat;
+        }
+        if (repeat.isEmpty()) {
+            return repeat(separator, count - 1);
+        }
+        final long outputLength = (long) repeat.length() * count + (long) separator.length() * (count - 1);
+        if (outputLength > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("The requested result is too large for a String.");
+        }
+        final StringBuilder builder = new StringBuilder((int) outputLength);
+        builder.append(repeat);
+        for (int i = 1; i < count; i++) {
+            builder.append(separator).append(repeat);
+        }
+        return builder.toString();
     }
 
     /**
@@ -6601,6 +6635,8 @@ public class StringUtils {
 
         // get a good guess on the size of the result buffer so it doesn't have to double if it goes over a bit
         int increase = 0;
+        // Cap estimated growth at 20%; the initial capacity is only a hint.
+        final int increaseLimit = text.length() / 5;
 
         // count the replacement text elements that are larger than their corresponding text being replaced
         for (int i = 0; i < searchList.length; i++) {
@@ -6609,13 +6645,10 @@ public class StringUtils {
             }
             final int greater = replacementList[i].length() - searchList[i].length();
             if (greater > 0) {
-                increase += 3 * greater; // assume 3 matches
+                increase = (int) Math.min(increaseLimit, increase + 3L * greater); // assume 3 matches
             }
         }
-        // have upper-bound at 20% increase, then let Java take over
-        increase = Math.min(increase, text.length() / 5);
-
-        final StringBuilder buf = new StringBuilder(text.length() + increase);
+        final StringBuilder buf = newStringBuilder((long) text.length() + increase);
 
         while (textIndex != -1) {
 
@@ -6680,7 +6713,8 @@ public class StringUtils {
      * @param searchList      The Strings to search for, no-op if null.
      * @param replacementList The Strings to replace them with, no-op if null.
      * @return The text with any replacements processed, {@code null} if null String input.
-     * @throws IllegalStateException    Thrown if the search is repeating and there is an endless loop due to outputs of one being inputs to another.
+     * @throws IllegalStateException    Thrown if replacement does not finish within the iteration limit, including endless loops and terminating
+     *                                  replacements that require too many passes.
      * @throws IllegalArgumentException Thrown if the lengths of the arrays are not the same (null is ok, and/or size 0).
      * @since 2.4
      */
@@ -9224,7 +9258,7 @@ public class StringUtils {
      * @since 3.6
      */
     public static String unwrap(final String str, final String wrapToken) {
-        if (isEmpty(str) || isEmpty(wrapToken) || str.length() < 2 * wrapToken.length()) {
+        if (isEmpty(str) || isEmpty(wrapToken) || wrapToken.length() > str.length() / 2) {
             return str;
         }
         if (Strings.CS.startsWith(str, wrapToken) && Strings.CS.endsWith(str, wrapToken)) {
@@ -9438,7 +9472,8 @@ public class StringUtils {
         if (!wrapStart && !wrapEnd) {
             return str;
         }
-        final StringBuilder builder = new StringBuilder(str.length() + wrapWith.length() + wrapWith.length());
+        final long capacity = (long) str.length() + (wrapStart ? wrapWith.length() : 0) + (wrapEnd ? wrapWith.length() : 0);
+        final StringBuilder builder = newStringBuilder(capacity);
         if (wrapStart) {
             builder.append(wrapWith);
         }

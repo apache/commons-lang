@@ -519,7 +519,19 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
     }
 
     /**
-     * Tests if two {@link Objects}s are equal.
+     * Tests if two {@link Object}s are equal.
+     *
+     * <p>
+     * Arrays of the same primitive type are compared using the corresponding array overload. Two reference arrays are compared using
+     * {@link #append(String, Object[], Object[])}, even when their component types differ. An array paired with {@code null} also uses the corresponding
+     * array overload. Reference-array comparisons are shallow: nested arrays are compared by identity. Differences produced by primitive-array overloads
+     * contain boxed arrays.
+     * </p>
+     *
+     * <p>
+     * Other combinations, including incompatible array types and array/non-array pairs, are compared using {@link Objects#equals(Object, Object)}.
+     * Differences for these combinations retain the original values.
+     * </p>
      *
      * @param fieldName The field name.
      * @param lhs       The left-hand side {@link Object}.
@@ -531,9 +543,11 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
         if (equals || lhs == rhs) {
             return this;
         }
-        // rhs cannot be null, as lhs != rhs
+        // At least one value is non-null, as lhs != rhs.
         final Object test = lhs != null ? lhs : rhs;
-        if (ObjectUtils.isArray(test)) {
+        // Primitive arrays must have the same type; all reference arrays can use the Object[] overload.
+        if (ObjectUtils.isArray(test) && (lhs == null || rhs == null || lhs.getClass() == rhs.getClass()
+                || lhs instanceof Object[] && rhs instanceof Object[])) {
             if (test instanceof boolean[]) {
                 return append(fieldName, (boolean[]) lhs, (boolean[]) rhs);
             }
@@ -560,7 +574,7 @@ public class DiffBuilder<T> implements Builder<DiffResult<T>> {
             }
             return append(fieldName, (Object[]) lhs, (Object[]) rhs);
         }
-        // Not array type
+        // Compare non-arrays and arrays with incompatible types as objects.
         return Objects.equals(lhs, rhs) ? this : add(fieldName, () -> lhs, () -> rhs, Object.class);
     }
 
