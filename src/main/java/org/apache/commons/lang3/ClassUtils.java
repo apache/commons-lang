@@ -931,6 +931,7 @@ public class ClassUtils {
      *
      * @param className The className to get the package name for, may be {@code null}.
      * @return The package name or an empty string.
+     * @throws IllegalArgumentException if the name consists only of {@code '['} characters, which is not a class name.
      */
     public static String getPackageName(String className) {
         if (StringUtils.isEmpty(className)) {
@@ -938,8 +939,11 @@ public class ClassUtils {
         }
         int i = 0;
         // Strip array encoding
-        while (className.charAt(i) == '[') {
+        while (i < className.length() && className.charAt(i) == '[') {
             i++;
+        }
+        if (i == className.length()) {
+            throw new IllegalArgumentException(String.format("Invalid class name %s", className));
         }
         className = className.substring(i);
         // Strip Object type encoding
@@ -1217,6 +1221,7 @@ public class ClassUtils {
      *        {@code Class.getName()} and not {@code Class.getCanonicalName()}.
      * @return The class name of the class without the package name or an empty string. If the class is an inner class then
      *         value contains the outer class or classes and the separator is replaced to be {@code .} (dot) character.
+     * @throws IllegalArgumentException if the name consists only of {@code '['} characters, which is not a class name.
      */
     public static String getShortClassName(String className) {
         if (StringUtils.isEmpty(className)) {
@@ -1225,8 +1230,16 @@ public class ClassUtils {
         final StringBuilder arrayPrefix = new StringBuilder();
         // Handle array encoding
         if (className.startsWith("[")) {
-            while (className.charAt(0) == '[') {
-                className = className.substring(1);
+            // Count the prefix once instead of copying the string per '['
+            int dims = 0;
+            while (dims < className.length() && className.charAt(dims) == '[') {
+                dims++;
+            }
+            if (dims == className.length()) {
+                throw new IllegalArgumentException(String.format("Invalid class name %s", className));
+            }
+            className = className.substring(dims);
+            for (int i = 0; i < dims; i++) {
                 arrayPrefix.append("[]");
             }
             // Strip Object type encoding
