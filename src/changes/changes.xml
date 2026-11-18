@@ -107,6 +107,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Preserve defining class loaders throughout object graphs in SerializationUtils.clone() and roundtrip().</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Faris Basha TM">Javadoc: Fix dead links to the 3.6 release notes (#1885).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, joao-jordy">Avoid repeated array prefix copies in ClassUtils.getShortClassName(String) (#1886).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, joao-jordy">Throw IllegalArgumentException instead of StringIndexOutOfBoundsException for bracket-only names in ClassUtils.getPackageName(String) and getShortClassName(String) (#1887).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>

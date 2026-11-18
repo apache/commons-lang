@@ -931,6 +931,7 @@ public class ClassUtils {
      *
      * @param className The className to get the package name for, may be {@code null}.
      * @return The package name or an empty string.
+     * @throws IllegalArgumentException if the name consists only of {@code '['} characters.
      */
     public static String getPackageName(String className) {
         if (StringUtils.isEmpty(className)) {
@@ -938,8 +939,11 @@ public class ClassUtils {
         }
         int i = 0;
         // Strip array encoding
-        while (className.charAt(i) == '[') {
+        while (i < className.length() && className.charAt(i) == '[') {
             i++;
+        }
+        if (i == className.length()) {
+            throw new IllegalArgumentException(String.format("Invalid class name %s", className));
         }
         className = className.substring(i);
         // Strip Object type encoding
@@ -1191,9 +1195,8 @@ public class ClassUtils {
      * Gets the class name minus the package name from a String.
      *
      * <p>
-     * The string passed in is assumed to be a class name - it is not checked. The string has to be formatted the way as the
-     * JDK method {@code Class.getName()} returns it, and not the usual way as we write it, for example in import
-     * statements, or as it is formatted by {@code Class.getCanonicalName()}.
+     * The string passed in is assumed to be a class name, but is not fully validated. It must use the format returned by {@link Class#getName()},
+     * rather than the form used in import statements or returned by {@link Class#getCanonicalName()}.
      * </p>
      *
      * <p>
@@ -1217,6 +1220,7 @@ public class ClassUtils {
      *        {@code Class.getName()} and not {@code Class.getCanonicalName()}.
      * @return The class name of the class without the package name or an empty string. If the class is an inner class then
      *         value contains the outer class or classes and the separator is replaced to be {@code .} (dot) character.
+     * @throws IllegalArgumentException if the name consists only of {@code '['} characters.
      */
     public static String getShortClassName(String className) {
         if (StringUtils.isEmpty(className)) {
@@ -1227,9 +1231,12 @@ public class ClassUtils {
         if (className.startsWith("[")) {
             // Strip the prefix once to avoid copying the string for each dimension.
             int dim = 0;
-            while (className.charAt(dim) == '[') {
+            while (dim < className.length() && className.charAt(dim) == '[') {
                 dim++;
                 arrayPrefix.append("[]");
+            }
+            if (dim == className.length()) {
+                throw new IllegalArgumentException(String.format("Invalid class name %s", className));
             }
             className = className.substring(dim);
             // Strip Object type encoding

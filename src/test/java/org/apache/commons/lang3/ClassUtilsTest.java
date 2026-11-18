@@ -547,6 +547,23 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("", ClassUtils.getPackageName(""));
     }
 
+    @ParameterizedTest
+    @ValueSource(ints = { 1, 2, MAX_ARRAY_DIMENSIONS, 1000 })
+    void test_getPackageName_String_Array(final int dimensions) {
+        final String prefix = StringUtils.repeat('[', dimensions);
+        assertEquals("", ClassUtils.getPackageName(prefix + "I"));
+        assertEquals("java.lang", ClassUtils.getPackageName(prefix + "Ljava.lang.String;"));
+        assertEquals("java.util", ClassUtils.getPackageName(prefix + "Ljava.util.Map$Entry;"));
+        assertEquals("", ClassUtils.getPackageName(prefix + "LOuter$Inner;"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 1, 2, 3, MAX_ARRAY_DIMENSIONS, MAX_ARRAY_DIMENSIONS + 1, 1000 })
+    void test_getPackageName_String_BracketsOnly(final int dimensions) {
+        final String className = StringUtils.repeat('[', dimensions);
+        assertEquals("Invalid class name " + className, assertIllegalArgumentException(() -> ClassUtils.getPackageName(className)).getMessage());
+    }
+
     @Test
     void test_getShortCanonicalName_Class() {
         assertEquals("ClassUtils", ClassUtils.getShortCanonicalName(ClassUtils.class));
@@ -739,14 +756,15 @@ class ClassUtilsTest extends AbstractLangTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "[", "[[", "[[[" })
-    void test_getShortClassName_String_BracketsOnly(final String className) {
-        assertThrows(StringIndexOutOfBoundsException.class, () -> ClassUtils.getShortClassName(className));
+    @ValueSource(ints = { 1, 2, 3, MAX_ARRAY_DIMENSIONS, MAX_ARRAY_DIMENSIONS + 1, 1000 })
+    void test_getShortClassName_String_BracketsOnly(final int dimensions) {
+        final String className = StringUtils.repeat('[', dimensions);
+        assertEquals("Invalid class name " + className, assertIllegalArgumentException(() -> ClassUtils.getShortClassName(className)).getMessage());
     }
 
     @Test
     void test_getShortClassName_String_ExcessiveDimensions() {
-        // This method does not validate class names, including dimensions beyond the JVM limit.
+        // This method does not validate dimensions beyond the JVM limit.
         final int dimensions = 1000;
         final String className = StringUtils.repeat('[', dimensions) + "Ljava.lang.String;";
         assertEquals("String" + StringUtils.repeat("[]", dimensions), ClassUtils.getShortClassName(className));
