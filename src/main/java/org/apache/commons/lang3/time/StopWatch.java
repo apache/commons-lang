@@ -733,6 +733,8 @@ public class StopWatch {
         }
         startTimeNanos = System.nanoTime();
         startInstant = Instant.now();
+        stopTimeNanos = 0;
+        stopInstant = null;
         runningState = State.RUNNING;
         splits.clear();
     }

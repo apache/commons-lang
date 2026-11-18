@@ -339,6 +339,37 @@ class StopWatchTest extends AbstractLangTest {
     }
 
     @Test
+    void testResetAndStartClearsPreviousStopState() {
+        // A running watch that was never stopped has no stop time.
+        final StopWatch fresh = StopWatch.createStarted();
+        assertNull(fresh.getStopInstant());
+        assertEquals(0, fresh.getStopTime());
+        // A restarted watch must not report the stop time of its previous session.
+        final StopWatch watch = StopWatch.createStarted();
+        watch.stop();
+        assertNotNull(watch.getStopInstant());
+        watch.reset();
+        watch.start();
+        assertNull(watch.getStopInstant());
+        assertEquals(0, watch.getStopTime());
+        // Stopping again records the new session's stop time.
+        watch.stop();
+        assertNotNull(watch.getStopInstant());
+    }
+
+    @Test
+    void testResetAndStartClearsPreviousSuspendedStopState() {
+        final StopWatch watch = StopWatch.createStarted();
+        watch.suspend();
+        assertNotNull(watch.getStopInstant());
+        watch.stop();
+        watch.reset();
+        watch.start();
+        assertNull(watch.getStopInstant());
+        assertEquals(0, watch.getStopTime());
+    }
+
+    @Test
     void testRun() throws Throwable {
         final StopWatch watch = new StopWatch();
         final AtomicInteger i = new AtomicInteger();
