@@ -26,7 +26,7 @@
  * current or future standard Java classes.
  * </p>
  * <p>
- * <strong>Deprecated</strong>: As of <a href="https://commons.apache.org/proper/commons-lang/changes-report.html#a3.6">3.6</a>, use the Apache Commons Text
+ * <strong>Deprecated</strong>: As of <a href="https://commons.apache.org/proper/commons-lang/changes.html#a3.6">3.6</a>, use the Apache Commons Text
  * <a href="https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/package-summary.html"> text package</a>.
  * </p>
  *
