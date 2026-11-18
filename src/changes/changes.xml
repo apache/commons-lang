@@ -102,6 +102,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Correct Strings Javadoc for case sensitivity, null ordering, prefix and suffix matching, and search bounds.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Preserve interrupt status in BackgroundInitializer.isInitialized (#1879).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Restrict MethodUtils.invokeStaticMethod to static overloads; both static invocation variants now throw NoSuchMethodException instead of NullPointerException when only an instance method matches (#1881).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Handle Object methods locally in EventListenerSupport proxies, preventing NullPointerException from equals and hashCode and returning an identity string from toString.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>

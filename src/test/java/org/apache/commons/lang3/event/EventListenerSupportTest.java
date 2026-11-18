@@ -20,9 +20,11 @@ package org.apache.commons.lang3.event;
 import static org.apache.commons.lang3.LangAssertions.assertIllegalArgumentException;
 import static org.apache.commons.lang3.LangAssertions.assertNullPointerException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
@@ -38,15 +40,20 @@ import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
 import org.apache.commons.lang3.AbstractLangTest;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Tests {@link EventListenerSupport}.
@@ -140,6 +147,66 @@ class EventListenerSupportTest extends AbstractLangTest {
         assertEquals(1, listenerSupport.getListeners().length);
         listenerSupport.removeListener(listener2);
         assertSame(empty, listenerSupport.getListeners());
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { false, true })
+    void testProxyObjectMethods(final boolean addListener) {
+        final EventListenerSupport<VetoableChangeListener> listenerSupport = EventListenerSupport.create(VetoableChangeListener.class);
+        if (addListener) {
+            listenerSupport.addListener(new VetoableChangeListener() {
+                @Override
+                public boolean equals(final Object other) {
+                    throw new AssertionError("Must not dispatch equals to a listener");
+                }
+
+                @Override
+                public int hashCode() {
+                    throw new AssertionError("Must not dispatch hashCode to a listener");
+                }
+
+                @Override
+                public String toString() {
+                    throw new AssertionError("Must not dispatch toString to a listener");
+                }
+
+                @Override
+                public void vetoableChange(final PropertyChangeEvent event) {
+                }
+            });
+        }
+        final VetoableChangeListener proxy = listenerSupport.fire();
+        final VetoableChangeListener otherProxy = EventListenerSupport.create(VetoableChangeListener.class).fire();
+        assertEquals(System.identityHashCode(proxy), proxy.hashCode());
+        assertTrue(proxy.equals(proxy));
+        assertFalse(proxy.equals(null));
+        assertFalse(proxy.equals(otherProxy));
+        assertFalse(proxy.equals(new Object()));
+        assertEquals(ObjectUtils.identityToString(proxy), proxy.toString());
+        final Set<VetoableChangeListener> set = new HashSet<>();
+        assertTrue(set.add(proxy));
+        assertFalse(set.add(proxy));
+        assertTrue(set.remove(proxy));
+        final List<VetoableChangeListener> list = new ArrayList<>();
+        list.add(proxy);
+        assertTrue(list.remove(proxy));
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    void testProxyRegisteredAsListener() throws PropertyVetoException {
+        final EventListenerSupport<VetoableChangeListener> source = EventListenerSupport.create(VetoableChangeListener.class);
+        final EventListenerSupport<VetoableChangeListener> target = EventListenerSupport.create(VetoableChangeListener.class);
+        final AtomicInteger calls = new AtomicInteger();
+        target.addListener(event -> calls.incrementAndGet());
+        final VetoableChangeListener proxy = target.fire();
+        source.addListener(proxy, false);
+        source.addListener(proxy, false);
+        assertEquals(1, source.getListenerCount());
+        source.fire().vetoableChange(new PropertyChangeEvent(this, "value", 1, 2));
+        assertEquals(1, calls.get());
+        source.removeListener(proxy);
+        assertEquals(0, source.getListenerCount());
     }
 
     @Test

@@ -105,22 +105,31 @@ public class EventListenerSupport<L> implements Serializable {
         }
 
         /**
-         * Propagates the method call to all registered listeners in place of the proxy listener object.
+         * Handles a method call on the proxy listener object.
+         *
          * <p>
-         * Calls listeners in the order added to the underlying {@link List}.
+         * Propagates listener method calls to all registered listeners in the order added to the underlying {@link List}.
          * </p>
          *
-         * @param unusedProxy The proxy object representing a listener on which the invocation was called; not used
-         * @param method The listener method that will be called on all of the listeners.
-         * @param args event arguments to propagate to the listeners.
-         * @return The result of the method call
+         * <p>
+         * Calls to {@link Object#equals(Object)}, {@link Object#hashCode()}, and {@link Object#toString()} use the proxy's identity and are not propagated to
+         * listeners.
+         * </p>
+         *
+         * @param proxy The proxy object representing a listener on which the invocation was called.
+         * @param method The method invoked on the proxy.
+         * @param args The method arguments, or {@code null} if the method has no arguments.
+         * @return The identity-based result for an Object method, or {@code null} for a listener method.
          * @throws InvocationTargetException Thrown if an error occurs.
          * @throws IllegalArgumentException Thrown if an error occurs.
          * @throws IllegalAccessException Thrown if an error occurs.
          */
         @Override
-        public Object invoke(final Object unusedProxy, final Method method, final Object[] args)
+        public Object invoke(final Object proxy, final Method method, final Object[] args)
                 throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            if (method.getDeclaringClass() == Object.class) {
+                return EventUtils.invokeObjectMethod(proxy, method, args);
+            }
             for (final L listener : listeners) {
                 try {
                     method.invoke(listener, args);
@@ -161,7 +170,7 @@ public class EventListenerSupport<L> implements Serializable {
     private List<L> listeners = new CopyOnWriteArrayList<>();
 
     /**
-     * The proxy representing the collection of listeners. Calls to this proxy object will be sent to all registered listeners.
+     * The proxy representing the collection of listeners. Listener method calls to this proxy object are sent to all registered listeners.
      */
     private transient L proxy;
 
@@ -268,12 +277,15 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Returns a proxy object which can be used to call listener methods on all
-     * of the registered event listeners. All calls made to this proxy will be
-     * forwarded to all registered listeners.
+     * Gets a proxy object which can be used to call listener methods on all registered event listeners.
      *
-     * @return A proxy object which can be used to call listener methods on all
-     * of the registered event listeners
+     * <p>
+     * By default, listener method calls are forwarded to all registered listeners. Calls to {@link Object#equals(Object)}, {@link Object#hashCode()}, and
+     * {@link Object#toString()} use the proxy's identity and are not forwarded to listeners. Subclasses can customize this behavior by overriding
+     * {@link #createInvocationHandler()}.
+     * </p>
+     *
+     * @return A proxy object which can be used to call listener methods on all registered event listeners.
      */
     public L fire() {
         return proxy;

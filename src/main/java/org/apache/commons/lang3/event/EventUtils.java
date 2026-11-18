@@ -76,18 +76,7 @@ public class EventUtils {
         @Override
         public Object invoke(final Object proxy, final Method method, final Object[] parameters) throws Throwable {
             if (method.getDeclaringClass() == Object.class) {
-                // Handle Object methods locally instead of dispatching them to the bound target,
-                // mirroring java.beans.EventHandler: routine host actions (hash-based collections,
-                // logging, equality checks during listener de-registration) must not invoke the
-                // target method and must not return null into an unboxing context.
-                switch (method.getName()) {
-                case "hashCode":
-                    return Integer.valueOf(System.identityHashCode(proxy));
-                case "equals":
-                    return Boolean.valueOf(proxy == parameters[0]);
-                default: // toString
-                    return ObjectUtils.identityToString(proxy);
-                }
+                return invokeObjectMethod(proxy, method, parameters);
             }
             if (eventTypes.isEmpty() || eventTypes.contains(method.getName())) {
                 if (hasMatchingParametersMethod(method)) {
@@ -135,6 +124,31 @@ public class EventUtils {
         final L listener = listenerType.cast(Proxy.newProxyInstance(target.getClass().getClassLoader(),
                 new Class[] { listenerType }, new EventBindingInvocationHandler(target, methodName, eventTypes)));
         addEventListener(eventSource, listenerType, listener);
+    }
+
+    /**
+     * Handles an Object method locally using the proxy's identity.
+     *
+     * <p>
+     * The caller must first check that the method is declared by {@link Object}. JDK proxies dispatch only {@link Object#equals(Object)},
+     * {@link Object#hashCode()}, and {@link Object#toString()} with that declaring class. These calls must not invoke listeners or return {@code null} into a
+     * primitive unboxing context.
+     * </p>
+     *
+     * @param proxy The proxy instance.
+     * @param method The Object method invoked on the proxy.
+     * @param args The method arguments, or {@code null} if the method has no arguments.
+     * @return The identity-based result of the Object method.
+     */
+    static Object invokeObjectMethod(final Object proxy, final Method method, final Object[] args) {
+        switch (method.getName()) {
+        case "hashCode":
+            return Integer.valueOf(System.identityHashCode(proxy));
+        case "equals":
+            return Boolean.valueOf(proxy == args[0]);
+        default: // toString
+            return ObjectUtils.identityToString(proxy);
+        }
     }
 
     /**
