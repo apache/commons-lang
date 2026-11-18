@@ -43,11 +43,25 @@ import org.apache.commons.lang3.ThreadUtils.ThreadGroupPredicate;
 import org.apache.commons.lang3.ThreadUtils.ThreadPredicate;
 import org.apache.commons.lang3.function.Predicates;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Tests {@link ThreadUtils}.
  */
 class ThreadUtilsTest extends AbstractLangTest {
+
+    @ParameterizedTest
+    @ValueSource(longs = { -1, -999_999, -1_000_001 })
+    void testJoinRejectsNegativeDuration(final long nanos) {
+        assertIllegalArgumentException(() -> ThreadUtils.join(new Thread(), Duration.ofNanos(nanos)));
+    }
+
+    @ParameterizedTest
+    @ValueSource(longs = { -1, -999_999, -1_000_001 })
+    void testSleepRejectsNegativeDuration(final long nanos) {
+        assertIllegalArgumentException(() -> ThreadUtils.sleep(Duration.ofNanos(nanos)));
+    }
 
     private static final class TestThread extends Thread {
         private final CountDownLatch latch = new CountDownLatch(1);
