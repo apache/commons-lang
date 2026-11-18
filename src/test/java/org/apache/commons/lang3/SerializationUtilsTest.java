@@ -37,6 +37,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -157,6 +158,81 @@ public class SerializationUtilsTest extends AbstractLangTest {
         assertEquals(iInteger, testMap.get("BAR"));
         assertNotSame(iInteger, testMap.get("BAR"));
         assertEquals(iMap, testMap);
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { false, true })
+    void testCloneAndRoundtripClassesFromDifferentClassLoaders(final boolean roundtrip) throws Exception {
+        final URL[] urls = { getClass().getProtectionDomain().getCodeSource().getLocation() };
+        final ClassLoader applicationLoader = getClass().getClassLoader();
+        try (URLClassLoader first = new URLClassLoader(urls, null);
+                URLClassLoader second = new URLClassLoader(urls, null)) {
+            final Class<?> firstClass = Class.forName(ProxyHolder.class.getName(), true, first);
+            final Class<?> secondClass = Class.forName(ProxyHolder.class.getName(), true, second);
+            final Serializable firstValue = (Serializable) firstClass.getConstructor(Serializable.class).newInstance("first");
+            final Serializable secondValue = (Serializable) secondClass.getConstructor(Serializable.class).newInstance("second");
+            final Serializable array = (Serializable) Array.newInstance(firstClass, 1);
+            Array.set(array, 0, firstValue);
+            final ArrayList<Serializable> values = new ArrayList<>();
+            values.add(new ProxyHolder("application"));
+            values.add(firstValue);
+            values.add(secondValue);
+            values.add(firstClass);
+            values.add(secondClass);
+            values.add(firstValue);
+            values.add(array);
+            for (final ClassLoader contextLoader : new ClassLoader[] { applicationLoader, first, new ClassLoader(null) { }, null }) {
+                contextClassLoader.setContextClassLoader(contextLoader);
+                final ArrayList<Serializable> copy = roundtrip ? SerializationUtils.roundtrip(values) : SerializationUtils.clone(values);
+                assertNotSame(values, copy);
+                assertEquals(values.size(), copy.size());
+                for (int i = 0; i < 3; i++) {
+                    assertNotSame(values.get(i), copy.get(i));
+                    assertSame(values.get(i).getClass(), copy.get(i).getClass());
+                }
+                assertEquals("application", ((ProxyHolder) copy.get(0)).value);
+                assertEquals("first", firstClass.getField("value").get(copy.get(1)));
+                assertEquals("second", secondClass.getField("value").get(copy.get(2)));
+                assertSame(firstClass, copy.get(3));
+                assertSame(secondClass, copy.get(4));
+                assertSame(copy.get(1), copy.get(5));
+                assertNotSame(array, copy.get(6));
+                assertSame(array.getClass(), copy.get(6).getClass());
+                assertSame(copy.get(1), Array.get(copy.get(6), 0));
+            }
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { false, true })
+    void testCloneAndRoundtripWithPluginOnlyClass(final boolean roundtrip, @TempDir final Path tempDir) throws Exception {
+        final String className = "plugin.RoundtripValue";
+        final Path source = tempDir.resolve("RoundtripValue.java");
+        Files.write(source, ("package plugin; public class RoundtripValue implements java.io.Serializable {"
+                + " private static final long serialVersionUID = 1L; public String value = \"value\"; }").getBytes(StandardCharsets.UTF_8));
+        final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        assertNotNull(compiler, "A JDK compiler is required to create the plugin-only class");
+        final ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
+        assertEquals(0, compiler.run(null, diagnostics, diagnostics, "-d", tempDir.toString(), source.toString()),
+                diagnostics.toString(StandardCharsets.UTF_8.name()));
+        final ClassLoader applicationLoader = getClass().getClassLoader();
+        try (URLClassLoader loader = new URLClassLoader(new URL[] { tempDir.toUri().toURL() }, null)) {
+            contextClassLoader.setContextClassLoader(applicationLoader);
+            assertThrows(ClassNotFoundException.class, () -> Class.forName(className, false, applicationLoader));
+            final Class<?> valueClass = Class.forName(className, true, loader);
+            final Serializable value = (Serializable) valueClass.getConstructor().newInstance();
+            final Serializable copy = roundtrip ? SerializationUtils.roundtrip(value) : SerializationUtils.clone(value);
+            assertNotSame(value, copy);
+            assertSame(valueClass, copy.getClass());
+            assertEquals("value", valueClass.getField("value").get(copy));
+            final ArrayList<Serializable> values = new ArrayList<>();
+            values.add(value);
+            final ArrayList<Serializable> copies = roundtrip ? SerializationUtils.roundtrip(values) : SerializationUtils.clone(values);
+            assertNotSame(values, copies);
+            assertNotSame(value, copies.get(0));
+            assertSame(valueClass, copies.get(0).getClass());
+            assertEquals("value", valueClass.getField("value").get(copies.get(0)));
+        }
     }
 
     @Test
@@ -509,6 +585,35 @@ public class SerializationUtilsTest extends AbstractLangTest {
     void testRoundtrip() {
         final HashMap<Object, Object> newMap = SerializationUtils.roundtrip(iMap);
         assertEquals(iMap, newMap);
+        assertNull(SerializationUtils.roundtrip(null));
+    }
+
+    @Test
+    void testRoundtripPreservesClassLoader() throws Exception {
+        final URL[] urls = { getClass().getProtectionDomain().getCodeSource().getLocation() };
+        try (URLClassLoader loader = new URLClassLoader(urls, null)) {
+            final Class<?> holderClass = Class.forName(ProxyHolder.class.getName(), true, loader);
+            final Serializable holder = (Serializable) holderClass.getConstructor(Serializable.class).newInstance("value");
+            final Serializable copy = SerializationUtils.roundtrip(holder);
+            assertNotSame(holder, copy);
+            assertSame(holderClass, copy.getClass());
+            assertEquals("value", holderClass.getField("value").get(copy));
+        }
+    }
+
+    @Test
+    void testRoundtripProxyPreservesClassLoader() throws Exception {
+        final URL[] urls = { getClass().getProtectionDomain().getCodeSource().getLocation() };
+        try (URLClassLoader loader = new URLClassLoader(urls, null)) {
+            final Class<?> proxyInterface = Class.forName(Bar.class.getName(), true, loader);
+            final Serializable proxy = (Serializable) Proxy.newProxyInstance(loader, new Class<?>[] { proxyInterface }, new SerializableInvocationHandler());
+            final Serializable copy = SerializationUtils.roundtrip(proxy);
+            assertNotSame(proxy, copy);
+            assertSame(proxy.getClass(), copy.getClass());
+            assertNotSame(Proxy.getInvocationHandler(proxy), Proxy.getInvocationHandler(copy));
+            assertSame(Proxy.getInvocationHandler(proxy).getClass(), Proxy.getInvocationHandler(copy).getClass());
+            assertEquals("test", copy.toString());
+        }
     }
 
     @Test

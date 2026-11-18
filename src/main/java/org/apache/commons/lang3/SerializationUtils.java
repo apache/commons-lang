@@ -58,14 +58,11 @@ import java.util.Objects;
 public class SerializationUtils {
 
     /**
-     * Custom specialization of the standard JDK {@link ObjectInputStream} that uses a custom {@link ClassLoader} to resolve classes.
-     * If the specified {@link ClassLoader} cannot resolve a class, the context classloader of the current thread will be used.
-     * This way, the standard deserialization
-     * also works in web application containers and application servers, regardless of which {@link ClassLoader} loaded the class that encapsulates
-     * serialization/deserialization.
+     * Custom specialization of the standard JDK {@link ObjectInputStream} that resolves classes to their original definitions.
      *
      * <p>
-     * Proxy classes are recorded during serialization and reused directly to preserve their defining class loaders without looking up their interfaces.
+     * Classes, including proxy classes, are recorded during serialization and reused directly to preserve their defining class loaders. Each class descriptor
+     * contains an index into the recorded classes, distinguishing classes with identical names from different loaders in the same object graph.
      * </p>
      *
      * <p>
@@ -74,54 +71,36 @@ public class SerializationUtils {
      */
     static final class ClassLoaderAwareObjectInputStream extends ObjectInputStream {
 
-        private final ClassLoader classLoader;
-
-        private final List<Class<?>> proxyClasses;
+        private final List<Class<?>> classes;
 
         /**
          * Constructs a new instance.
          *
-         * @param in           The {@link InputStream}.
-         * @param classLoader  The class loader to use.
-         * @param proxyClasses The proxy classes recorded while serializing the original object.
+         * @param in      The {@link InputStream}.
+         * @param classes The classes recorded while serializing the original object.
          * @throws IOException Thrown if an I/O error occurs while reading stream header.
          * @see java.io.ObjectInputStream
          */
-        ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader, final List<Class<?>> proxyClasses) throws IOException {
+        ClassLoaderAwareObjectInputStream(final InputStream in, final List<Class<?>> classes) throws IOException {
             super(in);
-            this.classLoader = classLoader;
-            this.proxyClasses = proxyClasses;
+            this.classes = classes;
         }
 
         /**
-         * Overridden version that uses the parameterized {@link ClassLoader} or the {@link ClassLoader} of the current {@link Thread} to resolve the class.
+         * Resolves a class using its recorded identity.
          *
          * @param desc An instance of class {@link ObjectStreamClass}.
          * @return A {@link Class} object corresponding to {@code desc}.
          * @throws IOException Thrown if an I/O error occurs.
-         * @throws ClassNotFoundException Thrown if class of a serialized object cannot be found.
          */
         @Override
-        protected Class<?> resolveClass(final ObjectStreamClass desc) throws IOException, ClassNotFoundException {
-            final String name = desc.getName();
-            try {
-                return Class.forName(name, false, classLoader);
-            } catch (final ClassNotFoundException ex) {
-                try {
-                    return Class.forName(name, false, Thread.currentThread().getContextClassLoader());
-                } catch (final ClassNotFoundException cnfe) {
-                    final Class<?> cls = ClassUtils.getPrimitiveClass(name);
-                    if (cls != null) {
-                        return cls;
-                    }
-                    throw cnfe;
-                }
-            }
+        protected Class<?> resolveClass(final ObjectStreamClass desc) throws IOException {
+            return classes.get(readInt());
         }
 
         @Override
         protected Class<?> resolveProxyClass(final String[] interfaces) throws IOException {
-            return proxyClasses.get(readInt());
+            return classes.get(readInt());
         }
     }
 
@@ -131,6 +110,10 @@ public class SerializationUtils {
      * <p>
      * This is many times slower than writing clone methods by hand on all objects in your object graph. However, for complex object graphs, or for those that
      * don't support deep cloning this can be a simple alternative implementation. Of course all the objects must be {@link Serializable}.
+     * </p>
+     *
+     * <p>
+     * Resolves serialized classes and proxy classes to their original definitions, preserving their defining class loaders.
      * </p>
      *
      * @param <T>    the type of the object involved.
@@ -144,13 +127,18 @@ public class SerializationUtils {
             return null;
         }
         final ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
-        final List<Class<?>> proxyClasses = new ArrayList<>();
+        final List<Class<?>> classes = new ArrayList<>();
         try (ObjectOutputStream out = new ObjectOutputStream(baos) {
             @Override
+            protected void annotateClass(final Class<?> cls) throws IOException {
+                // Pair each descriptor with its original class, even when another loader defines the same name.
+                writeInt(classes.size());
+                classes.add(cls);
+            }
+
+            @Override
             protected void annotateProxyClass(final Class<?> proxyClass) throws IOException {
-                // Pair the descriptor with its original class, even when another loader defines the same interface names.
-                writeInt(proxyClasses.size());
-                proxyClasses.add(proxyClass);
+                annotateClass(proxyClass);
             }
         }) {
             out.writeObject(object);
@@ -158,8 +146,7 @@ public class SerializationUtils {
             throw new SerializationException(ex);
         }
         final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-        final Class<T> cls = ObjectUtils.getClass(object);
-        try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais, cls.getClassLoader(), proxyClasses)) {
+        try (ClassLoaderAwareObjectInputStream in = new ClassLoaderAwareObjectInputStream(bais, classes)) {
             // When we serialize and deserialize an object, it is reasonable to assume the deserialized object is of the
             // same type as the original serialized object
             return (T) in.readObject();
@@ -260,15 +247,19 @@ public class SerializationUtils {
     /**
      * Performs a serialization roundtrip. Serializes and deserializes the given object, great for testing objects that implement {@link Serializable}.
      *
+     * <p>
+     * Uses {@link #clone(Serializable)} to preserve the defining class loaders of serialized classes and proxy classes.
+     * </p>
+     *
      * @param <T> The type of the object involved.
-     * @param obj The object to roundtrip.
-     * @return The serialized and deserialized object.
-     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
+     * @param obj The object to roundtrip, may be {@code null}.
+     * @return The serialized and deserialized object, or {@code null} if the input is {@code null}.
+     * @throws SerializationException Thrown if serialization or deserialization fails.
      * @since 3.3
+     * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      */
-    @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
     public static <T extends Serializable> T roundtrip(final T obj) {
-        return (T) deserialize(serialize(obj));
+        return clone(obj);
     }
 
     /**
