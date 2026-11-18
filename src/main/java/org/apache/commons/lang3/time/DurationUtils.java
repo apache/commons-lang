@@ -46,7 +46,7 @@ public class DurationUtils {
     static final LongRange LONG_TO_INT_RANGE = LongRange.of(NumberUtils.LONG_INT_MIN_VALUE, NumberUtils.LONG_INT_MAX_VALUE);
 
     /**
-     * Calls the consumer with the duration split into milliseconds and nanoseconds.
+     * Accepts the consumer with the duration split into milliseconds and nanoseconds.
      * <p>
      * The nanosecond component is non-negative, and the millisecond component is rounded down so that the two components represent the original duration,
      * including negative durations.
