@@ -51,18 +51,6 @@ import org.junit.jupiter.params.provider.ValueSource;
  */
 class ThreadUtilsTest extends AbstractLangTest {
 
-    @ParameterizedTest
-    @ValueSource(longs = { -1, -999_999, -1_000_001 })
-    void testJoinRejectsNegativeDuration(final long nanos) {
-        assertIllegalArgumentException(() -> ThreadUtils.join(new Thread(), Duration.ofNanos(nanos)));
-    }
-
-    @ParameterizedTest
-    @ValueSource(longs = { -1, -999_999, -1_000_001 })
-    void testSleepRejectsNegativeDuration(final long nanos) {
-        assertIllegalArgumentException(() -> ThreadUtils.sleep(Duration.ofNanos(nanos)));
-    }
-
     private static final class TestThread extends Thread {
         private final CountDownLatch latch = new CountDownLatch(1);
 
@@ -210,6 +198,12 @@ class ThreadUtilsTest extends AbstractLangTest {
         ThreadUtils.join(new Thread(), Duration.ZERO);
     }
 
+    @ParameterizedTest
+    @ValueSource(longs = { -1, -999_999, -1_000_001 })
+    void testJoinRejectsNegativeDuration(final long nanos) {
+        assertIllegalArgumentException(() -> ThreadUtils.join(new Thread(), Duration.ofNanos(nanos)));
+    }
+
     @Test
     void testNoThread() {
         assertEquals(0, ThreadUtils.findThreadsByName("some_thread_which_does_not_exist_18762ZucTT").size());
@@ -300,6 +294,12 @@ class ThreadUtilsTest extends AbstractLangTest {
     @ValueSource(longs = { -1, -999_999, -1_000_001 })
     void testSleepQuietlyRejectsNegativeDuration(final long nanos) {
         assertIllegalArgumentException(() -> ThreadUtils.sleepQuietly(Duration.ofNanos(nanos)));
+    }
+
+    @ParameterizedTest
+    @ValueSource(longs = { -1, -999_999, -1_000_001 })
+    void testSleepRejectsNegativeDuration(final long nanos) {
+        assertIllegalArgumentException(() -> ThreadUtils.sleep(Duration.ofNanos(nanos)));
     }
 
     @Test
