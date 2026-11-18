@@ -47,14 +47,16 @@ public class DurationUtils {
 
     /**
      * Accepts the consumer with the duration split into milliseconds and nanoseconds.
+     *
      * <p>
-     * The nanosecond component is non-negative, and the millisecond component is rounded down so that the two components represent the original duration,
-     * including negative durations.
+     * The nanosecond component is between 0 and 999,999, inclusive, and the millisecond component is rounded down so that the two components represent the
+     * original duration, including negative durations.
      * </p>
      *
      * @param <T> The function exception.
      * @param consumer Accepting function.
      * @param duration The duration to pick apart.
+     * @throws ArithmeticException Thrown if converting the duration to milliseconds overflows.
      * @throws T Thrown as described in the function signature.
      * @see StopWatch
      */

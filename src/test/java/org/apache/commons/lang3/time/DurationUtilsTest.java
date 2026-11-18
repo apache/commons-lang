@@ -22,12 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -42,14 +44,43 @@ import org.junitpioneer.jupiter.SetSystemProperty.SetSystemProperties;
  */
 class DurationUtilsTest extends AbstractLangTest {
 
+    @Test
+    void testAcceptMaxMillis() {
+        final AtomicInteger calls = new AtomicInteger();
+        DurationUtils.accept((millis, remainder) -> {
+            calls.incrementAndGet();
+            assertEquals(Long.MAX_VALUE, millis.longValue());
+            assertEquals(999_999, remainder.intValue());
+        }, Duration.ofMillis(Long.MAX_VALUE).plusNanos(999_999));
+        assertEquals(1, calls.get());
+    }
+
     @ParameterizedTest
-    @ValueSource(longs = { -1_000_000_001, -1_000_001, -1_000_000, -999_999, -1, 0, 1, 999_999, 1_000_000, 1_000_001, 1_000_000_001 })
+    @ValueSource(longs = { Long.MIN_VALUE, Long.MAX_VALUE })
+    void testAcceptMillisOverflow(final long millis) {
+        final Duration duration = millis == Long.MIN_VALUE ? Duration.ofMillis(millis).minusNanos(1) : Duration.ofMillis(millis).plusMillis(1);
+        assertThrows(ArithmeticException.class, () -> DurationUtils.accept((value, remainder) -> fail("Consumer must not be called on overflow"), duration));
+    }
+
+    @ParameterizedTest
+    @ValueSource(longs = { Long.MIN_VALUE, -1_000_000_001, -1_000_001, -1_000_000, -999_999, -1, 0, 1, 999_999, 1_000_000, 1_000_001, 1_000_000_001,
+        Long.MAX_VALUE })
     void testAcceptPreservesDuration(final long nanos) {
         final Duration duration = Duration.ofNanos(nanos);
+        final AtomicInteger calls = new AtomicInteger();
         DurationUtils.accept((millis, remainder) -> {
+            calls.incrementAndGet();
             assertEquals(duration, Duration.ofMillis(millis).plusNanos(remainder));
             assertTrue(remainder >= 0 && remainder < 1_000_000);
         }, duration);
+        assertEquals(1, calls.get());
+    }
+
+    @ParameterizedTest
+    @ValueSource(longs = { Long.MIN_VALUE, Long.MAX_VALUE })
+    void testAcceptSecondsOverflow(final long seconds) {
+        assertThrows(ArithmeticException.class,
+            () -> DurationUtils.accept((millis, remainder) -> fail("Consumer must not be called on overflow"), Duration.ofSeconds(seconds)));
     }
 
     @Test

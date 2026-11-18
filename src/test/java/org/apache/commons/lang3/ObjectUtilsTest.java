@@ -59,6 +59,8 @@ import org.apache.commons.lang3.mutable.MutableObject;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.time.DurationUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.MockedStatic;
 
 /**
@@ -906,6 +908,15 @@ class ObjectUtilsTest extends AbstractLangTest {
             }
             // Verify accept was called with the expected Duration.
             mocked.verify(() -> DurationUtils.accept(any(), eq(Duration.ofMillis(millis))));
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(longs = { -1, -999_999, -1_000_001 })
+    void testWaitDurationRejectsNegativeDuration(final long nanos) {
+        final Object lock = new Object();
+        synchronized (lock) {
+            assertIllegalArgumentException(() -> ObjectUtils.wait(lock, Duration.ofNanos(nanos)));
         }
     }
 

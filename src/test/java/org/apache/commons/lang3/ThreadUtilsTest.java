@@ -296,6 +296,12 @@ class ThreadUtilsTest extends AbstractLangTest {
         assertFalse(Thread.currentThread().isInterrupted(), "Interrupted flag should not be set for normal sleep");
     }
 
+    @ParameterizedTest
+    @ValueSource(longs = { -1, -999_999, -1_000_001 })
+    void testSleepQuietlyRejectsNegativeDuration(final long nanos) {
+        assertIllegalArgumentException(() -> ThreadUtils.sleepQuietly(Duration.ofNanos(nanos)));
+    }
+
     @Test
     void testSystemThreadGroupExists() {
         final ThreadGroup systemThreadGroup = ThreadUtils.getSystemThreadGroup();
