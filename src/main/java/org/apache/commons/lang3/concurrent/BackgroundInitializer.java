@@ -330,11 +330,19 @@ public class BackgroundInitializer<T> extends AbstractConcurrentInitializer<T, E
     }
 
     /**
-     * Tests whether this instance is initialized. Once initialized, always returns true.
-     * If initialization failed then the failure will be cached and this will never return
-     * true.
+     * Tests whether initialization has completed successfully.
      *
-     * @return true if initialization completed successfully, otherwise false.
+     * <p>
+     * Returns {@code false} if initialization has not started, is still running, failed, or was canceled.
+     * </p>
+     *
+     * <p>
+     * This method retrieves the result of the completed {@link Future} to check for failure. Depending on the future implementation, this retrieval may throw
+     * {@link InterruptedException} even if the result is already available. In that case, this method returns {@code false} and preserves the calling thread's
+     * interrupt status. Consequently, a call can return {@code false} even after a previous call returned {@code true}.
+     * </p>
+     *
+     * @return {@code true} if initialization completed successfully and its result could be retrieved, otherwise {@code false}.
      * @since 3.14.0
      */
     @Override

@@ -346,10 +346,14 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
     }
 
     /**
-     * Tests whether this all child {@code BackgroundInitializer} objects are initialized. Once initialized, always returns true.
+     * Tests whether all child initializers have completed initialization successfully.
      *
-     * @return Whether all child {@code BackgroundInitializer} objects instance are initialized. Once initialized, always returns true. If there are no child
-     *         {@code BackgroundInitializer} objects return false.
+     * <p>
+     * Returns {@code false} if there are no child initializers or if any child's {@link BackgroundInitializer#isInitialized()} returns {@code false}. A child
+     * query may return {@code false} when interrupted, even after initialization completed successfully.
+     * </p>
+     *
+     * @return {@code true} if there is at least one child initializer and all child queries return {@code true}, otherwise {@code false}.
      * @since 3.14.0
      */
     @Override

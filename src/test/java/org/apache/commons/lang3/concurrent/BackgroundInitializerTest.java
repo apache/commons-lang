@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -351,6 +352,37 @@ class BackgroundInitializerTest extends AbstractLangTest {
     }
 
     @Test
+    void testIsInitializedCancelled() throws InterruptedException {
+        final ExecutorService exec = Executors.newSingleThreadExecutor();
+        try {
+            final AbstractBackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl(exec);
+            init.enableLatch();
+            init.start();
+            assertTrue(init.getFuture().cancel(true));
+            assertThrows(CancellationException.class, init::get);
+            assertFalse(init.isInitialized());
+        } finally {
+            exec.shutdownNow();
+            exec.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void testIsInitializedFailed() {
+        final AbstractBackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
+        final InterruptedException failure = new InterruptedException("Background initialization interrupted");
+        init.ex = failure;
+        init.start();
+        try {
+            assertSame(failure, assertThrows(ConcurrentException.class, init::get).getCause());
+            assertFalse(init.isInitialized());
+            assertFalse(Thread.currentThread().isInterrupted(), "Background failure interrupted the caller");
+        } finally {
+            Thread.interrupted();
+        }
+    }
+
+    @Test
     void testIsInitializedInterrupted() throws ConcurrentException, InterruptedException {
         final ExecutorService exec = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>()) {
             @Override
@@ -375,12 +407,28 @@ class BackgroundInitializerTest extends AbstractLangTest {
             Thread.currentThread().interrupt();
             assertFalse(init.isInitialized());
             assertTrue(Thread.currentThread().isInterrupted(), "Interrupt status was cleared");
+            assertFalse(init.isInitialized(), "Initialized while the caller remained interrupted");
+            assertTrue(Thread.currentThread().isInterrupted(), "Repeated query cleared interrupt status");
             Thread.interrupted();
             assertTrue(init.isInitialized());
         } finally {
             Thread.interrupted();
             exec.shutdown();
             exec.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void testIsInitializedInterruptedDefaultExecutor() throws ConcurrentException {
+        final AbstractBackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl();
+        init.start();
+        init.get();
+        try {
+            Thread.currentThread().interrupt();
+            assertTrue(init.isInitialized());
+            assertTrue(Thread.currentThread().isInterrupted(), "Interrupt status was cleared");
+        } finally {
+            Thread.interrupted();
         }
     }
 

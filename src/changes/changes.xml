@@ -100,6 +100,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Prevent search-bound overflow in CharSequenceUtils.lastIndexOf, including calls through Strings.CS.lastIndexOf.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Bound speculative initial capacity in Strings.replace by the possible match count and a 20% growth limit, avoiding premature memory exhaustion for large replacements.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Correct Strings Javadoc for case sensitivity, null ordering, prefix and suffix matching, and search bounds.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Preserve interrupt status in BackgroundInitializer.isInitialized (#1879).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
