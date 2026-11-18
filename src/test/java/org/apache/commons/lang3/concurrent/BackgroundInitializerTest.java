@@ -25,9 +25,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RunnableFuture;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -342,6 +348,40 @@ class BackgroundInitializerTest extends AbstractLangTest {
         init.releaseLatch();
         init.get(); //to ensure the initialize thread has completed.
         assertTrue(init.isInitialized(), "Not initialized after releasing latch");
+    }
+
+    @Test
+    void testIsInitializedInterrupted() throws ConcurrentException, InterruptedException {
+        final ExecutorService exec = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>()) {
+            @Override
+            protected <T> RunnableFuture<T> newTaskFor(final Callable<T> callable) {
+                return new FutureTask<T>(callable) {
+                    @Override
+                    public T get() throws InterruptedException, ExecutionException {
+                        // Some futures check interruption even when their result is already available.
+                        if (Thread.interrupted()) {
+                            throw new InterruptedException();
+                        }
+                        return super.get();
+                    }
+                };
+            }
+        };
+        try {
+            final AbstractBackgroundInitializerTestImpl init = getBackgroundInitializerTestImpl(exec);
+            init.start();
+            init.get();
+            assertTrue(init.isInitialized());
+            Thread.currentThread().interrupt();
+            assertFalse(init.isInitialized());
+            assertTrue(Thread.currentThread().isInterrupted(), "Interrupt status was cleared");
+            Thread.interrupted();
+            assertTrue(init.isInitialized());
+        } finally {
+            Thread.interrupted();
+            exec.shutdown();
+            exec.awaitTermination(1, TimeUnit.SECONDS);
+        }
     }
 
     /**
