@@ -49,6 +49,7 @@ import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junitpioneer.jupiter.params.IntRangeSource;
 
 /**
@@ -717,6 +718,38 @@ class ClassUtilsTest extends AbstractLangTest {
         assertEquals("Map.Entry", ClassUtils.getShortClassName(Map.Entry.class.getName()));
         assertEquals("", ClassUtils.getShortClassName((String) null));
         assertEquals("", ClassUtils.getShortClassName(""));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 1, 2, MAX_ARRAY_DIMENSIONS })
+    void test_getShortClassName_String_Array(final int dimensions) {
+        final String prefix = StringUtils.repeat('[', dimensions);
+        final String suffix = StringUtils.repeat("[]", dimensions);
+        assertEquals("boolean" + suffix, ClassUtils.getShortClassName(prefix + "Z"));
+        assertEquals("byte" + suffix, ClassUtils.getShortClassName(prefix + "B"));
+        assertEquals("char" + suffix, ClassUtils.getShortClassName(prefix + "C"));
+        assertEquals("short" + suffix, ClassUtils.getShortClassName(prefix + "S"));
+        assertEquals("int" + suffix, ClassUtils.getShortClassName(prefix + "I"));
+        assertEquals("long" + suffix, ClassUtils.getShortClassName(prefix + "J"));
+        assertEquals("float" + suffix, ClassUtils.getShortClassName(prefix + "F"));
+        assertEquals("double" + suffix, ClassUtils.getShortClassName(prefix + "D"));
+        assertEquals("String" + suffix, ClassUtils.getShortClassName(prefix + "Ljava.lang.String;"));
+        assertEquals("Map.Entry" + suffix, ClassUtils.getShortClassName(prefix + "Ljava.util.Map$Entry;"));
+        assertEquals("Outer.Inner" + suffix, ClassUtils.getShortClassName(prefix + "LOuter$Inner;"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "[", "[[", "[[[" })
+    void test_getShortClassName_String_BracketsOnly(final String className) {
+        assertThrows(StringIndexOutOfBoundsException.class, () -> ClassUtils.getShortClassName(className));
+    }
+
+    @Test
+    void test_getShortClassName_String_ExcessiveDimensions() {
+        // This method does not validate class names, including dimensions beyond the JVM limit.
+        final int dimensions = 1000;
+        final String className = StringUtils.repeat('[', dimensions) + "Ljava.lang.String;";
+        assertEquals("String" + StringUtils.repeat("[]", dimensions), ClassUtils.getShortClassName(className));
     }
 
     @Test

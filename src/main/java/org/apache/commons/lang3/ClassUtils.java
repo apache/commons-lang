@@ -1225,10 +1225,13 @@ public class ClassUtils {
         final StringBuilder arrayPrefix = new StringBuilder();
         // Handle array encoding
         if (className.startsWith("[")) {
-            while (className.charAt(0) == '[') {
-                className = className.substring(1);
+            // Strip the prefix once to avoid copying the string for each dimension.
+            int dim = 0;
+            while (className.charAt(dim) == '[') {
+                dim++;
                 arrayPrefix.append("[]");
             }
+            className = className.substring(dim);
             // Strip Object type encoding
             if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
                 className = className.substring(1, className.length() - 1);
