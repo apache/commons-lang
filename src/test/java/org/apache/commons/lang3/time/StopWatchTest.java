@@ -49,6 +49,22 @@ class StopWatchTest extends AbstractLangTest {
     private static final String ZERO_HOURS_PREFIX = "00:";
     private static final String ZERO_TIME_ELAPSED = "00:00:00.000";
 
+    private void assertResetAndStartClearsPreviousStopState(final StopWatch watch) {
+        assertNotNull(watch.getStopInstant());
+        watch.reset();
+        assertThrows(IllegalStateException.class, watch::getStopInstant);
+        assertThrows(IllegalStateException.class, watch::getStopTime);
+        watch.start();
+        assertNull(watch.getStopInstant());
+        assertEquals(0, watch.getStopTime());
+        assertTrue(watch.getSplits().isEmpty());
+        assertThrows(IllegalStateException.class, watch::getSplitDuration);
+        // Stopping again records the new session's stop time.
+        watch.stop();
+        assertNotNull(watch.getStopInstant());
+        assertEquals(watch.getStopInstant().toEpochMilli(), watch.getStopTime());
+    }
+
     /**
      * <p>
      * Creates a suspended StopWatch object which appears to have elapsed for the requested amount of time in nanoseconds.
@@ -336,6 +352,48 @@ class StopWatchTest extends AbstractLangTest {
         stopWatch.start();
         stopWatch.split();
         assertTrue(stopWatch.toSplitString().startsWith(MESSAGE), "stopWatch.toSplitString");
+    }
+
+    @Test
+    void testResetAndStartClearsPreviousLabeledSplitState() {
+        final StopWatch watch = StopWatch.createStarted();
+        watch.split("previous session");
+        assertResetAndStartClearsPreviousStopState(watch);
+    }
+
+    @Test
+    void testResetAndStartClearsPreviousSplitState() {
+        final StopWatch watch = StopWatch.createStarted();
+        watch.split();
+        assertResetAndStartClearsPreviousStopState(watch);
+    }
+
+    @Test
+    void testResetAndStartClearsPreviousStopState() {
+        // A running watch that was never stopped has no stop time.
+        final StopWatch fresh = StopWatch.createStarted();
+        assertNull(fresh.getStopInstant());
+        assertEquals(0, fresh.getStopTime());
+        // A restarted watch must not report the stop time of its previous session.
+        final StopWatch watch = StopWatch.createStarted();
+        watch.stop();
+        assertResetAndStartClearsPreviousStopState(watch);
+    }
+
+    @Test
+    void testResetAndStartClearsPreviousSuspendedState() {
+        final StopWatch watch = StopWatch.createStarted();
+        watch.suspend();
+        assertResetAndStartClearsPreviousStopState(watch);
+    }
+
+    @Test
+    void testResetAndStartClearsPreviousSuspendedStopState() {
+        final StopWatch watch = StopWatch.createStarted();
+        watch.suspend();
+        assertNotNull(watch.getStopInstant());
+        watch.stop();
+        assertResetAndStartClearsPreviousStopState(watch);
     }
 
     @Test

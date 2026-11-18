@@ -495,10 +495,19 @@ public class StopWatch {
     }
 
     /**
-     * Gets the Instant this StopWatch was stopped, between the current time and midnight, January 1, 1970 UTC.
+     * Gets the most recently recorded stop Instant.
      *
-     * @return The Instant this StopWatch was stopped in milliseconds, between the current time and midnight, January 1, 1970 UTC.
-     * @throws IllegalStateException Thrown if this StopWatch has not been started.
+     * <p>
+     * The Instant is updated by {@link #split()}, {@link #split(String)}, and {@link #suspend()}, and by {@link #stop()} if the watch is running.
+     * Stopping a suspended watch retains the Instant recorded when it was suspended. Resuming or unsplitting the watch also retains the recorded Instant.
+     * </p>
+     *
+     * <p>
+     * After {@link #start()}, this method returns {@code null} until a stop Instant is recorded in the new timing session.
+     * </p>
+     *
+     * @return The most recently recorded stop Instant, or {@code null} if none has been recorded in the current timing session.
+     * @throws IllegalStateException Thrown if this StopWatch has not been started, or has been reset without being restarted.
      * @since 3.16.0
      */
     public Instant getStopInstant() {
@@ -509,10 +518,15 @@ public class StopWatch {
     }
 
     /**
-     * Gets the time this StopWatch was stopped in milliseconds, between the current time and midnight, January 1, 1970 UTC.
+     * Gets the most recently recorded stop time in milliseconds since midnight, January 1, 1970 UTC.
      *
-     * @return The time this StopWatch was stopped in milliseconds, between the current time and midnight, January 1, 1970 UTC.
-     * @throws IllegalStateException Thrown if this StopWatch has not been started.
+     * <p>
+     * This method returns the Instant from {@link #getStopInstant()} as epoch milliseconds, or {@code 0} if no stop Instant has been recorded in the current
+     * timing session.
+     * </p>
+     *
+     * @return The most recently recorded stop time in epoch milliseconds, or {@code 0} if none has been recorded in the current timing session.
+     * @throws IllegalStateException Thrown if this StopWatch has not been started, or has been reset without being restarted.
      * @since 3.12.0
      * @deprecated Use {@link #getStopInstant()}.
      */
@@ -733,6 +747,8 @@ public class StopWatch {
         }
         startTimeNanos = System.nanoTime();
         startInstant = Instant.now();
+        stopTimeNanos = 0;
+        stopInstant = null;
         runningState = State.RUNNING;
         splits.clear();
     }
