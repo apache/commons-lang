@@ -353,28 +353,6 @@ public class MethodUtils {
         return method;
     }
 
-    /**
-     * Gets an accessible method that matches the given name and has compatible parameters. Compatible parameters mean that every method parameter is assignable
-     * from the given parameters. In other words, it finds a method with the given name that will take the parameters given.
-     *
-     * <p>
-     * This method is used by {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
-     * </p>
-     * <p>
-     * This method can match primitive parameter by passing in wrapper classes. For example, a {@link Boolean} will match a primitive {@code boolean} parameter.
-     * </p>
-     *
-     * @param cls            find method in this class.
-     * @param methodName     find method with this name.
-     * @param requestTypes  The parameter types to match, {@code null} treated as empty.
-     * @return The accessible method or null.
-     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
-     * @see SecurityManager#checkPermission
-     */
-    public static Method getMatchingAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... requestTypes) {
-        return getMatchingAccessibleMethod(cls, methodName, false, requestTypes);
-    }
-
     private static Method getMatchingAccessibleMethod(final Class<?> cls, final String methodName, final boolean staticOnly,
             final Class<?>... requestTypes) {
         final Class<?>[] actualTypes = ArrayUtils.nullToEmpty(requestTypes);
@@ -414,6 +392,28 @@ public class MethodUtils {
             }
         }
         return bestMatch;
+    }
+
+    /**
+     * Gets an accessible method that matches the given name and has compatible parameters. Compatible parameters mean that every method parameter is assignable
+     * from the given parameters. In other words, it finds a method with the given name that will take the parameters given.
+     *
+     * <p>
+     * This method is used by {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
+     * </p>
+     * <p>
+     * This method can match primitive parameter by passing in wrapper classes. For example, a {@link Boolean} will match a primitive {@code boolean} parameter.
+     * </p>
+     *
+     * @param cls            find method in this class.
+     * @param methodName     find method with this name.
+     * @param requestTypes  The parameter types to match, {@code null} treated as empty.
+     * @return The accessible method or null.
+     * @throws SecurityException Thrown if an underlying accessible object's method denies the request.
+     * @see SecurityManager#checkPermission
+     */
+    public static Method getMatchingAccessibleMethod(final Class<?> cls, final String methodName, final Class<?>... requestTypes) {
+        return getMatchingAccessibleMethod(cls, methodName, false, requestTypes);
     }
 
     /**
@@ -702,19 +702,18 @@ public class MethodUtils {
      *
      * <p>
      * This uses reflection to invoke the method obtained from a call to {@link #getAccessibleMethod(Class, String, Class[])}.
+     * The method must be static; a compatible overload with a different signature is not considered.
      * </p>
      *
      * @param cls        invoke static method on this class.
      * @param methodName get method with this name.
      * @param args       use these arguments - treat {@code null} as empty array.
      * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
+     * @throws NoSuchMethodException       Thrown if there is no accessible static method with the exact parameter types.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
      * @throws IllegalArgumentException    Thrown if:
      *                                     <ul>
-     *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
-     *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
      *                                     <li>the number of actual and formal parameters differ;</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
@@ -734,6 +733,7 @@ public class MethodUtils {
      *
      * <p>
      * This uses reflection to invoke the method obtained from a call to {@link #getAccessibleMethod(Class, String, Class[])}.
+     * The method must be static; a compatible overload with a different signature is not considered.
      * </p>
      *
      * @param cls            invoke static method on this class.
@@ -741,13 +741,11 @@ public class MethodUtils {
      * @param args           use these arguments - treat {@code null} as empty array.
      * @param parameterTypes match these parameters - treat {@code null} as empty array.
      * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
+     * @throws NoSuchMethodException       Thrown if there is no accessible static method with the exact parameter types.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
      * @throws IllegalArgumentException    Thrown if:
      *                                     <ul>
-     *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
-     *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
      *                                     <li>the number of actual and formal parameters differ;</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
@@ -985,13 +983,15 @@ public class MethodUtils {
      * Invokes a named {@code static} method whose parameter type matches the object type.
      *
      * <p>
-     * This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.
+     * This method uses the matching rules of {@link #getMatchingAccessibleMethod(Class, String, Class[])}, but considers only static methods.
      * </p>
+     *
      * <p>
      * This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@link Boolean} class
      * would match a {@code boolean} primitive.
      * </p>
+     *
      * <p>
      * This is a convenient wrapper for
      * {@link #invokeStaticMethod(Class, String, Object[], Class[])}.
@@ -1001,13 +1001,11 @@ public class MethodUtils {
      * @param methodName get method with this name.
      * @param args use these arguments - treat {@code null} as empty array.
      * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
+     * @throws NoSuchMethodException       Thrown if there is no matching accessible static method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
      * @throws IllegalArgumentException    Thrown if:
      *                                     <ul>
-     *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
-     *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
      *                                     <li>the number of actual and formal parameters differ;</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a
@@ -1027,8 +1025,9 @@ public class MethodUtils {
      * Invokes a named {@code static} method whose parameter type matches the object type.
      *
      * <p>
-     * This method delegates the method search to {@link #getMatchingAccessibleMethod(Class, String, Class[])}.
+     * This method uses the matching rules of {@link #getMatchingAccessibleMethod(Class, String, Class[])}, but considers only static methods.
      * </p>
+     *
      * <p>
      * This method supports calls to methods taking primitive parameters
      * via passing in wrapping classes. So, for example, a {@link Boolean} class
@@ -1040,13 +1039,11 @@ public class MethodUtils {
      * @param args use these arguments - treat {@code null} as empty array.
      * @param parameterTypes match these parameters - treat {@code null} as empty array.
      * @return The value returned by the invoked method.
-     * @throws NoSuchMethodException       Thrown if there is no such accessible method.
+     * @throws NoSuchMethodException       Thrown if there is no matching accessible static method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
      *                                     inaccessible.
      * @throws IllegalArgumentException    Thrown if:
      *                                     <ul>
-     *                                     <li>the found {@code Method} is an instance method and the specified {@code object} argument is not an instance of
-     *                                     the class or interface declaring the underlying method (or of a subclass or interface implementor);</li>
      *                                     <li>the number of actual and formal parameters differ;</li>
      *                                     <li>an unwrapping conversion for primitive arguments fails; or</li>
      *                                     <li>after possible unwrapping, a parameter value can't be converted to the corresponding formal parameter type by a

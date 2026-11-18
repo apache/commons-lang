@@ -249,6 +249,10 @@ class MethodUtilsTest extends AbstractLangTest {
             return "instance";
         }
 
+        public String instanceOnly() {
+            return "instance";
+        }
+
         public String instanceOnly(final Number value) {
             return "instance";
         }
@@ -1163,8 +1167,17 @@ class MethodUtilsTest extends AbstractLangTest {
     @Test
     void testInvokeExactStaticMethodRejectsInstanceMethod() {
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeExactStaticMethod(StaticOverloadBean.class, "choose", Integer.valueOf(1)));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeExactStaticMethod(StaticOverloadBean.class, "instanceOnly"));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeExactStaticMethod(StaticOverloadBean.class, "instanceOnly",
                 new Object[] { Integer.valueOf(1) }, new Class<?>[] { Number.class }));
+    }
+
+    @Test
+    void testInvokeExactStaticMethodSelectsStaticOverload() throws Exception {
+        assertEquals("static", MethodUtils.invokeExactStaticMethod(StaticOverloadBean.class, "choose",
+                new Object[] { Integer.valueOf(1) }, new Class<?>[] { Number.class }));
+        assertEquals("static", MethodUtils.invokeExactStaticMethod(StaticOverloadBean.class, "choose",
+                new Object[] { null }, new Class<?>[] { Number.class }));
     }
 
     @Test
@@ -1470,10 +1483,10 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
-    void testInvokeStaticMethodRejectsInstanceMethod() {
-        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "instanceOnly", Integer.valueOf(1)));
-        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "instanceOnly",
-                new Object[] { Integer.valueOf(1) }, new Class<?>[] { Number.class }));
+    void testInvokeStaticMethodIgnoresInstanceOverloadsWithNullArgument() throws Exception {
+        assertEquals("static", MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "choose", new Object[] { null }));
+        assertEquals("static", MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "choose",
+                new Object[] { null }, new Class<?>[] { Integer.class }));
     }
 
     @Test
@@ -1481,6 +1494,14 @@ class MethodUtilsTest extends AbstractLangTest {
         // A static method hides rather than overrides, so the subclass's own declaration is invoked.
         assertSame(StaticChild.class, MethodUtils.getMatchingAccessibleMethod(StaticChild.class, "who").getDeclaringClass());
         assertEquals("child", MethodUtils.invokeStaticMethod(StaticChild.class, "who"));
+    }
+
+    @Test
+    void testInvokeStaticMethodRejectsInstanceMethod() {
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "instanceOnly"));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "instanceOnly", Integer.valueOf(1)));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "instanceOnly",
+                new Object[] { Integer.valueOf(1) }, new Class<?>[] { Number.class }));
     }
 
     @Test
