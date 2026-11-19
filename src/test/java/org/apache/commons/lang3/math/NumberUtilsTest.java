@@ -49,6 +49,15 @@ import org.junit.jupiter.params.provider.ValueSource;
  */
 class NumberUtilsTest extends AbstractLangTest {
 
+    @Test
+    public void testIsHexadecimal() {
+        assertTrue(NumberUtils.isHexadecimal("5D0"));
+        assertTrue(NumberUtils.isHexadecimal("0x7FFFFFFFFFFFFFFF"));
+        assertFalse(NumberUtils.isHexadecimal("NotAHex"));
+        assertFalse(NumberUtils.isHexadecimal(null));
+        assertFalse(NumberUtils.isHexadecimal(""));
+    }
+
     private static void assertCreateNumberZero(final String number, final Object zero, final Object negativeZero) {
         assertEquals(zero, NumberUtils.createNumber(number), () -> "Input: " + number);
         assertEquals(zero, NumberUtils.createNumber("+" + number), () -> "Input: +" + number);
