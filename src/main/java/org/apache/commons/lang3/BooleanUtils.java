@@ -652,9 +652,9 @@ public class BooleanUtils {
      * </p>
      *
      * <pre>
-     *   BooleanUtils.toBooleanObject(Integer.valueOf(0))    = Boolean.FALSE
-     *   BooleanUtils.toBooleanObject(Integer.valueOf(1))    = Boolean.TRUE
-     *   BooleanUtils.toBooleanObject(Integer.valueOf(null)) = null
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(0)) = Boolean.FALSE
+     *   BooleanUtils.toBooleanObject(Integer.valueOf(1)) = Boolean.TRUE
+     *   BooleanUtils.toBooleanObject((Integer) null)     = null
      * </pre>
      *
      * @param value  The Integer to convert
