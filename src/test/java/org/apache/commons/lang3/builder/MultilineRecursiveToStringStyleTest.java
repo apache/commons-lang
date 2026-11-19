@@ -20,7 +20,9 @@ package org.apache.commons.lang3.builder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -78,6 +80,10 @@ class MultilineRecursiveToStringStyleTest extends AbstractBuilderTest {
         long[] longArray;
         short[] shortArray;
         String[] stringArray;
+    }
+
+    static class WithMap {
+        Map<String, String> map;
     }
 
     private enum WithArraysTestType {
@@ -300,6 +306,36 @@ class MultilineRecursiveToStringStyleTest extends AbstractBuilderTest {
                 + "  }" + LS
                 + "]";
         assertEquals(exp, toString(stringArray));
+    }
+
+    @Test
+    void testLANG1840MapWithNullKey() {
+        final WithMap wm = new WithMap();
+        wm.map = new LinkedHashMap<>();
+        wm.map.put(null, "b");
+        final String exp = getClassPrefix(wm) + "[" + LS
+                + "  map=" + accessibleString("{null=b}") + LS
+                + "]";
+        assertEquals(exp, toString(wm));
+    }
+
+    @Test
+    void testLANG1840MapWithNullValue() {
+        final WithMap wm = new WithMap();
+        wm.map = new LinkedHashMap<>();
+        wm.map.put("a", null);
+        wm.map.put("c", "d");
+        final String exp = getClassPrefix(wm) + "[" + LS
+                + "  map=" + accessibleString("{a=null," + LS + "   c=d}") + LS
+                + "]";
+        assertEquals(exp, toString(wm));
+    }
+
+    @Test
+    void testLANG1840NullDetail() {
+        final StringBuffer buffer = new StringBuffer();
+        new MultilineRecursiveToStringStyle().appendDetail(buffer, "field", (Object) null);
+        assertEquals("null", buffer.toString());
     }
 
     private String toString(final Object object) {
