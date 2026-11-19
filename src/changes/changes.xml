@@ -109,6 +109,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, joao-jordy">Avoid repeated array prefix copies in ClassUtils.getShortClassName(String) (#1886).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, joao-jordy">Throw IllegalArgumentException instead of StringIndexOutOfBoundsException for bracket-only names in ClassUtils.getPackageName(String) and getShortClassName(String) (#1887).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Clear stale stop timestamps when restarting StopWatch after reset(), and clarify stop timestamp getter Javadoc (#1888).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare" issue="LANG-1840">Fix NPE in MultilineRecursiveToStringStyle for null map entries (#1889).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>

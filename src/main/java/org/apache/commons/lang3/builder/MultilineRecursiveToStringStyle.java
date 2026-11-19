@@ -149,6 +149,15 @@ public class MultilineRecursiveToStringStyle extends RecursiveToStringStyle {
         resetIndent();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * If {@code value} is {@code null}, appends the literal {@code "null"}.
+     * </p>
+     *
+     * @param value The value to add to the {@code toString}, may be {@code null}.
+     */
     @Override
     public void appendDetail(final StringBuffer buffer, final String fieldName, final Object value) {
         if (value != null && !ClassUtils.isPrimitiveWrapper(value.getClass()) && !String.class.equals(value.getClass())
