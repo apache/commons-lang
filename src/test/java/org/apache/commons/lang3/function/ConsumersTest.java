@@ -17,6 +17,9 @@
 
 package org.apache.commons.lang3.function;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -41,6 +44,23 @@ class ConsumersTest extends AbstractLangTest {
         assertTrue(bool.get());
         Consumers.accept(null, "");
         Consumers.accept(null, null);
+    }
+
+    /**
+     * Tests {@link Consumers#acceptNonNull(Object, Consumer)}.
+     */
+    @Test
+    void testAcceptNonNull() {
+        final AtomicBoolean bool = new AtomicBoolean();
+        assertTrue(Consumers.acceptNonNull(true, bool::set));
+        assertTrue(bool.get());
+
+        final AtomicBoolean called = new AtomicBoolean();
+        assertNull(Consumers.acceptNonNull(null, o -> called.set(true)));
+        assertFalse(called.get());
+
+        assertThrows(NullPointerException.class, () -> Consumers.acceptNonNull("", null));
+        assertNull(Consumers.acceptNonNull(null, null));
     }
 
     /**
