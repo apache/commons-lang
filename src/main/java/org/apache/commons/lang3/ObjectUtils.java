@@ -612,11 +612,11 @@ public class ObjectUtils {
      * returns null.
      *
      * <pre>{@code
-     * ObjectUtils.firstNonNullLazy(null, () -> null)                                  = null
-     * ObjectUtils.firstNonNullLazy(() -> null, () -> "")                              = ""
-     * ObjectUtils.firstNonNullLazy(() -> "", () -> throw new IllegalStateException()) = ""
-     * ObjectUtils.firstNonNullLazy(() -> null, () -> "zz)                             = "zz"
-     * ObjectUtils.firstNonNullLazy()                                                  = null
+     * ObjectUtils.getFirstNonNull(null, () -> null)                                       = null
+     * ObjectUtils.getFirstNonNull(() -> null, () -> "")                                   = ""
+     * ObjectUtils.getFirstNonNull(() -> "", () -> { throw new IllegalStateException(); }) = ""
+     * ObjectUtils.getFirstNonNull(() -> null, () -> "zz")                                 = "zz"
+     * ObjectUtils.getFirstNonNull()                                                       = null
      * }</pre>
      * <p>
      * See also {@link Consumers#accept(Consumer, Object)} and {@link Suppliers#get(Supplier)}.
