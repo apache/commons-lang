@@ -54,6 +54,24 @@ public class ConstructorUtilsTest extends AbstractLangTest {
         }
     }
 
+    public static class IntegerVarArgsBean {
+
+        final String values;
+
+        public IntegerVarArgsBean(final Integer... args) {
+            values = Arrays.toString(args);
+        }
+    }
+
+    public static class ObjectVarArgsBean {
+
+        final int count;
+
+        public ObjectVarArgsBean(final Object... args) {
+            count = args.length;
+        }
+    }
+
     static class PrivateClass {
         @SuppressWarnings("unused")
         public static class PublicInnerClass {
@@ -281,6 +299,21 @@ public class ConstructorUtilsTest extends AbstractLangTest {
     void testInvokeConstructorVarArgsEmptyTail() throws Exception {
         final VarArgsBean bean = ConstructorUtils.invokeConstructor(VarArgsBean.class, "first");
         assertArrayEquals(new String[0], bean.rest);
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsAssignableArray() throws Exception {
+        // Like a Java call, an array assignable to the varargs array type is the varargs array itself.
+        assertEquals(2, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, (Object) new String[] { "a", "b" }).count);
+        assertEquals(2, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, (Object) new Object[] { "a", "b" }).count);
+        // An array that is not assignable to the varargs array type is a single element.
+        assertEquals(1, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, (Object) new int[] { 1, 2 }).count);
+        assertEquals(2, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, "a", "b").count);
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsNullBoxedElement() throws Exception {
+        assertEquals("[1, null]", ConstructorUtils.invokeConstructor(IntegerVarArgsBean.class, Integer.valueOf(1), null).values);
     }
 
     @Test

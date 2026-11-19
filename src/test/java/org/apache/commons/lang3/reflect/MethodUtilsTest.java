@@ -1344,6 +1344,59 @@ class MethodUtilsTest extends AbstractLangTest {
         }));
     }
 
+    /** Declares varargs methods that report what they receive. */
+    public static class VarArgsReceiver {
+
+        public static int staticObjects(final Object... values) {
+            return values.length;
+        }
+
+        public String integers(final Integer... values) {
+            return Arrays.toString(values);
+        }
+
+        public String ints(final int... values) {
+            return Arrays.toString(values);
+        }
+
+        public int objects(final Object... values) {
+            return values.length;
+        }
+
+        public int sequences(final CharSequence... values) {
+            return values.length;
+        }
+    }
+
+    @Test
+    void testInvokeMethodVarArgsAssignableArray() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        final String[] strings = { "a", "b" };
+        // Like a Java call, an array assignable to the varargs array type is the varargs array itself.
+        assertEquals(2, MethodUtils.invokeMethod(receiver, "objects", (Object) strings));
+        assertEquals(2, MethodUtils.invokeMethod(receiver, "objects", (Object) new Object[] { "a", "b" }));
+        assertEquals(2, MethodUtils.invokeMethod(receiver, "sequences", (Object) strings));
+        assertEquals(2, MethodUtils.invokeStaticMethod(VarArgsReceiver.class, "staticObjects", (Object) strings));
+        // An array that is not assignable to the varargs array type is a single element.
+        assertEquals(1, MethodUtils.invokeMethod(receiver, "objects", (Object) new int[] { 1, 2 }));
+        assertEquals(1, MethodUtils.invokeMethod(receiver, "objects", "a"));
+        // Individual elements still work.
+        assertEquals(2, MethodUtils.invokeMethod(receiver, "objects", "a", "b"));
+        assertEquals(2, MethodUtils.invokeMethod(receiver, "sequences", "a", "b"));
+        // The primitive array behavior is unchanged.
+        assertEquals("[1, 2]", MethodUtils.invokeMethod(receiver, "ints", (Object) new int[] { 1, 2 }));
+        assertEquals("[1, 2]", MethodUtils.invokeMethod(receiver, "ints", 1, 2));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsNullBoxedElement() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        assertEquals("[1, null]", MethodUtils.invokeMethod(receiver, "integers", Integer.valueOf(1), null));
+        assertEquals("[null, 2]", MethodUtils.invokeMethod(receiver, "integers", null, Integer.valueOf(2)));
+        // A null element is still not accepted for a primitive varargs type.
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(receiver, "ints", Integer.valueOf(1), null));
+    }
+
     @Test
     void testInvokeMethodVarArgsUnboxingBooleanArray() throws Exception {
         final TestBean testBean = new TestBean();

@@ -382,8 +382,13 @@ public class MethodUtils {
             MemberUtils.setAccessibleWorkaround(bestMatch);
             if (bestMatch.isVarArgs()) {
                 final Class<?>[] bestMatchParameterTypes = bestMatch.getParameterTypes();
-                final Class<?> varArgType = bestMatchParameterTypes[bestMatchParameterTypes.length - 1].getComponentType();
-                for (int paramIdx = bestMatchParameterTypes.length - 1; paramIdx < actualTypes.length; paramIdx++) {
+                final int varArgsIdx = bestMatchParameterTypes.length - 1;
+                final Class<?> varArgsArrayType = bestMatchParameterTypes[varArgsIdx];
+                final Class<?> varArgType = varArgsArrayType.getComponentType();
+                // An array assignable to the varargs array type is the varargs array itself, not an element.
+                final boolean isVarArgsArray = actualTypes.length == bestMatchParameterTypes.length && actualTypes[varArgsIdx] != null
+                        && ClassUtils.isAssignable(actualTypes[varArgsIdx], varArgsArrayType, true);
+                for (int paramIdx = varArgsIdx; !isVarArgsArray && paramIdx < actualTypes.length; paramIdx++) {
                     final Class<?> parameterType = actualTypes[paramIdx];
                     if (!ClassUtils.isAssignable(parameterType, varArgType, true)) {
                         return null;
@@ -1101,8 +1106,8 @@ public class MethodUtils {
         final int mptLength = methodParameterTypes.length;
         if (args.length == mptLength) {
             final Object lastArg = args[args.length - 1];
-            if (lastArg == null || lastArg.getClass().equals(methodParameterTypes[mptLength - 1])) {
-                // The args array is already in the canonical form for the method.
+            if (lastArg == null || methodParameterTypes[mptLength - 1].isInstance(lastArg)) {
+                // The args array is already in the canonical form for the method, like a Java call that passes an array assignable to the varargs array type.
                 return args;
             }
         }
@@ -1118,6 +1123,10 @@ public class MethodUtils {
         final boolean primitiveOrWrapper = ClassUtils.isPrimitiveOrWrapper(varArgComponentWrappedType);
         for (int i = 0; i < varArgLength; i++) {
             final Object arg = args[mptLength - 1 + i];
+            if (arg == null && !varArgComponentType.isPrimitive()) {
+                // The new array already holds null, and there is nothing to unbox.
+                continue;
+            }
             try {
                 Array.set(varArgsArray, i, primitiveOrWrapper
                         ? varArgComponentWrappedType.getConstructor(ClassUtils.wrapperToPrimitive(varArgComponentWrappedType)).newInstance(arg)
