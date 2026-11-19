@@ -51,6 +51,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * </p>
  *
  * @since 3.5
+ * @deprecated use new {@code SimpleThresholdCircuitBreaker}
  */
 public class ThresholdCircuitBreaker extends AbstractCircuitBreaker<Long> {
 
