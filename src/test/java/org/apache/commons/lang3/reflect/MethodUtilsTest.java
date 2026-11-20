@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.awt.Color;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
@@ -43,6 +44,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.AbstractLangTest;
 import org.apache.commons.lang3.ArrayUtils;
@@ -63,6 +65,8 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /**
@@ -628,6 +632,118 @@ class MethodUtilsTest extends AbstractLangTest {
 
     private static final class TestMutableSubclass extends TestMutable {
         // empty
+    }
+
+    /**
+     * Declares varargs methods that report what they receive.
+     */
+    public static class VarArgsReceiver {
+
+        public static Integer[] staticIntegers(final Integer... values) {
+            return values;
+        }
+
+        public static int staticObjects(final Object... values) {
+            return values.length;
+        }
+
+        public static Object[] staticObjectsArray(final Object... values) {
+            return values;
+        }
+
+        public Boolean[] boxed(final Boolean... values) {
+            return values;
+        }
+
+        public Byte[] boxed(final Byte... values) {
+            return values;
+        }
+
+        public Character[] boxed(final Character... values) {
+            return values;
+        }
+
+        public Double[] boxed(final Double... values) {
+            return values;
+        }
+
+        public Float[] boxed(final Float... values) {
+            return values;
+        }
+
+        public Integer[] boxed(final Integer... values) {
+            return values;
+        }
+
+        public Long[] boxed(final Long... values) {
+            return values;
+        }
+
+        public Short[] boxed(final Short... values) {
+            return values;
+        }
+
+        public double[] doubles(final double... values) {
+            return values;
+        }
+
+        public String integers(final Integer... values) {
+            return Arrays.toString(values);
+        }
+
+        public String ints(final int... values) {
+            return Arrays.toString(values);
+        }
+
+        public long[] longs(final long... values) {
+            return values;
+        }
+
+        public int objects(final Object... values) {
+            return values.length;
+        }
+
+        public Object[] objectsArray(final Object... values) {
+            return values;
+        }
+
+        public String overloaded(final CharSequence... values) {
+            return "CharSequence[]";
+        }
+
+        public String overloaded(final Object value) {
+            return "Object";
+        }
+
+        public CharSequence[] prefixedSequences(final int prefix, final CharSequence... values) {
+            assertEquals(7, prefix);
+            return values;
+        }
+
+        private CharSequence[] privateSequences(final CharSequence... values) {
+            return values;
+        }
+
+        public Object replaceFirst(final Object replacement, final Object... values) {
+            values[0] = replacement;
+            return values;
+        }
+
+        public int sequences(final CharSequence... values) {
+            return values.length;
+        }
+    }
+
+    static Stream<Arguments> boxedVarArgs() {
+        return Stream.of(
+                Arguments.of(Boolean.class, Boolean.TRUE),
+                Arguments.of(Byte.class, Byte.valueOf((byte) 1)),
+                Arguments.of(Character.class, Character.valueOf('a')),
+                Arguments.of(Double.class, Double.valueOf(1)),
+                Arguments.of(Float.class, Float.valueOf(1)),
+                Arguments.of(Integer.class, Integer.valueOf(1000)),
+                Arguments.of(Long.class, Long.valueOf(1000)),
+                Arguments.of(Short.class, Short.valueOf((short) 1000)));
     }
 
     private final Map<Class<?>, Class<?>[]> classCache = new HashMap<>();
@@ -1327,9 +1443,164 @@ class MethodUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testInvokeMethodVarArgsArrayIdentityAndDimensions() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        final String[] strings = { "a", "b" };
+        final String[] empty = {};
+        final int[][] matrix = { { 1 }, { 2 } };
+        assertSame(strings, MethodUtils.invokeMethod(receiver, "objectsArray", (Object) strings));
+        assertSame(empty, MethodUtils.invokeMethod(receiver, "objectsArray", (Object) empty));
+        assertSame(matrix, MethodUtils.invokeMethod(receiver, "objectsArray", (Object) matrix));
+        final Object[] elements = (Object[]) MethodUtils.invokeMethod(receiver, "objectsArray", strings, strings);
+        assertEquals(2, elements.length);
+        assertSame(strings, elements[0]);
+        assertSame(strings, elements[1]);
+        final Object[] wrapped = { strings };
+        assertSame(wrapped, MethodUtils.invokeMethod(receiver, "objectsArray", (Object) wrapped));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsArrayMutation() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        final String[] strings = { "a", "b" };
+        assertSame(strings, MethodUtils.invokeMethod(receiver, "replaceFirst", "changed", strings));
+        assertEquals("changed", strings[0]);
+        final InvocationTargetException exception = assertThrows(InvocationTargetException.class,
+                () -> MethodUtils.invokeMethod(receiver, "replaceFirst", Integer.valueOf(1), strings));
+        assertEquals(ArrayStoreException.class, exception.getCause().getClass());
+    }
+
+    @Test
+    void testInvokeMethodVarArgsAssignableArray() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        final String[] strings = { "a", "b" };
+        // Like a Java call, an array assignable to the varargs array type is the varargs array itself.
+        assertEquals(2, MethodUtils.invokeMethod(receiver, "objects", (Object) strings));
+        assertEquals(2, MethodUtils.invokeMethod(receiver, "objects", (Object) new Object[] { "a", "b" }));
+        assertEquals(2, MethodUtils.invokeMethod(receiver, "sequences", (Object) strings));
+        assertEquals(2, MethodUtils.invokeStaticMethod(VarArgsReceiver.class, "staticObjects", (Object) strings));
+        // An array that is not assignable to the varargs array type is a single element.
+        assertEquals(1, MethodUtils.invokeMethod(receiver, "objects", (Object) new int[] { 1, 2 }));
+        assertEquals(1, MethodUtils.invokeMethod(receiver, "objects", "a"));
+        // Individual elements still work.
+        assertEquals(2, MethodUtils.invokeMethod(receiver, "objects", "a", "b"));
+        assertEquals(2, MethodUtils.invokeMethod(receiver, "sequences", "a", "b"));
+        // The primitive array behavior is unchanged.
+        assertEquals("[1, 2]", MethodUtils.invokeMethod(receiver, "ints", (Object) new int[] { 1, 2 }));
+        assertEquals("[1, 2]", MethodUtils.invokeMethod(receiver, "ints", 1, 2));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsAssignableArrayLookup() throws Exception {
+        assertEquals(VarArgsReceiver.class.getMethod("sequences", CharSequence[].class),
+                MethodUtils.getMatchingAccessibleMethod(VarArgsReceiver.class, "sequences", String[].class));
+        assertEquals("CharSequence[]", MethodUtils.invokeMethod(new VarArgsReceiver(), "overloaded", (Object) new String[] { "a" }));
+        assertEquals("Object", MethodUtils.invokeMethod(new VarArgsReceiver(), "overloaded", new Object[] { new String[] { "a" } },
+                new Class<?>[] { Object.class }));
+    }
+
+    @ParameterizedTest
+    @MethodSource("boxedVarArgs")
+    void testInvokeMethodVarArgsBoxedIdentityAndNull(final Class<?> type, final Object value) throws Exception {
+        final Object[] actual = (Object[]) MethodUtils.invokeMethod(new VarArgsReceiver(), "boxed", new Object[] { value, null, value },
+                new Class<?>[] { type, type, type });
+        assertSame(type, actual.getClass().getComponentType());
+        assertEquals(3, actual.length);
+        assertSame(value, actual[0]);
+        assertNull(actual[1]);
+        assertSame(value, actual[2]);
+    }
+
+    @Test
+    void testInvokeMethodVarArgsDeclaredSignatureWithElements() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        final Class<?>[] signature = { Object[].class };
+        for (final Object[] elements : new Object[][] { {}, { "a" }, { "a", "b" } }) {
+            assertArrayEquals(elements, (Object[]) MethodUtils.invokeMethod(receiver, "objectsArray", elements, signature));
+            assertArrayEquals(elements, (Object[]) MethodUtils.invokeStaticMethod(VarArgsReceiver.class, "staticObjectsArray", elements, signature));
+        }
+        assertArrayEquals(new long[] { 1 }, (long[]) MethodUtils.invokeMethod(receiver, "longs", new Object[] { 1 }, new Class<?>[] { long[].class }));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsExplicitElementType() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        final String[] strings = { "a", "b" };
+        final Object[] objects = { "a", "b" };
+        for (final Object array : new Object[] { strings, objects }) {
+            final Object[] actual = (Object[]) MethodUtils.invokeMethod(receiver, "objectsArray", new Object[] { array },
+                    new Class<?>[] { Object.class });
+            assertEquals(1, actual.length);
+            assertSame(array, actual[0]);
+        }
+        final Object[] serializable = (Object[]) MethodUtils.invokeMethod(receiver, "objectsArray", new Object[] { strings },
+                new Class<?>[] { java.io.Serializable.class });
+        assertEquals(1, serializable.length);
+        assertSame(strings, serializable[0]);
+        assertSame(strings, MethodUtils.invokeMethod(receiver, "objectsArray", new Object[] { strings }, new Class<?>[] { Object[].class }));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsFixedPrefix() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        final String[] strings = { "a", "b" };
+        final String[] empty = {};
+        assertSame(strings, MethodUtils.invokeMethod(receiver, "prefixedSequences", 7, strings));
+        assertSame(empty, MethodUtils.invokeMethod(receiver, "prefixedSequences", 7, empty));
+        assertArrayEquals(new CharSequence[0], (CharSequence[]) MethodUtils.invokeMethod(receiver, "prefixedSequences", 7));
+        assertArrayEquals(new CharSequence[] { "a", null },
+                (CharSequence[]) MethodUtils.invokeMethod(receiver, "prefixedSequences", 7, "a", null));
+        assertNull(MethodUtils.invokeMethod(receiver, "prefixedSequences", 7, null));
+        assertArrayEquals(new CharSequence[] { null }, (CharSequence[]) MethodUtils.invokeMethod(receiver, "prefixedSequences",
+                new Object[] { 7, null }, new Class<?>[] { int.class, CharSequence.class }));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsForceAccessArray() throws Exception {
+        final String[] strings = { "a", "b" };
+        assertSame(strings, MethodUtils.invokeMethod(new VarArgsReceiver(), true, "privateSequences", new Object[] { strings }));
+    }
+
+    @Test
     void testInvokeMethodVarArgsNotUniqueResolvable() throws Exception {
         assertEquals("Boolean...", MethodUtils.invokeMethod(testBean, "varOverload", new Object[] { null }));
         assertEquals("Object...", MethodUtils.invokeMethod(testBean, "varOverload", (Object[]) null));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsNullArrayAndElement() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        assertEquals("null", MethodUtils.invokeMethod(receiver, "integers", (Object) null));
+        assertEquals("null", MethodUtils.invokeMethod(receiver, "integers", new Object[] { null }, new Class<?>[] { Integer[].class }));
+        assertEquals("[null]", MethodUtils.invokeMethod(receiver, "integers", new Object[] { null }, new Class<?>[] { Integer.class }));
+        assertEquals("[null, null]", MethodUtils.invokeMethod(receiver, "integers", new Object[] { null, null }));
+        assertEquals("null", MethodUtils.invokeMethod(receiver, "ints", (Object) null));
+        assertEquals("null", MethodUtils.invokeMethod(receiver, "ints", new Object[] { null }, new Class<?>[] { int[].class }));
+        // A supplied boxed type matches the primitive element type, but its null value cannot be unboxed.
+        assertThrows(IllegalArgumentException.class,
+                () -> MethodUtils.invokeMethod(receiver, "ints", new Object[] { null }, new Class<?>[] { Integer.class }));
+        assertThrows(IllegalArgumentException.class,
+                () -> MethodUtils.invokeMethod(receiver, "ints", new Object[] { null }, new Class<?>[] { int.class }));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsNullArrayAsElement() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        final Object[] args = { null };
+        final Class<?>[] types = { int[].class };
+        assertArrayEquals(receiver.objectsArray((int[]) null), (Object[]) MethodUtils.invokeMethod(receiver, "objectsArray", args, types));
+        assertArrayEquals(VarArgsReceiver.staticObjectsArray((int[]) null),
+                (Object[]) MethodUtils.invokeStaticMethod(VarArgsReceiver.class, "staticObjectsArray", args, types));
+        assertNull(MethodUtils.invokeMethod(receiver, "objectsArray", args, new Class<?>[] { String[].class }));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsNullBoxedElement() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        assertEquals("[1, null]", MethodUtils.invokeMethod(receiver, "integers", Integer.valueOf(1), null));
+        assertEquals("[null, 2]", MethodUtils.invokeMethod(receiver, "integers", null, Integer.valueOf(2)));
+        // A null element is still not accepted for a primitive varargs type.
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(receiver, "ints", Integer.valueOf(1), null));
     }
 
     @Test
@@ -1342,6 +1613,14 @@ class MethodUtilsTest extends AbstractLangTest {
         }, new PackagePrivateEmptyInterface() {
             // empty
         }));
+    }
+
+    @Test
+    void testInvokeMethodVarArgsPrimitiveWidening() throws Exception {
+        final VarArgsReceiver receiver = new VarArgsReceiver();
+        assertArrayEquals(new long[] { 1, 2, 3, 4, 5 }, (long[]) MethodUtils.invokeMethod(receiver, "longs", (byte) 1, (short) 2, (char) 3, 4, 5L));
+        assertArrayEquals(new double[] { 1, 2, 3 }, (double[]) MethodUtils.invokeMethod(receiver, "doubles", 1, 2f, 3d));
+        assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeMethod(receiver, "ints", 1L, 2L));
     }
 
     @Test
@@ -1502,6 +1781,23 @@ class MethodUtilsTest extends AbstractLangTest {
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "instanceOnly", Integer.valueOf(1)));
         assertThrows(NoSuchMethodException.class, () -> MethodUtils.invokeStaticMethod(StaticOverloadBean.class, "instanceOnly",
                 new Object[] { Integer.valueOf(1) }, new Class<?>[] { Number.class }));
+    }
+
+    @Test
+    void testInvokeStaticMethodVarArgsExplicitTypesAndNull() throws Exception {
+        final String[] strings = { "a", "b" };
+        assertSame(strings, MethodUtils.invokeStaticMethod(VarArgsReceiver.class, "staticObjectsArray", (Object) strings));
+        final Object[] actual = (Object[]) MethodUtils.invokeStaticMethod(VarArgsReceiver.class, "staticObjectsArray", new Object[] { strings },
+                new Class<?>[] { Object.class });
+        assertEquals(1, actual.length);
+        assertSame(strings, actual[0]);
+        final Integer value = Integer.valueOf(1000);
+        final Integer[] boxed = (Integer[]) MethodUtils.invokeStaticMethod(VarArgsReceiver.class, "staticIntegers", value, null);
+        assertArrayEquals(new Integer[] { value, null }, boxed);
+        assertSame(value, boxed[0]);
+        assertNull(MethodUtils.invokeStaticMethod(VarArgsReceiver.class, "staticIntegers", (Object) null));
+        assertArrayEquals(new Integer[] { null }, (Integer[]) MethodUtils.invokeStaticMethod(VarArgsReceiver.class, "staticIntegers",
+                new Object[] { null }, new Class<?>[] { Integer.class }));
     }
 
     @Test

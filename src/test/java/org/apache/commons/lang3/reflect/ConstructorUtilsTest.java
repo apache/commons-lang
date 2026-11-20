@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.lang.reflect.Constructor;
@@ -45,12 +46,42 @@ public class ConstructorUtilsTest extends AbstractLangTest {
     private static class BaseClass {
     }
 
+    public static class IntegerVarArgsBean {
+
+        final String values;
+        final Integer[] args;
+
+        public IntegerVarArgsBean(final Integer... args) {
+            values = Arrays.toString(args);
+            this.args = args;
+        }
+    }
+
+    public static class ObjectVarArgsBean {
+
+        final int count;
+        final Object[] args;
+
+        public ObjectVarArgsBean(final Object... args) {
+            count = args.length;
+            this.args = args;
+        }
+    }
+
     public static class OverloadedVarArgsBean {
 
         public OverloadedVarArgsBean(final Object... args) {
         }
 
         public OverloadedVarArgsBean(final String... args) {
+        }
+    }
+
+    public static class PrimitiveVarArgsBean {
+        final long[] args;
+
+        public PrimitiveVarArgsBean(final long... args) {
+            this.args = args;
         }
     }
 
@@ -78,6 +109,16 @@ public class ConstructorUtilsTest extends AbstractLangTest {
 
         public String getValue() {
             return value;
+        }
+    }
+
+    public static class SequenceVarArgsBean {
+        final int prefix;
+        final CharSequence[] args;
+
+        public SequenceVarArgsBean(final int prefix, final CharSequence... args) {
+            this.prefix = prefix;
+            this.args = args;
         }
     }
 
@@ -278,9 +319,94 @@ public class ConstructorUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testInvokeConstructorVarArgsArrayIdentityAndExplicitTypes() throws Exception {
+        final String[] strings = { "a", "b" };
+        final String[] empty = {};
+        assertSame(strings, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, (Object) strings).args);
+        assertSame(empty, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, (Object) empty).args);
+        assertSame(strings, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, new Object[] { strings }, new Class<?>[] { Object[].class }).args);
+        for (final Object array : new Object[] { strings, new Object[] { "a", "b" } }) {
+            final ObjectVarArgsBean bean = ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, new Object[] { array },
+                    new Class<?>[] { Object.class });
+            assertEquals(1, bean.count);
+            assertSame(array, bean.args[0]);
+        }
+        final ObjectVarArgsBean elements = ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, strings, strings);
+        assertEquals(2, elements.count);
+        assertSame(strings, elements.args[0]);
+        assertSame(strings, elements.args[1]);
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsAssignableArray() throws Exception {
+        // Like a Java call, an array assignable to the varargs array type is the varargs array itself.
+        assertEquals(2, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, (Object) new String[] { "a", "b" }).count);
+        assertEquals(2, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, (Object) new Object[] { "a", "b" }).count);
+        // An array that is not assignable to the varargs array type is a single element.
+        assertEquals(1, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, (Object) new int[] { 1, 2 }).count);
+        assertEquals(2, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, "a", "b").count);
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsBoxedIdentityAndNull() throws Exception {
+        final Integer value = Integer.valueOf(1000);
+        final IntegerVarArgsBean bean = ConstructorUtils.invokeConstructor(IntegerVarArgsBean.class, value, null);
+        assertSame(value, bean.args[0]);
+        assertNull(bean.args[1]);
+        assertNull(ConstructorUtils.invokeConstructor(IntegerVarArgsBean.class, (Object) null).args);
+        assertNull(ConstructorUtils.invokeConstructor(IntegerVarArgsBean.class, new Object[] { null }, new Class<?>[] { Integer[].class }).args);
+        assertArrayEquals(new Integer[] { null }, ConstructorUtils.invokeConstructor(IntegerVarArgsBean.class,
+                new Object[] { null }, new Class<?>[] { Integer.class }).args);
+        assertArrayEquals(new Integer[] { null, null }, ConstructorUtils.invokeConstructor(IntegerVarArgsBean.class, new Object[] { null, null }).args);
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsDeclaredSignatureWithElements() throws Exception {
+        for (final Object[] elements : new Object[][] { {}, { "a" }, { "a", "b" } }) {
+            assertArrayEquals(elements, ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, elements, new Class<?>[] { Object[].class }).args);
+        }
+    }
+
+    @Test
     void testInvokeConstructorVarArgsEmptyTail() throws Exception {
         final VarArgsBean bean = ConstructorUtils.invokeConstructor(VarArgsBean.class, "first");
         assertArrayEquals(new String[0], bean.rest);
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsFixedPrefixAndInterface() throws Exception {
+        final String[] strings = { "a", "b" };
+        final SequenceVarArgsBean bean = ConstructorUtils.invokeConstructor(SequenceVarArgsBean.class, 7, strings);
+        assertEquals(7, bean.prefix);
+        assertSame(strings, bean.args);
+        final String[] empty = {};
+        assertSame(empty, ConstructorUtils.invokeConstructor(SequenceVarArgsBean.class, 7, empty).args);
+        assertArrayEquals(new CharSequence[0], ConstructorUtils.invokeConstructor(SequenceVarArgsBean.class, 7).args);
+        assertNull(ConstructorUtils.invokeConstructor(SequenceVarArgsBean.class, 7, null).args);
+        assertArrayEquals(new CharSequence[] { null }, ConstructorUtils.invokeConstructor(SequenceVarArgsBean.class,
+                new Object[] { 7, null }, new Class<?>[] { int.class, CharSequence.class }).args);
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsNullArrayAsElement() throws Exception {
+        assertArrayEquals(new ObjectVarArgsBean((int[]) null).args,
+                ConstructorUtils.invokeConstructor(ObjectVarArgsBean.class, new Object[] { null }, new Class<?>[] { int[].class }).args);
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsNullBoxedElement() throws Exception {
+        assertEquals("[1, null]", ConstructorUtils.invokeConstructor(IntegerVarArgsBean.class, Integer.valueOf(1), null).values);
+    }
+
+    @Test
+    void testInvokeConstructorVarArgsPrimitiveWideningAndNull() throws Exception {
+        final long[] values = { 1, 2 };
+        assertSame(values, ConstructorUtils.invokeConstructor(PrimitiveVarArgsBean.class, (Object) values).args);
+        assertArrayEquals(values, ConstructorUtils.invokeConstructor(PrimitiveVarArgsBean.class, 1, 2).args);
+        assertArrayEquals(new long[0], ConstructorUtils.invokeConstructor(PrimitiveVarArgsBean.class).args);
+        assertNull(ConstructorUtils.invokeConstructor(PrimitiveVarArgsBean.class, (Object) null).args);
+        assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(PrimitiveVarArgsBean.class, 1, null));
+        assertThrows(NoSuchMethodException.class, () -> ConstructorUtils.invokeConstructor(PrimitiveVarArgsBean.class, 1d, 2d));
     }
 
     @Test

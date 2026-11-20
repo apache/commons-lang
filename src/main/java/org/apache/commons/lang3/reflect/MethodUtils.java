@@ -49,6 +49,29 @@ import org.apache.commons.lang3.stream.Streams;
  * Differences from the BeanUtils version may be noted, especially where similar functionality
  * already existed within Lang.
  *
+ * <h2>Variable Arity Arguments</h2>
+ * <p>
+ * The non-exact invocation methods support variable arity methods. Argument types are inferred from argument values, unless explicitly supplied through
+ * {@code parameterTypes}. If the argument count matches the declared parameter count and these types are assignment-compatible with the declared parameter
+ * types, a null or assignment-compatible final value is passed as the variable arity array without copying. Otherwise, trailing arguments are collected into a
+ * new array of the declared component type. This also supports supplying the declared array signature with individual argument values. Reference elements,
+ * including {@code null}, are preserved; primitive elements support unboxing and widening conversions.
+ * </p>
+ *
+ * <p>
+ * For example, for a target method {@code accept(Object... values)}, {@code invokeMethod(target, "accept", (Object) strings)} passes a {@code String[]} named
+ * {@code strings} as the variable arity array. To pass that array as one element instead, use
+ * {@code invokeMethod(target, "accept", new Object[] { strings }, new Class<?>[] { Object.class })}.
+ * When the argument count matches the declared parameter count, a null final argument with an inferred type or a type assignable to the declared array type
+ * represents a null variable arity array. A type assignable only to the reference component type makes it one element, even if that type is itself an array.
+ * </p>
+ *
+ * <p>
+ * A passed-through array retains its identity and runtime component type. The invoked method can modify the caller's array, and an incompatible store can throw
+ * {@link ArrayStoreException}, wrapped in {@link InvocationTargetException}. Explicit argument types control packing in the same way as expression types in
+ * <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.12.4.2">JLS 15.12.4.2</a>; inferred types use runtime information instead.
+ * </p>
+ *
  * <h2>Known Limitations</h2>
  * <h3>Accessing Public Methods In A Default Access Superclass</h3>
  * <p>
@@ -378,20 +401,7 @@ public class MethodUtils {
                 bestMatch = accessibleMethod;
             }
         }
-        if (bestMatch != null) {
-            MemberUtils.setAccessibleWorkaround(bestMatch);
-            if (bestMatch.isVarArgs()) {
-                final Class<?>[] bestMatchParameterTypes = bestMatch.getParameterTypes();
-                final Class<?> varArgType = bestMatchParameterTypes[bestMatchParameterTypes.length - 1].getComponentType();
-                for (int paramIdx = bestMatchParameterTypes.length - 1; paramIdx < actualTypes.length; paramIdx++) {
-                    final Class<?> parameterType = actualTypes[paramIdx];
-                    if (!ClassUtils.isAssignable(parameterType, varArgType, true)) {
-                        return null;
-                    }
-                }
-            }
-        }
-        return bestMatch;
+        return MemberUtils.setAccessibleWorkaround(bestMatch);
     }
 
     /**
@@ -852,7 +862,7 @@ public class MethodUtils {
      * @param forceAccess force access to invoke method even if it's not accessible.
      * @param methodName get method with this name.
      * @param args use these arguments - treat null as empty array.
-     * @param parameterTypes match these parameters - treat null as empty array.
+     * @param parameterTypes argument types for method selection and variable arity packing, {@code null} treated as empty.
      * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no such accessible method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
@@ -878,7 +888,7 @@ public class MethodUtils {
         final Class<?>[] paramTypes = ArrayUtils.nullToEmpty(parameterTypes);
         final Method method = getInvokeMethod(forceAccess, methodName, paramTypes, cls);
         requireNonNull(method, cls, methodName, paramTypes);
-        return method.invoke(object, toVarArgs(method, ArrayUtils.nullToEmpty(args)));
+        return method.invoke(object, toVarArgs(method, ArrayUtils.nullToEmpty(args), paramTypes));
     }
 
     /**
@@ -955,7 +965,7 @@ public class MethodUtils {
      * @param object invoke method on this object.
      * @param methodName get method with this name.
      * @param args use these arguments - treat null as empty array.
-     * @param parameterTypes match these parameters - treat null as empty array.
+     * @param parameterTypes argument types for method selection and variable arity packing, {@code null} treated as empty.
      * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no such accessible method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
@@ -1037,7 +1047,7 @@ public class MethodUtils {
      * @param cls invoke static method on this class.
      * @param methodName get method with this name.
      * @param args use these arguments - treat {@code null} as empty array.
-     * @param parameterTypes match these parameters - treat {@code null} as empty array.
+     * @param parameterTypes argument types for method selection and variable arity packing, {@code null} treated as empty.
      * @return The value returned by the invoked method.
      * @throws NoSuchMethodException       Thrown if there is no matching accessible static method.
      * @throws IllegalAccessException      Thrown if this found {@code Method} is enforcing Java language access control and the underlying method is
@@ -1058,7 +1068,7 @@ public class MethodUtils {
         final Class<?>[] paramTypes = ArrayUtils.nullToEmpty(parameterTypes);
         final Method method = getMatchingAccessibleMethod(cls, methodName, true, paramTypes);
         requireNonNull(method, cls, methodName, paramTypes);
-        return method.invoke(null, toVarArgs(method, ArrayUtils.nullToEmpty(args)));
+        return method.invoke(null, toVarArgs(method, ArrayUtils.nullToEmpty(args), paramTypes));
     }
 
     private static Method requireNonNull(final Method method, final Class<?> cls, final String methodName, final Class<?>[] parameterTypes)
@@ -1070,69 +1080,34 @@ public class MethodUtils {
         return method;
     }
 
-    static Object[] toVarArgs(final Executable executable, final Object[] args)
-            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        return executable.isVarArgs() ? toVarArgs(args, executable.getParameterTypes()) : args;
-    }
-
     /**
-     * Gets an array of arguments in the canonical form, given an arguments array passed to a varargs method, for example an array with the declared number of
-     * parameters, and whose last parameter is an array of the varargs type.
-     * <p>
-     * We follow the <a href="https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html#jls-5.1.2">JLS 5.1.2. Widening Primitive Conversion</a> rules.
-     * </p>
+     * Gets the arguments for an invocation, collecting variable arity arguments when necessary.
      *
-     * @param args                 The array of arguments passed to the varags method.
-     * @param methodParameterTypes The declared array of method parameter types.
-     * @return An array of the variadic arguments passed to the method.
-     * @throws NoSuchMethodException       Thrown if the constructor could not be found.
-     * @throws IllegalAccessException      Thrown if this {@code Constructor} object is enforcing Java language access control and the underlying constructor is
-     *                                     inaccessible.
-     * @throws IllegalArgumentException    Thrown if the number of actual and formal parameters differ; if an unwrapping conversion for primitive arguments
-     *                                     fails; or if, after possible unwrapping, a parameter value cannot be converted to the corresponding formal parameter
-     *                                     type by a method invocation conversion; if this constructor pertains to an enum type.
-     * @throws InstantiationException      Thrown if a class that declares the underlying constructor represents an abstract class.
-     * @throws InvocationTargetException   Thrown if an underlying constructor throws an exception.
-     * @throws ExceptionInInitializerError Thrown if an initialization provoked by this method fails.
-     * @see <a href="https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html#jls-5.1.2">JLS 5.1.2. Widening Primitive Conversion</a>
+     * @param executable The method or constructor to invoke.
+     * @param args The non-null array of argument values.
+     * @param parameterTypes The non-null array of supplied or inferred argument types.
+     * @return The invocation arguments.
+     * @throws IllegalArgumentException if an argument cannot be stored in the variable arity array.
      */
-    private static Object[] toVarArgs(final Object[] args, final Class<?>[] methodParameterTypes)
-            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        final int mptLength = methodParameterTypes.length;
-        if (args.length == mptLength) {
-            final Object lastArg = args[args.length - 1];
-            if (lastArg == null || lastArg.getClass().equals(methodParameterTypes[mptLength - 1])) {
-                // The args array is already in the canonical form for the method.
-                return args;
-            }
+    static Object[] toVarArgs(final Executable executable, final Object[] args, final Class<?>[] parameterTypes) {
+        if (!executable.isVarArgs()) {
+            return args;
         }
-        // Construct a new array matching the method's declared parameter types.
-        // Copy the normal (non-varargs) parameters
-        final Object[] newArgs = ArrayUtils.arraycopy(args, 0, 0, mptLength - 1, () -> new Object[mptLength]);
-        // Construct a new array for the variadic parameters
-        final Class<?> varArgComponentType = methodParameterTypes[mptLength - 1].getComponentType();
-        final Class<?> varArgComponentWrappedType = ClassUtils.primitiveToWrapper(varArgComponentType);
-        final int varArgLength = args.length - mptLength + 1;
-        // Copy the variadic arguments into the varargs array, converting types if needed.
-        Object varArgsArray = Array.newInstance(varArgComponentWrappedType, varArgLength);
-        final boolean primitiveOrWrapper = ClassUtils.isPrimitiveOrWrapper(varArgComponentWrappedType);
-        for (int i = 0; i < varArgLength; i++) {
-            final Object arg = args[mptLength - 1 + i];
-            try {
-                Array.set(varArgsArray, i, primitiveOrWrapper
-                        ? varArgComponentWrappedType.getConstructor(ClassUtils.wrapperToPrimitive(varArgComponentWrappedType)).newInstance(arg)
-                        : varArgComponentWrappedType.cast(arg));
-            } catch (final InstantiationException e) {
-                throw new IllegalArgumentException("Cannot convert vararg #" + i, e);
-            }
+        final Class<?>[] methodParameterTypes = executable.getParameterTypes();
+        final int fixedArgCount = methodParameterTypes.length - 1;
+        if (args.length == methodParameterTypes.length && ClassUtils.isAssignable(parameterTypes, methodParameterTypes, true)
+                && (args[fixedArgCount] == null || methodParameterTypes[fixedArgCount].isInstance(args[fixedArgCount]))) {
+            return args;
         }
-        if (varArgComponentType.isPrimitive()) {
-            // unbox from wrapper type to primitive type
-            varArgsArray = ArrayUtils.toPrimitive(varArgsArray);
+        final Object[] newArgs = ArrayUtils.arraycopy(args, 0, 0, fixedArgCount, () -> new Object[methodParameterTypes.length]);
+        final Class<?> componentType = methodParameterTypes[fixedArgCount].getComponentType();
+        final int varArgCount = args.length - fixedArgCount;
+        final Object varArgs = Array.newInstance(componentType, varArgCount);
+        for (int i = 0; i < varArgCount; i++) {
+            // Array.set preserves reference values and performs unboxing and primitive widening when needed.
+            Array.set(varArgs, i, args[fixedArgCount + i]);
         }
-        // Store the varargs array in the last position of the array to return
-        newArgs[mptLength - 1] = varArgsArray;
-        // Return the canonical varargs array.
+        newArgs[fixedArgCount] = varArgs;
         return newArgs;
     }
 

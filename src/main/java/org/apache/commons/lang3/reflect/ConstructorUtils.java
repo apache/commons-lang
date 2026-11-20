@@ -27,6 +27,11 @@ import org.apache.commons.lang3.ClassUtils;
 /**
  * Utility reflection methods focused on constructors, modeled after {@link MethodUtils}.
  *
+ * <p>
+ * The non-exact invocation methods handle variable arity arguments as described in {@link MethodUtils}. Supplied argument types control whether the final
+ * argument is passed as the variable arity array or collected as an individual element; otherwise, types are inferred from argument values.
+ * </p>
+ *
  * <h2>Known Limitations</h2>
  * <h3>Accessing Constructors In A Non-Public Class</h3>
  * <p>
@@ -198,7 +203,7 @@ public class ConstructorUtils {
      * @param <T>            the type to be constructed.
      * @param cls            The class to be constructed, not {@code null}.
      * @param args           The array of arguments, {@code null} treated as empty.
-     * @param parameterTypes The array of parameter types, {@code null} treated as empty.
+     * @param parameterTypes The argument types for constructor selection and variable arity packing, {@code null} treated as empty.
      * @return new instance of {@code cls}, not {@code null}
      * @throws NullPointerException        Thrown if {@code cls} is {@code null}.
      * @throws NoSuchMethodException       Thrown if a matching constructor cannot be found.
@@ -223,11 +228,12 @@ public class ConstructorUtils {
     public static <T> T invokeConstructor(final Class<T> cls, final Object[] args, final Class<?>[] parameterTypes)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         final Object[] actuals = ArrayUtils.nullToEmpty(args);
-        final Constructor<T> ctor = getMatchingAccessibleConstructor(cls, ArrayUtils.nullToEmpty(parameterTypes));
+        final Class<?>[] paramTypes = ArrayUtils.nullToEmpty(parameterTypes);
+        final Constructor<T> ctor = getMatchingAccessibleConstructor(cls, paramTypes);
         if (ctor == null) {
             throw new NoSuchMethodException("No such accessible constructor on object: " + cls.getName());
         }
-        return ctor.newInstance(MethodUtils.toVarArgs(ctor, actuals));
+        return ctor.newInstance(MethodUtils.toVarArgs(ctor, actuals, paramTypes));
     }
 
     /**
