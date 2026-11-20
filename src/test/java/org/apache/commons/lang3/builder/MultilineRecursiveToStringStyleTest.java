@@ -82,12 +82,12 @@ class MultilineRecursiveToStringStyleTest extends AbstractBuilderTest {
         String[] stringArray;
     }
 
-    static class WithMap {
-        Map<String, String> map;
-    }
-
     private enum WithArraysTestType {
         NONE, BOOLEAN, BYTE, CHAR, DOUBLE, FLOAT, INT, LONG, SHORT, STRING
+    }
+
+    static class WithMap {
+        Map<String, String> map;
     }
 
     private static final String LS = System.lineSeparator();
