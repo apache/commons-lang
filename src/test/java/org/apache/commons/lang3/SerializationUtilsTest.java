@@ -481,6 +481,126 @@ public class SerializationUtilsTest extends AbstractLangTest {
         });
     }
 
+    @ParameterizedTest
+    @ValueSource(booleans = { false, true })
+    void testDeserializeClassLoader(final boolean bytes) throws Exception {
+        final URL[] urls = { getClass().getProtectionDomain().getCodeSource().getLocation() };
+        try (URLClassLoader loader = new URLClassLoader(urls, null)) {
+            final Class<?> valueClass = Class.forName(ProxyHolder.class.getName(), true, loader);
+            final Serializable value = (Serializable) valueClass.getConstructor(Serializable.class).newInstance("value");
+            final byte[] data = SerializationUtils.serialize(value);
+            final Object copy = bytes ? SerializationUtils.deserialize(data, loader)
+                    : SerializationUtils.deserialize(new ByteArrayInputStream(data), loader);
+            assertNotSame(value, copy);
+            assertSame(valueClass, copy.getClass());
+            assertEquals("value", valueClass.getField("value").get(copy));
+        }
+    }
+
+    @Test
+    void testDeserializeClassLoaderDoesNotFallback() {
+        final ClassLoader loader = new ClassLoader(null) { };
+        final ProxyHolder value = new ProxyHolder("value");
+        final SerializationException exception = assertThrows(SerializationException.class,
+                () -> SerializationUtils.deserialize(SerializationUtils.serialize(value), loader));
+        assertInstanceOf(ClassNotFoundException.class, exception.getCause());
+    }
+
+    @Test
+    void testDeserializeClassLoaderInvalidInput() {
+        final ClassLoader loader = getClass().getClassLoader();
+        assertNullPointerException(() -> SerializationUtils.deserialize((byte[]) null, loader));
+        assertNullPointerException(() -> SerializationUtils.deserialize((InputStream) null, loader));
+        assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(new byte[0], loader));
+        assertThrows(SerializationException.class, () -> SerializationUtils.deserialize(new ByteArrayInputStream(new byte[0]), loader));
+        final SerializationException exception = assertThrows(SerializationException.class,
+                () -> SerializationUtils.deserialize(SerializationUtils.serialize(new ClassNotFoundSerialization()), loader));
+        assertInstanceOf(ClassNotFoundException.class, exception.getCause());
+        assertEquals(CLASS_NOT_FOUND_MESSAGE, exception.getCause().getMessage());
+    }
+
+    @Test
+    void testDeserializeClassLoaderNull() {
+        final byte[] data = SerializationUtils.serialize(iMap);
+        assertEquals(iMap, SerializationUtils.deserialize(data, null));
+        assertEquals(iMap, SerializationUtils.deserialize(new ByteArrayInputStream(data), null));
+        assertNull(SerializationUtils.deserialize(SerializationUtils.serialize(null), getClass().getClassLoader()));
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { false, true })
+    void testDeserializeClassLoaderPluginClass(final boolean bytes, @TempDir final Path tempDir) throws Exception {
+        final String className = "plugin.DeserializeValue";
+        final Path source = tempDir.resolve("DeserializeValue.java");
+        Files.write(source, ("package plugin; public class DeserializeValue implements java.io.Serializable {"
+                + " private static final long serialVersionUID = 1L; public String value = \"value\"; }").getBytes(StandardCharsets.UTF_8));
+        final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        assertNotNull(compiler);
+        final ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
+        assertEquals(0, compiler.run(null, diagnostics, diagnostics, "-d", tempDir.toString(), source.toString()),
+                diagnostics.toString(StandardCharsets.UTF_8.name()));
+        final ClassLoader applicationLoader = getClass().getClassLoader();
+        try (URLClassLoader loader = new URLClassLoader(new URL[] { tempDir.toUri().toURL() }, null)) {
+            contextClassLoader.setContextClassLoader(applicationLoader);
+            assertThrows(ClassNotFoundException.class, () -> Class.forName(className, false, applicationLoader));
+            final Class<?> valueClass = Class.forName(className, true, loader);
+            final Serializable value = (Serializable) valueClass.getConstructor().newInstance();
+            final Object array = Array.newInstance(valueClass, 1);
+            Array.set(array, 0, value);
+            final ArrayList<Object> values = new ArrayList<>();
+            values.add(value);
+            values.add(array);
+            values.add(valueClass);
+            final byte[] data = SerializationUtils.serialize(values);
+            final ArrayList<?> copy = bytes ? SerializationUtils.deserialize(data, loader)
+                    : SerializationUtils.deserialize(new ByteArrayInputStream(data), loader);
+            assertNotSame(value, copy.get(0));
+            assertSame(valueClass, copy.get(0).getClass());
+            assertEquals("value", valueClass.getField("value").get(copy.get(0)));
+            assertSame(array.getClass(), copy.get(1).getClass());
+            assertSame(copy.get(0), Array.get(copy.get(1), 0));
+            assertSame(valueClass, copy.get(2));
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { false, true })
+    void testDeserializeClassLoaderPluginProxy(final boolean publicInterface, @TempDir final Path tempDir) throws Exception {
+        final String interfaceName = "plugin.DeserializeInterface";
+        final Path source = tempDir.resolve("DeserializeInterface.java");
+        Files.write(source, ("package plugin; " + (publicInterface ? "public " : "")
+                + "interface DeserializeInterface { String value(); }").getBytes(StandardCharsets.UTF_8));
+        final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        assertNotNull(compiler);
+        final ByteArrayOutputStream diagnostics = new ByteArrayOutputStream();
+        assertEquals(0, compiler.run(null, diagnostics, diagnostics, "-d", tempDir.toString(), source.toString()),
+                diagnostics.toString(StandardCharsets.UTF_8.name()));
+        final ClassLoader applicationLoader = getClass().getClassLoader();
+        try (URLClassLoader loader = new URLClassLoader(new URL[] { tempDir.toUri().toURL() }, applicationLoader)) {
+            contextClassLoader.setContextClassLoader(applicationLoader);
+            assertThrows(ClassNotFoundException.class, () -> Class.forName(interfaceName, false, applicationLoader));
+            final Class<?> proxyInterface = Class.forName(interfaceName, false, loader);
+            final Serializable proxy = (Serializable) Proxy.newProxyInstance(loader, new Class<?>[] { proxyInterface }, new SerializableInvocationHandler());
+            final byte[] data = SerializationUtils.serialize(proxy);
+            for (final ClassLoader lookupLoader : new ClassLoader[] { loader, new ClassLoader(loader) { } }) {
+                final Object copy = SerializationUtils.deserialize(data, lookupLoader);
+                assertNotSame(proxy, copy);
+                assertTrue(proxyInterface.isInstance(copy));
+                assertSame(publicInterface ? lookupLoader : loader, copy.getClass().getClassLoader());
+                assertNotSame(Proxy.getInvocationHandler(proxy), Proxy.getInvocationHandler(copy));
+                assertEquals("test", copy.toString());
+            }
+        }
+    }
+
+    @Test
+    void testDeserializeClassLoaderPrimitiveClasses() {
+        for (final Class<?> type : new Class<?>[] { boolean.class, byte.class, char.class, double.class, float.class, int.class, long.class, short.class,
+                void.class }) {
+            assertSame(type, SerializationUtils.deserialize(SerializationUtils.serialize(type), getClass().getClassLoader()));
+        }
+    }
+
     @Test
     void testDeserializeStream() throws Exception {
         final ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
