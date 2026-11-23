@@ -27,6 +27,8 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -101,6 +103,49 @@ public class SerializationUtils {
         @Override
         protected Class<?> resolveProxyClass(final String[] interfaces) throws IOException {
             return classes.get(readInt());
+        }
+    }
+
+    /**
+     * Resolves serialized classes using a caller-supplied class loader.
+     */
+    private static final class ClassLoaderObjectInputStream extends ObjectInputStream {
+
+        private final ClassLoader classLoader;
+
+        private ClassLoaderObjectInputStream(final InputStream inputStream, final ClassLoader classLoader) throws IOException {
+            super(inputStream);
+            this.classLoader = classLoader;
+        }
+
+        @Override
+        protected Class<?> resolveClass(final ObjectStreamClass descriptor) throws ClassNotFoundException {
+            final Class<?> primitive = ClassUtils.getPrimitiveClass(descriptor.getName());
+            return primitive != null ? primitive : Class.forName(descriptor.getName(), false, classLoader);
+        }
+
+        @Override
+        protected Class<?> resolveProxyClass(final String[] interfaces) throws ClassNotFoundException {
+            final Class<?>[] interfaceClasses = new Class<?>[interfaces.length];
+            ClassLoader proxyLoader = classLoader;
+            boolean nonPublic = false;
+            for (int i = 0; i < interfaces.length; i++) {
+                final Class<?> type = Class.forName(interfaces[i], false, classLoader);
+                if (!Modifier.isPublic(type.getModifiers())) {
+                    if (nonPublic && proxyLoader != type.getClassLoader()) {
+                        throw new ClassNotFoundException("Non-public proxy interfaces have different class loaders");
+                    }
+                    proxyLoader = type.getClassLoader();
+                    nonPublic = true;
+                }
+                interfaceClasses[i] = type;
+            }
+            try {
+                // Deserialization restores the real invocation handler; only the proxy class is needed here.
+                return Proxy.newProxyInstance(proxyLoader, interfaceClasses, (proxy, method, args) -> null).getClass();
+            } catch (final IllegalArgumentException ex) {
+                throw new ClassNotFoundException("Cannot resolve proxy class", ex);
+            }
         }
     }
 
@@ -182,6 +227,29 @@ public class SerializationUtils {
     }
 
     /**
+     * Deserializes an object from an array of bytes using the specified class loader.
+     *
+     * <p>
+     * This is useful in containers where the serialized classes are not visible to the class loader that loaded this library.
+     * Class and proxy-interface names are resolved using {@code classLoader}, without falling back to another loader.
+     * A {@code null} class loader uses the standard {@link ObjectInputStream} resolution behavior instead.
+     * </p>
+     *
+     * @param <T>         The object type to be deserialized.
+     * @param objectData  The serialized object, must not be null.
+     * @param classLoader The class loader to use, or null for standard resolution.
+     * @return The deserialized object.
+     * @throws NullPointerException   Thrown if {@code objectData} is {@code null}.
+     * @throws SerializationException Thrown if the serialization fails.
+     * @since 3.22.1
+     * @see #deserialize(InputStream, ClassLoader)
+     */
+    public static <T> T deserialize(final byte[] objectData, final ClassLoader classLoader) {
+        Objects.requireNonNull(objectData, "objectData");
+        return deserialize(new ByteArrayInputStream(objectData), classLoader);
+    }
+
+    /**
      * Deserializes an {@link Object} from the specified stream.
      *
      * <p>
@@ -212,10 +280,36 @@ public class SerializationUtils {
      * @see org.apache.commons.io.serialization.ValidatingObjectInputStream
      * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/">Java Object Serialization Specification</a>
      */
-    @SuppressWarnings("resource") // inputStream is managed by the caller
     public static <T> T deserialize(final InputStream inputStream) {
+        return deserialize(inputStream, null);
+    }
+
+    /**
+     * Deserializes an object from a stream using the specified class loader.
+     *
+     * <p>
+     * Class and proxy-interface names are resolved using {@code classLoader}, without falling back to another loader.
+     * A {@code null} class loader uses the standard {@link ObjectInputStream} resolution behavior instead.
+     * Non-public proxy interfaces must share a defining class loader, which is used to define their proxy class.
+     * </p>
+     *
+     * <p>
+     * The stream is closed after the object is read and is not buffered internally.
+     * </p>
+     *
+     * @param <T>         The object type to be deserialized.
+     * @param inputStream The serialized object input stream, must not be null.
+     * @param classLoader The class loader to use, or null for standard resolution.
+     * @return The deserialized object.
+     * @throws NullPointerException   Thrown if {@code inputStream} is {@code null}.
+     * @throws SerializationException Thrown if the serialization fails.
+     * @since 3.22.1
+     * @see #deserialize(InputStream)
+     */
+    @SuppressWarnings("resource") // inputStream is managed by the caller
+    public static <T> T deserialize(final InputStream inputStream, final ClassLoader classLoader) {
         Objects.requireNonNull(inputStream, "inputStream");
-        try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
+        try (ObjectInputStream in = classLoader == null ? new ObjectInputStream(inputStream) : new ClassLoaderObjectInputStream(inputStream, classLoader)) {
             @SuppressWarnings("unchecked")
             final T obj = (T) in.readObject();
             return obj;
