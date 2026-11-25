@@ -6600,8 +6600,8 @@ public class StringUtils {
                 + replacementLength);
         }
 
-        // keep track of which still have matches
-        final boolean[] noMoreMatchesForReplIndex = new boolean[searchLength];
+        // Keep the next match for each rule so that distant matches are not searched for again after every replacement.
+        final int[] nextMatchIndices = new int[searchLength];
 
         // index on index that the match was found
         int textIndex = -1;
@@ -6609,22 +6609,14 @@ public class StringUtils {
         int tempIndex;
 
         // index of replace array that will replace the search string found
-        // NOTE: logic duplicated below START
         for (int i = 0; i < searchLength; i++) {
-            if (noMoreMatchesForReplIndex[i] || isEmpty(searchList[i]) || replacementList[i] == null) {
-                continue;
-            }
-            tempIndex = text.indexOf(searchList[i]);
-
-            // see if we need to keep searching for this
-            if (tempIndex == -1) {
-                noMoreMatchesForReplIndex[i] = true;
-            } else if (textIndex == -1 || tempIndex < textIndex) {
+            tempIndex = isEmpty(searchList[i]) || replacementList[i] == null ? -1 : text.indexOf(searchList[i]);
+            nextMatchIndices[i] = tempIndex;
+            if (tempIndex != -1 && (textIndex == -1 || tempIndex < textIndex)) {
                 textIndex = tempIndex;
                 replaceIndex = i;
             }
         }
-        // NOTE: logic mostly below END
 
         // no search strings found, we are done
         if (textIndex == -1) {
@@ -6662,22 +6654,21 @@ public class StringUtils {
             textIndex = -1;
             replaceIndex = -1;
             // find the next earliest match
-            // NOTE: logic mostly duplicated above START
             for (int i = 0; i < searchLength; i++) {
-                if (noMoreMatchesForReplIndex[i] || isEmpty(searchList[i]) || replacementList[i] == null) {
+                tempIndex = nextMatchIndices[i];
+                if (tempIndex == -1) {
                     continue;
                 }
-                tempIndex = text.indexOf(searchList[i], start);
-
-                // see if we need to keep searching for this
-                if (tempIndex == -1) {
-                    noMoreMatchesForReplIndex[i] = true;
-                } else if (textIndex == -1 || tempIndex < textIndex) {
+                if (tempIndex < start) {
+                    // A replacement may consume this match, including a match of another overlapping rule.
+                    tempIndex = text.indexOf(searchList[i], start);
+                    nextMatchIndices[i] = tempIndex;
+                }
+                if (tempIndex != -1 && (textIndex == -1 || tempIndex < textIndex)) {
                     textIndex = tempIndex;
                     replaceIndex = i;
                 }
             }
-            // NOTE: logic duplicated above END
 
         }
         final int textLength = text.length();

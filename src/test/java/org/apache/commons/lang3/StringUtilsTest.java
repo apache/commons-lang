@@ -2038,6 +2038,32 @@ class StringUtilsTest extends AbstractLangTest {
                 "StringUtils.replaceEach(String, String[], String[]) expecting IllegalArgumentException");
     }
 
+    @Test
+    void testReplaceEachDistantMatch() {
+        assertEquals("xxxxxxY", StringUtils.replaceEach("aaaaaab", new String[] { "a", "b" }, new String[] { "x", "Y" }));
+        assertEquals("Y", StringUtils.replaceEach("aaaaaab", new String[] { "a", "b" }, new String[] { "", "Y" }));
+    }
+
+    @Test
+    void testReplaceEachIgnoredRules() {
+        final String text = "abc";
+        assertSame(text, StringUtils.replaceEach(text, new String[] { null, "", "absent", "a" }, new String[] { "x", "x", "x", null }));
+        assertEquals("Xbc", StringUtils.replaceEach(text, new String[] { "", null, "a", "b" }, new String[] { "x", "x", "X", null }));
+    }
+
+    @Test
+    void testReplaceEachOverlappingMatches() {
+        // The first replacement consumes a previously found match of "bc"; the later one must still be found.
+        assertEquals("XcY", StringUtils.replaceEach("abcbc", new String[] { "ab", "bc" }, new String[] { "X", "Y" }));
+        assertEquals("XX", StringUtils.replaceEach("abab", new String[] { "ab", "b" }, new String[] { "X", "Y" }));
+    }
+
+    @Test
+    void testReplaceEachSamePositionUsesSearchOrder() {
+        assertEquals("XbXb", StringUtils.replaceEach("abab", new String[] { "a", "ab" }, new String[] { "X", "Y" }));
+        assertEquals("YY", StringUtils.replaceEach("abab", new String[] { "ab", "a" }, new String[] { "Y", "X" }));
+    }
+
     /**
      * Test method for 'StringUtils.replaceEachRepeatedly(String, String[], String[])'
      */

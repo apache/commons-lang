@@ -48,6 +48,8 @@ import org.openjdk.jmh.annotations.Warmup;
  * <p>
  * Use a separate result file for the candidate. Compare both time and bytes allocated per operation, including the unaffected cases.
  * </p>
+ *
+ * @since 3.22.1
  */
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
@@ -59,12 +61,16 @@ public class StringUtilsReplaceEachBenchmark {
 
     /**
      * The distribution of matching characters in the input.
+     *
+     * @since 3.22.1
      */
     @Param({ "GROUPED", "UTF16_GROUPED", "INTERLEAVED", "SPARSE", "NO_MATCH", "SINGLE_PATTERN" })
     public String distribution;
 
     /**
      * The number of UTF-16 code units in the input.
+     *
+     * @since 3.22.1
      */
     @Param({ "64", "4096", "65536" })
     public int length;
@@ -75,6 +81,8 @@ public class StringUtilsReplaceEachBenchmark {
 
     /**
      * Constructs a benchmark state.
+     *
+     * @since 3.22.1
      */
     public StringUtilsReplaceEachBenchmark() {
         // Empty.
@@ -84,6 +92,7 @@ public class StringUtilsReplaceEachBenchmark {
      * Replaces the prepared input, including all per-call search bookkeeping and output allocation.
      *
      * @return the replaced text.
+     * @since 3.22.1
      */
     @Benchmark
     public String replaceEach() {
@@ -92,6 +101,8 @@ public class StringUtilsReplaceEachBenchmark {
 
     /**
      * Prepares the input and replacement rules outside the measured operation.
+     *
+     * @since 3.22.1
      */
     @Setup
     public void setup() {
