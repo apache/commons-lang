@@ -114,7 +114,6 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Handle assignable arrays and null reference elements in reflective variable arity invocations, preserving explicit argument types and reference identity.</action>
     <!-- ADD -->
     <!-- UPDATE -->
-    <action type="update" due-to="biheto">Avoid rescanning distant matches after each replacement in StringUtils.replaceEach and replaceEachRepeatedly.</action>
   </release>
   <release version="3.22.0" date="2026-11-08" description="This is a feature and maintenance release. Java 8 or later is required.">
     <!-- FIX -->
