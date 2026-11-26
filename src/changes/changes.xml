@@ -112,6 +112,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare" issue="LANG-1840">Fix NPE in MultilineRecursiveToStringStyle for null map entries (#1889).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Javadoc: Fix examples in ObjectUtils.getFirstNonNull and BooleanUtils.toBooleanObject(Integer) (#1890).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Handle assignable arrays and null reference elements in reflective variable arity invocations, preserving explicit argument types and reference identity.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Biheto">Optimize StringUtils.replaceEach scanning and text copying (#1894).</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
