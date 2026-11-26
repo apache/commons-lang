@@ -2235,6 +2235,48 @@ class StringUtilsTest extends AbstractLangTest {
     }
 
     @Test
+    void testReplaceEachDistantMatch() {
+        assertEquals("xxxxxxY", StringUtils.replaceEach("aaaaaab", new String[] { "a", "b" }, new String[] { "x", "Y" }));
+        assertEquals("Y", StringUtils.replaceEach("aaaaaab", new String[] { "a", "b" }, new String[] { "", "Y" }));
+    }
+
+    @Test
+    void testReplaceEachIgnoredRules() {
+        final String text = "abc";
+        assertSame(text, StringUtils.replaceEach(text, new String[] { null, "", "absent", "a" }, new String[] { "x", "x", "x", null }));
+        assertEquals("Xbc", StringUtils.replaceEach(text, new String[] { "", null, "a", "b" }, new String[] { "x", "x", "X", null }));
+    }
+
+    @Test
+    void testReplaceEachOverlappingMatches() {
+        // The first replacement consumes a previously found match of "bc"; the later one must still be found.
+        assertEquals("XcY", StringUtils.replaceEach("abcbc", new String[] { "ab", "bc" }, new String[] { "X", "Y" }));
+        assertEquals("XX", StringUtils.replaceEach("abab", new String[] { "ab", "b" }, new String[] { "X", "Y" }));
+    }
+
+    /**
+     * Preserves unchanged ranges and individual UTF-16 code units in single and repeated replacement passes.
+     *
+     * @param value the text repeated between replacement tokens.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = { "", "plain", "\u4e2d\u6587", "\ud83d\ude00", "\ud83d", "\ude00" })
+    void testReplaceEachPreservesUnchangedRanges(final String value) {
+        final String padding = StringUtils.repeat(value, 128);
+        final String text = padding + "<a>" + padding + "<b>" + padding;
+        final String[] searches = { "<a>", "<b>" };
+        final String[] replacements = { "<b>", "X" };
+        assertEquals(padding + "<b>" + padding + "X" + padding, StringUtils.replaceEach(text, searches, replacements));
+        assertEquals(padding + "X" + padding + "X" + padding, StringUtils.replaceEachRepeatedly(text, searches, replacements));
+    }
+
+    @Test
+    void testReplaceEachSamePositionUsesSearchOrder() {
+        assertEquals("XbXb", StringUtils.replaceEach("abab", new String[] { "a", "ab" }, new String[] { "X", "Y" }));
+        assertEquals("YY", StringUtils.replaceEach("abab", new String[] { "ab", "a" }, new String[] { "Y", "X" }));
+    }
+
+    @Test
     void testReplaceFirst_StringStringString() {
         assertNull(StringUtils.replaceFirst(null, "", ""));
 
