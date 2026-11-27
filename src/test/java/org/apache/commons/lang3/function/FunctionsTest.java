@@ -84,4 +84,37 @@ class FunctionsTest extends AbstractLangTest {
     void testFunction() {
         assertEquals("foo", Functions.function(String::valueOf).andThen(String::toString).apply("foo"));
     }
+
+    /**
+     * Tests {@link Functions#constant(Object)}.
+     */
+    @Test
+    void testConstant() {
+        assertNull(Functions.constant(null).apply(null));
+        assertEquals("foo", Functions.constant("foo").apply(null));
+        assertEquals("foo", Functions.constant("foo").apply("bar"));
+    }
+
+    /**
+     * Tests {@link Functions#biConstant(Object)}.
+     */
+    @Test
+    void testBiConstant() {
+        assertNull(Functions.biConstant(null).apply(null, null));
+        assertEquals("foo", Functions.biConstant("foo").apply(null, null));
+        assertEquals("foo", Functions.biConstant("foo").apply("bar", null));
+        assertEquals("foo", Functions.biConstant("foo").apply(null, "bar"));
+    }
+
+    /**
+     * Tests {@link Functions#triConstant(Object)}.
+     */
+    @Test
+    void testTriConstant() {
+        assertNull(Functions.triConstant(null).apply(null, null, null));
+        assertEquals("foo", Functions.triConstant("foo").apply(null, null, null));
+        assertEquals("foo", Functions.triConstant("foo").apply("bar", null, null));
+        assertEquals("foo", Functions.triConstant("foo").apply(null, "bar", null));
+        assertEquals("foo", Functions.triConstant("foo").apply(null, null, "bar"));
+    }
 }
