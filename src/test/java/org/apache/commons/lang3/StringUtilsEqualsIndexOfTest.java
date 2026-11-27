@@ -119,6 +119,57 @@ class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         // @formatter:on
     }
 
+    static Stream<Arguments> lastIndexOfAnyBut() {
+        return Stream.of(
+            arguments(null, null, -1),
+            arguments(null, "", -1),
+            arguments(null, "ab", -1),
+            arguments("", null, -1),
+            arguments("", "", -1),
+            arguments("", "ab", -1),
+            arguments("abc", null, -1),
+            arguments("abc", "", -1),
+            arguments("a", "a", -1),
+            arguments("a", "b", 0),
+            arguments("abcdd", "bd", 2),
+            arguments("abcdd", "dbbd", 2),
+            arguments("abcdd", "abcd", -1),
+            arguments("abcdd", "z", 4),
+            arguments("zzabyycdxx", "xy", 7),
+            arguments("zzabyycdxx", "za", 9),
+            arguments("aba", "ab", -1),
+            arguments("aba", "z", 2),
+            arguments("aaaab", "a", 4),
+            arguments("baaaa", "a", 0),
+            arguments("aaaa", "a", -1),
+            arguments("ab\u0000", "ab", 2),
+            arguments("a\u00E9\u03A9", "a\u00E9", 2),
+            arguments(CharU20000 + CharU20001, CharU20000, 2),
+            arguments(CharU20000 + CharU20001, CharU20001, 0),
+            arguments(CharU20000 + CharU20001, CharU20000 + CharU20001, -1),
+            arguments(CharU20000, CharU20001, 0),
+            arguments(CharU20000, CharU24000, 0),
+            arguments(CharU24000, CharU20000, 0),
+            arguments("a" + CharU20000 + "bb", "ab", 1),
+            arguments(CharU20000 + "a" + CharU20001, CharU20001, 2),
+            arguments("a" + CharU20000, CharU20000, 0),
+            arguments(CharU20000 + "a", "a", 0),
+            arguments(CharU20000, CharUSuppCharHigh, 0),
+            arguments(CharU20000, CharUSuppCharLow, 0),
+            arguments(CharU20000, CharUSuppCharHigh + "a" + CharUSuppCharLow, 0),
+            arguments(CharUSuppCharHigh + "aaaa", "a", 0),
+            arguments("aaaa" + CharUSuppCharHigh, "a", 4),
+            arguments(CharUSuppCharLow + "aaaa", "a", 0),
+            arguments("aaaa" + CharUSuppCharLow, "a", 4),
+            arguments("a" + CharUSuppCharHigh, "a" + CharUSuppCharHigh, -1),
+            arguments("a" + CharUSuppCharLow, "a" + CharUSuppCharLow, -1),
+            arguments("a" + CharUSuppCharHigh, "a" + CharU20000, 1),
+            arguments("a" + CharUSuppCharLow, "a" + CharU20000, 1),
+            arguments(CharUSuppCharHigh + CharU20000, CharU20000, 0),
+            arguments(CharU20000 + CharUSuppCharLow, CharU20000, 2)
+        );
+    }
+
     @Test
     void testCompare_StringString() {
         assertEquals(0, StringUtils.compare(null, null));
@@ -749,6 +800,60 @@ class StringUtilsEqualsIndexOfTest extends AbstractLangTest {
         assertEquals(-1, StringUtils.lastIndexOfAny("", new String[] {null}));
         assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, new String[] {null}));
         assertEquals(-1, StringUtils.lastIndexOfAny(null, new String[] {null}));
+    }
+
+    @ParameterizedTest
+    @MethodSource("lastIndexOfAnyBut")
+    void testLastIndexOfAnyBut_CharSequence(final String seq, final String searchChars, final int expected) {
+        assertEquals(expected, StringUtils.lastIndexOfAnyBut(seq, searchChars));
+        if (seq != null && searchChars != null) {
+            assertEquals(expected, StringUtils.lastIndexOfAnyBut(new StringBuilder(seq), new StringBuilder(searchChars)));
+            assertEquals(expected, StringUtils.lastIndexOfAnyBut(CharBuffer.wrap(seq), CharBuffer.wrap(searchChars)));
+            assertEquals(expected, StringUtils.lastIndexOfAnyBut(new CustomCharSequence(seq), new CustomCharSequence(searchChars)));
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("lastIndexOfAnyBut")
+    void testLastIndexOfAnyBut_CharSequenceCharArray(final String seq, final String searchChars, final int expected) {
+        final char[] chars = searchChars == null ? null : searchChars.toCharArray();
+        assertEquals(expected, StringUtils.lastIndexOfAnyBut(seq, chars));
+        if (seq != null) {
+            assertEquals(expected, StringUtils.lastIndexOfAnyBut(new StringBuilder(seq), chars));
+            assertEquals(expected, StringUtils.lastIndexOfAnyBut(CharBuffer.wrap(seq), chars));
+            assertEquals(expected, StringUtils.lastIndexOfAnyBut(new CustomCharSequence(seq), chars));
+        }
+    }
+
+    @Test
+    void testLastIndexOfAnyBut_SearchesFromEnd() {
+        final CharSequence seq = new CharSequence() {
+            @Override
+            public char charAt(final int index) {
+                assertTrue(index >= 3, "The search must stop before reading the prefix");
+                return "aaacdd".charAt(index);
+            }
+
+            @Override
+            public int length() {
+                return 6;
+            }
+
+            @Override
+            public CharSequence subSequence(final int start, final int end) {
+                throw new UnsupportedOperationException();
+            }
+        };
+        assertEquals(3, StringUtils.lastIndexOfAnyBut(seq, "d"));
+        assertEquals(3, StringUtils.lastIndexOfAnyBut(seq, 'd'));
+    }
+
+    @Test
+    void testLastIndexOfAnyBut_VarArgs() {
+        assertEquals(-1, StringUtils.lastIndexOfAnyBut(null));
+        assertEquals(-1, StringUtils.lastIndexOfAnyBut(""));
+        assertEquals(-1, StringUtils.lastIndexOfAnyBut("abcdd"));
+        assertEquals(2, StringUtils.lastIndexOfAnyBut("abcdd", 'b', 'd'));
     }
 
     @Test
