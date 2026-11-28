@@ -47,10 +47,7 @@ import org.apache.commons.lang3.stream.Streams;
  * Operations on arrays, primitive arrays (like {@code int[]}) and
  * primitive wrapper arrays (like {@code Integer[]}).
  * <p>
- * This class tries to handle {@code null} input gracefully.
- * An exception will not be thrown for a {@code null}
- * array input. However, an Object array that contains a {@code null}
- * element may throw an exception. Each method documents its behavior.
+ * This class tries to handle {@code null} input gracefully. See each method's documentation for its handling of {@code null} arrays and elements.
  * </p>
  * <p>
  * #ThreadSafe#
@@ -779,7 +776,7 @@ public class ArrayUtils {
      * ArrayUtils.add(null, 0, "a")       = ["a"]
      * ArrayUtils.add(["a"], 1, null)     = ["a", null]
      * ArrayUtils.add(["a"], 1, "b")      = ["a", "b"]
-     * ArrayUtils.add(["a", "b"], 3, "c") = ["a", "b", "c"]
+     * ArrayUtils.add(["a", "b"], 2, "c") = ["a", "b", "c"]
      * </pre>
      *
      * @param <T> The component type of the array.
@@ -814,9 +811,8 @@ public class ArrayUtils {
      * the new array is the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, a new one element array is returned
-     * whose component type is the same as the element, unless the element itself is null,
-     * in which case the return type is Object[]
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the element.
+     * If both the array and the element are {@code null}, an {@link IllegalArgumentException} is thrown.
      * </p>
      * <pre>
      * ArrayUtils.add(null, null)      = Throws {@link IllegalArgumentException}
@@ -1405,8 +1401,8 @@ public class ArrayUtils {
      * component type of the new array is the same as that of the input array.
      * </p>
      * <p>
-     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the
-     * element, unless the element itself is null, in which case the return type is Object[]
+     * If the input array is {@code null}, a new one element array is returned whose component type is the same as the element.
+     * If both the array and the element are {@code null}, an {@link IllegalArgumentException} is thrown.
      * </p>
      * <pre>
      * ArrayUtils.addFirst(null, null)      = Throws {@link IllegalArgumentException}
@@ -2087,13 +2083,17 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns a copy of the given array of size 1 greater than the argument.
+     * Copies the given array into an array with one additional element.
      * The last value of the array is left to the default value.
      *
-     * @param array The array to copy, must not be {@code null}.
+     * <p>
+     * A {@code null} array produces a one-element array of {@code newArrayComponentType}.
+     * </p>
+     *
+     * @param array The array to copy, may be {@code null}.
      * @param newArrayComponentType If {@code array} is {@code null}, create a
      * size 1 array of this type.
-     * @return A new copy of the array of size 1 greater than the input.
+     * @return A new array of size one greater than the input, or a one-element array if the input is {@code null}.
      */
     private static Object copyArrayGrow1(final Object array, final Class<?> newArrayComponentType) {
         if (array != null) {
@@ -2231,7 +2231,7 @@ public class ArrayUtils {
      * This method returns an empty BitSet for a {@code null} input array.
      * </p>
      * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array length will return an empty BitSet ({@code -1}).
+     * A negative startIndex is treated as zero. A startIndex larger than the array length will return an empty BitSet.
      * </p>
      *
      * @param array       The array to search for the object, may be {@code null}.
@@ -2378,7 +2378,7 @@ public class ArrayUtils {
      *
      * <p>
      * This method will return all the indices of the value which fall between the region
-     * defined by valueToFind - tolerance and valueToFind + tolerance, each time between the nearest integers.
+     * defined by valueToFind - tolerance and valueToFind + tolerance.
      * </p>
      *
      * <p>
@@ -2435,7 +2435,7 @@ public class ArrayUtils {
      *
      * <p>
      * This method will return the indices of the values which fall between the region
-     * defined by valueToFind - tolerance and valueToFind + tolerance, between the nearest integers.
+     * defined by valueToFind - tolerance and valueToFind + tolerance.
      * </p>
      *
      * <p>
@@ -3175,6 +3175,11 @@ public class ArrayUtils {
      * When an array is returned, it is always a new array.
      * </p>
      *
+     * <p>
+     * If {@code array} is {@code null}, this method returns {@code null}. Otherwise, if {@code values} is {@code null} or empty,
+     * this method returns a clone of {@code array} without checking {@code index}.
+     * </p>
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
@@ -3185,7 +3190,8 @@ public class ArrayUtils {
      * @param array  The array to insert the values into, may be {@code null}.
      * @param values The new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException Thrown if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
+     * @throws IndexOutOfBoundsException Thrown if {@code array} is not {@code null}, {@code values} is nonempty, and either
+     *                                  {@code index < 0} or {@code index > array.length}.
      * @throws IllegalArgumentException Thrown if the total array length exceeds {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.6
      */
@@ -3217,6 +3223,11 @@ public class ArrayUtils {
      * When an array is returned, it is always a new array.
      * </p>
      *
+     * <p>
+     * If {@code array} is {@code null}, this method returns {@code null}. Otherwise, if {@code values} is {@code null} or empty,
+     * this method returns a clone of {@code array} without checking {@code index}.
+     * </p>
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
@@ -3227,7 +3238,8 @@ public class ArrayUtils {
      * @param array  The array to insert the values into, may be {@code null}.
      * @param values The new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException Thrown if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
+     * @throws IndexOutOfBoundsException Thrown if {@code array} is not {@code null}, {@code values} is nonempty, and either
+     *                                  {@code index < 0} or {@code index > array.length}.
      * @throws IllegalArgumentException Thrown if the total array length exceeds {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.6
      */
@@ -3259,6 +3271,11 @@ public class ArrayUtils {
      * When an array is returned, it is always a new array.
      * </p>
      *
+     * <p>
+     * If {@code array} is {@code null}, this method returns {@code null}. Otherwise, if {@code values} is {@code null} or empty,
+     * this method returns a clone of {@code array} without checking {@code index}.
+     * </p>
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
@@ -3269,7 +3286,8 @@ public class ArrayUtils {
      * @param array  The array to insert the values into, may be {@code null}.
      * @param values The new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException Thrown if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
+     * @throws IndexOutOfBoundsException Thrown if {@code array} is not {@code null}, {@code values} is nonempty, and either
+     *                                  {@code index < 0} or {@code index > array.length}.
      * @throws IllegalArgumentException Thrown if the total array length exceeds {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.6
      */
@@ -3301,6 +3319,11 @@ public class ArrayUtils {
      * When an array is returned, it is always a new array.
      * </p>
      *
+     * <p>
+     * If {@code array} is {@code null}, this method returns {@code null}. Otherwise, if {@code values} is {@code null} or empty,
+     * this method returns a clone of {@code array} without checking {@code index}.
+     * </p>
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
@@ -3311,7 +3334,8 @@ public class ArrayUtils {
      * @param array  The array to insert the values into, may be {@code null}.
      * @param values The new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException Thrown if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
+     * @throws IndexOutOfBoundsException Thrown if {@code array} is not {@code null}, {@code values} is nonempty, and either
+     *                                  {@code index < 0} or {@code index > array.length}.
      * @throws IllegalArgumentException Thrown if the total array length exceeds {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.6
      */
@@ -3343,6 +3367,11 @@ public class ArrayUtils {
      * When an array is returned, it is always a new array.
      * </p>
      *
+     * <p>
+     * If {@code array} is {@code null}, this method returns {@code null}. Otherwise, if {@code values} is {@code null} or empty,
+     * this method returns a clone of {@code array} without checking {@code index}.
+     * </p>
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
@@ -3353,7 +3382,8 @@ public class ArrayUtils {
      * @param array  The array to insert the values into, may be {@code null}.
      * @param values The new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException Thrown if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
+     * @throws IndexOutOfBoundsException Thrown if {@code array} is not {@code null}, {@code values} is nonempty, and either
+     *                                  {@code index < 0} or {@code index > array.length}.
      * @throws IllegalArgumentException Thrown if the total array length exceeds {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.6
      */
@@ -3385,6 +3415,11 @@ public class ArrayUtils {
      * When an array is returned, it is always a new array.
      * </p>
      *
+     * <p>
+     * If {@code array} is {@code null}, this method returns {@code null}. Otherwise, if {@code values} is {@code null} or empty,
+     * this method returns a clone of {@code array} without checking {@code index}.
+     * </p>
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
@@ -3395,7 +3430,8 @@ public class ArrayUtils {
      * @param array  The array to insert the values into, may be {@code null}.
      * @param values The new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException Thrown if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
+     * @throws IndexOutOfBoundsException Thrown if {@code array} is not {@code null}, {@code values} is nonempty, and either
+     *                                  {@code index < 0} or {@code index > array.length}.
      * @throws IllegalArgumentException Thrown if the total array length exceeds {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.6
      */
@@ -3427,6 +3463,11 @@ public class ArrayUtils {
      * When an array is returned, it is always a new array.
      * </p>
      *
+     * <p>
+     * If {@code array} is {@code null}, this method returns {@code null}. Otherwise, if {@code values} is {@code null} or empty,
+     * this method returns a clone of {@code array} without checking {@code index}.
+     * </p>
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
@@ -3437,7 +3478,8 @@ public class ArrayUtils {
      * @param array  The array to insert the values into, may be {@code null}.
      * @param values The new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException Thrown if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
+     * @throws IndexOutOfBoundsException Thrown if {@code array} is not {@code null}, {@code values} is nonempty, and either
+     *                                  {@code index < 0} or {@code index > array.length}.
      * @throws IllegalArgumentException Thrown if the total array length exceeds {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.6
      */
@@ -3469,6 +3511,11 @@ public class ArrayUtils {
      * When an array is returned, it is always a new array.
      * </p>
      *
+     * <p>
+     * If {@code array} is {@code null}, this method returns {@code null}. Otherwise, if {@code values} is {@code null} or empty,
+     * this method returns a clone of {@code array} without checking {@code index}.
+     * </p>
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
@@ -3479,7 +3526,8 @@ public class ArrayUtils {
      * @param array  The array to insert the values into, may be {@code null}.
      * @param values The new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException Thrown if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
+     * @throws IndexOutOfBoundsException Thrown if {@code array} is not {@code null}, {@code values} is nonempty, and either
+     *                                  {@code index < 0} or {@code index > array.length}.
      * @throws IllegalArgumentException Thrown if the total array length exceeds {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.6
      */
@@ -3511,6 +3559,11 @@ public class ArrayUtils {
      * When an array is returned, it is always a new array.
      * </p>
      *
+     * <p>
+     * If {@code array} is {@code null}, this method returns {@code null}. Otherwise, if {@code values} is {@code null} or empty,
+     * this method returns a clone of {@code array} without checking {@code index}.
+     * </p>
+     *
      * <pre>
      * ArrayUtils.insert(index, null, null)      = null
      * ArrayUtils.insert(index, array, null)     = cloned copy of 'array'
@@ -3522,7 +3575,8 @@ public class ArrayUtils {
      * @param array  The array to insert the values into, may be {@code null}.
      * @param values The new values to insert, may be {@code null}.
      * @return The new array or {@code null} if the given array is {@code null}.
-     * @throws IndexOutOfBoundsException Thrown if {@code array} is provided and either {@code index < 0} or {@code index > array.length}.
+     * @throws IndexOutOfBoundsException Thrown if {@code array} is not {@code null}, {@code values} is nonempty, and either
+     *                                  {@code index < 0} or {@code index > array.length}.
      * @throws IllegalArgumentException Thrown if the total array length exceeds {@link ArrayUtils#SAFE_MAX_ARRAY_LENGTH}.
      * @since 3.6
      */
@@ -4668,20 +4722,16 @@ public class ArrayUtils {
     }
 
     /**
-     * Defensive programming technique to change a {@code null}
-     * reference to an empty one.
+     * Uses the default array when the given array is {@code null} or empty.
+     *
      * <p>
-     * This method returns a default array for a {@code null} input array.
-     * </p>
-     * <p>
-     * As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
+     * The default array is returned directly and may be {@code null}, empty, or nonempty.
      * </p>
      *
      * @param <T> The array type.
-     * @param array  The array to check for {@code null} or empty
-     * @param defaultArray A default array, usually empty.
-     * @return The same array, or defaultArray if {@code null} or empty input.
+     * @param array The array to check for {@code null} or empty.
+     * @param defaultArray The default array, may be {@code null}.
+     * @return The same array, or {@code defaultArray} if the input is {@code null} or empty.
      * @since 3.15.0
      */
     public static <T> T[] nullTo(final T[] array, final T[] defaultArray) {
@@ -5056,10 +5106,10 @@ public class ArrayUtils {
      * This method returns an empty array for a {@code null} input array.
      * </p>
      *
-     * @param array  The array to check for {@code null} or empty.
+     * @param array  The array to check for {@code null}.
      * @param type   The class representation of the desired array.
      * @param <T>  the class type.
-     * @return The same array, {@code public static} empty array if {@code null}.
+     * @return The same array, including an empty input array, or a new empty array of the specified type if the input is {@code null}.
      * @throws IllegalArgumentException Thrown if the type argument is null.
      * @since 3.5
      */
@@ -7186,7 +7236,7 @@ public class ArrayUtils {
      *
      * @param <T> type of elements of the array, may be {@code null}.
      * @param array array to be initialized, may be {@code null}.
-     * @param generator A function accepting an index and producing the desired value for that position.
+     * @param generator A supplier producing the desired value for each position without receiving an index.
      * @return The input array
      * @since 3.13.0
      */
@@ -9129,8 +9179,13 @@ public class ArrayUtils {
     }
 
     /**
-     * Converts the given array into a {@link java.util.Map}. Each element of the array must be either a {@link java.util.Map.Entry} or an Array, containing at
-     * least two elements, where the first element is used as key and the second as value.
+     * Converts the given array into a {@link Map}.
+     *
+     * <p>
+     * Each element must be either a {@link Map.Entry} or an {@code Object[]} containing at least two elements, where the first element is used as key
+     * and the second as value. Primitive arrays are not supported as entries.
+     * </p>
+     *
      * <p>
      * This method can be used to initialize:
      * </p>
@@ -9144,10 +9199,10 @@ public class ArrayUtils {
      * This method returns {@code null} for a {@code null} input array.
      * </p>
      *
-     * @param array An array whose elements are either a {@link java.util.Map.Entry} or an Array containing at least two elements, may be {@code null}.
+     * @param array An array whose elements are either a {@link Map.Entry} or an {@code Object[]} containing at least two elements, may be {@code null}.
      * @return A {@link Map} that was created from the array.
-     * @throws IllegalArgumentException Thrown if one element of this Array is itself an Array containing less than two elements.
-     * @throws IllegalArgumentException Thrown if the array contains elements other than {@link java.util.Map.Entry} and an Array.
+     * @throws IllegalArgumentException Thrown if an element is neither a {@link Map.Entry} nor an {@code Object[]}, or if an
+     *                                  {@code Object[]} element contains fewer than two elements.
      */
     public static Map<Object, Object> toMap(final Object[] array) {
         if (array == null) {
@@ -9721,7 +9776,7 @@ public class ArrayUtils {
      * </p>
      *
      * @param array  A {@link Short} array, may be {@code null}.
-     * @return A {@code byte} array, {@code null} if null array input.
+     * @return A {@code short} array, {@code null} if null array input.
      * @throws NullPointerException Thrown if an array element is {@code null}.
      */
     public static short[] toPrimitive(final Short[] array) {
@@ -9746,7 +9801,7 @@ public class ArrayUtils {
      *
      * @param array  A {@link Short} array, may be {@code null}.
      * @param valueForNull  The value to insert if {@code null} found.
-     * @return A {@code byte} array, {@code null} if null array input.
+     * @return A {@code short} array, {@code null} if null array input.
      */
     public static short[] toPrimitive(final Short[] array, final short valueForNull) {
         if (array == null) {

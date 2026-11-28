@@ -114,6 +114,17 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Amar Ghugare">Handle assignable arrays and null reference elements in reflective variable arity invocations, preserving explicit argument types and reference identity.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory, Biheto">Optimize StringUtils.replaceEach scanning and text copying (#1894).</action>
     <action                   type="fix" dev="ggregory" due-to="lifuxiaojiedegou, Gary Gregory">[javadoc] Clarify null array handling in ArrayUtils.removeAll (#1895).</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Clarify that ArrayUtils null array and element handling is method-specific and may include exceptions.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Correct ArrayUtils.add(T[], T) and addFirst(T[], T) descriptions to state that both arguments being null throws IllegalArgumentException.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Correct the ArrayUtils.add(T[], int, T) append example to use the array length as the insertion index.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Clarify that all ArrayUtils.insert overloads return a clone without validating the index when values is null or empty and the input array is non-null.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Clarify that ArrayUtils.nullTo(T[], T[]) returns the supplied default array directly for null or empty input, including null and nonempty defaults.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Correct ArrayUtils.nullToEmpty(T[], Class) to document allocating a new empty array for null input and preserving non-null input arrays.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Correct ArrayUtils.toPrimitive(Short[]) and toPrimitive(Short[], short) return descriptions to specify short[] instead of byte[].</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Clarify that ArrayUtils.toMap(Object[]) accepts Map.Entry or Object[] entries and rejects primitive array entries.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Correct ArrayUtils.setAll(T[], Supplier) to describe a supplier that receives no index.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Correct ArrayUtils.indexesOf(boolean[], boolean, int) to describe an empty BitSet instead of the -1 index sentinel.</action>
+    <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc: Remove incorrect integer-rounding descriptions from both ArrayUtils.indexesOf overloads with a double tolerance.</action>
     <!-- ADD -->
     <!-- UPDATE -->
   </release>
