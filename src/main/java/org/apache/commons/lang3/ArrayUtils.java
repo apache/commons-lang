@@ -5381,7 +5381,7 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([true, false, true], 1, 2) = [true]
      * </pre>
      *
-     * @param array   The array to remove the element from, may not be {@code null}.
+     * @param array   The array to remove elements from, may be {@code null}.
      * @param indices The positions of the elements to be removed.
      * @return A new array containing the existing elements except those at the specified positions or {@code null} if the input array is {@code null}.
      * @throws IndexOutOfBoundsException Thrown if any index is out of range (index &lt; 0 || index &gt;= array.length).
@@ -5410,7 +5410,7 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   The array to remove the element from, may not be {@code null}.
+     * @param array   The array to remove elements from, may be {@code null}.
      * @param indices The positions of the elements to be removed.
      * @return A new array containing the existing elements except those at the specified positions or {@code null} if the input array is {@code null}.
      * @throws IndexOutOfBoundsException Thrown if any index is out of range (index &lt; 0 || index &gt;= array.length).
@@ -5439,7 +5439,7 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   The array to remove the element from, may not be {@code null}.
+     * @param array   The array to remove elements from, may be {@code null}.
      * @param indices The positions of the elements to be removed.
      * @return A new array containing the existing elements except those at the specified positions or {@code null} if the input array is {@code null}.
      * @throws IndexOutOfBoundsException Thrown if any index is out of range (index &lt; 0 || index &gt;= array.length).
@@ -5468,7 +5468,7 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   The array to remove the element from, may not be {@code null}.
+     * @param array   The array to remove elements from, may be {@code null}.
      * @param indices The positions of the elements to be removed.
      * @return A new array containing the existing elements except those at the specified positions or {@code null} if the input array is {@code null}.
      * @throws IndexOutOfBoundsException Thrown if any index is out of range (index &lt; 0 || index &gt;= array.length).
@@ -5497,7 +5497,7 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   The array to remove the element from, may not be {@code null}.
+     * @param array   The array to remove elements from, may be {@code null}.
      * @param indices The positions of the elements to be removed.
      * @return A new array containing the existing elements except those at the specified positions or {@code null} if the input array is {@code null}.
      * @throws IndexOutOfBoundsException Thrown if any index is out of range (index &lt; 0 || index &gt;= array.length).
@@ -5526,7 +5526,7 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   The array to remove the element from, may not be {@code null}.
+     * @param array   The array to remove elements from, may be {@code null}.
      * @param indices The positions of the elements to be removed.
      * @return A new array containing the existing elements except those at the specified positions or {@code null} if the input array is {@code null}.
      * @throws IndexOutOfBoundsException Thrown if any index is out of range (index &lt; 0 || index &gt;= array.length).
@@ -5555,7 +5555,7 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   The array to remove the element from, may not be {@code null}.
+     * @param array   The array to remove elements from, may be {@code null}.
      * @param indices The positions of the elements to be removed.
      * @return A new array containing the existing elements except those at the specified positions or {@code null} if the input array is {@code null}.
      * @throws IndexOutOfBoundsException Thrown if any index is out of range (index &lt; 0 || index &gt;= array.length).
@@ -5637,7 +5637,7 @@ public class ArrayUtils {
      * ArrayUtils.removeAll([2, 6, 3], 0, 1, 2) = []
      * </pre>
      *
-     * @param array   The array to remove the element from, may not be {@code null}.
+     * @param array   The array to remove elements from, may be {@code null}.
      * @param indices The positions of the elements to be removed.
      * @return A new array containing the existing elements except those at the specified positions or {@code null} if the input array is {@code null}.
      * @throws IndexOutOfBoundsException Thrown if any index is out of range (index &lt; 0 || index &gt;= array.length).
@@ -5663,7 +5663,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param <T>     the component type of the array.
-     * @param array   The array to remove the element from, may not be {@code null}.
+     * @param array   The array to remove elements from, may be {@code null}.
      * @param indices The positions of the elements to be removed.
      * @return A new array containing the existing elements except those at the specified positions or {@code null} if the input array is {@code null}.
      * @throws IndexOutOfBoundsException Thrown if any index is out of range (index &lt; 0 || index &gt;= array.length).
