@@ -90,7 +90,7 @@ public class StringEscapeUtils {
             // strip quotes
             final String quoteless = input.subSequence(1, input.length() - 1).toString();
             if (StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS)) {
-                // deal with escaped quotes; ie) ""
+                // deal with escaped quotes, that is, ""
                 out.write(Strings.CS.replace(quoteless, CSV_QUOTE_STR + CSV_QUOTE_STR, CSV_QUOTE_STR));
             } else {
                 out.write(input.toString());
@@ -440,8 +440,9 @@ public class StringEscapeUtils {
     /**
      * Escapes the characters in a {@link String} using EcmaScript String rules.
      * <p>
-     * Escapes any values it finds into their EcmaScript String form. Escapes the EcmaScript string delimiters (single quote, double quote and (since ES6) the
-     * backtick) as well as the template-literal interpolation sequence <code>${</code> and control-chars (tab, backslash, cr, ff, etc.).
+     * Escapes any values it finds into their EcmaScript String form. Escapes the EcmaScript string delimiters (single quote, double quote, and, since ES6,
+     * the backtick), the template-literal interpolation sequence <code>${</code>, backslashes, and control characters.
+     * Examples of control characters include tabs, carriage returns, and form feeds.
      * </p>
      * <p>
      * So a tab becomes the characters {@code '\\'} and {@code 't'}.
@@ -532,7 +533,7 @@ public class StringEscapeUtils {
      * Escapes the characters in a {@link String} using Java String rules.
      *
      * <p>
-     * Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.)
+     * Deals correctly with quotes, backslashes, and control characters (such as tabs, carriage returns, and form feeds).
      * </p>
      *
      * <p>
@@ -563,7 +564,8 @@ public class StringEscapeUtils {
     /**
      * Escapes the characters in a {@link String} using Json String rules.
      * <p>
-     * Escapes any values it finds into their JSON String form. Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.)
+     * Escapes any values it finds into their JSON String form. Deals correctly with quotes, backslashes, and control characters (such as tabs, carriage
+     * returns, and form feeds).
      * </p>
      * <p>
      * So a tab becomes the characters {@code '\\'} and {@code 't'}.
@@ -785,7 +787,7 @@ public class StringEscapeUtils {
      *
      * <p>
      * If an entity is unrecognized, it is left alone, and inserted
-     * verbatim into the result string. e.g. {@code "&gt;&zzzz;x"} will
+     * verbatim into the result string. For example, {@code "&gt;&zzzz;x"} will
      * become {@code ">&zzzz;x"}.
      * </p>
      *

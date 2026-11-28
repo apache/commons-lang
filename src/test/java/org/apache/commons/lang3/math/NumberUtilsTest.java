@@ -680,7 +680,7 @@ class NumberUtilsTest extends AbstractLangTest {
         assertEquals(Long.decode("+0xFFFFFFFF"), NumberUtils.createNumber("+0xFFFFFFFF"), "createNumber(String) LANG-1645b failed");
         assertEquals(new BigInteger("+FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("+0xFFFFFFFFFFFFFFFF"), "createNumber(String) LANG-1645c failed");
         // A hex literal too large for a Long but carrying an explicit 'L'/'l' type suffix must drop the suffix
-        // before falling back to BigInteger, matching the decimal path (e.g. "12345678901234567890L").
+        // before falling back to BigInteger, matching the decimal path (for example, "12345678901234567890L").
         assertEquals(new BigInteger("FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("0xFFFFFFFFFFFFFFFFL"));
         assertEquals(new BigInteger("FFFFFFFFFFFFFFFF", 16), NumberUtils.createNumber("0xFFFFFFFFFFFFFFFFl"));
         assertEquals(new BigInteger("8000000000000000", 16), NumberUtils.createNumber("0x8000000000000000L"));
@@ -1813,7 +1813,7 @@ class NumberUtilsTest extends AbstractLangTest {
     void testMinMaxSignedZero() {
         // The varargs overloads must agree with Math.min/Math.max (and the three-argument
         // overloads, which delegate to them) on the sign of zero. -0.0 is distinct from 0.0,
-        // e.g. 1 / -0.0 is -Infinity, so the raw bits are asserted here.
+        // For example, 1 / -0.0 is -Infinity, so the raw bits are asserted here.
         assertEquals(Double.doubleToRawLongBits(0.0d), Double.doubleToRawLongBits(NumberUtils.max(-0.0d, 0.0d)));
         assertEquals(Double.doubleToRawLongBits(0.0d), Double.doubleToRawLongBits(NumberUtils.max(0.0d, -0.0d)));
         assertEquals(Double.doubleToRawLongBits(-0.0d), Double.doubleToRawLongBits(NumberUtils.min(-0.0d, 0.0d)));

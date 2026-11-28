@@ -114,8 +114,8 @@ public class EventUtils {
      * @param <L>          the event listener type.
      * @param target       The target object.
      * @param methodName   The name of the method to be called.
-     * @param eventSource  The object which is generating events (JButton, JList, etc.).
-     * @param listenerType The listener interface (ActionListener.class, SelectionListener.class, etc.).
+     * @param eventSource  The object that generates events, such as a JButton or JList.
+     * @param listenerType The listener interface, such as ActionListener.class or SelectionListener.class.
      * @param eventTypes   The event types (method names) from the listener interface (if none specified, all will be
      *                     supported).
      */

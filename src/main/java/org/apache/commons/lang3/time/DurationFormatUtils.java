@@ -729,10 +729,10 @@ public class DurationFormatUtils {
                 buffer = null;
             }
         }
-        if (inLiteral) { // i.e. we have not found the end of the literal
+        if (inLiteral) { // The quoted literal is not closed.
             throw new IllegalArgumentException("Unmatched quote in format: " + format);
         }
-        if (inOptional) { // i.e. we have not found the end of the literal
+        if (inOptional) { // The optional block is not closed.
             throw new IllegalArgumentException("Unmatched optional in format: " + format);
         }
         return list.toArray(Token.EMPTY_ARRAY);

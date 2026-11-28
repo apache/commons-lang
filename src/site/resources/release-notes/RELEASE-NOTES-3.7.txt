@@ -93,7 +93,7 @@ Some of the highlights in this release include:
 
 o The class org.apache.commons.lang3.concurrent.Memoizer is an implementation
     of the Memoizer pattern as shown in
-    Goetz, Brian et al. (2006) - Java Concurrency in Practice, p. 108.
+    Brian Goetz and colleagues (2006) - Java Concurrency in Practice, p. 108.
 o The class org.apache.commons.lang3.ArchUtils has been added. ArchUtils is
     a utility class for the "os.arch" system property.
 
@@ -1099,7 +1099,7 @@ BUG FIXES
 o LANG-11:   Depend on JDK 1.5+.
 o LANG-302:  StrBuilder does not implement clone().
 o LANG-339:  StringEscapeUtils.escapeHtml() escapes multibyte characters like
-             Chinese, Japanese, etc.
+             Chinese, Japanese, and so on.
 o LANG-369:  ExceptionUtils not thread-safe.
 o LANG-418:  Javadoc incorrect for StringUtils.endsWithIgnoreCase.
 o LANG-428:  StringUtils.isAlpha, isAlphanumeric and isNumeric now return false

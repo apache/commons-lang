@@ -258,7 +258,7 @@ class RandomStringUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Test homogeneity of random strings generated -- i.e., test that characters show up with expected frequencies in generated strings. Will fail randomly
+     * Tests the homogeneity of generated random strings by checking that characters occur with the expected frequencies. This test will fail randomly
      * about 1 in 100,000 times. Repeated failures indicate a problem.
      *
      * @param rsu The instance to test.
@@ -393,7 +393,7 @@ class RandomStringUtilsTest extends AbstractLangTest {
 
     /**
      * The {@code letters && digits} ASCII fast path clamps {@code start} up to {@code '0'} and {@code end} down to
-     * {@code 'z' + 1}. A range sitting entirely above the alphanumerics, e.g. {@code ['z' + 1, 0x7f)}, collapses to
+     * {@code 'z' + 1}. A range sitting entirely above the alphanumerics, for example, {@code ['z' + 1, 0x7f)}, collapses to
      * {@code start >= end} after that clamp. It must throw a clear range IllegalArgumentException, not fall through to
      * {@code nextBits(0)} which reports the unrelated "number of bits must be between 1 and 32".
      */

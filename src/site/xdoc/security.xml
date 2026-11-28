@@ -16,9 +16,11 @@
         <a href="https://commons.apache.org/security.html">security page</a>
         of the Apache Commons project.
       </p>
-      <p>This page lists all security vulnerabilities fixed in released versions of this component.
+      <p>
+        This page lists all security vulnerabilities fixed in released versions of this component.
       </p>
-      <p>Please note that binary patches are never provided. If you need to apply a source code patch, use the building instructions for the component version
+      <p>
+        Please note that binary patches are never provided. If you need to apply a source code patch, use the building instructions for the component version
         that you are using.
       </p>
       <p>

@@ -880,9 +880,9 @@ public class TypeUtils {
      * <p>
      * A side effect of this method is that it also retrieves the type arguments for the classes and interfaces that are part of the hierarchy between
      * {@code type} and {@code toClass}. So with the above example, this method will also determine that the type arguments for {@link java.util.Hashtable
-     * Hashtable} are also both {@link Object}. In cases where the interface specified by {@code toClass} is (indirectly) implemented more than once (e.g. where
-     * {@code toClass} specifies the interface {@link Iterable Iterable} and {@code type} specifies a parameterized type that implements both
-     * {@link java.util.Set Set} and {@link java.util.Collection Collection}), this method will look at the inheritance hierarchy of only one of the
+     * Hashtable} are also both {@link Object}. In cases where the interface specified by {@code toClass} is (indirectly) implemented more than once
+     * (for example, where {@code toClass} specifies the interface {@link Iterable Iterable} and {@code type} specifies a parameterized type that implements
+     * both {@link java.util.Set Set} and {@link java.util.Collection Collection}), this method will look at the inheritance hierarchy of only one of the
      * implementations/subclasses; the first interface encountered that isn't a subinterface to one of the others in the {@code type} to {@code toClass}
      * hierarchy.
      * </p>
@@ -1839,7 +1839,7 @@ public class TypeUtils {
     }
 
     /**
-     * Looks up {@code typeVariable} in {@code typeVarAssigns} <em>transitively</em>, i.e. keep looking until the value found is <em>not</em> a type variable.
+     * Looks up {@code typeVariable} in {@code typeVarAssigns} <em>transitively</em> until the value found is <em>not</em> a type variable.
      *
      * @param typeVariable   The type variable to look up.
      * @param typeVarAssigns The map used for the look-up.

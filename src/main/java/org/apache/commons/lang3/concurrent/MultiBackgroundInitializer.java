@@ -34,8 +34,8 @@ import java.util.concurrent.ExecutorService;
  * manages an arbitrary number of {@link BackgroundInitializer} objects,
  * executes them, and waits until they are completely initialized. This is
  * useful for applications that have to perform multiple initialization tasks
- * that can run in parallel (i.e. that do not depend on each other). This class
- * takes care about the management of an {@link ExecutorService} and shares it
+ * that can run in parallel (that is, that do not depend on each other). This class
+ * takes care of the management of an {@link ExecutorService} and shares it
  * with the {@link BackgroundInitializer} objects it is responsible for; so the
  * using application need not bother with these details.
  * </p>
@@ -102,7 +102,7 @@ public class MultiBackgroundInitializer extends BackgroundInitializer<MultiBackg
      * They allow access to all result objects produced by the
      * {@link BackgroundInitializer} objects managed by the owning instance. It
      * is also possible to retrieve status information about single
-     * {@link BackgroundInitializer}s, i.e. whether they completed normally or
+     * {@link BackgroundInitializer}s, that is, whether they completed normally or
      * caused an exception.
      */
     public static class MultiBackgroundInitializerResults {

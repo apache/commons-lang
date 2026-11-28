@@ -81,7 +81,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *     if (breaker.incrementAndCheckState()) {
  *         // actually handle this request
  *     } else {
- *         // do something else, e.g. send an error code
+ *         // do something else, for example, send an error code
  *     }
  * }
  * </pre>
@@ -107,7 +107,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *             breaker.incrementAndCheckState();
  *         }
  *     } else {
- *         // return an error code, use an alternative service, etc.
+ *         // return an error code, use an alternative service, and so on.
  *     }
  * }
  * </pre>

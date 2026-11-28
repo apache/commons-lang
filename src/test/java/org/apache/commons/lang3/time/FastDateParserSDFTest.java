@@ -61,48 +61,48 @@ class FastDateParserSDFTest extends AbstractLangTest {
                 // LANG-1089
                 Arguments.of("HH", "00",    Locale.UK, true), // Hour in day (0-23)
                 Arguments.of("KK", "00",    Locale.UK, true), // Hour in am/pm (0-11)
-                Arguments.of("hh", "00",    Locale.UK, true), // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
-                Arguments.of("kk", "00",    Locale.UK, true), // Hour in day (1-24), i.e. midnight is 24, not 0
+                Arguments.of("hh", "00",    Locale.UK, true), // Hour on a 12-hour clock (1-12); noon and midnight are 12, not 0.
+                Arguments.of("kk", "00",    Locale.UK, true), // Hour on a 24-hour clock (1-24); midnight is 24, not 0.
 
                 Arguments.of("HH", "01",    Locale.UK, true), // Hour in day (0-23)
                 Arguments.of("KK", "01",    Locale.UK, true), // Hour in am/pm (0-11)
-                Arguments.of("hh", "01",    Locale.UK, true), // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
-                Arguments.of("kk", "01",    Locale.UK, true), // Hour in day (1-24), i.e. midnight is 24, not 0
+                Arguments.of("hh", "01",    Locale.UK, true), // Hour on a 12-hour clock (1-12); noon and midnight are 12, not 0.
+                Arguments.of("kk", "01",    Locale.UK, true), // Hour on a 24-hour clock (1-24); midnight is 24, not 0.
 
                 Arguments.of("HH", "11",    Locale.UK, true), // Hour in day (0-23)
                 Arguments.of("KK", "11",    Locale.UK, true), // Hour in am/pm (0-11)
-                Arguments.of("hh", "11",    Locale.UK, true), // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
-                Arguments.of("kk", "11",    Locale.UK, true), // Hour in day (1-24), i.e. midnight is 24, not 0
+                Arguments.of("hh", "11",    Locale.UK, true), // Hour on a 12-hour clock (1-12); noon and midnight are 12, not 0.
+                Arguments.of("kk", "11",    Locale.UK, true), // Hour on a 24-hour clock (1-24); midnight is 24, not 0.
 
                 Arguments.of("HH", "12",    Locale.UK, true), // Hour in day (0-23)
                 Arguments.of("KK", "12",    Locale.UK, true), // Hour in am/pm (0-11)
-                Arguments.of("hh", "12",    Locale.UK, true), // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
-                Arguments.of("kk", "12",    Locale.UK, true), // Hour in day (1-24), i.e. midnight is 24, not 0
+                Arguments.of("hh", "12",    Locale.UK, true), // Hour on a 12-hour clock (1-12); noon and midnight are 12, not 0.
+                Arguments.of("kk", "12",    Locale.UK, true), // Hour on a 24-hour clock (1-24); midnight is 24, not 0.
 
                 Arguments.of("HH", "13",    Locale.UK, true), // Hour in day (0-23)
                 Arguments.of("KK", "13",    Locale.UK, true), // Hour in am/pm (0-11)
-                Arguments.of("hh", "13",    Locale.UK, true), // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
-                Arguments.of("kk", "13",    Locale.UK, true), // Hour in day (1-24), i.e. midnight is 24, not 0
+                Arguments.of("hh", "13",    Locale.UK, true), // Hour on a 12-hour clock (1-12); noon and midnight are 12, not 0.
+                Arguments.of("kk", "13",    Locale.UK, true), // Hour on a 24-hour clock (1-24); midnight is 24, not 0.
 
                 Arguments.of("HH", "23",    Locale.UK, true), // Hour in day (0-23)
                 Arguments.of("KK", "23",    Locale.UK, true), // Hour in am/pm (0-11)
-                Arguments.of("hh", "23",    Locale.UK, true), // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
-                Arguments.of("kk", "23",    Locale.UK, true), // Hour in day (1-24), i.e. midnight is 24, not 0
+                Arguments.of("hh", "23",    Locale.UK, true), // Hour on a 12-hour clock (1-12); noon and midnight are 12, not 0.
+                Arguments.of("kk", "23",    Locale.UK, true), // Hour on a 24-hour clock (1-24); midnight is 24, not 0.
 
                 Arguments.of("HH", "24",    Locale.UK, true), // Hour in day (0-23)
                 Arguments.of("KK", "24",    Locale.UK, true), // Hour in am/pm (0-11)
-                Arguments.of("hh", "24",    Locale.UK, true), // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
-                Arguments.of("kk", "24",    Locale.UK, true), // Hour in day (1-24), i.e. midnight is 24, not 0
+                Arguments.of("hh", "24",    Locale.UK, true), // Hour on a 12-hour clock (1-12); noon and midnight are 12, not 0.
+                Arguments.of("kk", "24",    Locale.UK, true), // Hour on a 24-hour clock (1-24); midnight is 24, not 0.
 
                 Arguments.of("HH", "25",    Locale.UK, true), // Hour in day (0-23)
                 Arguments.of("KK", "25",    Locale.UK, true), // Hour in am/pm (0-11)
-                Arguments.of("hh", "25",    Locale.UK, true), // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
-                Arguments.of("kk", "25",    Locale.UK, true), // Hour in day (1-24), i.e. midnight is 24, not 0
+                Arguments.of("hh", "25",    Locale.UK, true), // Hour on a 12-hour clock (1-12); noon and midnight are 12, not 0.
+                Arguments.of("kk", "25",    Locale.UK, true), // Hour on a 24-hour clock (1-24); midnight is 24, not 0.
 
                 Arguments.of("HH", "48",    Locale.UK, true), // Hour in day (0-23)
                 Arguments.of("KK", "48",    Locale.UK, true), // Hour in am/pm (0-11)
-                Arguments.of("hh", "48",    Locale.UK, true), // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
-                Arguments.of("kk", "48",    Locale.UK, true)  // Hour in day (1-24), i.e. midnight is 24, not 0
+                Arguments.of("hh", "48",    Locale.UK, true), // Hour on a 12-hour clock (1-12); noon and midnight are 12, not 0.
+                Arguments.of("kk", "48",    Locale.UK, true)  // Hour on a 24-hour clock (1-24); midnight is 24, not 0.
         );
         // @formatter:on
     }

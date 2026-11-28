@@ -31,7 +31,7 @@ public interface FailableBooleanSupplier<E extends Throwable> {
     /**
      * Gets a boolean.
      *
-     * @return A result
+     * @return A result.
      * @throws E Thrown if the supplier fails.
      */
     boolean getAsBoolean() throws E;

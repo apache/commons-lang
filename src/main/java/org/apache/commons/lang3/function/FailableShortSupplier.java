@@ -29,9 +29,9 @@ import java.util.function.IntSupplier;
 public interface FailableShortSupplier<E extends Throwable> {
 
     /**
-     * Gets an int.
+     * Gets a short.
      *
-     * @return A result
+     * @return A result.
      * @throws E Thrown if the supplier fails.
      */
     short getAsShort() throws E;

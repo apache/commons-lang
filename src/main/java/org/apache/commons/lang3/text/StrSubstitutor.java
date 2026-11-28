@@ -66,7 +66,7 @@ import org.apache.commons.lang3.StringUtils;
  *      The quick brown fox jumps over the lazy dog.
  * </pre>
  * <p>
- * Also, this class allows to set a default value for unresolved variables.
+ * Also, this class allows callers to set a default value for unresolved variables.
  * The default value for a variable can be appended to the variable name after the variable
  * default value delimiter. The default value of the variable default value delimiter is ':-',
  * as in bash and other *nix shells, as those are arguably where the default ${} delimiter set originated.
@@ -206,7 +206,7 @@ public class StrSubstitutor {
 
     /**
      * Replaces all the occurrences of variables in the given source object with
-     * their matching values from the map. This method allows to specify a
+     * their matching values from the map. This method allows callers to specify a
      * custom variable prefix and suffix.
      *
      * @param <V> The type of the values in the map.
@@ -909,7 +909,7 @@ public class StrSubstitutor {
     /**
      * Sets a flag whether substitution is done in variable names. If set to
      * <strong>true</strong>, the names of variables can contain other variables which are
-     * processed first before the original variable is evaluated, e.g.
+     * processed first before the original variable is evaluated, for example,
      * {@code ${jre-${java.version}}}. The default value is <strong>false</strong>.
      *
      * @param enableSubstitutionInVariables The new value of the flag.
@@ -934,9 +934,9 @@ public class StrSubstitutor {
     /**
      * Sets a flag controlling whether escapes are preserved during
      * substitution.  If set to <strong>true</strong>, the escape character is retained
-     * during substitution (e.g. {@code $${this-is-escaped}} remains
+     * during substitution (for example, {@code $${this-is-escaped}} remains
      * {@code $${this-is-escaped}}).  If set to <strong>false</strong>, the escape
-     * character is removed during substitution (e.g.
+     * character is removed during substitution (for example,
      * {@code $${this-is-escaped}} becomes
      * {@code ${this-is-escaped}}).  The default value is <strong>false</strong>
      *

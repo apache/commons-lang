@@ -247,9 +247,9 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     }
 
     /**
-     * Gets the value as a Integer instance.
+     * Gets the value as an Integer instance.
      *
-     * @return The value as a Integer, never null.
+     * @return The value as an Integer, never null.
      * @deprecated Use {@link #get()}.
      */
     @Deprecated

@@ -25,76 +25,108 @@ limitations under the License.
 <body>
 
 <section name="What's new in Commons Lang 2.5?">
-<p>Commons Lang 2.5 is out, and the obvious question is: <em>"So what? What's changed?"</em>.</p>
-<p>This article aims to briefly cover the changes and save you from having to dig through each JIRA
-issue to see what went on in the two years of development between Lang 2.4 and 2.5.</p>
-<p>Two years?!? Yes, it's true. The reason is that 2.5 represents the backward compatible changes in the
-nearly complete Java 5-focused Lang 3.0. </p>
+<p>
+Commons Lang 2.5 is out, and the obvious question is: <em>"So what? What's changed?"</em>.
+</p>
+<p>
+This article aims to briefly cover the changes and save you from having to dig through each JIRA
+issue to see what went on in the two years of development between Lang 2.4 and 2.5.
+</p>
+<p>
+Two years?!? Yes, it's true. The reason is that 2.5 represents the backward compatible changes in the
+nearly complete Java 5-focused Lang 3.0.
+</p>
 </section>
 <section name="Deprecations">
-<p>There were no new deprecations in 2.5. </p>
+<p>
+There were no new deprecations in 2.5.
+</p>
 </section>
 <section name="The build">
-<p>2.5 was built using Sun's 1.6.0_17 JVM, but targets Java 1.3. </p>
+<p>
+2.5 was built using Sun's 1.6.0_17 JVM, but targets Java 1.3.
+</p>
 </section>
 <section name="New classes">
-<p>A new org.apache.commons.lang.reflect package was added, accumulating common high-level uses of the java.lang.reflect APIs. The 
+<p>
+A new org.apache.commons.lang.reflect package was added, accumulating common high-level uses of the java.lang.reflect APIs. The
 classes, hopefully self-evident in nature, were pulled together from the existing BeanUtils and the unreleased Reflect components. 
-The classes are: </p>
+The classes are:
+</p>
 <ul>
 <li>ConstructorUtils - primarily creating new instances of classes</li>
 <li>FieldUtils - primarily reading and writing to Object/Class fields</li>
 <li>MethodUtils - primarily methods to make invoking methods simpler</li>
 </ul>
-<p>You can read more about the classes in their 
-<a href="LANG_2_5/src/main/java/org/apache/commons/lang/reflect//MemberUtils.java">javadoc</a>. </p>
+<p>
+You can read more about the classes in their
+<a href="LANG_2_5/src/main/java/org/apache/commons/lang/reflect//MemberUtils.java">javadoc</a>.
+</p>
 </section>
 <section name="New fields">
-<p>With both Java 7 and Windows 7 becoming a reality, 
+<p>
+With both Java 7 and Windows 7 becoming a reality,
 <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/SystemUtils.html">SystemUtils</a> was updated to
-provide boolean fields for both versions. </p>
+provide boolean fields for both versions.
+</p>
 </section>
 <section name="New methods">
-<p>There were 66 new methods added to existing Commons Lang classes. </p>
-<p>The <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/ArrayUtils.html">ArrayUtils</a> class
+<p>
+There were 66 new methods added to existing Commons Lang classes.
+</p>
+<p>
+The <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/ArrayUtils.html">ArrayUtils</a> class
 received two new types of methods. Firstly, a boolean isNotEmpty(array) set of methods, identifying whether the particular 
 array is null or an empty array. This makes it the inverse of the existing isEmpty(array) methods. Secondly, an array
 nullToEmpty(array) set of methods that converts null or empty arrays to a singleton empty array already available from the 
-ArrayUtils class. Non-null/empty arrays are left untouched. </p>
+ArrayUtils class. Non-null/empty arrays are left untouched.
+</p>
 
-<p>The constructor for the 
+<p>
+The constructor for the
 <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/CharRange.html">CharRange</a> class is somewhat
 confusing. It takes a boolean parameter that when set to true means the CharRange is negated. To make code easier to read, the 
-following static helper methods were added: </p>
+following static helper methods were added:
+</p>
 <ul>
 <li>public org.apache.commons.lang.CharRange is(char)</li>
 <li>public org.apache.commons.lang.CharRange isIn(char, char)</li>
 <li>public org.apache.commons.lang.CharRange isNot(char)</li>
 <li>public org.apache.commons.lang.CharRange isNotIn(char, char)</li>
 </ul>
-<p>An iterator() method was also added to provide another way of walking the range. </p>
+<p>
+An iterator() method was also added to provide another way of walking the range.
+</p>
 
-<p>The <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/builder/EqualsBuilder.html">EqualsBuilder</a>
+<p>
+The <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/builder/EqualsBuilder.html">EqualsBuilder</a>
 obtained a new reset() method to allow for reuse, while the 
 <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/builder/HashCodeBuilder.html">HashCodeBuilder</a>
 received a hashCode() method that returns the built hash code instead of the natural hash code of the builder object itself. It 
 doesn't really matter what the builder chooses to use as a hash code and this stops accidental use of the hashCode() instead of 
-toHashCode() method from causing lots of pain. </p>
+toHashCode() method from causing lots of pain.
+</p>
 
-<p>Helper isFalse(), isTrue() and toBoolean() methods were added to 
+<p>
+Helper isFalse(), isTrue() and toBoolean() methods were added to
 <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/mutable/MutableBoolean.html">MutableBoolean</a>,
-while the other mutable classes received String argument constructors. </p>
+while the other mutable classes received String argument constructors.
+</p>
 
-<p>Lastly, the <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/time/DateUtils.html">DateUtils</a>
+<p>
+Lastly, the <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/time/DateUtils.html">DateUtils</a>
 class received a new ceiling set of methods to truncate upwards, and a parseDateStrictly method to parse a Date with the 
-supplied DateFormat class's leniency set to false. </p>
+supplied DateFormat class's leniency set to false.
+</p>
 
 </section>
 
 <section name="StringUtils methods">
-<p>As with 2.4, the 
+<p>
+As with 2.4, the
 <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-2.5/org/apache/commons/lang/StringUtils.html">StringUtils</a> class has
-grown and we cover its new methods in its own section. </p>
+grown and we cover its new methods in its own section.
+</p>
 <ul>
 <li>abbreviateMiddle(String, String, int);String - This method turns aRatherLongNameSuchAsAFileName into 'aRatherLo...AFileName'. 
 This is often desirable when you want to restrict the length of a name, but you can afford to have quite long names. </li>
@@ -111,7 +143,9 @@ support finding the Nth indexOf instead of the first time the search term is fou
 </section>
 
 <section name="What's fixed in Lang 2.5?">
-<p>Per the <a href="upgradeto2_5.html">release notes</a> there are 32 bugs fixed in Lang 2.5. Some highlights are: </p>
+<p>
+Per the <a href="upgradeto2_5.html">release notes</a> there are 32 bugs fixed in Lang 2.5. Some highlights are:
+</p>
 <ul>
 <li><a href="https://issues.apache.org/jira/browse/LANG-477">LANG-477</a> - fixing an OutOfMemoryError in ExtendedMessageFormat. </li>
 <li><a href="https://issues.apache.org/jira/browse/LANG-76">LANG-76</a> - EnumUtils.getEnum() doesn't work well in 1.5. </li>
@@ -129,7 +163,9 @@ ToStringStyle meant that containers could end up with memory leaks. This was rew
 </section>
 
 <section name="So long, farewell...">
-<p>Hopefully that was all of interest. Don't forget to download <a href="https://commons.apache.org/lang/download_lang.cgi">Lang 2.5</a>, or, for the Maven repository users, upgrade your &lt;version&gt; tag to 2.5. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.</p>
+<p>
+Hopefully that was all of interest. Don't forget to download <a href="https://commons.apache.org/lang/download_lang.cgi">Lang 2.5</a>, or, for the Maven repository users, upgrade your &lt;version&gt; tag to 2.5. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.
+</p>
 </section>
 
 </body>

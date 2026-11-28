@@ -29,7 +29,7 @@ public class ObjectToStringRuntimeException {
     }
 
     /**
-     * Throws {@link IllegalStateException}.
+     * Always throws {@link IllegalStateException}.
      *
      * @throws IllegalStateException Thrown always.
      */

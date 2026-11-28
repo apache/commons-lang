@@ -5578,7 +5578,7 @@ public class ArrayUtils {
             return null;
         }
         final int length = getLength(array);
-        int diff = 0; // number of distinct indexes, i.e. number of entries that will be removed
+        int diff = 0; // number of distinct indexes, that is, the number of entries that will be removed
         final int[] clonedIndices = ArraySorter.sort(clone(indices));
         // identify length of result array
         if (isNotEmpty(clonedIndices)) {

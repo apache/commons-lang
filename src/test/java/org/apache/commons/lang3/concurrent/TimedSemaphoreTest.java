@@ -846,7 +846,7 @@ class TimedSemaphoreTest extends AbstractLangTest {
      *
      * <p>
      * Pre-patch ({@code shutdown()} sets the flag but does not call {@code notifyAll()}): a thread parked in {@code wait()} inside {@code acquire()} stays
-     * parked indefinitely — until the periodic {@code endOfPeriod()} task fires, which never happens here because we deliberately use a long period (60 s).
+     * parked until the periodic {@code endOfPeriod()} task fires, which never happens here because we deliberately use a long period (60 s).
      * </p>
      *
      * <p>

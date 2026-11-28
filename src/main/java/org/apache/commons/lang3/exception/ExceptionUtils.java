@@ -76,7 +76,7 @@ public class ExceptionUtils {
     static final String WRAPPED_MARKER = " [wrapped] ";
 
     /**
-     * Throws the given (usually checked) exception without adding the exception to the throws
+     * Always throws the given (usually checked) exception without adding it to the throws
      * clause of the calling method. This method prevents throws clause
      * inflation and reduces the clutter of "Caused by" exceptions in the
      * stack trace.
@@ -151,10 +151,11 @@ public class ExceptionUtils {
     }
 
     /**
-     * Claims a Throwable is another Throwable type using type erasure. This
-     * hides a checked exception from the Java compiler, allowing a checked
-     * exception to be thrown without having the exception in the method's throw
-     * clause.
+     * Always throws the given throwable using type erasure.
+     *
+     * <p>
+     * This hides a checked exception from the Java compiler, allowing it to be thrown without declaring it in the method's throws clause.
+     * </p>
      */
     @SuppressWarnings("unchecked")
     private static <R, T extends Throwable> R eraseType(final Throwable throwable) throws T {
@@ -716,7 +717,7 @@ public class ExceptionUtils {
      * The compact stack trace starts with the root cause and prints
      * stack frames up to the place where it was caught and wrapped.
      * Then it prints the wrapped exception and continues with stack frames
-     * until the wrapper exception is caught and wrapped again, etc.
+     * until the wrapper exception is caught and wrapped again, and so on.
      * </p>
      * <p>
      * The output of this method is consistent across JDK versions.
@@ -745,7 +746,7 @@ public class ExceptionUtils {
      * The compact stack trace starts with the root cause and prints
      * stack frames up to the place where it was caught and wrapped.
      * Then it prints the wrapped exception and continues with stack frames
-     * until the wrapper exception is caught and wrapped again, etc.
+     * until the wrapper exception is caught and wrapped again, and so on.
      * </p>
      *
      * <p>
@@ -785,7 +786,7 @@ public class ExceptionUtils {
      * The compact stack trace starts with the root cause and prints
      * stack frames up to the place where it was caught and wrapped.
      * Then it prints the wrapped exception and continues with stack frames
-     * until the wrapper exception is caught and wrapped again, etc.
+     * until the wrapper exception is caught and wrapped again, and so on.
      * </p>
      *
      * <p>
@@ -858,7 +859,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Throws the given (usually checked) exception without adding the exception to the throws
+     * Always throws the given (usually checked) exception without adding it to the throws
      * clause of the calling method. This method prevents throws clause
      * inflation and reduces the clutter of "Caused by" exceptions in the
      * stack trace.
@@ -1089,10 +1090,12 @@ public class ExceptionUtils {
     }
 
     /**
-     * Throws a checked exception without adding the exception to the throws
-     * clause of the calling method. For checked exceptions, this method throws
-     * an UndeclaredThrowableException wrapping the checked exception. For
-     * Errors and RuntimeExceptions, the original exception is rethrown.
+     * Always throws an unchecked exception or error, wrapping checked exceptions in an {@link UndeclaredThrowableException}.
+     *
+     * <p>
+     * For errors and runtime exceptions, the original throwable is rethrown.
+     * </p>
+     *
      * <p>
      * The downside to using this approach is that invoking code which needs to
      * handle specific checked exceptions must sniff up the exception chain to

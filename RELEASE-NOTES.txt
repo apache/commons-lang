@@ -1096,7 +1096,7 @@ Fixed Bugs:
 *            Make ArraySorter null-safe. Thanks to Gary Gregory.
 *            Make ArrayUtils.removeAll() null-safe. Thanks to Gary Gregory.
 *            Fix Java version in README.md #1170. Thanks to Philipp Trulson, Gary Gregory.
-*            StringUtils.stripAccents() should handle ligatures, UTF32 math blocks, etc. #1201. Thanks to Stephan Peters, Gary Gregory, Bernd.
+*            StringUtils.stripAccents() should handle ligatures, UTF32 math blocks, and so on. #1201. Thanks to Stephan Peters, Gary Gregory, Bernd.
 * LANG-1524: TypeUtils.toString(Type) StackOverflowError for an inner class in the inner class parameterized enclosing class #657. Thanks to kijong.youn, Aakash Gupta, Gary Gregory.
 *            Deprecate SystemUtils.getUserName(String) in favor of SystemProperties.getUserName(Supplier). Thanks to Gary Gregory.
 *            Make LockVisitor.acceptReadLocked(FailableConsumer) null-safe. Thanks to Gary Gregory.
@@ -1975,7 +1975,7 @@ Some of the highlights in this release include:
 
 o The class org.apache.commons.lang3.concurrent.Memoizer is an implementation
     of the Memoizer pattern as shown in
-    Goetz, Brian et al. (2006) - Java Concurrency in Practice, p. 108.
+    Brian Goetz and colleagues (2006) - Java Concurrency in Practice, p. 108.
 o The class org.apache.commons.lang3.ArchUtils has been added. ArchUtils is
     a utility class for the "os.arch" system property.
 
@@ -2989,7 +2989,7 @@ BUG FIXES
 * LANG-11:   Depend on JDK 1.5+.
 * LANG-302:  StrBuilder does not implement clone().
 * LANG-339:  StringEscapeUtils.escapeHtml() escapes multibyte characters like
-             Chinese, Japanese, etc.
+             Chinese, Japanese, and so on.
 * LANG-369:  ExceptionUtils not thread-safe.
 * LANG-418:  Javadoc incorrect for StringUtils.endsWithIgnoreCase.
 * LANG-428:  StringUtils.isAlpha, isAlphanumeric and isNumeric now return false

@@ -485,7 +485,7 @@ class FastDatePrinterTest extends AbstractLangTest {
      * @param locale the locale to test.
      * @param pattern the date format pattern to test.
      * @param month the calendar month to test.
-     * @throws ParseException if the formatted date cannot be parsed.
+     * @throws ParseException Thrown if the formatted date cannot be parsed.
      */
     @CartesianTest
     @CartesianTest.MethodFactory("testStandaloneMonthForMonthOnlyPatternFactory")

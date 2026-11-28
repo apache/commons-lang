@@ -366,7 +366,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
         }
         // keep u and v negative, as negative integers range down to
         // -2^31, while positive numbers can only be as large as 2^31-1
-        // (i.e. we can't necessarily negate a negative number without
+        // (that is, we can't necessarily negate a negative number without
         // overflow)
         if (u > 0) {
             u = -u;

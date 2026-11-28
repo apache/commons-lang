@@ -94,7 +94,7 @@ class ExceptionUtilsTest extends AbstractLangTest {
 
     /**
      * Provides a method with a well known chained/nested exception
-     * name which matches the full signature (e.g. has a return value
+     * name which matches the full signature (for example, has a return value
      * of {@code Throwable}).
      */
     private static final class ExceptionWithCause extends Exception {
@@ -123,7 +123,7 @@ class ExceptionUtilsTest extends AbstractLangTest {
 
     /**
      * Provides a method with a well known chained/nested exception
-     * name which does not match the full signature (e.g. lacks a
+     * name which does not match the full signature (for example, lacks a
      * return value of {@code Throwable}).
      */
     private static final class ExceptionWithoutCause extends Exception {

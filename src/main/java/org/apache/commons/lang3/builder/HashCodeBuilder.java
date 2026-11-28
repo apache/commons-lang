@@ -197,7 +197,7 @@ public class HashCodeBuilder extends AbstractReflection implements Builder<Integ
      * if the original objects are identical.
      *
      * The original implementation (2.4 and before) used the System.identityHashCode()
-     * method - however this is not guaranteed to generate unique ids (e.g. LANG-459)
+     * method; however, this is not guaranteed to generate unique IDs (for example, LANG-459).
      *
      * We now use the IDKey helper class (adapted from org.apache.axis.utils.IDKey)
      * to disambiguate the duplicate ids.

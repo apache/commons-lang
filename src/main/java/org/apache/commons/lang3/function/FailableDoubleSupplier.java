@@ -31,7 +31,7 @@ public interface FailableDoubleSupplier<E extends Throwable> {
     /**
      * Gets a double.
      *
-     * @return A result
+     * @return A result.
      * @throws E Thrown if the supplier fails.
      */
     double getAsDouble() throws E;

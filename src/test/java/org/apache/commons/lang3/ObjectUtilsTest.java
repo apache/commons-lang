@@ -814,7 +814,7 @@ class ObjectUtilsTest extends AbstractLangTest {
     @Test
     void testNull() {
         assertNotNull(ObjectUtils.NULL);
-        // 1 Check that NULL really is a Null i.e. the definition has not been changed
+        // 1 Check that NULL really is a Null, that is, the definition has not been changed.
         assertInstanceOf(ObjectUtils.Null.class, ObjectUtils.NULL);
         assertSame(ObjectUtils.NULL, SerializationUtils.clone(ObjectUtils.NULL));
     }

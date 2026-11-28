@@ -22,8 +22,7 @@ import java.util.concurrent.ExecutionException;
  * An exception class used for reporting error conditions related to accessing data of background tasks.
  *
  * <p>
- * The purpose of this exception class is analogous to the default JDK exception class {@link ExecutionException}, i.e.
- * it wraps an exception that occurred during the execution of a task. However, in contrast to
+ * Like the JDK exception class {@link ExecutionException}, this class wraps an exception that occurred during the execution of a task. However, in contrast to
  * {@link ExecutionException}, it wraps only checked exceptions. Runtime exceptions are thrown directly.
  * </p>
  *

@@ -854,7 +854,8 @@ class DateUtilsTest extends AbstractLangTest {
      *
      * <p>
      * {@link DateUtils#parseDateWithLeniency} reuses a single {@link Calendar} across pattern attempts. The reset between iterations is
-     * {@link Calendar#clear()}, which does NOT reset the calendar's time zone. A TZ-aware pattern (e.g. starts with {@code "X"}, {@code "Z"}, {@code "z"}) that
+     * {@link Calendar#clear()}, which does NOT reset the calendar's time zone. A time-zone-aware pattern (for example, one starting with {@code "X"},
+     * {@code "Z"}, or {@code "z"}) that
      * successfully consumes its TZ token (mutating the calendar via {@link Calendar#setTimeZone}) before failing on later tokens leaves the calendar carrying
      * the parsed (foreign) zone. The next pattern in the list then interprets its date fields against that zone, producing a wrong instant.
      * </p>

@@ -104,7 +104,7 @@ public class ClassUtilsGetShortClassNameBenchmark {
     /**
      * Prepares a valid JVM class name outside the measured operation.
      *
-     * @throws ClassNotFoundException if the element type cannot be loaded.
+     * @throws ClassNotFoundException Thrown if the element type cannot be loaded.
      */
     @Setup
     public void setup() throws ClassNotFoundException {

@@ -354,7 +354,7 @@ final class CharRange implements Iterable<Character>, Serializable {
      * <p>
      * A plain (non-negated) range always contains at least one character and is
      * therefore never empty. A negated range is empty if and only if it excludes the
-     * entire character space, i.e. if it was created via
+     * entire character space, that is, if it was created via
      * {@code isNotIn(Character.MIN_VALUE, Character.MAX_VALUE)}.
      * </p>
      *

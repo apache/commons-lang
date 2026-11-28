@@ -407,8 +407,8 @@ public class TimedSemaphore {
     }
 
     /**
-     * Gets the average number of successful (i.e. non-blocking) {@link #acquire()} invocations for the entire life-time of this {@code
-     * TimedSemaphore}. This method can be used for instance for statistical calculations.
+     * Gets the average number of successful (that is, non-blocking) {@link #acquire()} invocations for the entire lifetime of this {@code TimedSemaphore}.
+     * This method can be used, for instance, for statistical calculations.
      *
      * @return The average number of {@link #acquire()} invocations per time unit.
      */
@@ -489,8 +489,8 @@ public class TimedSemaphore {
 
     /**
      * Sets the limit. This is the number of times the {@link #acquire()} method can be called within the time period specified. If this limit is reached,
-     * further invocations of {@link #acquire()} will block. Setting the limit to a value &lt;= {@link #NO_LIMIT} will cause the limit to be disabled, i.e. an
-     * arbitrary number of{@link #acquire()} invocations is allowed in the time period.
+     * further invocations of {@link #acquire()} will block. Setting the limit to a value &lt;= {@link #NO_LIMIT} disables the limit, allowing an
+     * arbitrary number of {@link #acquire()} invocations in the time period.
      *
      * @param limit The limit.
      */

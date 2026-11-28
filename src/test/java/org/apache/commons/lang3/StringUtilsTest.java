@@ -3105,8 +3105,8 @@ class StringUtilsTest extends AbstractLangTest {
 
     }
 
-    // Methods on StringUtils that are immutable in spirit (i.e. calculate the length)
-    // should take a CharSequence parameter. Methods that are mutable in spirit (i.e. capitalize)
+    // Methods on StringUtils that are immutable in spirit (such as calculating the length)
+    // should take a CharSequence parameter. Methods that are mutable in spirit (such as capitalizing a string)
     // should take a String or String[] parameter and return String or String[].
     // This test enforces that this is done.
     @Test

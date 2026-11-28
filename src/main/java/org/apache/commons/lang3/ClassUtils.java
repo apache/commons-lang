@@ -931,7 +931,7 @@ public class ClassUtils {
      *
      * @param className The className to get the package name for, may be {@code null}.
      * @return The package name or an empty string.
-     * @throws IllegalArgumentException if the name consists only of {@code '['} characters.
+     * @throws IllegalArgumentException Thrown if the name consists only of {@code '['} characters.
      */
     public static String getPackageName(String className) {
         if (StringUtils.isEmpty(className)) {
@@ -1160,7 +1160,7 @@ public class ClassUtils {
             Class<?> x = c;
             // An anonymous or local class anywhere in the chain stops the walk: it has no declaring
             // class, so the chain cannot recover its enclosing context. Use the name-based form for
-            // that enclosure only, which keeps the context and the compiler ordinals ($13, $10Named, etc.),
+            // that enclosure only, which keeps the context and the compiler ordinals ($13, $10Named, and so on),
             // and keep the simple names of the member classes below it, which may contain '$'.
             while (x != null && !x.isAnonymousClass() && !x.isLocalClass()) {
                 parts.push(x.getSimpleName());
@@ -1212,7 +1212,7 @@ public class ClassUtils {
      *
      * <p>
      * Note that this method differs from {@link #getSimpleName(Class)} in that this will return, for example
-     * {@code "Map.Entry"} whilst the {@link Class} variant will simply return {@code "Entry"}. In this example
+     * {@code "Map.Entry"} while the {@link Class} variant will simply return {@code "Entry"}. In this example
      * the argument {@code className} is the string {@code java.util.Map$Entry} (note the {@code $} sign).
      * </p>
      *
@@ -1220,7 +1220,7 @@ public class ClassUtils {
      *        {@code Class.getName()} and not {@code Class.getCanonicalName()}.
      * @return The class name of the class without the package name or an empty string. If the class is an inner class then
      *         value contains the outer class or classes and the separator is replaced to be {@code .} (dot) character.
-     * @throws IllegalArgumentException if the name consists only of {@code '['} characters.
+     * @throws IllegalArgumentException Thrown if the name consists only of {@code '['} characters.
      */
     public static String getShortClassName(String className) {
         if (StringUtils.isEmpty(className)) {
@@ -1429,9 +1429,7 @@ public class ClassUtils {
      * </p>
      *
      * <p>
-     * <strong>Since Lang 3.0,</strong> this method will default behavior for calculating assignability between primitive
-     * and wrapper types <em>corresponding to the running Java version</em>; i.e. autoboxing will be the default behavior in
-     * VMs running Java versions &gt; 1.5.
+     * This method enables autoboxing by default when calculating assignability between primitive and wrapper types.
      * </p>
      *
      * @param cls The Class to check, may be null.
@@ -1562,9 +1560,7 @@ public class ClassUtils {
      * </p>
      *
      * <p>
-     * <strong>Since Lang 3.0,</strong> this method will default behavior for calculating assignability between primitive
-     * and wrapper types <em>corresponding to the running Java version</em>; i.e. autoboxing will be the default behavior in
-     * VMs running Java versions &gt; 1.5.
+     * This method enables autoboxing by default when calculating assignability between primitive and wrapper types.
      * </p>
      *
      * @param classArray The array of Classes to check, may be {@code null}.
@@ -1863,8 +1859,8 @@ public class ClassUtils {
      * Converts the specified wrapper class to its corresponding primitive class.
      *
      * <p>
-     * This method is the counter part of {@code primitiveToWrapper()}. If the passed in class is a wrapper class for a
-     * primitive type, this primitive type will be returned (e.g. {@code Integer.TYPE} for {@code Integer.class}). For other
+     * This method is the counterpart of {@code primitiveToWrapper()}. If the passed in class is a wrapper class for a
+     * primitive type, this primitive type will be returned (for example, {@code Integer.TYPE} for {@code Integer.class}). For other
      * classes, or if the parameter is {@code null}, the return value is {@code null}.
      * </p>
      *

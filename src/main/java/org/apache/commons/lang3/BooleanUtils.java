@@ -738,17 +738,17 @@ public class BooleanUtils {
      *   // Case is not significant
      *   BooleanUtils.toBooleanObject(null)    = null
      *   BooleanUtils.toBooleanObject("true")  = Boolean.TRUE
-     *   BooleanUtils.toBooleanObject("T")     = Boolean.TRUE // i.e. T[RUE]
+     *   BooleanUtils.toBooleanObject("T")     = Boolean.TRUE // that is, T[RUE]
      *   BooleanUtils.toBooleanObject("false") = Boolean.FALSE
-     *   BooleanUtils.toBooleanObject("f")     = Boolean.FALSE // i.e. f[alse]
+     *   BooleanUtils.toBooleanObject("f")     = Boolean.FALSE // that is, f[alse]
      *   BooleanUtils.toBooleanObject("No")    = Boolean.FALSE
-     *   BooleanUtils.toBooleanObject("n")     = Boolean.FALSE // i.e. n[o]
+     *   BooleanUtils.toBooleanObject("n")     = Boolean.FALSE // that is, n[o]
      *   BooleanUtils.toBooleanObject("on")    = Boolean.TRUE
      *   BooleanUtils.toBooleanObject("ON")    = Boolean.TRUE
      *   BooleanUtils.toBooleanObject("off")   = Boolean.FALSE
      *   BooleanUtils.toBooleanObject("oFf")   = Boolean.FALSE
      *   BooleanUtils.toBooleanObject("yes")   = Boolean.TRUE
-     *   BooleanUtils.toBooleanObject("Y")     = Boolean.TRUE // i.e. Y[ES]
+     *   BooleanUtils.toBooleanObject("Y")     = Boolean.TRUE // that is, Y[ES]
      *   BooleanUtils.toBooleanObject("1")     = Boolean.TRUE
      *   BooleanUtils.toBooleanObject("0")     = Boolean.FALSE
      *   BooleanUtils.toBooleanObject("blue")  = null

@@ -153,8 +153,8 @@ public class CharSet implements Serializable {
      * There are two ways to add a literal negation character ({@code ^}):
      * </p>
      * <ul>
-     *     <li>As the last character in a string, e.g. {@code CharSet.getInstance("a-z^")}</li>
-     *     <li>As a separate element, e.g. {@code CharSet.getInstance("^", "a-z")}</li>
+     *     <li>As the last character in a string, for example, {@code CharSet.getInstance("a-z^")}</li>
+     *     <li>As a separate element, for example, {@code CharSet.getInstance("^", "a-z")}</li>
      * </ul>
      *
      * <p>

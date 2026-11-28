@@ -61,7 +61,7 @@ class ToStringBuilderTraversalConcurrencyTest extends AbstractLangTest {
      * </p>
      *
      * @param barrier the barrier shared by the two workers.
-     * @throws IllegalStateException if synchronization is interrupted, times out, or the barrier is broken.
+     * @throws IllegalStateException Thrown if synchronization is interrupted, times out, or the barrier is broken.
      */
     private static void awaitOtherTraversal(final CyclicBarrier barrier) {
         try {
@@ -181,7 +181,7 @@ class ToStringBuilderTraversalConcurrencyTest extends AbstractLangTest {
      * </p>
      *
      * @param multiline whether to exercise the multiline recursive style instead of the single-line recursive style.
-     * @throws Exception if a worker fails, a wait times out, or the test thread is interrupted.
+     * @throws Exception Thrown if a worker fails, a wait times out, or the test thread is interrupted.
      */
     @ParameterizedTest(name = "multiline={0}")
     @ValueSource(booleans = { false, true })

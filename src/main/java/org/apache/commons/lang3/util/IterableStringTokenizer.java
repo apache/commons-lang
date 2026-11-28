@@ -38,7 +38,7 @@ public class IterableStringTokenizer extends StringTokenizer implements Iterable
      * Constructs a new instance like {@link StringTokenizer#StringTokenizer(String, String, boolean)}.
      *
      * @param str A string to be parsed.
-     * @exception NullPointerException if str is {@code null}.
+     * @throws NullPointerException Thrown if {@code str} is {@code null}.
      */
     public IterableStringTokenizer(final String str) {
         super(str);
@@ -49,7 +49,7 @@ public class IterableStringTokenizer extends StringTokenizer implements Iterable
      *
      * @param str   A string to be parsed.
      * @param delim The delimiters.
-     * @exception NullPointerException if str is {@code null}.
+     * @throws NullPointerException Thrown if {@code str} is {@code null}.
      */
     public IterableStringTokenizer(final String str, final String delim) {
         super(str, delim);
@@ -61,7 +61,7 @@ public class IterableStringTokenizer extends StringTokenizer implements Iterable
      * @param str          A string to be parsed.
      * @param delim        The delimiters.
      * @param returnDelims flag indicating whether to return the delimiters as tokens.
-     * @exception NullPointerException if str is {@code null}.
+     * @throws NullPointerException Thrown if {@code str} is {@code null}.
      */
     public IterableStringTokenizer(final String str, final String delim, final boolean returnDelims) {
         super(str, delim, returnDelims);

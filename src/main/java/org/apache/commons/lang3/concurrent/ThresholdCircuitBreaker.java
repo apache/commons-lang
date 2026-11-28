@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *     if (breaker.incrementAndCheckState(memoryUsed)) {
  *         // actually handle this request
  *     } else {
- *         // do something else, e.g. send an error code
+ *         // do something else, for example, send an error code
  *     }
  * }
  * </pre>

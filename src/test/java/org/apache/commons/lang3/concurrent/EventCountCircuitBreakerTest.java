@@ -127,7 +127,7 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
          * Sets the event count near the long boundary without executing billions of increments.
          *
          * @param count The event count
-         * @throws ReflectiveOperationException if the interval data cannot be initialized
+         * @throws ReflectiveOperationException Thrown if the interval data cannot be initialized.
          */
         @SuppressWarnings("unchecked")
         private void setEventCount(final long count) throws ReflectiveOperationException {
@@ -325,7 +325,7 @@ class EventCountCircuitBreakerTest extends AbstractLangTest {
      * Tests that saturation prevents closing after heavy load and still allows recovery after a quiet interval.
      *
      * @param count The event count before incrementing
-     * @throws ReflectiveOperationException if the interval data cannot be initialized
+     * @throws ReflectiveOperationException Thrown if the interval data cannot be initialized.
      */
     @ParameterizedTest
     @ValueSource(longs = {Long.MAX_VALUE - Integer.MAX_VALUE, Long.MAX_VALUE - Integer.MAX_VALUE + 1, Long.MAX_VALUE - 1, Long.MAX_VALUE})
