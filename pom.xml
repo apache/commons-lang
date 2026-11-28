@@ -22,8 +22,19 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>107</version>
+    <version>108-SNAPSHOT</version>
   </parent>
+  <!-- Temporarily enable RAO repository to resolve the parent snapshot -->
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>https://repository.apache.org/snapshots</url>
+    </repository>
+  </repositories>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>commons-lang3</artifactId>
   <version>3.22.1-SNAPSHOT</version>
