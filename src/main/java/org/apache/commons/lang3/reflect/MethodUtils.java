@@ -311,7 +311,7 @@ public class MethodUtils {
             for (final Class<?> acls : classes) {
                 // First, attempt an exact parameter-type match (getDeclaredMethod) to
                 // find a true override. This avoids matching unrelated overloads that
-                // are merely assignable-compatible (e.g. process(Integer) vs
+                // are merely assignable-compatible (for example, process(Integer) versus
                 // process(Number)).
                 Method equivalentMethod = null;
                 try {
@@ -1087,7 +1087,7 @@ public class MethodUtils {
      * @param args The non-null array of argument values.
      * @param parameterTypes The non-null array of supplied or inferred argument types.
      * @return The invocation arguments.
-     * @throws IllegalArgumentException if an argument cannot be stored in the variable arity array.
+     * @throws IllegalArgumentException Thrown if an argument cannot be stored in the variable arity array.
      */
     static Object[] toVarArgs(final Executable executable, final Object[] args, final Class<?>[] parameterTypes) {
         if (!executable.isVarArgs()) {

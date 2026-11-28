@@ -46,7 +46,7 @@ public class FastTimeZone {
      * hours and minutes.
      *
      * <p>
-     * Note: the underlying regex is lenient — every capture group (sign, hours, minutes, and the {@code GMT} prefix) is optional. Inputs that lack any digit
+     * The underlying regex is lenient: every capture group (sign, hours, minutes, and the {@code GMT} prefix) is optional. Inputs that lack any digit
      * group, such as the empty string, {@code "+"}, {@code "-"}, or {@code "GMT"} alone, still match and the method returns the GMT TimeZone with a raw offset
      * of zero (mirroring {@link TimeZone#getTimeZone(String)} JDK-parity for unrecognized ids). Inputs that fail the regex outright, or that match but specify
      * an out-of-range offset (24 hours or 60 minutes and above), return {@code null}.
@@ -78,8 +78,12 @@ public class FastTimeZone {
     }
 
     /**
-     * Gets a TimeZone, looking first for GMT custom ids, then falling back to Olson ids. A GMT custom id can be 'Z', or 'UTC', or has an optional prefix of
-     * GMT, followed by sign, hours digit(s), optional colon(':'), and optional minutes digits. i.e. <em>[GMT] (+|-) Hours [[:] Minutes]</em>
+     * Gets a TimeZone, looking first for GMT custom IDs and then falling back to Olson IDs.
+     *
+     * <p>
+     * A GMT custom ID can be {@code Z}, {@code UTC}, or an offset parsed by {@link #getGmtTimeZone(String)}. A typical offset consists of an optional
+     * {@code GMT} prefix, a sign, hour digits, an optional colon, and optional minute digits: <em>[GMT] (+|-) Hours [[:] Minutes]</em>.
+     * </p>
      *
      * @param id A GMT custom id or Olson id.
      * @return A time zone.

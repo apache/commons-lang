@@ -167,7 +167,7 @@ public class Streams {
     /**
      * A reduced, and simplified version of a {@link Stream} with failable method signatures.
      *
-     * @param <T> The streams element type.
+     * @param <T> The stream's element type.
      */
     public static class FailableStream<T> {
 
@@ -513,7 +513,7 @@ public class Streams {
      * intermediate objects, of type FailableStream), it is much more concise, and readable, and meets the spirit of Lambdas
      * better than the first version.
      *
-     * @param <T> The streams element type.
+     * @param <T> The stream's element type.
      * @param stream The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by converting the stream.
      * @since 3.13.0
@@ -557,7 +557,7 @@ public class Streams {
      * intermediate objects, of type FailableStream), it is much more concise, and readable, and meets the spirit of Lambdas
      * better than the first version.
      *
-     * @param <T> The streams element type.
+     * @param <T> The stream's element type.
      * @param stream The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by converting the stream.
      * @since 3.13.0
@@ -772,7 +772,7 @@ public class Streams {
      * intermediate objects, of type FailableStream), it is much more concise, and readable, and meets the spirit of Lambdas
      * better than the first version.
      *
-     * @param <E> The streams element type.
+     * @param <E> The stream's element type.
      * @param collection The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by converting the stream.
      * @deprecated Use {@link #failableStream(Collection)}.
@@ -817,7 +817,7 @@ public class Streams {
      * intermediate objects, of type FailableStream), it is much more concise, and readable, and meets the spirit of Lambdas
      * better than the first version.
      *
-     * @param <T> The streams element type.
+     * @param <T> The stream's element type.
      * @param stream The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by converting the stream.
      * @deprecated Use {@link #failableStream(Stream)}.

@@ -1153,9 +1153,9 @@ public class FastDateParser implements DateParser, Serializable {
             return getLocaleSpecificStrategy(Calendar.AM_PM, definingCalendar);
         case 'd':
             return DAY_OF_MONTH_STRATEGY;
-        case 'h': // Hour in am/pm (1-12), i.e. midday/midnight is 12, not 0
+        case 'h': // Hour on a 12-hour clock (1-12); noon and midnight are 12, not 0.
             return HOUR12_STRATEGY;
-        case 'k': // Hour in day (1-24), i.e. midnight is 24, not 0
+        case 'k': // Hour on a 24-hour clock (1-24); midnight is 24, not 0.
             return HOUR24_OF_DAY_STRATEGY;
         case 'm':
             return MINUTE_STRATEGY;

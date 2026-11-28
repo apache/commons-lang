@@ -348,7 +348,7 @@ public class ExtendedMessageFormat extends MessageFormat {
             case START_FE:
                 depth++;
                 sb.append(START_FE).append(readArgumentIndex(pattern, chars, next(pos)));
-                // do not look for custom patterns when they are embedded, e.g. in a choice
+                // do not look for custom patterns when they are embedded, for example, in a choice
                 if (depth == 1) {
                     fe++;
                     final String customPattern = customPatterns.get(fe);

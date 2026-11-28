@@ -481,7 +481,7 @@
         <commons.spotbugs.filter>${commons.conf.dir}/spotbugs-exclude-filter-java8-sb-4.8.6.xml</commons.spotbugs.filter>
       </properties>
       <build>
-        <!-- Don't run javadoc:javadoc on Java 8 due to Java's incompatible expectation of package-list vs element-list on remote links. -->
+        <!-- Don't run javadoc:javadoc on Java 8 due to Java's incompatible expectation of package-list versus element-list on remote links. -->
         <defaultGoal>clean verify apache-rat:check checkstyle:check japicmp:cmp spotbugs:check pmd:check</defaultGoal>
       </build>
     </profile>

@@ -39,7 +39,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
  * To start the watch, call {@link #start()} or {@link StopWatch#createStarted()}. At this point you can:
  * </p>
  * <ul>
- * <li>{@link #split()} the watch to get the time whilst the watch continues in the background. {@link #unsplit()} will remove the effect of the split. At this
+ * <li>{@link #split()} the watch to get the time while the watch continues in the background. {@link #unsplit()} will remove the effect of the split. At this
  * point, these three options are available again.</li>
  * <li>{@link #suspend()} the watch to pause it. {@link #resume()} allows the watch to continue. Any time between the suspend and resume will not be counted in
  * the total. At this point, these three options are available again.</li>

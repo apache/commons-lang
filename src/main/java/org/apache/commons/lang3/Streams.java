@@ -124,7 +124,7 @@ public class Streams {
      * A reduced, and simplified version of a {@link Stream} with
      * failable method signatures.
      *
-     * @param <O> The streams element type.
+     * @param <O> The stream's element type.
      * @deprecated Use {@link org.apache.commons.lang3.stream.Streams.FailableStream}.
      */
     @Deprecated
@@ -498,7 +498,7 @@ public class Streams {
      * than the first version.
      * </p>
      *
-     * @param <O> The streams element type.
+     * @param <O> The stream's element type.
      * @param stream The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by
      *   converting the stream.
@@ -545,7 +545,7 @@ public class Streams {
      * than the first version.
      * </p>
      *
-     * @param <O> The streams element type.
+     * @param <O> The stream's element type.
      * @param stream The stream, which is being converted.
      * @return The {@link FailableStream}, which has been created by
      *   converting the stream.

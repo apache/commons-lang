@@ -91,7 +91,7 @@ import org.apache.commons.lang3.stream.Streams;
  * </p>
  *
  * <p>
- * <strong>Note:</strong> the default {@link ToStringStyle} will only do a "shallow" formatting, i.e. composed objects are not
+ * <strong>Note:</strong> the default {@link ToStringStyle} will only do a "shallow" formatting, that is, composed objects are not
  * further traversed. To get "deep" formatting, use an instance of {@link RecursiveToStringStyle}.
  * </p>
  *

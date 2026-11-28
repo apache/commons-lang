@@ -297,7 +297,7 @@ public class RandomStringUtils {
                 return random(count, 0, 0, false, false, ALPHANUMERICAL_CHARS, random);
             }
             // Only reject when none of the requested categories is reachable; otherwise a letters && digits
-            // request would throw on a range that holds one category but not the other (e.g. [ASCII_0, ASCII_A)).
+            // request would throw on a range that holds one category but not the other (for example, [ASCII_0, ASCII_A)).
             if ((!digits || end <= ASCII_0) && (!letters || end <= ASCII_A) && (digits || letters)) {
                 throw new IllegalArgumentException(
                         String.format("Parameter end (%,d) must be greater than (%,d) for generating digits or greater than (%,d) for generating letters.", end,
@@ -306,15 +306,15 @@ public class RandomStringUtils {
             // Optimize start and end when filtering by letters and/or numbers:
             // The range provided may be too large since we filter anyway afterward.
             // Note the use of Math.min/max (as opposed to setting start to '0' for example),
-            // since it is possible the range start/end excludes some of the letters/numbers,
-            // e.g., it is possible that start already is '1' when numbers = true, and start
+            // since it is possible the range start/end excludes some of the letters/numbers.
+            // For example, it is possible that start already is '1' when numbers = true, and start
             // needs to stay equal to '1' in that case.
             // Note that because of the above test, we will always have start < end
             // even after this optimization.
             if (letters && digits) {
                 start = Math.max(ASCII_0, start);
                 end = Math.min(ASCII_z + 1, end);
-                // The clamp can empty the range when it sits above the alphanumerics (e.g. [ASCII_z + 1, 0x7f)),
+                // The clamp can empty the range when it sits above the alphanumerics (for example, [ASCII_z + 1, 0x7f)),
                 // unlike the single-category branches below which are validated by the reachability loops further
                 // down. Reject here so the caller gets a clear range error instead of nextBits(0) failing later.
                 if (start >= end) {
@@ -587,7 +587,7 @@ public class RandomStringUtils {
      *
      * <p>
      * Characters will be chosen from the set of characters which match the POSIX [:graph:] regular expression character
-     * class. This class contains all visible ASCII characters (i.e. anything except spaces and control characters).
+     * class. This class contains all visible ASCII characters (that is, anything except spaces and control characters).
      * </p>
      *
      * @param count The length of random string to create.
@@ -659,7 +659,7 @@ public class RandomStringUtils {
      *
      * <p>
      * Characters will be chosen from the set of characters which match the POSIX [:print:] regular expression character
-     * class. This class includes all visible ASCII characters and spaces (i.e. anything except control characters).
+     * class. This class includes all visible ASCII characters and spaces (that is, anything except control characters).
      * </p>
      *
      * @param count The length of random string to create.
@@ -961,7 +961,7 @@ public class RandomStringUtils {
      *
      * <p>
      * Characters will be chosen from the set of characters which match the POSIX [:graph:] regular expression character
-     * class. This class contains all visible ASCII characters (i.e. anything except spaces and control characters).
+     * class. This class contains all visible ASCII characters (that is, anything except spaces and control characters).
      * </p>
      *
      * @param count The length of random string to create.
@@ -1025,7 +1025,7 @@ public class RandomStringUtils {
      *
      * <p>
      * Characters will be chosen from the set of characters which match the POSIX [:print:] regular expression character
-     * class. This class includes all visible ASCII characters and spaces (i.e. anything except control characters).
+     * class. This class includes all visible ASCII characters and spaces (that is, anything except control characters).
      * </p>
      *
      * @param count The length of random string to create.

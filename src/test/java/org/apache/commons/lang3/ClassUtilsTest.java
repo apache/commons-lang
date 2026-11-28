@@ -1403,7 +1403,8 @@ class ClassUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Pre-patch: getClass("java.lang.String[]junk[]") silently returns String[][][][] (4 dims, because (24 - 16)/2 = 4 — junk is 4 chars). Post-patch: must
+     * Pre-patch: getClass("java.lang.String[]junk[]") silently returns String[][][][] (four dimensions because (24 - 16) / 2 = 4, where junk is four
+     * characters). Post-patch: must
      * throw IllegalArgumentException.
      */
     @Test

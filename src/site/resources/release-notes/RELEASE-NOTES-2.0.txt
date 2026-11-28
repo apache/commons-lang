@@ -131,7 +131,7 @@ ID Sev Pri Plt Owner State Result Summary
 14357  static option for reversing the stacktrace  
 14447  ToStringBuilder doesn't work well in subclasses  
 14883  StringUtils.countMatches loops forever if substring empty  
-14884  NumberRange inaccurate for Long, etc.  
+14884  NumberRange inaccurate for Long and other number types.
 14985  More flexibility for getRootCause in ExceptionUtils  
 15154  SystemUtils.IS_JAVA_1_5 Javadoc is wrong  
 15257  Hierarchy support in ToStringBuilder.reflectionToString()  

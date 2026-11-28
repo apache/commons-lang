@@ -233,7 +233,7 @@ public class NumberUtils {
             pos++;
         } // default is to treat as decimal
         if (str.startsWith("-", pos) || str.startsWith("+", pos)) {
-            // a second sign here (e.g. "--1") is not a number; new BigInteger(String) would otherwise
+            // a second sign here (for example, "--1") is not a number; new BigInteger(String) would otherwise
             // consume it and silently flip the sign. Integer.decode/Long.decode reject this the same way.
             throw new NumberFormatException("Sign character in wrong position");
         }
@@ -331,7 +331,7 @@ public class NumberUtils {
      * </p>
      *
      * <p>
-     * For non-hexadecimal input, the value is examined for a type qualifier on the end, i.e. one of {@code 'f', 'F', 'd', 'D', 'l', 'L'}. If it is found,
+     * For non-hexadecimal input, the value is examined for a type qualifier on the end, that is, one of {@code 'f', 'F', 'd', 'D', 'l', 'L'}. If it is found,
      * it starts trying to create successively larger types from the type specified until one is found that can represent the value.
      * </p>
      *
@@ -349,7 +349,7 @@ public class NumberUtils {
      * </p>
      *
      * <p>
-     * This method does not trim the input string, i.e., strings with leading or trailing spaces will generate NumberFormatExceptions.
+     * This method does not trim the input string. Strings with leading or trailing spaces will generate NumberFormatExceptions.
      * </p>
      *
      * @param str String containing a number, may be null.
@@ -574,7 +574,7 @@ public class NumberUtils {
      *
      * <p>
      * Valid numbers include hexadecimal marked with the {@code 0x} or {@code 0X} qualifier, octal numbers, scientific notation and numbers marked with a type
-     * qualifier (e.g. 123L).
+     * qualifier (for example, 123L).
      * </p>
      *
      * <p>
@@ -625,7 +625,7 @@ public class NumberUtils {
      *
      * <p>
      * Valid numbers include hexadecimal marked with the {@code 0x} or {@code 0X} qualifier, octal numbers, scientific notation and numbers marked with a type
-     * qualifier (e.g. 123L).
+     * qualifier (for example, 123L).
      * </p>
      *
      * <p>
@@ -658,7 +658,7 @@ public class NumberUtils {
      * or {@link Double#parseDouble(String)}. This method can be used instead of catching {@link java.text.ParseException} when calling one of those methods.
      * </p>
      * <p>
-     * Scientific notation (for example, {@code "1.2e-5"}) and type suffixes (e.g., {@code "2.0f"}, {@code "2.0d"}) are supported as they are valid for
+     * Scientific notation (for example, {@code "1.2e-5"}) and type suffixes (for example, {@code "2.0f"}, {@code "2.0d"}) are supported as they are valid for
      * {@link Float#parseFloat(String)} and {@link Double#parseDouble(String)} as are {@code "NaN"}, {@code "Infinity"}, {@code "+Infinity"}, and
      * {@code "-Infinity"}. Callers requiring finite-only validation should compose with {@link Double#isFinite(double)}.
      * </p>

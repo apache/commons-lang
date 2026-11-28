@@ -263,9 +263,9 @@ public class ObjectUtils {
      *
      * <p>
      * This method is similar to {@link #clone(Object)}, but will return the provided instance as the return value instead of {@code null} if the instance is
-     * not cloneable. This is more convenient if the caller uses different implementations (e.g. of a service) and some of the implementations do not allow
-     * concurrent processing or have state. In such cases the implementation can simply provide a proper clone implementation and the caller's code does not
-     * have to change.
+     * not cloneable. This is more convenient if the caller uses different implementations (for example, of a service) and some of the implementations do not
+     * allow concurrent processing or have state. In such cases the implementation can simply provide a proper clone implementation, and the caller's code
+     * does not have to change.
      * </p>
      *
      * @param <T> The type of the object.
@@ -322,7 +322,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static boolean MAGIC_FLAG = ObjectUtils.CONST(true);
@@ -339,7 +339,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static byte MAGIC_BYTE = ObjectUtils.CONST((byte) 127);
@@ -356,7 +356,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static char MAGIC_CHAR = ObjectUtils.CONST('a');
@@ -373,7 +373,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static double MAGIC_DOUBLE = ObjectUtils.CONST(1.0);
@@ -390,7 +390,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static float MAGIC_FLOAT = ObjectUtils.CONST(1.0f);
@@ -407,7 +407,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static int MAGIC_INT = ObjectUtils.CONST(123);
@@ -424,7 +424,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static long MAGIC_LONG = ObjectUtils.CONST(123L);
@@ -441,7 +441,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static short MAGIC_SHORT = ObjectUtils.CONST((short) 123);
@@ -458,7 +458,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static String MAGIC_STRING = ObjectUtils.CONST("abc");
@@ -476,7 +476,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static byte MAGIC_BYTE = ObjectUtils.CONST_BYTE(127);
@@ -497,7 +497,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, e.g.,
+     * Returns the provided value unchanged. This can prevent javac from inlining a constant field, for example,
      *
      * <pre>
      * public final static short MAGIC_SHORT = ObjectUtils.CONST_SHORT(127);
@@ -709,7 +709,7 @@ public class ObjectUtils {
      */
     @Deprecated
     public static int hashCode(final Object obj) {
-        // hashCode(Object) for performance vs. hashCodeMulti(Object[]), as hash code is often critical
+        // hashCode(Object) for performance versus hashCodeMulti(Object[]), as hash code is often critical
         return Objects.hashCode(obj);
     }
 

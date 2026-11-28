@@ -295,7 +295,7 @@ public class Functions {
         /**
          * Gets an object.
          *
-         * @return A result
+         * @return A result.
          * @throws T Thrown if the supplier fails.
          */
         R get() throws T;
@@ -516,11 +516,12 @@ public class Functions {
     }
 
     /**
-     * Rethrows a {@link Throwable} as an unchecked exception. If the argument is already unchecked, namely a
-     * {@link RuntimeException} or {@link Error} then the argument will be rethrown without modification. If the
-     * exception is {@link IOException} then it will be wrapped into a {@link UncheckedIOException}. In every other
-     * cases the exception will be wrapped into a {@code
-     * UndeclaredThrowableException}
+     * Always throws an unchecked exception or error, rethrowing or wrapping the given {@link Throwable}.
+     *
+     * <p>
+     * A {@link RuntimeException} or {@link Error} is rethrown without modification. An {@link IOException} is wrapped in an
+     * {@link UncheckedIOException}. Any other exception is wrapped in an {@link UndeclaredThrowableException}.
+     * </p>
      *
      * <p>
      * Note that there is a declared return type for this method, even though it never returns. The reason for that is
@@ -564,13 +565,13 @@ public class Functions {
 
     /**
      * Converts the given collection into a {@link FailableStream}. The {@link FailableStream} consists of the
-     * collections elements. Shortcut for
+     * collection's elements. Shortcut for
      *
      * <pre>
      * Functions.stream(collection.stream());</pre>
      *
      * @param collection The collection, which is being converted into a {@link FailableStream}.
-     * @param <O> The collections element type. (In turn, the result streams element type.)
+     * @param <O> The element type of the collection and the resulting stream.
      * @return The created {@link FailableStream}.
      * @since 3.10
      */
@@ -580,12 +581,12 @@ public class Functions {
 
     /**
      * Converts the given stream into a {@link FailableStream}. The {@link FailableStream} consists of the same
-     * elements, than the input stream. However, failable lambdas, like {@link FailablePredicate},
+     * elements as the input stream. However, failable lambdas, like {@link FailablePredicate},
      * {@link FailableFunction}, and {@link FailableConsumer} may be applied, rather than {@link Predicate},
-     * {@link Function}, {@link Consumer}, etc.
+     * {@link Function}, {@link Consumer}, and so on.
      *
      * @param stream The stream, which is being converted into a {@link FailableStream}.
-     * @param <O> The streams element type.
+     * @param <O> The stream's element type.
      * @return The created {@link FailableStream}.
      * @since 3.10
      */

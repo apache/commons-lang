@@ -2762,7 +2762,7 @@ public class StringUtils {
     }
 
     /**
-     * Search a CharSequence to find the first index of any character in the given set of characters.
+     * Searches a CharSequence to find the first index of any character in the given set of characters.
      *
      * <p>
      * A {@code null} String will return {@code -1}. A {@code null} or zero length search array will return {@code -1}.
@@ -2843,7 +2843,7 @@ public class StringUtils {
     }
 
     /**
-     * Search a CharSequence to find the first index of any character in the given set of characters.
+     * Searches a CharSequence to find the first index of any character in the given set of characters.
      *
      * <p>
      * A {@code null} String will return {@code -1}. A {@code null} or zero length search array will return {@code -1}.
@@ -2892,7 +2892,7 @@ public class StringUtils {
     }
 
     /**
-     * Search a CharSequence to find the first index of any character in the given set of characters.
+     * Searches a CharSequence to find the first index of any character in the given set of characters.
      *
      * <p>
      * A {@code null} String will return {@code -1}. A {@code null} search string will return {@code -1}.
@@ -2922,8 +2922,12 @@ public class StringUtils {
     }
 
     /**
-     * Searches a CharSequence to find the first index of any character not in the given set of characters, i.e., find index i of first char in cs such that
-     * (cs.codePointAt(i) ∉ { x ∈ codepoints(searchChars) })
+     * Searches a CharSequence for the first index of a character not in the given set of characters.
+     *
+     * <p>
+     * Finds the smallest index {@code i} in {@code cs} such that
+     * (cs.codePointAt(i) ∉ { x ∈ codepoints(searchChars) }).
+     * </p>
      *
      * <p>
      * A {@code null} CharSequence will return {@code -1}. A {@code null} or zero length search array will return {@code -1}.
@@ -2953,8 +2957,12 @@ public class StringUtils {
     }
 
     /**
-     * Search a CharSequence to find the first index of any character not in the given set of characters, i.e., find index i of first char in seq such that
-     * (seq.codePointAt(i) ∉ { x ∈ codepoints(searchChars) })
+     * Searches a CharSequence for the first index of a character not in the given set of characters.
+     *
+     * <p>
+     * Finds the smallest index {@code i} in {@code seq} such that
+     * (seq.codePointAt(i) ∉ { x ∈ codepoints(searchChars) }).
+     * </p>
      *
      * <p>
      * A {@code null} CharSequence will return {@code -1}. A {@code null} or empty search string will return {@code -1}.
@@ -3796,7 +3804,7 @@ public class StringUtils {
      *
      * <p>
      * Note that the method does not allow for a leading sign, either positive or negative. Also, if a String passes the numeric test, it may still generate a
-     * NumberFormatException when parsed by Integer.parseInt or Long.parseLong, e.g. if the value is outside the range for int or long respectively.
+     * NumberFormatException when parsed by Integer.parseInt or Long.parseLong, for example, if the value is outside the range for int or long respectively.
      * </p>
      *
      * <pre>
@@ -3960,7 +3968,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
-     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
+     * @throws ArrayIndexOutOfBoundsException Thrown if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.12.0
      */
     public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4037,7 +4045,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
-     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
+     * @throws ArrayIndexOutOfBoundsException Thrown if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4114,7 +4122,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
-     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
+     * @throws ArrayIndexOutOfBoundsException Thrown if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4191,7 +4199,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
-     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
+     * @throws ArrayIndexOutOfBoundsException Thrown if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4268,7 +4276,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
-     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
+     * @throws ArrayIndexOutOfBoundsException Thrown if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4345,7 +4353,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
-     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
+     * @throws ArrayIndexOutOfBoundsException Thrown if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final int[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4481,7 +4489,7 @@ public class StringUtils {
      * @param startIndex The first index to start joining from.
      * @param endIndex   The index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null list input; or the empty string if {@code endIndex <= startIndex}.
-     * @throws IndexOutOfBoundsException if the list is non-null, {@code endIndex > startIndex}, and
+     * @throws IndexOutOfBoundsException Thrown if the list is non-null, {@code endIndex > startIndex}, and
      *         either {@code startIndex < 0} or {@code endIndex > list.size()}.
      * @since 3.8
      */
@@ -4517,7 +4525,7 @@ public class StringUtils {
      * @param startIndex The first index to start joining from.
      * @param endIndex   The index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null list input; or the empty string if {@code endIndex <= startIndex}.
-     * @throws IndexOutOfBoundsException if the list is non-null, {@code endIndex > startIndex}, and
+     * @throws IndexOutOfBoundsException Thrown if the list is non-null, {@code endIndex > startIndex}, and
      *         either {@code startIndex < 0} or {@code endIndex > list.size()}.
      * @since 3.8
      */
@@ -4587,7 +4595,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
-     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
+     * @throws ArrayIndexOutOfBoundsException Thrown if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final long[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4659,7 +4667,7 @@ public class StringUtils {
      * @param endIndex   The index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
      *         Otherwise, at most {@code endIndex - startIndex} entries are joined, limited by the number of entries remaining in the array.
-     * @throws IllegalArgumentException if the array is non-null and {@code startIndex < 0}.
+     * @throws IllegalArgumentException Thrown if the array is non-null and {@code startIndex < 0}.
      * @since 2.0
      */
     public static String join(final Object[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -4719,7 +4727,7 @@ public class StringUtils {
      * @param endIndex   The index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
      *         Otherwise, at most {@code endIndex - startIndex} entries are joined, limited by the number of entries remaining in the array.
-     * @throws IllegalArgumentException if the array is non-null and {@code startIndex < 0}.
+     * @throws IllegalArgumentException Thrown if the array is non-null and {@code startIndex < 0}.
      */
     public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
         return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0L, (long) endIndex - startIndex))
@@ -4781,7 +4789,7 @@ public class StringUtils {
      * @param endIndex
      *            the index to stop joining from (exclusive).
      * @return The joined String, {@code null} if null array input; or the empty string if {@code endIndex <= startIndex}.
-     * @throws ArrayIndexOutOfBoundsException if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
+     * @throws ArrayIndexOutOfBoundsException Thrown if the array is non-null and either {@code startIndex < 0} or {@code endIndex > array.length}.
      * @since 3.2
      */
     public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
@@ -5352,7 +5360,7 @@ public class StringUtils {
      *
      * <p>
      * <strong>Note:</strong> As described in the documentation for {@link String#toLowerCase()}, the result of this method is affected by the current locale.
-     * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)} should be used with a specific locale (e.g.
+     * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)} should be used with a specific locale (for example,
      * {@link Locale#ENGLISH}).
      * </p>
      *
@@ -5513,21 +5521,27 @@ public class StringUtils {
     /**
      * Normalizes whitespace in a String.
      *
-     * <p>Removes leading and trailing whitespace and replaces each remaining sequence of characters recognized by {@link Character#isWhitespace(char)}
+     * <p>
+     * Removes leading and trailing whitespace and replaces each remaining sequence of characters recognized by {@link Character#isWhitespace(char)}
      * with a single ordinary space ({@code U+0020}). This includes Unicode whitespace beyond the characters matched by the default regular expression
-     * {@code \s}, such as EM SPACE ({@code U+2003}).</p>
+     * {@code \s}, such as EM SPACE ({@code U+2003}).
+     * </p>
      *
-     * <p>Additionally, converts each non-breaking space ({@code U+00A0}) to an ordinary space, even though {@link Character#isWhitespace(char)} excludes it.
+     * <p>
+     * Additionally, converts each non-breaking space ({@code U+00A0}) to an ordinary space, even though {@link Character#isWhitespace(char)} excludes it.
      * These conversions do not collapse adjacent spaces: for example, <code>"a&#92;u00A0&#92;u00A0b"</code> becomes {@code "a  b"}. Finally,
      * {@link String#trim()} removes
      * leading and trailing characters whose values are at most {@code U+0020}, including converted non-breaking spaces. Other non-breaking spaces, such as
-     * FIGURE SPACE ({@code U+2007}) and NARROW NO-BREAK SPACE ({@code U+202F}), are preserved.</p>
+     * FIGURE SPACE ({@code U+2007}) and NARROW NO-BREAK SPACE ({@code U+202F}), are preserved.
+     * </p>
      *
-     * <p>This method was inspired by XPath's
+     * <p>
+     * This method was inspired by XPath's
      * <a href="https://www.w3.org/TR/xpath/#function-normalize-space">normalize-space</a> function, but does not reproduce its behavior.
      * XPath normalizes only XML
      * whitespace ({@code U+0020}, {@code U+0009}, {@code U+000D}, and {@code U+000A}) and preserves non-breaking spaces. This method additionally normalizes
-     * Java whitespace, converts {@code U+00A0}, and trims leading and trailing control characters as described above.</p>
+     * Java whitespace, converts {@code U+00A0}, and trims leading and trailing control characters as described above.
+     * </p>
      *
      * @param str The source String to normalize whitespaces from, may be null.
      * @return The modified string with whitespace normalized, {@code null} if null String input.
@@ -6281,7 +6295,7 @@ public class StringUtils {
      * @param separator The String to inject, may be null.
      * @param count     number of times to repeat str, negative treated as zero.
      * @return A String consisting of the original String repeated with separators, {@code null} if null String input.
-     * @throws IllegalArgumentException if the requested result length exceeds {@link Integer#MAX_VALUE}.
+     * @throws IllegalArgumentException Thrown if the requested result length exceeds {@link Integer#MAX_VALUE}.
      * @since 2.5
      */
     public static String repeat(final String repeat, final String separator, final int count) {
@@ -8351,7 +8365,7 @@ public class StringUtils {
      *
      * <p>
      * The returned substring starts with the character in the {@code start} position and ends before the {@code end} position. All position counting is
-     * zero-based -- i.e., to start at the beginning of the string use {@code start = 0}. Negative start and end positions can be used to specify offsets
+     * zero-based; to start at the beginning of the string, use {@code start = 0}. Negative start and end positions can be used to specify offsets
      * relative to the end of the String.
      * </p>
      *
@@ -8854,8 +8868,8 @@ public class StringUtils {
      * Converts a {@link CharSequence} into an array of code points.
      *
      * <p>
-     * Valid pairs of surrogate code units will be converted into a single supplementary code point. Isolated surrogate code units (i.e. a high surrogate not
-     * followed by a low surrogate or a low surrogate not preceded by a high surrogate) will be returned as-is.
+     * Valid pairs of surrogate code units will be converted into a single supplementary code point. Isolated surrogate code units (that is, a high surrogate
+     * not followed by a low surrogate or a low surrogate not preceded by a high surrogate) will be returned as-is.
      * </p>
      *
      * <pre>
@@ -9270,7 +9284,7 @@ public class StringUtils {
      *
      * <p>
      * <strong>Note:</strong> As described in the documentation for {@link String#toUpperCase()}, the result of this method is affected by the current locale.
-     * For platform-independent case transformations, the method {@link #upperCase(String, Locale)} should be used with a specific locale (e.g.
+     * For platform-independent case transformations, the method {@link #upperCase(String, Locale)} should be used with a specific locale (for example,
      * {@link Locale#ENGLISH}).
      * </p>
      *

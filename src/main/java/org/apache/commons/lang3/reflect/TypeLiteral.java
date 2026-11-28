@@ -47,7 +47,7 @@ import org.apache.commons.lang3.Validate;
  * Type listOfStringType = ...; // firstly, how to obtain this? Doable, but not straightforward.
  * List<String> listOfString = (List<String>) typesafe.obtain(listOfStringType, ...); // nongeneric Type would necessitate a cast
  * }</pre>
- * The "type literal" concept was introduced to provide an alternative, i.e.:
+ * The "type literal" concept was introduced to provide an alternative:
  * <pre>{@code
  * class Typesafe {
  *   <T> T obtain(TypeLiteral<T> type, ...);

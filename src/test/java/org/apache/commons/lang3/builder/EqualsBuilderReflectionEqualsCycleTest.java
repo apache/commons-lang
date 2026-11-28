@@ -53,7 +53,7 @@ class EqualsBuilderReflectionEqualsCycleTest {
         a[0] = a;
         b[0] = b;
         // Pre-patch: StackOverflowError; Post-patch: terminates without error.
-        // With cycle detection, comparing a[0]=a vs b[0]=b sees (a,b) already registered
+        // With cycle detection, comparing a[0]=a versus b[0]=b sees (a,b) already registered
         // and treats the cycle as equal, so the overall result is true (structurally isomorphic).
         // The key assertion is that NO StackOverflowError is thrown.
         assertTrue(EqualsBuilder.reflectionEquals(a, b));

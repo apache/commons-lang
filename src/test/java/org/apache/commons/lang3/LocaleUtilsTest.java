@@ -237,7 +237,7 @@ class LocaleUtilsTest extends AbstractLangTest {
     }
 
     /**
-     * Test that constructors are public, and work, etc.
+     * Tests that constructors are public and work correctly.
      */
     @Test
     void testConstructor() {

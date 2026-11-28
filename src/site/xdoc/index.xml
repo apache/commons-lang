@@ -65,7 +65,9 @@ The <a href="scm.html">Git repository</a> can be
 </section>
 <!-- ================================================== -->
 <section name="Release Information">
-<p>Read about the latest release:</p>
+<p>
+Read about the latest release:
+</p>
 <ul>
 <li>Pull it using a build tool like Maven using a <a href="dependency-info.html">dependency management reference</a>.</li>
 <li>Download the latest release from a <a href="https://commons.apache.org/lang/download_lang.cgi">mirror</a>.</li>
@@ -81,14 +83,21 @@ For information on previous releases, see the <a href="changes.html">Release His
 <!-- ================================================== -->
 <section name="Getting Involved">
 <p>
-The <a href="mail-lists.html">commons developer mailing list</a> is the main channel of communication for contributors. Please remember that the lists are shared between all Commons components, so prefix your email subject with [lang]. </p>
-<p>You can also peruse <a href="issue-tracking.html">JIRA</a>. Specific links of interest for JIRA are:</p>
+The <a href="mail-lists.html">commons developer mailing list</a> is the main channel of communication for contributors. Please remember that the lists are shared between all Commons components, so prefix your email subject with [lang].
+</p>
+<p>
+You can also peruse <a href="issue-tracking.html">JIRA</a>. Specific links of interest for JIRA are:
+</p>
 <ul>
 <li>Ideas looking for code: <a href="https://issues.apache.org/jira/issues/?jql=project%20%3D%20LANG%20AND%20resolution%20%3D%20Unresolved%20AND%20fixVersion%20%3D%20%22Patch%20Needed%22%20ORDER%20BY%20priority%20DESC">Patch Needed</a></li>
 <li>Issues with patches, looking for reviews: <a href="https://issues.apache.org/jira/issues/?jql=fixVersion%20%3D%20%22Review%20Patch%22%20AND%20project%20%3D%20LANG%20AND%20resolution%20%3D%20Unresolved%20ORDER%20BY%20priority%20DESC">Review Patch</a></li>
 </ul>
-<p>Alternatively, you can go through the <em>Needs Work</em> tags in the <a href="taglist.html">TagList report</a>.</p>
-<p>If you'd like to offer up pull requests via GitHub rather than applying patches to JIRA, we have a <a href="https://github.com/apache/commons-lang/">GitHub mirror</a>. </p>
+<p>
+Alternatively, you can go through the <em>Needs Work</em> tags in the <a href="taglist.html">TagList report</a>.
+</p>
+<p>
+If you'd like to offer up pull requests via GitHub rather than applying patches to JIRA, we have a <a href="https://github.com/apache/commons-lang/">GitHub mirror</a>.
+</p>
 </section>
 <!-- ================================================== -->
 <section name="Support">

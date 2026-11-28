@@ -314,7 +314,7 @@ public class ConstructorUtils {
     }
 
     /**
-     * Tests whether the specified class is generally accessible, i.e. is declared in an entirely {@code public} manner.
+     * Tests whether the specified class and all enclosing classes are {@code public}.
      *
      * @param type to check.
      * @return {@code true} if {@code type} and any enclosing classes are {@code public}.

@@ -813,7 +813,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make ArraySorter null-safe.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make ArrayUtils.removeAll() null-safe.</action>
     <action                   type="fix" dev="ggregory" due-to="Philipp Trulson, Gary Gregory">Fix Java version in README.md #1170.</action>
-    <action                   type="fix" dev="ggregory" due-to="Stephan Peters, Gary Gregory, Bernd">StringUtils.stripAccents() should handle ligatures, UTF32 math blocks, etc. #1201.</action>
+    <action                   type="fix" dev="ggregory" due-to="Stephan Peters, Gary Gregory, Bernd">StringUtils.stripAccents() should handle ligatures, UTF32 math blocks, and so on. #1201.</action>
     <action issue="LANG-1524" type="fix" dev="ggregory" due-to="kijong.youn, Aakash Gupta, Gary Gregory">TypeUtils.toString(Type) StackOverflowError for an inner class in the inner class parameterized enclosing class #657.</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate SystemUtils.getUserName(String) in favor of SystemProperties.getUserName(Supplier).</action>
     <action                   type="fix" dev="ggregory" due-to="Gary Gregory">Make LockVisitor.acceptReadLocked(FailableConsumer) null-safe.</action>
@@ -1872,7 +1872,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" issue="LANG-369">ExceptionUtils not thread-safe.</action>
     <action type="add" issue="LANG-358">ObjectUtils.coalesce.</action>
     <action type="update" issue="LANG-355">StrBuilder should implement CharSequence and Appendable.</action>
-    <action type="fix" issue="LANG-339">StringEscapeUtils.escapeHtml() escapes multibyte characters like Chinese, Japanese, etc.</action>
+    <action type="fix" issue="LANG-339">StringEscapeUtils.escapeHtml() escapes multibyte characters like Chinese, Japanese, and so on.</action>
     <action type="update" issue="LANG-336">Finally start using generics.</action>
     <action type="fix" issue="LANG-302">StrBuilder does not implement clone().</action>
     <action type="update" issue="LANG-290">EnumUtils for JDK 5.0.</action>
@@ -2216,7 +2216,7 @@ The <action> type attribute can be add,update,fix,remove.
     <action type="fix" issue="LANG-146">Enum does not support inner sub-classes.</action>
     <action type="fix" issue="LANG-157">Removed compile warning in ObjectUtils.</action>
     <action type="fix" issue="LANG-96">SystemUtils.IS_JAVA_1_5 Javadoc is wrong.</action>
-    <action type="fix" issue="LANG-16">NumberRange inaccurate for Long, etc.</action>
+    <action type="fix" issue="LANG-16">NumberRange inaccurate for Long and other number types.</action>
     <action type="fix" issue="LANG-4">Hierarchy support in ToStringBuilder.reflectionToString().</action>
     <action type="fix" issue="LANG-56">StringUtils.countMatches loops forever if substring empty.</action>
     <action type="add" issue="LANG-209">Javadoc fixes (remove @links to non-public identifiers).</action>

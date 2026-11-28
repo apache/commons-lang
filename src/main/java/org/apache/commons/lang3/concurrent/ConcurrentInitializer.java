@@ -25,8 +25,9 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * which can all access the object produced by the initializer. Through the {@link #get()} method the object can be queried.
  * </p>
  * <p>
- * Concrete implementations of this interface will use different strategies for the creation of the managed object, e.g. lazy initialization or initialization
- * in a background thread. This is completely transparent to client code, so it is possible to change the initialization strategy without affecting clients.
+ * Concrete implementations of this interface will use different strategies for the creation of the managed object, such as lazy initialization
+ * or initialization in a background thread. This is completely transparent to client code, so it is possible to change the initialization strategy without
+ * affecting clients.
  * </p>
  * <p>
  * An implementation of {@link #get()} returns the fully initialized object produced by this {@code

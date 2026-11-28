@@ -31,7 +31,7 @@ public interface FailableIntSupplier<E extends Throwable> {
     /**
      * Gets an int.
      *
-     * @return A result
+     * @return A result.
      * @throws E Thrown if the supplier fails.
      */
     int getAsInt() throws E;

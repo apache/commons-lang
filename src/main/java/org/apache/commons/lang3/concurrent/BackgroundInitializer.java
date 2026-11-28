@@ -31,8 +31,8 @@ import org.apache.commons.lang3.function.FailableSupplier;
  *
  * <p>
  * Applications often have to do some expensive initialization steps when they
- * are started, e.g. constructing a connection to a database, reading a
- * configuration file, etc. Doing these things in parallel can enhance
+ * are started, for example, constructing a connection to a database, reading a
+ * configuration file, and so on. Doing these things in parallel can enhance
  * performance as the CPU load can be improved. However, when access to the
  * resources initialized in a background thread is actually required,
  * synchronization has to be performed to ensure that their initialization is
@@ -78,7 +78,7 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * The methods provided by {@link BackgroundInitializer} provide for minimal
  * interaction with the wrapped {@link Future} object. It is also possible to
  * obtain the {@link Future} object directly. Then the enhanced functionality
- * offered by {@link Future} can be used, e.g. to check whether the background
+ * offered by {@link Future} can be used, for example, to check whether the background
  * operation is complete or to cancel the operation.
  * </p>
  *

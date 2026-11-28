@@ -679,7 +679,7 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * A registry of objects used by {@code reflectionToString} methods to detect cyclical object references and avoid infinite loops.
-     * Identity-based comparison is required so that cyclic objects (e.g. an ArrayList whose hashCode() would recurse) can be
+     * Identity-based comparison is required so that cyclic objects (for example, an ArrayList whose hashCode() would recurse) can be
      * registered and looked up without triggering infinite recursion through equals/hashCode.
      */
     private static final ThreadLocal<IdentityHashMap<Object, Object>> REGISTRY = ThreadLocal.withInitial(IdentityHashMap::new);

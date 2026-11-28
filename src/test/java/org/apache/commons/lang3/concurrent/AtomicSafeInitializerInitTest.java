@@ -91,7 +91,7 @@ class AtomicSafeInitializerInitTest {
         assertNotNull(initializer.get());
         // Post-patch: CPU consumed by spinner threads during 100 ms init must be
         // significantly less than INIT_MS per thread. We allow 50 ms total CPU
-        // across all spinner threads (vs. ~800 ms if spinning at 100%).
+        // across all spinner threads (versus ~800 ms if spinning at 100%).
         // This threshold is conservative, a yielding implementation uses ~0 ms.
         final long cpuMs = totalCpuNanos.get() / 1_000_000;
         // Re-express as a blocking assertion: if cpuMs > threshold, fail.

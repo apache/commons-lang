@@ -31,7 +31,7 @@ public interface FailableByteSupplier<E extends Throwable> {
     /**
      * Gets a byte.
      *
-     * @return A result
+     * @return A result.
      * @throws E Thrown if the supplier fails.
      */
     byte getAsByte() throws E;

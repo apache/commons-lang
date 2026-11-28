@@ -164,10 +164,10 @@ public abstract class StrLookup<V> {
      * </p>
      * <p>
      * For example, it would be possible to implement a lookup that used the
-     * key as a primary key, and looked up the value on demand from the database
-     * Or, a numeric based implementation could be created that treats the key
-     * as an integer, increments the value and return the result as a string -
-     * converting 1 to 2, 15 to 16 etc.
+     * key as a primary key and looked up the value on demand from the database.
+     * Or, a numeric implementation could be created that treats the key
+     * as an integer, increments the value, and returns the result as a string,
+     * converting 1 to 2, 15 to 16, and so on.
      * </p>
      * <p>
      * The {@link #lookup(String)} method always returns a String, regardless of

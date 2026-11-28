@@ -124,7 +124,7 @@ public class EnumUtils {
      * @return A long whose value provides a binary representation of the given set of enum values.
      * @throws NullPointerException Thrown if {@code enumClass} or {@code values} is {@code null}.
      * @throws IllegalArgumentException Thrown if {@code enumClass} is not an enum class or has more than 64 values,
-     *                                  or if any {@code values} {@code null}.
+     *                                  or if any {@code values} are {@code null}.
      * @since 3.0.1
      * @see #generateBitVectors(Class, Iterable)
      */
@@ -156,7 +156,7 @@ public class EnumUtils {
      * @return A long[] whose values provide a binary representation of the given set of enum values
      *         with the least significant digits rightmost.
      * @throws NullPointerException Thrown if {@code enumClass} or {@code values} is {@code null}.
-     * @throws IllegalArgumentException Thrown if {@code enumClass} is not an enum class, or if any {@code values} {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code enumClass} is not an enum class, or if any {@code values} are {@code null}.
      * @since 3.2
      */
     @SafeVarargs
@@ -190,7 +190,7 @@ public class EnumUtils {
      * @return A long[] whose values provide a binary representation of the given set of enum values
      *         with the least significant digits rightmost.
      * @throws NullPointerException Thrown if {@code enumClass} or {@code values} is {@code null}.
-     * @throws IllegalArgumentException Thrown if {@code enumClass} is not an enum class, or if any {@code values} {@code null}.
+     * @throws IllegalArgumentException Thrown if {@code enumClass} is not an enum class, or if any {@code values} are {@code null}.
      * @since 3.2
      */
     public static <E extends Enum<E>> long[] generateBitVectors(final Class<E> enumClass, final Iterable<? extends E> values) {

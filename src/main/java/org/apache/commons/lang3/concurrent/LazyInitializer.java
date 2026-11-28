@@ -23,9 +23,9 @@ import org.apache.commons.lang3.function.FailableSupplier;
  * This class provides a generic implementation of the lazy initialization pattern.
  *
  * <p>
- * Sometimes an application has to deal with an object only under certain circumstances, e.g. when the user selects a specific menu item or if a special event
- * is received. If the creation of the object is costly or the consumption of memory or other system resources is significant, it may make sense to defer the
- * creation of this object until it is really needed. This is a use case for the lazy initialization pattern.
+ * Sometimes an application has to deal with an object only under certain circumstances, for example, when the user selects a specific menu item or a special
+ * event is received. If the creation of the object is costly or the consumption of memory or other system resources is significant, it may make sense to defer
+ * the creation of this object until it is really needed. This is a use case for the lazy initialization pattern.
  * </p>
  * <p>
  * This abstract base class provides an implementation of the double-check idiom for an instance field as discussed in Joshua Bloch's "Effective Java", 2nd

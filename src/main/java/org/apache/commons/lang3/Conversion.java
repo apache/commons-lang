@@ -516,8 +516,10 @@ public class Conversion {
     /**
      * Converts a byte into a hexadecimal string using the default (little-endian, LSB0) byte and bit ordering.
      *
-     * <p>The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
-     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.</p>
+     * <p>
+     * The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
+     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.
+     * </p>
      *
      * @param src     The byte to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
@@ -933,10 +935,12 @@ public class Conversion {
     }
 
     /**
-     * Converts a int into a hexadecimal string using the default (little-endian, LSB0) byte and bit ordering.
+     * Converts an int into a hexadecimal string using the default (little-endian, LSB0) byte and bit ordering.
      *
-     * <p>The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
-     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.</p>
+     * <p>
+     * The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
+     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.
+     * </p>
      *
      * @param src     The int to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
@@ -1134,8 +1138,10 @@ public class Conversion {
     /**
      * Converts a long into a hexadecimal string using the default (little-endian, LSB0) byte and bit ordering.
      *
-     * <p>The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
-     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.</p>
+     * <p>
+     * The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
+     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.
+     * </p>
      *
      * @param src     The long to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.
@@ -1340,8 +1346,10 @@ public class Conversion {
     /**
      * Converts a short into a hexadecimal string using the default (little-endian, LSB0) byte and bit ordering.
      *
-     * <p>The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
-     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.</p>
+     * <p>
+     * The result is initialized from {@code dstInit}. Converted digits replace characters starting at {@code dstPos} and are appended as needed.
+     * If {@code nHexs} is zero, {@code dstInit} is returned without validating the other arguments.
+     * </p>
      *
      * @param src     The short to convert.
      * @param srcPos  The position in {@code src}, in bits, from where to start the conversion.

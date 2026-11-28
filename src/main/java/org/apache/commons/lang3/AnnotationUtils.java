@@ -39,9 +39,8 @@ import org.apache.commons.lang3.exception.UncheckedException;
  * dynamic proxies cannot be depended upon to know how to implement certain
  * methods in the same manner as would be done by "natural" {@link Annotation}s.
  * The methods presented in this class can be used to avoid that possibility. It
- * is of course also possible for dynamic proxies to actually delegate their
- * e.g. {@link Annotation#equals(Object)}/{@link Annotation#hashCode()}/
- * {@link Annotation#toString()} implementations to {@link AnnotationUtils}.
+ * is also possible for dynamic proxies to delegate implementations of methods such as
+ * {@link Annotation#equals(Object)}, {@link Annotation#hashCode()}, and {@link Annotation#toString()} to {@link AnnotationUtils}.
  * </p>
  *
  * <p>
@@ -120,7 +119,9 @@ public class AnnotationUtils {
     /**
      * Generates an array hash code using {@link #hashCode(Annotation)} for each non-null element.
      *
-     * <p>Uses the element order, initial value, multiplier, and null-element handling of {@link Arrays#hashCode(Object[])}.</p>
+     * <p>
+     * Uses the element order, initial value, multiplier, and null-element handling of {@link Arrays#hashCode(Object[])}.
+     * </p>
      *
      * @param annotations The array
      * @return A hash code for the specified array
@@ -306,7 +307,7 @@ public class AnnotationUtils {
      * @param method the annotation member method
      * @param annotation the annotation instance
      * @return the annotation member value
-     * @throws ReflectiveOperationException if the method cannot be invoked
+     * @throws ReflectiveOperationException Thrown if the method cannot be invoked.
      */
     private static Object invokeAnnotationMember(final Method method, final Annotation annotation)
             throws ReflectiveOperationException {

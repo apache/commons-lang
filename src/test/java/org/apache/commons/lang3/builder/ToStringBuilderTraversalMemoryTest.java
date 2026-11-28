@@ -148,7 +148,7 @@ class ToStringBuilderTraversalMemoryTest extends AbstractLangTest {
      * </p>
      *
      * @param tempDir the directory for the child's combined standard output and error log.
-     * @throws Exception if class locations cannot be resolved, the process or log cannot be accessed, or waiting is interrupted.
+     * @throws Exception Thrown if class locations cannot be resolved, the process or log cannot be accessed, or waiting is interrupted.
      */
     @Test
     void testAbandonedOutputWithBufferBackReferenceIsCollectable(@TempDir final Path tempDir) throws Exception {
